@@ -75,6 +75,11 @@
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>
     </dependency>
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>ejb3-all</artifactId>
+      <version>alpha3</version>
+    </dependency>
   </dependencies>
 </project>
 
