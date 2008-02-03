@@ -30,7 +30,7 @@ public interface ClassifiedsDao<Pojo> {
 	void create(Pojo pojo) throws Exception;
 
 	/**
-	 * Add an entity to the database.
+	 * Obtain an entity to the database.
 	 * 
 	 * @param bean
 	 *            the POJO containning the data to be persisted.
@@ -39,7 +39,7 @@ public interface ClassifiedsDao<Pojo> {
 	void read(Pojo pojo) throws Exception;
 
 	/**
-	 * Add an entity to the database.
+	 * Update an entity to the database.
 	 * 
 	 * @param bean
 	 *            the POJO containning the data to be persisted.

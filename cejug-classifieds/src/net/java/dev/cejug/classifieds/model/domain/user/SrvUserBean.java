@@ -1,7 +1,6 @@
 package net.java.dev.cejug.classifieds.model.domain.user;
 
 import net.java.dev.cejug.classifieds.model.entitys.User;
-import net.java.dev.cejug.classifieds.model.persist.user.UserDAO;
 
 /**
  * Class to represent the implementation of User
@@ -18,9 +17,9 @@ public class SrvUserBean implements SrvUser {
 		
 		//TODO Modify this to use a repository
 		
-		UserDAO userDAO = new UserDAO();
 		
-		userDAO.createUser(user);
+		
+		
 		
 		return user;
 	}
