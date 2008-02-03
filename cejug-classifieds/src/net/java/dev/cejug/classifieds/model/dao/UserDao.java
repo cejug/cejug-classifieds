@@ -2,6 +2,9 @@ package net.java.dev.cejug.classifieds.model.dao;
 
 import java.sql.SQLException;
 
+
+
+
 /**
  * Persistence of the User Entity. This class should be package visible to force
  * it loading through the interface and not through it implementation details.
@@ -14,7 +17,7 @@ import java.sql.SQLException;
  * 
  * @param <User>
  */
-class UserDao<User> extends AbstractClassifiedsDao<User> {
+public class UserDao<User> extends AbstractClassifiedsDao<User>  {
 
 	@Override
 	public void create(User pojo) throws Exception {
@@ -57,4 +60,5 @@ class UserDao<User> extends AbstractClassifiedsDao<User> {
 		 */
 		throw new SQLException("Not yet implemented.");
 	}
+	
 }

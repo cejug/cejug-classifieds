@@ -5,19 +5,19 @@ import java.util.List;
 import org.hibernate.cfg.NotYetImplementedException;
 
 import net.java.dev.cejug.classifieds.model.domain.user.SrvUser;
-import net.java.dev.cejug.classifieds.model.domain.user.SrvUserBean;
+import net.java.dev.cejug.classifieds.model.domain.user.SrvUserImpl;
 import net.java.dev.cejug.classifieds.model.entitys.User;
 
 /**
 *
-* Implementation of Façade for User.
+* Implementation of Faï¿½ade for User.
 * 
 * @author Rafael Carneiro [rafaelcarneirob@gmail.com]
 * @since 02/01/2008
 */
-public class FacUserBean implements FacUser {
+public class FacUserImpl implements FacUser {
 
-	SrvUser srvUser = new SrvUserBean();
+	SrvUser srvUser = new SrvUserImpl();
 	
 	
 	@Override

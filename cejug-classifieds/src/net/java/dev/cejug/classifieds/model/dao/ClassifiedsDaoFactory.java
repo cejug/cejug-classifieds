@@ -11,6 +11,9 @@ public class ClassifiedsDaoFactory {
 		 * we want or we need, we can replace or modify the implementation
 		 * without loosing the contract.
 		 */
+		
+		
+		
 		return new UserDao<User>();
 	}
 

@@ -8,7 +8,7 @@ import net.java.dev.cejug.classifieds.model.entitys.User;
  * @author Rafael Carneiro [rafaelcarneirob@gmail.com]
  * @since 02/01/2008
  */
-public class SrvUserBean implements SrvUser {
+public class SrvUserImpl implements SrvUser {
 
 	
 	
