@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD  JavaServer Faces Config 1.1//EN"
-    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
-<faces-config>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
 
+	<!-- Facelets -->
+	<application>
+	   	<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+	</application>
+  
+  <!-- User -->
    <managed-bean>
         <managed-bean-name>userBean</managed-bean-name>
         <managed-bean-class>net.java.dev.cejug.classifieds.controller.user.UserBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-          <property-name>test</property-name>
-          <value/>
-        </managed-property>
 	</managed-bean>
-
+	
+	<!-- Navigation -->
+	    <navigation-rule>
+	    	<display-name>pages/login</display-name>
+	    	<from-view-id>/pages/login.xhtml</from-view-id>
+	    	<navigation-case>
+	    		<from-outcome>success</from-outcome>
+	    		<to-view-id>/pages/blank.xhtml</to-view-id>
+	    	</navigation-case>
+	    </navigation-rule>
+	
 </faces-config>

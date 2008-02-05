@@ -1,38 +1,46 @@
+<%@ page language="java" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j"%>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 
-    <html>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
-      <head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<base href="<%=basePath%>">
 
-        <title>repeater </title> 
- 
-      </head>
+	<title>Lista de Palestrantes</title>
+	
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
 
-      <body>
 
-        <f:view>
-
-          <h:form>
-
-              <rich:panel header="Simple Echo">
-
-                <h:inputText size="50" value="#{userBean.test}" > 
-
-                  <a4j:support event="onkeyup" reRender="rep"/>
-
-                </h:inputText>
-
-                <h:outputText value="#{userBean.test}" id="rep"/>
-
-              </rich:panel>
-
-          </h:form>
-
-        </f:view>
-
-      </body>
-
-    </html>
+</head>
+  
+<body>
+	<f:view>
+		<a4j:form ajaxSubmit="true" reRender="principal">
+			<h:panelGroup id="principal">
+				<h2>
+					Lista de Palestrantes
+				</h2>
+				
+				<h:messages errorStyle="color:#900" infoStyle="color:green;" 
+						showSummary="false" showDetail="true"/>
+						
+				
+				
+				
+				
+				
+			</h:panelGroup>
+		</a4j:form>
+	</f:view>
+</body>
+</html>
