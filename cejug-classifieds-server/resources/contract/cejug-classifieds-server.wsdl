@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions name="cejug-classifieds"
+	targetNamespace="http://cejug-classifieds.dev.java.net/server"
+	xmlns:contract="http://cejug-classifieds.dev.java.net/server"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/server/metadata"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata"
+			xmlns:mime="http://www.w3.org/2005/05/xmlmim"
+			xmlns:rss20="http://www.w3.org/2005/Rss"
+			elementFormDefault="qualified">
+			<xsd:import namespace="http://www.w3.org/2005/Atom"
+				schemaLocation="atom10.xsd" />
+
+			<xsd:import namespace="http://www.w3.org/2005/Rss"
+				schemaLocation="rss20.xsd" />
+
+			<xsd:element name="ServiceStatus">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1">
+						<xsd:element name="code" type="xsd:int"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="state" type="xsd:string"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="timestamp" type="xsd:date"
+							minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="ServiceFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="code" type="xsd:int" />
+						<xsd:element name="headline" type="xsd:string" />
+						<xsd:element name="details" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:element name="RssCollection">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="rss.collection" type="rss20:tRss" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="SyndicationFilter">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="filter.collection"
+							type="metadata:RssFilter" nillable="true" />
+					</xsd:sequence>
+				</xsd:complexType>
+
+			</xsd:element>
+
+			<xsd:complexType name="RssFilter">
+				<xsd:sequence>
+					<xsd:element name="upper.bound" type="xsd:int"
+						nillable="true" />
+					<xsd:element name="date.initial"
+						type="xsd:dateTime" />
+					<xsd:element name="date.final" type="xsd:dateTime" />
+					<xsd:element name="section" type="xsd:string" />
+					<xsd:element name="keywords" type="xsd:string"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:complexType name="AbstractAdvertisement"
+				abstract="true">
+				<xsd:sequence minOccurs="1">
+					<xsd:element name="headline" type="xsd:string" />
+					<xsd:element name="keywords" type="xsd:string"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:element name="FlashAdvertisement">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension
+							base="metadata:AbstractAdvertisement">
+							<xsd:attribute name="bbb" type="xsd:string"
+								use="required" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="PdfAttachment">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" />
+						<xsd:element name="diploma"
+							type="xsd:base64Binary"
+							mime:expectedContentTypes="application/pdf" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="RssOrAtom">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="section" type="xsd:string" />
+						<xsd:element name="entries.count"
+							type="xsd:string" />
+						<xsd:element name="data" type="xsd:base64Binary"
+							mime:expectedContentTypes="text/xml" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="FlashAttachment">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" />
+						<xsd:element name="flash"
+							type="xsd:base64Binary"
+							mime:expectedContentTypes="application/x-shockwave-flash" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- MESSAGES -->
+
+	<!-- Certificate validation -->
+	<wsdl:message name="LoadRss">
+		<wsdl:part element="metadata:SyndicationFilter" name="filter" />
+	</wsdl:message>
+
+	<wsdl:message name="LoadRssResponse">
+		<wsdl:part element="metadata:RssCollection"
+			name="rss.collection" />
+	</wsdl:message>
+
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="metadata:ServiceFault" name="fault" />
+	</wsdl:message>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- PORT -->
+	<wsdl:portType name="ClassifiedsServiceInterface">
+		<wsdl:operation name="LoadRssOperation">
+			<wsdl:input message="contract:LoadRss" />
+			<wsdl:output message="contract:LoadRssResponse" />
+			<wsdl:fault name="UnableToLoadRss"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- BINDING -->
+	<wsdl:binding name="CejugClassifiedsServiceBinding"
+		type="contract:ClassifiedsServiceInterface">
+		<soap:binding style="document"
+			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<wsdl:operation name="LoadRssOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRssOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="CejugClassifiedsService">
+		<wsdl:port name="ClassifiedsServiceInterface"
+			binding="contract:CejugClassifiedsServiceBinding">
+			<soap:address
+				location="http://localhost:8080/cejug-classifieds-server/server" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
