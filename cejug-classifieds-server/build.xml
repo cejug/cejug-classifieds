@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="help" name="cejug-classifieds-server">
+	<property file="build.properties" />
+	<import file="deploy/deploy-targets.xml" />
+	<import file="deploy/functional-tests.xml" />
+
+	<path id="jaxws.classpath">
+		<pathelement location="${java.home}/../lib/tools.jar" />
+		<fileset dir="${jaxws.lib.home}">
+			<include name="*.jar" />
+			<exclude name="j2ee.jar" />
+		</fileset>
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+		<classpath refid="jaxws.classpath" />
+	</taskdef>
+
+	<target name="setup">
+		<mkdir dir="${build.home}" />
+		<mkdir dir="${build.classes.home}" />
+		<mkdir dir="${build.war.home}" />
+		<mkdir dir="${generated.dir}" />		
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.home}" includeEmptyDirs="true" />
+		<delete dir="${generated.dir}" includeEmptyDirs="true" />
+	</target>
+
+	<target name="build-server-wsdl" depends="setup">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.wsdl}" wsdllocation="${service.wsdllocation}">
+		</wsimport>
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**">
+			<classpath refid="jaxws.classpath" />
+		</javac>
+		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
+		<delete dir="${generated.dir}" /-->
+	</target>
+
+	<target name="create-war">
+		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/deploy/web.xml">
+			<webinf dir="${basedir}/deploy" includes="sun-jaxws.xml" />
+			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
+			<classes dir="${build.classes.home}"/>
+		</war>
+	</target>
+
+	<target name="build-client-wsdl" depends="setup">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${functional.tests.client.generated.package}" wsdl="${functional.tests.wsdllocation}">
+		</wsimport>
+	</target>
+
+	<target name="client" depends="build-client-wsdl">
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**">
+			<classpath refid="jaxws.classpath" />
+		</javac>
+	</target>
+
+	<!--target name="run">
+		<java fork="true" classname="net.java.dev.cejug.cct.client.CejugCctClient">
+			<classpath>
+				<path refid="jaxws.classpath" />
+				<pathelement location="${build.classes.home}" />
+				<pathelement location="${basedir}/deploy" />
+			</classpath>
+			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
+		</java>
+	</target-->
+
+	<target name="help">
+		<echo message="server:       Builds and deploy the service endpoint WAR" />
+		<echo message="client:       Builds the client" />
+		<echo message="run:          Runs the client" />
+	</target>
+
+	<target name="server" depends="setup">
+		<antcall target="clean" />
+		<antcall target="build-server-wsdl" />
+		<antcall target="create-war" />
+		<antcall target="deploy.automatic" />
+	</target>
+
+	<target name="deploy.automatic" if="service.deploy.automatic">
+		<antcall target="deploy-appserver" />
+		<antcall target="deploy-tomcat" />
+	</target>
+
+	<target name="full.build" if="service.deploy.automatic">
+		<antcall target="server" />
+		<!--waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
+			<http url="${functional.tests.wsdllocation}" />
+		</waitfor-->
+		<sleep seconds="10" />
+		<antcall target="client" />
+		<antcall target="functional.tests" />
+	</target>
+</project>
