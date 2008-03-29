@@ -1,0 +1,25 @@
+<project>
+	<target name="compile.functional.tests">
+		<javac srcdir="test" destdir="${build.classes.home}">
+			<classpath refid="jaxws.classpath" />
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<path id="functional.classpath">
+		<pathelement location="${build.classes.home}" />
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Test -->
+	<target name="functional.tests" depends="compile.functional.tests">
+		<junit fork="yes" haltonfailure="yes" printsummary="no">
+			<test name="net.java.dev.cejug.classifieds.test.functional.FunctionalTestSuite" />
+			<classpath refid="functional.classpath" />
+			<formatter type="plain" usefile="false" />
+			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
+		</junit>
+	</target>
+</project>
