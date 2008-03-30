@@ -13,12 +13,23 @@
 			targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata"
 			xmlns:mime="http://www.w3.org/2005/05/xmlmim"
 			xmlns:rss20="http://www.w3.org/2005/Rss"
+			xmlns:atom10="http://www.w3.org/2005/Atom"
 			elementFormDefault="qualified">
 			<xsd:import namespace="http://www.w3.org/2005/Atom"
 				schemaLocation="atom10.xsd" />
 
 			<xsd:import namespace="http://www.w3.org/2005/Rss"
 				schemaLocation="rss20.xsd" />
+
+			<xsd:element name="ServiceFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="code" type="xsd:int" />
+						<xsd:element name="headline" type="xsd:string" />
+						<xsd:element name="details" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 
 			<xsd:element name="ServiceStatus">
 				<xsd:complexType>
@@ -33,36 +44,35 @@
 				</xsd:complexType>
 			</xsd:element>
 
-			<xsd:element name="ServiceFault">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="code" type="xsd:int" />
-						<xsd:element name="headline" type="xsd:string" />
-						<xsd:element name="details" type="xsd:string" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-
 			<xsd:element name="RssCollection">
 				<xsd:complexType>
 					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-						<xsd:element name="rss.collection" type="rss20:tRss" />
+						<xsd:element name="rss.collection"
+							type="rss20:tRss" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 
-			<xsd:element name="SyndicationFilter">
+			<xsd:element name="AtomCollection">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="atom.collection"
+							type="atom10:feedType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:element name="AtomFilterCollection">
 				<xsd:complexType>
 					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
 						<xsd:element name="filter.collection"
-							type="metadata:RssFilter" nillable="true" />
+							type="metadata:SyndicationFilter" nillable="true" />
 					</xsd:sequence>
 				</xsd:complexType>
-
 			</xsd:element>
 
-			<xsd:complexType name="RssFilter">
+			<xsd:complexType name="SyndicationFilter">
 				<xsd:sequence>
 					<xsd:element name="upper.bound" type="xsd:int"
 						nillable="true" />
@@ -75,6 +85,14 @@
 				</xsd:sequence>
 			</xsd:complexType>
 
+			<xsd:element name="RssFilterCollection">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="filter.collection"
+							type="metadata:SyndicationFilter" nillable="true" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 
 			<xsd:complexType name="AbstractAdvertisement"
 				abstract="true">
@@ -137,9 +155,13 @@
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- MESSAGES -->
 
-	<!-- Certificate validation -->
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="metadata:ServiceFault" name="fault" />
+	</wsdl:message>
+
+	<!-- LOAD RSS -->
 	<wsdl:message name="LoadRss">
-		<wsdl:part element="metadata:SyndicationFilter" name="filter" />
+		<wsdl:part element="metadata:RssFilterCollection" name="filter" />
 	</wsdl:message>
 
 	<wsdl:message name="LoadRssResponse">
@@ -147,10 +169,15 @@
 			name="rss.collection" />
 	</wsdl:message>
 
-	<wsdl:message name="ClassifiedsFault">
-		<wsdl:part element="metadata:ServiceFault" name="fault" />
+	<!-- LOAD ATOM -->
+	<wsdl:message name="LoadAtom">
+		<wsdl:part element="metadata:AtomFilterCollection" name="filter" />
 	</wsdl:message>
 
+	<wsdl:message name="LoadAtomResponse">
+		<wsdl:part element="metadata:AtomCollection"
+			name="atom.collection" />
+	</wsdl:message>
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="ClassifiedsServiceInterface">
@@ -158,6 +185,12 @@
 			<wsdl:input message="contract:LoadRss" />
 			<wsdl:output message="contract:LoadRssResponse" />
 			<wsdl:fault name="UnableToLoadRss"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="LoadAtomOperation">
+			<wsdl:input message="contract:LoadAtom" />
+			<wsdl:output message="contract:LoadAtomResponse" />
+			<wsdl:fault name="UnableToLoadAtom"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -171,6 +204,16 @@
 		<wsdl:operation name="LoadRssOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRssOperation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LoadAtomOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/server/LoadAtomOperation" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

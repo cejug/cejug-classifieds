@@ -32,7 +32,7 @@ import javax.xml.datatype.DatatypeFactory;
 import net.java.dev.cejug.classifieds.client.generated.CejugClassifiedsService;
 import net.java.dev.cejug.classifieds.client.generated.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.client.generated.RssCollection;
-import net.java.dev.cejug.classifieds.client.generated.RssFilter;
+import net.java.dev.cejug.classifieds.client.generated.RssFilterCollection;
 import net.java.dev.cejug.classifieds.client.generated.SyndicationFilter;
 
 import org.junit.After;
@@ -45,7 +45,7 @@ import org.junit.Test;
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-public class LoadRssOperation {
+public class LoadRssFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -66,27 +66,27 @@ public class LoadRssOperation {
 		ClassifiedsServiceInterface service = new CejugClassifiedsService()
 				.getClassifiedsServiceInterface();
 		System.out.println(service);
+		RssFilterCollection filterCollection = new RssFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
-		RssFilter filterItem = new RssFilter();
 
-		// retrieve the advertisement RSS from yesterday to today.
+		// retrieve the advertisement RSS since yesterday to today.
 		GregorianCalendar today = new GregorianCalendar();
 		GregorianCalendar yesterday = new GregorianCalendar();
 		yesterday.roll(Calendar.DAY_OF_YEAR, false);
 
 		try {
-			filterItem.setDateInitial(DatatypeFactory.newInstance()
+			filter.setDateInitial(DatatypeFactory.newInstance()
 					.newXMLGregorianCalendar(yesterday));
-			filterItem.setDateFinal(DatatypeFactory.newInstance()
+			filter.setDateFinal(DatatypeFactory.newInstance()
 					.newXMLGregorianCalendar(today));
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		filter.getFilterCollection().add(filterItem);
-		
-		RssCollection collection = service.loadRssOperation(filter);
+
+		filterCollection.getFilterCollection().add(filter);
+
+		RssCollection collection = service.loadRssOperation(filterCollection);
 		System.out.println(1);
 		assert collection.getRssCollection().size() > 0;
 	}

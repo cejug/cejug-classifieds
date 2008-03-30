@@ -113,18 +113,19 @@
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/2">
             <compilation-unit>
                 <package-root>src</package-root>
-                <classpath mode="compile">generated;lib/ext/javaee.jar</classpath>
+                <classpath mode="compile">generated;lib/ext/javaee.jar;build/classes</classpath>
                 <built-to>build/classes</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>
             <compilation-unit>
                 <package-root>generated</package-root>
+                <classpath mode="compile">lib/ext/javaee.jar;build/classes</classpath>
                 <built-to>build/classes</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>
             <compilation-unit>
                 <package-root>test/functional</package-root>
-                <classpath mode="compile">generated;lib/ext/junit-4.4.jar</classpath>
+                <classpath mode="compile">lib/ext/junit-4.4.jar;build/classes;generated/net/java/dev/cejug/classifieds/client/generated</classpath>
                 <built-to>build/classes</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>

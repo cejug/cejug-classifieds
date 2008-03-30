@@ -4,6 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { LoadRssOperation.class })
+@Suite.SuiteClasses( { LoadAtomFunctionalTest.class})
 public class FunctionalTestSuite {
 }
