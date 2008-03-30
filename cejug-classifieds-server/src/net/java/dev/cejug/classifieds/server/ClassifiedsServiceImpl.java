@@ -27,9 +27,12 @@ import java.math.BigDecimal;
 
 import javax.ejb.Stateless;
 
+import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
+import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.RssCollection;
-import net.java.dev.cejug.classifieds.server.generated.SyndicationFilter;
+import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.TRss;
 import net.java.dev.cejug.classifieds.server.generated.TRssChannel;
 import net.java.dev.cejug.classifieds.server.generated.TRssItem;
@@ -43,9 +46,20 @@ import net.java.dev.cejug.classifieds.server.generated.TRssItem;
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface")
 @Stateless
 public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
+	@Override
+	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
+		// String section = filter.getSection(); // should be used to load
+		// different sections.
+
+		FeedType feed = new FeedType();
+		feed.getAuthorOrCategoryOrContributor();
+		AtomCollection response = new AtomCollection();
+		response.getAtomCollection().add(feed);
+		return response;
+	}
 
 	@Override
-	public RssCollection loadRssOperation(SyndicationFilter filter) {
+	public RssCollection loadRssOperation(RssFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
 		System.out.println("YEPE");
