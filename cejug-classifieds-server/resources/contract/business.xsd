@@ -39,12 +39,12 @@
 
 	<!-- xs:complexType name="mime.type">
 		<xs:choice minOccurs="1" maxOccurs="1">
-			<xs:element ref="selected" />
-			<xs:element ref="unselected" />
-			<xs:element ref="dimpled" />
-			<xs:element ref="perforated" />
+		<xs:element ref="selected" />
+		<xs:element ref="unselected" />
+		<xs:element ref="dimpled" />
+		<xs:element ref="perforated" />
 		</xs:choice>
-	</xs:complexType-->
+		</xs:complexType-->
 
 	<xsd:element name="FlashAdvertisement">
 		<xsd:complexType>
@@ -67,4 +67,65 @@
 				mime:expectedContentTypes="application/x-shockwave-flash" />
 		</xsd:sequence>
 	</xsd:complexType>
+
+	<xsd:complexType name="Section">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Advertisement">
+		<xsd:sequence>
+			<xsd:element name="author" type="business:Author" />
+			<xsd:element name="headline" type="xsd:string" />
+			<xsd:element name="short.description" type="xsd:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="full.text" type="xsd:string" />
+			<xsd:element name="status" type="xsd:int" />
+			<xsd:element name="keywords" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element name="publishing.date" type="xsd:dateTime" />
+			<xsd:element name="expiration.date" type="xsd:dateTime" />
+			<xsd:element name="attachment.id" type="xsd:int"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="section.id" type="xsd:int" />
+			<xsd:element name="locale" type="business:Locale" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Status">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string" />
+			<xsd:element name="is.active" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Author">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="role" type="xsd:string" />
+			<xsd:choice id="contact" minOccurs="1" maxOccurs="1">
+				<xsd:element name="selected" type="xsd:string" />
+				<xsd:element name="email" type="xsd:string" />
+				<xsd:element name="phone" type="xsd:string" />
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="Advertisement.Types">
+		<xsd:restriction base='xsd:string'>
+			<xsd:enumeration value="commercial" />
+			<xsd:enumeration value="community" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="Locale">
+		<xsd:sequence>
+			<xsd:element name="language" type="xsd:string" />
+			<xsd:element name="country" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
 </xsd:schema>
