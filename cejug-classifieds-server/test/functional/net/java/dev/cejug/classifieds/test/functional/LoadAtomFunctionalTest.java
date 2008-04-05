@@ -29,11 +29,11 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.java.dev.cejug.classifieds.client.generated.AtomCollection;
-import net.java.dev.cejug.classifieds.client.generated.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.client.generated.CejugClassifiedsService;
-import net.java.dev.cejug.classifieds.client.generated.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.client.generated.SyndicationFilter;
+import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
+import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.CejugClassifiedsService;
+import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.SyndicationFilter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +59,7 @@ public class LoadAtomFunctionalTest {
 	}
 
 	@Test
-	public void testLoadRssOperation() {
+	public void testAtomRssOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
@@ -92,6 +92,6 @@ public class LoadAtomFunctionalTest {
 	}
 
 	@Test
-	public void testLoadRssOperationFail() {
+	public void testLoadAtomOperationFail() {
 	}
 }

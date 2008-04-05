@@ -14,7 +14,11 @@
 			xmlns:mime="http://www.w3.org/2005/05/xmlmim"
 			xmlns:rss20="http://www.w3.org/2005/Rss"
 			xmlns:atom10="http://www.w3.org/2005/Atom"
+			xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business"			
 			elementFormDefault="qualified">
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/server/metadata/business"
+				schemaLocation="business.xsd" />
+
 			<xsd:import namespace="http://www.w3.org/2005/Atom"
 				schemaLocation="atom10.xsd" />
 
@@ -93,62 +97,6 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
-			<xsd:complexType name="AbstractAdvertisement"
-				abstract="true">
-				<xsd:sequence minOccurs="1">
-					<xsd:element name="headline" type="xsd:string" />
-					<xsd:element name="keywords" type="xsd:string"
-						minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:complexType>
-
-
-			<xsd:element name="FlashAdvertisement">
-				<xsd:complexType>
-					<xsd:complexContent>
-						<xsd:extension
-							base="metadata:AbstractAdvertisement">
-							<xsd:attribute name="bbb" type="xsd:string"
-								use="required" />
-						</xsd:extension>
-					</xsd:complexContent>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="PdfAttachment">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="name" type="xsd:string" />
-						<xsd:element name="diploma"
-							type="xsd:base64Binary"
-							mime:expectedContentTypes="application/pdf" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="RssOrAtom">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="section" type="xsd:string" />
-						<xsd:element name="entries.count"
-							type="xsd:string" />
-						<xsd:element name="data" type="xsd:base64Binary"
-							mime:expectedContentTypes="text/xml" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="FlashAttachment">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="name" type="xsd:string" />
-						<xsd:element name="flash"
-							type="xsd:base64Binary"
-							mime:expectedContentTypes="application/x-shockwave-flash" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -171,7 +119,8 @@
 
 	<!-- LOAD ATOM -->
 	<wsdl:message name="LoadAtom">
-		<wsdl:part element="metadata:AtomFilterCollection" name="filter" />
+		<wsdl:part element="metadata:AtomFilterCollection"
+			name="filter" />
 	</wsdl:message>
 
 	<wsdl:message name="LoadAtomResponse">
