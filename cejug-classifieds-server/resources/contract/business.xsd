@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata/business"
+	xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business"
+	elementFormDefault="qualified" attributeFormDefault="qualified"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim">
+	<xsd:annotation>
+		<xsd:documentation>
+			The Business Objects of CEJUG-Classifieds.
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:complexType name="AbstractAdvertisement" abstract="true">
+		<xsd:sequence minOccurs="1">
+			<xsd:element name="headline" type="xsd:string" />
+			<xsd:element name="keywords" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="PdfAdvertisement">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="business:AbstractAdvertisement">
+					<xsd:attribute name="bbb" type="xsd:string"
+						use="required" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="ImageAttachment">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="flash" type="xsd:base64Binary"
+				mime:expectedContentTypes="application/x-shockwave-flash" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- xs:complexType name="mime.type">
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:element ref="selected" />
+			<xs:element ref="unselected" />
+			<xs:element ref="dimpled" />
+			<xs:element ref="perforated" />
+		</xs:choice>
+	</xs:complexType-->
+
+	<xsd:element name="FlashAdvertisement">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="business:AbstractAdvertisement">
+					<xsd:sequence>
+						<xsd:element name="swf.collection"
+							type="business:FlashAttachment" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="FlashAttachment">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="flash" type="xsd:base64Binary"
+				mime:expectedContentTypes="application/x-shockwave-flash" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
