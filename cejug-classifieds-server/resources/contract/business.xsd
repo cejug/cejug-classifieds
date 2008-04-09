@@ -75,25 +75,38 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="Advertisement">
-		<xsd:sequence>
-			<xsd:element name="advertiser" type="business:Advertiser" />
-			<xsd:element name="headline" type="xsd:string" />
-			<xsd:element name="short.description" type="xsd:string"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="full.text" type="xsd:string" />
-			<xsd:element name="status" type="xsd:int" />
-			<xsd:element name="keywords" type="xsd:string" minOccurs="0"
-				maxOccurs="unbounded" />
-			<xsd:element name="publishing.date" type="xsd:dateTime" />
-			<xsd:element name="expiration.date" type="xsd:dateTime" />
-			<xsd:element name="attachment.id" type="xsd:int"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="section.id" type="xsd:int" />
-			<xsd:element name="locale" type="business:Locale" />
-		</xsd:sequence>
-	</xsd:complexType>
+	<xsd:element name="Advertisement">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="advertiser" type="business:Author" />
+				<xsd:element name="headline" type="xsd:string" />
+				<xsd:element name="short.description" type="xsd:string" />
+				<xsd:element name="full.text" type="xsd:string" />
+				<xsd:element name="status" type="xsd:int" />
+				<xsd:element name="keywords" type="xsd:string"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="publishing.date" type="xsd:dateTime" />
+				<xsd:element name="expiration.date" type="xsd:dateTime" />
+				<xsd:element name="attachment.id" type="xsd:int"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="section.id" type="xsd:int" />
+				<xsd:element name="locale" type="business:Locale" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 
+	<xsd:element name="AdvertisementCollection">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="author" type="business:Author"
+					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="state" type="xsd:string"
+					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="timestamp" type="xsd:date"
+					minOccurs="1" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 	<xsd:complexType name="Status">
 		<xsd:sequence>
 			<xsd:element name="name" type="xsd:string" />
@@ -102,10 +115,10 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="Advertiser">
+	<xsd:complexType name="Author">
 		<xsd:sequence>
 			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="role" type="xsd:string" />
+			<xsd:element name="type" type="business:Author.Type" />
 			<xsd:choice id="contact" minOccurs="1" maxOccurs="1">
 				<xsd:element name="selected" type="xsd:string" />
 				<xsd:element name="email" type="xsd:string" />

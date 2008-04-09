@@ -26,13 +26,16 @@ package net.java.dev.cejug.classifieds.server;
 import java.math.BigDecimal;
 
 import javax.ejb.Stateless;
+import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.generated.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.TRss;
 import net.java.dev.cejug.classifieds.server.generated.TRssChannel;
 import net.java.dev.cejug.classifieds.server.generated.TRssItem;
@@ -81,5 +84,10 @@ public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
 		RssCollection response = new RssCollection();
 		response.getRssCollection().add(rss);
 		return response;
+	}
+
+	@Override
+	public ServiceStatus publishOperation(Advertisement advertisement) {
+		throw new WebServiceException("operation not yet implemented");
 	}
 }
