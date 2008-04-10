@@ -99,6 +99,16 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
+
+			<xsd:element name="SpamReport">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="1">
+						<xsd:element name="advertisement.id"
+							type="xsd:int" />
+						<xsd:element name="reason" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -139,25 +149,41 @@
 	<wsdl:message name="PublishResponse">
 		<wsdl:part element="metadata:ServiceStatus" name="status" />
 	</wsdl:message>
+
+	<!-- REPORT SPAM -->
+	<wsdl:message name="ReportSpam">
+		<wsdl:part element="metadata:SpamReport" name="spam" />
+	</wsdl:message>
+
+	<wsdl:message name="ReportSpamResponse">
+		<wsdl:part element="metadata:ServiceStatus" name="status" />
+	</wsdl:message>
+
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="ClassifiedsServiceInterface">
 		<wsdl:operation name="LoadRssOperation">
 			<wsdl:input message="contract:LoadRss" />
 			<wsdl:output message="contract:LoadRssResponse" />
-			<wsdl:fault name="UnableToLoadRss"
+			<wsdl:fault name="LoadRssException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadAtomOperation">
 			<wsdl:input message="contract:LoadAtom" />
 			<wsdl:output message="contract:LoadAtomResponse" />
-			<wsdl:fault name="UnableToLoadAtom"
+			<wsdl:fault name="LoadAtomException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="PublishOperation">
 			<wsdl:input message="contract:Publish" />
 			<wsdl:output message="contract:PublishResponse" />
-			<wsdl:fault name="UnableToPublish"
+			<wsdl:fault name="PublishException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportSpamOperation">
+			<wsdl:input message="contract:ReportSpam" />
+			<wsdl:output message="contract:ReportSpamResponse" />
+			<wsdl:fault name="ReportSpamException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -170,7 +196,7 @@
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
 		<wsdl:operation name="LoadRssOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRssOperation" />
+				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRss" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -180,7 +206,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="LoadAtomOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/LoadAtomOperation" />
+				soapAction="http://cejug-classifieds.dev.java.net/server/LoadAtom" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -190,7 +216,17 @@
 		</wsdl:operation>
 		<wsdl:operation name="PublishOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/PublishOperation" />
+				soapAction="http://cejug-classifieds.dev.java.net/server/Publish" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReportSpamOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/server/ReportSpam" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

@@ -23,10 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.functional;
 
-import net.java.dev.cejug.classifieds.server.generated.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.CejugClassifiedsService;
 import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.SpamReport;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +38,7 @@ import org.junit.Test;
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-public class PublishFunctionalTest {
+public class ReportSpamFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -52,21 +52,21 @@ public class PublishFunctionalTest {
 	}
 
 	@Test
-	public void testPublishOperation() {
+	public void reportSpamOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
 		ClassifiedsServiceInterface service = new CejugClassifiedsService()
 				.getClassifiedsServiceInterface();
-		System.out.println(service);
+		SpamReport spam = new SpamReport();
+		spam.setAdvertisementId(10);
+		spam.setReason("slang terms and porn image");
 
-		Advertisement advertisement = new Advertisement();
-		ServiceStatus status = service.publishOperation(advertisement);
-
+		ServiceStatus status = service.reportSpamOperation(spam);
 		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 
 	@Test
-	public void testPublishOperationFail() {
+	public void testReportSpamOperationFail() {
 	}
 }

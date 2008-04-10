@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 Felipe Ga�cho
+ Copyright (C) 2008 Felipe Gaúcho
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -36,6 +36,7 @@ import net.java.dev.cejug.classifieds.server.generated.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.SpamReport;
 import net.java.dev.cejug.classifieds.server.generated.TRss;
 import net.java.dev.cejug.classifieds.server.generated.TRssChannel;
 import net.java.dev.cejug.classifieds.server.generated.TRssItem;
@@ -88,6 +89,11 @@ public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement) {
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		throw new WebServiceException("operation not yet implemented");
 	}
 }
