@@ -23,23 +23,19 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
-import java.math.BigDecimal;
-
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.Channel;
 import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.SpamReport;
-import net.java.dev.cejug.classifieds.server.generated.TRss;
-import net.java.dev.cejug.classifieds.server.generated.TRssChannel;
-import net.java.dev.cejug.classifieds.server.generated.TRssItem;
 
 /**
  * Cejug-Classifieds-service:
@@ -67,6 +63,9 @@ public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
 		System.out.println("YEPE");
+		
+		Channel channel = new Channel();
+/*		
 		TRss rss = new TRss();
 		rss.setVersion(new BigDecimal(1.0d));
 		TRssItem item = new TRssItem();
@@ -81,9 +80,9 @@ public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
 		channel.getTitleOrLinkOrDescription();
 
 		rss.setChannel(channel);
-
+*/
 		RssCollection response = new RssCollection();
-		response.getRssCollection().add(rss);
+		response.getRssCollection().add(channel);
 		return response;
 	}
 
