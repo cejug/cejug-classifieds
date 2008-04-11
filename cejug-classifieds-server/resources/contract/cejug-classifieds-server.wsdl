@@ -13,7 +13,7 @@
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata"
 			xmlns:mime="http://www.w3.org/2005/05/xmlmim"
-			xmlns:rss20="http://www.w3.org/2005/Rss"
+			xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
 			xmlns:atom10="http://www.w3.org/2005/Atom"
 			xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business"
 			elementFormDefault="qualified">
@@ -24,7 +24,7 @@
 			<xsd:import namespace="http://www.w3.org/2005/Atom"
 				schemaLocation="atom10.xsd" />
 
-			<xsd:import namespace="http://www.w3.org/2005/Rss"
+			<xsd:import namespace="http://blogs.law.harvard.edu/RSS20.xsd"
 				schemaLocation="rss20.xsd" />
 
 			<xsd:element name="ServiceFault">
@@ -54,7 +54,7 @@
 				<xsd:complexType>
 					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
 						<xsd:element name="rss.collection"
-							type="rss20:tRss" />
+							type="rss20:channel" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
