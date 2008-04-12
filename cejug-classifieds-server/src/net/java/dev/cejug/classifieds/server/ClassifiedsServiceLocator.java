@@ -27,8 +27,11 @@ import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterfa
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
 /**
- * Cejug-Classifieds-service:
+ * Cejug-Classifieds service locator.
  * 
+ * @see <a
+ *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Core
+ *      J2EE Patterns - Service Locator</a>
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
@@ -41,7 +44,8 @@ public abstract class ClassifiedsServiceLocator {
 	 * @return an instance of the service implementation.
 	 * @throws NoClassDefFoundError
 	 */
-	static ClassifiedsServiceInterface getServiceImplementation() throws NoClassDefFoundError {
+	static ClassifiedsServiceInterface getServiceImplementation()
+			throws NoClassDefFoundError {
 		return new ClassifiedsReferenceImplementation();
 
 		// load properties

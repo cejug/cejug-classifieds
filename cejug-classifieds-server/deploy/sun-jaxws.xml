@@ -6,7 +6,7 @@
     <endpoint
         name="cejug-classifieds-server"
         interface="net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface"
-        implementation="net.java.dev.cejug.classifieds.server.ClassifiedsServiceImpl"
+        implementation="net.java.dev.cejug.classifieds.server.ClassifiedsServiceDelegate"
         wsdl="WEB-INF/wsdl/cejug-classifieds-server.wsdl"
         service="{http://cejug-classifieds.dev.java.net/server}CejugClassifiedsService"
         port="{http://cejug-classifieds.dev.java.net/server}ClassifiedsServiceInterface"
