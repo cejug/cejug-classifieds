@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server;
 
 import javax.ejb.Stateless;
+import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
@@ -53,34 +54,74 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	private ClassifiedsServiceInterface implementation = null;
 
 	public ClassifiedsServiceDelegate() {
-		this.implementation = ClassifiedsServiceLocator
-				.getServiceImplementation();
-
-		// TODO: logging exceptions / service name loaded......
+		try {
+			this.implementation = ClassifiedsServiceLocator
+					.getServiceImplementation();
+			// TODO: logging exceptions / service name loaded......
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			TimeKeeper.start(filter);
+			return implementation.loadAtomOperation(filter);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		} finally {
+			// TODO: logging....
+			TimeKeeper.stop(filter);
+		}
 	}
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			TimeKeeper.start(filter);
+			return implementation.loadRssOperation(filter);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		} finally {
+			// TODO: logging....
+			TimeKeeper.stop(filter);
+		}
 	}
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			TimeKeeper.start(advertisement);
+			return implementation.publishOperation(advertisement);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		} finally {
+			// TODO: logging....
+			TimeKeeper.stop(advertisement);
+		}
 	}
 
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			TimeKeeper.start(spam);
+			return implementation.reportSpamOperation(spam);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		} finally {
+			// TODO: logging....
+			TimeKeeper.stop(spam);
+		}
 	}
 
 }
