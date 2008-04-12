@@ -19,12 +19,16 @@
 		<classpath refid="jaxws.classpath" />
 	</taskdef>
 
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath refid="jaxws.classpath" />
+	</taskdef>
+
 	<target name="clean">
 		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
 		<delete dir="${build.war.home}" includeEmptyDirs="true" />
 		<delete dir="${generated.dir}" includeEmptyDirs="true" />
 	</target>
-	
+
 	<target name="setup">
 		<mkdir dir="${build.classes.home}" />
 		<mkdir dir="${build.war.home}" />
@@ -77,7 +81,7 @@
 		<echo message="run:          Runs the client" />
 	</target>
 
-	<target name="server" depends="clean,setup">
+	<target name="server" depends="clean,setup,compile.resources.schema">
 		<antcall target="build-server-wsdl" />
 		<antcall target="create-war" />
 		<antcall target="deploy.automatic" />
@@ -96,5 +100,27 @@
 		<sleep seconds="10" />
 		<antcall target="client" />
 		<antcall target="functional.tests" />
+	</target>
+
+	<target name="compile.resources.schema">
+		<echo message="Compiling the Classifieds-Server Config Schema..." />
+		<xjc schema="${jaxb.config.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}"/>
+		<xjc schema="${jaxb.i18n.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}"/>
+		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="off" source="1.6" />
+
+		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
+		<delete dir="${generated.dir}" /-->
+	</target>
+
+	<target name="compile.i18.nkeys">
+		<echo message="Compiling the I18N keys XML Schema..." />
+		<mkdir dir="${jaxb.classes.dir}" />
+		<mkdir dir="${generated.dir}" />
+		<xjc schema="${i18n.schema}" extension="true" classpath="${build.dir.classes}" target="${generated.dir}" package="${jaxb.bindingclasses.package}">
+			<produces dir="${jaxb.classes.dir}" includes="**/*.java" />
+		</xjc>
+		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="off" source="1.6" />
+		<jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
+		<delete dir="${generated.dir}" />
 	</target>
 </project>

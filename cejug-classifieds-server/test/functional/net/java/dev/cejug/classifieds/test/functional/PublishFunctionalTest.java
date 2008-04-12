@@ -23,10 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.functional;
 
-import net.java.dev.cejug.classifieds.server.generated.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.CejugClassifiedsService;
-import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
+import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
 import org.junit.Before;

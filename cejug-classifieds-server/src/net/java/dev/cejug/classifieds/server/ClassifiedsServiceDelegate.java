@@ -23,17 +23,20 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
+import java.util.logging.Logger;
+
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.generated.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
-import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.RssCollection;
-import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
+import net.java.dev.cejug.utils.config.XmlStreamFactory;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -50,6 +53,9 @@ import net.java.dev.cejug.classifieds.server.generated.SpamReport;
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface")
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
+	/** The publisher logger. */
+	private Logger logger = null;
+
 	/**
 	 * The service contract realization uses an injected implementation to
 	 * delegate the operation calls.
@@ -60,7 +66,8 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 		try {
 			this.implementation = ClassifiedsServiceLocator
 					.getServiceImplementation();
-			// TODO: logging exceptions / service name loaded......
+			logger.info(String.format("{0} loaded", implementation.getClass()
+					.getName()));
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);

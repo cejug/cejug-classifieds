@@ -25,16 +25,16 @@ package net.java.dev.cejug.classifieds.server.reference;
 
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.generated.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
-import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.Channel;
-import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.FeedType;
-import net.java.dev.cejug.classifieds.server.generated.RssCollection;
-import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
+import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
+import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 
 /**
  * Cejug-Classifieds-service:
