@@ -24,75 +24,63 @@
 package net.java.dev.cejug.classifieds.server;
 
 import javax.ejb.Stateless;
-import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.Channel;
 import net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.SpamReport;
 
 /**
- * Cejug-Classifieds-service:
+ * Cejug-Classifieds-Service delegates its behaviour to an underneath
+ * implementation. You can configure the implementation type in the system
+ * properties file. If you don't inform the qualified name of the service
+ * implementation, the reference implementation will be used.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface")
 @Stateless
-public class ClassifiedsServiceImpl implements ClassifiedsServiceInterface {
+public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
+	/**
+	 * The service contract realization uses an injected implementation to
+	 * delegate the operation calls.
+	 */
+	private ClassifiedsServiceInterface implementation = null;
+
+	public ClassifiedsServiceDelegate() {
+		this.implementation = ClassifiedsServiceLocator
+				.getServiceImplementation();
+
+		// TODO: logging exceptions / service name loaded......
+	}
+
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-		// String section = filter.getSection(); // should be used to load
-		// different sections.
-
-		FeedType feed = new FeedType();
-		feed.getAuthorOrCategoryOrContributor();
-		AtomCollection response = new AtomCollection();
-		response.getAtomCollection().add(feed);
-		return response;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
-		// String section = filter.getSection(); // should be used to load
-		// different sections.
-		System.out.println("YEPE");
-		
-		Channel channel = new Channel();
-/*		
-		TRss rss = new TRss();
-		rss.setVersion(new BigDecimal(1.0d));
-		TRssItem item = new TRssItem();
-		item
-				.getTitleOrDescriptionOrLink()
-				.add(
-						"The advertisement colelction title - can include Section, etc");
-		TRssChannel channel = new TRssChannel();
-		channel.getItem().add(item);
-		channel.getOtherAttributes();
-		channel.getAny();
-		channel.getTitleOrLinkOrDescription();
-
-		rss.setChannel(channel);
-*/
-		RssCollection response = new RssCollection();
-		response.getRssCollection().add(channel);
-		return response;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement) {
-		throw new WebServiceException("operation not yet implemented");
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
-		throw new WebServiceException("operation not yet implemented");
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 }
