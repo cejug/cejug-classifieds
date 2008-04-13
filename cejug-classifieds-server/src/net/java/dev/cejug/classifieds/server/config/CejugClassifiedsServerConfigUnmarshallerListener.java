@@ -1,12 +1,9 @@
 package net.java.dev.cejug.classifieds.server.config;
 
-import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.xml.bind.Unmarshaller.Listener;
-
-import net.java.dev.cejug.classifieds.server.generated.i18n.ConfigUnmarshalI18N;
 
 /**
  * This class is used to check the values read from the config XML. Despite JAXB
@@ -18,13 +15,6 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ConfigUnmarshalI18N;
  */
 public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 	private Logger logger = null;
-	/**
-	 * This is used to mark the first error occurrence. Just before the first
-	 * error we print a big warning message notifying the user about mallformed
-	 * configuration data. After that, all other errors appears as simples
-	 * SEVERE log entry.
-	 */
-	private boolean firstError = false;
 
 	/**
 	 * Classifieds-Server config marshalling listener.
@@ -46,19 +36,6 @@ public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 						.getName()));
 	}
 
-	/**
-	 * This wrapper method is used to allow a more elegant error notification
-	 * with a big header.
-	 */
-	private void severe(String key, String[] params) {
-		if (!firstError) {
-			logger.log(Level.SEVERE, ConfigUnmarshalI18N.CONFIG_ERRORS_HEADER
-					.value(), new String[0]);
-			firstError = true;
-		}
-		logger.log(Level.SEVERE, key, params);
-	}
-
 	@Override
 	public void afterUnmarshal(Object target, Object parent) {
 		/*
@@ -68,5 +45,6 @@ public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 		 * instanceof ConfigSecurity) { validateSecurity((ConfigSecurity)
 		 * target); }
 		 */
+		// logger.log(Level.SEVERE, key, params);
 	}
 }

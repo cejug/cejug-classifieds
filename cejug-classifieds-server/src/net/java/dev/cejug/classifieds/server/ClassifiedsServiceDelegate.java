@@ -36,7 +36,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
-import net.java.dev.cejug.utils.config.XmlStreamFactory;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -50,7 +49,7 @@ import net.java.dev.cejug.utils.config.XmlStreamFactory;
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-@javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.ClassifiedsServiceInterface")
+@javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface")
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	/** The publisher logger. */
@@ -64,6 +63,8 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 
 	public ClassifiedsServiceDelegate() {
 		try {
+			this.logger = ClassifiedsServiceLocator
+					.getLogger(ClassifiedsServiceDelegate.class.getName());
 			this.implementation = ClassifiedsServiceLocator
 					.getServiceImplementation();
 			logger.info(String.format("{0} loaded", implementation.getClass()

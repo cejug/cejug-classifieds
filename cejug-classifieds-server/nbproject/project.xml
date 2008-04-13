@@ -39,6 +39,18 @@
                     <location>test/unit</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>resources</label>
+                    <type>java</type>
+                    <location>resources</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>schema\config</label>
+                    <type>java</type>
+                    <location>schema/config</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -78,6 +90,16 @@
                 <location>build/classes</location>
                 <build-target>server</build-target>
             </export>
+            <export>
+                <type>folder</type>
+                <location>build/classes</location>
+                <build-target>server</build-target>
+            </export>
+            <export>
+                <type>folder</type>
+                <location>build/classes</location>
+                <build-target>server</build-target>
+            </export>
             <view>
                 <items>
                     <source-folder style="packages">
@@ -96,6 +118,14 @@
                         <label>test\unit</label>
                         <location>test/unit</location>
                     </source-folder>
+                    <source-folder style="packages">
+                        <label>resources</label>
+                        <location>resources</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>schema\config</label>
+                        <location>schema/config</location>
+                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
@@ -113,7 +143,7 @@
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/2">
             <compilation-unit>
                 <package-root>src</package-root>
-                <classpath mode="compile">generated;lib/ext/javaee.jar;build/classes</classpath>
+                <classpath mode="compile">generated;lib/ext/javaee.jar;build/classes;resources</classpath>
                 <built-to>build/classes</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>
@@ -132,6 +162,17 @@
             <compilation-unit>
                 <package-root>test/unit</package-root>
                 <unit-tests/>
+                <classpath mode="compile">resources;schema</classpath>
+                <built-to>build/classes</built-to>
+                <source-level>1.5</source-level>
+            </compilation-unit>
+            <compilation-unit>
+                <package-root>resources</package-root>
+                <built-to>build/classes</built-to>
+                <source-level>1.5</source-level>
+            </compilation-unit>
+            <compilation-unit>
+                <package-root>schema/config</package-root>
                 <built-to>build/classes</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>

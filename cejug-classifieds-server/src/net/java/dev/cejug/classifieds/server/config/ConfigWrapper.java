@@ -1,8 +1,8 @@
 package net.java.dev.cejug.classifieds.server.config;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.logging.Logger;
 
@@ -13,7 +13,7 @@ import net.java.dev.cejug.utils.config.XmlStreamFactory;
 
 public class ConfigWrapper {
 	public static final String DEFAULT_CONFIG = "config.xml";
-	public static final String DEFAULT_CONFIG_SCHEMA = "config.xsd";
+	public static final String DEFAULT_CONFIG_SCHEMA = "https://cejug-classifieds.dev.java.net/ws/schema/config/config.xsd";
 	public static final String DEFAULT_CONFIG_CONTENT_TYPE = "UTF-8";
 	public static final String DEFAULT_JAXB_CONTEXT = ClassifiedsServiceInterface.class
 			.getPackage().getName();
@@ -38,11 +38,12 @@ public class ConfigWrapper {
 		XmlStreamFactory<ClassifiedsServerConfig> factory = new XmlStreamFactory<ClassifiedsServerConfig>();
 		ConfigXmlReader<ClassifiedsServerConfig> reader = factory
 				.getReader(new CejugClassifiedsServerConfigUnmarshallerListener());
-		InputStream stream = new FileInputStream(DEFAULT_CONFIG);
+		ClassLoader loader = reader.getClass().getClassLoader();
+		InputStream stream = loader.getResourceAsStream(DEFAULT_CONFIG);
 		InputStreamReader streamReader = new InputStreamReader(stream, Charset
 				.forName(DEFAULT_CONFIG_CONTENT_TYPE));
 		return reader.read(streamReader, DEFAULT_JAXB_CONTEXT,
-				DEFAULT_CONFIG_SCHEMA).getValue();
+				new URL(DEFAULT_CONFIG_SCHEMA)).getValue();
 	}
 
 	public Logger getLogger() {

@@ -26,6 +26,7 @@ package net.java.dev.cejug.classifieds.server;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import net.java.dev.cejug.classifieds.server.config.ConfigWrapper;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
@@ -43,7 +44,7 @@ public abstract class ClassifiedsServiceLocator {
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static LogManager logManager = LogManager.getLogManager();
+	private static LogManager logManager = null;
 
 	/**
 	 * If the property SERVICE_IMPLEMENTATION is set in the system
@@ -63,6 +64,11 @@ public abstract class ClassifiedsServiceLocator {
 	}
 
 	static Logger getLogger(String name) {
+		if (logManager == null) {
+			logManager = LogManager.getLogManager();
+		}
+		// return Logger.getLogger(name);
+
 		return logManager.getLogger(name);
 	}
 }

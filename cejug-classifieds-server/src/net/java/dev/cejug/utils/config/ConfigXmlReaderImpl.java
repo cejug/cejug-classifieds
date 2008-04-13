@@ -1,6 +1,7 @@
 package net.java.dev.cejug.utils.config;
 
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -27,7 +28,7 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public JAXBElement<T> read(InputStreamReader inputStream, String context,
-			String schemaLocation) throws Exception {
+			URL schemaLocation) throws Exception {
 		// TODO: thread safe
 		JAXBContext jc = JAXBContext.newInstance(context, this.getClass()
 				.getClassLoader());
@@ -40,8 +41,7 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 		}
 		SchemaFactory sf = SchemaFactory
 				.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		Schema schema = sf.newSchema(getClass().getClassLoader().getResource(
-				schemaLocation));
+		Schema schema = sf.newSchema(schemaLocation);
 		unmarshaller.setSchema(schema);
 
 		return (JAXBElement<T>) unmarshaller.unmarshal(inputStream);
