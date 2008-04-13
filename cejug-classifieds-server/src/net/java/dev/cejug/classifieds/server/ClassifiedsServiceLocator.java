@@ -64,11 +64,11 @@ public abstract class ClassifiedsServiceLocator {
 	}
 
 	static Logger getLogger(String name) {
-		if (logManager == null) {
+		/*if (logManager == null) {
 			logManager = LogManager.getLogManager();
-		}
-		// return Logger.getLogger(name);
+		}*/
+		return Logger.getLogger(name);
 
-		return logManager.getLogger(name);
+		//return logManager.getLogger(name);
 	}
 }
