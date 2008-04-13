@@ -4,16 +4,8 @@
 	targetNamespace="http://cejug-classifieds.dev.java.net/server/config"
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-	xmlns:regex="http://footprint.dev.java.net/regex"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.0"
 	elementFormDefault="qualified">
-
-	<xsd:import namespace="http://footprint.dev.java.net/regex"
-		schemaLocation="regex.xsd" />
-
-	<!-- xsd:import
-		namespace="http://cejug-classifieds.dev.java.net/server/i18n"
-		schemaLocation="i18n.xsd" /-->
 
 	<xsd:element name="config" type="config:classifieds.server.config" />
 
