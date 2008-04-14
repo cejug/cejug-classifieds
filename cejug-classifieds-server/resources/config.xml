@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<conf:config
-	xmlns:conf="http://cejug-classifieds.dev.java.net/server/config"
+<config xmlns="http://cejug-classifieds.dev.java.net/server/config"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://cejug-classifieds.dev.java.net/server/config https://cejug-classifieds.dev.java.net/ws/schema/config/config.xsd"
 	version="1" title="demo" idiom="en-US" date="2007-05-27">
-	<conf:injection>
-		<conf:logger>
-			<conf:type>java.util.logging.Logger</conf:type>
-			<conf:handler>
-				java.util.logging.ConsoleHandler
-			</conf:handler>
-		</conf:logger>
-		<conf:service>
+	<injection>
+		<logger>
+			<type>java.util.logging.Logger</type>
+			<handler>java.util.logging.ConsoleHandler</handler>
+		</logger>
+		<service>
 			net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation
-		</conf:service>
-	</conf:injection>
-</conf:config>
+		</service>
+	</injection>
+</config>

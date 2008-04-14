@@ -26,7 +26,8 @@ package net.java.dev.cejug.classifieds.server;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import net.java.dev.cejug.classifieds.server.config.ConfigWrapper;
+import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
+import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
@@ -44,7 +45,7 @@ public abstract class ClassifiedsServiceLocator {
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static LogManager logManager = null;
+	private static LogManager logManager = LogManager.getLogManager();
 
 	/**
 	 * If the property SERVICE_IMPLEMENTATION is set in the system
@@ -55,8 +56,21 @@ public abstract class ClassifiedsServiceLocator {
 	 * @throws NoClassDefFoundError
 	 */
 	static ClassifiedsServiceInterface getServiceImplementation()
-			throws NoClassDefFoundError {
-		return new ClassifiedsReferenceImplementation();
+			throws Exception {
+		ClassifiedsServerConfig config = ConfigLoader.getInstance().load();
+		String serviceClass = config.getInjection().getService();
+		if (serviceClass == null) {
+			return new ClassifiedsReferenceImplementation();
+		} else {
+			Class<?> type = Class.forName(serviceClass);
+			if (type.isAssignableFrom(ClassifiedsServiceInterface.class)) {
+				return (ClassifiedsServiceInterface) type.newInstance();
+			} else {
+				throw new ClassCastException(String.format(
+						"{0} is not an implementation of {1}", type.getName(),
+						ClassifiedsServiceInterface.class));
+			}
+		}
 
 		// load properties
 		// instantiate implementation
@@ -64,11 +78,11 @@ public abstract class ClassifiedsServiceLocator {
 	}
 
 	static Logger getLogger(String name) {
-		/*if (logManager == null) {
-			logManager = LogManager.getLogManager();
-		}*/
+		/*
+		 * if (logManager == null) { logManager = LogManager.getLogManager(); }
+		 */
 		return Logger.getLogger(name);
 
-		//return logManager.getLogger(name);
+		// return logManager.getLogger(name);
 	}
 }

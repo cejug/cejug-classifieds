@@ -6,6 +6,7 @@ import java.net.URL;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.ValidationEventHandler;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -13,9 +14,24 @@ import net.java.dev.cejug.classifieds.server.config.CejugClassifiedsServerConfig
 
 class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	private Unmarshaller.Listener listener;
+	private ValidationEventHandler handler;
+
+	ConfigXmlReaderImpl() {
+		this(null, null);
+	}
 
 	ConfigXmlReaderImpl(Unmarshaller.Listener listener) {
+		this(listener, null);
+	}
+
+	ConfigXmlReaderImpl(ValidationEventHandler handler) {
+		this(null, handler);
+	}
+
+	ConfigXmlReaderImpl(Unmarshaller.Listener listener,
+			ValidationEventHandler handler) {
 		this.listener = listener;
+		this.handler = handler;
 	}
 
 	/**
@@ -34,8 +50,10 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 				.getClassLoader());
 
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		unmarshaller
-				.setEventHandler(new CejugClassifiedsServerConfigValidationHandler());
+		if (handler != null) {
+			unmarshaller
+					.setEventHandler(new CejugClassifiedsServerConfigValidationHandler());
+		}
 		if (listener != null) {
 			unmarshaller.setListener(listener);
 		}

@@ -1,6 +1,6 @@
 package net.java.dev.cejug.classifieds.test.unit;
 
-import net.java.dev.cejug.classifieds.server.config.ConfigWrapper;
+import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +22,8 @@ public class ConfigLoaderTest {
 	@Test
 	public void testConfigLoading() {
 		try {
-			ConfigWrapper wrapper = 
-				ConfigWrapper.getInstance();
+			ConfigLoader wrapper = 
+				ConfigLoader.getInstance();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
