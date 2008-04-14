@@ -36,6 +36,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDelegateI18N;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -53,7 +54,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	/** The publisher logger. */
-	private Logger logger = null;
+	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
+			.getName(), "i18n/log.properties");
 
 	/**
 	 * The service contract realization uses an injected implementation to
@@ -63,14 +65,15 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 
 	public ClassifiedsServiceDelegate() {
 		try {
-			this.logger = ClassifiedsServiceLocator
-					.getLogger(ClassifiedsServiceDelegate.class.getName());
 			this.implementation = ClassifiedsServiceLocator
 					.getServiceImplementation();
-			logger.info(String.format("{0} loaded", implementation.getClass()
-					.getName()));
+			logger.info(String.format(
+					ClassifiedsServiceDelegateI18N.CONSTRUCTOR_LOADED.value(),
+					implementation.getClass().getName()));
 		} catch (Exception e) {
-			// TODO: logging....
+			logger.severe(String.format(
+					ClassifiedsServiceDelegateI18N.CONSTRUCTOR_FAILED.value(),
+					implementation.getClass().getName(), e.getMessage()));
 			throw new WebServiceException(e);
 		}
 	}

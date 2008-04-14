@@ -4,6 +4,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.xml.bind.Unmarshaller.Listener;
+import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.config.Injection;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
@@ -68,18 +69,21 @@ public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 				logger.severe(String.format(
 						"The service implementation cannot be found: {0}",
 						implementation));
+				throw new WebServiceException(e);
 			} catch (InstantiationException e) {
 				logger
 						.severe(String
 								.format(
 										"The service implementation cannot be instantiated: {0}",
 										e.getMessage()));
+				throw new WebServiceException(e);
 			} catch (IllegalAccessException e) {
 				logger
 						.severe(String
 								.format(
 										"Problems trying to instantiate the service implementation: {0}",
 										e.getMessage()));
+				throw new WebServiceException(e);
 			}
 		}
 	}

@@ -23,12 +23,14 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceLocatorI18N;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
 /**
@@ -45,7 +47,8 @@ public abstract class ClassifiedsServiceLocator {
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static LogManager logManager = LogManager.getLogManager();
+	private static Logger logger = Logger.getLogger(
+			ClassifiedsServiceLocator.class.getName(), "i18n/log.properties");
 
 	/**
 	 * If the property SERVICE_IMPLEMENTATION is set in the system
@@ -60,29 +63,25 @@ public abstract class ClassifiedsServiceLocator {
 		ClassifiedsServerConfig config = ConfigLoader.getInstance().load();
 		String serviceClass = config.getInjection().getServiceImplementation();
 		if (serviceClass == null) {
+			logger.info(String.format(
+					ClassifiedsServiceLocatorI18N.SERVICE_DEFAULT.value(),
+					ClassifiedsReferenceImplementation.class));
 			return new ClassifiedsReferenceImplementation();
 		} else {
 			Class<?> type = Class.forName(serviceClass);
-			if (type.isAssignableFrom(ClassifiedsServiceInterface.class)) {
-				return (ClassifiedsServiceInterface) type.newInstance();
-			} else {
-				throw new ClassCastException(String.format(
-						"{0} is not an implementation of {1}", type.getName(),
-						ClassifiedsServiceInterface.class));
+			try {
+				ClassifiedsServiceInterface instance = (ClassifiedsServiceInterface) type
+						.newInstance();
+				logger.info(String.format(
+						ClassifiedsServiceLocatorI18N.SERVICE_CUSTOM.value(),
+						type));
+				return instance;
+			} catch (Exception error) {
+				logger.severe(String.format(
+						ClassifiedsServiceLocatorI18N.SERVICE_ERROR.value(),
+						type, error.getMessage()));
+				throw new WebServiceException(error);
 			}
 		}
-
-		// load properties
-		// instantiate implementation
-		// return
-	}
-
-	static Logger getLogger(String name) {
-		/*
-		 * if (logManager == null) { logManager = LogManager.getLogManager(); }
-		 */
-		return Logger.getLogger(name);
-
-		// return logManager.getLogger(name);
 	}
 }
