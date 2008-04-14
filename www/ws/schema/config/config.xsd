@@ -20,7 +20,7 @@
 				</jaxb:package>
 			</xsd:appinfo>
 		</xsd:annotation>
-		<xsd:sequence minOccurs="1">
+		<xsd:sequence minOccurs="0" maxOccurs="1">
 			<xsd:element name="injection" type="config:Injection" />
 		</xsd:sequence>
 		<xsd:attribute name="title" type="xsd:token" use="optional" />
@@ -30,16 +30,8 @@
 	</xsd:complexType>
 
 	<xsd:complexType name="Injection">
-		<xsd:sequence minOccurs="0" maxOccurs="1">
-			<xsd:element name="logger" type="config:Logger" />
-			<xsd:element name="service" type="xsd:string" />
-		</xsd:sequence>
+		<xsd:attribute name="service.implementation" type="xsd:string"
+			use="optional" />
 	</xsd:complexType>
 
-	<xsd:complexType name="Logger">
-		<xsd:sequence minOccurs="0" maxOccurs="1">
-			<xsd:element name="type" type="xsd:string" />
-			<xsd:element name="handler" type="xsd:string" />
-		</xsd:sequence>
-	</xsd:complexType>
 </xsd:schema>
