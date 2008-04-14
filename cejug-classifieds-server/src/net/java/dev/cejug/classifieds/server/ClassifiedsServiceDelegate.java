@@ -67,13 +67,19 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 		try {
 			this.implementation = ClassifiedsServiceLocator
 					.getServiceImplementation();
-			logger.info(String.format(
-					ClassifiedsServiceDelegateI18N.CONSTRUCTOR_LOADED.value(),
-					implementation.getClass().getName()));
+			logger
+					.info(String
+							.format(
+									ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_CONSTRUCTOR_LOADED
+											.value(), implementation.getClass()
+											.getName()));
 		} catch (Exception e) {
-			logger.severe(String.format(
-					ClassifiedsServiceDelegateI18N.CONSTRUCTOR_FAILED.value(),
-					implementation.getClass().getName(), e.getMessage()));
+			logger
+					.severe(String
+							.format(
+									ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_CONSTRUCTOR_FAILED
+											.value(), implementation.getClass()
+											.getName(), e.getMessage()));
 			throw new WebServiceException(e);
 		}
 	}

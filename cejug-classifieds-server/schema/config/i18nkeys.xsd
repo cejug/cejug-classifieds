@@ -7,16 +7,16 @@
 
 	<xsd:simpleType name="ClassifiedsServiceDelegate.i18n">
 		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="constructor.loaded" />
-			<xsd:enumeration value="constructor.failed" />
+			<xsd:enumeration value="service.delegate.constructor.loaded" />
+			<xsd:enumeration value="service.delegate.constructor.failed" />
 		</xsd:restriction>
 	</xsd:simpleType>
 
 	<xsd:simpleType name="ClassifiedsServiceLocator.i18n">
 		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="service.custom" />
-			<xsd:enumeration value="service.default" />
-			<xsd:enumeration value="service.error" />
+			<xsd:enumeration value="service.locator.get.service.custom" />
+			<xsd:enumeration value="service.locator.get.service.default" />
+			<xsd:enumeration value="service.locator.get.service.error" />
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>

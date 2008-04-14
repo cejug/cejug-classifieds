@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.ws.WebServiceException;
@@ -47,8 +48,7 @@ public abstract class ClassifiedsServiceLocator {
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static Logger logger = Logger.getLogger(
-			ClassifiedsServiceLocator.class.getName(), "i18n/log");
+	private static Logger logger = Logger.getLogger(ClassifiedsServiceLocator.class.getName(), "i18n/log");
 
 	/**
 	 * If the property SERVICE_IMPLEMENTATION is set in the system
@@ -63,23 +63,31 @@ public abstract class ClassifiedsServiceLocator {
 		ClassifiedsServerConfig config = ConfigLoader.getInstance().load();
 		String serviceClass = config.getInjection().getServiceImplementation();
 		if (serviceClass == null) {
-			logger.info(String.format(
-					ClassifiedsServiceLocatorI18N.SERVICE_DEFAULT.value(),
-					ClassifiedsReferenceImplementation.class));
+			logger
+					.info(String
+							.format(
+									ClassifiedsServiceLocatorI18N.SERVICE_LOCATOR_GET_SERVICE_DEFAULT
+											.name(),
+									ClassifiedsReferenceImplementation.class));
 			return new ClassifiedsReferenceImplementation();
 		} else {
 			Class<?> type = Class.forName(serviceClass);
 			try {
 				ClassifiedsServiceInterface instance = (ClassifiedsServiceInterface) type
 						.newInstance();
-				logger.info(String.format(
-						ClassifiedsServiceLocatorI18N.SERVICE_CUSTOM.value(),
-						type));
+				logger
+						.log(
+								Level.INFO,
+								ClassifiedsServiceLocatorI18N.SERVICE_LOCATOR_GET_SERVICE_CUSTOM
+										.value(), type);
 				return instance;
 			} catch (Exception error) {
-				logger.severe(String.format(
-						ClassifiedsServiceLocatorI18N.SERVICE_ERROR.value(),
-						type, error.getMessage()));
+				logger
+						.severe(String
+								.format(
+										ClassifiedsServiceLocatorI18N.SERVICE_LOCATOR_GET_SERVICE_ERROR
+												.name(), type, error
+												.getMessage()));
 				throw new WebServiceException(error);
 			}
 		}
