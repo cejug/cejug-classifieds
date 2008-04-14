@@ -58,7 +58,7 @@ public abstract class ClassifiedsServiceLocator {
 	static ClassifiedsServiceInterface getServiceImplementation()
 			throws Exception {
 		ClassifiedsServerConfig config = ConfigLoader.getInstance().load();
-		String serviceClass = config.getInjection().getService();
+		String serviceClass = config.getInjection().getServiceImplementation();
 		if (serviceClass == null) {
 			return new ClassifiedsReferenceImplementation();
 		} else {

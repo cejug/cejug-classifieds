@@ -1,6 +1,8 @@
 package net.java.dev.cejug.classifieds.test.unit;
 
+import junit.framework.Assert;
 import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
+import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +24,12 @@ public class ConfigLoaderTest {
 	@Test
 	public void testConfigLoading() {
 		try {
-			ConfigLoader wrapper = 
-				ConfigLoader.getInstance();
+			// Marshall listener should replace missed information by the
+			// service defaults.
+			ConfigLoader loader = ConfigLoader.getInstance();
+			ClassifiedsServerConfig config = loader.load();
+			Assert.assertNotNull(config.getInjection()
+					.getServiceImplementation());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

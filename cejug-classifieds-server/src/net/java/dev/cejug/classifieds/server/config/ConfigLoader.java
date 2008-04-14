@@ -29,7 +29,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.utils.config.ConfigXmlReader;
 import net.java.dev.cejug.utils.config.XmlStreamFactory;
 
@@ -46,7 +45,7 @@ public class ConfigLoader {
 	public static final String DEFAULT_CONFIG = "config.xml";
 	public static final String DEFAULT_CONFIG_SCHEMA = "https://cejug-classifieds.dev.java.net/ws/schema/config/config.xsd";
 	public static final String DEFAULT_CONFIG_CONTENT_TYPE = "UTF-8";
-	public static final String DEFAULT_JAXB_CONTEXT = ClassifiedsServiceInterface.class
+	public static final String DEFAULT_JAXB_CONTEXT = ClassifiedsServerConfig.class
 			.getPackage().getName();
 
 	private ClassifiedsServerConfig lastLoaded = null;
@@ -73,7 +72,9 @@ public class ConfigLoader {
 		} else {
 			XmlStreamFactory<ClassifiedsServerConfig> factory = new XmlStreamFactory<ClassifiedsServerConfig>();
 			ConfigXmlReader<ClassifiedsServerConfig> reader = factory
-					.getReader(new CejugClassifiedsServerConfigUnmarshallerListener());
+					.getReader(
+							new CejugClassifiedsServerConfigUnmarshallerListener(),
+							null);
 			ClassLoader loader = reader.getClass().getClassLoader();
 			synchronized (this) {
 				InputStream stream = loader.getResourceAsStream(DEFAULT_CONFIG);

@@ -5,10 +5,14 @@ import java.io.Writer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
-
-import net.java.dev.cejug.classifieds.server.config.CejugClassifiedsServerConfigValidationHandler;
+import javax.xml.bind.ValidationEventHandler;
 
 class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
+	private ValidationEventHandler handler;
+
+	ConfigXmlWriterImpl(ValidationEventHandler handler) {
+		this.handler = handler;
+	}
 
 	/**
 	 * WARNING: it never store passwords.
@@ -22,8 +26,7 @@ class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
 			Marshaller m = jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_ENCODING, schemaLocation);
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m
-					.setEventHandler(new CejugClassifiedsServerConfigValidationHandler());
+			m.setEventHandler(handler);
 			m.marshal(config, writer);
 		} catch (Exception exception) {
 			throw new Exception(exception.getMessage(), exception);
