@@ -48,7 +48,7 @@ public abstract class ClassifiedsServiceLocator {
 	 * the defult logger.
 	 */
 	private static Logger logger = Logger.getLogger(
-			ClassifiedsServiceLocator.class.getName(), "i18n/log.properties");
+			ClassifiedsServiceLocator.class.getName(), "i18n/log");
 
 	/**
 	 * If the property SERVICE_IMPLEMENTATION is set in the system

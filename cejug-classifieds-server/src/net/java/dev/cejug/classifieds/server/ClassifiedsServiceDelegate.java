@@ -55,7 +55,7 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	/** The publisher logger. */
 	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
-			.getName(), "i18n/log.properties");
+			.getName(), "i18n/log");
 
 	/**
 	 * The service contract realization uses an injected implementation to

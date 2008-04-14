@@ -66,17 +66,6 @@
 		</javac>
 	</target>
 
-	<!--target name="run">
-		<java fork="true" classname="net.java.dev.cejug.cct.client.CejugCctClient">
-			<classpath>
-				<path refid="jaxws.classpath" />
-				<pathelement location="${build.classes.home}" />
-				<pathelement location="${basedir}/deploy" />
-			</classpath>
-			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
-		</java>
-	</target-->
-
 	<target name="help">
 		<echo message="server:       Builds and deploy the service endpoint WAR" />
 		<echo message="client:       Builds the client" />
