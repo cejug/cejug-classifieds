@@ -17,7 +17,7 @@ import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImple
  * @author Felipe Gaúcho
  * 
  */
-public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
+public class ConfigUnmarshallerListener extends Listener {
 	private Logger logger = null;
 
 	/**
@@ -26,7 +26,7 @@ public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 	 * @param logger
 	 *            the logger used to register the listener processing.
 	 */
-	public CejugClassifiedsServerConfigUnmarshallerListener(Logger logger) {
+	public ConfigUnmarshallerListener(Logger logger) {
 		this.logger = logger;
 	}
 
@@ -34,9 +34,9 @@ public class CejugClassifiedsServerConfigUnmarshallerListener extends Listener {
 	 * The Default constructor calls the constructor with an instance of the
 	 * java.util.logging.Logger.
 	 */
-	public CejugClassifiedsServerConfigUnmarshallerListener() {
+	public ConfigUnmarshallerListener() {
 		this(LogManager.getLogManager().getLogger(
-				CejugClassifiedsServerConfigUnmarshallerListener.class
+				ConfigUnmarshallerListener.class
 						.getName()));
 	}
 

@@ -7,16 +7,24 @@
 
 	<xsd:simpleType name="ClassifiedsServiceDelegate.i18n">
 		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="service.delegate.constructor.loaded" />
-			<xsd:enumeration value="service.delegate.constructor.failed" />
+			<xsd:enumeration value="service.delegate.loaded" />
+			<xsd:enumeration value="service.delegate.failed" />
 		</xsd:restriction>
 	</xsd:simpleType>
 
 	<xsd:simpleType name="ClassifiedsServiceLocator.i18n">
 		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="service.locator.get.service.custom" />
-			<xsd:enumeration value="service.locator.get.service.default" />
-			<xsd:enumeration value="service.locator.get.service.error" />
+			<xsd:enumeration value="locator.service.custom" />
+			<xsd:enumeration value="locator.service.default" />
+			<xsd:enumeration value="locator.service.error" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ConfigUnmarshallerListener.i18n">
+		<xsd:restriction base='xsd:string'>
+			<xsd:enumeration value="validator.class.not.found" />
+			<xsd:enumeration value="validator.instantiation.error" />
+			<xsd:enumeration value="validator.illegal.access" />
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>

@@ -72,9 +72,7 @@ public class ConfigLoader {
 		} else {
 			XmlStreamFactory<ClassifiedsServerConfig> factory = new XmlStreamFactory<ClassifiedsServerConfig>();
 			ConfigXmlReader<ClassifiedsServerConfig> reader = factory
-					.getReader(
-							new CejugClassifiedsServerConfigUnmarshallerListener(),
-							null);
+					.getReader(new ConfigUnmarshallerListener(), null);
 			ClassLoader loader = reader.getClass().getClassLoader();
 			synchronized (this) {
 				InputStream stream = loader.getResourceAsStream(DEFAULT_CONFIG);

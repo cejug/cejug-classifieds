@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -67,19 +68,15 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 		try {
 			this.implementation = ClassifiedsServiceLocator
 					.getServiceImplementation();
-			logger
-					.info(String
-							.format(
-									ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_CONSTRUCTOR_LOADED
-											.value(), implementation.getClass()
-											.getName()));
+			logger.log(Level.INFO,
+					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED
+							.value(), implementation.getClass().getName());
 		} catch (Exception e) {
-			logger
-					.severe(String
-							.format(
-									ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_CONSTRUCTOR_FAILED
-											.value(), implementation.getClass()
-											.getName(), e.getMessage()));
+			logger.log(Level.SEVERE,
+					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_FAILED
+							.value(),
+					new Object[] { implementation.getClass().getName(),
+							e.getMessage() });
 			throw new WebServiceException(e);
 		}
 	}
