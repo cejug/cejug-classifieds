@@ -23,6 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.reference;
 
+import java.util.GregorianCalendar;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
@@ -80,7 +84,22 @@ public class ClassifiedsReferenceImplementation implements
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement) {
-		throw new WebServiceException("operation not yet implemented");
+		ServiceStatus status = new ServiceStatus();
+		status.setDescription("OK");
+		status.setCode(202);
+		DatatypeFactory factory;
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			throw new WebServiceException("operation not yet implemented");
+		}
+		status.setTimestamp(factory
+				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+						.getInstance()));
+
+		return status;
+		// throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override

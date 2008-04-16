@@ -23,9 +23,21 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.functional;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.namespace.QName;
+
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.Author;
+import net.java.dev.cejug.classifieds.server.generated.contract.AuthorType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -52,18 +64,57 @@ public class PublishFunctionalTest {
 	}
 
 	@Test
-	public void testPublishOperation() {
+	public void testPublishOperation() throws DatatypeConfigurationException,
+			MalformedURLException {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		ClassifiedsServiceInterface service = new CejugClassifiedsService()
-				.getClassifiedsServiceInterface();
-		System.out.println(service);
 
 		Advertisement advertisement = new Advertisement();
-		ServiceStatus status = service.publishOperation(advertisement);
 
-		assert status.getDescription().equalsIgnoreCase("OK");
+		// Authorship
+		Author author = new Author();
+		author.setEmail("fgaucho@gmail.com");
+		author.setName("Felipe Gaúcho");
+		author.setType(AuthorType.COMMUNITY);
+		advertisement.setAdvertiser(author);
+
+		// Publishing period
+		DatatypeFactory factory = DatatypeFactory.newInstance();
+		Calendar today = GregorianCalendar.getInstance();
+		advertisement.setPublishingDate(factory
+				.newXMLGregorianCalendar((GregorianCalendar) today));
+		Calendar fiveDaysLater = GregorianCalendar.getInstance();
+		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
+		advertisement.setPublishingDate(factory
+				.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
+
+		// Advertisement contents
+		advertisement.setHeadline("JAXWS Unleashed");
+		advertisement
+				.setShortDescription("JAXWS Unleashed book for only $15,-");
+		advertisement
+				.setFullText("This is a test advertisement.. several lines here.");
+
+		advertisement.setSectionId(1);
+		Locale locale = new Locale();
+		locale.setLanguage("pt");
+		locale.setCountry("BR");
+		advertisement.setLocale(locale);
+
+		// connecting the web-service and calling the publish operation
+		URL wsdlLocation = new URL(
+				"http://localhost:8080/cejug-classifieds-server/server?wsdl");
+		QName serviceName = new QName(
+				"http://cejug-classifieds.dev.java.net/server",
+				"CejugClassifiedsService");
+		CejugClassifiedsService service = new CejugClassifiedsService(
+				wsdlLocation, serviceName);
+		ClassifiedsServiceInterface facade = service
+				.getClassifiedsServiceInterface();
+		ServiceStatus status = facade.publishOperation(advertisement);
+		System.out.println(status.getDescription());
+		// assert status.getDescription().equalsIgnoreCase("OK");
 	}
 
 	@Test
