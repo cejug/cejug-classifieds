@@ -48,6 +48,7 @@
 	<target name="create-war">
 		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/deploy/web.xml">
 			<webinf dir="${basedir}/deploy" includes="sun-jaxws.xml" />
+			<webinf dir="${basedir}/deploy" includes="handlers.xml" prefix="WEB-INF/classes" />
 			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
 			<zipfileset dir="${resources.folder}" includes="**/**" prefix="WEB-INF/classes" />
 			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
@@ -95,8 +96,8 @@
 
 	<target name="compile.resources.schema">
 		<echo message="Compiling the Classifieds-Server Config Schema..." />
-		<xjc schema="${jaxb.config.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}"/>
-		<xjc schema="${jaxb.i18n.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}"/>
+		<xjc schema="${jaxb.config.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}" />
+		<xjc schema="${jaxb.i18n.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}" />
 		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="on" source="1.6" />
 
 		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />

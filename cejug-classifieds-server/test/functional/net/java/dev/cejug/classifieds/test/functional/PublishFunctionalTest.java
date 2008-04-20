@@ -113,8 +113,7 @@ public class PublishFunctionalTest {
 		ClassifiedsServiceInterface facade = service
 				.getClassifiedsServiceInterface();
 		ServiceStatus status = facade.publishOperation(advertisement);
-		System.out.println(status.getDescription());
-		// assert status.getDescription().equalsIgnoreCase("OK");
+		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 
 	@Test

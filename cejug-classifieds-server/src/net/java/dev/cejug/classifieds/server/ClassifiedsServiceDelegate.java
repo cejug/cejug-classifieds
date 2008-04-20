@@ -26,8 +26,11 @@ package net.java.dev.cejug.classifieds.server;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.WebServiceException;
+import javax.xml.ws.handler.MessageContext;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
@@ -38,6 +41,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollect
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDelegateI18N;
+import net.java.dev.cejug.classifieds.server.handler.TimeStamp;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -51,9 +55,19 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
+// @Interceptors( { Interceptor2.class })
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface")
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
+	private static final String LOAD_ATOM_OPERATION = "loadAtomOperation";
+	private static final String LOAD_RSS_OPERATION = "loadRssOperation";
+	private static final String PUBLISH_OPERATION = "publishOperation";
+	private static final String REPORT_SPAM_OPERATION = "reportSpamOperation";
+	// http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
+
+	@Resource
+	WebServiceContext wsContext;
+
 	/** The publisher logger. */
 	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
 			.getName(), "i18n/log");
@@ -84,15 +98,15 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		try {
-			// TODO: logging....
-			TimeKeeper.start(filter);
+
 			return implementation.loadAtomOperation(filter);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
 		} finally {
-			// TODO: logging....
-			TimeKeeper.stop(filter);
+			MessageContext msgContext = wsContext.getMessageContext();
+			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			msgContext.put(MessageContext.WSDL_OPERATION, "loadAtom");
 		}
 	}
 
@@ -100,29 +114,28 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
 		try {
 			// TODO: logging....
-			TimeKeeper.start(filter);
 			return implementation.loadRssOperation(filter);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
 		} finally {
-			// TODO: logging....
-			TimeKeeper.stop(filter);
+			MessageContext msgContext = wsContext.getMessageContext();
+			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			msgContext.put(MessageContext.WSDL_OPERATION, "loadRssOperation");
 		}
 	}
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement) {
 		try {
-			// TODO: logging....
-			TimeKeeper.start(advertisement);
 			return implementation.publishOperation(advertisement);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
 		} finally {
-			// TODO: logging....
-			TimeKeeper.stop(advertisement);
+			MessageContext msgContext = wsContext.getMessageContext();
+			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			msgContext.put(MessageContext.WSDL_OPERATION, "publishOperation");
 		}
 	}
 
@@ -130,15 +143,15 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		try {
 			// TODO: logging....
-			TimeKeeper.start(spam);
 			return implementation.reportSpamOperation(spam);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
 		} finally {
-			// TODO: logging....
-			TimeKeeper.stop(spam);
+			MessageContext msgContext = wsContext.getMessageContext();
+			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			msgContext
+					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
 		}
 	}
-
 }

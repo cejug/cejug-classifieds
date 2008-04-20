@@ -27,4 +27,10 @@
 			<xsd:enumeration value="validator.illegal.access" />
 		</xsd:restriction>
 	</xsd:simpleType>
+
+	<xsd:simpleType name="TimeKeeperSoapHandler.i18n">
+		<xsd:restriction base='xsd:string'>
+			<xsd:enumeration value="queue.length.error" />
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>

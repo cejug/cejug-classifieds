@@ -64,8 +64,6 @@ public class ClassifiedsReferenceImplementation implements
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
-		System.out.println("YEPE");
-
 		Channel channel = new Channel();
 		/*
 		 * TRss rss = new TRss(); rss.setVersion(new BigDecimal(1.0d)); TRssItem

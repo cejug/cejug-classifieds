@@ -23,7 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server;
 
-import javax.ejb.DuplicateKeyException;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.java.dev.cejug.utils.LimitedList;
 
 /**
  * TODO: to comment...
@@ -31,12 +34,15 @@ import javax.ejb.DuplicateKeyException;
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-public abstract class TimeKeeper {
-	static void start(Object lock) throws DuplicateKeyException {
-		// TODO: map the System.currentMillis to the lock object
-	}
+public final class TimeKeeper {
+	private static Map<String, LimitedList> timers = new HashMap<String, LimitedList>();
 
-	static void stop(Object lock) {
-		// TODO: release lock and calculate the consumed time
+	public static synchronized void finish(String name, long start) {
+		LimitedList timer = timers.get(name);
+		if (timer == null) {
+			timer = new LimitedList(LimitedList.DEFAULT_LIMIT);
+			timers.put(name, timer);
+		}
+		timer.add(System.currentTimeMillis() - start);
 	}
 }

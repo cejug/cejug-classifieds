@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { LoadAtomFunctionalTest.class,
-		LoadRssFunctionalTest.class, PublishFunctionalTest.class })
+		LoadRssFunctionalTest.class, PublishFunctionalTest.class,
+		ReportSpamFunctionalTest.class })
 public class FunctionalTestSuite {
 }
