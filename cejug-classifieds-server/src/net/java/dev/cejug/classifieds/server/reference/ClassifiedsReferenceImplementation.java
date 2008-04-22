@@ -35,10 +35,13 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollec
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
+import net.java.dev.cejug.classifieds.server.generated.contract.Monitor;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse.ResponseTime;
 
 /**
  * Cejug-Classifieds-service:
@@ -103,5 +106,29 @@ public class ClassifiedsReferenceImplementation implements
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public MonitorResponse checkMonitorOperation(Monitor monitor) {
+		MonitorResponse response = new MonitorResponse();
+		DatatypeFactory factory;
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			throw new WebServiceException("operation not yet implemented");
+		}
+		response.setOnlineSince(factory
+				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+						.getInstance()));
+		response.setServiceName(this.getClass().getName());
+
+		ResponseTime rt = new ResponseTime();
+		rt.setAverage(237L);
+		rt.setCalls(32);
+		rt.setOperationName("loadAtom");
+		response.getResponseTime().add(rt);
+
+		return response;
 	}
 }

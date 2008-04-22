@@ -24,7 +24,8 @@
 			<xsd:import namespace="http://www.w3.org/2005/Atom"
 				schemaLocation="atom10.xsd" />
 
-			<xsd:import namespace="http://blogs.law.harvard.edu/RSS20.xsd"
+			<xsd:import
+				namespace="http://blogs.law.harvard.edu/RSS20.xsd"
 				schemaLocation="rss20.xsd" />
 
 			<xsd:element name="ServiceFault">
@@ -109,6 +110,55 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
+
+			<xsd:element name="Credentials">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="client.id" type="xsd:string" />
+						<xsd:element name="customer.id"
+							type="xsd:string" />
+						<xsd:element name="customer.role"
+							type="xsd:string" />
+						<xsd:element name="group" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="Monitor">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="query" type="xsd:string"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="average.response.length"
+							type="xsd:int" default="10" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="MonitorResponse">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="1">
+						<xsd:element name="service.name"
+							type="xsd:string" />
+						<xsd:element name="online.since"
+							type="xsd:dateTime" />
+						<xsd:element name="response.time" minOccurs="0"
+							maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="operation.name"
+										type="xsd:string" />
+									<xsd:element name="average"
+										type="xsd:long" />
+									<xsd:element name="calls"
+										type="xsd:long" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -159,6 +209,19 @@
 		<wsdl:part element="metadata:ServiceStatus" name="status" />
 	</wsdl:message>
 
+	<!-- MONITOR -->
+	<wsdl:message name="CheckMonitor">
+		<wsdl:part element="metadata:Monitor" name="monitor" />
+	</wsdl:message>
+
+	<wsdl:message name="CheckMonitorResponse">
+		<wsdl:part element="metadata:MonitorResponse"
+			name="service.status" />
+	</wsdl:message>
+
+	<wsdl:message name="Identification">
+		<wsdl:part element="metadata:Credentials" name="login" />
+	</wsdl:message>
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="ClassifiedsServiceInterface">
@@ -186,6 +249,12 @@
 			<wsdl:fault name="ReportSpamException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
+		<wsdl:operation name="CheckMonitorOperation">
+			<wsdl:input message="contract:CheckMonitor" />
+			<wsdl:output message="contract:CheckMonitorResponse" />
+			<wsdl:fault name="CheckMonitorException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
 	</wsdl:portType>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -199,6 +268,8 @@
 				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRss" />
 			<wsdl:input>
 				<soap:body use="literal" />
+				<soap:header message="contract:Identification"
+					part="login" use="literal" />
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />
@@ -227,6 +298,16 @@
 		<wsdl:operation name="ReportSpamOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/server/ReportSpam" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CheckMonitorOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/server/CheckMonitor" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

@@ -36,6 +36,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.Monitor;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -59,12 +61,14 @@ import net.java.dev.cejug.classifieds.server.handler.TimeStamp;
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface")
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
-	private static final String LOAD_ATOM_OPERATION = "loadAtomOperation";
-	private static final String LOAD_RSS_OPERATION = "loadRssOperation";
-	private static final String PUBLISH_OPERATION = "publishOperation";
-	private static final String REPORT_SPAM_OPERATION = "reportSpamOperation";
-	// http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
-
+	/*
+	 * private static final String LOAD_ATOM_OPERATION = "loadAtomOperation";
+	 * private static final String LOAD_RSS_OPERATION = "loadRssOperation";
+	 * private static final String PUBLISH_OPERATION = "publishOperation";
+	 * private static final String REPORT_SPAM_OPERATION =
+	 * "reportSpamOperation"; //
+	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
+	 */
 	@Resource
 	WebServiceContext wsContext;
 
@@ -144,6 +148,22 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 		try {
 			// TODO: logging....
 			return implementation.reportSpamOperation(spam);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		} finally {
+			MessageContext msgContext = wsContext.getMessageContext();
+			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			msgContext
+					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
+		}
+	}
+
+	@Override
+	public MonitorResponse checkMonitorOperation(Monitor monitor) {
+		try {
+			// TODO: logging....
+			return implementation.checkMonitorOperation(monitor);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
