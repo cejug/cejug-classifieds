@@ -143,22 +143,22 @@
 							type="xsd:string" />
 						<xsd:element name="online.since"
 							type="xsd:dateTime" />
-						<xsd:element name="response.time" minOccurs="0"
-							maxOccurs="unbounded">
-							<xsd:complexType>
-								<xsd:sequence>
-									<xsd:element name="operation.name"
-										type="xsd:string" />
-									<xsd:element name="average"
-										type="xsd:long" />
-									<xsd:element name="calls"
-										type="xsd:long" />
-								</xsd:sequence>
-							</xsd:complexType>
-						</xsd:element>
+						<xsd:element name="response.time"
+							type="metadata:response.time" minOccurs="0"
+							maxOccurs="unbounded" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
+
+			<xsd:complexType name="response.time">
+				<xsd:sequence>
+					<xsd:element name="operation.name"
+						type="xsd:string" />
+					<xsd:element name="average" type="xsd:long" />
+					<xsd:element name="calls" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+
 		</xsd:schema>
 	</wsdl:types>
 

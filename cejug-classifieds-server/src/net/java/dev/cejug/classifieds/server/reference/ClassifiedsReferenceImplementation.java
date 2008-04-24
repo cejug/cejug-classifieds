@@ -37,11 +37,12 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServi
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.contract.Monitor;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.ResponseTime;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse.ResponseTime;
+import net.java.dev.cejug.classifieds.server.reference.dao.ResponseTimeDao;
 
 /**
  * Cejug-Classifieds-service:
@@ -55,6 +56,15 @@ public class ClassifiedsReferenceImplementation implements
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
+
+		ResponseTime t = new ResponseTime();
+		ResponseTimeDao dao = new ResponseTimeDao();
+		try {
+			dao.update(t);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		FeedType feed = new FeedType();
 		feed.getAuthorOrCategoryOrContributor();
