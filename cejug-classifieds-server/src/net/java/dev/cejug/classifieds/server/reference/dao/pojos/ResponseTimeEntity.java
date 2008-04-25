@@ -6,29 +6,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.ResponseTime;
+import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "response_time")
-@SuppressWarnings("unused")
 public class ResponseTimeEntity {
-	public ResponseTimeEntity(ResponseTime source) {
-		operationName = source.getOperationName();
-		average = source.getAverage();
-		calls = source.getCalls();
-	}
-
-	public ResponseTimeEntity() {
+	public ResponseTimeEntity(OperationTimestamp stamp) {
+		operationName = stamp.getOperationName();
+		start = stamp.getStart();
+		finish = stamp.getFinish();
+		status = stamp.isStatus();
+		clientId = stamp.getClientId();
+		fault = stamp.getFault();
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column
+	@Column(nullable = false)
 	private String operationName;
-	@Column
-	private Long average;
-	@Column
-	private Long calls;
+	@Column(nullable = false)
+	private XMLGregorianCalendar start;
+	@Column(nullable = false)
+	private XMLGregorianCalendar finish;
+	@Column(nullable = false)
+	private Boolean status;
+	@Column(nullable = false)
+	private String clientId;
+	@Column(nullable = true)
+	private String fault;
 }
