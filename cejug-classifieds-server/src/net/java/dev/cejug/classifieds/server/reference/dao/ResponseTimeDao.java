@@ -41,6 +41,12 @@ public class ResponseTimeDao extends AbstractClassifiedsServerDao<ResponseTime> 
 
 	@Override
 	public void update(ResponseTime source) throws Exception {
+
+		// THIS ERROR AT GLASSFISH:
+		// <ns3:Text xml:lang="de">javax.persistence.PersistenceException: No
+		// Persistence provider for EntityManager named classifieds-ws-orm: No
+		// META-INF/persistence.xml was found in classpath.</ns3:Text>
+
 		ResponseTimeEntity entity = new ResponseTimeEntity(source);
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
