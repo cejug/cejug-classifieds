@@ -33,4 +33,11 @@
 			<xsd:enumeration value="queue.length.error" />
 		</xsd:restriction>
 	</xsd:simpleType>
+
+	<xsd:simpleType name="TimestampQueueWorker.i18n">
+		<xsd:restriction base='xsd:string'>
+			<xsd:enumeration value="duplicate.key.error" />
+			<xsd:enumeration value="db.update.error" />
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>

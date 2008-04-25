@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="classifieds_server"
+		transaction-type="RESOURCE_LOCAL">
+		<!-- jta-data-source>java:JPADS</jta-data-source-->
+		<provider>
+			oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider
+		</provider>
+		<class>
+			net.java.dev.cejug.classifieds.server.reference.dao.pojos.ResponseTimeEntity
+		</class>
+		<properties>
+			<property name="toplink.jdbc.url"
+				value="jdbc:mysql://localhost:3306/classifieds_server" />
+			<property name="toplink.jdbc.driver"
+				value="com.mysql.jdbc.Driver" />
+			<property name="toplink.jdbc.user" value="root" />
+			<property name="toplink.jdbc.password" value="adminadmin" />
+			<property name="toplink.ddl-generation"
+				value="create-tables" />
+			<property name="toplink.logging.level" value="INFO" />
+		</properties>
+	</persistence-unit>
+</persistence>
