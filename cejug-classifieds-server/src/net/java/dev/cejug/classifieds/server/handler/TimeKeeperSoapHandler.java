@@ -1,47 +1,59 @@
 package net.java.dev.cejug.classifieds.server.handler;
 
-import java.io.PrintStream;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.QName;
+import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
+
+import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
 /**
  * Keeps the diference time between the input and output of a message.
  * 
  */
 public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
+	public static final String KEY = "timestamp";
+	public static final String OPERATION_KEY = "operation";
+	private Timer timer = null;
+
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
 	private static Logger logger = Logger.getLogger(TimeKeeperSoapHandler.class
 			.getName(), "i18n/log");
+
 	/**
 	 * Each operation has its own queue.
 	 */
-	Map<String, ConcurrentLinkedQueue<Long>> queues = new HashMap<String, ConcurrentLinkedQueue<Long>>();
-	Map<TimeStamp, Long> time = new HashMap<TimeStamp, Long>();
+	private ConcurrentLinkedQueue<OperationTimestamp> stamps = new ConcurrentLinkedQueue<OperationTimestamp>();
+	private Map<String, GregorianCalendar> time = Collections
+			.synchronizedMap(new HashMap<String, GregorianCalendar>());
 
-	private int queueMaxLength = 10;
+	private final DatatypeFactory factory;
 
-	/*
-	 * TimeKeeperSoapHandler() { ClassifiedsServerConfig config; try { config =
-	 * ConfigLoader.getInstance().load(); Integer customQueueLength =
-	 * config.getMonitor() .getTimerQueueLength(); if (customQueueLength ==
-	 * null) { queueMaxLength = customQueueLength; } } catch (Exception e) {
-	 * logger.log(Level.WARNING,
-	 * TimeKeeperSoapHandlerI18N.QUEUE_LENGTH_ERROR.value(), e .getMessage()); } }
-	 */
-
-	// change this to redirect output if desired
-	private static PrintStream out = System.out;
+	public TimeKeeperSoapHandler() {
+		try {
+			factory = DatatypeFactory.newInstance();
+			timer = new Timer(true);
+			timer.schedule(TimestampQueueWorker.getInstance(stamps), 34L, 34L);
+		} catch (DatatypeConfigurationException e) {
+			// TODO: log
+			throw new WebServiceException(e);
+		}
+	}
 
 	public Set<QName> getHeaders() {
 		return null;
@@ -50,28 +62,35 @@ public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 	public boolean handleMessage(SOAPMessageContext smc) {
 		Boolean outboundProperty = (Boolean) smc
 				.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-		if (outboundProperty) {
-			long stamp = time.get((TimeStamp) smc.get(TimeStamp.KEY));
-			long responsetime = System.currentTimeMillis() - stamp;
-			System.out.println(smc.get(MessageContext.WSDL_OPERATION)
-					+ " respond in " + responsetime + "ms.");
 
+		if (outboundProperty) {
+			addTimestamp(smc);
 		} else {
-			TimeStamp stamp = new TimeStamp();
-			time.put(stamp, System.currentTimeMillis());
-			smc.put(TimeStamp.KEY, stamp);
-			smc.setScope(TimeStamp.KEY, MessageContext.Scope.APPLICATION);
+			String key = "key" + System.currentTimeMillis();
+			time.put(key, new GregorianCalendar());
+			smc.put(TimeKeeperSoapHandler.KEY, key);
+			smc.setScope(TimeKeeperSoapHandler.KEY,
+					MessageContext.Scope.APPLICATION);
 		}
 		return true;
 	}
 
+	private void addTimestamp(SOAPMessageContext smc) {
+		GregorianCalendar start = time.get((GregorianCalendar) smc
+				.get(TimeKeeperSoapHandler.KEY));
+		OperationTimestamp timestamp = new OperationTimestamp();
+		timestamp.setClientId("fake");
+		timestamp.setStart(factory.newXMLGregorianCalendar(start));
+		timestamp.setFinish(factory
+				.newXMLGregorianCalendar(new GregorianCalendar()));
+		timestamp.setOperationName((String) smc
+				.get(TimeKeeperSoapHandler.OPERATION_KEY));
+		timestamp.setStatus(true);
+		stamps.add(timestamp);
+	}
+
 	public boolean handleFault(SOAPMessageContext smc) {
-		// store timeStamp in Database
-		// get ID, include id in the message context
-		long start = ((TimeStamp) smc.get(TimeStamp.KEY)).getTime();
-		long responsetime = System.currentTimeMillis() - start;
-		System.out.println(smc.get(MessageContext.WSDL_OPERATION)
-				+ " failed in " + responsetime + "ms.");
+		addTimestamp(smc);
 		return true;
 	}
 
