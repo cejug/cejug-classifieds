@@ -36,14 +36,13 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.contract.Monitor;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDelegateI18N;
-import net.java.dev.cejug.classifieds.server.handler.TimeStamp;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -109,7 +108,7 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			throw new WebServiceException(e);
 		} finally {
 			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			// msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
 			msgContext.put(MessageContext.WSDL_OPERATION, "loadAtom");
 		}
 	}
@@ -124,7 +123,7 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			throw new WebServiceException(e);
 		} finally {
 			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			// msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
 			msgContext.put(MessageContext.WSDL_OPERATION, "loadRssOperation");
 		}
 	}
@@ -138,7 +137,7 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			throw new WebServiceException(e);
 		} finally {
 			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			// msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
 			msgContext.put(MessageContext.WSDL_OPERATION, "publishOperation");
 		}
 	}
@@ -153,14 +152,14 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			throw new WebServiceException(e);
 		} finally {
 			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			// msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
 			msgContext
 					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
 		}
 	}
 
 	@Override
-	public MonitorResponse checkMonitorOperation(Monitor monitor) {
+	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
 		try {
 			// TODO: logging....
 			return implementation.checkMonitorOperation(monitor);
@@ -169,7 +168,7 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			throw new WebServiceException(e);
 		} finally {
 			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
+			// msgContext.put(TimeStamp.KEY, msgContext.get(TimeStamp.KEY));
 			msgContext
 					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
 		}

@@ -3,9 +3,9 @@ package net.java.dev.cejug.classifieds.server.dao;
 import java.util.List;
 
 public interface ClassifiedsServerDao<T> {
-	void delete(T type) throws Exception;
+	void delete(T entity) throws Exception;
 
-	void update(T type) throws Exception;
+	void update(T entity) throws Exception;
 
 	T create() throws Exception;
 

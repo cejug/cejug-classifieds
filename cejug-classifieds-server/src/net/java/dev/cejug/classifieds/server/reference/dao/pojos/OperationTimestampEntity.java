@@ -13,8 +13,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimesta
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "response_time")
-public class ResponseTimeEntity {
-	public ResponseTimeEntity(OperationTimestamp stamp) {
+public class OperationTimestampEntity {
+	public OperationTimestampEntity(OperationTimestamp stamp) {
 		operationName = stamp.getOperationName();
 		start = stamp.getStart();
 		finish = stamp.getFinish();
