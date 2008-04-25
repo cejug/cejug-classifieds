@@ -11,7 +11,7 @@ public abstract class AbstractClassifiedsServerDao<T> implements
 	protected EntityManager manager = null;
 
 	public AbstractClassifiedsServerDao() {
-		factory = Persistence.createEntityManagerFactory("classifieds-ws-orm");
+		factory = Persistence.createEntityManagerFactory("classifieds_server");
 		manager = factory.createEntityManager();
 	}
 }
