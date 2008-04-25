@@ -49,7 +49,7 @@
 		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/deploy/web.xml">
 			<webinf dir="${basedir}/deploy" includes="sun-jaxws.xml" />
 			<webinf dir="${basedir}/deploy" includes="handlers.xml" prefix="WEB-INF/classes" />
-			<metainf dir="${basedir}/META-INF" includes="**/**" />
+			<metainf dir="${basedir}/META-INF" includes="**/**" prefix="WEB-INF/classes"/>
 			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
 			<zipfileset dir="${resources.folder}" includes="**/**" prefix="WEB-INF/classes" />
 			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
