@@ -2,14 +2,20 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 
-import net.java.dev.cejug.classifieds.server.dao.AbstractClassifiedsServerDao;
+import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.reference.dao.pojos.OperationTimestampEntity;
 
-public class ResponseTimeDao extends
-		AbstractClassifiedsServerDao<OperationTimestamp> {
+@Stateless
+public class ResponseTimeDao implements
+		ClassifiedsServerDao<OperationTimestamp> {
+	@PersistenceContext(unitName = "classifieds_server")
+	protected EntityManager manager;
 
 	@Override
 	public OperationTimestamp create() throws Exception {
@@ -45,6 +51,7 @@ public class ResponseTimeDao extends
 			transaction.begin();
 			manager.persist(entity);
 			transaction.commit();
+			System.out.println("COMITOU !");
 			// TODO: log...
 		} catch (Exception e) {
 			// TODO: log...

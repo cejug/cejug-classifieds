@@ -6,11 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import net.java.dev.cejug.classifieds.server.dao.AbstractClassifiedsServerDao;
+import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
-public class OperationTimestampDao extends
-		AbstractClassifiedsServerDao<OperationTimestamp> {
+public class OperationTimestampDao implements
+		ClassifiedsServerDao<OperationTimestamp> {
 	@PersistenceContext(unitName = "classifieds_server")
 	EntityManager manager;
 

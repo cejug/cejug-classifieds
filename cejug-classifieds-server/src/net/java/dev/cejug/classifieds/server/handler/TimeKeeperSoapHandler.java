@@ -78,19 +78,16 @@ public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 	}
 
 	private void addTimestamp(SOAPMessageContext smc, boolean status) {
-		logger.info("AAAAAAAAAAAA 1");
+		// logger.info("AAAAAAAAAAAA 1");
 		GregorianCalendar start = time.get((String) smc
 				.get(TimeKeeperSoapHandler.KEY));
-		logger.info("AAAAAAAAAAAA 2");
 		OperationTimestamp timestamp = new OperationTimestamp();
 		timestamp.setClientId("fake");
 		timestamp.setStart(factory.newXMLGregorianCalendar(start));
 		timestamp.setFinish(factory
 				.newXMLGregorianCalendar(new GregorianCalendar()));
-		logger.info("AAAAAAAAAAAA 3");
 		timestamp.setOperationName((String) smc
 				.get(MessageContext.WSDL_OPERATION));
-		logger.info("AAAAAAAAAAAA 4");
 		timestamp.setStatus(status);
 		stamps.add(timestamp);
 	}

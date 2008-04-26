@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
@@ -16,8 +15,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimesta
 public class OperationTimestampEntity {
 	public OperationTimestampEntity(OperationTimestamp stamp) {
 		operationName = stamp.getOperationName();
-		start = stamp.getStart();
-		finish = stamp.getFinish();
+		// start = stamp.getStart().toGregorianCalendar();
+		// finish = stamp.getFinish().toGregorianCalendar();
 		status = stamp.isStatus();
 		clientId = stamp.getClientId();
 		fault = stamp.getFault();
@@ -28,10 +27,12 @@ public class OperationTimestampEntity {
 	private Integer id;
 	@Column(nullable = false)
 	private String operationName;
-	@Column(nullable = false)
-	private XMLGregorianCalendar start;
-	@Column(nullable = false)
-	private XMLGregorianCalendar finish;
+	/*
+	 * @Column(nullable = false)
+	 * 
+	 * private GregorianCalendar start; @Column(nullable = false) private
+	 * GregorianCalendar finish;
+	 */
 	@Column(nullable = false)
 	private Boolean status;
 	@Column(nullable = false)

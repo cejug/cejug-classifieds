@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
@@ -19,7 +20,8 @@ import net.java.dev.cejug.classifieds.server.reference.dao.ResponseTimeDao;
  */
 public class TimestampQueueWorker extends TimerTask {
 	private ConcurrentLinkedQueue<OperationTimestamp> queue;
-	private ResponseTimeDao dao = new ResponseTimeDao();
+	@EJB
+	private ResponseTimeDao dao;
 	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
 			.getName(), "i18n/log");
 
@@ -46,12 +48,13 @@ public class TimestampQueueWorker extends TimerTask {
 		OperationTimestamp stamp = queue.poll();
 		if (stamp != null) {
 			try {
-				logger.info("URRAAAAAA 2kkk" + stamp);
 				dao.update(stamp);
 			} catch (Exception e) {
 				logger.log(Level.SEVERE,
 						TimestampQueueWorkerI18N.DB_UPDATE_ERROR.value(), e
 								.getMessage());
+				System.out.println("DDDAAAAAOOOOO - " + dao);
+				e.printStackTrace();
 				// time keeper does not shutdown the service.
 			}
 		}

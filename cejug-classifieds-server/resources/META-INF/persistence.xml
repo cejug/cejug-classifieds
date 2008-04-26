@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
 	xmlns="http://java.sun.com/xml/ns/persistence">
-	<persistence-unit name="classifieds_server">
-		<jta-data-source>jdbc/classifieds_datasource</jta-data-source>
-		<!-- provider>
-			oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider
-			</provider--> <!--  only required for desktop application :) -->
+	<persistence-unit name="classifieds_server"
+		transaction-type="RESOURCE_LOCAL">
+		<jta-data-source>jdbc/classifieds_server</jta-data-source>
 		<class>
 			net.java.dev.cejug.classifieds.server.reference.dao.pojos.OperationTimestampEntity
 		</class>
