@@ -2,6 +2,7 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
+@Stateless
 public class OperationTimestampDao implements
 		ClassifiedsServerDao<OperationTimestamp> {
 	@PersistenceContext(unitName = "classifieds_server")
