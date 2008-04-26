@@ -103,7 +103,9 @@ public class ClassifiedsReferenceImplementation implements
 
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
-		throw new WebServiceException("operation not yet implemented");
+		// throw new WebServiceException("operation not yet implemented");
+		ServiceStatus status = new ServiceStatus();
+		return status;
 	}
 
 	@Override
