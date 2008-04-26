@@ -1,4 +1,6 @@
+<%@include file="/includes.jsp"%>
 <%-- ADVERSIMENTS PAINEL --%>
+<f:view>
 <rich:panel>
 
 	<f:facet name="header">
@@ -6,15 +8,15 @@
 	</f:facet>
 
 	<h:form>
-
-		<rich:dataGrid value="#{adversimentBean.adversiments}" var="adversiment"
-			columns="3" elements="9">
+		<rich:dataGrid value="#{adversimentBean.adversiments}"
+			var="adversiment" columns="3" elements="9">
 
 			<rich:panel>
 
 				<f:facet name="header">
 
-					<h:outputText value="#{adversiment.shortDescription} #{adversiment.status}"></h:outputText>
+					<h:outputText
+						value="#{adversiment.shortDescription} #{adversiment.status}"></h:outputText>
 
 				</f:facet>
 
@@ -48,6 +50,9 @@
 
 		</rich:dataGrid>
 
+
 	</h:form>
 
 </rich:panel>
+</f:view>
+
