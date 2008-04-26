@@ -21,7 +21,7 @@
 			<to-view-id>/index.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>pesquisar</from-outcome>
+			<from-outcome>index</from-outcome>
 			<to-view-id>/pages/adversiments.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
