@@ -48,9 +48,11 @@ public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 		try {
 			factory = DatatypeFactory.newInstance();
 			timer = new Timer(true);
-			timer.schedule(TimestampQueueWorker.getInstance(stamps), 34L, 34L);
+			timer.schedule(TimestampQueueWorker.getInstance(stamps), 5000L,
+					5000L);
 		} catch (DatatypeConfigurationException e) {
 			// TODO: log
+			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 	}
@@ -64,7 +66,7 @@ public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 				.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 
 		if (outboundProperty) {
-			addTimestamp(smc);
+			addTimestamp(smc, true);
 		} else {
 			String key = "key" + System.currentTimeMillis();
 			time.put(key, new GregorianCalendar());
@@ -75,22 +77,26 @@ public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 		return true;
 	}
 
-	private void addTimestamp(SOAPMessageContext smc) {
-		GregorianCalendar start = time.get((GregorianCalendar) smc
+	private void addTimestamp(SOAPMessageContext smc, boolean status) {
+		logger.info("AAAAAAAAAAAA 1");
+		GregorianCalendar start = time.get((String) smc
 				.get(TimeKeeperSoapHandler.KEY));
+		logger.info("AAAAAAAAAAAA 2");
 		OperationTimestamp timestamp = new OperationTimestamp();
 		timestamp.setClientId("fake");
 		timestamp.setStart(factory.newXMLGregorianCalendar(start));
 		timestamp.setFinish(factory
 				.newXMLGregorianCalendar(new GregorianCalendar()));
+		logger.info("AAAAAAAAAAAA 3");
 		timestamp.setOperationName((String) smc
-				.get(TimeKeeperSoapHandler.OPERATION_KEY));
-		timestamp.setStatus(true);
+				.get(MessageContext.WSDL_OPERATION));
+		logger.info("AAAAAAAAAAAA 4");
+		timestamp.setStatus(status);
 		stamps.add(timestamp);
 	}
 
 	public boolean handleFault(SOAPMessageContext smc) {
-		addTimestamp(smc);
+		addTimestamp(smc, false);
 		return true;
 	}
 

@@ -46,6 +46,7 @@ public class TimestampQueueWorker extends TimerTask {
 		OperationTimestamp stamp = queue.poll();
 		if (stamp != null) {
 			try {
+				logger.info("URRAAAAAA 2kkk" + stamp);
 				dao.update(stamp);
 			} catch (Exception e) {
 				logger.log(Level.SEVERE,

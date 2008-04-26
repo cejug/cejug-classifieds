@@ -2,8 +2,14 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+
 import net.java.dev.cejug.classifieds.server.dao.AbstractClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
+import net.java.dev.cejug.classifieds.server.reference.dao.pojos.OperationTimestampEntity;
 
 public class ResponseTimeDao extends
 		AbstractClassifiedsServerDao<OperationTimestamp> {
@@ -34,12 +40,19 @@ public class ResponseTimeDao extends
 	}
 
 	@Override
-	public void update(OperationTimestamp type) throws Exception {
+	public void update(OperationTimestamp source) throws Exception {
+		try {
+			OperationTimestampEntity entity = new OperationTimestampEntity(
+					source);
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			manager.persist(entity);
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Manager = ");
+			System.out.println(manager);
 
-		/*
-		 * ResponseTimeEntity entity = new ResponseTimeEntity(source);
-		 * EntityTransaction transaction = manager.getTransaction();
-		 * transaction.begin(); manager.persist(entity); transaction.commit();
-		 */
+		}
 	}
 }
