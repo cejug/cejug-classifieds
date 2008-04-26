@@ -9,7 +9,7 @@
 
 			<rich:menuItem value="Insert"  />
 
-			<rich:menuItem value="Search" action="#{adversimentBean.pesquisar}"/>
+			<rich:menuItem value="Search" actionListener="#{adversimentBean.pesquisar}"/>
 
 		</rich:dropDownMenu>
 		

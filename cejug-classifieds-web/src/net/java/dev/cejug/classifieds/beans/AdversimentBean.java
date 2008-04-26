@@ -3,6 +3,8 @@ package net.java.dev.cejug.classifieds.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
 import net.java.dev.cejug.classifieds.domain.model.entities.Adversiment;
 
 /**
@@ -14,11 +16,9 @@ public class AdversimentBean {
 
 	private List<Adversiment> adversiments = new ArrayList<Adversiment>();
 
-	public String pesquisar() {
+	
+	public void pesquisar(ActionEvent actionEvent) {
 		
-		System.out.println("entrou aki");
-		
-		return null;
 	}
 
 	public List<Adversiment> getAdversiments() {
