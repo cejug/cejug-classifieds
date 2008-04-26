@@ -13,20 +13,20 @@
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
-	
+
 	<context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
-	
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
 		<param-value>blueSky</param-value>
 	</context-param>
 	<context-param>
-        <param-name>org.richfaces.CONTROL_SKINNING</param-name>
-        <param-value>enable</param-value>
-    </context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param>
 	<context-param>
 		<param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
 		<param-value>enable</param-value>
@@ -70,15 +70,15 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
-	<error-page>  
-   		<error-code>403</error-code>  
-   		<location>/accessDenied.jsp</location>  
-    </error-page>
-   
-    <error-page>  
-   		<error-code>404</error-code>  
-   		<location>/pageNotFound.jsp</location>  
-    </error-page> 
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/accessDenied.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pageNotFound.jsp</location>
+	</error-page>
 
 </web-app>
