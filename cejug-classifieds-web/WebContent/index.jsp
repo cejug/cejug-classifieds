@@ -19,9 +19,9 @@
 
 			<rich:toolBarGroup>
 
-				<h:graphicImage id="edit" value="/images/icons/edit.gif" />
+				<h:graphicImage id="login" value="/images/edit.gif" />
 
-				<h:outputLabel value="Edit" for="edit" />
+				<h:commandLink action="login" value="Login"></h:commandLink>
 
 			</rich:toolBarGroup>
 

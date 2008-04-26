@@ -24,6 +24,10 @@
 			<from-outcome>index</from-outcome>
 			<to-view-id>/pages/adversiments.jsp</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/pages/login.jsp</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 
 </faces-config>
