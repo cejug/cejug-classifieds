@@ -2,10 +2,7 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 
 import net.java.dev.cejug.classifieds.server.dao.AbstractClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
@@ -48,11 +45,12 @@ public class ResponseTimeDao extends
 			transaction.begin();
 			manager.persist(entity);
 			transaction.commit();
+			// TODO: log...
 		} catch (Exception e) {
+			// TODO: log...
 			e.printStackTrace();
-			System.out.print("Manager = ");
-			System.out.println(manager);
-
+			if (manager == null)
+				System.out.print("DATASOURCE NULO :( configuraçao errada...");
 		}
 	}
 }

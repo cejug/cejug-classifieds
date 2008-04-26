@@ -46,9 +46,8 @@
 	</target>
 
 	<target name="create-war">
-		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/deploy/web.xml">
-			<webinf dir="${basedir}/deploy" includes="sun-jaxws.xml" />
-			<webinf dir="${basedir}/deploy" includes="handlers.xml" prefix="WEB-INF/classes" />
+		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/WEB-INF/web.xml">
+			<webinf dir="${basedir}/WEB-INF" includes="**/**" />
 			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
 			<zipfileset dir="${resources.folder}" includes="**/**" prefix="WEB-INF/classes" />
 			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
