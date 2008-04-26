@@ -13,7 +13,6 @@
 
 <f:view>
 	<h:form>
-
 		<%-- TOOLBAR --%>
 		<rich:toolBar height="34" itemSeparator="line">
 
