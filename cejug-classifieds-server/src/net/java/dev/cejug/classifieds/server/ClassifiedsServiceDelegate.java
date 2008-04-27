@@ -62,11 +62,6 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 @Stateless
 public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	/*
-	 * private static final String LOAD_ATOM_OPERATION = "loadAtomOperation";
-	 * private static final String LOAD_RSS_OPERATION = "loadRssOperation";
-	 * private static final String PUBLISH_OPERATION = "publishOperation";
-	 * private static final String REPORT_SPAM_OPERATION =
-	 * "reportSpamOperation"; //
 	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
 	 */
 	@Resource
@@ -102,7 +97,6 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		try {
-
 			return implementation.loadAtomOperation(filter);
 		} catch (Exception e) {
 			// TODO: logging....
@@ -176,8 +170,8 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 			MessageContext msgContext = wsContext.getMessageContext();
 			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
 					.get(TimeKeeperSoapHandler.KEY));
-			msgContext
-					.put(MessageContext.WSDL_OPERATION, "checkMonitorOperation");
+			msgContext.put(MessageContext.WSDL_OPERATION,
+					"checkMonitorOperation");
 		}
 	}
 }

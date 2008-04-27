@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/ext/jaxb/jaxb-impl.jar"/>
 	<classpathentry kind="lib" path="lib/ext/jaxb/jaxb-xjc.jar"/>
 	<classpathentry kind="lib" path="lib/ext/jaxb/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/toplink-essentials.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

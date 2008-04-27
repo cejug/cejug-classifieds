@@ -2,20 +2,24 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Persistence;
 
 import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.reference.dao.pojos.OperationTimestampEntity;
 
-@Stateless
 public class ResponseTimeDao implements
 		ClassifiedsServerDao<OperationTimestamp> {
-	@PersistenceContext(unitName = "classifieds_server")
-	protected EntityManager manager;
+
+	
+	private EntityManagerFactory factory = null;
+
+	public ResponseTimeDao() {
+		factory = Persistence.createEntityManagerFactory("classifieds");
+	}
 
 	@Override
 	public OperationTimestamp create() throws Exception {
@@ -45,19 +49,22 @@ public class ResponseTimeDao implements
 	@Override
 	public void update(OperationTimestamp source) throws Exception {
 		try {
+			EntityManager manager = factory.createEntityManager();
 			OperationTimestampEntity entity = new OperationTimestampEntity(
 					source);
+			System.out.println("ENTITY = " + entity);
+			System.out.println("MANAGER = " + manager);
 			EntityTransaction transaction = manager.getTransaction();
+			System.out.println("EntityTransaction = " + transaction);
 			transaction.begin();
 			manager.persist(entity);
 			transaction.commit();
 			System.out.println("COMITOU !");
 			// TODO: log...
 		} catch (Exception e) {
+			System.out.println("FACTORY________ " + factory);
 			// TODO: log...
 			e.printStackTrace();
-			if (manager == null)
-				System.out.print("DATASOURCE NULO :( configuraçao errada...");
 		}
 	}
 }

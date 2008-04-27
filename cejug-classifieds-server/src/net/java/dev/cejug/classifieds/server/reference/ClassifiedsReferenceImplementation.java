@@ -27,6 +27,10 @@ import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.soap.SOAPFaultException;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
@@ -104,6 +108,17 @@ public class ClassifiedsReferenceImplementation implements
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		// throw new WebServiceException("operation not yet implemented");
+		/*javax.xml.soap.Detail detail = null;
+		try {
+			detail = SOAPFactory.newInstance().createDetail();
+			detail.addChildElement("MyDetails").addTextNode("failed");
+		} catch (SOAPException e) {
+			e.printStackTrace();
+		}
+		throw new SOAPFaultException(new QName(
+				"http://cejug-classifieds.dev.java.net/server/metadata",
+				"ClassifiedsFault"), "sendSOAPFault method failed",
+				"http://foo/bar/baz/", detail);*/
 		ServiceStatus status = new ServiceStatus();
 		return status;
 	}

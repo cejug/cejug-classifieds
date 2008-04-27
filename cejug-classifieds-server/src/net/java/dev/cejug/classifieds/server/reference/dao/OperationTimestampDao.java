@@ -2,19 +2,22 @@ package net.java.dev.cejug.classifieds.server.reference.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Persistence;
 
 import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
-@Stateless
 public class OperationTimestampDao implements
 		ClassifiedsServerDao<OperationTimestamp> {
-	@PersistenceContext(unitName = "classifieds_server")
-	EntityManager manager;
+
+	private EntityManagerFactory factory = null;
+
+	public OperationTimestampDao() {
+		factory = Persistence.createEntityManagerFactory("classifieds");
+	}
 
 	@Override
 	public OperationTimestamp create() throws Exception {
@@ -43,6 +46,7 @@ public class OperationTimestampDao implements
 
 	@Override
 	public void update(OperationTimestamp entity) throws Exception {
+		EntityManager manager = factory.createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		manager.persist(entity);
