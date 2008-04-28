@@ -23,22 +23,21 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.reference;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.soap.SOAPFaultException;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.Author;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
+import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
@@ -47,7 +46,10 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 
 /**
- * Cejug-Classifieds-service:
+ * TODO: NOT YET IMPLEMENTED. It is just a mockup code that hould be replaced
+ * when the real code becomes available. This fake return values helps client
+ * developers to continue to work unsynchronized with the server side
+ * development.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
@@ -70,19 +72,42 @@ public class ClassifiedsReferenceImplementation implements
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
 		Channel channel = new Channel();
-		/*
-		 * TRss rss = new TRss(); rss.setVersion(new BigDecimal(1.0d)); TRssItem
-		 * item = new TRssItem(); item .getTitleOrDescriptionOrLink() .add( "The
-		 * advertisement colelction title - can include Section, etc");
-		 * TRssChannel channel = new TRssChannel(); channel.getItem().add(item);
-		 * channel.getOtherAttributes(); channel.getAny();
-		 * channel.getTitleOrLinkOrDescription();
-		 * 
-		 * rss.setChannel(channel);
-		 */
+		Item item = new Item();
+		item.setAuthor(new Author());
+		item.setTitle("RSS Example");
+		item.setDescription("This is an example of an Item");
+
+		channel.getItem().add(item);
+		channel.setTitle("kk");
+		channel.setDescription("this is a channel description");
+		channel.setLink("https://cejug-classifieds.dev.java.net/");
+		channel.setLastBuildDate(new Date().toString());
+		channel.setPubDate(new Date().toString());
 		RssCollection response = new RssCollection();
 		response.getRssCollection().add(channel);
 		return response;
+		/*--
+		 * <?xml version="1.0" encoding="UTF-8" ?>
+		 <rss version="2.0">
+
+		 <channel>
+		 <title>RSS Example</title>
+		 <description>This is an example of an RSS feed</description>
+		 <link>http://www.domain.com/link.htm</link>
+		 <lastBuildDate>Mon, 28 Aug 2006 11:12:55 -0400 </lastBuildDate>
+		 <pubDate>Tue, 29 Aug 2006 09:00:00 -0400</pubDate>
+
+		 <item>
+		 <title>Item Example</title>
+		 <description>This is an example of an Item</description>
+		 <link>http://www.domain.com/link.htm</link>
+		 <guid isPermaLink="false"> 1102345</guid>
+		 <pubDate>Tue, 29 Aug 2006 09:00:00 -0400</pubDate>
+		 </item>
+
+		 </channel>
+		 </rss>
+		 */
 	}
 
 	@Override
@@ -95,7 +120,7 @@ public class ClassifiedsReferenceImplementation implements
 			factory = DatatypeFactory.newInstance();
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
-			throw new WebServiceException("operation not yet implemented");
+			throw new WebServiceException(e.getMessage());
 		}
 		status.setTimestamp(factory
 				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
@@ -108,17 +133,16 @@ public class ClassifiedsReferenceImplementation implements
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		// throw new WebServiceException("operation not yet implemented");
-		/*javax.xml.soap.Detail detail = null;
-		try {
-			detail = SOAPFactory.newInstance().createDetail();
-			detail.addChildElement("MyDetails").addTextNode("failed");
-		} catch (SOAPException e) {
-			e.printStackTrace();
-		}
-		throw new SOAPFaultException(new QName(
-				"http://cejug-classifieds.dev.java.net/server/metadata",
-				"ClassifiedsFault"), "sendSOAPFault method failed",
-				"http://foo/bar/baz/", detail);*/
+		/*
+		 * javax.xml.soap.Detail detail = null; try { detail =
+		 * SOAPFactory.newInstance().createDetail();
+		 * detail.addChildElement("MyDetails").addTextNode("failed"); } catch
+		 * (SOAPException e) { e.printStackTrace(); } throw new
+		 * SOAPFaultException(new QName(
+		 * "http://cejug-classifieds.dev.java.net/server/metadata",
+		 * "ClassifiedsFault"), "sendSOAPFault method failed",
+		 * "http://foo/bar/baz/", detail);
+		 */
 		ServiceStatus status = new ServiceStatus();
 		return status;
 	}
