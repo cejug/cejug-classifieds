@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.reference;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -33,17 +32,16 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.Author;
-import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
-import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilter;
+import net.java.dev.cejug.classifieds.server.reference.dao.RssChannelDao;
 
 /**
  * TODO: NOT YET IMPLEMENTED. It is just a mockup code that hould be replaced
@@ -69,22 +67,19 @@ public class ClassifiedsReferenceImplementation implements
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
-		// String section = filter.getSection(); // should be used to load
-		// different sections.
-		Channel channel = new Channel();
-		Item item = new Item();
-		item.setAuthor(new Author());
-		item.setTitle("RSS Example");
-		item.setDescription("This is an example of an Item");
-
-		channel.getItem().add(item);
-		channel.setTitle("kk");
-		channel.setDescription("this is a channel description");
-		channel.setLink("https://cejug-classifieds.dev.java.net/");
-		channel.setLastBuildDate(new Date().toString());
-		channel.setPubDate(new Date().toString());
+		RssChannelDao dao = new RssChannelDao();
 		RssCollection response = new RssCollection();
-		response.getRssCollection().add(channel);
+
+		for (SyndicationFilter f : filter.getFilterCollection()) {
+			// make SyndicationFilter query
+			try {
+				response.getRssCollection().addAll(dao.get("", 100));
+			} catch (Exception e) {
+				// TODO: log
+				e.printStackTrace();
+			}
+		}
+
 		return response;
 		/*--
 		 * <?xml version="1.0" encoding="UTF-8" ?>
