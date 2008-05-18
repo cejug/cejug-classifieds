@@ -25,13 +25,13 @@
 
 	<target name="clean">
 		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
-		<delete dir="${build.war.home}" includeEmptyDirs="true" />
+		<delete dir="${build.ear.home}" includeEmptyDirs="true" />
 		<delete dir="${generated.dir}" includeEmptyDirs="true" />
 	</target>
 
 	<target name="setup">
 		<mkdir dir="${build.classes.home}" />
-		<mkdir dir="${build.war.home}" />
+		<mkdir dir="${build.ear.home}" />
 		<mkdir dir="${generated.dir}" />
 	</target>
 
@@ -46,12 +46,12 @@
 	</target>
 
 	<target name="create-war">
-		<war warfile="${build.war.home}/${ant.project.name}.war" webxml="${basedir}/WEB-INF/web.xml">
+		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/WEB-INF/web.xml">
 			<webinf dir="${basedir}/WEB-INF" includes="**/**" />
 			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
-			<zipfileset dir="${resources.folder}" includes="**/**" prefix="WEB-INF/classes" />
+			<zipfileset dir="${resources.folder}" includes="**/**" excludes="**/META-INF/**/**" prefix="WEB-INF/classes" />
 			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
-			<classes dir="${build.classes.home}" />
+			<classes dir="${build.classes.home}" excludes="**/ejb3/**/**" />
 		</war>
 	</target>
 
@@ -75,7 +75,6 @@
 	<target name="server" depends="clean,setup,compile.resources.schema">
 		<antcall target="build-server-wsdl" />
 		<antcall target="create-war" />
-		<antcall target="deploy.automatic" />
 	</target>
 
 	<target name="deploy.automatic" if="service.deploy.automatic">
@@ -113,5 +112,23 @@
 		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="on" source="1.6" />
 		<jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
 		<delete dir="${generated.dir}" />
+	</target>
+
+	<!-- Package the entity classes -->
+	<target name="package-entity">
+		<jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
+			<fileset dir="${build.classes.home}">
+				<include name="**\ejb3**\**" />
+			</fileset>
+			<metainf dir="${resources.folder}/META-INF">
+				<include name="persistence.xml" />
+			</metainf>
+		</jar>
+	</target>
+
+	<target name="package-ear" depends="server, package-entity">
+		<ear destfile="${build.ear.home}/${ant.project.name}.ear" appxml="deploy/application.xml">
+			<fileset dir="${build.ear.home}" includes="*.jar,*.war" />
+		</ear>
 	</target>
 </project>

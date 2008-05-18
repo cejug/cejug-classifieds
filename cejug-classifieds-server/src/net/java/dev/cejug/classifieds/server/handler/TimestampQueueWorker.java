@@ -5,12 +5,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.generated.i18n.TimestampQueueWorkerI18N;
-import net.java.dev.cejug.classifieds.server.reference.dao.ResponseTimeDao;
 
 /**
  * This class consumes the timestamp of the operation calls.
@@ -19,7 +20,9 @@ import net.java.dev.cejug.classifieds.server.reference.dao.ResponseTimeDao;
  */
 public class TimestampQueueWorker extends TimerTask {
 	private ConcurrentLinkedQueue<OperationTimestamp> queue;
-	private ResponseTimeDao dao = new ResponseTimeDao();
+	@EJB
+	private ClassifiedsServerDao<OperationTimestamp> dao;
+
 	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
 			.getName(), "i18n/log");
 

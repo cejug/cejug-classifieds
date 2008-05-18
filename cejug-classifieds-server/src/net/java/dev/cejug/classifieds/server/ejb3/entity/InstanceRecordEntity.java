@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @SuppressWarnings("unused")
 @Entity
@@ -18,8 +20,10 @@ public class InstanceRecordEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date start;
 	@Column
+	@Temporal(TemporalType.DATE)
 	private Date finish;
 	@Column
 	private String obs;

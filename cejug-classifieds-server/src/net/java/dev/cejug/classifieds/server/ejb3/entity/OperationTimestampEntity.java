@@ -8,20 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "response_time")
 public class OperationTimestampEntity {
-	public OperationTimestampEntity(OperationTimestamp stamp) {
-		operationName = stamp.getOperationName();
-		start = stamp.getStart().toGregorianCalendar().getTime();
-		finish = stamp.getFinish().toGregorianCalendar().getTime();
-		status = stamp.isStatus();
-		clientId = stamp.getClientId();
-		fault = stamp.getFault();
-	}
+
+	/*
+	 * public OperationTimestampEntity(OperationTimestamp stamp) { operationName =
+	 * stamp.getOperationName(); start =
+	 * stamp.getStart().toGregorianCalendar().getTime(); finish =
+	 * stamp.getFinish().toGregorianCalendar().getTime(); status =
+	 * stamp.isStatus(); clientId = stamp.getClientId(); fault =
+	 * stamp.getFault(); }
+	 */
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,10 @@ public class OperationTimestampEntity {
 	@Column(nullable = false)
 	private String operationName;
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date start;
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date finish;
 	@Column(nullable = false)
 	private Boolean status;

@@ -9,6 +9,7 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.generated.config.Injection;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
+
 /**
  * This class is used to check the values read from the config XML. Despite JAXB
  * validates the XML against it schema, the contents of the properties file

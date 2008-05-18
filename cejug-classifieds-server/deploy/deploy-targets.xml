@@ -4,17 +4,18 @@
 	<property name="jaxws.lib.home" value="${env.JAXWS_HOME}/lib" />
 	<property name="project.lib" value="${basedir}/lib" />
 	<property name="build.home" value="${basedir}/build" />
-	<property name="build.war.home" value="${build.home}/war" />
+	<property name="build.ear.home" value="${build.home}/ear" />
+	<property name="build.entity.package" value="${build.home}/entities" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 	<target name="deploy" depends="deploy-tomcat, deploy-appserver" />
 
 	<target name="deploy-appserver" unless="tomcat">
-		<copy file="${build.war.home}/${ant.project.name}.war" todir="${as.home}/domains/${domain}/autodeploy" />
+		<copy file="${build.ear.home}/${ant.project.name}.war" todir="${as.home}/domains/${domain}/autodeploy" />
 	</target>
 
 	<target name="deploy-tomcat" if="tomcat">
-		<copy file="${build.war.home}/jaxws-${ant.project.name}.war" todir="${env.CATALINA_HOME}/webapps" />
+		<copy file="${build.ear.home}/jaxws-${ant.project.name}.war" todir="${env.CATALINA_HOME}/webapps" />
 	</target>
 
 	<target name="help">
