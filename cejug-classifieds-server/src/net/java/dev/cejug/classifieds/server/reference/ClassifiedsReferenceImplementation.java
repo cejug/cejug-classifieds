@@ -25,12 +25,10 @@ package net.java.dev.cejug.classifieds.server.reference;
 
 import java.util.GregorianCalendar;
 
-import javax.ejb.EJB;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.RssChannelDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
@@ -39,7 +37,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServi
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
-import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -57,12 +54,9 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilte
  */
 public class ClassifiedsReferenceImplementation implements
 		ClassifiedsServiceInterface {
-	@EJB
-	private ClassifiedsServerDao<OperationTimestamp> dao;
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-		System.out.println("FFFFFFFFFFFF: " + dao);
 		// String section = filter.getSection(); // should be used to load
 		// different sections.
 		FeedType feed = new FeedType();
