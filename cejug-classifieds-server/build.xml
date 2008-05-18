@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="help" name="cejug-classifieds-server">
 	<property file="build.properties" />
-	<import file="deploy/deploy-targets.xml" />
+	<property environment="env" />
+	<property name="as.home" value="${env.AS_HOME}" />
+	<property name="jaxws.lib.home" value="${env.JAXWS_HOME}/lib" />
+	<property name="project.lib" value="${basedir}/lib" />
+	<property name="build.home" value="${basedir}/build" />
+	<property name="build.ear.home" value="${build.home}/ear" />
+	<property name="build.entity.package" value="${build.home}/entities" />
+	<property name="build.classes.home" value="${build.home}/classes" />
+	<property name="domain" value="domain1" />
+
 	<import file="deploy/functional-tests.xml" />
 
 	<path id="jaxws.classpath">
@@ -131,4 +140,9 @@
 			<fileset dir="${build.ear.home}" includes="*.jar,*.war" />
 		</ear>
 	</target>
+
+	<target name="deploy" depends="package-ear">
+		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${as.home}/domains/${domain}/autodeploy" />
+	</target>
+
 </project>

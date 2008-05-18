@@ -3,22 +3,22 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 
 @Stateless
-public class ResponseTimeBean implements
-		ClassifiedsServerDao<OperationTimestamp> {
+public class ResponseTimeBean implements ResponseTime {
+	// this injects the default entity manager factory
 
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
 
 	public ResponseTimeBean() {
-		// factory = Persistence.createEntityManagerFactory("classifieds");
 	}
 
 	@Override
@@ -46,6 +46,31 @@ public class ResponseTimeBean implements
 		return null;
 	}
 
+	/**
+	 * This is just a test.... INTERCEPTORS is a good reason to think about EJB3 :)
+	 * 
+	 * @param ctx
+	 * @return
+	 * @throws Exception
+	 */
+	@AroundInvoke
+	public Object TimerLog(InvocationContext ctx) throws Exception {
+		String beanClassName = ctx.getClass().getName();
+		String businessMethodName = ctx.getMethod().getName();
+		String target = beanClassName + "." + businessMethodName;
+		long startTime = System.currentTimeMillis();
+		System.out.println("Invoking " + target);
+		try {
+			return ctx.proceed();
+		} finally {
+			System.out.println("Exiting " + target);
+			long totalTime = System.currentTimeMillis() - startTime;
+			System.out.println("Business method " + businessMethodName + " in "
+					+ beanClassName + "takes " + totalTime + "ms to execute");
+		}
+
+	}
+
 	@Override
 	public void update(OperationTimestamp source) throws Exception {
 		try {
@@ -60,18 +85,12 @@ public class ResponseTimeBean implements
 			entity.setClientId(source.getClientId());
 			entity.setFault(source.getFault());
 
-			System.out.println("ENTITY = " + entity);
-			System.out.println("MANAGER = " + manager);
-			// EntityTransaction transaction = manager.getTransaction();
-			// System.out.println("EntityTransaction = " + transaction);
-			// transaction.begin();
 			manager.persist(entity);
-			// transaction.commit();
-			// System.out.println("COMITOU !");
+
+			System.out.println("COMITOU !");
 			// TODO: log...
 
 		} catch (Exception e) {
-			System.out.println("ENTITY MANAGER________ " + manager);
 			// TODO: log...
 			e.printStackTrace();
 		}
