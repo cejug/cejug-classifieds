@@ -6,9 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.Author;
@@ -18,11 +16,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 @Stateless
 public class RssChannelDao implements ClassifiedsServerDao<Channel> {
 
-	private EntityManagerFactory factory = null;
-
-	public RssChannelDao() {
-		factory = Persistence.createEntityManagerFactory("classifieds");
-	}
+	@PersistenceContext(unitName = "classifieds")
+	private EntityManager manager;
 
 	@Override
 	public Channel create() throws Exception {
@@ -66,10 +61,6 @@ public class RssChannelDao implements ClassifiedsServerDao<Channel> {
 
 	@Override
 	public void update(Channel entity) throws Exception {
-		EntityManager manager = factory.createEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		transaction.begin();
 		manager.persist(entity);
-		transaction.commit();
 	}
 }
