@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
+	You may not modify, use, reproduce, or distribute this software except
+	in compliance with the terms of the License at: 
+	http://developer.sun.com/berkeley_license.html
+	$Id: application.xml,v 1.1 2006/12/23 00:18:26 yutayoshida Exp $ -->
+
+<application version="5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd">
+	<display-name>cejug-classifieds</display-name>
+	<module>
+		<web>
+			<web-uri>cejug-classifieds-server.war</web-uri>
+			<context-root>cejug-classifieds-server</context-root>
+		</web>
+	</module>
+	<module>
+		<ejb>cejug-classifieds-server-ejb.jar</ejb>
+	</module>
+</application>
