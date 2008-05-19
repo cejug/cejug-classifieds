@@ -86,10 +86,6 @@ public class ResponseTimeBean implements ResponseTime {
 			entity.setFault(source.getFault());
 
 			manager.persist(entity);
-
-			System.out.println("COMITOU !");
-			// TODO: log...
-
 		} catch (Exception e) {
 			// TODO: log...
 			e.printStackTrace();

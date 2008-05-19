@@ -25,12 +25,14 @@ package net.java.dev.cejug.classifieds.server.reference;
 
 import java.util.GregorianCalendar;
 
+import javax.naming.InitialContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.AdvertisementPublisherRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.RssChannelDao;
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
@@ -54,6 +56,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilte
  */
 public class ClassifiedsReferenceImplementation implements
 		ClassifiedsServiceInterface {
+	private AdvertisementPublisherRemote dao;
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
@@ -107,23 +110,30 @@ public class ClassifiedsReferenceImplementation implements
 	}
 
 	@Override
-	public ServiceStatus publishOperation(Advertisement advertisement) {
-		ServiceStatus status = new ServiceStatus();
-		status.setDescription("OK");
-		status.setCode(202);
-		DatatypeFactory factory;
+	public ServiceStatus publishOperation(AdvertisementBundle advertisement) {
 		try {
+			InitialContext ic = new InitialContext();
+			AdvertisementPublisherRemote dao = (AdvertisementPublisherRemote) ic
+					.lookup(AdvertisementPublisherRemote.class.getName());
+			dao.update(advertisement);
+
+			ServiceStatus status = new ServiceStatus();
+			status.setDescription("OK");
+			status.setCode(202);
+			DatatypeFactory factory;
+
 			factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
+			status
+					.setTimestamp(factory
+							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+									.getInstance()));
+
+			return status;
+			// throw new WebServiceException("operation not yet implemented");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new WebServiceException(e.getMessage());
 		}
-		status.setTimestamp(factory
-				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
-						.getInstance()));
-
-		return status;
-		// throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override

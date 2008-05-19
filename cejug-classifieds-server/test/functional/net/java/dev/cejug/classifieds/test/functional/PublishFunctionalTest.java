@@ -33,6 +33,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.QName;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.Author;
 import net.java.dev.cejug.classifieds.server.generated.contract.AuthorType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
@@ -82,11 +83,11 @@ public class PublishFunctionalTest {
 		// Publishing period
 		DatatypeFactory factory = DatatypeFactory.newInstance();
 		Calendar today = GregorianCalendar.getInstance();
-		advertisement.setPublishingDate(factory
+		advertisement.setPublishingStart(factory
 				.newXMLGregorianCalendar((GregorianCalendar) today));
 		Calendar fiveDaysLater = GregorianCalendar.getInstance();
 		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-		advertisement.setPublishingDate(factory
+		advertisement.setPublishingFinish(factory
 				.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
 
 		// Advertisement contents
@@ -112,7 +113,12 @@ public class PublishFunctionalTest {
 				wsdlLocation, serviceName);
 		ClassifiedsServiceInterface facade = service
 				.getClassifiedsServiceInterface();
-		ServiceStatus status = facade.publishOperation(advertisement);
+		AdvertisementBundle bundle = new AdvertisementBundle();
+
+		bundle.getAdvertisements().add(advertisement);
+		bundle.setAuthorId("cejug.registered.12");
+
+		ServiceStatus status = facade.publishOperation(bundle);
 		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 

@@ -196,8 +196,7 @@
 
 	<!-- ADVERTISEMENT PUBLISHING -->
 	<wsdl:message name="Publish">
-		<wsdl:part element="business:Advertisement"
-			name="advertisement" />
+		<wsdl:part element="business:AdvertisementBundle" name="bundle" />
 	</wsdl:message>
 
 	<wsdl:message name="PublishResponse">

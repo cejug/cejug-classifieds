@@ -54,7 +54,6 @@ public class TimestampQueueWorker extends TimerTask {
 				InitialContext ic = new InitialContext();
 				ResponseTime dao = (ResponseTime) ic.lookup(ResponseTime.class
 						.getName());
-
 				dao.update(stamp);
 			} catch (Exception e) {
 				logger.log(Level.SEVERE,

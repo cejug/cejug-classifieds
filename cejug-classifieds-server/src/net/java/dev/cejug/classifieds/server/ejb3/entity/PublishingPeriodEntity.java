@@ -4,33 +4,42 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "response_time")
-public class OperationTimestampEntity {
+@Table(name = "publishing_period")
+public class PublishingPeriodEntity {
+	public enum PeriodState {
+		NEW, OPEN, CLOSED, CANCELED
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable = false)
-	private String operationName;
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date start;
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date finish;
+
 	@Column(nullable = false)
-	private Boolean status;
-	@Column(nullable = false)
-	private String clientId;
-	@Column(nullable = true)
-	private String fault;
+	@Enumerated(EnumType.STRING)
+	private PeriodState state;
+
+	@SuppressWarnings("unused")
+	@PrimaryKeyJoinColumn
+	private AdvertisementEntity advertisement;
 
 	public Integer getId() {
 		return id;
@@ -38,14 +47,6 @@ public class OperationTimestampEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getOperationName() {
-		return operationName;
-	}
-
-	public void setOperationName(String operationName) {
-		this.operationName = operationName;
 	}
 
 	public Date getStart() {
@@ -64,28 +65,11 @@ public class OperationTimestampEntity {
 		this.finish = finish;
 	}
 
-	public Boolean getStatus() {
-		return status;
+	public PeriodState getState() {
+		return state;
 	}
 
-	public void setStatus(Boolean status) {
-		this.status = status;
+	public void setState(PeriodState state) {
+		this.state = state;
 	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
-
-	public String getFault() {
-		return fault;
-	}
-
-	public void setFault(String fault) {
-		this.fault = fault;
-	}
-
 }

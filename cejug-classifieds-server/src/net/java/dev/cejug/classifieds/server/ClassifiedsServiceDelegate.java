@@ -32,7 +32,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
@@ -126,7 +126,7 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	}
 
 	@Override
-	public ServiceStatus publishOperation(Advertisement advertisement) {
+	public ServiceStatus publishOperation(AdvertisementBundle advertisement) {
 		try {
 			return implementation.publishOperation(advertisement);
 		} catch (Exception e) {
