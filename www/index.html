@@ -78,14 +78,24 @@ The current prototype has the following interface:</p>
 <p>You can try the latest version of the web-service prototype.
 Instructions:</p>
 <ol>
-	<li>Install <a href='https://glassfish.dev.java.net//'>Glassfish</a></li>
-	<li>Download the <a
-		href='/files/documents/8128/91793/cejug-classifieds-server.war'>cejug-classifieds-server.war</a></li>
-	<li>Start default server</li>
-	<li>Copy the war file to the directory
-	&lt;%GLASSFISH_HOME%&gt;\domains\domain1\autodeploy</li>
+	<li>Setup (in case you don't have any of the below tools
+	installed):
+	<ol>
+		<li>Install <a href='https://glassfish.dev.java.net/'>Glassfish</a></li>
+		<li>Install <a href='http://ant.apache.org/'>Apache ANT</a></li>
+		<li>Install <a href='http://subversion.tigris.org/'>Subversion</a></li>
+	</ol>
+	<small>* please pay special attention to the environment
+	variables, read the installation instructions.</small></li>
+	<li>Checkout the snapshot code:<pre>svn checkout https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk cejug-classifieds --username username</pre></li>
+	<li>Start default server and the default database: <pre>asadmin start-domain domain1
+	asadmin start-database</pre></li>
+	<li>Go to the checkout folder and run the ANT task to delpoy the
+	service: <pre>ant deploy</pre></li>
 	<li>Open a browser with the URL: <a
 		href='http://localhost:8080/cejug-classifieds-server/server'>http://localhost:8080/cejug-classifieds-server/server</a></li>
+	<li>To check if the service is working, you can run the following
+	ANT task:<pre>ant functionals.tests</pre></li>
 </ol>
 <p>* If the service does not load, you can check the LOG file at
 &lt;%GLASSFISH_HOME%&gt;\domains\domain1\logs\server.log</p>
@@ -131,8 +141,7 @@ Instructions:</p>
 				<td colspan='2'>
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 				<input type="hidden" name="cmd" value="_s-xclick"> <input
-					type="image"
-					src="/files/documents/8128/97066/x-click-but21.gif"
+					type="image" src="/files/documents/8128/97066/x-click-but21.gif"
 					border="0" name="submit"
 					alt="PayPal - The safer, easier way to pay online!"> <img
 					alt="" border="0"
