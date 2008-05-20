@@ -1,5 +1,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,13 +26,13 @@ public class AdvertisementEntity {
 	@Column(nullable = false)
 	private String keywords;
 
-	@OneToOne(mappedBy = "advertisement")
+	@OneToOne(mappedBy = "advertisement", cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "period")
 	private PublishingPeriodEntity publishingPeriod;
 
-	@ManyToOne
-	@JoinColumn(name = "publisher_id")
-	private PublisherEntity publisher;
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "author")
+	private AuthorEntity author;
 
 	public Integer getId() {
 		return id;
@@ -73,12 +74,12 @@ public class AdvertisementEntity {
 		this.publishingPeriod = publishingPeriod;
 	}
 
-	public PublisherEntity getPublisher() {
-		return publisher;
+	public AuthorEntity getPublisher() {
+		return author;
 	}
 
-	public void setPublisher(PublisherEntity publisher) {
-		this.publisher = publisher;
+	public void setPublisher(AuthorEntity publisher) {
+		this.author = publisher;
 	}
 
 	public String getKeywords() {

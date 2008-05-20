@@ -102,6 +102,8 @@ public class PublishFunctionalTest {
 		locale.setLanguage("pt");
 		locale.setCountry("BR");
 		advertisement.setLocale(locale);
+		advertisement.setKeywords("J2EE,JAXWS");
+		advertisement.setStatus(1);
 
 		// connecting the web-service and calling the publish operation
 		URL wsdlLocation = new URL(

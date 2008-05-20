@@ -8,13 +8,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.java.dev.cejug.classifieds.server.dao.ClassifiedsServerDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.Author;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 
 @Stateless
-public class RssChannelDao implements ClassifiedsServerDao<Channel> {
+public class RssChannelDao implements DomainModelFacade<Channel> {
 
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
