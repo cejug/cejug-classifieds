@@ -23,7 +23,7 @@ public class TimestampQueueWorker extends TimerTask {
 
 	// @EJB(name =
 	// "net.java.dev.cejug.classifieds.server.ejb3.bean.ResponseTime")
-	private ResponseTime dao;
+	// private ResponseTime dao;
 
 	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
 			.getName(), "i18n/log");
@@ -59,7 +59,6 @@ public class TimestampQueueWorker extends TimerTask {
 				logger.log(Level.SEVERE,
 						TimestampQueueWorkerI18N.DB_UPDATE_ERROR.value(), e
 								.getMessage());
-				System.out.println("DDDAAAAAOOOOO - " + dao);
 				e.printStackTrace();
 				// time keeper does not shutdown the service.
 			}

@@ -6,44 +6,32 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+//@IdClass(AuthorComposedId.class)
 @Entity
 @Table(name = "author")
-@IdClass(AuthorComposedId.class)
 public class AuthorEntity {
 	@Id
-	@Column(name = "partner")
-	private int partnerId;
-	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String id;
+
 	@Column(name = "login")
 	private String login;
 
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-	private Collection<QuotaEntity> quotas;
+	@PrimaryKeyJoinColumn
+	private DomainEntity domain;
 
-	@ManyToOne
-	@JoinTable(name = "partner", joinColumns = {
-			@JoinColumn(name = "id", referencedColumnName = "partner"),
-			@JoinColumn(name = "login", referencedColumnName = "login") })
-	private PartnerEntity partner;
+	@OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
+	private Collection<QuotaEntity> quotas;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private Collection<AdvertisementEntity> advertisements;
-
-	public int getPartnerId() {
-		return partnerId;
-	}
-
-	public void setPartnerId(int partnerId) {
-		this.partnerId = partnerId;
-	}
 
 	public String getLogin() {
 		return login;
@@ -53,12 +41,20 @@ public class AuthorEntity {
 		this.login = login;
 	}
 
-	public PartnerEntity getPartner() {
-		return partner;
+	public Collection<QuotaEntity> getQuotas() {
+		return quotas;
 	}
 
-	public void setPartner(PartnerEntity partner) {
-		this.partner = partner;
+	public void setQuotas(Collection<QuotaEntity> quotas) {
+		this.quotas = quotas;
+	}
+
+	public DomainEntity getDomain() {
+		return domain;
+	}
+
+	public void setDomain(DomainEntity domain) {
+		this.domain = domain;
 	}
 
 	public Collection<AdvertisementEntity> getAdvertisements() {
@@ -68,4 +64,5 @@ public class AuthorEntity {
 	public void setAdvertisements(Collection<AdvertisementEntity> advertisements) {
 		this.advertisements = advertisements;
 	}
+
 }

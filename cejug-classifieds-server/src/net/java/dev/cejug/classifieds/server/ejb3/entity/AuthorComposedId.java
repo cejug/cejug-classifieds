@@ -1,14 +1,14 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 public class AuthorComposedId {
-	private int partnerId;
+	private String domain;
 	private String login;
 
 	public AuthorComposedId() {
 	}
 
-	public AuthorComposedId(int partner, String login) {
-		this.partnerId = partner;
+	public AuthorComposedId(String domain, String login) {
+		this.domain = domain;
 		this.login = login;
 	}
 
@@ -18,7 +18,7 @@ public class AuthorComposedId {
 		if (obj instanceof AuthorComposedId) {
 			AuthorComposedId otherAuthor = (AuthorComposedId) obj;
 			return login.equals(otherAuthor.getLogin())
-					&& partnerId == otherAuthor.getPartnerId();
+					&& domain == otherAuthor.getDomain();
 		} else {
 			return false;
 		}
@@ -26,14 +26,23 @@ public class AuthorComposedId {
 
 	@Override
 	public int hashCode() {
-		return login.hashCode() + partnerId;
+		return login.hashCode() + domain.hashCode();
 	}
 
-	public int getPartnerId() {
-		return partnerId;
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 	public String getLogin() {
 		return login;
 	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 }

@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,9 @@ public class PublishingPeriodEntity {
 	private Date finish;
 
 	@Column(nullable = false)
+	private TimeZone timezone;
+	
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PeriodState state;
 
@@ -43,6 +47,22 @@ public class PublishingPeriodEntity {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public TimeZone getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(TimeZone timezone) {
+		this.timezone = timezone;
+	}
+
+	public AdvertisementEntity getAdvertisement() {
+		return advertisement;
+	}
+
+	public void setAdvertisement(AdvertisementEntity advertisement) {
+		this.advertisement = advertisement;
 	}
 
 	public void setId(Integer id) {
