@@ -23,11 +23,11 @@ public final class LimitedList extends ArrayList<Long> {
 		return super.add(e);
 	}
 
-	public synchronized long getAverage() {
+	public synchronized double getAverage() {
 		long count = 0L;
 		for (Long value : this) {
 			count += value;
 		}
-		return Math.round(count / size());
+		return Double.longBitsToDouble(count) / size();
 	}
 }

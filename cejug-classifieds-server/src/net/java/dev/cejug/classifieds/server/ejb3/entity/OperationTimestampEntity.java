@@ -57,7 +57,7 @@ public class OperationTimestampEntity {
 	}
 
 	public Date getFinish() {
-		return finish;
+		return (Date)finish.clone();
 	}
 
 	public void setFinish(Date finish) {

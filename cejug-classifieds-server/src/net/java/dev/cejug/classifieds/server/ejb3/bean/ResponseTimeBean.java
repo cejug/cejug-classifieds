@@ -54,7 +54,7 @@ public class ResponseTimeBean implements ResponseTime {
 	 * @throws Exception
 	 */
 	@AroundInvoke
-	public Object TimerLog(InvocationContext ctx) throws Exception {
+	public Object timerLog(InvocationContext ctx) throws Exception {
 		String beanClassName = ctx.getClass().getName();
 		String businessMethodName = ctx.getMethod().getName();
 		String target = beanClassName + "." + businessMethodName;

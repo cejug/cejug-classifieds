@@ -56,8 +56,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilte
  */
 public class ClassifiedsReferenceImplementation implements
 		ClassifiedsServiceInterface {
-	private AdvertisementPublisherRemote dao;
-
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
@@ -167,9 +165,6 @@ public class ClassifiedsReferenceImplementation implements
 				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
 						.getInstance()));
 		response.setServiceName(this.getClass().getName());
-
-		MonitorResponse rt = new MonitorResponse();
-
 		return response;
 	}
 }
