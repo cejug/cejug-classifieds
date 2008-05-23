@@ -2,36 +2,32 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-//@IdClass(AuthorComposedId.class)
 @Entity
-@Table(name = "author")
-public class AuthorEntity {
+@Table(name = "customer")
+public class CustomerEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
 
 	@Column(name = "login")
 	private String login;
 
-	@PrimaryKeyJoinColumn
+	@ManyToOne
+	@JoinColumn(name = "domain_id")
 	private DomainEntity domain;
 
-	@OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
+	@OneToMany
 	private Collection<QuotaEntity> quotas;
-
-	@OneToMany(mappedBy = "author", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	private Collection<AdvertisementEntity> advertisements;
 
 	public String getLogin() {
 		return login;
@@ -57,12 +53,11 @@ public class AuthorEntity {
 		this.domain = domain;
 	}
 
-	public Collection<AdvertisementEntity> getAdvertisements() {
-		return advertisements;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setAdvertisements(Collection<AdvertisementEntity> advertisements) {
-		this.advertisements = advertisements;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
 }

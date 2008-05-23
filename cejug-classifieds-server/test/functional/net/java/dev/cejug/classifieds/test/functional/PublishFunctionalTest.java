@@ -27,17 +27,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.QName;
 
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
-import net.java.dev.cejug.classifieds.server.generated.contract.Author;
-import net.java.dev.cejug.classifieds.server.generated.contract.AuthorType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
@@ -55,6 +57,14 @@ public class PublishFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
+		DomainEntity domain = new DomainEntity();
+		domain.setName("cejug");
+		domain.setSharedQuota(true);
+		domain.setTimezone(TimeZone.getTimeZone("America/Fortaleza"));
+
+		CustomerEntity customer = new CustomerEntity();
+		customer.setLogin("fgaucho");
+
 		// include or activate a new advertisement (submit via service or direct
 		// into database)
 	}
@@ -74,11 +84,10 @@ public class PublishFunctionalTest {
 		Advertisement advertisement = new Advertisement();
 
 		// Authorship
-		Author author = new Author();
-		author.setEmail("fgaucho@gmail.com");
-		author.setName("Felipe Gaúcho");
-		author.setType(AuthorType.COMMUNITY);
-		advertisement.setAdvertiser(author);
+		Customer customer = new Customer();
+		customer.setDomain("cejug");
+		customer.setLogin("fgaucho");
+		advertisement.setAdvertiser(customer);
 
 		// Publishing period
 		DatatypeFactory factory = DatatypeFactory.newInstance();
@@ -118,7 +127,7 @@ public class PublishFunctionalTest {
 		AdvertisementBundle bundle = new AdvertisementBundle();
 
 		bundle.getAdvertisements().add(advertisement);
-		bundle.setAuthorId("cejug.registered.12");
+		bundle.setAuthorId(1);
 
 		ServiceStatus status = facade.publishOperation(bundle);
 		assert status.getDescription().equalsIgnoreCase("OK");

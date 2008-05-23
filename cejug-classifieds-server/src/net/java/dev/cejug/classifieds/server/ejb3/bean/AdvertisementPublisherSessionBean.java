@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AuthorEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
@@ -24,10 +24,10 @@ public class AdvertisementPublisherSessionBean implements
 
 	@Override
 	public void update(AdvertisementBundle source) throws Exception {
-		AuthorEntity publisher = manager.find(AuthorEntity.class, source
+		CustomerEntity publisher = manager.find(CustomerEntity.class, source
 				.getAuthorId());
 
-		publisher = new AuthorEntity();
+		publisher = new CustomerEntity();
 		publisher.setLogin("teste");
 		manager.persist(publisher);
 
@@ -40,13 +40,9 @@ public class AdvertisementPublisherSessionBean implements
 			entity.setTitle(adv.getHeadline());
 
 			PublishingPeriodEntity period = new PublishingPeriodEntity();
-			period.setFinish(new Date(adv.getPublishingFinish()
-					.getMillisecond()));
-			period
-					.setStart(new Date(adv.getPublishingStart()
-							.getMillisecond()));
+			period.setDay(new Date(adv.getPublishingStart().getMillisecond()));
 			period.setState(PeriodState.NEW);
-			entity.setPublishingPeriod(period);
+			entity.getPublishingPeriod().add(period);
 			manager.persist(entity);
 		}
 	}

@@ -2,13 +2,10 @@ package net.java.dev.cejug.classifieds.server.handler;
 
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.naming.InitialContext;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.bean.ResponseTime;
 import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.generated.i18n.TimestampQueueWorkerI18N;
@@ -48,21 +45,14 @@ public class TimestampQueueWorker extends TimerTask {
 
 	@Override
 	public void run() {
-		OperationTimestamp stamp = queue.poll();
-		if (stamp != null) {
-			try {
-				InitialContext ic = new InitialContext();
-				ResponseTime dao = (ResponseTime) ic.lookup(ResponseTime.class
-						.getName());
-				dao.update(stamp);
-			} catch (Exception e) {
-				logger.log(Level.SEVERE,
-						TimestampQueueWorkerI18N.DB_UPDATE_ERROR.value(), e
-								.getMessage());
-				e.printStackTrace();
-				// time keeper does not shutdown the service.
-			}
-		}
+		/*
+		 * OperationTimestamp stamp = queue.poll(); if (stamp != null) { try {
+		 * InitialContext ic = new InitialContext(); ResponseTime dao =
+		 * (ResponseTime) ic.lookup(ResponseTime.class .getName());
+		 * dao.update(stamp); } catch (Exception e) { logger.log(Level.SEVERE,
+		 * TimestampQueueWorkerI18N.DB_UPDATE_ERROR.value(), e .getMessage());
+		 * e.printStackTrace(); // time keeper does not shutdown the service. } }
+		 */
 	}
 
 	public ConcurrentLinkedQueue<OperationTimestamp> getQueue() {

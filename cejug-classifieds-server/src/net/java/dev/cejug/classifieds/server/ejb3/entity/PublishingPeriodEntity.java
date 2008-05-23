@@ -28,15 +28,11 @@ public class PublishingPeriodEntity {
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date start;
-
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date finish;
+	private Date day;
 
 	@Column(nullable = false)
 	private TimeZone timezone;
-	
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PeriodState state;
@@ -69,27 +65,19 @@ public class PublishingPeriodEntity {
 		this.id = id;
 	}
 
-	public Date getStart() {
-		return start;
-	}
-
-	public void setStart(Date start) {
-		this.start = start;
-	}
-
-	public Date getFinish() {
-		return finish;
-	}
-
-	public void setFinish(Date finish) {
-		this.finish = finish;
-	}
-
 	public PeriodState getState() {
 		return state;
 	}
 
 	public void setState(PeriodState state) {
 		this.state = state;
+	}
+
+	public Date getDay() {
+		return day;
+	}
+
+	public void setDay(Date day) {
+		this.day = day;
 	}
 }

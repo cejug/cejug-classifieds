@@ -18,12 +18,8 @@ public class QuotaEntity {
 	private Integer id;
 
 	@OneToOne(mappedBy = "quota", cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "advertisement_type")
+	@JoinColumn(name = "advertisement_type_id")
 	private AdvertisementTypeEntity type;
-
-	@SuppressWarnings("unused")
-	@JoinColumn(name = "id")
-	private AuthorEntity author;
 
 	@Column(nullable = false)
 	private Integer available;

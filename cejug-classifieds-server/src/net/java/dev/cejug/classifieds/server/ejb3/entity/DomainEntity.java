@@ -1,40 +1,36 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.Collection;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "domain")
 public class DomainEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
 	@Column(nullable = false)
 	private Boolean sharedQuota;
 
-	@Id
 	@Column(nullable = false)
-	private String domain;
+	private String name;
 
-	@OneToMany(mappedBy = "domain")
-	private Collection<AuthorEntity> authors;
+	@Column(nullable = false)
+	private TimeZone timezone;
 
 	public String getDomain() {
-		return domain;
+		return name;
 	}
 
 	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	public Collection<AuthorEntity> getAuthors() {
-		return authors;
-	}
-
-	public void setAuthors(Collection<AuthorEntity> authors) {
-		this.authors = authors;
+		this.name = domain;
 	}
 
 	public Boolean getSharedQuota() {
@@ -46,11 +42,27 @@ public class DomainEntity {
 	}
 
 	public String getName() {
-		return domain;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.domain = name;
+		this.name = name;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public TimeZone getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(TimeZone timezone) {
+		this.timezone = timezone;
 	}
 
 }

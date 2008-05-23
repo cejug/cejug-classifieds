@@ -1,5 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,13 +28,12 @@ public class AdvertisementEntity {
 	@Column(nullable = false)
 	private String keywords;
 
-	@OneToOne(mappedBy = "advertisement", cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "period")
-	private PublishingPeriodEntity publishingPeriod;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private Collection<PublishingPeriodEntity> publishingPeriod;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "author")
-	private AuthorEntity author;
+	@JoinColumn(name = "customer_id")
+	private CustomerEntity customer;
 
 	public Integer getId() {
 		return id;
@@ -66,20 +67,12 @@ public class AdvertisementEntity {
 		this.text = text;
 	}
 
-	public PublishingPeriodEntity getPublishingPeriod() {
-		return publishingPeriod;
+	public CustomerEntity getPublisher() {
+		return customer;
 	}
 
-	public void setPublishingPeriod(PublishingPeriodEntity publishingPeriod) {
-		this.publishingPeriod = publishingPeriod;
-	}
-
-	public AuthorEntity getPublisher() {
-		return author;
-	}
-
-	public void setPublisher(AuthorEntity publisher) {
-		this.author = publisher;
+	public void setPublisher(CustomerEntity publisher) {
+		this.customer = publisher;
 	}
 
 	public String getKeywords() {
@@ -88,5 +81,22 @@ public class AdvertisementEntity {
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
+	}
+
+	public Collection<PublishingPeriodEntity> getPublishingPeriod() {
+		return publishingPeriod;
+	}
+
+	public void setPublishingPeriod(
+			Collection<PublishingPeriodEntity> publishingPeriod) {
+		this.publishingPeriod = publishingPeriod;
+	}
+
+	public CustomerEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
 	}
 }

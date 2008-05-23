@@ -76,7 +76,7 @@
 
 	<xsd:complexType name="Advertisement">
 		<xsd:sequence>
-			<xsd:element name="advertiser" type="business:Author" />
+			<xsd:element name="advertiser" type="business:Customer" />
 			<xsd:element name="headline" type="xsd:string" />
 			<xsd:element name="short.description" type="xsd:string" />
 			<xsd:element name="full.text" type="xsd:string" />
@@ -94,7 +94,7 @@
 	<xsd:element name="AdvertisementBundle">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="author.id" type="xsd:string"
+				<xsd:element name="author.id" type="xsd:int"
 					minOccurs="1" maxOccurs="1" />
 				<xsd:element name="advertisements"
 					type="business:Advertisement" minOccurs="1" maxOccurs="unbounded" />
@@ -110,24 +110,20 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="Author">
+	<xsd:complexType name="Domain">
 		<xsd:sequence>
+			<xsd:element name="shared.quota" type="xsd:boolean" />
 			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="type" type="business:Author.Type" />
-			<xsd:choice id="contact" minOccurs="1" maxOccurs="1">
-				<xsd:element name="selected" type="xsd:string" />
-				<xsd:element name="email" type="xsd:string" />
-				<xsd:element name="phone" type="xsd:string" />
-			</xsd:choice>
+			<xsd:element name="timezone" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:simpleType name="Author.Type">
-		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="commercial" />
-			<xsd:enumeration value="community" />
-		</xsd:restriction>
-	</xsd:simpleType>
+	<xsd:complexType name="Customer">
+		<xsd:sequence>
+			<xsd:element name="login" type="xsd:string" />
+			<xsd:element name="domain" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
 
 	<xsd:complexType name="Locale">
 		<xsd:sequence>
