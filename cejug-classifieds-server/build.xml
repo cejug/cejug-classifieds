@@ -46,6 +46,7 @@
 
 	<target name="build-server-wsdl">
 		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.wsdl}" wsdllocation="${service.wsdllocation}">
+			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
 		</wsimport>
 		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**">
 			<classpath refid="jaxws.classpath" />
@@ -81,7 +82,7 @@
 		<echo message="run:          Runs the client" />
 	</target>
 
-	<target name="server" depends="clean,setup,compile.resources.schema">
+	<target name="server" depends="setup,compile.resources.schema">
 		<antcall target="build-server-wsdl" />
 		<antcall target="create-war" />
 		<antcall target="compile.functional.tests" />
@@ -104,8 +105,12 @@
 
 	<target name="compile.resources.schema">
 		<echo message="Compiling the Classifieds-Server Config Schema..." />
-		<xjc schema="${jaxb.config.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}" />
-		<xjc schema="${jaxb.i18n.xsd}" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}" />
+		<xjc schema="${jaxb.config.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}">
+			<produces dir="${generated.dir}" includes="${jaxb.config.package}/**/*.java" />
+		</xjc>
+		<xjc schema="${jaxb.i18n.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}">
+			<produces dir="${generated.dir}" includes="${jaxb.i18n.package}/**/*.java" />
+		</xjc>
 		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="on" source="1.6" />
 
 		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
