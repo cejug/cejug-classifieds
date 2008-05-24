@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.Author;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 
@@ -36,7 +36,7 @@ public class RssChannelDao implements DomainModelFacade<Channel> {
 
 		Channel channel = new Channel();
 		Item item = new Item();
-		item.setAuthor(new Author());
+		item.setAuthor(new CustomerEntity());
 		item.setTitle("RSS Example");
 		item.setDescription("This is an example of an Item");
 
