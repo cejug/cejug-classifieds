@@ -1,269 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds"
-	targetNamespace="http://cejug-classifieds.dev.java.net/server"
-	xmlns:contract="http://cejug-classifieds.dev.java.net/server"
+	targetNamespace="http://cejug-classifieds.dev.java.net"
+	xmlns:contract="http://cejug-classifieds.dev.java.net"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/server/metadata"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-	xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business">
+	xmlns:contract-business="http://cejug-classifieds.dev.java.net/business"
+	xmlns:contract-admin="http://cejug-classifieds.dev.java.net/admin">
 
-	<wsdl:types>
-		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata"
-			xmlns:mime="http://www.w3.org/2005/05/xmlmim"
-			xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
-			xmlns:atom10="http://www.w3.org/2005/Atom"
-			xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business"
-			elementFormDefault="qualified">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/server/metadata/business"
-				schemaLocation="business.xsd" />
-
-			<xsd:import namespace="http://www.w3.org/2005/Atom"
-				schemaLocation="atom10.xsd" />
-
-			<xsd:import
-				namespace="http://blogs.law.harvard.edu/RSS20.xsd"
-				schemaLocation="rss20.xsd" />
-
-			<xsd:element name="ServiceFault">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="code" type="xsd:int" />
-						<xsd:element name="headline" type="xsd:string" />
-						<xsd:element name="details" type="xsd:string" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="ServiceStatus">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1">
-						<xsd:element name="code" type="xsd:int"
-							minOccurs="1" maxOccurs="1" />
-						<xsd:element name="description"
-							type="xsd:string" minOccurs="1" maxOccurs="1" />
-						<xsd:element name="timestamp" type="xsd:date"
-							minOccurs="1" maxOccurs="1" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="RssCollection">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-						<xsd:element name="rss.collection"
-							type="rss20:channel" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="AtomCollection">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-						<xsd:element name="atom.collection"
-							type="atom10:feedType" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-
-			<xsd:element name="AtomFilterCollection">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-						<xsd:element name="filter.collection"
-							type="metadata:SyndicationFilter" nillable="true" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:complexType name="SyndicationFilter">
-				<xsd:sequence>
-					<xsd:element name="upper.bound" type="xsd:int"
-						nillable="true" />
-					<xsd:element name="date.initial"
-						type="xsd:dateTime" />
-					<xsd:element name="date.final" type="xsd:dateTime" />
-					<xsd:element name="section" type="xsd:string" />
-					<xsd:element name="keywords" type="xsd:string"
-						minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:complexType>
-
-			<xsd:element name="RssFilterCollection">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-						<xsd:element name="filter.collection"
-							type="metadata:SyndicationFilter" nillable="true" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="SpamReport">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element name="advertisement.id"
-							type="xsd:int" />
-						<xsd:element name="reason" type="xsd:string" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="Credentials">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="client.id" type="xsd:string" />
-						<xsd:element name="customer.id"
-							type="xsd:string" />
-						<xsd:element name="customer.role"
-							type="xsd:string" />
-						<xsd:element name="group" type="xsd:string"
-							minOccurs="0" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="MonitorQuery">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="query" type="xsd:string"
-							minOccurs="0" maxOccurs="1" />
-						<xsd:element name="average.response.length"
-							type="xsd:int" default="10" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="MonitorResponse">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element name="service.name"
-							type="xsd:string" />
-						<xsd:element name="online.since"
-							type="xsd:dateTime" />
-						<xsd:element name="records"
-							type="metadata:OperationTimestamp" minOccurs="0"
-							maxOccurs="unbounded" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:complexType name="OperationTimestamp">
-				<xsd:sequence>
-					<xsd:element name="operation.name"
-						type="xsd:string" />
-					<xsd:element name="start" type="xsd:dateTime" />
-					<xsd:element name="finish" type="xsd:dateTime" />
-					<xsd:element name="client.id" type="xsd:string" />
-					<xsd:element name="status" type="xsd:boolean"
-						default="true" />
-					<xsd:element name="fault" type="xsd:string"
-						nillable="true" />
-
-				</xsd:sequence>
-			</xsd:complexType>
-		</xsd:schema>
-	</wsdl:types>
-
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- MESSAGES -->
-
-	<wsdl:message name="ClassifiedsFault">
-		<wsdl:part element="metadata:ServiceFault" name="fault" />
-	</wsdl:message>
-
-	<!-- LOAD RSS -->
-	<wsdl:message name="LoadRss">
-		<wsdl:part element="metadata:RssFilterCollection" name="filter" />
-	</wsdl:message>
-
-	<wsdl:message name="LoadRssResponse">
-		<wsdl:part element="metadata:RssCollection"
-			name="rss.collection" />
-	</wsdl:message>
-
-	<!-- LOAD ATOM -->
-	<wsdl:message name="LoadAtom">
-		<wsdl:part element="metadata:AtomFilterCollection"
-			name="filter" />
-	</wsdl:message>
-
-	<wsdl:message name="LoadAtomResponse">
-		<wsdl:part element="metadata:AtomCollection"
-			name="atom.collection" />
-	</wsdl:message>
-
-	<!-- ADVERTISEMENT PUBLISHING -->
-	<wsdl:message name="Publish">
-		<wsdl:part element="business:AdvertisementBundle" name="bundle" />
-	</wsdl:message>
-
-	<wsdl:message name="PublishResponse">
-		<wsdl:part element="metadata:ServiceStatus" name="status" />
-	</wsdl:message>
-
-	<!-- REPORT SPAM -->
-	<wsdl:message name="ReportSpam">
-		<wsdl:part element="metadata:SpamReport" name="spam" />
-	</wsdl:message>
-
-	<wsdl:message name="ReportSpamResponse">
-		<wsdl:part element="metadata:ServiceStatus" name="status" />
-	</wsdl:message>
-
-	<!-- MONITOR -->
-	<wsdl:message name="CheckMonitor">
-		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
-	</wsdl:message>
-
-	<wsdl:message name="CheckMonitorResponse">
-		<wsdl:part element="metadata:MonitorResponse"
-			name="service.status" />
-	</wsdl:message>
-
-	<wsdl:message name="Identification">
-		<wsdl:part element="metadata:Credentials" name="login" />
-	</wsdl:message>
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- PORT -->
-	<wsdl:portType name="ClassifiedsServiceInterface">
-		<wsdl:operation name="LoadRssOperation">
-			<wsdl:input message="contract:LoadRss" />
-			<wsdl:output message="contract:LoadRssResponse" />
-			<wsdl:fault name="LoadRssException"
-				message="contract:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="LoadAtomOperation">
-			<wsdl:input message="contract:LoadAtom" />
-			<wsdl:output message="contract:LoadAtomResponse" />
-			<wsdl:fault name="LoadAtomException"
-				message="contract:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="PublishOperation">
-			<wsdl:input message="contract:Publish" />
-			<wsdl:output message="contract:PublishResponse" />
-			<wsdl:fault name="PublishException"
-				message="contract:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="ReportSpamOperation">
-			<wsdl:input message="contract:ReportSpam" />
-			<wsdl:output message="contract:ReportSpamResponse" />
-			<wsdl:fault name="ReportSpamException"
-				message="contract:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="CheckMonitorOperation">
-			<wsdl:input message="contract:CheckMonitor" />
-			<wsdl:output message="contract:CheckMonitorResponse" />
-			<wsdl:fault name="CheckMonitorException"
-				message="contract:ClassifiedsFault" />
-		</wsdl:operation>
-	</wsdl:portType>
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/admin"
+		location="cejug-classifieds-admin.wsdl" />
+	<wsdl:import
+		namespace="http://cejug-classifieds.dev.java.net/business"
+		location="cejug-classifieds-business.wsdl" />
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- BINDING -->
-	<wsdl:binding name="CejugClassifiedsServiceBinding"
-		type="contract:ClassifiedsServiceInterface">
+	<wsdl:binding name="CejugClassifiedsBusinessBinding"
+		type="contract-business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
 		<wsdl:operation name="LoadRssOperation">
@@ -271,8 +25,7 @@
 				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRss" />
 			<wsdl:input>
 				<soap:body use="literal" />
-				<soap:header message="contract:Identification"
-					part="login" use="literal" />
+				<!-- soap:header message="contract:Identification" part="login" use="literal" /-->
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />
@@ -308,9 +61,15 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="CejugClassifiedsAdminBinding"
+		type="contract-admin:CejugClassifiedsAdmin">
+		<soap:binding style="document"
+			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
 		<wsdl:operation name="CheckMonitorOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/CheckMonitor" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CheckMonitor" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -321,10 +80,15 @@
 	</wsdl:binding>
 
 	<wsdl:service name="CejugClassifiedsService">
-		<wsdl:port name="ClassifiedsServiceInterface"
-			binding="contract:CejugClassifiedsServiceBinding">
+		<wsdl:port name="CejugClassifiedsAdmin"
+			binding="contract:CejugClassifiedsAdminBinding">
 			<soap:address
-				location="http://localhost:8080/cejug-classifieds-server/server" />
+				location="http://localhost:8080/cejug-classifieds-ws/admin" />
+		</wsdl:port>
+		<wsdl:port name="CejugClassifiedsBusiness"
+			binding="contract:CejugClassifiedsBusinessBinding">
+			<soap:address
+				location="http://localhost:8080/cejug-classifieds-ws/business" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

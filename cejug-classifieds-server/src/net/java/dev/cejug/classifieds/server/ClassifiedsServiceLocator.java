@@ -30,7 +30,7 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceLocatorI18N;
 import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
 
@@ -59,7 +59,7 @@ public abstract class ClassifiedsServiceLocator {
 	 * @return an instance of the service implementation.
 	 * @throws NoClassDefFoundError
 	 */
-	static ClassifiedsServiceInterface getServiceImplementation()
+	static CejugClassifiedsBusiness getBusinessImplementation()
 			throws Exception {
 		ClassifiedsServerConfig config = ConfigLoader.getInstance().load();
 		String serviceClass = config.getInjection().getServiceImplementation();
@@ -71,7 +71,7 @@ public abstract class ClassifiedsServiceLocator {
 		} else {
 			Class<?> type = Class.forName(serviceClass);
 			try {
-				ClassifiedsServiceInterface instance = (ClassifiedsServiceInterface) type
+				CejugClassifiedsBusiness instance = (CejugClassifiedsBusiness) type
 						.newInstance();
 				logger.log(Level.INFO,
 						ClassifiedsServiceLocatorI18N.LOCATOR_SERVICE_CUSTOM

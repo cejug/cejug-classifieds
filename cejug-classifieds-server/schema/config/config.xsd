@@ -33,6 +33,8 @@
 	<xsd:complexType name="Injection">
 		<xsd:attribute name="service.implementation" type="xsd:string"
 			use="optional" />
+		<xsd:attribute name="admin.session.bean" type="xsd:string"
+			use="optional" />
 	</xsd:complexType>
 	<xsd:complexType name="Monitor">
 		<xsd:attribute name="timer.queue.length" type="xsd:int"

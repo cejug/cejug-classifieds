@@ -20,7 +20,11 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>cejug-classifieds-server</servlet-name>
-		<url-pattern>/server</url-pattern>
+		<url-pattern>/business</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>cejug-classifieds-server</servlet-name>
+		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>60</session-timeout>

@@ -31,8 +31,8 @@ import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilter;
 
 import org.junit.After;
@@ -63,8 +63,8 @@ public class LoadAtomFunctionalTest {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		ClassifiedsServiceInterface service = new CejugClassifiedsService()
-				.getClassifiedsServiceInterface();
+		CejugClassifiedsBusiness service = new CejugClassifiedsService()
+				.getCejugClassifiedsBusiness();
 		System.out.println(service);
 		AtomFilterCollection filterCollection = new AtomFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();

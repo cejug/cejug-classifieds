@@ -24,21 +24,19 @@
 package net.java.dev.cejug.classifieds.test.functional;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.namespace.QName;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -54,13 +52,25 @@ import org.junit.Test;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 public class PublishFunctionalTest {
+	private CejugClassifiedsBusiness facade = null;
 
 	@Before
 	public void setUp() throws Exception {
+		// connecting the web-service and calling the publish operation
+		/*
+		 * URL wsdlLocation = new URL(
+		 * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
+		 * serviceName = new QName(
+		 * "http://cejug-classifieds.dev.java.net/server",
+		 * "CejugClassifiedsService");
+		 */
+		facade = new CejugClassifiedsService().getCejugClassifiedsBusiness();
+
 		DomainEntity domain = new DomainEntity();
-		domain.setName("cejug");
+		domain.setName("cejug.functional.test." + System.currentTimeMillis());
 		domain.setSharedQuota(true);
 		domain.setTimezone(TimeZone.getTimeZone("America/Fortaleza"));
+		// ServiceStatus status = facade.publishOperation(bundle);
 
 		CustomerEntity customer = new CustomerEntity();
 		customer.setLogin("fgaucho");
@@ -114,16 +124,6 @@ public class PublishFunctionalTest {
 		advertisement.setKeywords("J2EE,JAXWS");
 		advertisement.setStatus(1);
 
-		// connecting the web-service and calling the publish operation
-		URL wsdlLocation = new URL(
-				"http://localhost:8080/cejug-classifieds-server/server?wsdl");
-		QName serviceName = new QName(
-				"http://cejug-classifieds.dev.java.net/server",
-				"CejugClassifiedsService");
-		CejugClassifiedsService service = new CejugClassifiedsService(
-				wsdlLocation, serviceName);
-		ClassifiedsServiceInterface facade = service
-				.getClassifiedsServiceInterface();
 		AdvertisementBundle bundle = new AdvertisementBundle();
 
 		bundle.getAdvertisements().add(advertisement);

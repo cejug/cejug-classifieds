@@ -35,9 +35,7 @@ import javax.xml.ws.handler.MessageContext;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -58,9 +56,8 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 // @Interceptors( { Interceptor2.class })
-@javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface")
-@Stateless
-public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
+@javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness")
+public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	/*
 	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
 	 */
@@ -68,19 +65,19 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 	WebServiceContext wsContext;
 
 	/** The publisher logger. */
-	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
+	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
 			.getName(), "i18n/log");
 
 	/**
 	 * The service contract realization uses an injected implementation to
 	 * delegate the operation calls.
 	 */
-	private ClassifiedsServiceInterface implementation = null;
+	private CejugClassifiedsBusiness implementation = null;
 
-	public ClassifiedsServiceDelegate() {
+	public ClassifiedsBusinessDelegate() {
 		try {
 			this.implementation = ClassifiedsServiceLocator
-					.getServiceImplementation();
+					.getBusinessImplementation();
 			logger.log(Level.INFO,
 					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED
 							.value(), implementation.getClass().getName());
@@ -155,23 +152,6 @@ public class ClassifiedsServiceDelegate implements ClassifiedsServiceInterface {
 
 			msgContext
 					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
-		}
-	}
-
-	@Override
-	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
-		try {
-			// TODO: logging....
-			return implementation.checkMonitorOperation(monitor);
-		} catch (Exception e) {
-			// TODO: logging....
-			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-			msgContext.put(MessageContext.WSDL_OPERATION,
-					"checkMonitorOperation");
 		}
 	}
 }

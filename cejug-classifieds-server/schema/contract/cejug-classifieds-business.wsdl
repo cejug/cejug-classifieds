@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="cejug-classifieds-business"
+	targetNamespace="http://cejug-classifieds.dev.java.net/business"
+	xmlns:business="http://cejug-classifieds.dev.java.net/business"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
+	xmlns:metadata-common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://cejug-classifieds.dev.java.net/business"
+			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
+			xmlns:metadata-common="http://cejug-classifieds.dev.java.net/metadata/common"
+			elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+				schemaLocation="common.xsd" />
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/business"
+				schemaLocation="business.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- MESSAGES -->
+
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="common:ServiceFault" name="fault" />
+	</wsdl:message>
+
+	<!-- LOAD RSS -->
+	<wsdl:message name="LoadRss">
+		<wsdl:part element="metadata:RssFilterCollection" name="filter" />
+	</wsdl:message>
+
+	<wsdl:message name="LoadRssResponse">
+		<wsdl:part element="metadata:RssCollection"
+			name="rss.collection" />
+	</wsdl:message>
+
+	<!-- LOAD ATOM -->
+	<wsdl:message name="LoadAtom">
+		<wsdl:part element="metadata:AtomFilterCollection"
+			name="filter" />
+	</wsdl:message>
+
+	<wsdl:message name="LoadAtomResponse">
+		<wsdl:part element="metadata:AtomCollection"
+			name="atom.collection" />
+	</wsdl:message>
+
+	<!-- ADVERTISEMENT PUBLISHING -->
+	<wsdl:message name="Publish">
+		<wsdl:part element="metadata:AdvertisementBundle"
+			name="advertisements" />
+	</wsdl:message>
+
+	<wsdl:message name="PublishResponse">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
+	<!-- REPORT SPAM -->
+	<wsdl:message name="ReportSpam">
+		<wsdl:part element="metadata:SpamReport" name="spam" />
+	</wsdl:message>
+
+	<wsdl:message name="ReportSpamResponse">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- PORT -->
+	<wsdl:portType name="CejugClassifiedsBusiness">
+		<wsdl:operation name="LoadRssOperation">
+			<wsdl:input message="business:LoadRss" />
+			<wsdl:output message="business:LoadRssResponse" />
+			<wsdl:fault name="LoadRssException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="LoadAtomOperation">
+			<wsdl:input message="business:LoadAtom" />
+			<wsdl:output message="business:LoadAtomResponse" />
+			<wsdl:fault name="LoadAtomException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="PublishOperation">
+			<wsdl:input message="business:Publish" />
+			<wsdl:output message="business:PublishResponse" />
+			<wsdl:fault name="PublishException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportSpamOperation">
+			<wsdl:input message="business:ReportSpam" />
+			<wsdl:output message="business:ReportSpamResponse" />
+			<wsdl:fault name="ReportSpamException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+</wsdl:definitions>

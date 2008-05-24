@@ -48,7 +48,8 @@ public class AdvertisementPublisherSessionBean implements
 	}
 
 	@Override
-	public AdvertisementBundle create() throws Exception {
+	public AdvertisementBundle create()
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

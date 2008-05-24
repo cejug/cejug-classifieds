@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/common"
+	elementFormDefault="qualified" attributeFormDefault="qualified"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim">
+	<xsd:annotation>
+		<xsd:documentation>
+			Shared meta-data, like fault and response status.
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:complexType name="Status">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string" />
+			<xsd:element name="is.active" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="ServiceFault">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="code" type="xsd:int" />
+				<xsd:element name="headline" type="xsd:string" />
+				<xsd:element name="details" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="ServiceStatus">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1">
+				<xsd:element name="code" type="xsd:int" minOccurs="1"
+					maxOccurs="1" />
+				<xsd:element name="description" type="xsd:string"
+					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="timestamp" type="xsd:date"
+					minOccurs="1" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

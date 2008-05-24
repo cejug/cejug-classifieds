@@ -1,5 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-public interface CustomerDomainRemote {
+import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
+
+public interface CustomerDomainRemote extends DomainModelFacade<Domain> {
 
 }

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://cejug-classifieds.dev.java.net/server/metadata/business"
-	xmlns:business="http://cejug-classifieds.dev.java.net/server/metadata/business"
-	elementFormDefault="qualified" attributeFormDefault="qualified"
-	xmlns:mime="http://www.w3.org/2005/05/xmlmim">
+	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/business"
+	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/business"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim"
+	xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
+	xmlns:atom10="http://www.w3.org/2005/Atom"
+	elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.w3.org/2005/Atom"
+		schemaLocation="atom10.xsd" />
+
+	<xsd:import namespace="http://blogs.law.harvard.edu/RSS20.xsd"
+		schemaLocation="rss20.xsd" />
+
 	<xsd:annotation>
 		<xsd:documentation>
-			The Business Objects of CEJUG-Classifieds.
+			The Business Meta-data of CEJUG-Classifieds.
 		</xsd:documentation>
 	</xsd:annotation>
 
@@ -35,15 +44,6 @@
 				mime:expectedContentTypes="application/x-shockwave-flash" />
 		</xsd:sequence>
 	</xsd:complexType>
-
-	<!-- xs:complexType name="mime.type">
-		<xs:choice minOccurs="1" maxOccurs="1">
-		<xs:element ref="selected" />
-		<xs:element ref="unselected" />
-		<xs:element ref="dimpled" />
-		<xs:element ref="perforated" />
-		</xs:choice>
-		</xs:complexType-->
 
 	<xsd:element name="FlashAdvertisement">
 		<xsd:complexType>
@@ -102,19 +102,12 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<xsd:complexType name="Status">
-		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="description" type="xsd:string" />
-			<xsd:element name="is.active" type="xsd:boolean" />
-		</xsd:sequence>
-	</xsd:complexType>
-
 	<xsd:complexType name="Domain">
 		<xsd:sequence>
 			<xsd:element name="shared.quota" type="xsd:boolean" />
 			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="timezone" type="xsd:string" />
+			<xsd:element name="timezone" type="xsd:string"
+				default="Fortaleza/Ceara" />
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -131,5 +124,60 @@
 			<xsd:element name="country" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
+	<xsd:element name="RssCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="rss.collection" type="rss20:channel" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 
+	<xsd:element name="AtomCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="atom.collection"
+					type="atom10:feedType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+
+	<xsd:element name="AtomFilterCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="filter.collection"
+					type="business:SyndicationFilter" nillable="true" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="SyndicationFilter">
+		<xsd:sequence>
+			<xsd:element name="upper.bound" type="xsd:int"
+				nillable="true" />
+			<xsd:element name="date.initial" type="xsd:dateTime" />
+			<xsd:element name="date.final" type="xsd:dateTime" />
+			<xsd:element name="section" type="xsd:string" />
+			<xsd:element name="keywords" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="RssFilterCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="filter.collection"
+					type="business:SyndicationFilter" nillable="true" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="SpamReport">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="1">
+				<xsd:element name="advertisement.id" type="xsd:int" />
+				<xsd:element name="reason" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 </xsd:schema>

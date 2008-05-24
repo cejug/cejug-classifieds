@@ -26,7 +26,6 @@ package net.java.dev.cejug.classifieds.server.reference;
 import java.util.GregorianCalendar;
 
 import javax.naming.InitialContext;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
@@ -35,10 +34,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.RssChannelDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -55,7 +52,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilte
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 public class ClassifiedsReferenceImplementation implements
-		ClassifiedsServiceInterface {
+		CejugClassifiedsBusiness {
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
@@ -149,22 +146,5 @@ public class ClassifiedsReferenceImplementation implements
 		 */
 		ServiceStatus status = new ServiceStatus();
 		return status;
-	}
-
-	@Override
-	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
-		MonitorResponse response = new MonitorResponse();
-		DatatypeFactory factory;
-		try {
-			factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			throw new WebServiceException("operation not yet implemented");
-		}
-		response.setOnlineSince(factory
-				.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
-						.getInstance()));
-		response.setServiceName(this.getClass().getName());
-		return response;
 	}
 }

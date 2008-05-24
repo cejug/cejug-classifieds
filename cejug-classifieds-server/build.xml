@@ -82,7 +82,7 @@
 		<echo message="run:          Runs the client" />
 	</target>
 
-	<target name="server" depends="setup,compile.resources.schema">
+	<target name="server" depends="clean,setup,compile.resources.schema">
 		<antcall target="build-server-wsdl" />
 		<antcall target="create-war" />
 		<antcall target="compile.functional.tests" />

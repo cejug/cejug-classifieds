@@ -29,8 +29,8 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilter;
@@ -63,8 +63,8 @@ public class LoadRssFunctionalTest {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		ClassifiedsServiceInterface service = new CejugClassifiedsService()
-				.getClassifiedsServiceInterface();
+		CejugClassifiedsBusiness service = new CejugClassifiedsService()
+				.getCejugClassifiedsBusiness();
 		System.out.println(service);
 		RssFilterCollection filterCollection = new RssFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
@@ -88,7 +88,7 @@ public class LoadRssFunctionalTest {
 
 		RssCollection collection = service.loadRssOperation(filterCollection);
 		System.out.println(1);
-		//assert collection.getRssCollection().size() > 0;
+		// assert collection.getRssCollection().size() > 0;
 	}
 
 	@Test

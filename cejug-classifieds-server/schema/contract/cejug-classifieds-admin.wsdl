@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="cejug-classifieds-admin"
+	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://cejug-classifieds.dev.java.net/admin/metadata"
+			elementFormDefault="qualified">
+			<xsd:element name="MonitorQuery">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="query" type="xsd:string"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="average.response.length"
+							type="xsd:int" default="10" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="MonitorResponse">
+				<xsd:complexType>
+					<xsd:sequence minOccurs="1" maxOccurs="1">
+						<xsd:element name="service.name"
+							type="xsd:string" />
+						<xsd:element name="online.since"
+							type="xsd:dateTime" />
+						<xsd:element name="records"
+							type="metadata:OperationTimestamp" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="OperationTimestamp">
+				<xsd:sequence>
+					<xsd:element name="operation.name"
+						type="xsd:string" />
+					<xsd:element name="start" type="xsd:dateTime" />
+					<xsd:element name="finish" type="xsd:dateTime" />
+					<xsd:element name="client.id" type="xsd:string" />
+					<xsd:element name="status" type="xsd:boolean"
+						default="true" />
+					<xsd:element name="note" type="xsd:string"
+						nillable="true" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:element name="Credentials">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="client.id" type="xsd:string" />
+						<xsd:element name="customer.id"
+							type="xsd:string" />
+						<xsd:element name="customer.role"
+							type="xsd:string" />
+						<xsd:element name="group" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- MESSAGES -->
+	<!-- MONITOR -->
+	<wsdl:message name="CheckMonitor">
+		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
+	</wsdl:message>
+
+	<wsdl:message name="CheckMonitorResponse">
+		<wsdl:part element="metadata:MonitorResponse"
+			name="service.status" />
+	</wsdl:message>
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- PORT -->
+	<wsdl:portType name="CejugClassifiedsAdmin">
+		<wsdl:operation name="CheckMonitorOperation">
+			<wsdl:input message="contract:CheckMonitor" />
+			<wsdl:output message="contract:CheckMonitorResponse" />
+			<!-- wsdl:fault name="CheckMonitorException" message="contract:ClassifiedsFault" /-->
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

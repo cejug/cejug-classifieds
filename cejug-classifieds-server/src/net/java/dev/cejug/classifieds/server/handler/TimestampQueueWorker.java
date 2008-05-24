@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceInterface;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimestamp;
 import net.java.dev.cejug.classifieds.server.generated.i18n.TimestampQueueWorkerI18N;
 
@@ -22,7 +22,7 @@ public class TimestampQueueWorker extends TimerTask {
 	// "net.java.dev.cejug.classifieds.server.ejb3.bean.ResponseTime")
 	// private ResponseTime dao;
 
-	private Logger logger = Logger.getLogger(ClassifiedsServiceInterface.class
+	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
 			.getName(), "i18n/log");
 
 	private static TimestampQueueWorker instance;
