@@ -14,79 +14,14 @@
 		namespace="http://cejug-classifieds.dev.java.net/business"
 		location="cejug-classifieds-business.wsdl" />
 
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- BINDING -->
-	<wsdl:binding name="CejugClassifiedsBusinessBinding"
-		type="contract-business:CejugClassifiedsBusiness">
-		<soap:binding style="document"
-			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
-		<wsdl:operation name="LoadRssOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/LoadRss" />
-			<wsdl:input>
-				<soap:body use="literal" />
-				<!-- soap:header message="contract:Identification" part="login" use="literal" /-->
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="LoadAtomOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/LoadAtom" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="PublishOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/Publish" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="ReportSpamOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/server/ReportSpam" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-
-	<wsdl:binding name="CejugClassifiedsAdminBinding"
-		type="contract-admin:CejugClassifiedsAdmin">
-		<soap:binding style="document"
-			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
-		<wsdl:operation name="CheckMonitorOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/CheckMonitor" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-
 	<wsdl:service name="CejugClassifiedsService">
 		<wsdl:port name="CejugClassifiedsAdmin"
-			binding="contract:CejugClassifiedsAdminBinding">
+			binding="contract-admin:CejugClassifiedsAdminBinding">
 			<soap:address
 				location="http://localhost:8080/cejug-classifieds-ws/admin" />
 		</wsdl:port>
 		<wsdl:port name="CejugClassifiedsBusiness"
-			binding="contract:CejugClassifiedsBusinessBinding">
+			binding="contract-business:CejugClassifiedsBusinessBinding">
 			<soap:address
 				location="http://localhost:8080/cejug-classifieds-ws/business" />
 		</wsdl:port>

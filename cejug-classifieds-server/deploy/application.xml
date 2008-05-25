@@ -12,7 +12,7 @@
 	<module>
 		<web>
 			<web-uri>cejug-classifieds-server.war</web-uri>
-			<context-root>cejug-classifieds-service</context-root>
+			<context-root>cejug-classifieds-server</context-root>
 		</web>
 	</module>
 	<module>

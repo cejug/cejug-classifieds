@@ -10,29 +10,20 @@
 		</listener-class>
 	</listener>
 	<servlet>
-		<description>JAX-WS endpoint - fromwsdl</description>
-		<display-name>cejug-classifieds-business</display-name>
-		<servlet-name>cejug-classifieds-business</servlet-name>
-		<servlet-class>
-			com.sun.xml.ws.transport.http.servlet.WSServlet
-		</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet>
-		<description>JAX-WS endpoint - fromwsdl</description>
-		<display-name>cejug-classifieds-admin</display-name>
-		<servlet-name>cejug-classifieds-admin</servlet-name>
+		<description>Cejug Classifieds SOAP Service</description>
+		<display-name>Cejug Classifieds Service</display-name>
+		<servlet-name>cejug-classifieds-service</servlet-name>
 		<servlet-class>
 			com.sun.xml.ws.transport.http.servlet.WSServlet
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>cejug-classifieds-business</servlet-name>
+		<servlet-name>cejug-classifieds-service</servlet-name>
 		<url-pattern>/business</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>cejug-classifieds-admin</servlet-name>
+		<servlet-name>cejug-classifieds-service</servlet-name>
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 	<session-config>
