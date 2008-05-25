@@ -75,8 +75,24 @@ The current prototype has the following interface:</p>
 <p>Not yet, sorry.</p>
 <div>
 <h3>Downloads</h3>
-<p>We don't have yet a stable release, but you can try the snapshot version of our web-service.
-Instructions:</p>
+<p>We don't have yet a stable release, but you can try the preview
+EAR or checkout the snapshot code. Instructions:</p>
+
+<p><strong>Preview EAR</strong>: if you want just to deploy the
+latest snapshot version to checkout its functionalities, we provide <a
+	href='https://cejug-classifieds.dev.java.net/files/documents/8128/97920/cejug-classifieds-server.ear'>this
+EAR</a> configured to run on Glassfish. To run:</p>
+<ol>
+	<li>Copy the EAR to the folder: <code>$glassfish/domains/domain1/autodeploy</code></li>
+	<li>Open these URLs in a browser:
+	<ul>
+		<li>http://localhost:8080/cejug-classifieds-server/business</li>
+		<li>http://localhost:8080/cejug-classifieds-server/admin</li>
+	</ul>
+	</li>
+</ol>
+<br />
+<p>Getting the <strong>code snapshot</strong>:
 <ol>
 	<li>Setup (in case you don't have any of the below tools
 	installed):
@@ -177,7 +193,8 @@ asadmin start-database</pre></li>
 		</a></td>
 	</tr>
 </table>
-<p align='right'><font color='grey'><small>$LastChangedDate$</small></font></p>
+<p align='right'><font color='grey'><small>$LastChangedDate:
+2008-05-25 09:11:35 +0200 (Sun, 25 May 2008) $</small></font></p>
 </div>
 </body>
 </html>
