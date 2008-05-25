@@ -88,4 +88,28 @@
 			<!-- wsdl:fault name="CheckMonitorException" message="contract:ClassifiedsFault" /-->
 		</wsdl:operation>
 	</wsdl:portType>
+
+	<wsdl:binding name="CejugClassifiedsAdminBinding"
+		type="contract:CejugClassifiedsAdmin">
+		<soap:binding style="document"
+			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<wsdl:operation name="CheckMonitorOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CheckMonitor" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="CejugClassifiedsServiceAdmin">
+		<wsdl:port name="CejugClassifiedsAdmin"
+			binding="contract:CejugClassifiedsAdminBinding">
+			<soap:address
+				location="http://localhost:8080/cejug-classifieds-server/admin" />
+		</wsdl:port>
+	</wsdl:service>
 </wsdl:definitions>
