@@ -4,30 +4,18 @@
 	<endpoint name="cejug-classifieds-business"
 		interface="net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceBusiness"
 		implementation="net.java.dev.cejug.classifieds.server.ClassifiedsBusinessDelegate"
-		wsdl="WEB-INF/wsdl/cejug-classifieds-server.wsdl"
-		service="{http://cejug-classifieds.dev.java.net}CejugClassifiedsService"
-		port="{http://cejug-classifieds.dev.java.net}CejugClassifiedsBusiness"
+		wsdl="WEB-INF/wsdl/cejug-classifieds-business.wsdl"
+		service="{http://cejug-classifieds.dev.java.net/business}CejugClassifiedsServiceBusiness"
+		port="{http://cejug-classifieds.dev.java.net/business}CejugClassifiedsBusiness"
 		binding="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/"
 		url-pattern="/business">
-		<!-- javaee:handler-chains>
-			<javaee:handler-chain>
-			<javaee:handler>
-			<javaee:handler-name>
-			TimeKeeper
-			</javaee:handler-name>
-			<javaee:handler-class>
-			net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler
-			</javaee:handler-class>
-			</javaee:handler>
-			</javaee:handler-chain>
-			</javaee:handler-chains-->
 	</endpoint>
 	<endpoint name="cejug-classifieds-admin"
 		interface="net.java.dev.cejug.classifieds.server.generated.contract.ClassifiedsServiceAdmin"
 		implementation="net.java.dev.cejug.classifieds.server.ClassifiedsAdminDelegate"
-		wsdl="WEB-INF/wsdl/cejug-classifieds-server.wsdl"
-		service="{http://cejug-classifieds.dev.java.net}CejugClassifiedsService"
-		port="{http://cejug-classifieds.dev.java.net}CejugClassifiedsAdmin"
+		wsdl="WEB-INF/wsdl/cejug-classifieds-admin.wsdl"
+		service="{http://cejug-classifieds.dev.java.net/admin}CejugClassifiedsServiceAdmin"
+		port="{http://cejug-classifieds.dev.java.net/admin}CejugClassifiedsAdmin"
 		binding="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/"
 		url-pattern="/admin" />
 </endpoints>

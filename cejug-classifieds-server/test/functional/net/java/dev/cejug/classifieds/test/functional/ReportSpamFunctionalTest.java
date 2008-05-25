@@ -24,7 +24,7 @@
 package net.java.dev.cejug.classifieds.test.functional;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 
@@ -56,7 +56,7 @@ public class ReportSpamFunctionalTest {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsService()
+		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 		SpamReport spam = new SpamReport();
 		spam.setAdvertisementId(10);

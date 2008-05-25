@@ -30,7 +30,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilter;
@@ -63,7 +63,7 @@ public class LoadRssFunctionalTest {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsService()
+		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 		System.out.println(service);
 		RssFilterCollection filterCollection = new RssFilterCollection();

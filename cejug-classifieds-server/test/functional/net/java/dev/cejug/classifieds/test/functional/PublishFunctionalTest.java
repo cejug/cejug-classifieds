@@ -36,7 +36,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsService;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -64,7 +64,8 @@ public class PublishFunctionalTest {
 		 * "http://cejug-classifieds.dev.java.net/server",
 		 * "CejugClassifiedsService");
 		 */
-		facade = new CejugClassifiedsService().getCejugClassifiedsBusiness();
+		facade = new CejugClassifiedsServiceBusiness()
+				.getCejugClassifiedsBusiness();
 
 		DomainEntity domain = new DomainEntity();
 		domain.setName("cejug.functional.test." + System.currentTimeMillis());
