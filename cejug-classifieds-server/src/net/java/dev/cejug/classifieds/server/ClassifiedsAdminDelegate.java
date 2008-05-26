@@ -26,14 +26,15 @@ package net.java.dev.cejug.classifieds.server;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
+import javax.jws.WebService;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
-import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -47,35 +48,29 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-@javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
+@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
 public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	/*
 	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
 	 */
 	@Resource
-	WebServiceContext wsContext;
+	ClassifiedsAdminRemote implementation;
 
 	/** The publisher logger. */
 	private Logger logger = Logger.getLogger(CejugClassifiedsAdmin.class
 			.getName(), "i18n/log");
 
-	/**
-	 * The service contract realization uses an injected implementation to
-	 * delegate the operation calls.
-	 */
-	private CejugClassifiedsAdmin implementation = null;
-
 	public ClassifiedsAdminDelegate() {
-		/*
-		 * try { this.implementation = ClassifiedsServiceLocator
-		 * .getServiceImplementation(); logger.log(Level.INFO,
-		 * ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED .value(),
-		 * implementation.getClass().getName()); } catch (Exception e) {
-		 * logger.log(Level.SEVERE,
-		 * ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_FAILED .value(), new
-		 * Object[] { implementation.getClass().getName(), e.getMessage() });
-		 * throw new WebServiceException(e); }
-		 */
+		InitialContext ic;
+		try {
+			ic = new InitialContext();
+			implementation = (ClassifiedsAdminRemote) ic
+					.lookup(ClassifiedsAdminRemote.class.getName());
+		} catch (NamingException e) {
+			logger.severe(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -84,14 +79,8 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 			// TODO: logging....
 			return implementation.checkMonitorOperation(monitor);
 		} catch (Exception e) {
-			// TODO: logging....
+			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-			msgContext.put(MessageContext.WSDL_OPERATION,
-					"checkMonitorOperation");
 		}
 	}
 }

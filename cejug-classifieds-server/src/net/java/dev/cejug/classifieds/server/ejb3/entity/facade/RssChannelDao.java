@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.server.ejb3.bean;
+package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.ArrayList;
 import java.util.Date;

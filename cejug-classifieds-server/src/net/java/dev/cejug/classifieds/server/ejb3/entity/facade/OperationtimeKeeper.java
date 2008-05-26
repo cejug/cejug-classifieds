@@ -1,0 +1,43 @@
+package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+
+import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
+
+@Stateless
+public class OperationtimeKeeper implements
+		DomainModelFacade<OperationTimestampEntity> {
+
+	@Override
+	public OperationTimestampEntity create() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(OperationTimestampEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<OperationTimestampEntity> get(String query, int limit)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OperationTimestampEntity> getAll(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(OperationTimestampEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+}

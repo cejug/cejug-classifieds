@@ -29,8 +29,8 @@ import javax.naming.InitialContext;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.bean.AdvertisementPublisherRemote;
-import net.java.dev.cejug.classifieds.server.ejb3.bean.RssChannelDao;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementPublisherRemote;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.RssChannelDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
