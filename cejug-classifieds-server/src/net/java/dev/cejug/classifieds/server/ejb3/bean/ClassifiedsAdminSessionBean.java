@@ -53,7 +53,9 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 		return response;
 	}
 
-	// interceptor method within the bean (the bean is the aspect)
+	/*
+	 * Intercepter method within the bean (the bean is the aspect)
+	 */
 	@AroundInvoke
 	public Object TimerLog(InvocationContext ctx) throws Exception {
 		// TODO: include timezone...
