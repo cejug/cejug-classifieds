@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,10 +36,6 @@ public class PublishingPeriodEntity {
 	@Enumerated(EnumType.STRING)
 	private PeriodState state;
 
-	@SuppressWarnings("unused")
-	@PrimaryKeyJoinColumn
-	private AdvertisementEntity advertisement;
-
 	public Integer getId() {
 		return id;
 	}
@@ -51,14 +46,6 @@ public class PublishingPeriodEntity {
 
 	public void setTimezone(TimeZone timezone) {
 		this.timezone = timezone;
-	}
-
-	public AdvertisementEntity getAdvertisement() {
-		return advertisement;
-	}
-
-	public void setAdvertisement(AdvertisementEntity advertisement) {
-		this.advertisement = advertisement;
 	}
 
 	public void setId(Integer id) {

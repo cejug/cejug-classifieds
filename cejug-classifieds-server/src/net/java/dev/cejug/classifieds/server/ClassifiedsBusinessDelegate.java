@@ -27,11 +27,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.ejb.Stateless;
-import javax.xml.ws.WebServiceContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
@@ -41,7 +41,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollect
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDelegateI18N;
-import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -62,26 +61,22 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
 	 */
 	@Resource
-	WebServiceContext wsContext;
+	ClassifiedsBusinessRemote implementation;
 
 	/** The publisher logger. */
 	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
 			.getName(), "i18n/log");
 
-	/**
-	 * The service contract realization uses an injected implementation to
-	 * delegate the operation calls.
-	 */
-	private CejugClassifiedsBusiness implementation = null;
-
 	public ClassifiedsBusinessDelegate() {
+		InitialContext ic;
 		try {
-			this.implementation = ClassifiedsServiceLocator
-					.getBusinessImplementation();
+			ic = new InitialContext();
+			implementation = (ClassifiedsBusinessRemote) ic
+					.lookup(ClassifiedsBusinessRemote.class.getName());
 			logger.log(Level.INFO,
 					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED
 							.value(), implementation.getClass().getName());
-		} catch (Exception e) {
+		} catch (NamingException e) {
 			logger.log(Level.SEVERE,
 					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_FAILED
 							.value(),
@@ -89,6 +84,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 							e.getMessage() });
 			throw new WebServiceException(e);
 		}
+
 	}
 
 	@Override
@@ -98,11 +94,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-			msgContext.put(MessageContext.WSDL_OPERATION, "loadAtom");
 		}
 	}
 
@@ -114,11 +105,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-			msgContext.put(MessageContext.WSDL_OPERATION, "loadRssOperation");
 		}
 	}
 
@@ -129,11 +115,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-			msgContext.put(MessageContext.WSDL_OPERATION, "publishOperation");
 		}
 	}
 
@@ -145,13 +126,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
-		} finally {
-			MessageContext msgContext = wsContext.getMessageContext();
-			msgContext.put(TimeKeeperSoapHandler.KEY, msgContext
-					.get(TimeKeeperSoapHandler.KEY));
-
-			msgContext
-					.put(MessageContext.WSDL_OPERATION, "reportSpamOperation");
 		}
 	}
 }

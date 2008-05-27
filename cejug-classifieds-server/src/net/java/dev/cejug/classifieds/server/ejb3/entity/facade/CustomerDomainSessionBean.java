@@ -10,7 +10,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 
 @Stateless
-public class CustomerDomainSessionBean implements CustomerDomainRemote {
+public class CustomerDomainSessionBean implements DomainModelFacade<Domain> {
 	// this injects the default entity manager factory
 
 	@SuppressWarnings("unused")

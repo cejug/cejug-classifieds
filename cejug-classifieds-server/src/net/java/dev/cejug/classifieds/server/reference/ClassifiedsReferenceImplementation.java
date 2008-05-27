@@ -23,13 +23,13 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.reference;
 
-import java.util.GregorianCalendar;
+import java.util.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.naming.InitialContext;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.ws.WebServiceException;
+import javax.naming.NamingException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementPublisherRemote;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.RssChannelDao;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
@@ -53,6 +53,28 @@ import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilte
  */
 public class ClassifiedsReferenceImplementation implements
 		CejugClassifiedsBusiness {
+
+	@Resource
+	ClassifiedsBusinessRemote implementation;
+
+	/** The publisher logger. */
+	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
+			.getName(), "i18n/log");
+
+	public ClassifiedsReferenceImplementation() {
+		InitialContext ic;
+		try {
+			ic = new InitialContext();
+			implementation = (ClassifiedsBusinessRemote) ic
+					.lookup(ClassifiedsBusinessRemote.class.getName());
+		} catch (NamingException e) {
+			logger.severe(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 		// String section = filter.getSection(); // should be used to load
@@ -106,29 +128,24 @@ public class ClassifiedsReferenceImplementation implements
 
 	@Override
 	public ServiceStatus publishOperation(AdvertisementBundle advertisement) {
-		try {
-			InitialContext ic = new InitialContext();
-			AdvertisementPublisherRemote dao = (AdvertisementPublisherRemote) ic
-					.lookup(AdvertisementPublisherRemote.class.getName());
-			dao.update(advertisement);
-
-			ServiceStatus status = new ServiceStatus();
-			status.setDescription("OK");
-			status.setCode(202);
-			DatatypeFactory factory;
-
-			factory = DatatypeFactory.newInstance();
-			status
-					.setTimestamp(factory
-							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
-									.getInstance()));
-
-			return status;
-			// throw new WebServiceException("operation not yet implemented");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new WebServiceException(e.getMessage());
-		}
+		/*
+		 * try { InitialContext ic = new InitialContext();
+		 * AdvertisementPublisherRemote dao = (AdvertisementPublisherRemote) ic
+		 * .lookup(AdvertisementPublisherRemote.class.getName());
+		 * dao.update(advertisement);
+		 * 
+		 * ServiceStatus status = new ServiceStatus();
+		 * status.setDescription("OK"); status.setCode(202); DatatypeFactory
+		 * factory;
+		 * 
+		 * factory = DatatypeFactory.newInstance(); status .setTimestamp(factory
+		 * .newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+		 * .getInstance()));
+		 * 
+		 * return status; // throw new WebServiceException("operation not yet
+		 * implemented"); } catch (Exception e) { // TODO Auto-generated catch
+		 * block throw new WebServiceException(e.getMessage()); }
+		 */return null;
 	}
 
 	@Override

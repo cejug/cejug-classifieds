@@ -1,27 +1,56 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationtimeKeeper;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 @Stateless
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@EJB
-	OperationtimeKeeper timeKeeper;
+	OperationTimeKeeperLocal timeKeeper;
+	private final DatatypeFactory factory;
+
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the defult logger.
+	 */
+	private static Logger logger = Logger.getLogger(TimeKeeperSoapHandler.class
+			.getName(), "i18n/log");
+
+	public ClassifiedsAdminSessionBean() {
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
 	@Override
 	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
-
-		// TODO Auto-generated method stub
-		return null;
+		// TODO: implement the real database call and response assembly.
+		MonitorResponse response = new MonitorResponse();
+		response.setServiceName("Cejug-Classifieds");
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.roll(Calendar.DAY_OF_MONTH, -3);
+		response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
+		return response;
 	}
 
 	// interceptor method within the bean (the bean is the aspect)
