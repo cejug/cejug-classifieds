@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 
@@ -37,5 +38,11 @@ public class AtomDao implements DomainModelFacade<FeedType> {
 	public void update(FeedType entity) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public FeedType get(Map<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

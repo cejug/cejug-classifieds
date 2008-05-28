@@ -2,6 +2,8 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -12,9 +14,14 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementPublisherLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
@@ -28,11 +35,16 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessRemote {
 	@EJB
-	OperationTimeKeeperLocal timeKeeper;
+	OperationTimeKeeperLocal timeKeeperFacade;
 
 	@EJB
-	AdvertisementPublisherLocal publisher;
+	AdvertisementPublisherLocal publishFacade;
 
+	@EJB
+	CustomerFacadeLocal customerFacade;
+
+	@EJB
+	DomainFacadeLocal domainFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
@@ -67,7 +79,22 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public ServiceStatus publishOperation(AdvertisementBundle advertisements) {
 		try {
-			publisher.update(advertisements);
+
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("domain", advertisements.getAuthorDomain());
+			DomainEntity domain = domainFacade.get(params);
+			if (domain == null) {
+				throw new WebServiceException("domain does not exist.");
+			}
+
+			params.clear();
+			params.put("login", advertisements.getAuthorLogin());
+			CustomerEntity customer = customerFacade.get(params);
+
+			for (Advertisement adv : advertisements.getAdvertisements()) {
+
+			}
+			publishFacade.update(advertisements);
 			ServiceStatus status = new ServiceStatus();
 			status.setDescription("OK");
 			status.setCode(202);
@@ -106,7 +133,7 @@ public class ClassifiedsBusinessSessionBean implements
 				stamp.setFinish(new Date());
 				stamp.setStatus(true);
 				stamp.setClientId("kk");
-				timeKeeper.update(stamp);
+				timeKeeperFacade.update(stamp);
 			} catch (Exception error) {
 
 			}

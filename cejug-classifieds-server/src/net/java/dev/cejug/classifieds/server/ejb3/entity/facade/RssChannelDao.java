@@ -3,6 +3,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -61,5 +62,11 @@ public class RssChannelDao implements DomainModelFacade<Channel> {
 	@Override
 	public void update(Channel entity) throws Exception {
 		manager.persist(entity);
+	}
+
+	@Override
+	public Channel get(Map<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -128,7 +128,8 @@ public class PublishFunctionalTest {
 		AdvertisementBundle bundle = new AdvertisementBundle();
 
 		bundle.getAdvertisements().add(advertisement);
-		bundle.setAuthorId(1);
+		bundle.setAuthorDomain("cejug.org");
+		bundle.setAuthorLogin("fgaucho");
 
 		ServiceStatus status = facade.publishOperation(bundle);
 		assert status.getDescription().equalsIgnoreCase("OK");

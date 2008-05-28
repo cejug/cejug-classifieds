@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ejb.Stateless;
@@ -82,6 +83,12 @@ public class AdvertisementPublisherSessionBean implements
 
 	@Override
 	public List<AdvertisementBundle> getAll(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AdvertisementBundle get(Map<String, String> params) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

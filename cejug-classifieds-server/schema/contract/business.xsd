@@ -94,8 +94,8 @@
 	<xsd:element name="AdvertisementBundle">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="author.id" type="xsd:int"
-					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="author.login" type="xsd:NMTOKEN" />
+				<xsd:element name="author.domain" type="xsd:NMTOKEN" />
 				<xsd:element name="advertisements"
 					type="business:Advertisement" minOccurs="1" maxOccurs="unbounded" />
 			</xsd:sequence>

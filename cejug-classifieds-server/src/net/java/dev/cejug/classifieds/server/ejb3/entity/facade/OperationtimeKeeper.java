@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,5 +45,12 @@ public class OperationtimeKeeper implements OperationTimeKeeperLocal {
 		manager.persist(entity);
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public OperationTimestampEntity get(Map<String, String> params)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

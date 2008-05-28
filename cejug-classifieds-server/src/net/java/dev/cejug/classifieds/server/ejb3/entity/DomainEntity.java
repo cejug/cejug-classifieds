@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "domain")
+@NamedQuery(name = "selectDomainByname", query = "SELECT d FROM DomainEntity d WHERE d.name= :domain")
 public class DomainEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
