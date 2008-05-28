@@ -4,11 +4,8 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.xml.bind.Unmarshaller.Listener;
-import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.generated.config.Injection;
-import net.java.dev.cejug.classifieds.server.reference.ClassifiedsReferenceImplementation;
-
 
 /**
  * This class is used to check the values read from the config XML. Despite JAXB
@@ -37,8 +34,7 @@ public class ConfigUnmarshallerListener extends Listener {
 	 */
 	public ConfigUnmarshallerListener() {
 		this(LogManager.getLogManager().getLogger(
-				ConfigUnmarshallerListener.class
-						.getName()));
+				ConfigUnmarshallerListener.class.getName()));
 	}
 
 	@Override
@@ -57,35 +53,22 @@ public class ConfigUnmarshallerListener extends Listener {
 	 */
 	private void validateServiceImplementation(Injection injection) {
 		String implementation = injection.getServiceImplementation();
-		if (implementation == null) {
-			injection
-					.setServiceImplementation(ClassifiedsReferenceImplementation.class
-							.getName());
-		} else {
-			try {
-				Class<?> type = Class.forName(implementation.trim(), false,
-						this.getClass().getClassLoader());
-				type.newInstance();
-			} catch (ClassNotFoundException e) {
-				logger.severe(String.format(
-						"The service implementation cannot be found: {0}",
-						implementation));
-				throw new WebServiceException(e);
-			} catch (InstantiationException e) {
-				logger
-						.severe(String
-								.format(
-										"The service implementation cannot be instantiated: {0}",
-										e.getMessage()));
-				throw new WebServiceException(e);
-			} catch (IllegalAccessException e) {
-				logger
-						.severe(String
-								.format(
-										"Problems trying to instantiate the service implementation: {0}",
-										e.getMessage()));
-				throw new WebServiceException(e);
-			}
-		}
+		// TODO: under review (design changed)
+		/*
+		 * if (implementation == null) { injection
+		 * .setServiceImplementation(ClassifiedsReferenceImplementation.class
+		 * .getName()); } else { try { Class<?> type =
+		 * Class.forName(implementation.trim(), false,
+		 * this.getClass().getClassLoader()); type.newInstance(); } catch
+		 * (ClassNotFoundException e) { logger.severe(String.format( "The
+		 * service implementation cannot be found: {0}", implementation)); throw
+		 * new WebServiceException(e); } catch (InstantiationException e) {
+		 * logger .severe(String .format( "The service implementation cannot be
+		 * instantiated: {0}", e.getMessage())); throw new
+		 * WebServiceException(e); } catch (IllegalAccessException e) { logger
+		 * .severe(String .format( "Problems trying to instantiate the service
+		 * implementation: {0}", e.getMessage())); throw new
+		 * WebServiceException(e); } }
+		 */
 	}
 }
