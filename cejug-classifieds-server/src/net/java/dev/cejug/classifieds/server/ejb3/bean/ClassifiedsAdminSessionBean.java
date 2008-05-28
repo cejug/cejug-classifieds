@@ -15,8 +15,10 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
+import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 @Stateless
@@ -75,5 +77,11 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 			}
 		}
+	}
+
+	@Override
+	public ServiceStatus requestDomainOperation(Domain domain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

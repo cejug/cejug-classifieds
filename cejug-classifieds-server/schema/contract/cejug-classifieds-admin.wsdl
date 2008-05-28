@@ -2,6 +2,7 @@
 <wsdl:definitions name="cejug-classifieds-admin"
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -10,7 +11,12 @@
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/admin/metadata"
+			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+				schemaLocation="common.xsd" />
+
 			<xsd:element name="MonitorQuery">
 				<xsd:complexType>
 					<xsd:sequence>
@@ -79,6 +85,19 @@
 		<wsdl:part element="metadata:MonitorResponse"
 			name="service.status" />
 	</wsdl:message>
+
+	<!-- REQUEST DOMAIN  -->
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="common:ServiceFault" name="fault" />
+	</wsdl:message>
+	<wsdl:message name="RequestDomain">
+		<wsdl:part element="common:Domain" name="domain" />
+	</wsdl:message>
+
+	<wsdl:message name="RequestDomainResponse">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsAdmin">
@@ -86,6 +105,12 @@
 			<wsdl:input message="contract:CheckMonitor" />
 			<wsdl:output message="contract:CheckMonitorResponse" />
 			<!-- wsdl:fault name="CheckMonitorException" message="contract:ClassifiedsFault" /-->
+		</wsdl:operation>
+		<wsdl:operation name="RequestDomainOperation">
+			<wsdl:input message="contract:RequestDomain" />
+			<wsdl:output message="contract:RequestDomainResponse" />
+			<wsdl:fault name="ReportDomainException"
+				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -103,6 +128,17 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="RequestDomainOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/RequestDomain" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
 	</wsdl:binding>
 
 	<wsdl:service name="CejugClassifiedsServiceAdmin">

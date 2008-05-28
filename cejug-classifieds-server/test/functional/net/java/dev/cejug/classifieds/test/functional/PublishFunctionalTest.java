@@ -26,7 +26,6 @@ package net.java.dev.cejug.classifieds.test.functional;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -35,9 +34,12 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
+import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
@@ -52,10 +54,28 @@ import org.junit.Test;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 public class PublishFunctionalTest {
-	private CejugClassifiedsBusiness facade = null;
+	private CejugClassifiedsBusiness business = null;
+	private CejugClassifiedsAdmin admin = null;
+	DomainEntity domain = null;
 
 	@Before
 	public void setUp() throws Exception {
+		business = new CejugClassifiedsServiceBusiness()
+				.getCejugClassifiedsBusiness();
+
+		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+
+		Domain newDomain = new Domain();
+		newDomain
+				.setName("cejug.functional.test." + System.currentTimeMillis());
+		newDomain.setSharedQuota(true);
+		newDomain.setTimezone("America/Fortaleza");
+		admin.requestDomainOperation(newDomain);
+		
+		// TODO: admin.updateDomain();
+
+		// ServiceStatus status = facade.publishOperation(bundle);
+
 		// connecting the web-service and calling the publish operation
 		/*
 		 * URL wsdlLocation = new URL(
@@ -64,14 +84,6 @@ public class PublishFunctionalTest {
 		 * "http://cejug-classifieds.dev.java.net/server",
 		 * "CejugClassifiedsService");
 		 */
-		facade = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
-
-		DomainEntity domain = new DomainEntity();
-		domain.setName("cejug.functional.test." + System.currentTimeMillis());
-		domain.setSharedQuota(true);
-		domain.setTimezone(TimeZone.getTimeZone("America/Fortaleza"));
-		// ServiceStatus status = facade.publishOperation(bundle);
 
 		CustomerEntity customer = new CustomerEntity();
 		customer.setLogin("fgaucho");
@@ -131,7 +143,7 @@ public class PublishFunctionalTest {
 		bundle.setAuthorDomain("cejug.org");
 		bundle.setAuthorLogin("fgaucho");
 
-		ServiceStatus status = facade.publishOperation(bundle);
+		ServiceStatus status = business.publishOperation(bundle);
 		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 

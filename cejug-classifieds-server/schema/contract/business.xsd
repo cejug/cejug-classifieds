@@ -102,15 +102,6 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<xsd:complexType name="Domain">
-		<xsd:sequence>
-			<xsd:element name="shared.quota" type="xsd:boolean" />
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="timezone" type="xsd:string"
-				default="Fortaleza/Ceara" />
-		</xsd:sequence>
-	</xsd:complexType>
-
 	<xsd:complexType name="Customer">
 		<xsd:sequence>
 			<xsd:element name="login" type="xsd:string" />

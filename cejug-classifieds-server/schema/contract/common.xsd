@@ -40,4 +40,17 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="Domain">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="shared.quota" type="xsd:boolean" />
+				<xsd:element name="name" type="xsd:string" />
+				<xsd:element name="timezone" type="xsd:string"
+					default="Fortaleza/Ceara" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+
 </xsd:schema>

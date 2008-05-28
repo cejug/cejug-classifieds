@@ -33,8 +33,10 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
+import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -82,5 +84,11 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
+	}
+
+	@Override
+	public ServiceStatus requestDomainOperation(Domain domain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

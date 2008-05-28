@@ -4,7 +4,6 @@
 	xmlns:business="http://cejug-classifieds.dev.java.net/business"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:metadata-common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
@@ -12,8 +11,8 @@
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/business"
-			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
-			xmlns:metadata-common="http://cejug-classifieds.dev.java.net/metadata/common"
+			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/busines"
+			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
 			<xsd:import
 				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
