@@ -80,9 +80,17 @@
 	</target>
 
 	<target name="help">
-		<echo message="server:       Builds and deploy the service endpoint WAR" />
-		<echo message="client:       Builds the client" />
-		<echo message="run:          Runs the client" />
+		<echo message="server:             Builds the service endpoint WAR" />
+		<echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
+		<echo message="functional.tests:   Runs the functional tests against the delpoyied service" />
+		<echo message="" />
+		
+		<echo message=" >> ATTENTION >>    %JAXWS_HOME% and %AS_HOME% should be well configured" />
+		<echo message=" >> ATTENTION >>    be sure to have JAXWS and GLASSFISH properly installed" />
+		<echo message=" >> ATTENTION >>    JAXWS:  https://jax-ws.dev.java.net/" />
+		<echo message=" >> ATTENTION >>    JAXWS:  https://glassfish.dev.java.net/" />
+		<echo message="" />
+		<echo message="Thanks for testing Cejug-Classifieds. Any feedback? dev@cejug-classifieds.dev.java.net" />
 	</target>
 
 	<target name="server" depends="clean,setup,compile.resources.schema">
