@@ -29,12 +29,6 @@ public class AtomDao implements DomainModelFacade<FeedType> {
 	}
 
 	@Override
-	public List<FeedType> getAll(int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void update(FeedType entity) throws Exception {
 		// TODO Auto-generated method stub
 
@@ -42,6 +36,25 @@ public class AtomDao implements DomainModelFacade<FeedType> {
 
 	@Override
 	public FeedType get(Map<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FeedType create(FeedType entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FeedType> get(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FeedType> get(Map<String, String> params, int limit)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

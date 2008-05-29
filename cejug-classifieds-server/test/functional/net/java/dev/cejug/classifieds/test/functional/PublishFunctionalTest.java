@@ -30,8 +30,6 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
@@ -56,7 +54,7 @@ import org.junit.Test;
 public class PublishFunctionalTest {
 	private CejugClassifiedsBusiness business = null;
 	private CejugClassifiedsAdmin admin = null;
-	DomainEntity domain = null;
+	String domain = "cejug.functional.test.domain" + System.currentTimeMillis();
 
 	@Before
 	public void setUp() throws Exception {
@@ -65,13 +63,14 @@ public class PublishFunctionalTest {
 
 		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
 
+		// TODO: review (it is only a test)
 		Domain newDomain = new Domain();
-		newDomain
-				.setName("cejug.functional.test." + System.currentTimeMillis());
+		newDomain.setDomain(domain);
+		newDomain.setBrand("CEJUG");
 		newDomain.setSharedQuota(true);
 		newDomain.setTimezone("America/Fortaleza");
 		admin.requestDomainOperation(newDomain);
-		
+
 		// TODO: admin.updateDomain();
 
 		// ServiceStatus status = facade.publishOperation(bundle);
@@ -84,9 +83,6 @@ public class PublishFunctionalTest {
 		 * "http://cejug-classifieds.dev.java.net/server",
 		 * "CejugClassifiedsService");
 		 */
-
-		CustomerEntity customer = new CustomerEntity();
-		customer.setLogin("fgaucho");
 
 		// include or activate a new advertisement (submit via service or direct
 		// into database)
@@ -105,13 +101,10 @@ public class PublishFunctionalTest {
 		 */
 
 		Advertisement advertisement = new Advertisement();
-
-		// Authorship
 		Customer customer = new Customer();
-		customer.setDomain("cejug");
+		customer.setDomain(domain);
 		customer.setLogin("fgaucho");
 		advertisement.setAdvertiser(customer);
-
 		// Publishing period
 		DatatypeFactory factory = DatatypeFactory.newInstance();
 		Calendar today = GregorianCalendar.getInstance();
@@ -121,9 +114,8 @@ public class PublishFunctionalTest {
 		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
 		advertisement.setPublishingFinish(factory
 				.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
-
 		// Advertisement contents
-		advertisement.setHeadline("JAXWS Unleashed");
+		advertisement.setHeadline("JAXWSUnleashed");
 		advertisement
 				.setShortDescription("JAXWS Unleashed book for only $15,-");
 		advertisement
@@ -144,7 +136,9 @@ public class PublishFunctionalTest {
 		bundle.setAuthorLogin("fgaucho");
 
 		ServiceStatus status = business.publishOperation(bundle);
+		System.out.println(status.getDescription());
 		assert status.getDescription().equalsIgnoreCase("OK");
+
 	}
 
 	@Test

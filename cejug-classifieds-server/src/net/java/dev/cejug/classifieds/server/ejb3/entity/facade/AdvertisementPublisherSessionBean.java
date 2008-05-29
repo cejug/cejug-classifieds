@@ -33,7 +33,7 @@ public class AdvertisementPublisherSessionBean implements
 		// source.getAuthorId());
 		DomainEntity domain = new DomainEntity();
 		domain.setDomain("cejug.org");
-		domain.setName("CEJUG");
+		domain.setBrand("CEJUG");
 		domain.setSharedQuota(false);
 		domain.setTimezone(TimeZone.getTimeZone("America/Fortaleza"));
 
@@ -82,13 +82,27 @@ public class AdvertisementPublisherSessionBean implements
 	}
 
 	@Override
-	public List<AdvertisementBundle> getAll(int limit) throws Exception {
+	public AdvertisementBundle get(Map<String, String> params) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AdvertisementBundle get(Map<String, String> params) throws Exception {
+	public AdvertisementBundle create(AdvertisementBundle entity)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AdvertisementBundle> get(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AdvertisementBundle> get(Map<String, String> params, int limit)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

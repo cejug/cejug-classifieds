@@ -54,18 +54,31 @@ public class RssChannelDao implements DomainModelFacade<Channel> {
 	}
 
 	@Override
-	public List<Channel> getAll(int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void update(Channel entity) throws Exception {
 		manager.persist(entity);
 	}
 
 	@Override
 	public Channel get(Map<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Channel create(Channel entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Channel> get(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Channel> get(Map<String, String> params, int limit)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

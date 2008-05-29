@@ -45,7 +45,8 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="shared.quota" type="xsd:boolean" />
-				<xsd:element name="name" type="xsd:string" />
+				<xsd:element name="domain" type="xsd:string" />
+				<xsd:element name="brand" type="xsd:string" />
 				<xsd:element name="timezone" type="xsd:string"
 					default="Fortaleza/Ceara" />
 			</xsd:sequence>

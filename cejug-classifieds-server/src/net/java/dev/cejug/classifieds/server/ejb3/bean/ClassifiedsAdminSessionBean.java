@@ -3,6 +3,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -13,7 +14,9 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
@@ -24,7 +27,11 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 @Stateless
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@EJB
-	OperationTimeKeeperLocal timeKeeper;
+	OperationTimeKeeperLocal timeKeeperFacade;
+
+	@EJB
+	DomainFacadeLocal domainFacade;
+
 	private final DatatypeFactory factory;
 
 	/**
@@ -71,17 +78,30 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 				stamp.setStart(start);
 				stamp.setFinish(new Date());
 				stamp.setStatus(true);
-				stamp.setClientId("kk");
-				timeKeeper.update(stamp);
+				stamp.setClientId("TODO: get client ID");
+				timeKeeperFacade.update(stamp);
 			} catch (Exception error) {
-
+				throw new WebServiceException(error);
 			}
 		}
 	}
 
 	@Override
 	public ServiceStatus requestDomainOperation(Domain domain) {
-		// TODO Auto-generated method stub
+		try {
+			// TODO: review
+			// TODO: validation...
+			DomainEntity entity = new DomainEntity();
+			entity.setDomain(domain.getDomain());
+			entity.setSharedQuota(false);
+			entity.setTimezone(TimeZone.getTimeZone(domain.getTimezone()));
+			entity.setBrand(domain.getBrand());
+			domainFacade.update(entity);
+		} catch (Exception e) {
+			// TODO Logging....
+			throw new WebServiceException(e);
+		}
+
 		return null;
 	}
 }

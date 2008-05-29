@@ -9,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "domain")
-@NamedQuery(name = "selectDomainByname", query = "SELECT d FROM DomainEntity d WHERE d.name= :domain")
+@Table(name = "domain", uniqueConstraints = { @UniqueConstraint(columnNames = { "domain" }) })
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :domain")
 public class DomainEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -22,17 +24,20 @@ public class DomainEntity {
 	private Boolean sharedQuota;
 
 	@Column(nullable = false)
-	private String name;
+	private String domain;
+
+	@Column(nullable = false)
+	private String brand;
 
 	@Column(nullable = false)
 	private TimeZone timezone;
 
 	public String getDomain() {
-		return name;
+		return domain;
 	}
 
 	public void setDomain(String domain) {
-		this.name = domain;
+		this.domain = domain;
 	}
 
 	public Boolean getSharedQuota() {
@@ -43,12 +48,20 @@ public class DomainEntity {
 		this.sharedQuota = sharedQuota;
 	}
 
-	public String getName() {
-		return name;
+	public TimeZone getTimezone() {
+		return timezone;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTimezone(TimeZone timezone) {
+		this.timezone = timezone;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public Integer getId() {
@@ -57,14 +70,6 @@ public class DomainEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public TimeZone getTimezone() {
-		return timezone;
-	}
-
-	public void setTimezone(TimeZone timezone) {
-		this.timezone = timezone;
 	}
 
 }

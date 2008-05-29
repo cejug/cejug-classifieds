@@ -2,6 +2,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,23 +12,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"login", "domain" }) })
 public class CustomerEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "login")
+	@Column(name = "login", nullable = false)
 	private String login;
 
-	@ManyToOne
-	@JoinColumn(name = "domain_id")
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "domain", nullable = false)
 	private DomainEntity domain;
 
 	@OneToMany
 	private Collection<QuotaEntity> quotas;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getLogin() {
 		return login;
@@ -35,14 +46,6 @@ public class CustomerEntity {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public Collection<QuotaEntity> getQuotas() {
-		return quotas;
-	}
-
-	public void setQuotas(Collection<QuotaEntity> quotas) {
-		this.quotas = quotas;
 	}
 
 	public DomainEntity getDomain() {
@@ -53,11 +56,12 @@ public class CustomerEntity {
 		this.domain = domain;
 	}
 
-	public Integer getId() {
-		return id;
+	public Collection<QuotaEntity> getQuotas() {
+		return quotas;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setQuotas(Collection<QuotaEntity> quotas) {
+		this.quotas = quotas;
 	}
+
 }

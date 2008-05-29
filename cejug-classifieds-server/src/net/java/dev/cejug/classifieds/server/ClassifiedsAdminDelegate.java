@@ -88,7 +88,12 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 
 	@Override
 	public ServiceStatus requestDomainOperation(Domain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			return implementation.requestDomainOperation(domain);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 }

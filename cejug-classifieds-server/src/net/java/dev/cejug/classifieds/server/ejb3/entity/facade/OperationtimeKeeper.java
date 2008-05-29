@@ -35,12 +35,6 @@ public class OperationtimeKeeper implements OperationTimeKeeperLocal {
 	}
 
 	@Override
-	public List<OperationTimestampEntity> getAll(int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void update(OperationTimestampEntity entity) throws Exception {
 		manager.persist(entity);
 		// TODO Auto-generated method stub
@@ -50,6 +44,26 @@ public class OperationtimeKeeper implements OperationTimeKeeperLocal {
 	@Override
 	public OperationTimestampEntity get(Map<String, String> params)
 			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OperationTimestampEntity create(OperationTimestampEntity entity)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OperationTimestampEntity> get(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OperationTimestampEntity> get(Map<String, String> params,
+			int limit) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

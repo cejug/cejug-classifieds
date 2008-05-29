@@ -35,15 +35,28 @@ public class CustomerFacade implements CustomerFacadeLocal {
 	}
 
 	@Override
-	public List<CustomerEntity> getAll(int limit) throws Exception {
+	public void update(CustomerEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public CustomerEntity create(CustomerEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(CustomerEntity entity) throws Exception {
+	public List<CustomerEntity> get(int limit) throws Exception {
 		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public List<CustomerEntity> get(Map<String, String> params, int limit)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

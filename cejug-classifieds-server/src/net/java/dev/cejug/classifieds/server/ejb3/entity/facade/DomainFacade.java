@@ -24,17 +24,13 @@ public class DomainFacade implements DomainFacadeLocal {
 
 	@Override
 	public void update(DomainEntity entity) throws Exception {
-		// TODO Auto-generated method stub
-
+		// TODO: merge here.. 
+		manager.persist(entity);
 	}
 
 	@Override
 	public DomainEntity create() throws Exception {
-		DomainEntity newDomain = new DomainEntity();
-		newDomain.setName(Math.random() * 1000 + "."
-				+ System.currentTimeMillis());
-		manager.persist(newDomain);
-		return newDomain;
+		throw new IllegalAccessException("Unable to create empty domain.");
 	}
 
 	@Override
@@ -45,15 +41,29 @@ public class DomainFacade implements DomainFacadeLocal {
 
 	@Override
 	public DomainEntity get(Map<String, String> params) throws Exception {
-		Query query = manager.createNamedQuery("selectDomainByname");
+		Query query = manager.createNamedQuery("selectDomainByName");
 		for (String key : params.keySet()) {
 			query.setParameter(key, params.get(key));
+			System.out.println(key + " ---- " + params.get(key));
 		}
 		return (DomainEntity) query.getSingleResult();
 	}
 
 	@Override
-	public List<DomainEntity> getAll(int limit) throws Exception {
+	public DomainEntity create(DomainEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DomainEntity> get(int limit) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DomainEntity> get(Map<String, String> params, int limit)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
