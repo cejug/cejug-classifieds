@@ -31,7 +31,7 @@ public class AdvertisementEntity {
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private Collection<PublishingPeriodEntity> publishingPeriod;
 
-	@ManyToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private CustomerEntity customer;
 

@@ -30,19 +30,13 @@ public class AdvertisementPublisherSessionBean implements
 	@Override
 	public void update(AdvertisementBundle source) throws Exception {
 		// CustomerEntity publisher = manager.find(CustomerEntity.class,
-		// source.getAuthorId());
-		DomainEntity domain = new DomainEntity();
-		domain.setDomain("cejug.org");
-		domain.setBrand("CEJUG");
-		domain.setSharedQuota(false);
-		domain.setTimezone(TimeZone.getTimeZone("America/Fortaleza"));
+		// source.getAuthorDomain());
+		DomainEntity template = new DomainEntity();
+		DomainEntity domain = manager.getReference(DomainEntity.class, source.getAuthorDomain());
 
-		manager.persist(domain);
 		CustomerEntity publisher = new CustomerEntity();
 		publisher.setDomain(domain);
 		publisher.setLogin("teste");
-
-		manager.persist(publisher);
 
 		for (Advertisement adv : source.getAdvertisements()) {
 			AdvertisementEntity entity = new AdvertisementEntity();

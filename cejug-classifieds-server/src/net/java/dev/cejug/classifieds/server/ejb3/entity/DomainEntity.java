@@ -4,25 +4,19 @@ import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "domain", uniqueConstraints = { @UniqueConstraint(columnNames = { "domain" }) })
-@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :domain")
+@Table(name = "domain")
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :par1")
 public class DomainEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
 	@Column(nullable = false)
 	private Boolean sharedQuota;
 
+	@Id
 	@Column(nullable = false)
 	private String domain;
 
@@ -62,14 +56,6 @@ public class DomainEntity {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 }

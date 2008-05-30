@@ -96,49 +96,59 @@ public class PublishFunctionalTest {
 	@Test
 	public void testPublishOperation() throws DatatypeConfigurationException,
 			MalformedURLException {
-		/*
-		 * check if the test advertisement comes with the RSS
-		 */
+		try {
+			/*
+			 * check if the test advertisement comes with the RSS
+			 */
 
-		Advertisement advertisement = new Advertisement();
-		Customer customer = new Customer();
-		customer.setDomain(domain);
-		customer.setLogin("fgaucho");
-		advertisement.setAdvertiser(customer);
-		// Publishing period
-		DatatypeFactory factory = DatatypeFactory.newInstance();
-		Calendar today = GregorianCalendar.getInstance();
-		advertisement.setPublishingStart(factory
-				.newXMLGregorianCalendar((GregorianCalendar) today));
-		Calendar fiveDaysLater = GregorianCalendar.getInstance();
-		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-		advertisement.setPublishingFinish(factory
-				.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
-		// Advertisement contents
-		advertisement.setHeadline("JAXWSUnleashed");
-		advertisement
-				.setShortDescription("JAXWS Unleashed book for only $15,-");
-		advertisement
-				.setFullText("This is a test advertisement.. several lines here.");
+			Advertisement advertisement = new Advertisement();
+			Customer customer = new Customer();
+			customer.setDomain(domain);
+			customer.setLogin("fgaucho");
 
-		advertisement.setSectionId(1);
-		Locale locale = new Locale();
-		locale.setLanguage("pt");
-		locale.setCountry("BR");
-		advertisement.setLocale(locale);
-		advertisement.setKeywords("J2EE,JAXWS");
-		advertisement.setStatus(1);
+			advertisement.setAdvertiser(customer);
+			// Publishing period
+			DatatypeFactory factory = DatatypeFactory.newInstance();
+			Calendar today = GregorianCalendar.getInstance();
+			advertisement.setPublishingStart(factory
+					.newXMLGregorianCalendar((GregorianCalendar) today));
+			Calendar fiveDaysLater = GregorianCalendar.getInstance();
+			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
+			advertisement
+					.setPublishingFinish(factory
+							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
+			// Advertisement contents
+			advertisement.setHeadline("JAXWSUnleashed");
+			advertisement
+					.setShortDescription("JAXWS Unleashed book for only $15,-");
+			advertisement
+					.setFullText("This is a test advertisement.. several lines here.");
 
-		AdvertisementBundle bundle = new AdvertisementBundle();
+			advertisement.setSectionId(1);
+			Locale locale = new Locale();
+			locale.setLanguage("pt");
+			locale.setCountry("BR");
+			advertisement.setLocale(locale);
+			advertisement.setKeywords("J2EE,JAXWS");
+			advertisement.setStatus(1);
 
-		bundle.getAdvertisements().add(advertisement);
-		bundle.setAuthorDomain("cejug.org");
-		bundle.setAuthorLogin("fgaucho");
+			AdvertisementBundle bundle = new AdvertisementBundle();
 
-		ServiceStatus status = business.publishOperation(bundle);
-		System.out.println(status.getDescription());
-		assert status.getDescription().equalsIgnoreCase("OK");
+			bundle.getAdvertisements().add(advertisement);
+			bundle.setAuthorDomain(domain);
+			bundle.setAuthorLogin("fgaucho");
 
+			System.out.println(":::::: " + business);
+			System.out.println(":::::: " + bundle);
+			System.out.println(business.publishOperation(bundle));
+			ServiceStatus status = business.publishOperation(bundle);
+			System.out.println("::::::LLLLLLLLLLL:::::::LLLLLLLLLLL");
+			System.out.println(";;;;;;;;;;;;;");
+			System.out.println(status.getDescription());
+			assert status.getDescription().equalsIgnoreCase("OK");
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		}
 	}
 
 	@Test

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -21,7 +22,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementPub
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
@@ -79,9 +79,9 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public ServiceStatus publishOperation(AdvertisementBundle advertisements) {
 		try {
-
+			logger.log(Level.FINEST, "HERERERRRE");
 			Map<String, String> params = new HashMap<String, String>();
-			params.put("domain", advertisements.getAuthorDomain());
+			params.put("par1", advertisements.getAuthorDomain());
 			DomainEntity domain = domainFacade.get(params);
 			if (domain == null) {
 				throw new WebServiceException("domain does not exist.");
@@ -91,9 +91,6 @@ public class ClassifiedsBusinessSessionBean implements
 			params.put("login", advertisements.getAuthorLogin());
 			CustomerEntity customer = customerFacade.get(params);
 
-			for (Advertisement adv : advertisements.getAdvertisements()) {
-
-			}
 			publishFacade.update(advertisements);
 			ServiceStatus status = new ServiceStatus();
 			status.setDescription("OK");
@@ -106,6 +103,7 @@ public class ClassifiedsBusinessSessionBean implements
 
 			return status;
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}

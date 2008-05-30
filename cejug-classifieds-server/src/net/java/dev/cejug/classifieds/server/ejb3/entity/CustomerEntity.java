@@ -2,7 +2,6 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +24,8 @@ public class CustomerEntity {
 	@Column(name = "login", nullable = false)
 	private String login;
 
-	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "domain", nullable = false)
+	@ManyToOne
 	private DomainEntity domain;
 
 	@OneToMany

@@ -44,7 +44,6 @@ public class DomainFacade implements DomainFacadeLocal {
 		Query query = manager.createNamedQuery("selectDomainByName");
 		for (String key : params.keySet()) {
 			query.setParameter(key, params.get(key));
-			System.out.println(key + " ---- " + params.get(key));
 		}
 		return (DomainEntity) query.getSingleResult();
 	}
