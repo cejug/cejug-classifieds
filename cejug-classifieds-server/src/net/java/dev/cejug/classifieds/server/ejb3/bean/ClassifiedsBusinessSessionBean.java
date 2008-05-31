@@ -1,10 +1,11 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -15,21 +16,33 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementPublisherLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.RssChannelFacadeLocal;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
+
+/**
+ * @WebService(name = "CejugClassifiedsBusiness", targetNamespace =
+ *                  "http://cejug-classifieds.dev.java.net/business")
+ * @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+ */
 
 @Stateless
 public class ClassifiedsBusinessSessionBean implements
@@ -38,7 +51,10 @@ public class ClassifiedsBusinessSessionBean implements
 	OperationTimeKeeperLocal timeKeeperFacade;
 
 	@EJB
-	AdvertisementPublisherLocal publishFacade;
+	AdvertisementFacadeLocal publishFacade;
+
+	@EJB
+	RssChannelFacadeLocal rssFacade;
 
 	@EJB
 	CustomerFacadeLocal customerFacade;
@@ -72,42 +88,16 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceStatus publishOperation(AdvertisementBundle advertisements) {
 		try {
-			logger.log(Level.FINEST, "HERERERRRE");
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("par1", advertisements.getAuthorDomain());
-			DomainEntity domain = domainFacade.get(params);
-			if (domain == null) {
-				throw new WebServiceException("domain does not exist.");
-			}
-
-			params.clear();
-			params.put("login", advertisements.getAuthorLogin());
-			CustomerEntity customer = customerFacade.get(params);
-
-			publishFacade.update(advertisements);
-			ServiceStatus status = new ServiceStatus();
-			status.setDescription("OK");
-			status.setCode(202);
-
-			status
-					.setTimestamp(factory
-							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
-									.getInstance()));
-
-			return status;
+			Channel channel = rssFacade.get(null);
+			RssCollection col = new RssCollection();
+			col.getRssCollection().add(channel);
+			return col;
 		} catch (Exception e) {
-			e.printStackTrace();
+			// TODO: log
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
-
 	}
 
 	@Override
@@ -118,7 +108,7 @@ public class ClassifiedsBusinessSessionBean implements
 
 	// interceptor method within the bean (the bean is the aspect)
 	@AroundInvoke
-	public Object TimerLog(InvocationContext ctx) throws Exception {
+	public Object timerLog(InvocationContext ctx) throws Exception {
 		// TODO: include timezone...
 		Date start = new Date();
 		try {
@@ -138,4 +128,54 @@ public class ClassifiedsBusinessSessionBean implements
 		}
 	}
 
+	@Override
+	public ServiceStatus publishOperation(Advertisement advertisement,
+			AdvertisementHeader header) {
+		try {
+			// loading domain
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("par1", header.getCustomerDomain());
+			DomainEntity domain = domainFacade.get(params);
+
+			// loading customer
+			params.clear();
+			params.put("login", header.getCustomerLogin());
+			params.put("domain", header.getCustomerDomain());
+			CustomerEntity customer = customerFacade.get(params);
+
+			// validating advertisement PIN
+
+			AdvertisementEntity entity = new AdvertisementEntity();
+			entity.setKeywords(advertisement.getKeywords());
+			entity.setText(advertisement.getFullText());
+			entity.setPublisher(customer);
+			entity.setSummary(advertisement.getShortDescription());
+			entity.setTitle(advertisement.getHeadline());
+			PublishingPeriodEntity period = new PublishingPeriodEntity();
+			period.setDay(new Date(advertisement.getPublishingStart()
+					.getMillisecond()));
+			period.setState(PeriodState.NEW);
+
+			Collection<PublishingPeriodEntity> c = new ArrayList<PublishingPeriodEntity>();
+			c.add(period);
+			entity.setPublishingPeriod(c);
+			publishFacade.create(entity);
+
+			ServiceStatus status = new ServiceStatus();
+			status.setDescription("OK");
+			status.setCode(202);
+
+			status
+					.setTimestamp(factory
+							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+									.getInstance()));
+
+			return status;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
 }

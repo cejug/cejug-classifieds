@@ -31,7 +31,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
@@ -58,6 +58,15 @@ public class PublishFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
+		/*--
+		 * TODO: review this code and do the proper test sequence:
+		 * - create a new domain, for tests
+		 * - insert new advertisement
+		 * - load the advertisement
+		 * - delete the domain and all of its advertisement (cleanup)
+		 * 
+		 * WARNING: for our first tests, we are creating a new domain on each test. 
+		 */
 		business = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 
@@ -132,19 +141,12 @@ public class PublishFunctionalTest {
 			advertisement.setKeywords("J2EE,JAXWS");
 			advertisement.setStatus(1);
 
-			AdvertisementBundle bundle = new AdvertisementBundle();
+			AdvertisementHeader header = new AdvertisementHeader();
+			header.setCustomerDomain(domain);
+			header.setCustomerLogin("fgaucho");
 
-			bundle.getAdvertisements().add(advertisement);
-			bundle.setAuthorDomain(domain);
-			bundle.setAuthorLogin("fgaucho");
-
-			System.out.println(":::::: " + business);
-			System.out.println(":::::: " + bundle);
-			System.out.println(business.publishOperation(bundle));
-			ServiceStatus status = business.publishOperation(bundle);
-			System.out.println("::::::LLLLLLLLLLL:::::::LLLLLLLLLLL");
-			System.out.println(";;;;;;;;;;;;;");
-			System.out.println(status.getDescription());
+			ServiceStatus status = business.publishOperation(advertisement,
+					header);
 			assert status.getDescription().equalsIgnoreCase("OK");
 		} catch (Exception ee) {
 			ee.printStackTrace();

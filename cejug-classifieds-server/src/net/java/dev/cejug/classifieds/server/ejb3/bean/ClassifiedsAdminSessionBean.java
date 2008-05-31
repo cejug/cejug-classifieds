@@ -24,6 +24,16 @@ import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
+/**
+ * //
+ * 
+ * @WebService(name = "CejugClassifiedsAdmin", targetNamespace =
+ *                  "http://cejug-classifieds.dev.java.net/admin")
+ * @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+ * 
+ * @author Felipe
+ * 
+ */
 @Stateless
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@EJB
@@ -66,7 +76,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	 * Intercepter method within the bean (the bean is the aspect)
 	 */
 	@AroundInvoke
-	public Object TimerLog(InvocationContext ctx) throws Exception {
+	public Object timerLog(InvocationContext ctx) throws Exception {
 		// TODO: include timezone...
 		Date start = new Date();
 		try {

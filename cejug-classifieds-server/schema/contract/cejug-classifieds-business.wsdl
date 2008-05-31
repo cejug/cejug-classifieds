@@ -53,8 +53,9 @@
 
 	<!-- ADVERTISEMENT PUBLISHING -->
 	<wsdl:message name="Publish">
-		<wsdl:part element="metadata:AdvertisementBundle"
-			name="advertisements" />
+		<wsdl:part element="metadata:Advertisement"
+			name="advertisement" />
+		<wsdl:part name="header" element="metadata:AdvertisementHeader" />
 	</wsdl:message>
 
 	<wsdl:message name="PublishResponse">
@@ -110,7 +111,6 @@
 				soapAction="http://cejug-classifieds.dev.java.net/business/LoadRss" />
 			<wsdl:input>
 				<soap:body use="literal" />
-				<!-- soap:header message="contract:Identification" part="login" use="literal" /-->
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />
@@ -130,7 +130,9 @@
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/Publish" />
 			<wsdl:input>
-				<soap:body use="literal" />
+				<soap:body use="literal" parts="advertisement" />
+				<soap:header name="header" message="business:Publish"
+					part="header" use="literal" />
 			</wsdl:input>
 			<wsdl:output>
 				<soap:body use="literal" />

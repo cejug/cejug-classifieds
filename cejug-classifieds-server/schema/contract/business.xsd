@@ -74,30 +74,33 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="Advertisement">
-		<xsd:sequence>
-			<xsd:element name="advertiser" type="business:Customer" />
-			<xsd:element name="headline" type="xsd:string" />
-			<xsd:element name="short.description" type="xsd:string" />
-			<xsd:element name="full.text" type="xsd:string" />
-			<xsd:element name="status" type="xsd:int" />
-			<xsd:element name="keywords" type="xsd:string" />
-			<xsd:element name="publishing.start" type="xsd:dateTime" />
-			<xsd:element name="publishing.finish" type="xsd:dateTime" />
-			<xsd:element name="attachment.id" type="xsd:int"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="section.id" type="xsd:int" />
-			<xsd:element name="locale" type="business:Locale" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:element name="AdvertisementBundle">
+	<xsd:element name="Advertisement">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="author.login" type="xsd:NMTOKEN" />
-				<xsd:element name="author.domain" type="xsd:NMTOKEN" />
-				<xsd:element name="advertisements"
-					type="business:Advertisement" minOccurs="1" maxOccurs="unbounded" />
+				<xsd:element name="advertiser" type="business:Customer" />
+				<xsd:element name="headline" type="xsd:string" />
+				<xsd:element name="short.description" type="xsd:string" />
+				<xsd:element name="full.text" type="xsd:string" />
+				<xsd:element name="status" type="xsd:int" />
+				<xsd:element name="keywords" type="xsd:string" />
+				<xsd:element name="publishing.start"
+					type="xsd:dateTime" />
+				<xsd:element name="publishing.finish"
+					type="xsd:dateTime" />
+				<xsd:element name="attachment.id" type="xsd:int"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="section.id" type="xsd:int" />
+				<xsd:element name="locale" type="business:Locale" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AdvertisementHeader">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="customer.login" type="xsd:NMTOKEN" />
+				<xsd:element name="customer.domain" type="xsd:NMTOKEN" />
+				<xsd:element name="pin" type="xsd:NMTOKEN" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

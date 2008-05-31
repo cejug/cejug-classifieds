@@ -32,7 +32,8 @@ import javax.naming.NamingException;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementBundle;
+import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
@@ -109,9 +110,10 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	}
 
 	@Override
-	public ServiceStatus publishOperation(AdvertisementBundle advertisement) {
+	public ServiceStatus reportSpamOperation(SpamReport spam) {
 		try {
-			return implementation.publishOperation(advertisement);
+			// TODO: logging....
+			return implementation.reportSpamOperation(spam);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
@@ -119,10 +121,10 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	}
 
 	@Override
-	public ServiceStatus reportSpamOperation(SpamReport spam) {
+	public ServiceStatus publishOperation(Advertisement advertisement,
+			AdvertisementHeader header) {
 		try {
-			// TODO: logging....
-			return implementation.reportSpamOperation(spam);
+			return implementation.publishOperation(advertisement, header);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);

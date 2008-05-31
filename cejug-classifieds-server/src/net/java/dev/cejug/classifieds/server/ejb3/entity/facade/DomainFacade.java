@@ -24,7 +24,7 @@ public class DomainFacade implements DomainFacadeLocal {
 
 	@Override
 	public void update(DomainEntity entity) throws Exception {
-		// TODO: merge here.. 
+		// TODO: merge here..
 		manager.persist(entity);
 	}
 
@@ -42,8 +42,10 @@ public class DomainFacade implements DomainFacadeLocal {
 	@Override
 	public DomainEntity get(Map<String, String> params) throws Exception {
 		Query query = manager.createNamedQuery("selectDomainByName");
-		for (String key : params.keySet()) {
-			query.setParameter(key, params.get(key));
+		if (params != null) {
+			for (String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
 		}
 		return (DomainEntity) query.getSingleResult();
 	}

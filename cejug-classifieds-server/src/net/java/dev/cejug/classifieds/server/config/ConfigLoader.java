@@ -78,8 +78,8 @@ public class ConfigLoader {
 				InputStream stream = loader.getResourceAsStream(DEFAULT_CONFIG);
 				InputStreamReader streamReader = new InputStreamReader(stream,
 						Charset.forName(DEFAULT_CONFIG_CONTENT_TYPE));
-				lastLoaded =reader.read(streamReader, DEFAULT_JAXB_CONTEXT,
-						new URL(DEFAULT_CONFIG_SCHEMA)).getValue(); 
+				lastLoaded = reader.read(streamReader, DEFAULT_JAXB_CONTEXT,
+						new URL(DEFAULT_CONFIG_SCHEMA)).getValue();
 				return lastLoaded;
 			}
 		}
