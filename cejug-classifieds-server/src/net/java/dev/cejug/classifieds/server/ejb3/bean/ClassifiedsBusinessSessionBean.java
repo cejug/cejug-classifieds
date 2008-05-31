@@ -18,13 +18,11 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.RssChannelFacadeLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
@@ -59,8 +57,6 @@ public class ClassifiedsBusinessSessionBean implements
 	@EJB
 	CustomerFacadeLocal customerFacade;
 
-	@EJB
-	DomainFacadeLocal domainFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
@@ -132,15 +128,11 @@ public class ClassifiedsBusinessSessionBean implements
 	public ServiceStatus publishOperation(Advertisement advertisement,
 			AdvertisementHeader header) {
 		try {
-			// loading domain
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("par1", header.getCustomerDomain());
-			DomainEntity domain = domainFacade.get(params);
-
 			// loading customer
+			Map<String, String> params = new HashMap<String, String>();
 			params.clear();
-			params.put("login", header.getCustomerLogin());
-			params.put("domain", header.getCustomerDomain());
+			params.put("l", header.getCustomerLogin());
+			params.put("d", header.getCustomerDomain());
 			CustomerEntity customer = customerFacade.get(params);
 
 			// validating advertisement PIN
