@@ -1,6 +1,5 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
