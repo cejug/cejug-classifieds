@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 @NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.domain= :d AND c.login= :l")
 public class CustomerEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@Column(name = "login", nullable = false)

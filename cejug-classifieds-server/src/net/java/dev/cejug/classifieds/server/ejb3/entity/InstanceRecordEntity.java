@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 public class InstanceRecordEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column
 	@Temporal(TemporalType.DATE)

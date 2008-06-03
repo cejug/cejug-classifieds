@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 @Table(name = "response_time")
 public class OperationTimestampEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Column(nullable = false)
 	private String operationName;

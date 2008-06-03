@@ -17,26 +17,26 @@ public class AdvertisementFacade implements AdvertisementFacadeLocal {
 	private EntityManager manager;
 
 	@Override
-	public void update(AdvertisementEntity source) throws Exception {
+	public void update(AdvertisementEntity entity) throws Exception {
+		manager.merge(entity);
 	}
 
 	@Override
 	public AdvertisementEntity create(AdvertisementEntity entity)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		manager.persist(entity);
+		return entity;
 	}
 
 	@Override
 	public void delete(AdvertisementEntity entity) throws Exception {
-		// TODO Auto-generated method stub
-
+		manager.remove(entity);
 	}
 
 	@Override
 	public AdvertisementEntity create() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException(
+				"blank advertisements cannot be created.");
 	}
 
 	@Override

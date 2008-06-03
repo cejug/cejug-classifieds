@@ -14,10 +14,10 @@ import javax.persistence.Table;
 @Table(name = "quota")
 public class QuotaEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@OneToOne(mappedBy = "quota", cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy = "quota")
 	@JoinColumn(name = "advertisement_type_id")
 	private AdvertisementTypeEntity type;
 

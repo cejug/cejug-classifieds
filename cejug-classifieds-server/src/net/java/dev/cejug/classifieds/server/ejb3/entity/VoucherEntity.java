@@ -10,17 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "publishing_period")
+@Table(name = "voucher")
+@SequenceGenerator(name = "VoucherSequence", sequenceName = "ADV_SEQ", initialValue = 100, allocationSize = 10)
 public class VoucherEntity {
 	public enum VoucherState {
 		NEW, USED, CANCELED
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator="VoucherSequence")
 	private Integer id;
 
 	@Column(nullable = false)

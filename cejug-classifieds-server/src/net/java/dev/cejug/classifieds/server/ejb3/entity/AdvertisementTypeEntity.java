@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "advertisement_type")
 public class AdvertisementTypeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@Column(nullable = false)

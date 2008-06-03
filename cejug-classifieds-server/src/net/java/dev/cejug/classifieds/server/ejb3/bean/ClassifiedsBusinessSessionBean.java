@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -147,6 +148,7 @@ public class ClassifiedsBusinessSessionBean implements
 			period.setDay(new Date(advertisement.getPublishingStart()
 					.getMillisecond()));
 			period.setState(PeriodState.NEW);
+			period.setTimezone(TimeZone.getDefault());
 
 			Collection<PublishingPeriodEntity> c = new ArrayList<PublishingPeriodEntity>();
 			c.add(period);
