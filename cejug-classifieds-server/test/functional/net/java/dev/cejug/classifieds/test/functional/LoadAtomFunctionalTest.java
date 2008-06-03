@@ -49,23 +49,22 @@ public class LoadAtomFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
+		// TODO: include or activate a new advertisement (submit via service or direct
 		// into database)
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
+		// TODO: remove or inactive the test advertisement
 	}
 
 	@Test
-	public void testAtomRssOperation() {
+	public void testAtomOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		System.out.println(service);
 		AtomFilterCollection filterCollection = new AtomFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
 
@@ -88,7 +87,6 @@ public class LoadAtomFunctionalTest {
 
 		AtomCollection collection = service.loadAtomOperation(filterCollection);
 		assert collection.getAtomCollection().size() > 0;
-		System.out.println(collection.getAtomCollection().size());
 	}
 
 	@Test

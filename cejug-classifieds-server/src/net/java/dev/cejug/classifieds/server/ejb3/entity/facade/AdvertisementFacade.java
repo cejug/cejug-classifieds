@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 
@@ -58,11 +59,18 @@ public class AdvertisementFacade implements AdvertisementFacadeLocal {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AdvertisementEntity> get(Map<String, String> params, int limit)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = manager.createNamedQuery("selectAdvertisementByFilter");
+		if (params != null) {
+			for (String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
+		}
+		List<AdvertisementEntity> result = query.getResultList();
+		return result;
 	}
 
 }

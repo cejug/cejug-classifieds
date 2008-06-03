@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Logger;
@@ -25,16 +26,19 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationTimeKeeperLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.RssChannelFacadeLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
+import net.java.dev.cejug.classifieds.server.generated.contract.EntryType;
+import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
+import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
+import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
 import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 /**
@@ -50,10 +54,7 @@ public class ClassifiedsBusinessSessionBean implements
 	OperationTimeKeeperLocal timeKeeperFacade;
 
 	@EJB
-	AdvertisementFacadeLocal publishFacade;
-
-	@EJB
-	RssChannelFacadeLocal rssFacade;
+	AdvertisementFacadeLocal advertisementFacade;
 
 	@EJB
 	CustomerFacadeLocal customerFacade;
@@ -79,14 +80,57 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: converter filter in a map of parameters...
+			Map<String, String> filterCriteria = new HashMap<String, String>();
+			List<AdvertisementEntity> result = advertisementFacade.get(
+					filterCriteria, 50);
+
+			List<FeedType> atomCollection = new ArrayList<FeedType>();
+			for (AdvertisementEntity adv : result) {
+				FeedType feed = new FeedType();
+				EntryType entry = new EntryType();
+				TextType title = new TextType();
+				title.setType(adv.getTitle());
+				feed.getAuthorOrCategoryOrContributor().add(title);
+
+				Item item = new Item();
+				item.setAuthor(adv.getPublisher().getLogin());
+				item.setDescription(adv.getSummary());
+				item.setPubDate(adv.getPublishingPeriod().iterator().next()
+						.getDay());
+				atomCollection.add(feed);
+			}
+
+			AtomCollection atoms = new AtomCollection();
+			// atoms.getAtomCollection().add(atomCollection);
+			return atoms;
+		} catch (Exception e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
 		try {
-			Channel channel = rssFacade.get(null);
+			// TODO: converter filter in a map of parameters...
+			Map<String, String> filterCriteria = new HashMap<String, String>();
+			List<AdvertisementEntity> result = advertisementFacade.get(
+					filterCriteria, 50);
+
+			Channel channel = new Channel();
+			for (AdvertisementEntity adv : result) {
+				Item item = new Item();
+				item.setAuthor(adv.getPublisher().getLogin());
+				item.setTitle(adv.getTitle());
+				item.setDescription(adv.getSummary());
+				item.setPubDate(adv.getPublishingPeriod().iterator().next()
+						.getDay());
+				channel.getItem().add(item);
+			}
+
 			RssCollection col = new RssCollection();
 			col.getRssCollection().add(channel);
 			return col;
@@ -153,7 +197,7 @@ public class ClassifiedsBusinessSessionBean implements
 			Collection<PublishingPeriodEntity> c = new ArrayList<PublishingPeriodEntity>();
 			c.add(period);
 			entity.setPublishingPeriod(c);
-			publishFacade.create(entity);
+			advertisementFacade.create(entity);
 
 			ServiceStatus status = new ServiceStatus();
 			status.setDescription("OK");

@@ -11,8 +11,6 @@
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 
-	<import file="deploy/functional-tests.xml" />
-
 	<path id="jaxws.classpath">
 		<pathelement location="${java.home}/../lib/tools.jar" />
 		<fileset dir="${jaxws.lib.home}">
@@ -59,8 +57,8 @@
 	</target>
 
 	<target name="create-war">
-		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/WEB-INF/web.xml">
-			<webinf dir="${basedir}/WEB-INF" includes="**/**" />
+		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
+			<webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
 			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
 			<zipfileset dir="${resources.folder}" includes="**/**" excludes="**/META-INF/**/**" prefix="WEB-INF/classes" />
 			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
@@ -84,7 +82,7 @@
 		<echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
 		<echo message="functional.tests:   Runs the functional tests against the delpoyied service" />
 		<echo message="" />
-		
+
 		<echo message=" >> ATTENTION >>    %JAXWS_HOME% and %AS_HOME% should be well configured" />
 		<echo message=" >> ATTENTION >>    be sure to have JAXWS and GLASSFISH properly installed" />
 		<echo message=" >> ATTENTION >>    JAXWS:  https://jax-ws.dev.java.net/" />
@@ -144,9 +142,9 @@
 	<target name="package-entity">
 		<jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
 			<fileset dir="${build.classes.home}">
-				<include name="**\ejb3**\**" />
+				<include name="**/ejb3**/**" />
 			</fileset>
-			<metainf dir="${resources.folder}/META-INF">
+			<metainf dir="${basedir}/conf/ejb/META-INF">
 				<include name="persistence.xml" />
 			</metainf>
 		</jar>
@@ -161,4 +159,29 @@
 	<target name="deploy" depends="package-ear">
 		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${as.home}/domains/${domain}/autodeploy" />
 	</target>
+
+	<target name="compile.functional.tests">
+		<javac srcdir="test" destdir="${build.classes.home}">
+			<classpath refid="jaxws.classpath" />
+			<include name="**/*.java" />
+		</javac>
+	</target>
+
+	<path id="functional.classpath">
+		<pathelement location="${build.classes.home}" />
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Test -->
+	<target name="functional.tests" depends="compile.functional.tests">
+		<junit fork="yes" haltonfailure="yes" printsummary="no">
+			<test name="net.java.dev.cejug.classifieds.test.functional.FunctionalTestSuite" />
+			<classpath refid="functional.classpath" />
+			<formatter type="plain" usefile="false" />
+			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
+		</junit>
+	</target>
+
 </project>

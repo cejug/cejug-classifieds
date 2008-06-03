@@ -8,9 +8,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.Item;
@@ -63,26 +61,7 @@ public class RssChannelFacade implements RssChannelFacadeLocal {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Channel get(Map<String, String> params) throws Exception {
-		Query query = manager.createNamedQuery("selectAdvertisementByFilter");
-		if (params != null) {
-			for (String key : params.keySet()) {
-				query.setParameter(key, params.get(key));
-			}
-		}
-		List<AdvertisementEntity> result = query.getResultList();
-		Channel channel = new Channel();
-		for (AdvertisementEntity adv : result) {
-			Item item = new Item();
-			item.setAuthor(adv.getPublisher().getLogin());
-			item.setTitle(adv.getTitle());
-			item.setDescription(adv.getSummary());
-			item.setPubDate(adv.getPublishingPeriod().iterator().next()
-					.getDay());
-			channel.getItem().add(item);
-		}
-
-		return channel;
-
+		return null;
 	}
 
 	@Override
