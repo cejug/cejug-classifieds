@@ -1,7 +1,5 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.TimeZone;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,49 +10,45 @@ import javax.persistence.Table;
 @Table(name = "domain")
 @NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :par1")
 public class DomainEntity {
-	@Column(nullable = false)
-	private Boolean sharedQuota;
 
-	@Id
-	@Column(nullable = false)
-	private String domain;
+    @Column(nullable = false)
+    private Boolean sharedQuota;
 
-	@Column(nullable = false)
-	private String brand;
+    @Id
+    @Column(nullable = false)
+    private String domain;
 
-	@Column(nullable = false)
-	private TimeZone timezone;
+    @Column(nullable = false)
+    private String brand;
 
-	public String getDomain() {
-		return domain;
-	}
+    public String getDomain() {
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
+        return domain;
+    }
 
-	public Boolean getSharedQuota() {
-		return sharedQuota;
-	}
+    public void setDomain(String domain) {
 
-	public void setSharedQuota(Boolean sharedQuota) {
-		this.sharedQuota = sharedQuota;
-	}
+        this.domain = domain;
+    }
 
-	public TimeZone getTimezone() {
-		return timezone;
-	}
+    public Boolean getSharedQuota() {
 
-	public void setTimezone(TimeZone timezone) {
-		this.timezone = timezone;
-	}
+        return sharedQuota;
+    }
 
-	public String getBrand() {
-		return brand;
-	}
+    public void setSharedQuota(Boolean sharedQuota) {
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+        this.sharedQuota = sharedQuota;
+    }
+
+    public String getBrand() {
+
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+
+        this.brand = brand;
+    }
 
 }

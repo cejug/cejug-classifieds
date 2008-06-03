@@ -16,79 +16,115 @@ import javax.persistence.Table;
 @Table(name = "voucher")
 // @SequenceGenerator(name = "VoucherSequence", sequenceName = "ADV_SEQ", initialValue = 100, allocationSize = 10)
 public class VoucherEntity {
-	public enum VoucherState {
-		NEW, USED, CANCELED
-	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	// , generator="VoucherSequence")
-	private Integer id;
+    public enum VoucherState {
+        NEW, USED, CANCELED
+    }
 
-	@Column(nullable = false)
-	private String pin;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    // ,
+    // generator="VoucherSequence")
+    private Integer id;
 
-	@JoinColumn(name = "advertisement", nullable = true)
-	@OneToOne
-	private AdvertisementEntity advertisement;
+    @Column(nullable = false)
+    private String pin;
 
-	@JoinColumn(name = "domain", nullable = false)
-	@ManyToOne
-	private DomainEntity domain;
+    @JoinColumn(name = "advertisement", nullable = true)
+    @OneToOne
+    private AdvertisementEntity advertisement;
 
-	@JoinColumn(name = "customer", nullable = true)
-	@ManyToOne
-	private CustomerEntity customer;
+    @JoinColumn(name = "domain", nullable = false)
+    @ManyToOne
+    private DomainEntity domain;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private VoucherState state;
+    @JoinColumn(name = "customer", nullable = true)
+    @ManyToOne
+    private CustomerEntity customer;
 
-	public Integer getId() {
-		return id;
-	}
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private VoucherState state;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @JoinColumn(name = "publishingperiod", nullable = false)
+    @ManyToOne
+    private PublishingPeriodEntity publishingPeriod;
 
-	public String getPin() {
-		return pin;
-	}
+    public Integer getId() {
 
-	public void setPin(String pin) {
-		this.pin = pin;
-	}
+        return id;
+    }
 
-	public AdvertisementEntity getAdvertisement() {
-		return advertisement;
-	}
+    public void setId(Integer id) {
 
-	public void setAdvertisement(AdvertisementEntity advertisement) {
-		this.advertisement = advertisement;
-	}
+        this.id = id;
+    }
 
-	public DomainEntity getDomain() {
-		return domain;
-	}
+    public String getPin() {
 
-	public void setDomain(DomainEntity domain) {
-		this.domain = domain;
-	}
+        return pin;
+    }
 
-	public CustomerEntity getCustomer() {
-		return customer;
-	}
+    public void setPin(String pin) {
 
-	public void setCustomer(CustomerEntity customer) {
-		this.customer = customer;
-	}
+        this.pin = pin;
+    }
 
-	public VoucherState getState() {
-		return state;
-	}
+    public AdvertisementEntity getAdvertisement() {
 
-	public void setState(VoucherState state) {
-		this.state = state;
-	}
+        return advertisement;
+    }
+
+    public void setAdvertisement(AdvertisementEntity advertisement) {
+
+        this.advertisement = advertisement;
+    }
+
+    public DomainEntity getDomain() {
+
+        return domain;
+    }
+
+    public void setDomain(DomainEntity domain) {
+
+        this.domain = domain;
+    }
+
+    public CustomerEntity getCustomer() {
+
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+
+        this.customer = customer;
+    }
+
+    public VoucherState getState() {
+
+        return state;
+    }
+
+    public void setState(VoucherState state) {
+
+        this.state = state;
+    }
+
+    /**
+     * @return the publishingPeriod
+     */
+    public PublishingPeriodEntity getPublishingPeriod() {
+
+        return publishingPeriod;
+    }
+
+    /**
+     * @param publishingPeriod
+     *            the publishingPeriod to set
+     */
+    public void setPublishingPeriod(PublishingPeriodEntity publishingPeriod) {
+
+        this.publishingPeriod = publishingPeriod;
+    }
 
 }

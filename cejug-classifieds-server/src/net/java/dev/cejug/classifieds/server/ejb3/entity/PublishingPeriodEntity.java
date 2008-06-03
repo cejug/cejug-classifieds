@@ -1,8 +1,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Date;
-import java.util.TimeZone;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,54 +15,50 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "publishing_period")
 public class PublishingPeriodEntity {
-	public enum PeriodState {
-		NEW, OPEN, CLOSED, CANCELED
-	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+    public enum PeriodState {
+        NEW, OPEN, CLOSED, CANCELED
+    }
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date day;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-	@Column(nullable = false)
-	private TimeZone timezone;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date day;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private PeriodState state;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PeriodState state;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
 
-	public TimeZone getTimezone() {
-		return timezone;
-	}
+        return id;
+    }
 
-	public void setTimezone(TimeZone timezone) {
-		this.timezone = timezone;
-	}
+    public void setId(Integer id) {
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+        this.id = id;
+    }
 
-	public PeriodState getState() {
-		return state;
-	}
+    public PeriodState getState() {
 
-	public void setState(PeriodState state) {
-		this.state = state;
-	}
+        return state;
+    }
 
-	public Date getDay() {
-		return day;
-	}
+    public void setState(PeriodState state) {
 
-	public void setDay(Date day) {
-		this.day = day;
-	}
+        this.state = state;
+    }
+
+    public Date getDay() {
+
+        return day;
+    }
+
+    public void setDay(Date day) {
+
+        this.day = day;
+    }
 }
