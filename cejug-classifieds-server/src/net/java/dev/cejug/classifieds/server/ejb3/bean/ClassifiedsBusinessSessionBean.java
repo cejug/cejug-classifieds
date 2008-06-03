@@ -131,8 +131,8 @@ public class ClassifiedsBusinessSessionBean implements
 			// loading customer
 			Map<String, String> params = new HashMap<String, String>();
 			params.clear();
-			params.put("l", header.getCustomerLogin());
 			params.put("d", header.getCustomerDomain());
+			params.put("l", header.getCustomerLogin());
 			CustomerEntity customer = customerFacade.get(params);
 
 			// validating advertisement PIN

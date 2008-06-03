@@ -47,6 +47,8 @@ public class CustomerFacade implements CustomerFacadeLocal {
 	public CustomerEntity get(Map<String, String> params) throws Exception {
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
+		System.out.println("CUSTOMER KKKKKKK : " + params.get("d") + ", "
+				+ params.get("l"));
 		if (params != null) {
 			for (String key : params.keySet()) {
 				query.setParameter(key, params.get(key));
@@ -55,18 +57,25 @@ public class CustomerFacade implements CustomerFacadeLocal {
 		try {
 			return (CustomerEntity) query.getSingleResult();
 		} catch (NoResultException error) {
+			/*
+			 * TODO: if the customer does not exist, insert a new customer
+			 * automatically. It should also add the default "welcome quotas",
+			 * to be defined by an external rule from database. The below code
+			 * is just a test.
+			 */
+
 			// loading domain
 			Map<String, String> domainParams = new HashMap<String, String>();
-			domainParams.put("par1", params.get("domain"));
+			domainParams.put("par1", params.get("d"));
 			DomainEntity domain = domainFacade.get(domainParams);
 
+			// insert a new customer
 			CustomerEntity customer = new CustomerEntity();
 			customer.setDomain(domain);
-			customer.setLogin((String) params.get("login"));
+			customer.setLogin((String) params.get("l"));
 			customer.setQuotas(new ArrayList<QuotaEntity>());
 			manager.persist(customer);
 			return customer;
-			// insert the new customer automatically.
 		}
 	}
 
