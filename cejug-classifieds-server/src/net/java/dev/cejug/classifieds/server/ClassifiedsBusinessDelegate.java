@@ -25,12 +25,10 @@ package net.java.dev.cejug.classifieds.server;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.ws.WebServiceException;
-
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
@@ -55,79 +53,75 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
  * @author $Author: felipegaucho $
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
-// @Interceptors( { Interceptor2.class })
 @javax.jws.WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness")
 public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
-	/*
-	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
-	 */
-	@Resource
-	ClassifiedsBusinessRemote implementation;
 
-	/** The publisher logger. */
-	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
-			.getName(), "i18n/log");
+    /*
+     * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
+     */
+    @Resource
+    ClassifiedsBusinessRemote implementation;
 
-	public ClassifiedsBusinessDelegate() {
-		InitialContext ic;
-		try {
-			ic = new InitialContext();
-			implementation = (ClassifiedsBusinessRemote) ic
-					.lookup(ClassifiedsBusinessRemote.class.getName());
-			logger.log(Level.INFO,
-					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED
-							.value(), implementation.getClass().getName());
-		} catch (NamingException e) {
-			logger.log(Level.SEVERE,
-					ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_FAILED
-							.value(),
-					new Object[] { implementation.getClass().getName(),
-							e.getMessage() });
-			throw new WebServiceException(e);
-		}
+    /** The publisher logger. */
+    private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class.getName(), "i18n/log");
 
-	}
+    public ClassifiedsBusinessDelegate() {
 
-	@Override
-	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-		try {
-			return implementation.loadAtomOperation(filter);
-		} catch (Exception e) {
-			// TODO: logging....
-			throw new WebServiceException(e);
-		}
-	}
+        InitialContext ic;
+        try {
+            ic = new InitialContext();
+            implementation = (ClassifiedsBusinessRemote) ic.lookup(ClassifiedsBusinessRemote.class.getName());
+            logger.log(Level.INFO, ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_LOADED.value(), implementation.getClass().getName());
+        } catch (NamingException e) {
+            logger.log(Level.SEVERE, ClassifiedsServiceDelegateI18N.SERVICE_DELEGATE_FAILED.value(), new Object[] { implementation.getClass().getName(), e.getMessage() });
+            throw new WebServiceException(e);
+        }
 
-	@Override
-	public RssCollection loadRssOperation(RssFilterCollection filter) {
-		try {
-			// TODO: logging....
-			return implementation.loadRssOperation(filter);
-		} catch (Exception e) {
-			// TODO: logging....
-			throw new WebServiceException(e);
-		}
-	}
+    }
 
-	@Override
-	public ServiceStatus reportSpamOperation(SpamReport spam) {
-		try {
-			// TODO: logging....
-			return implementation.reportSpamOperation(spam);
-		} catch (Exception e) {
-			// TODO: logging....
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 
-	@Override
-	public ServiceStatus publishOperation(Advertisement advertisement,
-			AdvertisementHeader header) {
-		try {
-			return implementation.publishOperation(advertisement, header);
-		} catch (Exception e) {
-			// TODO: logging....
-			throw new WebServiceException(e);
-		}
-	}
+        try {
+            return implementation.loadAtomOperation(filter);
+        } catch (Exception e) {
+            // TODO: logging....
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public RssCollection loadRssOperation(RssFilterCollection filter) {
+
+        try {
+            // TODO: logging....
+            return implementation.loadRssOperation(filter);
+        } catch (Exception e) {
+            // TODO: logging....
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public ServiceStatus reportSpamOperation(SpamReport spam) {
+
+        try {
+            // TODO: logging....
+            return implementation.reportSpamOperation(spam);
+        } catch (Exception e) {
+            // TODO: logging....
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public ServiceStatus publishOperation(Advertisement advertisement, AdvertisementHeader header) {
+
+        try {
+            return implementation.publishOperation(advertisement, header);
+        } catch (Exception e) {
+            // TODO: logging....
+            throw new WebServiceException(e);
+        }
+    }
 }
