@@ -49,7 +49,8 @@ public class LoadAtomFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// TODO: include or activate a new advertisement (submit via service or direct
+		// TODO: include or activate a new advertisement (submit via service or
+		// direct
 		// into database)
 	}
 

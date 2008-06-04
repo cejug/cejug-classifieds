@@ -88,7 +88,8 @@ public class LoadRssFunctionalTest {
 
 		RssCollection collection = service.loadRssOperation(filterCollection);
 
-		System.out.println(collection.getRssCollection().get(0).getItem().toString());
+		System.out.println(collection.getRssCollection().get(0).getItem()
+				.toString());
 		// assert collection.getRssCollection().size() > 0;
 	}
 

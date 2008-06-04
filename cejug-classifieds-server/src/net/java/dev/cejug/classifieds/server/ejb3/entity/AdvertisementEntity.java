@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,95 +18,96 @@ import javax.persistence.Table;
 @NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")
 public class AdvertisementEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    @Column(nullable = false)
-    private String title;
+	@Column(nullable = false)
+	private String title;
 
-    @Column(nullable = false)
-    private String summary;
+	@Column(nullable = false)
+	private String summary;
 
-    @Column(nullable = false)
-    private String text;
+	@Column(nullable = false)
+	private String text;
 
-    @Column(nullable = false)
-    private String keywords;
+	@Column(nullable = false)
+	private String keywords;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Collection<PublishingPeriodEntity> publishingPeriod;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private Collection<PublishingPeriodEntity> publishingPeriod;
 
-    @OneToOne(mappedBy = "advertisement")
-    private VoucherEntity voucher;
+	@OneToOne(mappedBy = "advertisement")
+	private VoucherEntity voucher;
 
-    public Integer getId() {
+	public Integer getId() {
 
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
+	public void setId(Integer id) {
 
-        this.id = id;
-    }
+		this.id = id;
+	}
 
-    public String getTitle() {
+	public String getTitle() {
 
-        return title;
-    }
+		return title;
+	}
 
-    public void setTitle(String title) {
+	public void setTitle(String title) {
 
-        this.title = title;
-    }
+		this.title = title;
+	}
 
-    public String getSummary() {
+	public String getSummary() {
 
-        return summary;
-    }
+		return summary;
+	}
 
-    public void setSummary(String summary) {
+	public void setSummary(String summary) {
 
-        this.summary = summary;
-    }
+		this.summary = summary;
+	}
 
-    public String getText() {
+	public String getText() {
 
-        return text;
-    }
+		return text;
+	}
 
-    public void setText(String text) {
+	public void setText(String text) {
 
-        this.text = text;
-    }
+		this.text = text;
+	}
 
-    public VoucherEntity getVoucher() {
+	public VoucherEntity getVoucher() {
 
-        return voucher;
-    }
+		return voucher;
+	}
 
-    public void setVoucher(VoucherEntity voucher) {
+	public void setVoucher(VoucherEntity voucher) {
 
-        this.voucher = voucher;
-    }
+		this.voucher = voucher;
+	}
 
-    public String getKeywords() {
+	public String getKeywords() {
 
-        return keywords;
-    }
+		return keywords;
+	}
 
-    public void setKeywords(String keywords) {
+	public void setKeywords(String keywords) {
 
-        this.keywords = keywords;
-    }
+		this.keywords = keywords;
+	}
 
-    public Collection<PublishingPeriodEntity> getPublishingPeriod() {
+	public Collection<PublishingPeriodEntity> getPublishingPeriod() {
 
-        return publishingPeriod;
-    }
+		return publishingPeriod;
+	}
 
-    public void setPublishingPeriod(Collection<PublishingPeriodEntity> publishingPeriod) {
+	public void setPublishingPeriod(
+			Collection<PublishingPeriodEntity> publishingPeriod) {
 
-        this.publishingPeriod = publishingPeriod;
-    }
+		this.publishingPeriod = publishingPeriod;
+	}
 }

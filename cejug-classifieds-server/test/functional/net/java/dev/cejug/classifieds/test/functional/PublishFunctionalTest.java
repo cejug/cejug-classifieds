@@ -79,7 +79,6 @@ public class PublishFunctionalTest {
 		newDomain.setSharedQuota(true);
 		newDomain.setTimezone("America/Fortaleza");
 		admin.requestDomainOperation(newDomain);
-		
 
 		// TODO: admin.updateDomain();
 

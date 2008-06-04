@@ -6,14 +6,12 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacade;
-import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
@@ -32,12 +30,12 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
  * @author Felipe
  * 
  */
+// @Interceptors(TimerInterceptor.class)
 @Stateless
-@Interceptors(TimerInterceptor.class)
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@EJB
-	DomainFacade domainFacade;
+	DomainFacadeLocal domainFacade;
 
 	private final DatatypeFactory factory;
 

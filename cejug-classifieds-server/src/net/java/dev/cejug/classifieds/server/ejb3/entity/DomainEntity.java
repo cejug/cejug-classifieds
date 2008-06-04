@@ -3,51 +3,50 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "domain")
 public class DomainEntity {
 
-    @Column(nullable = false)
-    private Boolean sharedQuota;
+	@Column(nullable = false)
+	private Boolean sharedQuota;
 
-    @Id
-    @Column(nullable = false)
-    private String domain;
+	@Id
+	@Column(nullable = false)
+	private String domain;
 
-    @Column(nullable = false)
-    private String brand;
+	@Column(nullable = false)
+	private String brand;
 
-    public String getDomain() {
+	public String getDomain() {
 
-        return domain;
-    }
+		return domain;
+	}
 
-    public void setDomain(String domain) {
+	public void setDomain(String domain) {
 
-        this.domain = domain;
-    }
+		this.domain = domain;
+	}
 
-    public Boolean getSharedQuota() {
+	public Boolean getSharedQuota() {
 
-        return sharedQuota;
-    }
+		return sharedQuota;
+	}
 
-    public void setSharedQuota(Boolean sharedQuota) {
+	public void setSharedQuota(Boolean sharedQuota) {
 
-        this.sharedQuota = sharedQuota;
-    }
+		this.sharedQuota = sharedQuota;
+	}
 
-    public String getBrand() {
+	public String getBrand() {
 
-        return brand;
-    }
+		return brand;
+	}
 
-    public void setBrand(String brand) {
+	public void setBrand(String brand) {
 
-        this.brand = brand;
-    }
+		this.brand = brand;
+	}
 
 }

@@ -1,9 +1,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,7 +14,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 
 @Stateless
-public class CustomerFacade {
+public class CustomerFacade implements CustomerFacadeLocal {
 	@SuppressWarnings("unused")
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
@@ -25,31 +22,14 @@ public class CustomerFacade {
 	@EJB
 	DomainFacade domainFacade;
 
-	public CustomerEntity create() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void delete(CustomerEntity entity) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public List<CustomerEntity> get(String query, int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public CustomerEntity get(Map<String, String> params) throws Exception {
+	@Override
+	public CustomerEntity findOrCreate(String domainName, String login)
+			throws Exception {
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
-		System.out.println("CUSTOMER KKKKKKK : " + params.get("d") + ", "
-				+ params.get("l"));
-		if (params != null) {
-			for (String key : params.keySet()) {
-				query.setParameter(key, params.get(key));
-			}
-		}
+		query.setParameter("domain", domainName);
+		query.setParameter("login", login);
+
 		try {
 			return (CustomerEntity) query.getSingleResult();
 		} catch (NoResultException error) {
@@ -61,39 +41,26 @@ public class CustomerFacade {
 			 */
 
 			// loading domain
-			Map<String, String> domainParams = new HashMap<String, String>();
-			domainParams.put("par1", params.get("d"));
-			DomainEntity domain = domainFacade.get(domainParams);
+			DomainEntity domain = domainFacade.get(domainName);
 
 			// insert a new customer
 			CustomerEntity customer = new CustomerEntity();
 			customer.setDomain(domain);
-			customer.setLogin((String) params.get("l"));
+			customer.setLogin(login);
 			customer.setQuotas(new ArrayList<QuotaEntity>());
 			manager.persist(customer);
 			return customer;
 		}
 	}
 
+	@Override
+	public void delete(CustomerEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
 	public void update(CustomerEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
-
-	public CustomerEntity create(CustomerEntity entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<CustomerEntity> get(int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<CustomerEntity> get(Map<String, String> params, int limit)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

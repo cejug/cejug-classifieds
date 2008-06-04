@@ -4,25 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacade;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacade;
-import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
@@ -44,16 +39,16 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
  * @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
  */
 
+// @Interceptors(TimerInterceptor.class)
 @Stateless
-@Interceptors(TimerInterceptor.class)
 public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessRemote {
 
 	@EJB
-	AdvertisementFacade advertisementFacade;
+	AdvertisementFacadeLocal advertisementFacade;
 
 	@EJB
-	CustomerFacade customerFacade;
+	CustomerFacadeLocal customerFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -80,9 +75,8 @@ public class ClassifiedsBusinessSessionBean implements
 
 		try {
 			// TODO: converter filter in a map of parameters...
-			Map<String, String> filterCriteria = new HashMap<String, String>();
-			List<AdvertisementEntity> result = advertisementFacade.get(
-					filterCriteria, 50);
+			List<AdvertisementEntity> result = advertisementFacade
+					.getLatest(50);
 
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {
@@ -93,7 +87,8 @@ public class ClassifiedsBusinessSessionBean implements
 				feed.getAuthorOrCategoryOrContributor().add(title);
 
 				Item item = new Item();
-				item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
 				item.setDescription(adv.getSummary());
 				item.setPubDate(adv.getPublishingPeriod().iterator().next()
 						.getDay());
@@ -115,21 +110,20 @@ public class ClassifiedsBusinessSessionBean implements
 
 		try {
 			// TODO: converter filter in a map of parameters...
-			Map<String, String> filterCriteria = new HashMap<String, String>();
-			List<AdvertisementEntity> result = advertisementFacade.get(
-					filterCriteria, 50);
+			List<AdvertisementEntity> result = advertisementFacade
+					.getLatest(50);
 
 			Channel channel = new Channel();
 			for (AdvertisementEntity adv : result) {
 				Item item = new Item();
-				item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
 				item.setTitle(adv.getTitle());
 				item.setDescription(adv.getSummary());
 				item.setPubDate(adv.getPublishingPeriod().iterator().next()
 						.getDay());
 				channel.getItem().add(item);
 			}
-
 			RssCollection col = new RssCollection();
 			col.getRssCollection().add(channel);
 			return col;
@@ -152,15 +146,15 @@ public class ClassifiedsBusinessSessionBean implements
 			AdvertisementHeader header) {
 
 		try {
-			// loading customer
-			Map<String, String> params = new HashMap<String, String>();
-			params.clear();
-			params.put("d", header.getCustomerDomain());
-			params.put("l", header.getCustomerLogin());
-			CustomerEntity customer = customerFacade.get(params);
+			/*
+			 * // loading customer Map<String, String> params = new HashMap<String,
+			 * String>(); params.clear(); params.put("d",
+			 * header.getCustomerDomain()); params.put("l",
+			 * header.getCustomerLogin()); CustomerEntity customer =
+			 * customerFacade.get(params);
+			 */
 
 			// validating advertisement PIN
-
 			AdvertisementEntity entity = new AdvertisementEntity();
 			entity.setKeywords(advertisement.getKeywords());
 			entity.setText(advertisement.getFullText());
