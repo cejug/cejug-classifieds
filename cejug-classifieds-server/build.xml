@@ -49,7 +49,7 @@
 		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
 			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
 		</wsimport>
-		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="on" debuglevel="lines,vars,source">
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
 			<classpath refid="jaxws.classpath" />
 		</javac>
 		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
@@ -72,7 +72,7 @@
 	</target>
 
 	<target name="client" depends="build-client-wsdl">
-		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="on" debuglevel="lines,vars,source">
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
 			<classpath refid="jaxws.classpath" />
 		</javac>
 	</target>
@@ -120,7 +120,7 @@
 		<xjc schema="${jaxb.i18n.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}">
 			<produces dir="${generated.dir}" includes="${jaxb.i18n.package}/**/*.java" />
 		</xjc>
-		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="on" debuglevel="lines,vars,source" source="1.6" />
+		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
 
 		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
 		<delete dir="${generated.dir}" /-->
@@ -133,7 +133,7 @@
 		<xjc schema="${i18n.schema}" extension="true" classpath="${build.dir.classes}" target="${generated.dir}" package="${jaxb.bindingclasses.package}">
 			<produces dir="${jaxb.classes.dir}" includes="**/*.java" />
 		</xjc>
-		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="on" debuglevel="lines,vars,source" source="1.6" />
+		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
 		<jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
 		<delete dir="${generated.dir}" />
 	</target>
