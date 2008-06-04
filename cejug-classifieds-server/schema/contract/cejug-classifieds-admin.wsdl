@@ -71,11 +71,45 @@
 				</xsd:complexType>
 			</xsd:element>
 
+			<xsd:element name="VouchersRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="domain" type="xsd:string" />
+						<xsd:element name="domain.customer.login"
+							type="xsd:string" nillable="true" />
+						<xsd:element name="voucher.type" type="xsd:int"
+							minOccurs="1" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:element name="Vouchers">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="metadata:VouchersRequest"
+							name="request" />
+						<xsd:element name="pin.set"
+							type="metadata:PinSet" minOccurs="1" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="PinSet">
+				<xsd:sequence>
+					<xsd:element name="pin" type="xsd:string" />
+					<xsd:element name="type" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:complexType>
 		</xsd:schema>
 	</wsdl:types>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- MESSAGES -->
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="common:ServiceFault" name="fault" />
+	</wsdl:message>
+
 	<!-- MONITOR -->
 	<wsdl:message name="CheckMonitor">
 		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
@@ -87,15 +121,21 @@
 	</wsdl:message>
 
 	<!-- REQUEST DOMAIN  -->
-	<wsdl:message name="ClassifiedsFault">
-		<wsdl:part element="common:ServiceFault" name="fault" />
-	</wsdl:message>
 	<wsdl:message name="RequestDomain">
 		<wsdl:part element="common:Domain" name="domain" />
 	</wsdl:message>
 
 	<wsdl:message name="RequestDomainResponse">
 		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
+	<!-- REQUEST VOUCHER -->
+	<wsdl:message name="RequestVouchers">
+		<wsdl:part element="metadata:VouchersRequest" name="request" />
+	</wsdl:message>
+
+	<wsdl:message name="RequestVouchersResponse">
+		<wsdl:part element="metadata:Vouchers" name="vouchers" />
 	</wsdl:message>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -110,6 +150,12 @@
 			<wsdl:input message="contract:RequestDomain" />
 			<wsdl:output message="contract:RequestDomainResponse" />
 			<wsdl:fault name="ReportDomainException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="RequestVoucherOperation">
+			<wsdl:input message="contract:RequestVouchers" />
+			<wsdl:output message="contract:RequestVouchersResponse" />
+			<wsdl:fault name="RequestVoucherException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -138,7 +184,16 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
-
+		<wsdl:operation name="RequestVoucherOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/RequestVoucher" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 	</wsdl:binding>
 
 	<wsdl:service name="CejugClassifiedsServiceAdmin">

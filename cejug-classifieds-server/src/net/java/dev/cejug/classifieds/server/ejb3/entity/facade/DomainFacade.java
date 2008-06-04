@@ -5,12 +5,14 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 @Stateless
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :domain")
 public class DomainFacade implements DomainFacadeLocal {
 	@SuppressWarnings("unused")
 	@PersistenceContext(unitName = "classifieds")

@@ -8,7 +8,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "domain")
-@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :par1")
 public class DomainEntity {
 
     @Column(nullable = false)

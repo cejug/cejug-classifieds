@@ -53,5 +53,13 @@
 		</xsd:complexType>
 	</xsd:element>
 
-
+	<xsd:element name="Voucher">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="pin" type="xsd:string" />
+				<xsd:element name="customer.domain" type="xsd:string" />
+				<xsd:element name="customer.login" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 </xsd:schema>
