@@ -20,8 +20,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacade;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacade;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
@@ -50,10 +50,10 @@ public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessRemote {
 
 	@EJB
-	AdvertisementFacadeLocal advertisementFacade;
+	AdvertisementFacade advertisementFacade;
 
 	@EJB
-	CustomerFacadeLocal customerFacade;
+	CustomerFacade customerFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override

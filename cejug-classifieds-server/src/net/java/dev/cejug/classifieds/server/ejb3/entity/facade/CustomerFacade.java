@@ -17,33 +17,29 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 
 @Stateless
-public class CustomerFacade implements CustomerFacadeLocal {
+public class CustomerFacade {
 	@SuppressWarnings("unused")
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
 
 	@EJB
-	DomainFacadeLocal domainFacade;
+	DomainFacade domainFacade;
 
-	@Override
 	public CustomerEntity create() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void delete(CustomerEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public List<CustomerEntity> get(String query, int limit) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public CustomerEntity get(Map<String, String> params) throws Exception {
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
@@ -79,25 +75,21 @@ public class CustomerFacade implements CustomerFacadeLocal {
 		}
 	}
 
-	@Override
 	public void update(CustomerEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public CustomerEntity create(CustomerEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<CustomerEntity> get(int limit) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<CustomerEntity> get(Map<String, String> params, int limit)
 			throws Exception {
 		// TODO Auto-generated method stub

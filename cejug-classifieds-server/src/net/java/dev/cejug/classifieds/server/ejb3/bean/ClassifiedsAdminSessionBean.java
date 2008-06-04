@@ -12,7 +12,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacade;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
@@ -37,7 +37,7 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@EJB
-	DomainFacadeLocal domainFacade;
+	DomainFacade domainFacade;
 
 	private final DatatypeFactory factory;
 

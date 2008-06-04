@@ -10,58 +10,50 @@ import javax.persistence.PersistenceContext;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 
 @Stateless
-public class OperationtimeKeeper implements OperationTimeKeeperLocal {
+public class OperationtimeKeeper {
 
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
 
-	@Override
 	public OperationTimestampEntity create() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void delete(OperationTimestampEntity entity) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public List<OperationTimestampEntity> get(String query, int limit)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void update(OperationTimestampEntity entity) throws Exception {
 		manager.persist(entity);
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public OperationTimestampEntity get(Map<String, String> params)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public OperationTimestampEntity create(OperationTimestampEntity entity)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<OperationTimestampEntity> get(int limit) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<OperationTimestampEntity> get(Map<String, String> params,
 			int limit) throws Exception {
 		// TODO Auto-generated method stub
