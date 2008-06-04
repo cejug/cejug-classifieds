@@ -17,114 +17,113 @@ import javax.persistence.Table;
 // @SequenceGenerator(name = "VoucherSequence", sequenceName = "ADV_SEQ", initialValue = 100, allocationSize = 10)
 public class VoucherEntity {
 
-    public enum VoucherState {
-        NEW, USED, CANCELED
-    }
+	public enum VoucherState {
+		NEW, ONLINE, USED, CANCELED
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    // ,
-    // generator="VoucherSequence")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	// ,
+	// generator="VoucherSequence")
+	private Integer id;
 
-    @Column(nullable = false)
-    private String pin;
+	@Column(nullable = false)
+	private String pin;
 
-    @JoinColumn(name = "advertisement", nullable = true)
-    @OneToOne
-    private AdvertisementEntity advertisement;
+	@JoinColumn(name = "advertisement", nullable = true)
+	@OneToOne
+	private AdvertisementEntity advertisement;
 
-    @JoinColumn(name = "domain", nullable = false)
-    @ManyToOne
-    private DomainEntity domain;
+	@JoinColumn(name = "domain", nullable = false)
+	@ManyToOne
+	private DomainEntity domain;
 
-    @JoinColumn(name = "customer", nullable = true)
-    @ManyToOne
-    private CustomerEntity customer;
+	@JoinColumn(name = "customer", nullable = true)
+	@ManyToOne
+	private CustomerEntity customer;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private VoucherState state;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private VoucherState state;
 
-    @JoinColumn(name = "publishingperiod", nullable = false)
-    @ManyToOne
-    private PublishingPeriodEntity publishingPeriod;
+	@JoinColumn(name = "publishingperiod", nullable = false)
+	@ManyToOne
+	private PublishingPeriodEntity publishingPeriod;
 
-    public Integer getId() {
+	public Integer getId() {
 
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
+	public void setId(Integer id) {
 
-        this.id = id;
-    }
+		this.id = id;
+	}
 
-    public String getPin() {
+	public String getPin() {
 
-        return pin;
-    }
+		return pin;
+	}
 
-    public void setPin(String pin) {
+	public void setPin(String pin) {
 
-        this.pin = pin;
-    }
+		this.pin = pin;
+	}
 
-    public AdvertisementEntity getAdvertisement() {
+	public AdvertisementEntity getAdvertisement() {
 
-        return advertisement;
-    }
+		return advertisement;
+	}
 
-    public void setAdvertisement(AdvertisementEntity advertisement) {
+	public void setAdvertisement(AdvertisementEntity advertisement) {
 
-        this.advertisement = advertisement;
-    }
+		this.advertisement = advertisement;
+	}
 
-    public DomainEntity getDomain() {
+	public DomainEntity getDomain() {
 
-        return domain;
-    }
+		return domain;
+	}
 
-    public void setDomain(DomainEntity domain) {
+	public void setDomain(DomainEntity domain) {
 
-        this.domain = domain;
-    }
+		this.domain = domain;
+	}
 
-    public CustomerEntity getCustomer() {
+	public CustomerEntity getCustomer() {
 
-        return customer;
-    }
+		return customer;
+	}
 
-    public void setCustomer(CustomerEntity customer) {
+	public void setCustomer(CustomerEntity customer) {
 
-        this.customer = customer;
-    }
+		this.customer = customer;
+	}
 
-    public VoucherState getState() {
+	public VoucherState getState() {
 
-        return state;
-    }
+		return state;
+	}
 
-    public void setState(VoucherState state) {
+	public void setState(VoucherState state) {
 
-        this.state = state;
-    }
+		this.state = state;
+	}
 
-    /**
-     * @return the publishingPeriod
-     */
-    public PublishingPeriodEntity getPublishingPeriod() {
+	/**
+	 * @return the publishingPeriod
+	 */
+	public PublishingPeriodEntity getPublishingPeriod() {
 
-        return publishingPeriod;
-    }
+		return publishingPeriod;
+	}
 
-    /**
-     * @param publishingPeriod
-     *            the publishingPeriod to set
-     */
-    public void setPublishingPeriod(PublishingPeriodEntity publishingPeriod) {
+	/**
+	 * @param publishingPeriod
+	 *            the publishingPeriod to set
+	 */
+	public void setPublishingPeriod(PublishingPeriodEntity publishingPeriod) {
 
-        this.publishingPeriod = publishingPeriod;
-    }
-
+		this.publishingPeriod = publishingPeriod;
+	}
 }
