@@ -10,14 +10,6 @@
 		</xsd:documentation>
 	</xsd:annotation>
 
-	<xsd:complexType name="Status">
-		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="description" type="xsd:string" />
-			<xsd:element name="is.active" type="xsd:boolean" />
-		</xsd:sequence>
-	</xsd:complexType>
-
 	<xsd:element name="ServiceFault">
 		<xsd:complexType>
 			<xsd:sequence>

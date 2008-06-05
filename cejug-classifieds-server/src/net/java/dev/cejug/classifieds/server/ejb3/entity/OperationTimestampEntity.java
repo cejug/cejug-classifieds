@@ -1,6 +1,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +21,9 @@ public class OperationTimestampEntity {
 	private String operationName;
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	private Date start;
+	private Calendar date;
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date finish;
+	private Long responseTime;
 	@Column(nullable = false)
 	private Boolean status;
 	@Column(nullable = false)
@@ -48,20 +47,20 @@ public class OperationTimestampEntity {
 		this.operationName = operationName;
 	}
 
-	public Date getStart() {
-		return start;
+	public Calendar getDate() {
+		return date;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setDate(Calendar date) {
+		this.date = date;
 	}
 
-	public Date getFinish() {
-		return (Date) finish.clone();
+	public Long getResponseTime() {
+		return responseTime;
 	}
 
-	public void setFinish(Date finish) {
-		this.finish = finish;
+	public void setResponseTime(Long responseTime) {
+		this.responseTime = responseTime;
 	}
 
 	public Boolean getStatus() {

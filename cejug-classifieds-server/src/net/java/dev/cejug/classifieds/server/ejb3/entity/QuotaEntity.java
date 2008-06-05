@@ -14,20 +14,20 @@ import javax.persistence.Table;
 public class QuotaEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private int id;
 
-	@OneToOne(mappedBy = "quota")
-	@JoinColumn(name = "advertisement_type_id")
+	@OneToOne
+	@JoinColumn(name = "type")
 	private AdvertisementTypeEntity type;
 
 	@Column(nullable = false)
-	private Integer available;
+	private Integer amount;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -40,10 +40,10 @@ public class QuotaEntity {
 	}
 
 	public Integer getAvailable() {
-		return available;
+		return amount;
 	}
 
 	public void setAvailable(Integer available) {
-		this.available = available;
+		this.amount = available;
 	}
 }

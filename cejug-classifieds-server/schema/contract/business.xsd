@@ -26,50 +26,50 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:element name="PdfAdvertisement">
+	<!-- xsd:element name="PdfAdvertisement">
 		<xsd:complexType>
-			<xsd:complexContent>
-				<xsd:extension base="business:AbstractAdvertisement">
-					<xsd:attribute name="bbb" type="xsd:string"
-						use="required" />
-				</xsd:extension>
-			</xsd:complexContent>
+		<xsd:complexContent>
+		<xsd:extension base="business:AbstractAdvertisement">
+		<xsd:attribute name="bbb" type="xsd:string"
+		use="required" />
+		</xsd:extension>
+		</xsd:complexContent>
 		</xsd:complexType>
-	</xsd:element>
-
-	<xsd:complexType name="ImageAttachment">
+		</xsd:element>
+		
+		<xsd:complexType name="ImageAttachment">
 		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="flash" type="xsd:base64Binary"
-				mime:expectedContentTypes="application/x-shockwave-flash" />
+		<xsd:element name="name" type="xsd:string" />
+		<xsd:element name="flash" type="xsd:base64Binary"
+		mime:expectedContentTypes="application/x-shockwave-flash" />
 		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:element name="FlashAdvertisement">
+		</xsd:complexType>
+		
+		<xsd:element name="FlashAdvertisement">
 		<xsd:complexType>
-			<xsd:complexContent>
-				<xsd:extension base="business:AbstractAdvertisement">
-					<xsd:sequence>
-						<xsd:element name="swf.collection"
-							type="business:FlashAttachment" minOccurs="0"
-							maxOccurs="unbounded" />
-					</xsd:sequence>
-				</xsd:extension>
-			</xsd:complexContent>
-		</xsd:complexType>
-	</xsd:element>
-
-	<xsd:complexType name="FlashAttachment">
+		<xsd:complexContent>
+		<xsd:extension base="business:AbstractAdvertisement">
 		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="flash" type="xsd:base64Binary"
-				mime:expectedContentTypes="application/x-shockwave-flash" />
+		<xsd:element name="swf.collection"
+		type="business:FlashAttachment" minOccurs="0"
+		maxOccurs="unbounded" />
 		</xsd:sequence>
-	</xsd:complexType>
+		</xsd:extension>
+		</xsd:complexContent>
+		</xsd:complexType>
+		</xsd:element>
+		
+		<xsd:complexType name="FlashAttachment">
+		<xsd:sequence>
+		<xsd:element name="name" type="xsd:string" />
+		<xsd:element name="flash" type="xsd:base64Binary"
+		mime:expectedContentTypes="application/x-shockwave-flash" />
+		</xsd:sequence>
+		</xsd:complexType-->
 
 	<xsd:complexType name="Section">
 		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="names" type="xsd:string" />
 			<xsd:element name="description" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>

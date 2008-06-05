@@ -3,7 +3,8 @@
  */
 package net.java.dev.cejug.classifieds.server.ejb3.interceptor;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
@@ -27,17 +28,23 @@ public class TimerInterceptor {
 	 */
 	@AroundInvoke
 	public Object timerLog(InvocationContext ctx) throws Exception {
-
-		// TODO: include timezone...
-		Date start = new Date();
+		// TODO: include timezone from config file...
+		TimeZone timezone = TimeZone.getDefault();
+		Calendar start = Calendar.getInstance(timezone);
+		String errorMessage = null;
 		try {
 			return ctx.proceed();
+		} catch (Exception error) {
+			errorMessage = error.getMessage();
+			throw new WebServiceException(error);
 		} finally {
 			try {
 				OperationTimestampEntity stamp = new OperationTimestampEntity();
 				stamp.setOperationName(ctx.getMethod().getName());
-				stamp.setStart(start);
-				stamp.setFinish(new Date());
+				stamp.setDate(start);
+				stamp.setResponseTime(Calendar.getInstance(timezone)
+						.getTimeInMillis()
+						- start.getTimeInMillis());
 				stamp.setStatus(true);
 				stamp.setClientId("TODO: get client ID");
 				timeKeeperFacade.update(stamp);

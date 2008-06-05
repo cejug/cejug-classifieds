@@ -87,8 +87,7 @@
 			<xsd:element name="Vouchers">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element ref="metadata:VouchersRequest"
-							name="request" />
+						<xsd:element ref="metadata:VouchersRequest" />
 						<xsd:element name="pin.set"
 							type="metadata:PinSet" minOccurs="1" maxOccurs="unbounded" />
 					</xsd:sequence>

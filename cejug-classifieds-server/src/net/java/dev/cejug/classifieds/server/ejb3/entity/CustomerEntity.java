@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"login", "domain" }) })
-@NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.domain= :d AND c.login= :l")
+@NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.domainName= :d AND c.login= :l")
 public class CustomerEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

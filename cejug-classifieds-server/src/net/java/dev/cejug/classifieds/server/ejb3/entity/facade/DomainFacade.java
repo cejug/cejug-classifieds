@@ -33,12 +33,6 @@ public class DomainFacade implements DomainFacadeLocal {
 	}
 
 	@Override
-	public List<DomainEntity> get(String query, int limit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public DomainEntity get(String domain) throws Exception {
 		Query query = manager.createNamedQuery("selectDomainByName");
 		query.setParameter("domain", domain);
@@ -47,6 +41,12 @@ public class DomainFacade implements DomainFacadeLocal {
 
 	@Override
 	public DomainEntity create(DomainEntity entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DomainEntity> get(String query, int limit) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -19,13 +17,14 @@ public class AdvertisementTypeEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@SuppressWarnings("unused")
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private QuotaEntity quota;
-
 	@Column(nullable = false)
 	private String description;
+
+	@Column(nullable = false)
+	private String textLength;
+
+	@Column(nullable = false)
+	private String maxAttachmentSize;
 
 	public Integer getId() {
 		return id;
@@ -49,5 +48,21 @@ public class AdvertisementTypeEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getTextLength() {
+		return textLength;
+	}
+
+	public void setTextLength(String textLength) {
+		this.textLength = textLength;
+	}
+
+	public String getMaxAttachmentSize() {
+		return maxAttachmentSize;
+	}
+
+	public void setMaxAttachmentSize(String maxAttachmentSize) {
+		this.maxAttachmentSize = maxAttachmentSize;
 	}
 }
