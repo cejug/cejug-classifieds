@@ -103,7 +103,20 @@ EAR</a> configured to run on Glassfish. To run:</p>
 		<li>Install <a href='http://subversion.tigris.org/'>Subversion</a></li>
 	</ol>
 	<small>* please pay special attention to the environment
-	variables, read the installation instructions.</small></li>
+	variables:.</small>:
+	<ul>
+		<li>AS_HOME = &lt;<emph>your Glassfish installation folder</emph>&gt;</li>
+		<li>JAXWS_HOME = &lt;<emph>your jaxws installation folder</emph>&gt;</li>
+		<li>PATH:
+		<ul>
+			<li><small><strong>windows:</strong></small>
+			PATH=%PATH%;%AS_HOME%\bin;%AS_HOME%\javadb\bin;</li>
+			<li><small><strong>linux:</strong></small>
+			PATH=$PATH:$AS_HOME\bin:$AS_HOME\javadb\bin;</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
 	<li>Checkout the snapshot code:<pre>svn checkout https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk cejug-classifieds --username username</pre></li>
 	<li>Start default server and the default database: <pre>asadmin start-domain domain1
 asadmin start-database</pre></li>
@@ -193,8 +206,7 @@ asadmin start-database</pre></li>
 		</a></td>
 	</tr>
 </table>
-<p align='right'><font color='grey'><small>$LastChangedDate:
-2008-05-25 09:11:35 +0200 (Sun, 25 May 2008) $</small></font></p>
+<p align='right'><font color='grey'><small>$LastChangedDate$</small></font></p>
 </div>
 </body>
 </html>
