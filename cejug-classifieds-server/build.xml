@@ -66,17 +66,6 @@
 		</war>
 	</target>
 
-	<target name="build-client-wsdl" depends="setup">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${functional.tests.client.generated.package}" wsdl="${functional.tests.wsdllocation}">
-		</wsimport>
-	</target>
-
-	<target name="client" depends="build-client-wsdl">
-		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
-			<classpath refid="jaxws.classpath" />
-		</javac>
-	</target>
-
 	<target name="help">
 		<echo message="server:             Builds the service endpoint WAR" />
 		<echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
@@ -97,18 +86,12 @@
 		<antcall target="compile.functional.tests" />
 	</target>
 
-	<target name="deploy.automatic" if="service.deploy.automatic">
-		<antcall target="deploy-appserver" />
-		<antcall target="deploy-tomcat" />
-	</target>
-
 	<target name="full.build">
 		<antcall target="server" />
-		<!--waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
+		<waitfor maxwait="3000" maxwaitunit="millisecond" checkevery="500">
 			<http url="${functional.tests.wsdllocation}" />
-		</waitfor-->
-		<sleep seconds="10" />
-		<antcall target="client" />
+		</waitfor>
+		<!--sleep seconds="10" /-->
 		<antcall target="functional.tests" />
 	</target>
 
