@@ -13,6 +13,9 @@ public class TimeKeeperFacade implements TimeKeeperFacadeLocal {
 
 	@Override
 	public void record(OperationTimestampEntity entity) throws Exception {
+		System.err
+				.println("TODO: to implement record(OperationTimestampEntity entity). EntityManager: "
+						+ manager);
 		// TODO Auto-generated method stub
 	}
 }

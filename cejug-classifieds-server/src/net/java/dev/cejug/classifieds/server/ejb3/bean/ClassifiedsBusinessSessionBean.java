@@ -18,14 +18,12 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
-import net.java.dev.cejug.classifieds.server.generated.contract.EntryType;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
 import net.java.dev.cejug.classifieds.server.generated.contract.Item;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
@@ -33,7 +31,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollect
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
 import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
-import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 /**
  * @WebService(name = "CejugClassifiedsBusiness", targetNamespace =
@@ -49,14 +46,14 @@ public class ClassifiedsBusinessSessionBean implements
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
 
-	// @EJB	private CustomerFacadeLocal customerFacade;
+	// @EJB private CustomerFacadeLocal customerFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static Logger logger = Logger.getLogger(ClassifiedsBusinessSessionBean.class
-			.getName(), "i18n/log");
+	private static Logger logger = Logger.getLogger(
+			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
 
 	private final DatatypeFactory factory;
 
@@ -82,7 +79,7 @@ public class ClassifiedsBusinessSessionBean implements
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {
 				FeedType feed = new FeedType();
-				EntryType entry = new EntryType();
+				// EntryType entry = new EntryType();
 				TextType title = new TextType();
 				title.setType(adv.getTitle());
 				feed.getAuthorOrCategoryOrContributor().add(title);

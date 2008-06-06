@@ -25,6 +25,7 @@ public class ConfigUnmarshallerListener extends Listener {
 	 *            the logger used to register the listener processing.
 	 */
 	public ConfigUnmarshallerListener(Logger logger) {
+		// TODO: reimplement the config unmarshaller.
 		this.logger = logger;
 	}
 
@@ -42,6 +43,7 @@ public class ConfigUnmarshallerListener extends Listener {
 		if (target instanceof Injection) {
 			validateServiceImplementation((Injection) target);
 		}
+		logger.severe("TODO: reimplement the config unmarshaller.");
 		// logger.log(Level.SEVERE, key, params);
 	}
 
@@ -52,7 +54,7 @@ public class ConfigUnmarshallerListener extends Listener {
 	 * @param injection
 	 */
 	private void validateServiceImplementation(Injection injection) {
-		String implementation = injection.getServiceImplementation();
+		// String implementation = injection.getServiceImplementation();
 		// TODO: under review (design changed)
 		/*
 		 * if (implementation == null) { injection

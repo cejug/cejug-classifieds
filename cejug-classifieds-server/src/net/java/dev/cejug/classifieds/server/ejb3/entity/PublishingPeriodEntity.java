@@ -54,12 +54,10 @@ public class PublishingPeriodEntity {
 	}
 
 	public Date getDay() {
-
-		return day;
+		return new Date(day.getTime());
 	}
 
 	public void setDay(Date day) {
-
-		this.day = day;
+		this.day = new Date(day.getTime());
 	}
 }

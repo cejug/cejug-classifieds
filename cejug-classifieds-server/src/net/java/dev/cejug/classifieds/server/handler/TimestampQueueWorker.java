@@ -26,8 +26,8 @@ public class TimestampQueueWorker extends TimerTask {
 	// "net.java.dev.cejug.classifieds.server.ejb3.bean.ResponseTime")
 	// private ResponseTime dao;
 
-	private Logger logger = Logger.getLogger(CejugClassifiedsBusiness.class
-			.getName(), "i18n/log");
+	private static Logger logger = Logger.getLogger(
+			CejugClassifiedsBusiness.class.getName(), "i18n/log");
 
 	private static TimestampQueueWorker instance;
 
@@ -40,6 +40,7 @@ public class TimestampQueueWorker extends TimerTask {
 		if (instance == null) {
 			instance = new TimestampQueueWorker(queue);
 		} else if (queue != instance.getQueue()) {
+			logger.severe(TimestampQueueWorkerI18N.DUPLICATE_KEY_ERROR.value());
 			throw new WebServiceException(
 					TimestampQueueWorkerI18N.DUPLICATE_KEY_ERROR.value());
 		}

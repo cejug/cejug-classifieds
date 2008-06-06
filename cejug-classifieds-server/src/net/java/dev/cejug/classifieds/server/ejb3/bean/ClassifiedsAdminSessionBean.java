@@ -20,7 +20,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.generated.contract.Vouchers;
 import net.java.dev.cejug.classifieds.server.generated.contract.VouchersRequest;
-import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 
 /**
  * //

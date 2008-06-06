@@ -47,6 +47,10 @@ public class TimerInterceptor {
 						- start.getTimeInMillis());
 				stamp.setStatus(true);
 				stamp.setClientId("TODO: get client ID");
+				if (errorMessage != null) {
+					stamp.setStatus(false);
+					stamp.setFault(errorMessage);
+				}
 				timeKeeperFacade.record(stamp);
 			} catch (Exception error) {
 				throw new WebServiceException(error);
