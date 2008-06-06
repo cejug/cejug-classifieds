@@ -1,16 +1,3 @@
-package net.java.dev.cejug.classifieds.server.ejb3.entity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "advertisement")
-@NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  Copyright (C) 2008 CEJUG - Ceará Java Users Group
 
@@ -33,7 +20,22 @@ import javax.persistence.Table;
  The project is hosted https://cejug-classifieds.dev.java.net/
 
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */public class AdvertisementEntity {
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+package net.java.dev.cejug.classifieds.server.ejb3.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "advertisement")
+@NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")
+public class AdvertisementEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
