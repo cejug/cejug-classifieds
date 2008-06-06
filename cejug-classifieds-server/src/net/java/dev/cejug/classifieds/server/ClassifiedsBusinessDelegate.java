@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 Felipe Gaúcho
+ Copyright (C) 2008 CEJUG - Ceará Java Users Group
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -90,7 +90,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
-
 		try {
 			return implementation.loadAtomOperation(filter);
 		} catch (Exception e) {

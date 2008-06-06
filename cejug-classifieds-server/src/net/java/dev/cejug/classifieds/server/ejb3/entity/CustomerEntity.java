@@ -1,3 +1,26 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ Copyright (C) 2008 CEJUG - Ceará Java Users Group
+ 
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ 
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+ This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
+ originally used by CEJUG - Ceará Java Users Group.
+ The project is hosted https://cejug-classifieds.dev.java.net/
+ 
+ You can contact us through the mail dev@cejug-classifieds.dev.java.net
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
@@ -14,6 +37,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/**
+ * A person that can write and/or read the entries in the classifieds system. A
+ * customer should be affiliated to a unique domain. A customer should not be
+ * registered in the Cejug-Classifieds system, the customers should be managed
+ * by the domain. The only customer information manipulated by the
+ * Cejug-Classifieds is the customer login, only to identify the customer and
+ * manage the quotas associated to each customer.
+ * 
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ */
 @Entity
 @Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"login", "domain" }) })
