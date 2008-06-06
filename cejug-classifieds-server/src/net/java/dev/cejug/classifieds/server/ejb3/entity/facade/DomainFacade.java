@@ -11,7 +11,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 @Stateless
 public class DomainFacade implements DomainFacadeLocal {
-	@SuppressWarnings("unused")
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
 

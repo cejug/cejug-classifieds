@@ -15,7 +15,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 
 @Stateless
 public class CustomerFacade implements CustomerFacadeLocal {
-	@SuppressWarnings("unused")
 	@PersistenceContext(unitName = "classifieds")
 	private EntityManager manager;
 

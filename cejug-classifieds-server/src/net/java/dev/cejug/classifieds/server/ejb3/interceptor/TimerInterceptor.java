@@ -12,7 +12,7 @@ import javax.interceptor.InvocationContext;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationtimeKeeper;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.TimeKeeperFacadeLocal;
 
 /**
  * @author rodrigo
@@ -21,7 +21,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.OperationtimeKee
 public class TimerInterceptor {
 
 	@EJB
-	OperationtimeKeeper timeKeeperFacade;
+	TimeKeeperFacadeLocal timeKeeperFacade;
 
 	/*
 	 * Intercepter method within the bean (the bean is the aspect)
@@ -47,7 +47,7 @@ public class TimerInterceptor {
 						- start.getTimeInMillis());
 				stamp.setStatus(true);
 				stamp.setClientId("TODO: get client ID");
-				timeKeeperFacade.update(stamp);
+				timeKeeperFacade.record(stamp);
 			} catch (Exception error) {
 				throw new WebServiceException(error);
 			}

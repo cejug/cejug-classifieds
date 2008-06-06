@@ -37,7 +37,7 @@ import net.java.dev.cejug.classifieds.server.handler.TimeKeeperSoapHandler;
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@EJB
-	DomainFacadeLocal domainFacade;
+	private DomainFacadeLocal domainFacade;
 
 	private final DatatypeFactory factory;
 
@@ -73,10 +73,8 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus requestDomainOperation(Domain domain) {
-
 		try {
-			// TODO: review
-			// TODO: validation...
+			// TODO: review validation...
 			DomainEntity entity = new DomainEntity();
 			entity.setDomainName(domain.getDomain());
 			entity.setSharedQuota(false);
@@ -87,7 +85,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 			throw new WebServiceException(e);
 		}
 
-		return null;
+		return new ServiceStatus();
 	}
 
 	@Override

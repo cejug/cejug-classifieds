@@ -69,7 +69,6 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 			.getName(), "i18n/log");
 
 	public ClassifiedsBusinessDelegate() {
-
 		InitialContext ic;
 		try {
 			ic = new InitialContext();

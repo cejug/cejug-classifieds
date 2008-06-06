@@ -47,10 +47,9 @@ public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessRemote {
 
 	@EJB
-	AdvertisementFacadeLocal advertisementFacade;
+	private AdvertisementFacadeLocal advertisementFacade;
 
-	@EJB
-	CustomerFacadeLocal customerFacade;
+	// @EJB	private CustomerFacadeLocal customerFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
