@@ -55,7 +55,7 @@ public class ClassifiedsBusinessSessionBean implements
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static Logger logger = Logger.getLogger(TimeKeeperSoapHandler.class
+	private static Logger logger = Logger.getLogger(ClassifiedsBusinessSessionBean.class
 			.getName(), "i18n/log");
 
 	private final DatatypeFactory factory;

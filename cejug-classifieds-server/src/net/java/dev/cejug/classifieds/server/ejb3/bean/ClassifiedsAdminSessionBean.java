@@ -45,7 +45,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private static Logger logger = Logger.getLogger(TimeKeeperSoapHandler.class
+	private static Logger logger = Logger.getLogger(ClassifiedsAdminSessionBean.class
 			.getName(), "i18n/log");
 
 	public ClassifiedsAdminSessionBean() {
