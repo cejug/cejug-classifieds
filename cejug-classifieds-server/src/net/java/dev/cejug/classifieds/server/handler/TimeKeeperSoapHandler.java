@@ -22,6 +22,10 @@ import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimesta
 /**
  * Keeps the diference time between the input and output of a message.
  * 
+ * @deprecated This class is here for reference, asap it will be replaced by a
+ *             useful one. It was created in teh first moment of the project,
+ *             but it does not make sense anymore since we have interceptors
+ *             now.
  */
 public class TimeKeeperSoapHandler implements SOAPHandler<SOAPMessageContext> {
 	public static final String KEY = "timestamp";

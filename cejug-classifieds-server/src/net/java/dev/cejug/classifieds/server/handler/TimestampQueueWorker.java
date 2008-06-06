@@ -13,6 +13,10 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.TimestampQueueWorker
 /**
  * This class consumes the timestamp of the operation calls.
  * 
+ * @deprecated This class is here for reference, asap it will be replaced by a
+ *             useful one. It was created in teh first moment of the project,
+ *             but it does not make sense anymore since we have interceptors
+ *             now.
  * 
  */
 public class TimestampQueueWorker extends TimerTask {
