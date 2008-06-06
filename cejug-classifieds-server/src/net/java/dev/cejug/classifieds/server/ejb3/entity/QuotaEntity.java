@@ -32,6 +32,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ */
 @Entity
 @Table(name = "quota")
 public class QuotaEntity {

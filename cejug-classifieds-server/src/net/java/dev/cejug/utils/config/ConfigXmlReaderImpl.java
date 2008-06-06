@@ -33,6 +33,10 @@ import javax.xml.bind.ValidationEventHandler;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+/**
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ */
 class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	private Unmarshaller.Listener listener;
 	private ValidationEventHandler handler;

@@ -32,6 +32,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * 
+ */
 @Entity
 @Table(name = "advertisement")
 @NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")

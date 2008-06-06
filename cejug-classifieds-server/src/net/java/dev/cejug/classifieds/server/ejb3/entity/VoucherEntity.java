@@ -35,10 +35,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ */
 @Entity
 @Table(name = "voucher")
-// @SequenceGenerator(name = "VoucherSequence", sequenceName = "ADV_SEQ",
-// initialValue = 100, allocationSize = 10)
 public class VoucherEntity {
 
 	public enum VoucherState {
@@ -47,8 +49,6 @@ public class VoucherEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// ,
-	// generator="VoucherSequence")
 	private Integer id;
 
 	@Column(nullable = false)

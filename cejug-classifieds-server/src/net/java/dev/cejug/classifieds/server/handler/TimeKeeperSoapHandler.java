@@ -45,6 +45,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.OperationTimesta
 /**
  * Keeps the diference time between the input and output of a message.
  * 
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  * @deprecated This class is here for reference, asap it will be replaced by a
  *             useful one. It was created in teh first moment of the project,
  *             but it does not make sense anymore since we have interceptors

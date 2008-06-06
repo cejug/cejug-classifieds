@@ -25,6 +25,10 @@ package net.java.dev.cejug.utils;
 
 import java.util.ArrayList;
 
+/**
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ */
 public final class LimitedList extends ArrayList<Long> {
 	private static final long serialVersionUID = 1L;
 	public static final int DEFAULT_LIMIT = 10;

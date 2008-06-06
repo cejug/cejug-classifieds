@@ -47,12 +47,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.VouchersRequest;
 /**
  * //
  * 
- * @WebService(name = "CejugClassifiedsAdmin", targetNamespace =
- *                  "http://cejug-classifieds.dev.java.net/admin")
- * @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
- * 
- * @author Felipe
- * 
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
