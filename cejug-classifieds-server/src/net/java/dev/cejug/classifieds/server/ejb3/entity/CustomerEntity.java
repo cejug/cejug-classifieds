@@ -45,48 +45,49 @@ import javax.persistence.UniqueConstraint;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = { "LOGIN", "DOMAIN" }) })
+@Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"LOGIN", "DOMAIN" }) })
 @NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.domainName= :d AND c.login= :l")
 public class CustomerEntity extends AbstractEntity {
 
-    @Column(name = "LOGIN", nullable = false)
-    private String login;
+	@Column(name = "LOGIN", nullable = false)
+	private String login;
 
-    @JoinColumn(name = "DOMAIN", nullable = false)
-    @ManyToOne
-    private DomainEntity domain;
+	@JoinColumn(name = "DOMAIN", nullable = false)
+	@ManyToOne
+	private DomainEntity domain;
 
-    @OneToMany(mappedBy = "customer")
-    private Collection<QuotaEntity> quotas;
+	@OneToMany(mappedBy = "customer")
+	private Collection<QuotaEntity> quotas;
 
-    public String getLogin() {
+	public String getLogin() {
 
-        return login;
-    }
+		return login;
+	}
 
-    public void setLogin(String login) {
+	public void setLogin(String login) {
 
-        this.login = login;
-    }
+		this.login = login;
+	}
 
-    public DomainEntity getDomain() {
+	public DomainEntity getDomain() {
 
-        return domain;
-    }
+		return domain;
+	}
 
-    public void setDomain(DomainEntity domain) {
+	public void setDomain(DomainEntity domain) {
 
-        this.domain = domain;
-    }
+		this.domain = domain;
+	}
 
-    public Collection<QuotaEntity> getQuotas() {
+	public Collection<QuotaEntity> getQuotas() {
 
-        return quotas;
-    }
+		return quotas;
+	}
 
-    public void setQuotas(Collection<QuotaEntity> quotas) {
+	public void setQuotas(Collection<QuotaEntity> quotas) {
 
-        this.quotas = quotas;
-    }
+		this.quotas = quotas;
+	}
 
 }

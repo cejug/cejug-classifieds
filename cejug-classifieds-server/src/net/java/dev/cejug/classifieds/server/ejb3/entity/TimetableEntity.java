@@ -46,109 +46,109 @@ import javax.persistence.TemporalType;
 @Table(name = "TIMETABLE")
 public class TimetableEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    /**
-     * This assumes a scheduled process (quartz?) that will update the status of
-     * the time slots.
-     */
-    public enum AllocationStatus {
-        ONLINE, ARCHIVE, CANCELED
-    }
+	/**
+	 * This assumes a scheduled process (quartz?) that will update the status of
+	 * the time slots.
+	 */
+	public enum AllocationStatus {
+		ONLINE, ARCHIVE, CANCELED
+	}
 
-    @JoinColumn(name = "advertisement", nullable = true)
-    @OneToOne
-    private AdvertisementEntity advertisement;
+	@JoinColumn(name = "advertisement", nullable = true)
+	@OneToOne
+	private AdvertisementEntity advertisement;
 
-    @JoinColumn(name = "domainName", nullable = false)
-    @ManyToOne
-    private DomainEntity domain;
+	@JoinColumn(name = "domainName", nullable = false)
+	@ManyToOne
+	private DomainEntity domain;
 
-    @JoinColumn(name = "customer", nullable = true)
-    @ManyToOne
-    private CustomerEntity customer;
+	@JoinColumn(name = "customer", nullable = true)
+	@ManyToOne
+	private CustomerEntity customer;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar start;
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Calendar start;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar finish;
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Calendar finish;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AllocationStatus state;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private AllocationStatus state;
 
-    public Integer getId() {
+	public Integer getId() {
 
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
+	public void setId(Integer id) {
 
-        this.id = id;
-    }
+		this.id = id;
+	}
 
-    public AdvertisementEntity getAdvertisement() {
+	public AdvertisementEntity getAdvertisement() {
 
-        return advertisement;
-    }
+		return advertisement;
+	}
 
-    public void setAdvertisement(AdvertisementEntity advertisement) {
+	public void setAdvertisement(AdvertisementEntity advertisement) {
 
-        this.advertisement = advertisement;
-    }
+		this.advertisement = advertisement;
+	}
 
-    public DomainEntity getDomain() {
+	public DomainEntity getDomain() {
 
-        return domain;
-    }
+		return domain;
+	}
 
-    public void setDomain(DomainEntity domain) {
+	public void setDomain(DomainEntity domain) {
 
-        this.domain = domain;
-    }
+		this.domain = domain;
+	}
 
-    public CustomerEntity getCustomer() {
+	public CustomerEntity getCustomer() {
 
-        return customer;
-    }
+		return customer;
+	}
 
-    public void setCustomer(CustomerEntity customer) {
+	public void setCustomer(CustomerEntity customer) {
 
-        this.customer = customer;
-    }
+		this.customer = customer;
+	}
 
-    public Calendar getStart() {
+	public Calendar getStart() {
 
-        return start;
-    }
+		return start;
+	}
 
-    public void setStart(Calendar start) {
+	public void setStart(Calendar start) {
 
-        this.start = start;
-    }
+		this.start = start;
+	}
 
-    public Calendar getFinish() {
+	public Calendar getFinish() {
 
-        return finish;
-    }
+		return finish;
+	}
 
-    public void setFinish(Calendar finish) {
+	public void setFinish(Calendar finish) {
 
-        this.finish = finish;
-    }
+		this.finish = finish;
+	}
 
-    public AllocationStatus getState() {
+	public AllocationStatus getState() {
 
-        return state;
-    }
+		return state;
+	}
 
-    public void setState(AllocationStatus state) {
+	public void setState(AllocationStatus state) {
 
-        this.state = state;
-    }
+		this.state = state;
+	}
 }

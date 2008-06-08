@@ -38,72 +38,72 @@ import javax.persistence.Table;
 @Table(name = "QUOTA")
 public class QuotaEntity extends AbstractEntity {
 
-    @OneToOne
-    @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
-    private AdvertisementTypeEntity type;
+	@OneToOne
+	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
+	private AdvertisementTypeEntity type;
 
-    @Column(name = "AMOUNT", nullable = false)
-    private Integer amount;
+	@Column(name = "AMOUNT", nullable = false)
+	private Integer amount;
 
-    @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
-    private CustomerEntity customer;
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	private CustomerEntity customer;
 
-    @ManyToOne
-    @JoinColumn(name = "DOMAIN_ID", nullable = false)
-    private DomainEntity domain;
+	@ManyToOne
+	@JoinColumn(name = "DOMAIN_ID", nullable = false)
+	private DomainEntity domain;
 
-    public AdvertisementTypeEntity getType() {
+	public AdvertisementTypeEntity getType() {
 
-        return type;
-    }
+		return type;
+	}
 
-    public void setType(AdvertisementTypeEntity type) {
+	public void setType(AdvertisementTypeEntity type) {
 
-        this.type = type;
-    }
+		this.type = type;
+	}
 
-    public Integer getAvailable() {
+	public Integer getAvailable() {
 
-        return amount;
-    }
+		return amount;
+	}
 
-    public void setAvailable(Integer available) {
+	public void setAvailable(Integer available) {
 
-        this.amount = available;
-    }
+		this.amount = available;
+	}
 
-    /**
-     * @return the customer
-     */
-    public CustomerEntity getCustomer() {
+	/**
+	 * @return the customer
+	 */
+	public CustomerEntity getCustomer() {
 
-        return customer;
-    }
+		return customer;
+	}
 
-    /**
-     * @param customer
-     *            the customer to set
-     */
-    public void setCustomer(CustomerEntity customer) {
+	/**
+	 * @param customer
+	 *            the customer to set
+	 */
+	public void setCustomer(CustomerEntity customer) {
 
-        this.customer = customer;
-    }
+		this.customer = customer;
+	}
 
-    /**
-     * @return the domain
-     */
-    public DomainEntity getDomain() {
+	/**
+	 * @return the domain
+	 */
+	public DomainEntity getDomain() {
 
-        return domain;
-    }
+		return domain;
+	}
 
-    /**
-     * @param domain
-     *            the domain to set
-     */
-    public void setDomain(DomainEntity domain) {
+	/**
+	 * @param domain
+	 *            the domain to set
+	 */
+	public void setDomain(DomainEntity domain) {
 
-        this.domain = domain;
-    }
+		this.domain = domain;
+	}
 }

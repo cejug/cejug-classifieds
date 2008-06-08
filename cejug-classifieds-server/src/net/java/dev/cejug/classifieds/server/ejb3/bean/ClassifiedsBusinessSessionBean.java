@@ -55,133 +55,141 @@ import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-public class ClassifiedsBusinessSessionBean implements ClassifiedsBusinessRemote {
+public class ClassifiedsBusinessSessionBean implements
+		ClassifiedsBusinessRemote {
 
-    @EJB
-    private AdvertisementFacadeLocal advertisementFacade;
+	@EJB
+	private AdvertisementFacadeLocal advertisementFacade;
 
-    // @EJB private CustomerFacadeLocal customerFacade;
+	// @EJB private CustomerFacadeLocal customerFacade;
 
-    /**
-     * the global log manager, used to allow third party services to override
-     * the defult logger.
-     */
-    private static Logger logger = Logger.getLogger(ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the defult logger.
+	 */
+	private static Logger logger = Logger.getLogger(
+			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
 
-    private final DatatypeFactory factory;
+	private final DatatypeFactory factory;
 
-    public ClassifiedsBusinessSessionBean() {
+	public ClassifiedsBusinessSessionBean() {
 
-        try {
-            factory = DatatypeFactory.newInstance();
-        } catch (DatatypeConfigurationException e) {
-            // TODO: log
-            logger.severe(e.getMessage());
-            throw new WebServiceException(e);
-        }
-    }
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-    @Override
-    public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
+	@Override
+	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
 
-        try {
-            // TODO: converter filter in a map of parameters...
-            List<AdvertisementEntity> result = advertisementFacade.getLatest(50);
+		try {
+			// TODO: converter filter in a map of parameters...
+			List<AdvertisementEntity> result = advertisementFacade
+					.getLatest(50);
 
-            List<FeedType> atomCollection = new ArrayList<FeedType>();
-            for (AdvertisementEntity adv : result) {
-                FeedType feed = new FeedType();
-                // EntryType entry = new EntryType();
-                TextType title = new TextType();
-                title.setType(adv.getTitle());
-                feed.getAuthorOrCategoryOrContributor().add(title);
+			List<FeedType> atomCollection = new ArrayList<FeedType>();
+			for (AdvertisementEntity adv : result) {
+				FeedType feed = new FeedType();
+				// EntryType entry = new EntryType();
+				TextType title = new TextType();
+				title.setType(adv.getTitle());
+				feed.getAuthorOrCategoryOrContributor().add(title);
 
-                Item item = new Item();
-                // item.setAuthor(adv.getVoucher().getCustomer().getLogin());
-                item.setAuthor("INCOMPLETE DATA SET");
-                item.setDescription(adv.getSummary());
-                // item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
-                atomCollection.add(feed);
-            }
+				Item item = new Item();
+				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
+				item.setDescription(adv.getSummary());
+				// item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
+				atomCollection.add(feed);
+			}
 
-            AtomCollection atoms = new AtomCollection();
-            // atoms.getAtomCollection().add(atomCollection);
-            return atoms;
-        } catch (Exception e) {
-            // TODO: log
-            logger.severe(e.getMessage());
-            throw new WebServiceException(e);
-        }
-    }
+			AtomCollection atoms = new AtomCollection();
+			// atoms.getAtomCollection().add(atomCollection);
+			return atoms;
+		} catch (Exception e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-    @Override
-    public RssCollection loadRssOperation(RssFilterCollection filter) {
+	@Override
+	public RssCollection loadRssOperation(RssFilterCollection filter) {
 
-        try {
-            // TODO: converter filter in a map of parameters...
-            List<AdvertisementEntity> result = advertisementFacade.getLatest(50);
+		try {
+			// TODO: converter filter in a map of parameters...
+			List<AdvertisementEntity> result = advertisementFacade
+					.getLatest(50);
 
-            Channel channel = new Channel();
-            for (AdvertisementEntity adv : result) {
-                Item item = new Item();
-                // item.setAuthor(adv.getVoucher().getCustomer().getLogin());
-                item.setAuthor("INCOMPLETE DATA SET");
-                item.setTitle(adv.getTitle());
-                item.setDescription(adv.getSummary());
-                // item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
-                channel.getItem().add(item);
-            }
-            RssCollection col = new RssCollection();
-            col.getRssCollection().add(channel);
-            return col;
-        } catch (Exception e) {
-            // TODO: log
-            logger.severe(e.getMessage());
-            throw new WebServiceException(e);
-        }
-    }
+			Channel channel = new Channel();
+			for (AdvertisementEntity adv : result) {
+				Item item = new Item();
+				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
+				item.setTitle(adv.getTitle());
+				item.setDescription(adv.getSummary());
+				// item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
+				channel.getItem().add(item);
+			}
+			RssCollection col = new RssCollection();
+			col.getRssCollection().add(channel);
+			return col;
+		} catch (Exception e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-    @Override
-    public ServiceStatus reportSpamOperation(SpamReport spam) {
+	@Override
+	public ServiceStatus reportSpamOperation(SpamReport spam) {
 
-        // TODO Auto-generated method stub
-        return null;
-    }
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public ServiceStatus publishOperation(Advertisement advertisement, AdvertisementHeader header) {
+	@Override
+	public ServiceStatus publishOperation(Advertisement advertisement,
+			AdvertisementHeader header) {
 
-        try {
-            /*
-             * // loading customer Map<String, String> params = new HashMap<String,
-             * String>(); params.clear(); params.put("d",
-             * header.getCustomerDomain()); params.put("l",
-             * header.getCustomerLogin()); CustomerEntity customer =
-             * customerFacade.get(params);
-             */
+		try {
+			/*
+			 * // loading customer Map<String, String> params = new HashMap<String,
+			 * String>(); params.clear(); params.put("d",
+			 * header.getCustomerDomain()); params.put("l",
+			 * header.getCustomerLogin()); CustomerEntity customer =
+			 * customerFacade.get(params);
+			 */
 
-            // validating advertisement PIN
-            AdvertisementEntity entity = new AdvertisementEntity();
-            // entity.setKeywords(advertisement.getKeywords()); // TODO
-            entity.setText(advertisement.getFullText());
+			// validating advertisement PIN
+			AdvertisementEntity entity = new AdvertisementEntity();
+			// entity.setKeywords(advertisement.getKeywords()); // TODO
+			entity.setText(advertisement.getFullText());
 
-            // entity.setVoucher(voucher); // TODO: de onde vem o vouche??
-            entity.setSummary(advertisement.getShortDescription());
-            entity.setTitle(advertisement.getHeadline());
-            advertisementFacade.create(entity);
+			// entity.setVoucher(voucher); // TODO: de onde vem o vouche??
+			entity.setSummary(advertisement.getShortDescription());
+			entity.setTitle(advertisement.getHeadline());
+			advertisementFacade.create(entity);
 
-            ServiceStatus status = new ServiceStatus();
-            status.setDescription("OK");
-            status.setCode(202);
+			ServiceStatus status = new ServiceStatus();
+			status.setDescription("OK");
+			status.setCode(202);
 
-            status.setTimestamp(factory.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar.getInstance()));
+			status
+					.setTimestamp(factory
+							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
+									.getInstance()));
 
-            return status;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.severe(e.getMessage());
-            throw new WebServiceException(e);
-        }
+			return status;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 
-    }
+	}
 }

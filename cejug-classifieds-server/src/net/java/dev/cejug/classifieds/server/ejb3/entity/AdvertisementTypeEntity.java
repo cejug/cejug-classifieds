@@ -35,55 +35,55 @@ import javax.persistence.Table;
 @Table(name = "ADVERTISEMENT_TYPE")
 public class AdvertisementTypeEntity extends AbstractEntity {
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String description;
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String description;
 
-    @Column(name = "TEXT_LENGTH", nullable = false)
-    private Integer textLength;
+	@Column(name = "TEXT_LENGTH", nullable = false)
+	private Integer textLength;
 
-    @Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
-    private Integer maxAttachmentSize;
+	@Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
+	private Integer maxAttachmentSize;
 
-    public String getName() {
+	public String getName() {
 
-        return name;
-    }
+		return name;
+	}
 
-    public void setName(String name) {
+	public void setName(String name) {
 
-        this.name = name;
-    }
+		this.name = name;
+	}
 
-    public String getDescription() {
+	public String getDescription() {
 
-        return description;
-    }
+		return description;
+	}
 
-    public void setDescription(String description) {
+	public void setDescription(String description) {
 
-        this.description = description;
-    }
+		this.description = description;
+	}
 
-    public Integer getTextLength() {
+	public Integer getTextLength() {
 
-        return textLength;
-    }
+		return textLength;
+	}
 
-    public void setTextLength(Integer textLength) {
+	public void setTextLength(Integer textLength) {
 
-        this.textLength = textLength;
-    }
+		this.textLength = textLength;
+	}
 
-    public Integer getMaxAttachmentSize() {
+	public Integer getMaxAttachmentSize() {
 
-        return maxAttachmentSize;
-    }
+		return maxAttachmentSize;
+	}
 
-    public void setMaxAttachmentSize(Integer maxAttachmentSize) {
+	public void setMaxAttachmentSize(Integer maxAttachmentSize) {
 
-        this.maxAttachmentSize = maxAttachmentSize;
-    }
+		this.maxAttachmentSize = maxAttachmentSize;
+	}
 }
