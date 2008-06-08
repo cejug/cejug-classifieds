@@ -59,7 +59,7 @@ public class AdvertisementEntity extends AbstractEntity {
     private Collection<AdvertisementKeywordEntity> keywords;
 
     @ManyToOne
-    @Column(name = "ADVERTISEMENT_TYPE_ID")
+    @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
     private AdvertisementTypeEntity type;
 
     public String getTitle() {
