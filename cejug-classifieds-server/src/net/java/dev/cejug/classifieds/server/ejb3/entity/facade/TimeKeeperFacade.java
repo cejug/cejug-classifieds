@@ -24,9 +24,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 
 /**
@@ -34,15 +31,11 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class TimeKeeperFacade implements TimeKeeperFacadeLocal {
-	@PersistenceContext(unitName = "classifieds")
-	private EntityManager manager;
+public class TimeKeeperFacade extends EntityFacade<OperationTimestampEntity> implements TimeKeeperFacadeLocal {
 
-	@Override
-	public void record(OperationTimestampEntity entity) throws Exception {
-		System.err
-				.println("TODO: to implement record(OperationTimestampEntity entity). EntityManager: "
-						+ manager);
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void record(OperationTimestampEntity entity) throws Exception {
+
+        create(entity);
+    }
 }

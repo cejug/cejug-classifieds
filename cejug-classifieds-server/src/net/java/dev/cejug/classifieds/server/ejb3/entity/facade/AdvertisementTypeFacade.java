@@ -24,12 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.Collection;
-
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 
 /**
@@ -37,20 +32,18 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 @Stateless
-public class AdvertisementTypeFacade implements AdvertisementTypeFacadeLocal {
-	@PersistenceContext(unitName = "classifieds")
-	private EntityManager manager;
+public class AdvertisementTypeFacade extends EntityFacade<AdvertisementTypeEntity> implements AdvertisementTypeFacadeLocal {
 
-	@Override
-	public AdvertisementTypeEntity find(Integer id) throws Exception {
-		return manager.find(AdvertisementTypeEntity.class, id);
-	}
+    @Override
+    public AdvertisementTypeEntity find(Integer id) throws Exception {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Collection<AdvertisementTypeEntity> getAll() throws Exception {
-		Query query = manager
-				.createNamedQuery("selectFromAdvertisementTypeEntity");
-		return query.getResultList();
-	}
+        return findById(AdvertisementTypeEntity.class, id);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Collection<AdvertisementTypeEntity> getAll() throws Exception {
+
+        return findAll(AdvertisementTypeEntity.class);
+    }
 }
