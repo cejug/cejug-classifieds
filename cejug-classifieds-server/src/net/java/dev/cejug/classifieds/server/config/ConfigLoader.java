@@ -38,8 +38,8 @@ import net.java.dev.cejug.utils.config.XmlStreamFactory;
  * configuration or to force the factory to reload the configuration. The
  * loading of the configuration is thread safe.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class ConfigLoader {
 	public static final String DEFAULT_CONFIG = "config.xml";

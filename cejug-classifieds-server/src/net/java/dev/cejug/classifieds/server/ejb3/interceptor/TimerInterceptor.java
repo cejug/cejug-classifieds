@@ -35,8 +35,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.TimeKeeperFacadeLocal;
 
 /**
- * @author $Author: mar nufelipegaucho $
- * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class TimerInterceptor {
 

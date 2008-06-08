@@ -31,8 +31,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
 
 /**
- * @author $Author: mar nufelipegaucho $
- * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
 	private ValidationEventHandler handler;

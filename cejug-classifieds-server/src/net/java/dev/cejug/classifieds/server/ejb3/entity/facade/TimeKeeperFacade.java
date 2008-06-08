@@ -30,8 +30,8 @@ import javax.persistence.PersistenceContext;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 
 /**
- * @author $Author: mar nufelipegaucho $
- * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class TimeKeeperFacade implements TimeKeeperFacadeLocal {

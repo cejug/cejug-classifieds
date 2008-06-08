@@ -49,8 +49,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * @see <a
  *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Core
  *      J2EE Patterns - Business Delegate</a>
- * @author $Author: mar nufelipegaucho $
- * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
 public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
