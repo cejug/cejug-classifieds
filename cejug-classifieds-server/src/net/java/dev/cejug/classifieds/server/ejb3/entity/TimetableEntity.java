@@ -82,10 +82,6 @@ public class TimetableEntity {
 	@Enumerated(EnumType.STRING)
 	private AllocationStatus state;
 
-	@JoinColumn(name = "publishingperiod", nullable = false)
-	@ManyToOne
-	private PublishingPeriodEntity publishingPeriod;
-
 	public Integer getId() {
 		return id;
 	}
@@ -140,13 +136,5 @@ public class TimetableEntity {
 
 	public void setState(AllocationStatus state) {
 		this.state = state;
-	}
-
-	public PublishingPeriodEntity getPublishingPeriod() {
-		return publishingPeriod;
-	}
-
-	public void setPublishingPeriod(PublishingPeriodEntity publishingPeriod) {
-		this.publishingPeriod = publishingPeriod;
 	}
 }

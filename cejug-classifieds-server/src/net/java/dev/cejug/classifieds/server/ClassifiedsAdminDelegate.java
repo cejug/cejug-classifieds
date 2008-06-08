@@ -32,13 +32,13 @@ import javax.naming.NamingException;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
+import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.contract.Vouchers;
-import net.java.dev.cejug.classifieds.server.generated.contract.VouchersRequest;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -100,13 +100,14 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public Vouchers requestVoucherOperation(VouchersRequest request) {
-		try {
-			// TODO: logging....
-			return implementation.requestVoucherOperation(request);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
+	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

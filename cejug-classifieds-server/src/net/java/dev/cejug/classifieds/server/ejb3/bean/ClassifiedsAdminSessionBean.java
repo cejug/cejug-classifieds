@@ -37,12 +37,12 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
+import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.contract.Vouchers;
-import net.java.dev.cejug.classifieds.server.generated.contract.VouchersRequest;
 
 /**
  * //
@@ -107,8 +107,13 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public Vouchers requestVoucherOperation(VouchersRequest request) {
+	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
 		// TODO Auto-generated method stub
 		return null;
 	}

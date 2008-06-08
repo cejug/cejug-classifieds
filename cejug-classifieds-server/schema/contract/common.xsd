@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/common"
-	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	elementFormDefault="qualified" attributeFormDefault="qualified"
 	xmlns:mime="http://www.w3.org/2005/05/xmlmim">
 	<xsd:annotation>
@@ -41,6 +41,18 @@
 				<xsd:element name="brand" type="xsd:string" />
 				<xsd:element name="timezone" type="xsd:string"
 					default="Fortaleza/Ceara" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="Quota">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="advertisement.type" type="xsd:int" />
+				<xsd:element name="amount" type="xsd:int" />
+				<xsd:element name="domain" type="xsd:string" />
+				<xsd:element name="customer.login" type="xsd:string"
+					nillable="true" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

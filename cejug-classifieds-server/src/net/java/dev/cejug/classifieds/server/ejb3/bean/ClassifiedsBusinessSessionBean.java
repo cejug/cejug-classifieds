@@ -24,8 +24,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,8 +36,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.PublishingPeriodEntity.PeriodState;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
@@ -179,14 +175,6 @@ public class ClassifiedsBusinessSessionBean implements
 			// entity.setVoucher(voucher); // TODO: de onde vem o vouche??
 			entity.setSummary(advertisement.getShortDescription());
 			entity.setTitle(advertisement.getHeadline());
-			PublishingPeriodEntity period = new PublishingPeriodEntity();
-			period.setDay(new Date(advertisement.getPublishingStart()
-					.getMillisecond()));
-			period.setState(PeriodState.NEW);
-
-			Collection<PublishingPeriodEntity> c = new ArrayList<PublishingPeriodEntity>();
-			c.add(period);
-			// entity.setPublishingPeriod(c);
 			advertisementFacade.create(entity);
 
 			ServiceStatus status = new ServiceStatus();

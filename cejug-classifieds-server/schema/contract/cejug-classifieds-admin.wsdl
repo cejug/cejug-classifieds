@@ -42,6 +42,30 @@
 				</xsd:complexType>
 			</xsd:element>
 
+			<xsd:element name="CancelQuotaInfo">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="common:Quota" minOccurs="0"
+							maxOccurs="1" />
+						<xsd:element name="cancellation.reason"
+							type="xsd:string" />
+						<xsd:element name="notify.domain.owner"
+							type="xsd:boolean" default="true" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="AddQuotaInfo">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="common:Quota" minOccurs="0"
+							maxOccurs="1" />
+						<xsd:element name="notify.domain.owner"
+							type="xsd:boolean" default="false" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
 			<xsd:complexType name="OperationTimestamp">
 				<xsd:sequence>
 					<xsd:element name="operation.name"
@@ -67,29 +91,6 @@
 							type="xsd:string" />
 						<xsd:element name="group" type="xsd:string"
 							minOccurs="0" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="VouchersRequest">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="domain" type="xsd:string" />
-						<xsd:element name="domain.customer.login"
-							type="xsd:string" nillable="true" />
-						<xsd:element name="voucher.type" type="xsd:int"
-							minOccurs="1" maxOccurs="unbounded" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-
-			<xsd:element name="Vouchers">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element ref="metadata:VouchersRequest" />
-						<xsd:element name="pin.set"
-							type="metadata:PinSet" minOccurs="1" maxOccurs="unbounded" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -128,13 +129,26 @@
 		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
-	<!-- REQUEST VOUCHER -->
-	<wsdl:message name="RequestVouchers">
-		<wsdl:part element="metadata:VouchersRequest" name="request" />
+	<!-- ADD QUOTA -->
+	<wsdl:message name="AddQuota">
+		<wsdl:part element="metadata:AddQuotaInfo"
+			name="add.quota.request" />
 	</wsdl:message>
 
-	<wsdl:message name="RequestVouchersResponse">
-		<wsdl:part element="metadata:Vouchers" name="vouchers" />
+	<wsdl:message name="AddQuotaResponse">
+		<wsdl:part element="common:ServiceStatus"
+			name="add.quota.status" />
+	</wsdl:message>
+
+	<!-- CANCEL QUOTA -->
+	<wsdl:message name="CancelQuota">
+		<wsdl:part element="metadata:CancelQuotaInfo"
+			name="cancel.quota.request" />
+	</wsdl:message>
+
+	<wsdl:message name="CancelQuotaResponse">
+		<wsdl:part element="common:ServiceStatus"
+			name="cancel.quota.status" />
 	</wsdl:message>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -151,10 +165,16 @@
 			<wsdl:fault name="ReportDomainException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
-		<wsdl:operation name="RequestVoucherOperation">
-			<wsdl:input message="contract:RequestVouchers" />
-			<wsdl:output message="contract:RequestVouchersResponse" />
-			<wsdl:fault name="RequestVoucherException"
+		<wsdl:operation name="AddQuotaOperation">
+			<wsdl:input message="contract:AddQuota" />
+			<wsdl:output message="contract:AddQuotaResponse" />
+			<wsdl:fault name="AddQuotaException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="CancelQuotaOperation">
+			<wsdl:input message="contract:CancelQuota" />
+			<wsdl:output message="contract:CancelQuotaResponse" />
+			<wsdl:fault name="CancelQuotaException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -183,9 +203,19 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="RequestVoucherOperation">
+		<wsdl:operation name="AddQuotaOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/business/RequestVoucher" />
+				soapAction="http://cejug-classifieds.dev.java.net/business/AddQuota" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CancelQuotaOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/CancelQuota" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
