@@ -12,9 +12,8 @@ import javax.persistence.MappedSuperclass;
 /**
  * Entity Class.
  * 
- * @author Rodrigo Lopes
- * @version 1.0
- * @since 08/06/2008
+ * @author $Author: mar nufelipegaucho $
+ * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
