@@ -31,8 +31,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -58,7 +58,7 @@ public class AdvertisementEntity extends AbstractEntity {
     @JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
     private Collection<AdvertisementKeywordEntity> keywords;
 
-    @OneToMany
+    @ManyToOne
     @Column(name = "ADVERTISEMENT_TYPE_ID")
     private AdvertisementTypeEntity type;
 
