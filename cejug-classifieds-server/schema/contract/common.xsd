@@ -23,15 +23,22 @@
 	<xsd:element name="ServiceStatus">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1">
-				<xsd:element name="code" type="xsd:int" minOccurs="1"
-					maxOccurs="1" />
-				<xsd:element name="description" type="xsd:string"
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="timestamp" type="xsd:date"
-					minOccurs="1" maxOccurs="1" />
+				<xsd:element ref="common:StatusCode" />
+				<xsd:element name="description" type="xsd:string" />
+				<xsd:element name="timestamp" type="xsd:date" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="StatusCode" type="common:ClassifiedsStatusCode" />
+
+	<xsd:simpleType name="ClassifiedsStatusCode">
+		<xsd:restriction base="xsd:int">
+			<xsd:enumeration value="200" id="OK" />
+			<xsd:enumeration value="500" id="NOT_OK" />
+			<xsd:enumeration value="501" id="NOT_IMPLEMENTED" />
+		</xsd:restriction>
+	</xsd:simpleType>
 
 	<xsd:element name="Domain">
 		<xsd:complexType>
@@ -48,7 +55,8 @@
 	<xsd:element name="Quota">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="advertisement.type" type="xsd:int" />
+				<xsd:element name="advertisement.type.id"
+					type="xsd:int" />
 				<xsd:element name="amount" type="xsd:int" />
 				<xsd:element name="domain" type="xsd:string" />
 				<xsd:element name="customer.login" type="xsd:string"

@@ -26,6 +26,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

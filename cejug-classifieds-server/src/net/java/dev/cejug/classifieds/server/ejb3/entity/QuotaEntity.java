@@ -54,7 +54,6 @@ public class QuotaEntity extends AbstractEntity {
 	private DomainEntity domain;
 
 	public AdvertisementTypeEntity getType() {
-
 		return type;
 	}
 

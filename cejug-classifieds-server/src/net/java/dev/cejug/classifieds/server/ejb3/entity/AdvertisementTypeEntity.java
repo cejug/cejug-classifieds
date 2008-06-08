@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -33,8 +34,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADVERTISEMENT_TYPE")
-public class AdvertisementTypeEntity extends AbstractEntity {
-
+@NamedQuery(name = "selectFromAdvertisementTypeEntity", query = "SELECT type FROM AdvertisementTypeEntity type")
+public class AdvertisementTypeEntity extends AbstractEntity implements
+		Comparable<AdvertisementTypeEntity> {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
@@ -85,5 +87,10 @@ public class AdvertisementTypeEntity extends AbstractEntity {
 	public void setMaxAttachmentSize(Integer maxAttachmentSize) {
 
 		this.maxAttachmentSize = maxAttachmentSize;
+	}
+
+	@Override
+	public int compareTo(AdvertisementTypeEntity other) {
+		return getId() - other.getId();
 	}
 }

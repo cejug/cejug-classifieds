@@ -177,7 +177,7 @@ public class ClassifiedsBusinessSessionBean implements
 
 			ServiceStatus status = new ServiceStatus();
 			status.setDescription("OK");
-			status.setCode(202);
+			status.setStatusCode(202);
 
 			status
 					.setTimestamp(factory

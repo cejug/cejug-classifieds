@@ -24,7 +24,9 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -34,7 +36,12 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
@@ -42,6 +49,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.Quota;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 /**
@@ -56,6 +64,12 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@EJB
 	private DomainFacadeLocal domainFacade;
+
+	@EJB
+	private CustomerFacadeLocal customerFacade;
+
+	@EJB
+	private AdvertisementTypeFacadeLocal advTypeFacade;
 
 	private final DatatypeFactory factory;
 
@@ -108,8 +122,49 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Quota requestedQuota = addQuotaRequest.getQuota();
+			CustomerEntity customer = customerFacade.findOrCreate(
+					requestedQuota.getDomain(), requestedQuota
+							.getCustomerLogin());
+			Collection<QuotaEntity> customerQuotas = customer.getQuotas();
+
+			AdvertisementTypeEntity type = advTypeFacade.find(requestedQuota
+					.getAdvertisementTypeId());
+
+			boolean newQuota = true;
+			for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator
+					.hasNext();) {
+				QuotaEntity entity = iterator.next();
+				if (entity.getType().equals(type)) {
+					entity.setAvailable(entity.getAvailable() + 1);
+					newQuota = false;
+				}
+			}
+			if (newQuota) {
+				QuotaEntity quota = new QuotaEntity();
+				quota.setType(type);
+				quota.setAvailable(1);
+				quota.setCustomer(customer);
+				quota.setDomain(customer.getDomain());
+				customerQuotas.add(quota);
+			}
+			customerFacade.update(customer);
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(200);
+			status
+					.setDescription("1 {0} quota added to customer {1} of domain {2}");
+			return status;
+
+		} catch (Exception e) {
+			// TODO: log.............
+			e.printStackTrace();
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+			return status;
+		}
+
 	}
 
 	@Override
