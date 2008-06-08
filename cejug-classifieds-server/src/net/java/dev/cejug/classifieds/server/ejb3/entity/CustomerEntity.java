@@ -24,12 +24,8 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -49,54 +45,48 @@ import javax.persistence.UniqueConstraint;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = {
-		"login", "domain" }) })
+@Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = { "LOGIN", "DOMAIN" }) })
 @NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.domainName= :d AND c.login= :l")
-public class CustomerEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+public class CustomerEntity extends AbstractEntity {
 
-	@Column(name = "login", nullable = false)
-	private String login;
+    @Column(name = "LOGIN", nullable = false)
+    private String login;
 
-	@JoinColumn(name = "domain", nullable = false)
-	@ManyToOne
-	private DomainEntity domain;
+    @JoinColumn(name = "DOMAIN", nullable = false)
+    @ManyToOne
+    private DomainEntity domain;
 
-	@OneToMany
-	private Collection<QuotaEntity> quotas;
+    @OneToMany(mappedBy = "customer")
+    private Collection<QuotaEntity> quotas;
 
-	public Integer getId() {
-		return id;
-	}
+    public String getLogin() {
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+        return login;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    public void setLogin(String login) {
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+        this.login = login;
+    }
 
-	public DomainEntity getDomain() {
-		return domain;
-	}
+    public DomainEntity getDomain() {
 
-	public void setDomain(DomainEntity domain) {
-		this.domain = domain;
-	}
+        return domain;
+    }
 
-	public Collection<QuotaEntity> getQuotas() {
-		return quotas;
-	}
+    public void setDomain(DomainEntity domain) {
 
-	public void setQuotas(Collection<QuotaEntity> quotas) {
-		this.quotas = quotas;
-	}
+        this.domain = domain;
+    }
+
+    public Collection<QuotaEntity> getQuotas() {
+
+        return quotas;
+    }
+
+    public void setQuotas(Collection<QuotaEntity> quotas) {
+
+        this.quotas = quotas;
+    }
 
 }

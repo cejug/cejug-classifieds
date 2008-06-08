@@ -24,12 +24,8 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,79 +35,88 @@ import javax.persistence.TemporalType;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "response_time")
-public class OperationTimestampEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	@Column(nullable = false)
-	private String operationName;
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Calendar date;
-	@Column(nullable = false)
-	private Long responseTime;
-	@Column(nullable = false)
-	private Boolean status;
-	@Column(nullable = false)
-	private String clientId;
-	@Column(nullable = true)
-	private String fault;
+@Table(name = "RESPONSE_TIME")
+public class OperationTimestampEntity extends AbstractEntity {
 
-	public Integer getId() {
-		return id;
-	}
+    // TODO falta modelar essa tabela
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Column(nullable = false)
+    private String operationName;
 
-	public String getOperationName() {
-		return operationName;
-	}
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Calendar date;
 
-	public void setOperationName(String operationName) {
-		this.operationName = operationName;
-	}
+    @Column(nullable = false)
+    private Long responseTime;
 
-	public Calendar getDate() {
-		return date;
-	}
+    @Column(nullable = false)
+    private Boolean status;
 
-	public void setDate(Calendar date) {
-		this.date = date;
-	}
+    @Column(nullable = false)
+    private String clientId;
 
-	public Long getResponseTime() {
-		return responseTime;
-	}
+    @Column(nullable = true)
+    private String fault;
 
-	public void setResponseTime(Long responseTime) {
-		this.responseTime = responseTime;
-	}
+    public String getOperationName() {
 
-	public Boolean getStatus() {
-		return status;
-	}
+        return operationName;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public void setOperationName(String operationName) {
 
-	public String getClientId() {
-		return clientId;
-	}
+        this.operationName = operationName;
+    }
 
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
+    public Calendar getDate() {
 
-	public String getFault() {
-		return fault;
-	}
+        return date;
+    }
 
-	public void setFault(String fault) {
-		this.fault = fault;
-	}
+    public void setDate(Calendar date) {
+
+        this.date = date;
+    }
+
+    public Long getResponseTime() {
+
+        return responseTime;
+    }
+
+    public void setResponseTime(Long responseTime) {
+
+        this.responseTime = responseTime;
+    }
+
+    public Boolean getStatus() {
+
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+
+        this.status = status;
+    }
+
+    public String getClientId() {
+
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+
+        this.clientId = clientId;
+    }
+
+    public String getFault() {
+
+        return fault;
+    }
+
+    public void setFault(String fault) {
+
+        this.fault = fault;
+    }
 
 }

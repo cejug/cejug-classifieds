@@ -24,12 +24,15 @@
 
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,72 +41,96 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "advertisement")
+@Table(name = "ADVERTISEMENT")
 @NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")
-public class AdvertisementEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+public class AdvertisementEntity extends AbstractEntity {
 
-	@Column(nullable = false)
-	private String title;
+    @Column(name = "TITLE", nullable = false)
+    private String title;
 
-	@Column(nullable = false)
-	private String summary;
+    @Column(name = "SUMMARY", nullable = false)
+    private String summary;
 
-	@Column(nullable = false)
-	private String text;
+    @Column(name = "TEXT", nullable = false)
+    private String text;
 
-	@Column(nullable = false)
-	private String keywords;
+    @ManyToMany
+    @JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
+    private Collection<AdvertisementKeywordEntity> keywords;
 
-	public Integer getId() {
+    @OneToMany
+    @Column(name = "ADVERTISEMENT_TYPE_ID")
+    private AdvertisementTypeEntity type;
 
-		return id;
-	}
+    public String getTitle() {
 
-	public void setId(Integer id) {
+        return title;
+    }
 
-		this.id = id;
-	}
+    public void setTitle(String title) {
 
-	public String getTitle() {
+        this.title = title;
+    }
 
-		return title;
-	}
+    public String getSummary() {
 
-	public void setTitle(String title) {
+        return summary;
+    }
 
-		this.title = title;
-	}
+    public void setSummary(String summary) {
 
-	public String getSummary() {
+        this.summary = summary;
+    }
 
-		return summary;
-	}
+    public String getText() {
 
-	public void setSummary(String summary) {
+        return text;
+    }
 
-		this.summary = summary;
-	}
+    public void setText(String text) {
 
-	public String getText() {
+        this.text = text;
+    }
 
-		return text;
-	}
+    public Collection<AdvertisementKeywordEntity> getKeywords() {
 
-	public void setText(String text) {
+        return keywords;
+    }
 
-		this.text = text;
-	}
+    public void setKeywords(Collection<AdvertisementKeywordEntity> keywords) {
 
-	public String getKeywords() {
+        this.keywords = keywords;
+    }
 
-		return keywords;
-	}
+    public void addKeyword(String keyword) {
 
-	public void setKeywords(String keywords) {
+        AdvertisementKeywordEntity advKeyword = new AdvertisementKeywordEntity();
+        advKeyword.setName(keyword);
+        addKeyword(advKeyword);
+    }
 
-		this.keywords = keywords;
-	}
+    public void addKeyword(AdvertisementKeywordEntity keyword) {
+
+        if (this.keywords == null) {
+            this.keywords = new ArrayList<AdvertisementKeywordEntity>();
+        }
+        keywords.add(keyword);
+    }
+
+    /**
+     * @return the type
+     */
+    public AdvertisementTypeEntity getType() {
+
+        return type;
+    }
+
+    /**
+     * @param type
+     *            the type to set
+     */
+    public void setType(AdvertisementTypeEntity type) {
+
+        this.type = type;
+    }
 }

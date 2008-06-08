@@ -25,9 +25,6 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -35,61 +32,58 @@ import javax.persistence.Table;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "advertisement_type")
-public class AdvertisementTypeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+@Table(name = "ADVERTISEMENT_TYPE")
+public class AdvertisementTypeEntity extends AbstractEntity {
 
-	@Column(nullable = false)
-	private String name;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-	@Column(nullable = false)
-	private String description;
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
 
-	@Column(nullable = false)
-	private String textLength;
+    @Column(name = "TEXT_LENGTH", nullable = false)
+    private Integer textLength;
 
-	@Column(nullable = false)
-	private String maxAttachmentSize;
+    @Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
+    private Integer maxAttachmentSize;
 
-	public Integer getId() {
-		return id;
-	}
+    public String getName() {
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+        return description;
+    }
 
-	public String getTextLength() {
-		return textLength;
-	}
+    public void setDescription(String description) {
 
-	public void setTextLength(String textLength) {
-		this.textLength = textLength;
-	}
+        this.description = description;
+    }
 
-	public String getMaxAttachmentSize() {
-		return maxAttachmentSize;
-	}
+    public Integer getTextLength() {
 
-	public void setMaxAttachmentSize(String maxAttachmentSize) {
-		this.maxAttachmentSize = maxAttachmentSize;
-	}
+        return textLength;
+    }
+
+    public void setTextLength(Integer textLength) {
+
+        this.textLength = textLength;
+    }
+
+    public Integer getMaxAttachmentSize() {
+
+        return maxAttachmentSize;
+    }
+
+    public void setMaxAttachmentSize(Integer maxAttachmentSize) {
+
+        this.maxAttachmentSize = maxAttachmentSize;
+    }
 }

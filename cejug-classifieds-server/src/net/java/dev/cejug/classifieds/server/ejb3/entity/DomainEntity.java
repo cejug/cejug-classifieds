@@ -24,12 +24,8 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,66 +37,60 @@ import javax.persistence.Table;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "domain")
-public class DomainEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+@Table(name = "DOMAIN")
+public class DomainEntity extends AbstractEntity {
 
-	@Column(nullable = false, unique = true)
-	private String domainName;
+    @Column(name = "NAME", nullable = false, unique = true)
+    private String domainName;
 
-	@Column(nullable = false)
-	private Boolean sharedQuota;
+    // TODO: mapear booleano
+    @Column(nullable = false)
+    private Boolean sharedQuota;
 
-	@Column(nullable = false)
-	private String brand;
+    @Column(name = "BRAND", nullable = false)
+    private String brand;
 
-	@OneToMany
-	private Collection<QuotaEntity> quotas;
+    @OneToMany(mappedBy = "domain")
+    private Collection<QuotaEntity> quotas;
 
-	public Boolean getSharedQuota() {
+    public Boolean getSharedQuota() {
 
-		return sharedQuota;
-	}
+        return sharedQuota;
+    }
 
-	public void setSharedQuota(Boolean sharedQuota) {
+    public void setSharedQuota(Boolean sharedQuota) {
 
-		this.sharedQuota = sharedQuota;
-	}
+        this.sharedQuota = sharedQuota;
+    }
 
-	public String getBrand() {
+    public String getBrand() {
 
-		return brand;
-	}
+        return brand;
+    }
 
-	public void setBrand(String brand) {
+    public void setBrand(String brand) {
 
-		this.brand = brand;
-	}
+        this.brand = brand;
+    }
 
-	public Collection<QuotaEntity> getQuotas() {
-		return quotas;
-	}
+    public Collection<QuotaEntity> getQuotas() {
 
-	public void setQuotas(Collection<QuotaEntity> quotas) {
-		this.quotas = quotas;
-	}
+        return quotas;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setQuotas(Collection<QuotaEntity> quotas) {
 
-	public void setId(int id) {
-		this.id = id;
-	}
+        this.quotas = quotas;
+    }
 
-	public String getDomainName() {
-		return domainName;
-	}
+    public String getDomainName() {
 
-	public void setDomainName(String domainName) {
-		this.domainName = domainName;
-	}
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+
+        this.domainName = domainName;
+    }
 
 }

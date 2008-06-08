@@ -25,10 +25,8 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,40 +35,75 @@ import javax.persistence.Table;
  * @version $Rev: 355 $ ($Date: 2007-12-12 21:30:02 +0100 (Wed, 12 Dec 2007) $)
  */
 @Entity
-@Table(name = "quota")
-public class QuotaEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+@Table(name = "QUOTA")
+public class QuotaEntity extends AbstractEntity {
 
-	@OneToOne
-	@JoinColumn(name = "type")
-	private AdvertisementTypeEntity type;
+    @OneToOne
+    @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
+    private AdvertisementTypeEntity type;
 
-	@Column(nullable = false)
-	private Integer amount;
+    @Column(name = "AMOUNT", nullable = false)
+    private Integer amount;
 
-	public int getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    private CustomerEntity customer;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "DOMAIN_ID", nullable = false)
+    private DomainEntity domain;
 
-	public AdvertisementTypeEntity getType() {
-		return type;
-	}
+    public AdvertisementTypeEntity getType() {
 
-	public void setType(AdvertisementTypeEntity type) {
-		this.type = type;
-	}
+        return type;
+    }
 
-	public Integer getAvailable() {
-		return amount;
-	}
+    public void setType(AdvertisementTypeEntity type) {
 
-	public void setAvailable(Integer available) {
-		this.amount = available;
-	}
+        this.type = type;
+    }
+
+    public Integer getAvailable() {
+
+        return amount;
+    }
+
+    public void setAvailable(Integer available) {
+
+        this.amount = available;
+    }
+
+    /**
+     * @return the customer
+     */
+    public CustomerEntity getCustomer() {
+
+        return customer;
+    }
+
+    /**
+     * @param customer
+     *            the customer to set
+     */
+    public void setCustomer(CustomerEntity customer) {
+
+        this.customer = customer;
+    }
+
+    /**
+     * @return the domain
+     */
+    public DomainEntity getDomain() {
+
+        return domain;
+    }
+
+    /**
+     * @param domain
+     *            the domain to set
+     */
+    public void setDomain(DomainEntity domain) {
+
+        this.domain = domain;
+    }
 }
