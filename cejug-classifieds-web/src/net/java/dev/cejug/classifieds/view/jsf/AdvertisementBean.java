@@ -21,8 +21,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 /**
  * This class is responsible for the operations related to advertisement.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class AdvertisementBean {
 	/**
@@ -96,9 +96,11 @@ public class AdvertisementBean {
 			ServiceStatus status = classifiedsBusinessService.publishOperation(
 					advertisement, header);
 
-			//adsService.publish(getAdvertisement());
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(status.getDescription() + " <<< response from service :)"));
+			// adsService.publish(getAdvertisement());
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(status.getDescription()
+							+ " <<< response from service :)"));
 			// "Your advertisement was published. Can you see it?"));
 		} catch (DatatypeConfigurationException e) {
 			// TODO Logging, throws customer error message.....
