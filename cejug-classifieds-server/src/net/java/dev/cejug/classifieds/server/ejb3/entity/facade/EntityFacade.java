@@ -2,9 +2,11 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 
 /**
@@ -15,57 +17,59 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
  */
 public class EntityFacade<T extends AbstractEntity> {
 
-    @PersistenceContext(unitName = "classifieds")
-    public EntityManager manager;
+	@PersistenceContext(unitName = "classifieds")
+	public EntityManager manager;
 
-    public void create(T entity) throws Exception {
+	public void create(T entity) throws Exception {
 
-        manager.persist(entity);
-    }
+		manager.persist(entity);
+	}
 
-    @SuppressWarnings("unchecked")
-    public <T> List<T> findAll(Class<T> entityClass) throws Exception {
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(Class<T> entityClass) throws Exception {
 
-        Query query = manager.createQuery("select distinct e from " + entityClass.getName() + " e");
-        return query.getResultList();
-    }
+		Query query = manager.createQuery("select distinct e from "
+				+ entityClass.getName() + " e");
+		return query.getResultList();
+	}
 
-    public <T> T findById(Class<T> entityClass, Serializable primaryKey) throws Exception {
+	public T findById(Class<T> entityClass, Serializable primaryKey)
+			throws Exception {
 
-        return manager.find(entityClass, primaryKey);
-    }
+		return manager.find(entityClass, primaryKey);
+	}
 
-    public void delete(T entity) throws Exception {
+	public void delete(T entity) throws Exception {
 
-        manager.remove(entity);
-    }
+		manager.remove(entity);
+	}
 
-    public void removeAll(List<T> entities) throws Exception {
+	public void removeAll(List<T> entities) throws Exception {
 
-        for (T t : entities) {
-            manager.remove(t);
-        }
-        manager.flush();
-    }
+		for (T t : entities) {
+			manager.remove(t);
+		}
+		manager.flush();
+	}
 
-    public <T> T update(T entity) throws Exception {
+	public T update(T entity) throws Exception {
 
-        return manager.merge(entity);
-    }
+		return manager.merge(entity);
+	}
 
-    public <T> T merge(T entity) throws Exception {
+	public T merge(T entity) throws Exception {
 
-        return manager.merge(entity);
-    }
+		return manager.merge(entity);
+	}
 
-    /**
-     * Set the manager.
-     * 
-     * @param manager
-     *            the manager to set
-     */
-    public void setManager(EntityManager manager) {
+	/**
+	 * Set the manager.
+	 * 
+	 * @param manager
+	 *            the manager to set
+	 */
+	public void setManager(EntityManager manager) {
 
-        this.manager = manager;
-    }
+		this.manager = manager;
+	}
 }
