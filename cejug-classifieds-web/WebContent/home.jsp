@@ -9,13 +9,20 @@
 	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<h2>CEJUG-Classifieds</h2>
+
+<table>
+	<tr>
+		<td><img id="logo" src="images/logo_small.gif" /></td>
+		<td>
+		<h2>CEJUG-Classifieds</h2>
+		</td>
+	</tr>
+</table>
 
 <f:view>
 	<h:form>
-
 		<%-- TOOLBAR --%>
-		<rich:toolBar height="34" itemSeparator="line">
+		<rich:toolBar height="25" itemSeparator="line">
 			<rich:toolBarGroup>
 				<h:graphicImage id="login" value="/images/edit.gif" />
 				<h:commandLink action="login" value="Login"></h:commandLink>
@@ -35,26 +42,22 @@
 			</rich:toolBarGroup>
 		</rich:toolBar>
 
-		<br />
-
 		<rich:messages />
 		<table>
-			<tr>
-				<td valign="top"><rich:panel>
-					<rich:dataGrid columns="1" elements="20"
-						rendered="#{adsService.categories[0] ne null}"
-						value="#{adsService.categories}" var="cat">
-						<f:facet name="header">
-							<h:outputText value="List of Categories"></h:outputText>
-						</f:facet>
-						<rich:panel>
-							<h:panelGrid columns="1">
-								<h:outputText rendered="#{cat.name ne null}" value="#{cat.name}"
-									title="#{cat.description }" />
-							</h:panelGrid>
-						</rich:panel>
-					</rich:dataGrid>
-				</rich:panel></td>
+			<tr width="100%">
+				<td valign="top"><rich:dataGrid id="pp" columns="1"
+					elements="20" rendered="#{adsService.categories[0] ne null}"
+					value="#{adsService.categories}" var="cat">
+					<f:facet name="header">
+						<h:outputText value="List of Categories"></h:outputText>
+					</f:facet>
+					<rich:panel>
+						<h:panelGrid columns="1">
+							<h:outputText rendered="#{cat.name ne null}" value="#{cat.name}"
+								title="#{cat.description }" />
+						</h:panelGrid>
+					</rich:panel>
+				</rich:dataGrid></td>
 				<td valign="top"><rich:dataGrid columns="3" elements="15"
 					rendered="#{adsService.all[0] ne null}" value="#{adsService.all}"
 					var="ad">
@@ -82,10 +85,11 @@
 				</td>
 			</tr>
 		</table>
-
-		<br />
-
 	</h:form>
+	<hr/>
+	<p align="center"><font color="darkgrey"><small>powered by <a
+		href="https://cejug-classifieds.dev.java.net/">Cejug-Classifieds</a>
+	&reg; 2008-2009 </small></font></p>
 </f:view>
 
 </body>
