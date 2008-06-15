@@ -26,6 +26,7 @@ package net.java.dev.cejug.classifieds.model.service;
 import java.util.List;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 
 /**
  * Defines a contract for the Advertisements operations.
@@ -42,4 +43,11 @@ public interface AdvertisementService {
 	 * @return
 	 */
 	public List<Advertisement> getAll();
+
+	/**
+	 * The list of available categories in the server.
+	 * 
+	 * @return
+	 */
+	public List<AdvertisementCategory> getCategories();
 }

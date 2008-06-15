@@ -38,40 +38,51 @@
 		<br />
 
 		<rich:messages />
-		<table> <tr> <td valign="top"> 
-			<rich:panel >
-				<f:facet name="header">
-					<h:outputText value="Categories"></h:outputText>
-				</f:facet>
-                <h:outputText value="List of Categories"></h:outputText>
-			</rich:panel>
-			</td>
-			<td valign="top">
-			<rich:dataGrid columns="3" elements="15" rendered="#{adsService.all[0] ne null}"
-				value="#{adsService.all}" var="ad">
-				<f:facet name="header">
-					<h:outputText value="Advertisements"></h:outputText>
-				</f:facet>
-				<rich:panel>
+		<table>
+			<tr>
+				<td valign="top"><rich:panel>
+					<rich:dataGrid columns="1" elements="20"
+						rendered="#{adsService.categories[0] ne null}"
+						value="#{adsService.categories}" var="cat">
+						<f:facet name="header">
+							<h:outputText value="List of Categories"></h:outputText>
+						</f:facet>
+						<rich:panel>
+							<h:panelGrid columns="1">
+								<h:outputText rendered="#{cat.name ne null}" value="#{cat.name}"
+									title="#{cat.description }" />
+							</h:panelGrid>
+						</rich:panel>
+					</rich:dataGrid>
+				</rich:panel></td>
+				<td valign="top"><rich:dataGrid columns="3" elements="15"
+					rendered="#{adsService.all[0] ne null}" value="#{adsService.all}"
+					var="ad">
 					<f:facet name="header">
-						<h:outputText value="#{ad.headline}"></h:outputText>
+						<h:outputText value="Advertisements"></h:outputText>
 					</f:facet>
-					<h:panelGrid columns="2">
-						<h:outputText rendered="#{ad.shortDescription ne null}" value="Summary:" styleClass="label"></h:outputText>
-						<h:outputText rendered="#{ad.keywords ne null}" value="#{ad.keywords}" />
-						<h:outputText value="Text:" styleClass="label"></h:outputText>
-						<h:outputText value="#{ad.fullText}" />
-					</h:panelGrid>
-				</rich:panel>
-				<f:facet name="footer">
-					<rich:datascroller />
-				</f:facet>
-			</rich:dataGrid>
-			
-			<h:outputText rendered="#{adsService.all[0] eq null}">No Ads, please use the button below to add one.</h:outputText><br/>
-			<h:commandButton action="adPublishing" value="Create an Ad..."></h:commandButton>
-</td>  </tr> </table>
-		
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="#{ad.headline}"></h:outputText>
+						</f:facet>
+						<h:panelGrid columns="2">
+							<h:outputText rendered="#{ad.shortDescription ne null}"
+								value="Summary:" styleClass="label"></h:outputText>
+							<h:outputText rendered="#{ad.shortDescription ne null}"
+								value="#{ad.shortDescription}" />
+							<h:outputText value="Text:" styleClass="label"></h:outputText>
+							<h:outputText value="#{ad.fullText}" />
+						</h:panelGrid>
+					</rich:panel>
+					<f:facet name="footer">
+						<rich:datascroller />
+					</f:facet>
+				</rich:dataGrid> <h:outputText rendered="#{adsService.all[0] eq null}">No Ads, please use the button below to add one.</h:outputText><br />
+				<h:commandButton action="adPublishing" value="Create an Ad..."></h:commandButton>
+				</td>
+			</tr>
+		</table>
+
 		<br />
 
 	</h:form>

@@ -28,8 +28,10 @@ import java.util.List;
 
 import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
+import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 
@@ -62,5 +64,15 @@ public class AdvertisementServiceWSImpl implements AdvertisementService {
 		AdvertisementCollection advertisements = classifiedsBusinessService
 				.loadAdvertisementOperation(filter);
 		return Collections.unmodifiableList(advertisements.getAdvertisement());
+	}
+
+	@Override
+	public List<AdvertisementCategory> getCategories() {
+		CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
+				.getCejugClassifiedsBusiness();
+		CategoryCollection collection = classifiedsBusinessService
+				.loadCategoriesOperation();
+		return Collections.unmodifiableList(collection.getCategories());
+
 	}
 }
