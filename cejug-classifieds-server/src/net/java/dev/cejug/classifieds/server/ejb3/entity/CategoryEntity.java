@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -31,7 +32,27 @@ import javax.persistence.Table;
  * @version $Rev$ ($Date$)
  */
 @Entity
-@Table(name = "SECTION")
+@Table(name = "CATEGORY")
 public class CategoryEntity extends AbstractEntity {
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String descripton;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescripton() {
+		return descripton;
+	}
+
+	public void setDescripton(String descripton) {
+		this.descripton = descripton;
+	}
 }

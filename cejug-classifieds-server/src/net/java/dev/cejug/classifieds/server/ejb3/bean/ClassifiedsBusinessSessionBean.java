@@ -39,11 +39,13 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
@@ -217,7 +219,7 @@ public class ClassifiedsBusinessSessionBean implements
 				adv.setFullText(entity.getText());
 				adv.setKeywords(entity.getKeywords().toArray().toString());
 				adv.setShortDescription(entity.getSummary());
-
+				adv.setHeadline(entity.getTitle());
 				collection.getAdvertisement().add(adv);
 			}
 			return collection;
@@ -226,5 +228,27 @@ public class ClassifiedsBusinessSessionBean implements
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
+	}
+
+	@Override
+	public CategoryCollection loadCategoriesOperation() {
+		CategoryCollection categories = new CategoryCollection();
+		AdvertisementCategory cars = new AdvertisementCategory();
+		cars.setDescription("New and used cars");
+		cars.setName("Cars");
+		categories.getCategories().add(cars);
+
+		AdvertisementCategory jobs = new AdvertisementCategory();
+		jobs.setDescription("Find your new job today.");
+		jobs.setName("Job Opportunities");
+		categories.getCategories().add(jobs);
+
+		AdvertisementCategory eletronics = new AdvertisementCategory();
+		eletronics.setDescription("eletronics....");
+		eletronics.setName("Eletronics");
+		categories.getCategories().add(eletronics);
+		// categories.getCategories().add();//
+		// TODO Auto-generated method stub
+		return categories;
 	}
 }

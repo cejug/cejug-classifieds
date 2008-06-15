@@ -73,6 +73,13 @@
 		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
+	<!-- LOAD CATEGORIES -->
+	<wsdl:message name="LoadCategories" />
+	<wsdl:message name="LoadCategoriesResponse">
+		<wsdl:part element="metadata:CategoryCollection"
+			name="categories" />
+	</wsdl:message>
+
 	<!-- REPORT SPAM -->
 	<wsdl:message name="ReportSpam">
 		<wsdl:part element="metadata:SpamReport" name="spam" />
@@ -89,6 +96,12 @@
 			<wsdl:input message="business:LoadAdvertisement" />
 			<wsdl:output message="business:LoadAdvertisementResponse" />
 			<wsdl:fault name="LoadAdvertisementException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="LoadCategoriesOperation">
+			<wsdl:input message="business:LoadCategories" />
+			<wsdl:output message="business:LoadCategoriesResponse" />
+			<wsdl:fault name="LoadCategoriesException"
 				message="business:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadRssOperation">
@@ -123,6 +136,16 @@
 		type="business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<wsdl:operation name="LoadCategoriesOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCategories" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<wsdl:operation name="LoadAdvertisementOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/LoadAdvertisement" />

@@ -38,6 +38,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCol
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
@@ -141,6 +142,16 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 			AdvertisementCollectionFilter filter) {
 		try {
 			return implementation.loadAdvertisementOperation(filter);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public CategoryCollection loadCategoriesOperation() {
+		try {
+			return implementation.loadCategoriesOperation();
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
