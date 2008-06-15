@@ -3,9 +3,45 @@
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="cejug-classifieds-web" default="default" basedir=".">
-    <description>Builds, tests, and runs the project cejug-classifieds-web.</description>
-    <import file="nbproject/build-impl.xml"/>
-    <!--
+	<description>Builds, tests, and runs the project cejug-classifieds-web.</description>
+	<import file="nbproject/build-impl.xml" />
+	<property file="build.properties" />
+	<property environment="env" />
+	<property name="as.home" value="${env.AS_HOME}" />
+	<property name="jaxws.lib.home" value="${env.JAXWS_HOME}/lib" />
+	<property name="project.lib" value="${basedir}/dev-lib" />
+	<property name="build.home" value="${basedir}/build" />
+	<property name="build.ear.home" value="${build.home}/ear" />
+	<property name="build.entity.package" value="${build.home}/entities" />
+	<property name="build.classes.home" value="${build.home}/classes" />
+	<property name="domain" value="domain1" />
+
+	<path id="jaxws.classpath">
+		<pathelement location="${java.home}/../lib/tools.jar" />
+		<fileset dir="${jaxws.lib.home}">
+			<include name="*.jar" />
+			<exclude name="j2ee.jar" />
+		</fileset>
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+		<classpath refid="jaxws.classpath" />
+	</taskdef>
+
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath refid="jaxws.classpath" />
+	</taskdef>
+
+	<target name="clean">
+		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
+		<delete dir="${build.ear.home}" includeEmptyDirs="true" />
+		<delete dir="${generated.dir}" includeEmptyDirs="true" />
+	</target>
+
+	<!--
 
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
@@ -63,4 +99,21 @@
     nbproject/build-impl.xml file. 
 
     -->
+	<target name="setup">
+		<mkdir dir="${generated.dir}" />
+	</target>
+
+	<target name="generate-stubs" depends="setup">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
+			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
+		</wsimport>
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
+			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
+		</wsimport>
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+			<classpath refid="jaxws.classpath" />
+		</javac>
+		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
+		<delete dir="${generated.dir}" /-->
+	</target>
 </project>
