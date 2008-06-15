@@ -38,6 +38,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifieds
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
+import net.java.dev.cejug.classifieds.server.generated.contract.Period;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 /**
@@ -69,7 +70,6 @@ public class AdvertisementBean {
 			 * and it should be previously registered in the cejug-classifieds
 			 * server. Only known domain can publish advertisements.
 			 */
-
 			String domain = "www.cejug.org";
 			Advertisement advertisement = new Advertisement();
 			Customer customer = new Customer();
@@ -78,17 +78,19 @@ public class AdvertisementBean {
 
 			advertisement.setAdvertiser(customer);
 			// Publishing period
-			DatatypeFactory factory;
-			factory = DatatypeFactory.newInstance();
+			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();
-			advertisement.setPublishingStart(factory
+			Period period = new Period();
+			period.setStart(factory
 					.newXMLGregorianCalendar((GregorianCalendar) today));
+
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			advertisement
-					.setPublishingFinish(factory
+			period
+					.setFinish(factory
 							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
 			// Advertisement contents
+			// TODO: how to read the values typed by the user in the web gui ???? 
 			advertisement.setHeadline("JAXWSUnleashed");
 			advertisement
 					.setShortDescription("JAXWS Unleashed book for only $15,-");
@@ -122,7 +124,7 @@ public class AdvertisementBean {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(status.getDescription()
-							+ " <<< response from service :)"));
+							+ " <<< status of the service request :)"));
 			// "Your advertisement was published. Can you see it?"));
 		} catch (DatatypeConfigurationException e) {
 			// TODO Logging, throws customer error message.....

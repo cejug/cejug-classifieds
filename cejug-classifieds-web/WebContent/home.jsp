@@ -54,13 +54,13 @@
 				</f:facet>
 				<rich:panel>
 					<f:facet name="header">
-						<h:outputText value="#{ad.title}"></h:outputText>
+						<h:outputText value="#{ad.headline}"></h:outputText>
 					</f:facet>
 					<h:panelGrid columns="2">
-						<h:outputText rendered="#{ad.summary ne null}" value="Summary:" styleClass="label"></h:outputText>
-						<h:outputText rendered="#{ad.summary ne null}" value="#{ad.summary}" />
+						<h:outputText rendered="#{ad.shortDescription ne null}" value="Summary:" styleClass="label"></h:outputText>
+						<h:outputText rendered="#{ad.keywords ne null}" value="#{ad.keywords}" />
 						<h:outputText value="Text:" styleClass="label"></h:outputText>
-						<h:outputText value="#{ad.text}" />
+						<h:outputText value="#{ad.fullText}" />
 					</h:panelGrid>
 				</rich:panel>
 				<f:facet name="footer">

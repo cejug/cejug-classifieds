@@ -23,12 +23,15 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.model.service.wsimpl;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 
 /**
  * This implementation is responsible for the communication with the
@@ -38,22 +41,26 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
  * @version $Rev$ ($Date$)
  */
 public class AdvertisementServiceWSImpl implements AdvertisementService {
+
 	/**
-	 * This field is for test purpose only.
+	 * TODO: this class is eventually not necessary. The service can be used as
+	 * injected bean. Or, to use this class as cache strategy, avoiding to call
+	 * the service every time.
 	 */
-	private List<Advertisement> ads = new ArrayList<Advertisement>();
-
-	@Override
-	public Advertisement publish(Advertisement advertisement) {
-		// TODO: ID should be included in the Advertisement element.
-		// advertisement.setId((int) (Math.random() * 1000000));
-		ads.add(advertisement);
-		return advertisement;
-	}
-
 	@Override
 	public List<Advertisement> getAll() {
-		return Collections.unmodifiableList(ads);
-	}
+		CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
+				.getCejugClassifiedsBusiness();
+		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
 
+		// maximum number of records reduces the amount of serialized
+		// objects on the wire, enhancing a bit the performance.
+		filter.setMaximumNumberOfRecords(10);
+		// TODO: the service interface will provide an enumeration of valid
+		// categories, but it is not yet available :(
+		filter.setCategory("books");
+		AdvertisementCollection advertisements = classifiedsBusinessService
+				.loadAdvertisementOperation(filter);
+		return Collections.unmodifiableList(advertisements.getAdvertisement());
+	}
 }
