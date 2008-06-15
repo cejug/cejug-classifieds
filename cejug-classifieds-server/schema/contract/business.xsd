@@ -77,16 +77,15 @@
 	<xsd:element name="Advertisement">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element name="id" type="xsd:int" />
 				<xsd:element name="advertiser" type="business:Customer" />
 				<xsd:element name="headline" type="xsd:string" />
 				<xsd:element name="short.description" type="xsd:string" />
 				<xsd:element name="full.text" type="xsd:string" />
 				<xsd:element name="status" type="xsd:int" />
 				<xsd:element name="keywords" type="xsd:string" />
-				<xsd:element name="publishing.start"
-					type="xsd:dateTime" />
-				<xsd:element name="publishing.finish"
-					type="xsd:dateTime" />
+				<xsd:element name="publishing.period"
+					type="business:Period" />
 				<xsd:element name="attachment.id" type="xsd:int"
 					minOccurs="0" maxOccurs="unbounded" />
 				<xsd:element name="section.id" type="xsd:int" />
@@ -125,6 +124,33 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="AdvertisementCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element ref="business:Advertisement" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AdvertisementCollectionFilter">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="category" type="xsd:NMTOKEN" />
+				<xsd:element name="maximum.number.of.records"
+					type="xsd:int" default="30" />
+				<xsd:element name="period" type="business:Period"
+					nillable="true" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="Period">
+		<xsd:sequence>
+			<xsd:element name="start" type="xsd:dateTime" />
+			<xsd:element name="finish" type="xsd:dateTime" />
+		</xsd:sequence>
+	</xsd:complexType>
 
 	<xsd:element name="AtomCollection">
 		<xsd:complexType>

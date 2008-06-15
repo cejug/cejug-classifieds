@@ -33,6 +33,8 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
@@ -128,6 +130,17 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 		try {
 			return implementation.publishOperation(advertisement, header);
+		} catch (Exception e) {
+			// TODO: logging....
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public AdvertisementCollection loadAdvertisementOperation(
+			AdvertisementCollectionFilter filter) {
+		try {
+			return implementation.loadAdvertisementOperation(filter);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);

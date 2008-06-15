@@ -39,6 +39,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifieds
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
+import net.java.dev.cejug.classifieds.server.generated.contract.Period;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -119,14 +120,17 @@ public class PublishFunctionalTest {
 			// Publishing period
 			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();
-			advertisement.setPublishingStart(factory
+			Period period = new Period();
+			period.setStart(factory
 					.newXMLGregorianCalendar((GregorianCalendar) today));
+
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			advertisement
-					.setPublishingFinish(factory
+			period
+					.setFinish(factory
 							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
 			// Advertisement contents
+			advertisement.setPublishingPeriod(period);
 			advertisement.setHeadline("JAXWSUnleashed");
 			advertisement
 					.setShortDescription("JAXWS Unleashed book for only $15,-");

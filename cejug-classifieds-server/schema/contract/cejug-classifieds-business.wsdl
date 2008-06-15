@@ -51,6 +51,17 @@
 			name="atom.collection" />
 	</wsdl:message>
 
+	<!-- GET ADVERTISEMENT COLLECTION -->
+	<wsdl:message name="LoadAdvertisement">
+		<wsdl:part element="metadata:AdvertisementCollectionFilter"
+			name="filter" />
+	</wsdl:message>
+
+	<wsdl:message name="LoadAdvertisementResponse">
+		<wsdl:part element="metadata:AdvertisementCollection"
+			name="advertisements" />
+	</wsdl:message>
+
 	<!-- ADVERTISEMENT PUBLISHING -->
 	<wsdl:message name="Publish">
 		<wsdl:part element="metadata:Advertisement"
@@ -74,6 +85,12 @@
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsBusiness">
+		<wsdl:operation name="LoadAdvertisementOperation">
+			<wsdl:input message="business:LoadAdvertisement" />
+			<wsdl:output message="business:LoadAdvertisementResponse" />
+			<wsdl:fault name="LoadAdvertisementException"
+				message="business:ClassifiedsFault" />
+		</wsdl:operation>
 		<wsdl:operation name="LoadRssOperation">
 			<wsdl:input message="business:LoadRss" />
 			<wsdl:output message="business:LoadRssResponse" />
@@ -106,6 +123,16 @@
 		type="business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<wsdl:operation name="LoadAdvertisementOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/LoadAdvertisement" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<wsdl:operation name="LoadRssOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/LoadRss" />
