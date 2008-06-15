@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="generated"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/activation.jar"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/jaxb1-impl.jar"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="dev-lib/jaxb/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="dev-lib/javaee.jar"/>
+	<classpathentry kind="lib" path="dev-lib/junit-4.4.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
