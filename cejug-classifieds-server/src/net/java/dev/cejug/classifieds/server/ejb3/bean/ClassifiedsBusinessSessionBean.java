@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
@@ -217,7 +218,9 @@ public class ClassifiedsBusinessSessionBean implements
 				c.setLogin("test");
 				adv.setAdvertiser(c);
 				adv.setFullText(entity.getText());
-				adv.setKeywords(entity.getKeywords().toArray().toString());
+				adv
+						.setKeywords(Arrays.toString(entity.getKeywords()
+								.toArray()));
 				adv.setShortDescription(entity.getSummary());
 				adv.setHeadline(entity.getTitle());
 				collection.getAdvertisement().add(adv);

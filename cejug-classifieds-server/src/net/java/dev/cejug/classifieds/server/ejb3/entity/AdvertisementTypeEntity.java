@@ -93,4 +93,15 @@ public class AdvertisementTypeEntity extends AbstractEntity implements
 	public int compareTo(AdvertisementTypeEntity other) {
 		return getId() - other.getId();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof AdvertisementTypeEntity)
+				&& compareTo((AdvertisementTypeEntity) obj) == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return getId();
+	}
 }
