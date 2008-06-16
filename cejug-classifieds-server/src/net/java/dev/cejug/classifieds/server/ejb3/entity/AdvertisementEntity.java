@@ -89,7 +89,7 @@ public class AdvertisementEntity extends AbstractEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private AdvertisementStatus state;
+    private AdvertisementStatus state = AdvertisementStatus.ONLINE;
 
     public String getTitle() {
 

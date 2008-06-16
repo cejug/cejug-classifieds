@@ -42,7 +42,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DOMAIN")
-@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :domain")
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domainName= :domain")
 public class DomainEntity extends AbstractEntity {
 
     @Column(name = "NAME", nullable = false, unique = true)
