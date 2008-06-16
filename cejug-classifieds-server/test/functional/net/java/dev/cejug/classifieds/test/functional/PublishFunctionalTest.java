@@ -31,6 +31,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
@@ -80,6 +81,13 @@ public class PublishFunctionalTest {
 		newDomain.setSharedQuota(true);
 		newDomain.setTimezone("America/Fortaleza");
 		admin.requestDomainOperation(newDomain);
+
+		AdvertisementType type = new AdvertisementType();
+		type.setDescription("oo");
+		type.setMaxAttachmentSize(300);
+		type.setName("courtesy");
+		type.setMaxTextLength(250);
+		admin.requestAdvertisementTypeOperation(type);
 
 		// TODO: admin.updateDomain();
 

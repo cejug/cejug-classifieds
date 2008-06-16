@@ -129,6 +129,15 @@
 		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
+	<!-- REQUEST DOMAIN  -->
+	<wsdl:message name="RequestAdvertisementType">
+		<wsdl:part element="common:AdvertisementType" name="adv.type" />
+	</wsdl:message>
+
+	<wsdl:message name="RequestAdvertisementTypeResponse">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
 	<!-- ADD QUOTA -->
 	<wsdl:message name="AddQuota">
 		<wsdl:part element="metadata:AddQuotaInfo"
@@ -165,6 +174,13 @@
 			<wsdl:fault name="ReportDomainException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
+		<wsdl:operation name="RequestAdvertisementTypeOperation">
+			<wsdl:input message="contract:RequestAdvertisementType" />
+			<wsdl:output
+				message="contract:RequestAdvertisementTypeResponse" />
+			<wsdl:fault name="RequestAdvertisementTypeException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<wsdl:input message="contract:AddQuota" />
 			<wsdl:output message="contract:AddQuotaResponse" />
@@ -183,6 +199,17 @@
 		type="contract:CejugClassifiedsAdmin">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+
+		<wsdl:operation name="RequestAdvertisementTypeOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestAdvertisementType" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<wsdl:operation name="CheckMonitorOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/admin/CheckMonitor" />

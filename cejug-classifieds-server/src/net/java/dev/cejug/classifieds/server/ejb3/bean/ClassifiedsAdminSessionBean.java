@@ -45,6 +45,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLo
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
@@ -123,7 +124,6 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
-
 		try {
 			Quota requestedQuota = addQuotaRequest.getQuota();
 			CustomerEntity customer = customerFacade.findOrCreate(
@@ -172,6 +172,13 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@Override
 	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
 
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus requestAdvertisementTypeOperation(
+			AdvertisementType advType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

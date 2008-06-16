@@ -58,8 +58,8 @@ public class CustomerFacade extends EntityFacade<CustomerEntity> implements
 
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
-		query.setParameter("domain", domainId);
-		query.setParameter("login", login);
+		query.setParameter("d", new Integer(domainId));
+		query.setParameter("l", login);
 
 		try {
 			return (CustomerEntity) query.getSingleResult();

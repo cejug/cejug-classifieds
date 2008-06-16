@@ -188,6 +188,7 @@ public class ClassifiedsBusinessSessionBean implements
 			type.setDescription("oo");
 			type.setMaxAttachmentSize(300);
 			type.setName("courtesy");
+			type.setTextLength(250);
 			entity.setType(type);
 
 			entity.setSummary(advertisement.getShortDescription());
