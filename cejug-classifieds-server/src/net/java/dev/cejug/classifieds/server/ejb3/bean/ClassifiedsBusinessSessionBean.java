@@ -38,7 +38,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
@@ -69,7 +72,8 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
-
+	@EJB
+	private CustomerFacadeLocal customerFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
@@ -169,14 +173,22 @@ public class ClassifiedsBusinessSessionBean implements
 			 * // loading customer Map<String, String> params = new HashMap<String,
 			 * String>(); params.clear(); params.put("d",
 			 * header.getCustomerDomain()); params.put("l",
-			 * header.getCustomerLogin()); CustomerEntity customer =
-			 * customerFacade.get(params);
+			 * header.getCustomerLogin());
 			 */
+			CustomerEntity customer = customerFacade.findOrCreate(header
+					.getCustomerDomainId(), header.getCustomerLogin());
 
 			// validating advertisement PIN
 			AdvertisementEntity entity = new AdvertisementEntity();
 			// entity.setKeywords(advertisement.getKeywords()); // TODO
 			entity.setText(advertisement.getFullText());
+
+			entity.setCustomer(customer);
+			AdvertisementTypeEntity type = new AdvertisementTypeEntity();
+			type.setDescription("oo");
+			type.setMaxAttachmentSize(300);
+			type.setName("courtesy");
+			entity.setType(type);
 
 			entity.setSummary(advertisement.getShortDescription());
 			entity.setTitle(advertisement.getHeadline());

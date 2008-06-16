@@ -146,7 +146,7 @@ public class PublishFunctionalTest {
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(1);
+			header.setCustomerDomainId(2);
 			header.setCustomerLogin("fgaucho");
 
 			ServiceStatus status = business.publishOperation(advertisement,
