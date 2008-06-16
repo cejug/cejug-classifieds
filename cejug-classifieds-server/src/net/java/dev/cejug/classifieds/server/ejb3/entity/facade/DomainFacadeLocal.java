@@ -23,8 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.List;
 import javax.ejb.Local;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 /**
@@ -34,9 +34,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 @Local
 public interface DomainFacadeLocal {
 
-    List<DomainEntity> get(String query, int limit) throws Exception;
+	DomainEntity get(int id) throws Exception;
 
-    DomainEntity get(String domain) throws Exception;
-
-    DomainEntity updateDomain(DomainEntity entity) throws Exception;
+	DomainEntity updateDomain(DomainEntity entity) throws Exception;
 }

@@ -21,7 +21,6 @@ public class EntityFacade<T extends AbstractEntity> {
 	public EntityManager manager;
 
 	public void create(T entity) throws Exception {
-
 		manager.persist(entity);
 	}
 

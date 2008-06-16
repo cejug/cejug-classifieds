@@ -94,12 +94,12 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<xsd:element name="AdvertisementHeader">
+
+	<xsd:element name="PublishingHeader">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="customer.login" type="xsd:NMTOKEN" />
-				<xsd:element name="customer.domain" type="xsd:NMTOKEN" />
-				<xsd:element name="pin" type="xsd:NMTOKEN" />
+				<xsd:element name="customer.domain.id" type="xsd:int" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

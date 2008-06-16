@@ -35,11 +35,11 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsBusinessRemote
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
+import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -128,7 +128,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement,
-			AdvertisementHeader header) {
+			PublishingHeader header) {
 		// TODO: Authentication & Authorization
 		try {
 			return implementation.publishOperation(advertisement, header);

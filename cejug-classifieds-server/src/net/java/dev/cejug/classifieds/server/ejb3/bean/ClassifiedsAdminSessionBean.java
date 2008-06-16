@@ -127,7 +127,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 		try {
 			Quota requestedQuota = addQuotaRequest.getQuota();
 			CustomerEntity customer = customerFacade.findOrCreate(
-					requestedQuota.getDomain(), requestedQuota
+					requestedQuota.getDomainId(), requestedQuota
 							.getCustomerLogin());
 			Collection<QuotaEntity> customerQuotas = customer.getQuotas();
 

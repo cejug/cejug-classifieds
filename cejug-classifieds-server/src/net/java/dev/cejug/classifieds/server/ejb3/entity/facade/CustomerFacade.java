@@ -24,10 +24,12 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.ArrayList;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
@@ -37,44 +39,48 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class CustomerFacade extends EntityFacade<CustomerEntity> implements CustomerFacadeLocal {
+public class CustomerFacade extends EntityFacade<CustomerEntity> implements
+		CustomerFacadeLocal {
 
-    @EJB
-    DomainFacade domainFacade;
+	@EJB
+	DomainFacadeLocal domainFacade;
 
-    @Override
-    public CustomerEntity updateCustomer(CustomerEntity entity) throws Exception {
+	@Override
+	public CustomerEntity updateCustomer(CustomerEntity entity)
+			throws Exception {
 
-        return update(entity);
-    }
+		return update(entity);
+	}
 
-    @Override
-    public CustomerEntity findOrCreate(String domainName, String login) throws Exception {
+	@Override
+	public CustomerEntity findOrCreate(int domainId, String login)
+			throws Exception {
 
-        Query query = manager.createNamedQuery("selectCustomerByLoginAndDomain");
-        query.setParameter("domain", domainName);
-        query.setParameter("login", login);
+		Query query = manager
+				.createNamedQuery("selectCustomerByLoginAndDomain");
+		query.setParameter("domain", domainId);
+		query.setParameter("login", login);
 
-        try {
-            return (CustomerEntity) query.getSingleResult();
-        } catch (NoResultException error) {
-            /*
-             * TODO: if the customer does not exist, insert a new customer
-             * automatically. It should also add the default "welcome quotas",
-             * to be defined by an external rule from database. The below code
-             * is just a test.
-             */
+		try {
+			return (CustomerEntity) query.getSingleResult();
+		} catch (NoResultException error) {
+			/*
+			 * TODO: if the customer does not exist, insert a new customer
+			 * automatically. It should also add the default "welcome quotas",
+			 * to be defined by an external rule from database. The below code
+			 * is just a test.
+			 */
 
-            // loading domain
-            DomainEntity domain = domainFacade.get(domainName);
+			// loading domain
+			DomainEntity domain = domainFacade.get(domainId);
 
-            // insert a new customer
-            CustomerEntity customer = new CustomerEntity();
-            customer.setDomain(domain);
-            customer.setLogin(login);
-            customer.setQuotas(new ArrayList<QuotaEntity>());
-            manager.persist(customer);
-            return customer;
-        }
-    }
+			// insert a new customer
+			CustomerEntity customer = new CustomerEntity();
+			customer.setDomain(domain);
+			customer.setLogin(login);
+			customer.setQuotas(new ArrayList<QuotaEntity>());
+			manager.persist(customer);
+			return customer;
+		}
+	}
 }

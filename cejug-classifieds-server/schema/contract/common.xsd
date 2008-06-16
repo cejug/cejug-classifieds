@@ -58,7 +58,7 @@
 				<xsd:element name="advertisement.type.id"
 					type="xsd:int" />
 				<xsd:element name="amount" type="xsd:int" />
-				<xsd:element name="domain" type="xsd:string" />
+				<xsd:element name="domain.id" type="xsd:int" />
 				<xsd:element name="customer.login" type="xsd:string"
 					nillable="true" />
 			</xsd:sequence>

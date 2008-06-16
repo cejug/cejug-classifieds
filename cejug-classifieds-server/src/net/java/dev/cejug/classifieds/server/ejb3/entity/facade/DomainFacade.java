@@ -24,8 +24,9 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
-import javax.persistence.Query;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 /**
@@ -33,25 +34,16 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class DomainFacade extends EntityFacade<DomainEntity> implements DomainFacadeLocal {
+public class DomainFacade extends EntityFacade<DomainEntity> implements
+		DomainFacadeLocal {
 
-    @Override
-    public DomainEntity get(String domain) throws Exception {
+	@Override
+	public DomainEntity get(int id) throws Exception {
+		return manager.find(DomainEntity.class, id);
+	}
 
-        Query query = manager.createNamedQuery("selectDomainByName");
-        query.setParameter("domain", domain);
-        return (DomainEntity) query.getSingleResult();
-    }
+	public DomainEntity updateDomain(DomainEntity entity) throws Exception {
 
-    @Override
-    public List<DomainEntity> get(String query, int limit) throws Exception {
-
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public DomainEntity updateDomain(DomainEntity entity) throws Exception {
-
-        return update(entity);
-    }
+		return update(entity);
+	}
 }

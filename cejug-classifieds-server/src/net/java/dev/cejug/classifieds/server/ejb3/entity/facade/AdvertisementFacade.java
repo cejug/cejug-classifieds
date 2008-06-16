@@ -47,7 +47,6 @@ public class AdvertisementFacade extends EntityFacade<AdvertisementEntity> imple
     }
 
     public void createAdvertisement(AdvertisementEntity entity) throws Exception {
-
         create(entity);
     }
 }

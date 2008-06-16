@@ -31,7 +31,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
@@ -40,6 +39,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.Period;
+import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -145,8 +145,8 @@ public class PublishFunctionalTest {
 			advertisement.setKeywords("J2EE,JAXWS");
 			advertisement.setStatus(1);
 
-			AdvertisementHeader header = new AdvertisementHeader();
-			header.setCustomerDomain(domain);
+			PublishingHeader header = new PublishingHeader();
+			header.setCustomerDomainId(1);
 			header.setCustomerLogin("fgaucho");
 
 			ServiceStatus status = business.publishOperation(advertisement,

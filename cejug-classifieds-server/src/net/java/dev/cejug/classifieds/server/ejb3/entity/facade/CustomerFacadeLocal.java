@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Local;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 
 /**
@@ -33,7 +34,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 @Local
 public interface CustomerFacadeLocal {
 
-    CustomerEntity findOrCreate(String domain, String login) throws Exception;
+	CustomerEntity findOrCreate(int domainId, String login) throws Exception;
 
-    CustomerEntity updateCustomer(CustomerEntity entity) throws Exception;
+	CustomerEntity updateCustomer(CustomerEntity entity) throws Exception;
 }
