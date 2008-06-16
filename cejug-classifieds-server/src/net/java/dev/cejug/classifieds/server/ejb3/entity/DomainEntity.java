@@ -29,6 +29,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,13 +42,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "DOMAIN")
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domain= :domain")
 public class DomainEntity extends AbstractEntity {
 
     @Column(name = "NAME", nullable = false, unique = true)
     private String domainName;
 
-    // TODO: mapear booleano
-    @Column(nullable = false)
+    @Column(name = "SHARED_COTA", nullable = false)
     private Boolean sharedQuota;
 
     @Column(name = "BRAND", nullable = false)
