@@ -54,8 +54,8 @@ public class DomainEntity extends AbstractEntity {
 	@OneToMany(mappedBy = "domain")
 	private Collection<QuotaEntity> quotas;
 
-	@OneToMany(mappedBy = "domain")
-	private Collection<CategoryEntity> categories;
+	/*@OneToMany(mappedBy = "domain")
+	private Collection<CategoryEntity> categories;*/
 
 	public Boolean getSharedQuota() {
 
