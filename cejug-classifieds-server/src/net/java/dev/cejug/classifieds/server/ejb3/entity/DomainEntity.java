@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -52,6 +53,9 @@ public class DomainEntity extends AbstractEntity {
 
 	@OneToMany(mappedBy = "domain")
 	private Collection<QuotaEntity> quotas;
+
+	@OneToMany(mappedBy = "domain")
+	private Collection<CategoryEntity> categories;
 
 	public Boolean getSharedQuota() {
 
@@ -91,6 +95,14 @@ public class DomainEntity extends AbstractEntity {
 	public void setDomainName(String domainName) {
 
 		this.domainName = domainName;
+	}
+
+	public Collection<CategoryEntity> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Collection<CategoryEntity> categories) {
+		this.categories = categories;
 	}
 
 }
