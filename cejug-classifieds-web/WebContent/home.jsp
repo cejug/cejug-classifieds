@@ -44,7 +44,7 @@
 
 		<rich:messages />
 		<table>
-			<tr width="100%">
+			<tr>
 				<td valign="top"><rich:dataGrid id="pp" columns="1"
 					elements="20" rendered="#{adsService.categories[0] ne null}"
 					value="#{adsService.categories}" var="cat">
