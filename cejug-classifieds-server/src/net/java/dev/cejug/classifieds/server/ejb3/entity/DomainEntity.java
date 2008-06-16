@@ -96,13 +96,4 @@ public class DomainEntity extends AbstractEntity {
 
 		this.domainName = domainName;
 	}
-
-	public Collection<CategoryEntity> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Collection<CategoryEntity> categories) {
-		this.categories = categories;
-	}
-
 }
