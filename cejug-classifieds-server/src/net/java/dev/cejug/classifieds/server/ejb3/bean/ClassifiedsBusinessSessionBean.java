@@ -160,7 +160,7 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement,
 			AdvertisementHeader header) {
-
+		// TODO: to implement the real code.
 		try {
 			/*
 			 * // loading customer Map<String, String> params = new HashMap<String,
@@ -232,6 +232,7 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
+		// TODO: to implement the real data.
 		CategoryCollection categories = new CategoryCollection();
 		AdvertisementCategory cars = new AdvertisementCategory();
 		cars.setDescription("New and used cars");

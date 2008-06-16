@@ -93,6 +93,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
+		// TODO: Authentication & Authorization
 		try {
 			return implementation.loadAtomOperation(filter);
 		} catch (Exception e) {
@@ -103,7 +104,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public RssCollection loadRssOperation(RssFilterCollection filter) {
-
+		// TODO: Authentication & Authorization
 		try {
 			// TODO: logging....
 			return implementation.loadRssOperation(filter);
@@ -115,7 +116,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
-
+		// TODO: Authentication & Authorization
 		try {
 			// TODO: logging....
 			return implementation.reportSpamOperation(spam);
@@ -128,7 +129,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement,
 			AdvertisementHeader header) {
-
+		// TODO: Authentication & Authorization
 		try {
 			return implementation.publishOperation(advertisement, header);
 		} catch (Exception e) {
@@ -140,6 +141,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			AdvertisementCollectionFilter filter) {
+		// TODO: Authentication & Authorization
 		try {
 			return implementation.loadAdvertisementOperation(filter);
 		} catch (Exception e) {
@@ -150,6 +152,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
+		// TODO: Authentication & Authorization
 		try {
 			return implementation.loadCategoriesOperation();
 		} catch (Exception e) {
