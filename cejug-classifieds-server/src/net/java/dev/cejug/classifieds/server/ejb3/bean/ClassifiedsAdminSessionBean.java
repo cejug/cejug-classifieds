@@ -110,7 +110,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
             entity.setDomainName(domain.getDomain());
             entity.setSharedQuota(false);
             entity.setBrand(domain.getBrand());
-            domainFacade.updateDomain(entity);
+            domainFacade.createDomain(entity);
         } catch (Exception e) {
             // TODO Logging....
             throw new WebServiceException(e);
