@@ -27,6 +27,8 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -75,7 +77,7 @@ public class AdvertisementEntity extends AbstractEntity {
     @JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
     private Collection<AdvertisementKeywordEntity> keywords;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
     private AdvertisementTypeEntity type;
 

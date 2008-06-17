@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
