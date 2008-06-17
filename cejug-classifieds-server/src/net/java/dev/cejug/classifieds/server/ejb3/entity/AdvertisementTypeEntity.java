@@ -102,6 +102,7 @@ public class AdvertisementTypeEntity extends AbstractEntity implements
 
 	@Override
 	public int hashCode() {
-		return getId();
+		Integer id = getId();
+		return id == null ? super.hashCode() : id;
 	}
 }
