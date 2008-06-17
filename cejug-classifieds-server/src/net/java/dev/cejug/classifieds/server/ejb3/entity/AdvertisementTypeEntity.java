@@ -91,7 +91,13 @@ public class AdvertisementTypeEntity extends AbstractEntity implements
 
 	@Override
 	public int compareTo(AdvertisementTypeEntity other) {
-		return getId() - other.getId();
+		Integer thisId = getId();
+		Integer otherId = other.getId();
+		if (thisId != null && otherId != null) {
+			return getId() - other.getId();
+		} else {
+			return -1;
+		}
 	}
 
 	@Override
