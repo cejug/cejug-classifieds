@@ -26,10 +26,8 @@ package net.java.dev.cejug.classifieds.test.functional;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
@@ -42,7 +40,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.Period;
 import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,118 +51,117 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class PublishFunctionalTest {
-	private CejugClassifiedsBusiness business = null;
-	private CejugClassifiedsAdmin admin = null;
-	String domain = "cejug.functional.test.domain" + System.currentTimeMillis();
 
-	@Before
-	public void setUp() throws Exception {
-		/*--
-		 * TODO: review this code and do the proper test sequence:
-		 * - create a new domain, for tests
-		 * - insert new advertisement
-		 * - load the advertisement
-		 * - delete the domain and all of its advertisement (cleanup)
-		 * 
-		 * WARNING: for our first tests, we are creating a new domain on each test. 
-		 */
-		business = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
+    private CejugClassifiedsBusiness business = null;
 
-		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+    private CejugClassifiedsAdmin admin = null;
 
-		// TODO: review (it is only a test)
-		Domain newDomain = new Domain();
-		newDomain.setDomain(domain);
-		newDomain.setBrand("CEJUG");
-		newDomain.setSharedQuota(true);
-		newDomain.setTimezone("America/Fortaleza");
-		admin.requestDomainOperation(newDomain);
+    String domain = "cejug.functional.test.domain" + System.currentTimeMillis();
 
-		AdvertisementType type = new AdvertisementType();
-		type.setDescription("oo");
-		type.setMaxAttachmentSize(300);
-		type.setName("courtesy");
-		type.setMaxTextLength(250);
-		admin.requestAdvertisementTypeOperation(type);
+    @Before
+    public void setUp() throws Exception {
 
-		// TODO: admin.updateDomain();
+        /*--
+         * TODO: review this code and do the proper test sequence:
+         * - create a new domain, for tests
+         * - insert new advertisement
+         * - load the advertisement
+         * - delete the domain and all of its advertisement (cleanup)
+         * 
+         * WARNING: for our first tests, we are creating a new domain on each test. 
+         */
+        business = new CejugClassifiedsServiceBusiness().getCejugClassifiedsBusiness();
 
-		// ServiceStatus status = facade.publishOperation(bundle);
+        admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
 
-		// connecting the web-service and calling the publish operation
-		/*
-		 * URL wsdlLocation = new URL(
-		 * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
-		 * serviceName = new QName(
-		 * "http://cejug-classifieds.dev.java.net/server",
-		 * "CejugClassifiedsService");
-		 */
+        // TODO: review (it is only a test)
+        Domain newDomain = new Domain();
+        newDomain.setDomain(domain);
+        newDomain.setBrand("CEJUG");
+        newDomain.setSharedQuota(true);
+        newDomain.setTimezone("America/Fortaleza");
+        admin.requestDomainOperation(newDomain);
 
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
-	}
+        AdvertisementType type = new AdvertisementType();
+        type.setDescription("oo");
+        type.setMaxAttachmentSize(300);
+        type.setName("courtesy");
+        type.setMaxTextLength(250);
+        admin.requestAdvertisementTypeOperation(type);
 
-	@After
-	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
-	}
+        // TODO: admin.updateDomain();
 
-	@Test
-	public void testPublishOperation() throws DatatypeConfigurationException,
-			MalformedURLException {
-		try {
-			/*
-			 * check if the test advertisement comes with the RSS
-			 */
+        // ServiceStatus status = facade.publishOperation(bundle);
 
-			Advertisement advertisement = new Advertisement();
-			Customer customer = new Customer();
-			customer.setDomain(domain);
-			customer.setLogin("fgaucho");
+        // connecting the web-service and calling the publish operation
+        /*
+         * URL wsdlLocation = new URL(
+         * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
+         * serviceName = new QName(
+         * "http://cejug-classifieds.dev.java.net/server",
+         * "CejugClassifiedsService");
+         */
 
-			advertisement.setAdvertiser(customer);
-			// Publishing period
-			DatatypeFactory factory = DatatypeFactory.newInstance();
-			Calendar today = GregorianCalendar.getInstance();
-			Period period = new Period();
-			period.setStart(factory
-					.newXMLGregorianCalendar((GregorianCalendar) today));
+        // include or activate a new advertisement (submit via service or direct
+        // into database)
+    }
 
-			Calendar fiveDaysLater = GregorianCalendar.getInstance();
-			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			period
-					.setFinish(factory
-							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
-			// Advertisement contents
-			advertisement.setPublishingPeriod(period);
-			advertisement.setHeadline("JAXWSUnleashed");
-			advertisement
-					.setShortDescription("JAXWS Unleashed book for only $15,-");
-			advertisement
-					.setFullText("This is a test advertisement.. several lines here.");
+    @After
+    public void tearDown() throws Exception {
 
-			advertisement.setSectionId(1);
-			Locale locale = new Locale();
-			locale.setLanguage("pt");
-			locale.setCountry("BR");
-			advertisement.setLocale(locale);
-			advertisement.setKeywords("J2EE,JAXWS");
-			advertisement.setStatus(1);
+        // remove or inactive the test advertisement
+    }
 
-			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(4);
-			header.setCustomerLogin("fgaucho");
+    @Test
+    public void testPublishOperation() throws DatatypeConfigurationException, MalformedURLException {
 
-			ServiceStatus status = business.publishOperation(advertisement,
-					header);
-			assert status.getDescription().equalsIgnoreCase("OK");
-		} catch (Exception ee) {
-			ee.printStackTrace();
-		}
-	}
+        try {
+            /*
+             * check if the test advertisement comes with the RSS
+             */
 
-	@Test
-	public void testPublishOperationFail() {
-	}
+            Advertisement advertisement = new Advertisement();
+            Customer customer = new Customer();
+            customer.setDomain(domain);
+            customer.setLogin("fgaucho");
+
+            advertisement.setAdvertiser(customer);
+            // Publishing period
+            DatatypeFactory factory = DatatypeFactory.newInstance();
+            Calendar today = GregorianCalendar.getInstance();
+            Period period = new Period();
+            period.setStart(factory.newXMLGregorianCalendar((GregorianCalendar) today));
+
+            Calendar fiveDaysLater = GregorianCalendar.getInstance();
+            fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
+            period.setFinish(factory.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
+            // Advertisement contents
+            advertisement.setPublishingPeriod(period);
+            advertisement.setHeadline("JAXWSUnleashed");
+            advertisement.setShortDescription("JAXWS Unleashed book for only $15,-");
+            advertisement.setFullText("This is a test advertisement.. several lines here.");
+
+            advertisement.setSectionId(1);
+            Locale locale = new Locale();
+            locale.setLanguage("pt");
+            locale.setCountry("BR");
+            advertisement.setLocale(locale);
+            advertisement.setKeywords("J2EE,JAXWS");
+            advertisement.setStatus(1);
+
+            PublishingHeader header = new PublishingHeader();
+            header.setCustomerDomainId(1);
+            header.setCustomerLogin("fgaucho");
+
+            ServiceStatus status = business.publishOperation(advertisement, header);
+            assert status.getDescription().equalsIgnoreCase("OK");
+        } catch (Exception ee) {
+            ee.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPublishOperationFail() {
+
+    }
 }

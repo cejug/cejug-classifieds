@@ -24,9 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.util.Collection;
-
 import javax.ejb.Local;
-
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 
 /**
@@ -35,7 +33,10 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
  */
 @Local
 public interface AdvertisementTypeFacadeLocal {
-	AdvertisementTypeEntity find(Integer id) throws Exception;
 
-	Collection<AdvertisementTypeEntity> getAll() throws Exception;
+    AdvertisementTypeEntity find(Integer id) throws Exception;
+
+    void createAdvertisementType(AdvertisementTypeEntity advType) throws Exception;
+
+    Collection<AdvertisementTypeEntity> getAll() throws Exception;
 }

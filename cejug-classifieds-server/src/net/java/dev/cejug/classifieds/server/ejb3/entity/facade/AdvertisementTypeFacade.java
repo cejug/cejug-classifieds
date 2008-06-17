@@ -40,6 +40,11 @@ public class AdvertisementTypeFacade extends EntityFacade<AdvertisementTypeEntit
         return findById(AdvertisementTypeEntity.class, id);
     }
 
+    public void createAdvertisementType(AdvertisementTypeEntity advType) throws Exception {
+
+        create(advType);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Collection<AdvertisementTypeEntity> getAll() throws Exception {
