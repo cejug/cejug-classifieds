@@ -184,13 +184,13 @@ public class ClassifiedsBusinessSessionBean implements
 			entity.setText(advertisement.getFullText());
 
 			entity.setCustomer(customer);
-			
+
 			// TODO: load the AdvertisementTypeEntity
 			AdvertisementTypeEntity type = new AdvertisementTypeEntity();
 			type.setDescription("oo");
-			type.setMaxAttachmentSize(300);
+			type.setMaxAttachmentSize(300L);
 			type.setName("courtesy");
-			type.setTextLength(250);
+			type.setTextLength(250L);
 			entity.setType(type);
 
 			entity.setSummary(advertisement.getShortDescription());
