@@ -72,7 +72,8 @@ public class AdvertisementServiceWSImpl implements AdvertisementService {
 				.getCejugClassifiedsBusiness();
 		CategoryCollection collection = classifiedsBusinessService
 				.loadCategoriesOperation();
-		return Collections.unmodifiableList(collection.getCategories());
+		return Collections.unmodifiableList(collection
+				.getAdvertisementCategory());
 
 	}
 }

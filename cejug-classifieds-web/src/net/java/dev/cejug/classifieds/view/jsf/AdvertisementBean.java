@@ -33,12 +33,12 @@ import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
 import net.java.dev.cejug.classifieds.server.generated.contract.Period;
+import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 /**
@@ -71,7 +71,7 @@ public class AdvertisementBean {
 			 * server. Only known domain can publish advertisements.
 			 */
 			String domain = "www.cejug.org";
-			Advertisement advertisement = new Advertisement();
+			Advertisement advertisement = getAdvertisement();
 			Customer customer = new Customer();
 			customer.setDomain(domain);
 			customer.setLogin("fgaucho");
@@ -89,38 +89,45 @@ public class AdvertisementBean {
 			period
 					.setFinish(factory
 							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
-			// Advertisement contents
-			// TODO: how to read the values typed by the user in the web gui ???? 
-			advertisement.setHeadline("JAXWSUnleashed");
-			advertisement
-					.setShortDescription("JAXWS Unleashed book for only $15,-");
-			advertisement
-					.setFullText("This is a test advertisement.. several lines here.");
+			// TODO: get section from user selection...
+			advertisement.setCategoryId(1);
 
-			advertisement.setSectionId(1);
+			// TODO: get locale from user ? or use default domain locale ??
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
+
 			advertisement.setKeywords("J2EE,JAXWS");
+
+			// TODO: status should be automatic in the server side... This
+			// attribute should be defined optional in the contract (WSDL). Or
+			// even the attribute can be removed from the advertisement element
+			// and available only through monitoring operations.
+
 			advertisement.setStatus(1);
 
-			AdvertisementHeader header = new AdvertisementHeader();
-			header.setCustomerDomain(domain);
+			// TODO: Domain is a static information, should be mapped to the
+			// Domain certificate - a Domain cannot fakenize another Domain ID.
+			PublishingHeader header = new PublishingHeader();
+			header.setCustomerDomainId(1);
+
+			// TODO: the customer login should be controlled by the web
+			// application - Most common suggestion is a login feature with
+			// users table in a database.
 			header.setCustomerLogin("fgaucho");
 
 			/**
 			 * TODO: EXAMPLE of how to invoke the Cejug-Classifieds-Server
 			 * operations.
 			 */
-
 			CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
 					.getCejugClassifiedsBusiness();
 
 			ServiceStatus status = classifiedsBusinessService.publishOperation(
 					advertisement, header);
 
-			// adsService.publish(getAdvertisement());
+			// TODO: implement the front-end behavior after the server response.
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(status.getDescription()

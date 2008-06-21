@@ -53,7 +53,7 @@
 					</f:facet>
 					<rich:panel>
 						<h:panelGrid columns="1">
-							<h:outputText rendered="#{cat.name ne null}" value="#{cat.name}"
+							<h:outputText rendered="#{cat.name ne null}" value="#{cat.name} (#{cat.available})"
 								title="#{cat.description }" />
 						</h:panelGrid>
 					</rich:panel>
