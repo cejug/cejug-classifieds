@@ -81,6 +81,10 @@ public class AdvertisementEntity extends AbstractEntity {
 	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
 	private AdvertisementTypeEntity type;
 
+	@ManyToOne
+	@JoinColumn(name = "CATEGORY")
+	private CategoryEntity category;
+
 	@Column(name = "START", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Calendar start;
@@ -203,5 +207,13 @@ public class AdvertisementEntity extends AbstractEntity {
 	public void setState(AdvertisementStatus state) {
 
 		this.state = state;
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
 	}
 }

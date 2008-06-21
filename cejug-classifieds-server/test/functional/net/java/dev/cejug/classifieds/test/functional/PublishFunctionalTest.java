@@ -151,7 +151,7 @@ public class PublishFunctionalTest {
 			advertisement
 					.setFullText("This is a test advertisement.. several lines here.");
 
-			advertisement.setSectionId(1);
+			advertisement.setCategoryId(1);
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");

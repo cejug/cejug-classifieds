@@ -24,6 +24,9 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.Query;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 
@@ -34,4 +37,26 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 @Stateless
 public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
 		CategoryFacadeLocal {
+	/**
+	 * @see <a
+	 *      href="http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html">Extending
+	 *      the NetBeans Tutorial JSF-JPA-Hibernate Application, Part 3 -
+	 *      Enabling JMX Monitoring on Hibernate v3 and Ehcache 1.3.0 on
+	 *      SimpleJpaHibernateApp</a>
+	 */
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	@Override
+	public int countAdvertisements(CategoryEntity category) {
+		Query query = manager
+				.createQuery(
+						"select COUNT(a) from AdvertisementEntity a WHERE a.category = :cat")
+				.setParameter("cat", category);
+		try {
+			return ((Long) query.getSingleResult()).intValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+
+		}
+	}
 }

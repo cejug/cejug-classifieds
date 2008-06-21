@@ -100,6 +100,7 @@
 			<xsd:sequence>
 				<xsd:element name="name" type="xsd:NMTOKEN" />
 				<xsd:element name="description" type="xsd:string" />
+				<xsd:element name="available" type="xsd:int" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

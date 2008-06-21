@@ -199,6 +199,11 @@ public class ClassifiedsBusinessSessionBean implements
 
 			entity.setSummary(advertisement.getShortDescription());
 			entity.setTitle(advertisement.getHeadline());
+
+			CategoryEntity category = categoryFacade.read(CategoryEntity.class,
+					advertisement.getCategoryId());
+			entity.setCategory(category);
+
 			Calendar start = Calendar.getInstance();
 			Calendar finish = Calendar.getInstance();
 			finish.add(Calendar.HOUR, 3);
@@ -264,12 +269,14 @@ public class ClassifiedsBusinessSessionBean implements
 		try {
 			List<CategoryEntity> categories = categoryFacade
 					.readAll(CategoryEntity.class);
-			System.out.println("CAT_______ " + categories);
 			if (categories != null) {
 				for (CategoryEntity category : categories) {
 					AdvertisementCategory cat = new AdvertisementCategory();
 					cat.setDescription(category.getDescripton());
 					cat.setName(category.getName());
+					int available = categoryFacade
+							.countAdvertisements(category);
+					cat.setAvailable(available);
 					categoryCollection.getAdvertisementCategory().add(cat);
 				}
 			}

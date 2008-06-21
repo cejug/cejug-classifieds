@@ -33,4 +33,5 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
  */
 @Local
 public interface CategoryFacadeLocal extends EntityFacade<CategoryEntity> {
+	int countAdvertisements(CategoryEntity category);
 }

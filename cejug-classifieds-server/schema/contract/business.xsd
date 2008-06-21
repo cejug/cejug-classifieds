@@ -88,7 +88,7 @@
 					type="business:Period" />
 				<xsd:element name="attachment.id" type="xsd:int"
 					minOccurs="0" maxOccurs="unbounded" />
-				<xsd:element name="section.id" type="xsd:int" />
+				<xsd:element name="category.id" type="xsd:int" />
 				<xsd:element name="locale" type="business:Locale" />
 			</xsd:sequence>
 		</xsd:complexType>
