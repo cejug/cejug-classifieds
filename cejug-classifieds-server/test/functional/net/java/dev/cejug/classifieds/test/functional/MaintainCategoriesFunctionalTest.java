@@ -55,23 +55,32 @@ public class MaintainCategoriesFunctionalTest {
 	}
 
 	@Test
-	public void addCategory() {
+	public void testCategory() {
 		CejugClassifiedsBusiness business = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 		CategoryCollection categories = business.loadCategoriesOperation();
 
 		if (categories.getAdvertisementCategory().isEmpty()) {
-			AdvertisementCategory category = new AdvertisementCategory();
-			category.setName("cars");
-			category.setDescription("speed racer...");
-
 			CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 					.getCejugClassifiedsAdmin();
 
+			AdvertisementCategory category = new AdvertisementCategory();
+			category.setName("cars");
+			category.setDescription("new and used cars.");
 			ServiceStatus status = service.addCategoryOperation(category);
+			assert status.getDescription().equalsIgnoreCase("OK");
+
+			category = new AdvertisementCategory();
+			category.setName("jobs");
+			category.setDescription("find a new job today.");
+			status = service.addCategoryOperation(category);
+			assert status.getDescription().equalsIgnoreCase("OK");
+			
+			category = new AdvertisementCategory();
+			category.setName("gadgets");
+			category.setDescription("tech tools & gadgets.");
+			status = service.addCategoryOperation(category);
+			assert status.getDescription().equalsIgnoreCase("OK");
 		}
-		// assert status.getDescription().equalsIgnoreCase("OK");
-
 	}
-
 }
