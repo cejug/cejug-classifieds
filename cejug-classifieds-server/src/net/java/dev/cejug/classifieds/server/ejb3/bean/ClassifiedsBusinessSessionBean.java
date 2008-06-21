@@ -42,9 +42,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CRUDEntityFacade;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
@@ -77,6 +76,8 @@ public class ClassifiedsBusinessSessionBean implements
 	private AdvertisementFacadeLocal advertisementFacade;
 	@EJB
 	private CustomerFacadeLocal customerFacade;
+	@EJB
+	private CategoryFacadeLocal categoryFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
@@ -259,25 +260,24 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
-		EntityFacade<CategoryEntity> categoryFacade = new CRUDEntityFacade<CategoryEntity>();
+		CategoryCollection categoryCollection = new CategoryCollection();
 		try {
 			List<CategoryEntity> categories = categoryFacade
 					.readAll(CategoryEntity.class);
-			System.out.println(categories);
-			CategoryCollection categoryCollection = new CategoryCollection();
+			System.out.println("CAT_______ " + categories);
 			if (categories != null) {
 				for (CategoryEntity category : categories) {
-					AdvertisementCategory cars = new AdvertisementCategory();
-					cars.setDescription(category.getDescripton());
-					cars.setName(category.getName());
-					categoryCollection.getAdvertisementCategory().add(cars);
+					AdvertisementCategory cat = new AdvertisementCategory();
+					cat.setDescription(category.getDescripton());
+					cat.setName(category.getName());
+					categoryCollection.getAdvertisementCategory().add(cat);
 				}
 			}
-			return categoryCollection;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO log.......
 			e.printStackTrace();
-			throw new WebServiceException(e);
+			// throw new WebServiceException(e);
 		}
+		return categoryCollection;
 	}
 }

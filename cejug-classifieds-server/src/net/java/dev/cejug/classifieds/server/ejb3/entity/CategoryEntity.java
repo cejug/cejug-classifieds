@@ -31,13 +31,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Entity
-@Table(name = "CATEGORY")
+@Table(name = "CATEGORY", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
 public class CategoryEntity extends AbstractEntity {
 
 	@Column(name = "NAME", nullable = false)
