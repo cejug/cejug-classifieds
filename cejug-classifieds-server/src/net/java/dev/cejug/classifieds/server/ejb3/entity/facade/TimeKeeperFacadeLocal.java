@@ -32,6 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
  * @version $Rev$ ($Date$)
  */
 @Local
-public interface TimeKeeperFacadeLocal {
-	void record(OperationTimestampEntity entity) throws Exception;
+public interface TimeKeeperFacadeLocal extends
+		EntityFacade<OperationTimestampEntity> {
 }

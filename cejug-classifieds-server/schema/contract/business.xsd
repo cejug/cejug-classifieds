@@ -161,22 +161,6 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<xsd:element name="CategoryCollection">
-		<xsd:complexType>
-			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-				<xsd:element name="categories"
-					type="business:AdvertisementCategory" />
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
-
-	<xsd:complexType name="AdvertisementCategory">
-		<xsd:sequence>
-			<xsd:element name="name" type="xsd:NMTOKEN" />
-			<xsd:element name="description" type="xsd:string" />
-		</xsd:sequence>
-	</xsd:complexType>
-
 	<xsd:element name="AtomFilterCollection">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">

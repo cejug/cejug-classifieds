@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -39,70 +40,70 @@ import javax.persistence.Table;
 @Table(name = "CATEGORY")
 public class CategoryEntity extends AbstractEntity {
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String descripton;
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String descripton;
 
-    @ManyToOne
-    @JoinColumn(name = "PARENT_ID", nullable = true)
-    private CategoryEntity parent;
+	@ManyToOne
+	@JoinColumn(name = "PARENT_ID", nullable = true)
+	private CategoryEntity parent;
 
-    @OneToMany(mappedBy = "parent")
-    private Collection<CategoryEntity> subCategories;
+	@OneToMany(mappedBy = "parent")
+	private Collection<CategoryEntity> subCategories;
 
-    public String getName() {
+	public String getName() {
 
-        return name;
-    }
+		return name;
+	}
 
-    public void setName(String name) {
+	public void setName(String name) {
 
-        this.name = name;
-    }
+		this.name = name;
+	}
 
-    public String getDescripton() {
+	public String getDescripton() {
 
-        return descripton;
-    }
+		return descripton;
+	}
 
-    public void setDescripton(String descripton) {
+	public void setDescripton(String descripton) {
 
-        this.descripton = descripton;
-    }
+		this.descripton = descripton;
+	}
 
-    /**
-     * @return the parent
-     */
-    public CategoryEntity getParent() {
+	/**
+	 * @return the parent
+	 */
+	public CategoryEntity getParent() {
 
-        return parent;
-    }
+		return parent;
+	}
 
-    /**
-     * @param parent
-     *            the parent to set
-     */
-    public void setParent(CategoryEntity parent) {
+	/**
+	 * @param parent
+	 *            the parent to set
+	 */
+	public void setParent(CategoryEntity parent) {
 
-        this.parent = parent;
-    }
+		this.parent = parent;
+	}
 
-    /**
-     * @return the subCategories
-     */
-    public Collection<CategoryEntity> getSubCategories() {
+	/**
+	 * @return the subCategories
+	 */
+	public Collection<CategoryEntity> getSubCategories() {
 
-        return subCategories;
-    }
+		return subCategories;
+	}
 
-    /**
-     * @param subCategories
-     *            the subCategories to set
-     */
-    public void setSubCategories(Collection<CategoryEntity> subCategories) {
+	/**
+	 * @param subCategories
+	 *            the subCategories to set
+	 */
+	public void setSubCategories(Collection<CategoryEntity> subCategories) {
 
-        this.subCategories = subCategories;
-    }
+		this.subCategories = subCategories;
+	}
 }

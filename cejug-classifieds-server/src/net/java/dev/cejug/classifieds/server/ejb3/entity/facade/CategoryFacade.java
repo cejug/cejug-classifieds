@@ -25,13 +25,13 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Stateless;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: rodrigolopes $
+ * @version $Rev: 305 $ ($Date: 2008-06-17 19:03:29 +0200 (Tue, 17 Jun 2008) $)
  */
 @Stateless
-public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
-		implements AdvertisementFacadeLocal {
+public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
+		CategoryFacadeLocal {
 }

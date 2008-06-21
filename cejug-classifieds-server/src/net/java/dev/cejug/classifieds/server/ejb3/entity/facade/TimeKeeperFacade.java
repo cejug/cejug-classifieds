@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Stateless;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntity;
 
 /**
@@ -31,11 +32,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class TimeKeeperFacade extends EntityFacade<OperationTimestampEntity> implements TimeKeeperFacadeLocal {
-
-    @Override
-    public void record(OperationTimestampEntity entity) throws Exception {
-
-        create(entity);
-    }
+public class TimeKeeperFacade extends
+		CRUDEntityFacade<OperationTimestampEntity> implements
+		TimeKeeperFacadeLocal {
 }

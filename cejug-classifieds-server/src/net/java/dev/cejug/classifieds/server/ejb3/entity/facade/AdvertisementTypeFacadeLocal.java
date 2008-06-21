@@ -23,8 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.Collection;
 import javax.ejb.Local;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 
 /**
@@ -32,11 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 @Local
-public interface AdvertisementTypeFacadeLocal {
-
-    AdvertisementTypeEntity find(Integer id) throws Exception;
-
-    void createAdvertisementType(AdvertisementTypeEntity advType) throws Exception;
-
-    Collection<AdvertisementTypeEntity> getAll() throws Exception;
+public interface AdvertisementTypeFacadeLocal extends
+		EntityFacade<AdvertisementTypeEntity> {
 }

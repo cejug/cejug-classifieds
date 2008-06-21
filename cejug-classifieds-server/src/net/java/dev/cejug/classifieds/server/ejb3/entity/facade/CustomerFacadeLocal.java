@@ -32,9 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
  * @version $Rev$ ($Date$)
  */
 @Local
-public interface CustomerFacadeLocal {
-
+public interface CustomerFacadeLocal extends EntityFacade<CustomerEntity> {
 	CustomerEntity findOrCreate(int domainId, String login) throws Exception;
-
-	CustomerEntity updateCustomer(CustomerEntity entity) throws Exception;
 }

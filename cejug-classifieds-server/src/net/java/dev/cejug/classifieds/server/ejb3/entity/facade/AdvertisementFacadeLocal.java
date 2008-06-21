@@ -23,8 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.List;
 import javax.ejb.Local;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 
 /**
@@ -32,9 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
  * @version $Rev$ ($Date$)
  */
 @Local
-public interface AdvertisementFacadeLocal {
-
-    void createAdvertisement(AdvertisementEntity entity) throws Exception;
-
-    List<AdvertisementEntity> getLatest(int limit) throws Exception;
+public interface AdvertisementFacadeLocal extends
+		EntityFacade<AdvertisementEntity> {
 }

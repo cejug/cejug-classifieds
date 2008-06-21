@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Stateless;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 /**
@@ -31,21 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class DomainFacade extends EntityFacade<DomainEntity> implements DomainFacadeLocal {
-
-    @Override
-    public DomainEntity get(int id) throws Exception {
-
-        return manager.find(DomainEntity.class, id);
-    }
-
-    public void createDomain(DomainEntity entity) throws Exception {
-
-        create(entity);
-    }
-
-    public DomainEntity updateDomain(DomainEntity entity) throws Exception {
-
-        return update(entity);
-    }
+public class DomainFacade extends CRUDEntityFacade<DomainEntity> implements
+		DomainFacadeLocal {
 }

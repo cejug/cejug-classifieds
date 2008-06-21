@@ -39,23 +39,15 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class CustomerFacade extends EntityFacade<CustomerEntity> implements
+public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 		CustomerFacadeLocal {
 
 	@EJB
 	DomainFacadeLocal domainFacade;
 
 	@Override
-	public CustomerEntity updateCustomer(CustomerEntity entity)
-			throws Exception {
-
-		return update(entity);
-	}
-
-	@Override
 	public CustomerEntity findOrCreate(int domainId, String login)
 			throws Exception {
-
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
 		query.setParameter("d", Integer.valueOf(domainId));
@@ -72,7 +64,8 @@ public class CustomerFacade extends EntityFacade<CustomerEntity> implements
 			 */
 
 			// loading domain
-			DomainEntity domain = domainFacade.get(domainId);
+			DomainEntity domain = domainFacade.read(DomainEntity.class, Integer
+					.valueOf(domainId));
 
 			// insert a new customer
 			CustomerEntity customer = new CustomerEntity();

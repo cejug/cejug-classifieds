@@ -28,21 +28,26 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
@@ -56,142 +61,178 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see <a
+ *      href="http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">Writing
+ *      Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
+ *      Annotations</a>
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
-    @EJB
-    private DomainFacadeLocal domainFacade;
+	@EJB
+	private DomainFacadeLocal domainFacade;
 
-    @EJB
-    private CustomerFacadeLocal customerFacade;
+	@EJB
+	private CustomerFacadeLocal customerFacade;
 
-    @EJB
-    private AdvertisementTypeFacadeLocal advTypeFacade;
+	@EJB
+	private AdvertisementTypeFacadeLocal advTypeFacade;
 
-    private final DatatypeFactory factory;
+	private final DatatypeFactory factory;
 
-    /**
-     * the global log manager, used to allow third party services to override
-     * the defult logger.
-     */
-    private static Logger logger = Logger.getLogger(ClassifiedsAdminSessionBean.class.getName(), "i18n/log");
+	@EJB
+	private CategoryFacadeLocal categoryFacade;
 
-    public ClassifiedsAdminSessionBean() {
+	/**
+	 * the global log manager, used to al low third party services to override
+	 * the defult logger.
+	 */
+	private static Logger logger = Logger.getLogger(
+			ClassifiedsAdminSessionBean.class.getName(), "i18n/log");
 
-        try {
-            factory = DatatypeFactory.newInstance();
-        } catch (DatatypeConfigurationException e) {
-            // TODO: log
-            logger.severe(e.getMessage());
-            throw new WebServiceException(e);
-        }
-    }
+	public ClassifiedsAdminSessionBean() {
 
-    @Override
-    public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-        // TODO: implement the real database call and response assembly.
-        MonitorResponse response = new MonitorResponse();
-        response.setServiceName("Cejug-Classifieds");
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.roll(Calendar.DAY_OF_MONTH, -3);
-        response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
-        return response;
-    }
+	@Override
+	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
 
-    @Override
-    public ServiceStatus requestDomainOperation(Domain domain) {
+		// TODO: implement the real database call and response assembly.
+		MonitorResponse response = new MonitorResponse();
+		response.setServiceName("Cejug-Classifieds");
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.roll(Calendar.DAY_OF_MONTH, -3);
+		response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
+		return response;
+	}
 
-        try {
-            // TODO: review validation...
-            DomainEntity entity = new DomainEntity();
-            entity.setDomainName(domain.getDomain());
-            entity.setSharedQuota(false);
-            entity.setBrand(domain.getBrand());
-            domainFacade.createDomain(entity);
-        } catch (Exception e) {
-            // TODO Logging....
-            throw new WebServiceException(e);
-        }
+	@Override
+	public ServiceStatus requestDomainOperation(Domain domain) {
 
-        return new ServiceStatus();
-    }
+		try {
+			// TODO: review validation...
+			DomainEntity entity = new DomainEntity();
+			entity.setDomainName(domain.getDomain());
+			entity.setSharedQuota(false);
+			entity.setBrand(domain.getBrand());
+			domainFacade.create(entity);
+		} catch (Exception e) {
+			// TODO Logging....
+			throw new WebServiceException(e);
+		}
 
-    @Override
-    public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
+		return new ServiceStatus();
+	}
 
-        try {
-            Quota requestedQuota = addQuotaRequest.getQuota();
-            CustomerEntity customer = customerFacade.findOrCreate(requestedQuota.getDomainId(), requestedQuota.getCustomerLogin());
-            Collection<QuotaEntity> customerQuotas = customer.getQuotas();
+	@Override
+	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
 
-            AdvertisementTypeEntity type = advTypeFacade.find(requestedQuota.getAdvertisementTypeId());
+		try {
+			Quota requestedQuota = addQuotaRequest.getQuota();
+			CustomerEntity customer = customerFacade.findOrCreate(
+					requestedQuota.getDomainId(), requestedQuota
+							.getCustomerLogin());
+			Collection<QuotaEntity> customerQuotas = customer.getQuotas();
 
-            boolean newQuota = true;
-            for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator.hasNext();) {
-                QuotaEntity entity = iterator.next();
-                if (entity.getType().equals(type)) {
-                    entity.setAvailable(entity.getAvailable() + 1);
-                    newQuota = false;
-                }
-            }
-            if (newQuota) {
-                QuotaEntity quota = new QuotaEntity();
-                quota.setType(type);
-                quota.setAvailable(1);
-                quota.setCustomer(customer);
-                quota.setDomain(customer.getDomain());
-                customerQuotas.add(quota);
-            }
-            customerFacade.updateCustomer(customer);
-            ServiceStatus status = new ServiceStatus();
-            status.setStatusCode(200);
-            status.setDescription("1 {0} quota added to customer {1} of domain {2}");
-            return status;
+			AdvertisementTypeEntity type = advTypeFacade.read(
+					AdvertisementTypeEntity.class, Integer
+							.valueOf(requestedQuota.getAdvertisementTypeId()));
 
-        } catch (Exception e) {
-            // TODO: log.............
-            e.printStackTrace();
-            ServiceStatus status = new ServiceStatus();
-            status.setStatusCode(500);
-            status.setDescription(e.getMessage());
-            return status;
-        }
+			boolean newQuota = true;
+			for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator
+					.hasNext();) {
+				QuotaEntity entity = iterator.next();
+				if (entity.getType().equals(type)) {
+					entity.setAvailable(entity.getAvailable() + 1);
+					newQuota = false;
+				}
+			}
+			if (newQuota) {
+				QuotaEntity quota = new QuotaEntity();
+				quota.setType(type);
+				quota.setAvailable(1);
+				quota.setCustomer(customer);
+				quota.setDomain(customer.getDomain());
+				customerQuotas.add(quota);
+			}
+			customerFacade.update(customer);
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(200);
+			status
+					.setDescription("1 {0} quota added to customer {1} of domain {2}");
+			return status;
 
-    }
+		} catch (Exception e) {
+			// TODO: log.............
+			e.printStackTrace();
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+			return status;
+		}
 
-    @Override
-    public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
+	}
 
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
 
-    @Override
-    public ServiceStatus requestAdvertisementTypeOperation(AdvertisementType advType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        try {
-            AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-            advTypeEntity.setDescription(advType.getDescription());
-            advTypeEntity.setMaxAttachmentSize(advType.getMaxAttachmentSize());
-            advTypeEntity.setName(advType.getName());
-            advTypeEntity.setTextLength(advType.getMaxTextLength());
+	@Override
+	public ServiceStatus requestAdvertisementTypeOperation(
+			AdvertisementType advType) {
 
-            advTypeFacade.createAdvertisementType(advTypeEntity);
+		try {
+			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
+			advTypeEntity.setDescription(advType.getDescription());
+			advTypeEntity.setMaxAttachmentSize(advType.getMaxAttachmentSize());
+			advTypeEntity.setName(advType.getName());
+			advTypeEntity.setTextLength(advType.getMaxTextLength());
 
-            ServiceStatus status = new ServiceStatus();
-            status.setStatusCode(200);
-            status.setDescription("1 advertisement type added");
-            return status;
-        } catch (Exception e) {
-            // TODO: log.............
-            e.printStackTrace();
-            ServiceStatus status = new ServiceStatus();
-            status.setStatusCode(500);
-            status.setDescription(e.getMessage());
-            return status;
-        }
-    }
+			advTypeFacade.create(advTypeEntity);
+
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(200);
+			status.setDescription("1 advertisement type added");
+			return status;
+		} catch (Exception e) {
+			// TODO: log.............
+			e.printStackTrace();
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+			return status;
+		}
+	}
+
+	@Override
+	public ServiceStatus addCategoryOperation(
+			AdvertisementCategory addCategoryRequest) {
+		CategoryEntity entity = new CategoryEntity();
+		entity.setDescripton(addCategoryRequest.getDescription());
+		entity.setName(addCategoryRequest.getName());
+		try {
+			categoryFacade.create(entity);
+
+			// TODO: create a generic status response in the super class...
+			ServiceStatus status = new ServiceStatus();
+			status.setStatusCode(200);
+			status.setDescription("1 advertisement type added");
+			return status;
+		} catch (Exception e) {
+			// TODO log....
+			e.printStackTrace();
+			throw new WebServiceException(e);
+		}
+	}
 }

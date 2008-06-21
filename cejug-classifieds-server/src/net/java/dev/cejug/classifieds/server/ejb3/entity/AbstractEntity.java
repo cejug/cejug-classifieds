@@ -15,16 +15,16 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Integer id;
 
-    /**
-     * @return the id
-     */
-    public Integer getId() {
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
 
-        return id;
-    }
+		return id;
+	}
 }

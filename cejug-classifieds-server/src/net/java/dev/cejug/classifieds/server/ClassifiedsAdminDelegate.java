@@ -33,6 +33,7 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
@@ -118,6 +119,18 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 		try {
 			// TODO: logging....
 			return implementation.requestAdvertisementTypeOperation(advType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus addCategoryOperation(
+			AdvertisementCategory addCategoryRequest) {
+		try {
+			// TODO: logging....
+			return implementation.addCategoryOperation(addCategoryRequest);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);

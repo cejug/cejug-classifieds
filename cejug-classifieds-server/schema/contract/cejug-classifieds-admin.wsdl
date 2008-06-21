@@ -110,6 +110,10 @@
 		<wsdl:part element="common:ServiceFault" name="fault" />
 	</wsdl:message>
 
+	<wsdl:message name="OperationExecutionStatus">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
 	<!-- MONITOR -->
 	<wsdl:message name="CheckMonitor">
 		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
@@ -125,17 +129,9 @@
 		<wsdl:part element="common:Domain" name="domain" />
 	</wsdl:message>
 
-	<wsdl:message name="RequestDomainResponse">
-		<wsdl:part element="common:ServiceStatus" name="status" />
-	</wsdl:message>
-
 	<!-- REQUEST DOMAIN  -->
 	<wsdl:message name="RequestAdvertisementType">
 		<wsdl:part element="common:AdvertisementType" name="adv.type" />
-	</wsdl:message>
-
-	<wsdl:message name="RequestAdvertisementTypeResponse">
-		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
 	<!-- ADD QUOTA -->
@@ -155,9 +151,10 @@
 			name="cancel.quota.request" />
 	</wsdl:message>
 
-	<wsdl:message name="CancelQuotaResponse">
-		<wsdl:part element="common:ServiceStatus"
-			name="cancel.quota.status" />
+	<!-- ADD CATEGORY -->
+	<wsdl:message name="AddCategory">
+		<wsdl:part element="common:AdvertisementCategory"
+			name="add.category.request" />
 	</wsdl:message>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -170,27 +167,36 @@
 		</wsdl:operation>
 		<wsdl:operation name="RequestDomainOperation">
 			<wsdl:input message="contract:RequestDomain" />
-			<wsdl:output message="contract:RequestDomainResponse" />
+			<wsdl:output name="RequestDomainResponse"
+				message="contract:OperationExecutionStatus" />
 			<wsdl:fault name="ReportDomainException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="RequestAdvertisementTypeOperation">
 			<wsdl:input message="contract:RequestAdvertisementType" />
-			<wsdl:output
-				message="contract:RequestAdvertisementTypeResponse" />
+			<wsdl:output name="RequestAdvertisementTypeResponse"
+				message="contract:OperationExecutionStatus" />
 			<wsdl:fault name="RequestAdvertisementTypeException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<wsdl:input message="contract:AddQuota" />
-			<wsdl:output message="contract:AddQuotaResponse" />
+			<wsdl:output name="AddQuotaResponse"
+				message="contract:OperationExecutionStatus" />
 			<wsdl:fault name="AddQuotaException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
 			<wsdl:input message="contract:CancelQuota" />
-			<wsdl:output message="contract:CancelQuotaResponse" />
+			<wsdl:output message="contract:OperationExecutionStatus" />
 			<wsdl:fault name="CancelQuotaException"
+				message="contract:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="AddCategoryOperation">
+			<wsdl:input message="contract:AddCategory" />
+			<wsdl:output name="AddCategoryResponse"
+				message="contract:OperationExecutionStatus" />
+			<wsdl:fault name="AddCagegoryException"
 				message="contract:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
@@ -199,7 +205,16 @@
 		type="contract:CejugClassifiedsAdmin">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
-
+		<wsdl:operation name="AddCategoryOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/AddCategory" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<wsdl:operation name="RequestAdvertisementTypeOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestAdvertisementType" />
@@ -222,7 +237,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="RequestDomainOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/business/RequestDomain" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestDomain" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -232,7 +247,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/business/AddQuota" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/AddQuota" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -242,7 +257,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/business/CancelQuota" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CancelQuota" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

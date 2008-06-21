@@ -39,9 +39,12 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CRUDEntityFacade;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
@@ -100,7 +103,7 @@ public class ClassifiedsBusinessSessionBean implements
 		try {
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advertisementFacade
-					.getLatest(50);
+					.readAll(AdvertisementEntity.class);
 
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {
@@ -134,7 +137,7 @@ public class ClassifiedsBusinessSessionBean implements
 		try {
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advertisementFacade
-					.getLatest(50);
+					.readAll(AdvertisementEntity.class);
 
 			Channel channel = new Channel();
 			for (AdvertisementEntity adv : result) {
@@ -200,7 +203,7 @@ public class ClassifiedsBusinessSessionBean implements
 			finish.add(Calendar.HOUR, 3);
 			entity.setStart(start);
 			entity.setFinish(finish);
-			advertisementFacade.createAdvertisement(entity);
+			advertisementFacade.create(entity);
 
 			ServiceStatus status = new ServiceStatus();
 			status.setDescription("OK");
@@ -230,7 +233,7 @@ public class ClassifiedsBusinessSessionBean implements
 		try {
 			AdvertisementCollection collection = new AdvertisementCollection();
 			List<AdvertisementEntity> entities = advertisementFacade
-					.getLatest(10);
+					.readAll(AdvertisementEntity.class);
 			for (AdvertisementEntity entity : entities) {
 				Advertisement adv = new Advertisement();
 				adv.setId(entity.getId());
@@ -256,25 +259,25 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
-
-		// TODO: to implement the real data.
-		CategoryCollection categories = new CategoryCollection();
-		AdvertisementCategory cars = new AdvertisementCategory();
-		cars.setDescription("New and used cars");
-		cars.setName("Cars");
-		categories.getCategories().add(cars);
-
-		AdvertisementCategory jobs = new AdvertisementCategory();
-		jobs.setDescription("Find your new job today.");
-		jobs.setName("Job Opportunities");
-		categories.getCategories().add(jobs);
-
-		AdvertisementCategory eletronics = new AdvertisementCategory();
-		eletronics.setDescription("eletronics....");
-		eletronics.setName("Eletronics");
-		categories.getCategories().add(eletronics);
-		// categories.getCategories().add();//
-		// TODO Auto-generated method stub
-		return categories;
+		EntityFacade<CategoryEntity> categoryFacade = new CRUDEntityFacade<CategoryEntity>();
+		try {
+			List<CategoryEntity> categories = categoryFacade
+					.readAll(CategoryEntity.class);
+			System.out.println(categories);
+			CategoryCollection categoryCollection = new CategoryCollection();
+			if (categories != null) {
+				for (CategoryEntity category : categories) {
+					AdvertisementCategory cars = new AdvertisementCategory();
+					cars.setDescription(category.getDescripton());
+					cars.setName(category.getName());
+					categoryCollection.getAdvertisementCategory().add(cars);
+				}
+			}
+			return categoryCollection;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new WebServiceException(e);
+		}
 	}
 }

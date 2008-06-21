@@ -39,9 +39,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.TimeKeeperFacade
  * @version $Rev$ ($Date$)
  */
 public class TimerInterceptor {
-
 	@EJB
-	TimeKeeperFacadeLocal timeKeeperFacade;
+	private TimeKeeperFacadeLocal timeKeeperFacade;
 
 	/*
 	 * Intercepter method within the bean (the bean is the aspect)
@@ -71,7 +70,7 @@ public class TimerInterceptor {
 					stamp.setStatus(false);
 					stamp.setFault(errorMessage);
 				}
-				timeKeeperFacade.record(stamp);
+				timeKeeperFacade.create(stamp);
 			} catch (Exception error) {
 				throw new WebServiceException(error);
 			}

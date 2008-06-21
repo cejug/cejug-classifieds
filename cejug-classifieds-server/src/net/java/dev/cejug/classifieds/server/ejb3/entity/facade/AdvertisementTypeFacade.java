@@ -23,8 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.Collection;
 import javax.ejb.Stateless;
+
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 
 /**
@@ -32,23 +32,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 @Stateless
-public class AdvertisementTypeFacade extends EntityFacade<AdvertisementTypeEntity> implements AdvertisementTypeFacadeLocal {
-
-    @Override
-    public AdvertisementTypeEntity find(Integer id) throws Exception {
-
-        return findById(AdvertisementTypeEntity.class, id);
-    }
-
-    public void createAdvertisementType(AdvertisementTypeEntity advType) throws Exception {
-
-        create(advType);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Collection<AdvertisementTypeEntity> getAll() throws Exception {
-
-        return findAll(AdvertisementTypeEntity.class);
-    }
+public class AdvertisementTypeFacade extends
+		CRUDEntityFacade<AdvertisementTypeEntity> implements
+		AdvertisementTypeFacadeLocal {
 }

@@ -131,6 +131,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 			PublishingHeader header) {
 		// TODO: Authentication & Authorization
 		try {
+			logger.severe(".............");
 			return implementation.publishOperation(advertisement, header);
 		} catch (Exception e) {
 			// TODO: logging....
@@ -156,6 +157,7 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 		try {
 			return implementation.loadCategoriesOperation();
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: logging....
 			throw new WebServiceException(e);
 		}

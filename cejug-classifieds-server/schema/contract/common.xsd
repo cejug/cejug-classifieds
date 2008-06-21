@@ -86,4 +86,22 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="CategoryCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+				<xsd:element ref="common:AdvertisementCategory" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AdvertisementCategory">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="name" type="xsd:NMTOKEN" />
+				<xsd:element name="description" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
 </xsd:schema>
