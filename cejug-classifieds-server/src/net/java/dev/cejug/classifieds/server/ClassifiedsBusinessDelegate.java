@@ -130,12 +130,15 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	public ServiceStatus publishOperation(Advertisement advertisement,
 			PublishingHeader header) {
 		// TODO: Authentication & Authorization
+		long initial = System.currentTimeMillis();
 		try {
-			logger.severe(".............");
 			return implementation.publishOperation(advertisement, header);
 		} catch (Exception e) {
 			// TODO: logging....
 			throw new WebServiceException(e);
+		} finally {
+			logger.info("TEMPO: " + (System.currentTimeMillis() - initial)
+					+ "ms");
 		}
 	}
 
@@ -154,12 +157,16 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
 		// TODO: Authentication & Authorization
+		long initial = System.currentTimeMillis();
 		try {
 			return implementation.loadCategoriesOperation();
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: logging....
 			throw new WebServiceException(e);
+		} finally {
+			logger.info("TEMPO loadCategoriesOperation: " + (System.currentTimeMillis() - initial)
+					+ "ms");
 		}
 	}
 }
