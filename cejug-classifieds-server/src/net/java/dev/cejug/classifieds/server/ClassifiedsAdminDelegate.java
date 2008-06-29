@@ -36,6 +36,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
@@ -48,16 +49,16 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * properties file. If you don't inform the qualified name of the service
  * implementation, the reference implementation will be used.
  * 
- * @see <a
- *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Core
- *      J2EE Patterns - Business Delegate</a>
+ * @see <a href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Cor
+ *      e J2EE Patterns - Business Delegate</a>
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
 public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	/*
-	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
+	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web
+	 * .html
 	 */
 	@Resource
 	ClassifiedsAdminRemote implementation;
@@ -135,5 +136,11 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
+	}
+
+	@Override
+	public CategoryCollection loadCategoriesOperation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

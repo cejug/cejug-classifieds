@@ -65,7 +65,6 @@ public class ConfigLoader {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public ClassifiedsServerConfig load() throws Exception {
 		if (lastLoaded != null) {
 			return lastLoaded;

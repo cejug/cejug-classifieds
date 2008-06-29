@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="cejug-classifieds"
+	targetNamespace="http://cejug-classifieds.dev.java.net/common"
+	xmlns:contract="http://cejug-classifieds.dev.java.net/common"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://cejug-classifieds.dev.java.net/common"
+			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+			elementFormDefault="qualified">
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+				schemaLocation="common.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="OperationExecutionStatus">
+		<wsdl:part element="common:ServiceStatus" name="status" />
+	</wsdl:message>
+
+	
+		<!-- LOAD CATEGORIES -->
+	<wsdl:message name="LoadCategories" />
+	<wsdl:message name="LoadCategoriesResponse">
+		<wsdl:part element="common:CategoryCollection" name="categories" />
+	</wsdl:message>
+	<wsdl:message name="ClassifiedsFault">
+		<wsdl:part element="common:ServiceFault" name="fault" />
+	</wsdl:message>
+</wsdl:definitions>

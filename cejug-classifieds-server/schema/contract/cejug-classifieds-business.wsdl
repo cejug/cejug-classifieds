@@ -6,7 +6,11 @@
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
-	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
+
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
+		location="common.wsdl" />
 
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -73,12 +77,12 @@
 		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
-	<!-- LOAD CATEGORIES -->
+	<!-- LOAD CATEGORIES >
 	<wsdl:message name="LoadCategories" />
 	<wsdl:message name="LoadCategoriesResponse">
 		<wsdl:part element="common:CategoryCollection"
 			name="categories" />
-	</wsdl:message>
+	</wsdl:message-->
 
 	<!-- REPORT SPAM -->
 	<wsdl:message name="ReportSpam">
@@ -92,16 +96,15 @@
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsBusiness">
-		<wsdl:operation name="LoadAdvertisementOperation">
+		<wsdl:operation name="LoadCategoriesOperation">
+			<wsdl:input message="common-wsdl:LoadCategories" />
+			<wsdl:output message="common-wsdl:LoadCategoriesResponse" />
+			<wsdl:fault name="LoadCategoriesException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+				<wsdl:operation name="LoadAdvertisementOperation">
 			<wsdl:input message="business:LoadAdvertisement" />
 			<wsdl:output message="business:LoadAdvertisementResponse" />
 			<wsdl:fault name="LoadAdvertisementException"
-				message="business:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="LoadCategoriesOperation">
-			<wsdl:input message="business:LoadCategories" />
-			<wsdl:output message="business:LoadCategoriesResponse" />
-			<wsdl:fault name="LoadCategoriesException"
 				message="business:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadRssOperation">

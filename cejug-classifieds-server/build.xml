@@ -7,6 +7,7 @@
 	<property name="project.lib" value="${basedir}/lib" />
 	<property name="build.home" value="${basedir}/build" />
 	<property name="build.ear.home" value="${build.home}/ear" />
+	<property name="build.admin.stubs.home" value="${build.home}/admin-stubs" />
 	<property name="build.entity.package" value="${build.home}/entities" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
@@ -39,6 +40,7 @@
 	<target name="setup">
 		<mkdir dir="${build.classes.home}" />
 		<mkdir dir="${build.ear.home}" />
+		<mkdir dir="${build.admin.stubs.home}" />
 		<mkdir dir="${generated.dir}" />
 	</target>
 
@@ -54,6 +56,20 @@
 		</javac>
 		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
 		<delete dir="${generated.dir}" /-->
+	</target>
+
+	<target name="build-admin-stubs-jar" depends="clean,setup,compile.resources.schema">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
+			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
+		</wsimport>
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
+			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
+		</wsimport>
+		<javac fork="true" srcdir="${basedir}" destdir="${generated.dir}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+			<classpath refid="jaxws.classpath" />
+		</javac>
+		<jar destfile="${build.admin.stubs.home}/server-stubs.jar" basedir="${generated.dir}" />
+		<delete dir="${generated.dir}" />
 	</target>
 
 	<target name="create-war">

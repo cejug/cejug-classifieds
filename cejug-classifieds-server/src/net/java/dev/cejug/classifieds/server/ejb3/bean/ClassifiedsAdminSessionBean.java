@@ -50,6 +50,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
+import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
@@ -61,10 +62,10 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a
- *      href="http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">Writing
- *      Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
- *      Annotations</a>
+ * @see <a * href=
+ *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity"
+ *      >Writing * Performant EJB Beans in the Java EE 5 Platform (EJB 3.0)
+ *      Using * Annotations< /a>
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
@@ -234,5 +235,11 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 			e.printStackTrace();
 			throw new WebServiceException(e);
 		}
+	}
+
+	@Override
+	public CategoryCollection loadCategoriesOperation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

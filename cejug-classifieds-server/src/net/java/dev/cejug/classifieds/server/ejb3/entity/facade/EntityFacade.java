@@ -25,7 +25,6 @@ public interface EntityFacade<T extends AbstractEntity> {
 	 */
 	void create(T entity) throws Exception;
 
-	@SuppressWarnings("unchecked")
 	List<T> readAll(Class<T> entityClass) throws Exception;
 
 	T read(Class<T> entityClass, Serializable primaryKey) throws Exception;

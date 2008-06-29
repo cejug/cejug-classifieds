@@ -3,98 +3,79 @@
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
-
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
+		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/admin/metadata"
 			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
-
 			<xsd:element name="MonitorQuery">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="query" type="xsd:string"
-							minOccurs="0" maxOccurs="1" />
-						<xsd:element name="average.response.length"
-							type="xsd:int" default="10" />
+						<xsd:element name="query" type="xsd:string" minOccurs="0"
+							maxOccurs="1" />
+						<xsd:element name="average.response.length" type="xsd:int"
+							default="10" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
 			<xsd:element name="MonitorResponse">
 				<xsd:complexType>
 					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element name="service.name"
-							type="xsd:string" />
-						<xsd:element name="online.since"
-							type="xsd:dateTime" />
-						<xsd:element name="records"
-							type="metadata:OperationTimestamp" minOccurs="0"
-							maxOccurs="unbounded" />
+						<xsd:element name="service.name" type="xsd:string" />
+						<xsd:element name="online.since" type="xsd:dateTime" />
+						<xsd:element name="records" type="metadata:OperationTimestamp"
+							minOccurs="0" maxOccurs="unbounded" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
 			<xsd:element name="CancelQuotaInfo">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element ref="common:Quota" minOccurs="0"
 							maxOccurs="1" />
-						<xsd:element name="cancellation.reason"
-							type="xsd:string" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="true" />
+						<xsd:element name="cancellation.reason" type="xsd:string" />
+						<xsd:element name="notify.domain.owner" type="xsd:boolean"
+							default="true" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
 			<xsd:element name="AddQuotaInfo">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element ref="common:Quota" minOccurs="0"
 							maxOccurs="1" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="false" />
+						<xsd:element name="notify.domain.owner" type="xsd:boolean"
+							default="false" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
 			<xsd:complexType name="OperationTimestamp">
 				<xsd:sequence>
-					<xsd:element name="operation.name"
-						type="xsd:string" />
+					<xsd:element name="operation.name" type="xsd:string" />
 					<xsd:element name="start" type="xsd:dateTime" />
 					<xsd:element name="finish" type="xsd:dateTime" />
 					<xsd:element name="client.id" type="xsd:string" />
-					<xsd:element name="status" type="xsd:boolean"
-						default="true" />
-					<xsd:element name="note" type="xsd:string"
-						nillable="true" />
+					<xsd:element name="status" type="xsd:boolean" default="true" />
+					<xsd:element name="note" type="xsd:string" nillable="true" />
 				</xsd:sequence>
 			</xsd:complexType>
-
-
 			<xsd:element name="Credentials">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="client.id" type="xsd:string" />
-						<xsd:element name="customer.id"
-							type="xsd:string" />
-						<xsd:element name="customer.role"
-							type="xsd:string" />
-						<xsd:element name="group" type="xsd:string"
-							minOccurs="0" />
+						<xsd:element name="customer.id" type="xsd:string" />
+						<xsd:element name="customer.role" type="xsd:string" />
+						<xsd:element name="group" type="xsd:string" minOccurs="0" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
 			<xsd:complexType name="PinSet">
 				<xsd:sequence>
 					<xsd:element name="pin" type="xsd:string" />
@@ -106,22 +87,12 @@
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- MESSAGES -->
-	<wsdl:message name="ClassifiedsFault">
-		<wsdl:part element="common:ServiceFault" name="fault" />
-	</wsdl:message>
-
-	<wsdl:message name="OperationExecutionStatus">
-		<wsdl:part element="common:ServiceStatus" name="status" />
-	</wsdl:message>
-
 	<!-- MONITOR -->
 	<wsdl:message name="CheckMonitor">
 		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
 	</wsdl:message>
-
 	<wsdl:message name="CheckMonitorResponse">
-		<wsdl:part element="metadata:MonitorResponse"
-			name="service.status" />
+		<wsdl:part element="metadata:MonitorResponse" name="service.status" />
 	</wsdl:message>
 
 	<!-- REQUEST DOMAIN  -->
@@ -136,25 +107,17 @@
 
 	<!-- ADD QUOTA -->
 	<wsdl:message name="AddQuota">
-		<wsdl:part element="metadata:AddQuotaInfo"
-			name="add.quota.request" />
-	</wsdl:message>
-
-	<wsdl:message name="AddQuotaResponse">
-		<wsdl:part element="common:ServiceStatus"
-			name="add.quota.status" />
+		<wsdl:part element="metadata:AddQuotaInfo" name="add.quota.request" />
 	</wsdl:message>
 
 	<!-- CANCEL QUOTA -->
 	<wsdl:message name="CancelQuota">
-		<wsdl:part element="metadata:CancelQuotaInfo"
-			name="cancel.quota.request" />
+		<wsdl:part element="metadata:CancelQuotaInfo" name="cancel.quota.request" />
 	</wsdl:message>
 
 	<!-- ADD CATEGORY -->
 	<wsdl:message name="AddCategory">
-		<wsdl:part element="common:AdvertisementCategory"
-			name="add.category.request" />
+		<wsdl:part element="common:AdvertisementCategory" name="add.category.request" />
 	</wsdl:message>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -163,48 +126,57 @@
 		<wsdl:operation name="CheckMonitorOperation">
 			<wsdl:input message="contract:CheckMonitor" />
 			<wsdl:output message="contract:CheckMonitorResponse" />
-			<!-- wsdl:fault name="CheckMonitorException" message="contract:ClassifiedsFault" /-->
+			<!--
+				wsdl:fault name="CheckMonitorException"
+				message="contract:ClassifiedsFault" /
+			-->
+		</wsdl:operation>
+		<wsdl:operation name="LoadCategoriesOperation">
+			<wsdl:input message="common-wsdl:LoadCategories" />
+			<wsdl:output message="common-wsdl:LoadCategoriesResponse" />
+			<wsdl:fault name="LoadCategoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="RequestDomainOperation">
 			<wsdl:input message="contract:RequestDomain" />
-			<wsdl:output name="RequestDomainResponse"
-				message="contract:OperationExecutionStatus" />
-			<wsdl:fault name="ReportDomainException"
-				message="contract:ClassifiedsFault" />
+			<wsdl:output name="RequestDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="ReportDomainException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="RequestAdvertisementTypeOperation">
 			<wsdl:input message="contract:RequestAdvertisementType" />
 			<wsdl:output name="RequestAdvertisementTypeResponse"
-				message="contract:OperationExecutionStatus" />
+				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="RequestAdvertisementTypeException"
-				message="contract:ClassifiedsFault" />
+				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<wsdl:input message="contract:AddQuota" />
-			<wsdl:output name="AddQuotaResponse"
-				message="contract:OperationExecutionStatus" />
-			<wsdl:fault name="AddQuotaException"
-				message="contract:ClassifiedsFault" />
+			<wsdl:output name="AddQuotaResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="AddQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
 			<wsdl:input message="contract:CancelQuota" />
-			<wsdl:output message="contract:OperationExecutionStatus" />
-			<wsdl:fault name="CancelQuotaException"
-				message="contract:ClassifiedsFault" />
+			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CancelQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddCategoryOperation">
 			<wsdl:input message="contract:AddCategory" />
-			<wsdl:output name="AddCategoryResponse"
-				message="contract:OperationExecutionStatus" />
-			<wsdl:fault name="AddCagegoryException"
-				message="contract:ClassifiedsFault" />
+			<wsdl:output name="AddCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="AddCagegoryException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
-
-	<wsdl:binding name="CejugClassifiedsAdminBinding"
-		type="contract:CejugClassifiedsAdmin">
+	<wsdl:binding name="CejugClassifiedsAdminBinding" type="contract:CejugClassifiedsAdmin">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<wsdl:operation name="LoadCategoriesOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCategories" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<wsdl:operation name="AddCategoryOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/admin/AddCategory" />
@@ -266,12 +238,9 @@
 			</wsdl:output>
 		</wsdl:operation>
 	</wsdl:binding>
-
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
-		<wsdl:port name="CejugClassifiedsAdmin"
-			binding="contract:CejugClassifiedsAdminBinding">
-			<soap:address
-				location="http://localhost:8080/cejug-classifieds-server/admin" />
+		<wsdl:port name="CejugClassifiedsAdmin" binding="contract:CejugClassifiedsAdminBinding">
+			<soap:address location="http://localhost:8080/cejug-classifieds-server/admin" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
