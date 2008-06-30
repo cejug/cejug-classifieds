@@ -64,14 +64,14 @@ public class PublishFunctionalTest {
 	@Before
 	public void setUp() throws Exception {
 
-		/*--
-		 * TODO: review this code and do the proper test sequence:
-		 * - create a new domain, for tests
-		 * - insert new advertisement
-		 * - load the advertisement
-		 * - delete the domain and all of its advertisement (cleanup)
+		/*
+		 * -- TODO: review this code and do the proper test sequence: - create a
+		 * new domain, for tests - insert new advertisement - load the
+		 * advertisement - delete the domain and all of its advertisement
+		 * (cleanup)
 		 * 
-		 * WARNING: for our first tests, we are creating a new domain on each test. 
+		 * WARNING: for our first tests, we are creating a new domain on each
+		 * test.
 		 */
 		business = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
@@ -84,14 +84,14 @@ public class PublishFunctionalTest {
 		newDomain.setBrand("CEJUG");
 		newDomain.setSharedQuota(true);
 		newDomain.setTimezone("America/Fortaleza");
-		admin.requestDomainOperation(newDomain);
+		admin.createDomainOperation(newDomain);
 
 		AdvertisementType type = new AdvertisementType();
 		type.setDescription("oo");
 		type.setMaxAttachmentSize(300);
 		type.setName("courtesy");
 		type.setMaxTextLength(250);
-		admin.requestAdvertisementTypeOperation(type);
+		admin.createAdvertisementTypeOperation(type);
 
 		// TODO: admin.updateDomain();
 

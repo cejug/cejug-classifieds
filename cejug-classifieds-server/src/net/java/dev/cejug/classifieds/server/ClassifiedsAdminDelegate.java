@@ -50,9 +50,9 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * properties file. If you don't inform the qualified name of the service
  * implementation, the reference implementation will be used.
  * 
- * @see <a
- *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Cor
- *      e J2EE Patterns - Business Delegate</a>
+ * @see <a href=
+ *      'http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelega
+ *      t e . h t m l ' > C o r e J2EE Patterns - Business Delegate</a>
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
@@ -94,17 +94,6 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus requestDomainOperation(Domain domain) {
-		try {
-			// TODO: logging....
-			return implementation.requestDomainOperation(domain);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
 	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
 		// TODO Auto-generated method stub
 		return null;
@@ -117,11 +106,36 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus requestAdvertisementTypeOperation(
-			AdvertisementType advType) {
+	public ServiceStatus createAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
 		try {
 			// TODO: logging....
-			return implementation.requestAdvertisementTypeOperation(advType);
+			return implementation
+					.createAdvertisementTypeOperation(advertisementType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public ServiceStatus createCategoryOperation(AdvertisementCategory category) {
+		try {
+			// TODO: logging....
+			return implementation.createCategoryOperation(category);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public ServiceStatus createDomainOperation(Domain domain) {
+		try {
+			// TODO: logging....
+			return implementation.createDomainOperation(domain);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -129,11 +143,24 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus addCategoryOperation(
-			AdvertisementCategory addCategoryRequest) {
+	public ServiceStatus deleteAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
 		try {
 			// TODO: logging....
-			return implementation.addCategoryOperation(addCategoryRequest);
+			return implementation
+					.deleteAdvertisementTypeOperation(advertisementType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public ServiceStatus deleteCategoryOperation(AdvertisementCategory category) {
+		try {
+			// TODO: logging....
+			return implementation.deleteCategoryOperation(category);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -141,10 +168,10 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public CategoryCollection loadCategoriesOperation() {
+	public ServiceStatus deleteDomainOperation(Domain domain) {
 		try {
 			// TODO: logging....
-			return implementation.loadCategoriesOperation();
+			return implementation.deleteDomainOperation(domain);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -152,9 +179,74 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public DomainCollection loadDomainsOperation() {
-		// TODO Auto-generated method stub
-		return null;
+	public CategoryCollection readAllAdvertisementTypesOperation() {
+		try {
+			// TODO: logging....
+			return implementation.readAllAdvertisementTypesOperation();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public CategoryCollection readAllCategoriesOperation() {
+		try {
+			// TODO: logging....
+			return implementation.readAllCategoriesOperation();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public DomainCollection readAllDomainsOperation() {
+		try {
+			// TODO: logging....
+			return implementation.readAllDomainsOperation();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public ServiceStatus updateAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
+		try {
+			// TODO: logging....
+			return implementation
+					.updateAdvertisementTypeOperation(advertisementType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+
+	}
+
+	@Override
+	public ServiceStatus updateCategoryOperation(AdvertisementCategory category) {
+		try {
+			// TODO: logging....
+			return implementation.updateCategoryOperation(category);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus updateDomainOperation(Domain domain) {
+		try {
+			// TODO: logging....
+			return implementation.updateDomainOperation(domain);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 }

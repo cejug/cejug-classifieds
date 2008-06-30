@@ -3,42 +3,35 @@
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
-	<wsdl:import
-		namespace="http://cejug-classifieds.dev.java.net/common"
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/admin/metadata"
 			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
 			<xsd:element name="MonitorQuery">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="query" type="xsd:string"
-							minOccurs="0" maxOccurs="1" />
-						<xsd:element name="average.response.length"
-							type="xsd:int" default="10" />
+						<xsd:element name="query" type="xsd:string" minOccurs="0"
+							maxOccurs="1" />
+						<xsd:element name="average.response.length" type="xsd:int"
+							default="10" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="MonitorResponse">
 				<xsd:complexType>
 					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element name="service.name"
-							type="xsd:string" />
-						<xsd:element name="online.since"
-							type="xsd:dateTime" />
-						<xsd:element name="records"
-							type="metadata:OperationTimestamp" minOccurs="0"
-							maxOccurs="unbounded" />
+						<xsd:element name="service.name" type="xsd:string" />
+						<xsd:element name="online.since" type="xsd:dateTime" />
+						<xsd:element name="records" type="metadata:OperationTimestamp"
+							minOccurs="0" maxOccurs="unbounded" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -47,10 +40,9 @@
 					<xsd:sequence>
 						<xsd:element ref="common:Quota" minOccurs="0"
 							maxOccurs="1" />
-						<xsd:element name="cancellation.reason"
-							type="xsd:string" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="true" />
+						<xsd:element name="cancellation.reason" type="xsd:string" />
+						<xsd:element name="notify.domain.owner" type="xsd:boolean"
+							default="true" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -59,34 +51,28 @@
 					<xsd:sequence>
 						<xsd:element ref="common:Quota" minOccurs="0"
 							maxOccurs="1" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="false" />
+						<xsd:element name="notify.domain.owner" type="xsd:boolean"
+							default="false" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:complexType name="OperationTimestamp">
 				<xsd:sequence>
-					<xsd:element name="operation.name"
-						type="xsd:string" />
+					<xsd:element name="operation.name" type="xsd:string" />
 					<xsd:element name="start" type="xsd:dateTime" />
 					<xsd:element name="finish" type="xsd:dateTime" />
 					<xsd:element name="client.id" type="xsd:string" />
-					<xsd:element name="status" type="xsd:boolean"
-						default="true" />
-					<xsd:element name="note" type="xsd:string"
-						nillable="true" />
+					<xsd:element name="status" type="xsd:boolean" default="true" />
+					<xsd:element name="note" type="xsd:string" nillable="true" />
 				</xsd:sequence>
 			</xsd:complexType>
 			<xsd:element name="Credentials">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="client.id" type="xsd:string" />
-						<xsd:element name="customer.id"
-							type="xsd:string" />
-						<xsd:element name="customer.role"
-							type="xsd:string" />
-						<xsd:element name="group" type="xsd:string"
-							minOccurs="0" />
+						<xsd:element name="customer.id" type="xsd:string" />
+						<xsd:element name="customer.role" type="xsd:string" />
+						<xsd:element name="group" type="xsd:string" minOccurs="0" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -106,40 +92,25 @@
 		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
 	</wsdl:message>
 	<wsdl:message name="CheckMonitorResponse">
-		<wsdl:part element="metadata:MonitorResponse"
-			name="service.status" />
+		<wsdl:part element="metadata:MonitorResponse" name="service.status" />
 	</wsdl:message>
 
 	<!-- REQUEST DOMAIN  -->
 	<wsdl:message name="RequestDomain">
 		<wsdl:part element="common:Domain" name="domain" />
 	</wsdl:message>
-
 	<wsdl:message name="LoadDomainsResponse">
 		<wsdl:part element="common:DomainCollection" name="domains" />
 	</wsdl:message>
 
-	<!-- REQUEST ADVERTISEMENT TYPE  -->
-	<wsdl:message name="RequestAdvertisementType">
-		<wsdl:part element="common:AdvertisementType" name="adv.type" />
-	</wsdl:message>
-
 	<!-- ADD QUOTA -->
 	<wsdl:message name="AddQuota">
-		<wsdl:part element="metadata:AddQuotaInfo"
-			name="add.quota.request" />
+		<wsdl:part element="metadata:AddQuotaInfo" name="add.quota.request" />
 	</wsdl:message>
 
 	<!-- CANCEL QUOTA -->
 	<wsdl:message name="CancelQuota">
-		<wsdl:part element="metadata:CancelQuotaInfo"
-			name="cancel.quota.request" />
-	</wsdl:message>
-
-	<!-- ADD CATEGORY -->
-	<wsdl:message name="AddCategory">
-		<wsdl:part element="common:AdvertisementCategory"
-			name="add.category.request" />
+		<wsdl:part element="metadata:CancelQuotaInfo" name="cancel.quota.request" />
 	</wsdl:message>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -148,69 +119,97 @@
 		<wsdl:operation name="CheckMonitorOperation">
 			<wsdl:input message="contract:CheckMonitor" />
 			<wsdl:output message="contract:CheckMonitorResponse" />
-			<!--
-				wsdl:fault name="CheckMonitorException"
-				message="contract:ClassifiedsFault" /
-			-->
-		</wsdl:operation>
-		<wsdl:operation name="RequestDomainOperation">
-			<wsdl:input message="contract:RequestDomain" />
-			<wsdl:output name="RequestDomainResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="ReportDomainException"
-				message="common-wsdl:ClassifiedsFault" />
-		</wsdl:operation>
-		<wsdl:operation name="RequestAdvertisementTypeOperation">
-			<wsdl:input message="contract:RequestAdvertisementType" />
-			<wsdl:output name="RequestAdvertisementTypeResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="RequestAdvertisementTypeException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="CheckMonitorException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<wsdl:input message="contract:AddQuota" />
-			<wsdl:output name="AddQuotaResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="AddQuotaException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="AddQuotaResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="AddQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
 			<wsdl:input message="contract:CancelQuota" />
 			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="CancelQuotaException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="CancelQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
-		<wsdl:operation name="AddCategoryOperation">
-			<wsdl:input message="contract:AddCategory" />
-			<wsdl:output name="AddCategoryResponse"
+		
+		<!-- CATEGORY CRUD -->
+		<wsdl:operation name="CreateCategoryOperation">
+			<wsdl:input message="common-wsdl:Category" />
+			<wsdl:output name="CreateCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="ReadAllCategoriesOperation">
+			<wsdl:input name="ReadAllCategories" message="common-wsdl:EmptyRequest" />
+			<wsdl:output message="common-wsdl:CategoryBundle" />
+			<wsdl:fault name="ReadAllCategoriesException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCategoryOperation">
+			<wsdl:input message="common-wsdl:Category" />
+			<wsdl:output name="UpdateCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCategoryOperation">
+			<wsdl:input message="common-wsdl:Category" />
+			<wsdl:output name="DeleteCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteCagegoriesException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<!-- ADVERTISEMENT TYPE CRUD -->
+		<wsdl:operation name="CreateAdvertisementTypeOperation">
+			<wsdl:input message="common-wsdl:AdvertisementType" />
+			<wsdl:output name="CreateAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="AddCagegoryException"
+			<wsdl:fault name="CreateAdvertisementTypeException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
-		
-		<wsdl:operation name="LoadCategoriesOperation">
-			<wsdl:input message="common-wsdl:LoadCategories" />
-			<wsdl:output message="common-wsdl:LoadCategoriesResponse" />
-			<wsdl:fault name="LoadCategoriesException"
+		<wsdl:operation name="ReadAllAdvertisementTypesOperation">
+			<wsdl:input name="ReadAllAdvertisementTypes" message="common-wsdl:EmptyRequest" />
+			<wsdl:output message="common-wsdl:CategoryBundle" />
+			<wsdl:fault name="ReadAllAdvertisementTypesException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
-
-		<wsdl:operation name="LoadDomainsOperation">
-			<wsdl:input name="GetDomainsList"
-				message="common-wsdl:EmptyRequest" />
+		<wsdl:operation name="UpdateAdvertisementTypeOperation">
+			<wsdl:input message="common-wsdl:AdvertisementType" />
+			<wsdl:output name="UpdateAdvertisementTypeResponse"
+				message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateAdvertisementTypeException"
+				message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteAdvertisementTypeOperation">
+			<wsdl:input message="common-wsdl:AdvertisementType" />
+			<wsdl:output name="DeleteAdvertisementTypeResponse"
+				message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteAdvertisementTypeException"
+				message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<!-- DOMAIN CRUD -->
+		<wsdl:operation name="ReadAllDomainsOperation">
+			<wsdl:input name="ReadAllDomains" message="common-wsdl:EmptyRequest" />
 			<wsdl:output message="contract:LoadDomainsResponse" />
-			<wsdl:fault name="LoadDomainsException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="LoadDomainsException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
-		
+		<wsdl:operation name="CreateDomainOperation">
+			<wsdl:input message="common-wsdl:Domain" />
+			<wsdl:output name="CreateDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateDomainException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateDomainOperation">
+			<wsdl:input message="common-wsdl:Domain" />
+			<wsdl:output name="UpdateDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateDomainException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteDomainOperation">
+			<wsdl:input message="common-wsdl:Domain" />
+			<wsdl:output name="DeleteDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteDomainException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="CejugClassifiedsAdminBinding"
-		type="contract:CejugClassifiedsAdmin">
+	<wsdl:binding name="CejugClassifiedsAdminBinding" type="contract:CejugClassifiedsAdmin">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
-		<wsdl:operation name="LoadCategoriesOperation">
+			<!-- ADVERTISEMENT TYPE -->
+		<wsdl:operation name="CreateAdvertisementTypeOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadCategories" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CreateAdvertisementType" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -218,9 +217,9 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="AddCategoryOperation">
+		<wsdl:operation name="ReadAllAdvertisementTypesOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/AddCategory" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/ReadAdvertisementTypes" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -228,9 +227,9 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="RequestAdvertisementTypeOperation">
+		<wsdl:operation name="UpdateAdvertisementTypeOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestAdvertisementType" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/UpdateAdvertisementType" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -238,29 +237,102 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="DeleteAdvertisementTypeOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/DeleteAdvertisementType" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- DOMAIN -->
+		<wsdl:operation name="CreateDomainOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CreateDomain" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReadAllDomainsOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/ReadDomains" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateDomainOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/UpdateDomain" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteDomainOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/DeleteDomain" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- CATEGORY -->
+		<wsdl:operation name="CreateCategoryOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CreateCategory" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReadAllCategoriesOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadCategory" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCategoryOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/UpdateCategory" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCategoryOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/DeleteCategory" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- ADVERTISEMENT TYPE -->
 		<wsdl:operation name="CheckMonitorOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/admin/CheckMonitor" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="RequestDomainOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestDomain" />
-			<wsdl:input>
-				<soap:body use="literal" />
-			</wsdl:input>
-			<wsdl:output>
-				<soap:body use="literal" />
-			</wsdl:output>
-		</wsdl:operation>
-		<wsdl:operation name="LoadDomainsOperation">
-			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadDomains" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -290,10 +362,8 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
-		<wsdl:port name="CejugClassifiedsAdmin"
-			binding="contract:CejugClassifiedsAdminBinding">
-			<soap:address
-				location="http://localhost:8080/cejug-classifieds-server/admin" />
+		<wsdl:port name="CejugClassifiedsAdmin" binding="contract:CejugClassifiedsAdminBinding">
+			<soap:address location="http://localhost:8080/cejug-classifieds-server/admin" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

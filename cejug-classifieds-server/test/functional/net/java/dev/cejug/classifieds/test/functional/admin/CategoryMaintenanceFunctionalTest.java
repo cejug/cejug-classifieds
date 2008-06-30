@@ -21,11 +21,13 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional;
+package net.java.dev.cejug.classifieds.test.functional.admin;
 
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
+import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -38,45 +40,39 @@ import org.junit.Test;
  * @author $Author: felipegaucho $
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
-public class MaintainCategoriesFunctionalTest {
+public class CategoryMaintenanceFunctionalTest {
+	private CejugClassifiedsAdmin admin = null;
+	private AdvertisementCategory category = new AdvertisementCategory();
 
 	@Before
 	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
+		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+		category.setName("FunctionalTest" + System.currentTimeMillis());
+		category
+				.setDescription("This category was created just for testing, you are free to delete it");
+		ServiceStatus status = admin.createCategoryOperation(category);
+		assert status.getStatusCode() == 1;
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		// remove or inactive the test advertisement
+		// admin.
+		admin = null;
+
 	}
 
 	@Test
-	public void testCategory() {
+	public void checkMonitor() {
+		/*
+		 * check if the test advertisement comes with the RSS
+		 */
 		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-
-		if (service.readAllCategoriesOperation().getAdvertisementCategory()
-				.isEmpty()) {
-
-			AdvertisementCategory category = new AdvertisementCategory();
-			category.setName("cars");
-			category.setDescription("new and used cars.");
-			ServiceStatus status = service.createCategoryOperation(category);
-			assert status.getDescription().equalsIgnoreCase("OK");
-
-			category = new AdvertisementCategory();
-			category.setName("jobs");
-			category.setDescription("find a new job today.");
-			status = service.createCategoryOperation(category);
-			assert status.getDescription().equalsIgnoreCase("OK");
-
-			category = new AdvertisementCategory();
-			category.setName("gadgets");
-			category.setDescription("tech tools & gadgets.");
-			status = service.createCategoryOperation(category);
-			System.out.println(status.getDescription());
-			assert status.getDescription().equalsIgnoreCase("OK");
-		}
+		MonitorQuery query = new MonitorQuery();
+		query.setAverageResponseLength(5);
+		query.setQuery("");
+		MonitorResponse response = service.checkMonitorOperation(query);
+		assert response.getServiceName() != null;
 	}
 }

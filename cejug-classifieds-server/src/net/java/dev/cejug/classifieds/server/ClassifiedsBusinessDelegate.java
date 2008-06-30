@@ -52,9 +52,9 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
  * properties file. If you don't inform the qualified name of the service
  * implementation, the reference implementation will be used.
  * 
- * @see <a
- *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Core
- *      J2EE Patterns - Business Delegate</a>
+ * @see <a href=
+ *      'http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'
+ *      > C o r e J2EE Patterns - Business Delegate</a>
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
@@ -62,7 +62,8 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
 public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 
 	/*
-	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web.html
+	 * http://weblogs.java.net/blog/ramapulavarthi/archive/2007/12/extend_your_web
+	 * .html
 	 */
 	@Resource
 	ClassifiedsBusinessRemote implementation;
@@ -155,18 +156,18 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	}
 
 	@Override
-	public CategoryCollection loadCategoriesOperation() {
+	public CategoryCollection readCategoriesOperation() {
 		// TODO: Authentication & Authorization
 		long initial = System.currentTimeMillis();
 		try {
-			return implementation.loadCategoriesOperation();
+			return implementation.readCategoriesOperation();
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: logging....
 			throw new WebServiceException(e);
 		} finally {
-			logger.info("TEMPO loadCategoriesOperation: " + (System.currentTimeMillis() - initial)
-					+ "ms");
+			logger.info("TEMPO loadCategoriesOperation: "
+					+ (System.currentTimeMillis() - initial) + "ms");
 		}
 	}
 }

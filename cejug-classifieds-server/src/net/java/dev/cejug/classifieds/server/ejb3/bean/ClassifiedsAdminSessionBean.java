@@ -118,24 +118,6 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public ServiceStatus requestDomainOperation(Domain domain) {
-
-		try {
-			// TODO: review validation...
-			DomainEntity entity = new DomainEntity();
-			entity.setDomainName(domain.getDomain());
-			entity.setSharedQuota(false);
-			entity.setBrand(domain.getBrand());
-			domainFacade.create(entity);
-		} catch (Exception e) {
-			// TODO Logging....
-			throw new WebServiceException(e);
-		}
-
-		return new ServiceStatus();
-	}
-
-	@Override
 	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
 
 		try {
@@ -186,21 +168,20 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
-
-		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
-	public ServiceStatus requestAdvertisementTypeOperation(
-			AdvertisementType advType) {
+	public ServiceStatus createAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
 
 		try {
 			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-			advTypeEntity.setDescription(advType.getDescription());
-			advTypeEntity.setMaxAttachmentSize(advType.getMaxAttachmentSize());
-			advTypeEntity.setName(advType.getName());
-			advTypeEntity.setTextLength(advType.getMaxTextLength());
+			advTypeEntity.setDescription(advertisementType.getDescription());
+			advTypeEntity.setMaxAttachmentSize(advertisementType
+					.getMaxAttachmentSize());
+			advTypeEntity.setName(advertisementType.getName());
+			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
 
 			advTypeFacade.create(advTypeEntity);
 
@@ -219,11 +200,10 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public ServiceStatus addCategoryOperation(
-			AdvertisementCategory addCategoryRequest) {
+	public ServiceStatus createCategoryOperation(AdvertisementCategory category) {
 		CategoryEntity entity = new CategoryEntity();
-		entity.setDescripton(addCategoryRequest.getDescription());
-		entity.setName(addCategoryRequest.getName());
+		entity.setDescripton(category.getDescription());
+		entity.setName(category.getName());
 		try {
 			categoryFacade.create(entity);
 
@@ -240,7 +220,49 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public CategoryCollection loadCategoriesOperation() {
+	public ServiceStatus createDomainOperation(Domain domain) {
+		try {
+			// TODO: review validation...
+			DomainEntity entity = new DomainEntity();
+			entity.setDomainName(domain.getDomain());
+			entity.setSharedQuota(false);
+			entity.setBrand(domain.getBrand());
+			domainFacade.create(entity);
+		} catch (Exception e) {
+			// TODO Logging....
+			throw new WebServiceException(e);
+		}
+
+		return new ServiceStatus();
+	}
+
+	@Override
+	public ServiceStatus deleteAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus deleteCategoryOperation(AdvertisementCategory category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus deleteDomainOperation(Domain domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoryCollection readAllAdvertisementTypesOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoryCollection readAllCategoriesOperation() {
 		CategoryCollection categoryCollection = new CategoryCollection();
 		try {
 			List<CategoryEntity> categories = categoryFacade
@@ -254,16 +276,35 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 				}
 			}
 		} catch (Exception e) {
-			// TODO log.......
-			e.printStackTrace();
-			// throw new WebServiceException(e);
+			throw new WebServiceException(e);
 		}
+		System.out.println("SIZE: "
+				+ categoryCollection.getAdvertisementCategory().size());
 		return categoryCollection;
 	}
 
 	@Override
-	public DomainCollection loadDomainsOperation() {
+	public DomainCollection readAllDomainsOperation() {
 		// TODO Auto-generated method stub
-		throw new WebServiceException("Operation not yet implemented.");
+		return null;
+	}
+
+	@Override
+	public ServiceStatus updateAdvertisementTypeOperation(
+			AdvertisementType advertisementType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus updateCategoryOperation(AdvertisementCategory category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus updateDomainOperation(Domain domain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

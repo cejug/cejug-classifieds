@@ -118,7 +118,8 @@ public class ClassifiedsBusinessSessionBean implements
 				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
 				item.setAuthor("INCOMPLETE DATA SET");
 				item.setDescription(adv.getSummary());
-				// item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
+				// item.setPubDate(adv.getPublishingPeriod().iterator().next().
+				// getDay());
 				atomCollection.add(feed);
 			}
 
@@ -147,7 +148,8 @@ public class ClassifiedsBusinessSessionBean implements
 				item.setAuthor("INCOMPLETE DATA SET");
 				item.setTitle(adv.getTitle());
 				item.setDescription(adv.getSummary());
-				// item.setPubDate(adv.getPublishingPeriod().iterator().next().getDay());
+				// item.setPubDate(adv.getPublishingPeriod().iterator().next().
+				// getDay());
 				channel.getItem().add(item);
 			}
 			RssCollection col = new RssCollection();
@@ -174,8 +176,8 @@ public class ClassifiedsBusinessSessionBean implements
 		// TODO: to implement the real code.
 		try {
 			/*
-			 * // loading customer Map<String, String> params = new HashMap<String,
-			 * String>(); params.clear(); params.put("d",
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
 			 * header.getCustomerDomain()); params.put("l",
 			 * header.getCustomerLogin());
 			 */
@@ -264,7 +266,7 @@ public class ClassifiedsBusinessSessionBean implements
 	}
 
 	@Override
-	public CategoryCollection loadCategoriesOperation() {
+	public CategoryCollection readCategoriesOperation() {
 		CategoryCollection categoryCollection = new CategoryCollection();
 		try {
 			List<CategoryEntity> categories = categoryFacade
