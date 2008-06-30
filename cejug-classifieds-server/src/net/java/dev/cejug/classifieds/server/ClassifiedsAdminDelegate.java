@@ -49,7 +49,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
  * properties file. If you don't inform the qualified name of the service
  * implementation, the reference implementation will be used.
  * 
- * @see <a href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Cor
+ * @see <a
+ *      href='http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'>Cor
  *      e J2EE Patterns - Business Delegate</a>
  * @author $Author$
  * @version $Rev$ ($Date$)
@@ -140,7 +141,12 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			return implementation.loadCategoriesOperation();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 }

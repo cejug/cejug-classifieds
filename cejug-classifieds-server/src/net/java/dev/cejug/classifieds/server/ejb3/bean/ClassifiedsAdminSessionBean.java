@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -239,7 +240,23 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public CategoryCollection loadCategoriesOperation() {
-		// TODO Auto-generated method stub
-		return null;
+		CategoryCollection categoryCollection = new CategoryCollection();
+		try {
+			List<CategoryEntity> categories = categoryFacade
+					.readAll(CategoryEntity.class);
+			if (categories != null) {
+				for (CategoryEntity category : categories) {
+					AdvertisementCategory cat = new AdvertisementCategory();
+					cat.setDescription(category.getDescripton());
+					cat.setName(category.getName());
+					categoryCollection.getAdvertisementCategory().add(cat);
+				}
+			}
+		} catch (Exception e) {
+			// TODO log.......
+			e.printStackTrace();
+			// throw new WebServiceException(e);
+		}
+		return categoryCollection;
 	}
 }

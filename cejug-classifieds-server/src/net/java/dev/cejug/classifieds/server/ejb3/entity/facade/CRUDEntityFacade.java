@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -41,12 +42,20 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 		manager.persist(entity);
 	}
 
+	/**
+	 * @return a list of entity objects, eventually an empty list. Never returns
+	 *         null.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> readAll(Class<T> entityClass) throws Exception {
 		Query query = manager.createQuery("select e from "
 				+ entityClass.getSimpleName() + " e");
-		return query.getResultList();
+		List<T> response = query.getResultList();
+		if (response == null) {
+			response = new ArrayList<T>();
+		}
+		return response;
 	}
 
 	/**
