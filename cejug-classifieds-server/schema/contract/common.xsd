@@ -52,6 +52,14 @@
 		</xsd:complexType>
 	</xsd:element>
 
+	<xsd:element name="DomainCollection">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="common:Domain" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
 	<xsd:element name="AdvertisementType">
 		<xsd:complexType>
 			<xsd:sequence>

@@ -39,6 +39,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
+import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
@@ -149,4 +150,11 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 			throw new WebServiceException(e);
 		}
 	}
+
+	@Override
+	public DomainCollection loadDomainsOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

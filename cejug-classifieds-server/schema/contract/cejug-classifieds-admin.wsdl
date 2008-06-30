@@ -115,7 +115,11 @@
 		<wsdl:part element="common:Domain" name="domain" />
 	</wsdl:message>
 
-	<!-- REQUEST DOMAIN  -->
+	<wsdl:message name="LoadDomainsResponse">
+		<wsdl:part element="common:DomainCollection" name="domains" />
+	</wsdl:message>
+
+	<!-- REQUEST ADVERTISEMENT TYPE  -->
 	<wsdl:message name="RequestAdvertisementType">
 		<wsdl:part element="common:AdvertisementType" name="adv.type" />
 	</wsdl:message>
@@ -183,12 +187,22 @@
 			<wsdl:fault name="AddCagegoryException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
+		
 		<wsdl:operation name="LoadCategoriesOperation">
 			<wsdl:input message="common-wsdl:LoadCategories" />
 			<wsdl:output message="common-wsdl:LoadCategoriesResponse" />
 			<wsdl:fault name="LoadCategoriesException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
+
+		<wsdl:operation name="LoadDomainsOperation">
+			<wsdl:input name="GetDomainsList"
+				message="common-wsdl:EmptyRequest" />
+			<wsdl:output message="contract:LoadDomainsResponse" />
+			<wsdl:fault name="LoadDomainsException"
+				message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		
 	</wsdl:portType>
 	<wsdl:binding name="CejugClassifiedsAdminBinding"
 		type="contract:CejugClassifiedsAdmin">
@@ -196,7 +210,7 @@
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
 		<wsdl:operation name="LoadCategoriesOperation">
 			<soap:operation
-				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCategories" />
+				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadCategories" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
@@ -237,6 +251,16 @@
 		<wsdl:operation name="RequestDomainOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/admin/RequestDomain" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LoadDomainsOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadDomains" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

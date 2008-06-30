@@ -53,6 +53,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTyp
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
+import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.Quota;
@@ -258,5 +259,11 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 			// throw new WebServiceException(e);
 		}
 		return categoryCollection;
+	}
+
+	@Override
+	public DomainCollection loadDomainsOperation() {
+		// TODO Auto-generated method stub
+		throw new WebServiceException("Operation not yet implemented.");
 	}
 }
