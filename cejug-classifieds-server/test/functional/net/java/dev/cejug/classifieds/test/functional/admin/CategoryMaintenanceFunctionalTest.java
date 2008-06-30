@@ -26,13 +26,10 @@ package net.java.dev.cejug.classifieds.test.functional.admin;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Test the diploma validation operation.
@@ -57,22 +54,8 @@ public class CategoryMaintenanceFunctionalTest {
 	@After
 	public void tearDown() throws Exception {
 		// remove or inactive the test advertisement
-		// admin.
+		admin.deleteCategoryOperation(category);
 		admin = null;
 
-	}
-
-	@Test
-	public void checkMonitor() {
-		/*
-		 * check if the test advertisement comes with the RSS
-		 */
-		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
-				.getCejugClassifiedsAdmin();
-		MonitorQuery query = new MonitorQuery();
-		query.setAverageResponseLength(5);
-		query.setQuery("");
-		MonitorResponse response = service.checkMonitorOperation(query);
-		assert response.getServiceName() != null;
 	}
 }

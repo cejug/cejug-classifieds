@@ -166,7 +166,7 @@ public class ClassifiedsBusinessSessionBean implements
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
 
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override

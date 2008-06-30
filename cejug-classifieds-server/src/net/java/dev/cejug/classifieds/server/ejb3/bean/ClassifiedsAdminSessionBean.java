@@ -240,30 +240,32 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	public ServiceStatus deleteAdvertisementTypeOperation(
 			AdvertisementType advertisementType) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus deleteCategoryOperation(AdvertisementCategory category) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus deleteDomainOperation(Domain domain) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public CategoryCollection readAllAdvertisementTypesOperation() {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public CategoryCollection readAllCategoriesOperation() {
 		CategoryCollection categoryCollection = new CategoryCollection();
+		System.out.println("LLLLL - "
+				+ categoryCollection.getAdvertisementCategory());
 		try {
 			List<CategoryEntity> categories = categoryFacade
 					.readAll(CategoryEntity.class);
@@ -286,25 +288,25 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@Override
 	public DomainCollection readAllDomainsOperation() {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
 			AdvertisementType advertisementType) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus updateCategoryOperation(AdvertisementCategory category) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus updateDomainOperation(Domain domain) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 }

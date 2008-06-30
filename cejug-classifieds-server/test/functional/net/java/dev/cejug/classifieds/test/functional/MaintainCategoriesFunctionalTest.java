@@ -55,10 +55,10 @@ public class MaintainCategoriesFunctionalTest {
 	public void testCategory() {
 		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-
+		System.out.println("kkkkkk - " + service.readAllCategoriesOperation());
 		if (service.readAllCategoriesOperation().getAdvertisementCategory()
 				.isEmpty()) {
-
+			System.out.println("YYYYYYY");
 			AdvertisementCategory category = new AdvertisementCategory();
 			category.setName("cars");
 			category.setDescription("new and used cars.");
