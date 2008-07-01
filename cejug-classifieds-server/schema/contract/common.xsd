@@ -18,6 +18,15 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="PrimaryKey">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:int">
+				<xsd:minInclusive value="1" />
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+
 	<xsd:element name="ServiceStatus">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1">
@@ -45,10 +54,12 @@
 	<xsd:element name="Domain">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element name="id" type="xsd:int" nillable="true" />
 				<xsd:element name="shared.quota" type="xsd:boolean" />
 				<xsd:element name="domain" type="xsd:string" />
 				<xsd:element name="brand" type="xsd:string" />
-				<xsd:element name="timezone" type="xsd:string" default="Fortaleza/Ceara" />
+				<xsd:element name="timezone" type="xsd:string"
+					default="Fortaleza/Ceara" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -62,16 +73,22 @@
 	<xsd:element name="AdvertisementType">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element name="id" type="xsd:int" nillable="true" />
 				<xsd:element name="name" type="xsd:string" />
 				<xsd:element name="description" type="xsd:string" />
 				<xsd:element name="max.attachment.size" type="xsd:long" />
 				<xsd:element name="max.text.length" type="xsd:long" />
-				<xsd:element name="domain.id" type="xsd:int" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="AdvertisementTypeCollection">
 		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:documentation xml:lang="en">
+					This is a test of documentation.. to be adopted
+					in all elements.
+				</xsd:documentation>
+			</xsd:annotation>
 			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
 				<xsd:element ref="common:AdvertisementType" />
 			</xsd:sequence>
@@ -80,7 +97,8 @@
 	<xsd:element name="Quota">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="advertisement.type.id" type="xsd:int" />
+				<xsd:element name="advertisement.type.id"
+					type="xsd:int" />
 				<xsd:element name="amount" type="xsd:int" />
 				<xsd:element name="domain.id" type="xsd:int" />
 				<xsd:element name="customer.login" type="xsd:string"
@@ -107,6 +125,7 @@
 	<xsd:element name="AdvertisementCategory">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element name="id" type="xsd:int" nillable="true" />
 				<xsd:element name="name" type="xsd:NMTOKEN" />
 				<xsd:element name="description" type="xsd:string" />
 				<xsd:element name="available" type="xsd:int" />

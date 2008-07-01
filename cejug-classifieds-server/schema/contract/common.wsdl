@@ -2,41 +2,53 @@
 <wsdl:definitions name="cejug-classifieds"
 	targetNamespace="http://cejug-classifieds.dev.java.net/common"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/common"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/common"
 			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
-			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="EmptyRequest" />
-	
+
 	<!-- CATEGORY BUNDLE -->
 	<wsdl:message name="CategoryBundle">
-		<wsdl:part element="common:CategoryCollection" name="category.bundle" />
+		<wsdl:part element="common:CategoryCollection"
+			name="category.bundle" />
 	</wsdl:message>
 	<wsdl:message name="Category">
-		<wsdl:part element="common:AdvertisementCategory" name="category" />
+		<wsdl:part element="common:AdvertisementCategory"
+			name="category" />
 	</wsdl:message>
-	
+
 	<!-- DOMAIN BUNDLE -->
 	<wsdl:message name="DomainBundle">
-		<wsdl:part element="common:DomainCollection" name="domain.bundle" />
+		<wsdl:part element="common:DomainCollection"
+			name="domain.bundle" />
 	</wsdl:message>
 	<wsdl:message name="Domain">
 		<wsdl:part element="common:Domain" name="domain" />
 	</wsdl:message>
-	
+
+	<wsdl:message name="PrimaryKey">
+		<wsdl:part element="common:PrimaryKey" name="id" />
+	</wsdl:message>
+
 	<!-- ADVERTISEMENT TYPE BUNDLE -->
 	<wsdl:message name="AdvertisementTypeBundle">
-		<wsdl:part element="common:AdvertisementTypeCollection" name="domain.bundle" />
+		<wsdl:part element="common:AdvertisementTypeCollection"
+			name="domain.bundle" />
 	</wsdl:message>
 	<wsdl:message name="AdvertisementType">
-		<wsdl:part element="common:AdvertisementType" name="advertisement.type" />
+		<wsdl:part element="common:AdvertisementType"
+			name="advertisement.type" />
 	</wsdl:message>
 
 	<!-- GENERAL FAILURE MESSAGE -->

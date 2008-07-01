@@ -54,7 +54,7 @@ public class CategoryMaintenanceFunctionalTest {
 	@After
 	public void tearDown() throws Exception {
 		// remove or inactive the test advertisement
-		admin.deleteCategoryOperation(category);
+		admin.deleteCategoryOperation(1);
 		admin = null;
 
 	}

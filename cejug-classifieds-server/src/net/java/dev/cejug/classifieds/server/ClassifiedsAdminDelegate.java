@@ -35,6 +35,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
@@ -143,53 +144,6 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus deleteAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
-		try {
-			// TODO: logging....
-			return implementation
-					.deleteAdvertisementTypeOperation(advertisementType);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-
-	}
-
-	@Override
-	public ServiceStatus deleteCategoryOperation(AdvertisementCategory category) {
-		try {
-			// TODO: logging....
-			return implementation.deleteCategoryOperation(category);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
-	public ServiceStatus deleteDomainOperation(Domain domain) {
-		try {
-			// TODO: logging....
-			return implementation.deleteDomainOperation(domain);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
-	public CategoryCollection readAllAdvertisementTypesOperation() {
-		try {
-			// TODO: logging....
-			return implementation.readAllAdvertisementTypesOperation();
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
 	public CategoryCollection readAllCategoriesOperation() {
 		try {
 			// TODO: logging....
@@ -243,6 +197,50 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 		try {
 			// TODO: logging....
 			return implementation.updateDomainOperation(domain);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
+		try {
+			// TODO: logging....
+			return implementation.deleteAdvertisementTypeOperation(id);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus deleteCategoryOperation(int id) {
+		try {
+			// TODO: logging....
+			return implementation.deleteCategoryOperation(id);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus deleteDomainOperation(int id) {
+		try {
+			// TODO: logging....
+			return implementation.deleteDomainOperation(id);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public AdvertisementTypeCollection readAllAdvertisementTypesOperation() {
+		try {
+			// TODO: logging....
+			return implementation.readAllAdvertisementTypesOperation();
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);

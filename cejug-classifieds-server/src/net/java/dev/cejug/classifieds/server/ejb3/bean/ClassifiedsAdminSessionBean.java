@@ -50,6 +50,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
@@ -237,31 +238,6 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public ServiceStatus deleteAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public ServiceStatus deleteCategoryOperation(AdvertisementCategory category) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public ServiceStatus deleteDomainOperation(Domain domain) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public CategoryCollection readAllAdvertisementTypesOperation() {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
 	public CategoryCollection readAllCategoriesOperation() {
 		CategoryCollection categoryCollection = new CategoryCollection();
 		System.out.println("LLLLL - "
@@ -307,6 +283,26 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@Override
 	public ServiceStatus updateDomainOperation(Domain domain) {
 		// TODO Auto-generated method stub
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteCategoryOperation(int id) {
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteDomainOperation(int id) {
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public AdvertisementTypeCollection readAllAdvertisementTypesOperation() {
 		throw new WebServiceException("operation not yet implemented");
 	}
 }
