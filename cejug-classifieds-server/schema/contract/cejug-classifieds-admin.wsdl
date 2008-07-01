@@ -126,13 +126,18 @@
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsAdmin">
 		<wsdl:operation name="CheckMonitorOperation">
-		<wsdl:documentation>TODO: Check monitor documentation</wsdl:documentation>
+			<wsdl:documentation>
+				TODO: Check monitor documentation
+			</wsdl:documentation>
 			<wsdl:input message="contract:CheckMonitor" />
 			<wsdl:output message="contract:CheckMonitorResponse" />
 			<wsdl:fault name="CheckMonitorException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
+			<wsdl:documentation>
+				TODO: Add quota documentation
+			</wsdl:documentation>
 			<wsdl:input message="contract:AddQuota" />
 			<wsdl:output name="AddQuotaResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -140,6 +145,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
+			<wsdl:documentation>
+				TODO: Cancel quota documentation
+			</wsdl:documentation>
 			<wsdl:input message="contract:CancelQuota" />
 			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="CancelQuotaException"
@@ -148,6 +156,11 @@
 
 		<!-- CATEGORY CRUD -->
 		<wsdl:operation name="CreateCategoryOperation">
+			<wsdl:documentation>
+				CRUD - Creates a new category. Only administrators can
+				create categories. If the category already exists, it
+				throws an exception.
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:Category" />
 			<wsdl:output name="CreateCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -155,6 +168,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadAllCategoriesOperation">
+			<wsdl:documentation>
+				CRUD - Read all active categories from the database.
+			</wsdl:documentation>
 			<wsdl:input name="ReadAllCategories"
 				message="common-wsdl:EmptyRequest" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
@@ -162,6 +178,12 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateCategoryOperation">
+			<wsdl:documentation>
+				CRUD - Updates a category (merge new attributes data in
+				the database). If the category doesn't exists it throws
+				an exception, otherwise it return an HTTP Created status
+				(201).
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:Category" />
 			<wsdl:output name="UpdateCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -169,6 +191,10 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteCategoryOperation">
+			<wsdl:documentation>
+				Deletes the category by its ID. If the category doesn't
+				exist in the database, it throws an exception.
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:PrimaryKey" />
 			<wsdl:output name="DeleteCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -177,6 +203,9 @@
 		</wsdl:operation>
 		<!-- ADVERTISEMENT TYPE CRUD -->
 		<wsdl:operation name="CreateAdvertisementTypeOperation">
+			<wsdl:documentation>
+				TODO: Create advertisement documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:AdvertisementType" />
 			<wsdl:output name="CreateAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -184,6 +213,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadAllAdvertisementTypesOperation">
+			<wsdl:documentation>
+				TODO: Read all advertisement documentation
+			</wsdl:documentation>
 			<wsdl:input name="ReadAllAdvertisementTypes"
 				message="common-wsdl:EmptyRequest" />
 			<wsdl:output message="common-wsdl:AdvertisementTypeBundle" />
@@ -191,6 +223,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateAdvertisementTypeOperation">
+			<wsdl:documentation>
+				TODO: Update advertisement documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:AdvertisementType" />
 			<wsdl:output name="UpdateAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -198,6 +233,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteAdvertisementTypeOperation">
+			<wsdl:documentation>
+				TODO: Delete advertisement documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:PrimaryKey" />
 			<wsdl:output name="DeleteAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -206,6 +244,9 @@
 		</wsdl:operation>
 		<!-- DOMAIN CRUD -->
 		<wsdl:operation name="ReadAllDomainsOperation">
+			<wsdl:documentation>
+				TODO: Read all domains documentation
+			</wsdl:documentation>
 			<wsdl:input name="ReadAllDomains"
 				message="common-wsdl:EmptyRequest" />
 			<wsdl:output message="common-wsdl:DomainBundle" />
@@ -213,6 +254,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CreateDomainOperation">
+			<wsdl:documentation>
+				TODO: Create domain documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:Domain" />
 			<wsdl:output name="CreateDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -220,6 +264,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateDomainOperation">
+			<wsdl:documentation>
+				TODO: Update domain documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:Domain" />
 			<wsdl:output name="UpdateDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />
@@ -227,6 +274,9 @@
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteDomainOperation">
+			<wsdl:documentation>
+				TODO: Delete domain documentation
+			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:PrimaryKey" />
 			<wsdl:output name="DeleteDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />

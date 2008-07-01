@@ -10,6 +10,11 @@
 		</xsd:documentation>
 	</xsd:annotation>
 	<xsd:element name="ServiceFault">
+		<xsd:annotation>
+			<xsd:documentation>
+				The general failure for Cejug-Classifieds operations.
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="code" type="xsd:int" />
@@ -20,6 +25,11 @@
 	</xsd:element>
 
 	<xsd:element name="PrimaryKey">
+		<xsd:annotation>
+			<xsd:documentation>
+				An integer used to delete records in the database.
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:simpleType>
 			<xsd:restriction base="xsd:int">
 				<xsd:minInclusive value="1" />
@@ -28,6 +38,16 @@
 	</xsd:element>
 
 	<xsd:element name="ServiceStatus">
+		<xsd:annotation>
+			<xsd:documentation>
+				Used to return status of the operation request in the
+				operations that have no return type. If the operation
+				has a return type, it should use it instead of the
+				status message - a failure is the sign of problems, in
+				this case. It contains a timestamp to store the date
+				time of the finish of the operation.
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1">
 				<xsd:element ref="common:StatusCode" />
@@ -85,8 +105,8 @@
 		<xsd:complexType>
 			<xsd:annotation>
 				<xsd:documentation xml:lang="en">
-					This is a test of documentation.. to be adopted
-					in all elements.
+					This is a test of documentation.. to be adopted in
+					all elements.
 				</xsd:documentation>
 			</xsd:annotation>
 			<xsd:sequence minOccurs="0" maxOccurs="unbounded">

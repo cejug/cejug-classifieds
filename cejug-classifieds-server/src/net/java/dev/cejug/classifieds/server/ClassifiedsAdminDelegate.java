@@ -117,7 +117,6 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
-
 	}
 
 	@Override
