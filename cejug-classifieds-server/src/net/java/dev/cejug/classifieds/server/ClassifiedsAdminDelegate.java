@@ -103,14 +103,24 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 
 	@Override
 	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			return implementation.addQuotaOperation(addQuotaRequest);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override
 	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			return implementation.cancelQuotaOperation(cancelQuotaRequest);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override
@@ -127,8 +137,13 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	@Override
 	public ServiceStatus createAdvertisementTypeOperation(
 			CreateAdvertisementTypeParam newAdvType) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// TODO: logging....
+			return implementation.createAdvertisementTypeOperation(newAdvType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override

@@ -177,6 +177,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
+		// TODO Auto-generated method stub
 		throw new WebServiceException("operation not yet implemented");
 	}
 
@@ -324,6 +325,6 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new WebServiceException("operation not yet implemented");
 	}
 }
