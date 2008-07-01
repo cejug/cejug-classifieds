@@ -72,10 +72,10 @@
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsBusiness">
-		<wsdl:operation name="ReadCategoriesOperation">
-			<wsdl:input name="ReadCategories" message="common-wsdl:EmptyRequest" />
+		<wsdl:operation name="ReadCategoryBundleOperation">
+			<wsdl:input name="ReadCategoryBundle" message="common-wsdl:ReadCategoryBundle" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
-			<wsdl:fault name="ReadCategoriesException" message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="ReadCategoryBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadAdvertisementOperation">
 			<wsdl:input message="business:LoadAdvertisement" />
@@ -109,7 +109,7 @@
 	<wsdl:binding name="CejugClassifiedsBusinessBinding" type="business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
-		<wsdl:operation name="ReadCategoriesOperation">
+		<wsdl:operation name="ReadCategoryBundleOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCategories" />
 			<wsdl:input>

@@ -49,16 +49,24 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLoca
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateAdvertisementTypeParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.DeleteCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.DeleteDomainParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
 import net.java.dev.cejug.classifieds.server.generated.contract.Quota;
+import net.java.dev.cejug.classifieds.server.generated.contract.ReadAdvertisementTypeBundleParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.ReadCategoryBundleParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateAdvertisementTypeParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainParam;
 
 /**
  * //
@@ -174,15 +182,16 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@Override
 	public ServiceStatus createAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
-
+			CreateAdvertisementTypeParam newAdvType) {
 		try {
 			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-			advTypeEntity.setDescription(advertisementType.getDescription());
-			advTypeEntity.setMaxAttachmentSize(advertisementType
-					.getMaxAttachmentSize());
-			advTypeEntity.setName(advertisementType.getName());
-			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
+			advTypeEntity.setDescription(newAdvType.getAdvertisementType()
+					.getDescription());
+			advTypeEntity.setMaxAttachmentSize(newAdvType
+					.getAdvertisementType().getMaxAttachmentSize());
+			advTypeEntity.setName(newAdvType.getAdvertisementType().getName());
+			advTypeEntity.setTextLength(newAdvType.getAdvertisementType()
+					.getMaxTextLength());
 
 			advTypeFacade.create(advTypeEntity);
 
@@ -198,13 +207,15 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 			status.setDescription(e.getMessage());
 			return status;
 		}
+
 	}
 
 	@Override
-	public ServiceStatus createCategoryOperation(AdvertisementCategory category) {
+	public ServiceStatus createCategoryOperation(CreateCategoryParam newCategory) {
 		CategoryEntity entity = new CategoryEntity();
-		entity.setDescripton(category.getDescription());
-		entity.setName(category.getName());
+		entity.setDescripton(newCategory.getAdvertisementCategory()
+				.getDescription());
+		entity.setName(newCategory.getAdvertisementCategory().getName());
 		try {
 			categoryFacade.create(entity);
 
@@ -218,16 +229,17 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 			e.printStackTrace();
 			throw new WebServiceException(e);
 		}
+
 	}
 
 	@Override
-	public ServiceStatus createDomainOperation(Domain domain) {
+	public ServiceStatus createDomainOperation(CreateDomainParam newDomain) {
 		try {
 			// TODO: review validation...
 			DomainEntity entity = new DomainEntity();
-			entity.setDomainName(domain.getDomain());
+			entity.setDomainName(newDomain.getDomain().getDomain());
 			entity.setSharedQuota(false);
-			entity.setBrand(domain.getBrand());
+			entity.setBrand(newDomain.getDomain().getBrand());
 			domainFacade.create(entity);
 		} catch (Exception e) {
 			// TODO Logging....
@@ -238,10 +250,32 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public CategoryCollection readAllCategoriesOperation() {
+	public ServiceStatus deleteCategoryOperation(
+			DeleteCategoryParam obsoleteCategory) {
+		// TODO Auto-generated method stub
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteDomainOperation(DeleteDomainParam obsoleteDomain) {
+		// TODO Auto-generated method stub
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
+		// TODO Auto-generated method stub
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public CategoryCollection readCategoryBundleOperation(
+			ReadCategoryBundleParam getCategories) {
+
+		// TODO: use the bundle request parameters as query filter.
+
 		CategoryCollection categoryCollection = new CategoryCollection();
-		System.out.println("LLLLL - "
-				+ categoryCollection.getAdvertisementCategory());
 		try {
 			List<CategoryEntity> categories = categoryFacade
 					.readAll(CategoryEntity.class);
@@ -262,47 +296,34 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 	}
 
 	@Override
-	public DomainCollection readAllDomainsOperation() {
+	public DomainCollection readDomainBundleOperation() {
 		// TODO Auto-generated method stub
 		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
+			UpdateAdvertisementTypeParam partialAdvType) {
 		// TODO Auto-generated method stub
 		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
-	public ServiceStatus updateCategoryOperation(AdvertisementCategory category) {
+	public ServiceStatus updateCategoryOperation(
+			UpdateCategoryParam partialCategory) {
 		// TODO Auto-generated method stub
 		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
-	public ServiceStatus updateDomainOperation(Domain domain) {
+	public ServiceStatus updateDomainOperation(UpdateDomainParam partialDomain) {
 		// TODO Auto-generated method stub
 		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public ServiceStatus deleteCategoryOperation(int id) {
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public ServiceStatus deleteDomainOperation(int id) {
-		throw new WebServiceException("operation not yet implemented");
-	}
-
-	@Override
-	public AdvertisementTypeCollection readAllAdvertisementTypesOperation() {
-		throw new WebServiceException("operation not yet implemented");
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

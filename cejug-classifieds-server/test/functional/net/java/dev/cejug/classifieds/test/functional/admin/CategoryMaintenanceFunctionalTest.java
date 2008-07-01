@@ -26,6 +26,8 @@ package net.java.dev.cejug.classifieds.test.functional.admin;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.DeleteCategoryParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -47,14 +49,18 @@ public class CategoryMaintenanceFunctionalTest {
 		category.setName("FunctionalTest" + System.currentTimeMillis());
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");
-		ServiceStatus status = admin.createCategoryOperation(category);
+		CreateCategoryParam catParam = new CreateCategoryParam();
+		catParam.setAdvertisementCategory(category);
+		ServiceStatus status = admin.createCategoryOperation(catParam);
 		assert status.getStatusCode() == 1;
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		// remove or inactive the test advertisement
-		admin.deleteCategoryOperation(1);
+		DeleteCategoryParam param = new DeleteCategoryParam();
+		param.setPrimaryKey(category.getId());
+		admin.deleteCategoryOperation(param);
 		admin = null;
 
 	}

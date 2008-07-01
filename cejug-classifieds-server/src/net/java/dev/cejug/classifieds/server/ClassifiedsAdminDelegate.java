@@ -33,17 +33,24 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
-import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateAdvertisementTypeParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.DeleteCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.DeleteDomainParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
+import net.java.dev.cejug.classifieds.server.generated.contract.ReadAdvertisementTypeBundleParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.ReadCategoryBundleParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateAdvertisementTypeParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainParam;
 
 /**
  * Cejug-Classifieds-Service delegates its behaviour to an underneath
@@ -107,102 +114,6 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus createAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
-		try {
-			// TODO: logging....
-			return implementation
-					.createAdvertisementTypeOperation(advertisementType);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
-	public ServiceStatus createCategoryOperation(AdvertisementCategory category) {
-		try {
-			// TODO: logging....
-			return implementation.createCategoryOperation(category);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-
-	}
-
-	@Override
-	public ServiceStatus createDomainOperation(Domain domain) {
-		try {
-			// TODO: logging....
-			return implementation.createDomainOperation(domain);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
-	public CategoryCollection readAllCategoriesOperation() {
-		try {
-			// TODO: logging....
-			return implementation.readAllCategoriesOperation();
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-
-	}
-
-	@Override
-	public DomainCollection readAllDomainsOperation() {
-		try {
-			// TODO: logging....
-			return implementation.readAllDomainsOperation();
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-
-	}
-
-	@Override
-	public ServiceStatus updateAdvertisementTypeOperation(
-			AdvertisementType advertisementType) {
-		try {
-			// TODO: logging....
-			return implementation
-					.updateAdvertisementTypeOperation(advertisementType);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-
-	}
-
-	@Override
-	public ServiceStatus updateCategoryOperation(AdvertisementCategory category) {
-		try {
-			// TODO: logging....
-			return implementation.updateCategoryOperation(category);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
-	public ServiceStatus updateDomainOperation(Domain domain) {
-		try {
-			// TODO: logging....
-			return implementation.updateDomainOperation(domain);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
-
-	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
 		try {
 			// TODO: logging....
@@ -214,10 +125,17 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus deleteCategoryOperation(int id) {
+	public ServiceStatus createAdvertisementTypeOperation(
+			CreateAdvertisementTypeParam newAdvType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus createCategoryOperation(CreateCategoryParam newCategory) {
 		try {
 			// TODO: logging....
-			return implementation.deleteCategoryOperation(id);
+			return implementation.createCategoryOperation(newCategory);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -225,10 +143,10 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public ServiceStatus deleteDomainOperation(int id) {
+	public ServiceStatus createDomainOperation(CreateDomainParam newDomain) {
 		try {
 			// TODO: logging....
-			return implementation.deleteDomainOperation(id);
+			return implementation.createDomainOperation(newDomain);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -236,14 +154,97 @@ public class ClassifiedsAdminDelegate implements CejugClassifiedsAdmin {
 	}
 
 	@Override
-	public AdvertisementTypeCollection readAllAdvertisementTypesOperation() {
+	public ServiceStatus deleteCategoryOperation(
+			DeleteCategoryParam obsoleteCategory) {
 		try {
 			// TODO: logging....
-			return implementation.readAllAdvertisementTypesOperation();
+			return implementation.deleteCategoryOperation(obsoleteCategory);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 	}
 
+	@Override
+	public ServiceStatus deleteDomainOperation(DeleteDomainParam obsoleteDomain) {
+		try {
+			// TODO: logging....
+			return implementation.deleteDomainOperation(obsoleteDomain);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
+		try {
+			// TODO: logging....
+			return implementation
+					.readAdvertisementTypeBundleOperation(getAdvertisementTypes);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public CategoryCollection readCategoryBundleOperation(
+			ReadCategoryBundleParam getCategories) {
+		try {
+			// TODO: logging....
+			return implementation.readCategoryBundleOperation(getCategories);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public DomainCollection readDomainBundleOperation() {
+		try {
+			// TODO: logging....
+			return implementation.readDomainBundleOperation();
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus updateAdvertisementTypeOperation(
+			UpdateAdvertisementTypeParam partialAdvType) {
+		try {
+			// TODO: logging....
+			return implementation
+					.updateAdvertisementTypeOperation(partialAdvType);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus updateCategoryOperation(
+			UpdateCategoryParam partialCategory) {
+		try {
+			// TODO: logging....
+			return implementation.updateCategoryOperation(partialCategory);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
+
+	@Override
+	public ServiceStatus updateDomainOperation(UpdateDomainParam partialDomain) {
+		try {
+			// TODO: logging....
+			return implementation.updateDomainOperation(partialDomain);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 }

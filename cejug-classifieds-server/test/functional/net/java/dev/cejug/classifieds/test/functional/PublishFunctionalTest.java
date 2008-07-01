@@ -36,6 +36,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifieds
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateAdvertisementTypeParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
@@ -84,14 +86,18 @@ public class PublishFunctionalTest {
 		newDomain.setBrand("CEJUG");
 		newDomain.setSharedQuota(true);
 		newDomain.setTimezone("America/Fortaleza");
-		admin.createDomainOperation(newDomain);
+		CreateDomainParam param = new CreateDomainParam();
+		param.setDomain(newDomain);
+		admin.createDomainOperation(param);
 
 		AdvertisementType type = new AdvertisementType();
 		type.setDescription("oo");
 		type.setMaxAttachmentSize(300);
 		type.setName("courtesy");
 		type.setMaxTextLength(250);
-		admin.createAdvertisementTypeOperation(type);
+		CreateAdvertisementTypeParam advParam = new CreateAdvertisementTypeParam();
+		advParam.setAdvertisementType(type);
+		admin.createAdvertisementTypeOperation(advParam);
 
 		// TODO: admin.updateDomain();
 

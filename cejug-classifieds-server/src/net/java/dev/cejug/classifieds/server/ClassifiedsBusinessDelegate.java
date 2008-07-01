@@ -53,8 +53,8 @@ import net.java.dev.cejug.classifieds.server.generated.i18n.ClassifiedsServiceDe
  * implementation, the reference implementation will be used.
  * 
  * @see <a href=
- *      'http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.html'
- *      > C o r e J2EE Patterns - Business Delegate</a>
+ *      'http://java.sun.com/blueprints/corej2eepatterns/Patterns/BusinessDelegate.htm
+ *      l ' > C o r e J2EE Patterns - Business Delegate</a>
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
@@ -156,18 +156,13 @@ public class ClassifiedsBusinessDelegate implements CejugClassifiedsBusiness {
 	}
 
 	@Override
-	public CategoryCollection readCategoriesOperation() {
+	public CategoryCollection readCategoryBundleOperation() {
 		// TODO: Authentication & Authorization
-		long initial = System.currentTimeMillis();
 		try {
-			return implementation.readCategoriesOperation();
+			return implementation.readCategoryBundleOperation();
 		} catch (Exception e) {
-			e.printStackTrace();
 			// TODO: logging....
 			throw new WebServiceException(e);
-		} finally {
-			logger.info("TEMPO loadCategoriesOperation: "
-					+ (System.currentTimeMillis() - initial) + "ms");
 		}
 	}
 }

@@ -26,6 +26,8 @@ package net.java.dev.cejug.classifieds.test.functional;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.ReadCategoryBundleParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
 
 import org.junit.After;
@@ -55,26 +57,30 @@ public class MaintainCategoriesFunctionalTest {
 	public void testCategory() {
 		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-		System.out.println("kkkkkk - " + service.readAllCategoriesOperation());
-		if (service.readAllCategoriesOperation().getAdvertisementCategory()
-				.isEmpty()) {
-			System.out.println("YYYYYYY");
+		ReadCategoryBundleParam param = new ReadCategoryBundleParam();
+
+		if (service.readCategoryBundleOperation(param)
+				.getAdvertisementCategory().isEmpty()) {
 			AdvertisementCategory category = new AdvertisementCategory();
 			category.setName("cars");
 			category.setDescription("new and used cars.");
-			ServiceStatus status = service.createCategoryOperation(category);
+			CreateCategoryParam catParam = new CreateCategoryParam();
+			catParam.setAdvertisementCategory(category);
+			ServiceStatus status = service.createCategoryOperation(catParam);
 			assert status.getDescription().equalsIgnoreCase("OK");
 
 			category = new AdvertisementCategory();
 			category.setName("jobs");
 			category.setDescription("find a new job today.");
-			status = service.createCategoryOperation(category);
+			catParam.setAdvertisementCategory(category);
+			status = service.createCategoryOperation(catParam);
 			assert status.getDescription().equalsIgnoreCase("OK");
 
 			category = new AdvertisementCategory();
 			category.setName("gadgets");
 			category.setDescription("tech tools & gadgets.");
-			status = service.createCategoryOperation(category);
+			catParam.setAdvertisementCategory(category);
+			status = service.createCategoryOperation(catParam);
 			System.out.println(status.getDescription());
 			assert status.getDescription().equalsIgnoreCase("OK");
 		}

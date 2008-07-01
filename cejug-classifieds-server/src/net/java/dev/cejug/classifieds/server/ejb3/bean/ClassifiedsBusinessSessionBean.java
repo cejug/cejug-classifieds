@@ -164,9 +164,11 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@Override
 	public ServiceStatus reportSpamOperation(SpamReport spam) {
-
+		ServiceStatus status = new ServiceStatus();
+		status.setDescription("OK");
+		status.setStatusCode(200);
+		return status;
 		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
 	}
 
 	@Override
@@ -266,7 +268,7 @@ public class ClassifiedsBusinessSessionBean implements
 	}
 
 	@Override
-	public CategoryCollection readCategoriesOperation() {
+	public CategoryCollection readCategoryBundleOperation() {
 		CategoryCollection categoryCollection = new CategoryCollection();
 		try {
 			List<CategoryEntity> categories = categoryFacade
