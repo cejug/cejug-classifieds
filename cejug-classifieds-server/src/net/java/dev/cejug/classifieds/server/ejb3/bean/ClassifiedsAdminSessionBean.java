@@ -29,14 +29,12 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
-
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
@@ -70,7 +68,6 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
 
 /**
  * //
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a * href=
@@ -82,249 +79,283 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
 @Stateless
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
-	@EJB
-	private DomainFacadeLocal domainFacade;
+    @EJB
+    private DomainFacadeLocal domainFacade;
 
-	@EJB
-	private CustomerFacadeLocal customerFacade;
+    @EJB
+    private CustomerFacadeLocal customerFacade;
 
-	@EJB
-	private AdvertisementTypeFacadeLocal advTypeFacade;
+    @EJB
+    private AdvertisementTypeFacadeLocal advTypeFacade;
 
-	private final DatatypeFactory factory;
+    private final DatatypeFactory factory;
 
-	@EJB
-	private CategoryFacadeLocal categoryFacade;
+    @EJB
+    private CategoryFacadeLocal categoryFacade;
 
-	/**
-	 * the global log manager, used to al low third party services to override
-	 * the defult logger.
-	 */
-	private static Logger logger = Logger.getLogger(
-			ClassifiedsAdminSessionBean.class.getName(), "i18n/log");
+    /**
+     * the global log manager, used to al low third party services to override
+     * the defult logger.
+     */
+    private static Logger logger = Logger.getLogger(ClassifiedsAdminSessionBean.class.getName(), "i18n/log");
 
-	public ClassifiedsAdminSessionBean() {
+    public ClassifiedsAdminSessionBean() {
 
-		try {
-			factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
-			// TODO: log
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        try {
+            factory = DatatypeFactory.newInstance();
+        } catch (DatatypeConfigurationException e) {
+            // TODO: log
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
+    @Override
+    public MonitorResponse checkMonitorOperation(MonitorQuery monitor) {
 
-		// TODO: implement the real database call and response assembly.
-		MonitorResponse response = new MonitorResponse();
-		response.setServiceName("Cejug-Classifieds");
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.roll(Calendar.DAY_OF_MONTH, -3);
-		response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
-		return response;
-	}
+        // TODO: implement the real database call and response assembly.
+        MonitorResponse response = new MonitorResponse();
+        response.setServiceName("Cejug-Classifieds");
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.roll(Calendar.DAY_OF_MONTH, -3);
+        response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
+        return response;
+    }
 
-	@Override
-	public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
+    @Override
+    public ServiceStatus addQuotaOperation(AddQuotaInfo addQuotaRequest) {
 
-		try {
-			Quota requestedQuota = addQuotaRequest.getQuota();
-			CustomerEntity customer = customerFacade.findOrCreate(
-					requestedQuota.getDomainId(), requestedQuota
-							.getCustomerLogin());
-			Collection<QuotaEntity> customerQuotas = customer.getQuotas();
+        try {
+            Quota requestedQuota = addQuotaRequest.getQuota();
+            CustomerEntity customer = customerFacade.findOrCreate(requestedQuota.getDomainId(), requestedQuota.getCustomerLogin());
+            Collection<QuotaEntity> customerQuotas = customer.getQuotas();
 
-			AdvertisementTypeEntity type = advTypeFacade.read(
-					AdvertisementTypeEntity.class, Integer
-							.valueOf(requestedQuota.getAdvertisementTypeId()));
+            AdvertisementTypeEntity type = advTypeFacade.read(AdvertisementTypeEntity.class, Integer.valueOf(requestedQuota.getAdvertisementTypeId()));
 
-			boolean newQuota = true;
-			for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator
-					.hasNext();) {
-				QuotaEntity entity = iterator.next();
-				if (entity.getType().equals(type)) {
-					entity.setAvailable(entity.getAvailable() + 1);
-					newQuota = false;
-				}
-			}
-			if (newQuota) {
-				QuotaEntity quota = new QuotaEntity();
-				quota.setType(type);
-				quota.setAvailable(1);
-				quota.setCustomer(customer);
-				quota.setDomain(customer.getDomain());
-				customerQuotas.add(quota);
-			}
-			customerFacade.update(customer);
-			ServiceStatus status = new ServiceStatus();
-			status.setStatusCode(200);
-			status
-					.setDescription("1 {0} quota added to customer {1} of domain {2}");
-			return status;
+            boolean newQuota = true;
+            for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator.hasNext();) {
+                QuotaEntity entity = iterator.next();
+                if (entity.getType().equals(type)) {
+                    entity.setAvailable(entity.getAvailable() + 1);
+                    newQuota = false;
+                }
+            }
+            if (newQuota) {
+                QuotaEntity quota = new QuotaEntity();
+                quota.setType(type);
+                quota.setAvailable(1);
+                quota.setCustomer(customer);
+                quota.setDomain(customer.getDomain());
+                customerQuotas.add(quota);
+            }
+            customerFacade.update(customer);
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 {0} quota added to customer {1} of domain {2}");
+            return status;
 
-		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-			return status;
-		}
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
 
-	}
+    }
 
-	@Override
-	public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+    @Override
+    public ServiceStatus cancelQuotaOperation(CancelQuotaInfo cancelQuotaRequest) {
 
-	@Override
-	public ServiceStatus createAdvertisementTypeOperation(
-			CreateAdvertisementTypeParam newAdvType) {
-		try {
-			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-			advTypeEntity.setDescription(newAdvType.getAdvertisementType()
-					.getDescription());
-			advTypeEntity.setMaxAttachmentSize(newAdvType
-					.getAdvertisementType().getMaxAttachmentSize());
-			advTypeEntity.setName(newAdvType.getAdvertisementType().getName());
-			advTypeEntity.setTextLength(newAdvType.getAdvertisementType()
-					.getMaxTextLength());
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
 
-			advTypeFacade.create(advTypeEntity);
+    @Override
+    public ServiceStatus createAdvertisementTypeOperation(CreateAdvertisementTypeParam newAdvType) {
 
-			ServiceStatus status = new ServiceStatus();
-			status.setStatusCode(200);
-			status.setDescription("1 advertisement type added");
-			return status;
-		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-			return status;
-		}
+        try {
+            AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
+            advTypeEntity.setDescription(newAdvType.getAdvertisementType().getDescription());
+            advTypeEntity.setMaxAttachmentSize(newAdvType.getAdvertisementType().getMaxAttachmentSize());
+            advTypeEntity.setName(newAdvType.getAdvertisementType().getName());
+            advTypeEntity.setTextLength(newAdvType.getAdvertisementType().getMaxTextLength());
 
-	}
+            advTypeFacade.create(advTypeEntity);
 
-	@Override
-	public ServiceStatus createCategoryOperation(CreateCategoryParam newCategory) {
-		CategoryEntity entity = new CategoryEntity();
-		entity.setDescripton(newCategory.getAdvertisementCategory()
-				.getDescription());
-		entity.setName(newCategory.getAdvertisementCategory().getName());
-		try {
-			categoryFacade.create(entity);
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 advertisement type added");
+            return status;
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
 
-			// TODO: create a generic status response in the super class...
-			ServiceStatus status = new ServiceStatus();
-			status.setStatusCode(200);
-			status.setDescription("1 advertisement type added");
-			return status;
-		} catch (Exception e) {
-			// TODO log....
-			e.printStackTrace();
-			throw new WebServiceException(e);
-		}
+    }
 
-	}
+    @Override
+    public ServiceStatus createCategoryOperation(CreateCategoryParam newCategory) {
 
-	@Override
-	public ServiceStatus createDomainOperation(CreateDomainParam newDomain) {
-		try {
-			// TODO: review validation...
-			DomainEntity entity = new DomainEntity();
-			entity.setDomainName(newDomain.getDomain().getDomain());
-			entity.setSharedQuota(false);
-			entity.setBrand(newDomain.getDomain().getBrand());
-			domainFacade.create(entity);
-		} catch (Exception e) {
-			// TODO Logging....
-			throw new WebServiceException(e);
-		}
+        CategoryEntity entity = new CategoryEntity();
+        entity.setDescripton(newCategory.getAdvertisementCategory().getDescription());
+        entity.setName(newCategory.getAdvertisementCategory().getName());
+        entity.setAvailable(newCategory.getAdvertisementCategory().getAvailable() == 1 ? Boolean.TRUE : Boolean.FALSE);
+        try {
+            categoryFacade.create(entity);
 
-		return new ServiceStatus();
-	}
+            // TODO: create a generic status response in the super class...
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 category added");
+            return status;
+        } catch (Exception e) {
+            // TODO log....
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
 
-	@Override
-	public ServiceStatus deleteCategoryOperation(
-			DeleteCategoryParam obsoleteCategory) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+    }
 
-	@Override
-	public ServiceStatus deleteDomainOperation(DeleteDomainParam obsoleteDomain) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+    @Override
+    public ServiceStatus createDomainOperation(CreateDomainParam newDomain) {
 
-	@Override
-	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
-			ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+        try {
+            // TODO: review validation...
+            DomainEntity entity = new DomainEntity();
+            entity.setDomainName(newDomain.getDomain().getDomain());
+            entity.setSharedQuota(false);
+            entity.setBrand(newDomain.getDomain().getBrand());
+            domainFacade.create(entity);
+        } catch (Exception e) {
+            // TODO Logging....
+            throw new WebServiceException(e);
+        }
 
-	@Override
-	public CategoryCollection readCategoryBundleOperation(
-			ReadCategoryBundleParam getCategories) {
+        return new ServiceStatus();
+    }
 
-		// TODO: use the bundle request parameters as query filter.
+    @Override
+    public ServiceStatus deleteCategoryOperation(DeleteCategoryParam obsoleteCategory) {
 
-		CategoryCollection categoryCollection = new CategoryCollection();
-		try {
-			List<CategoryEntity> categories = categoryFacade
-					.readAll(CategoryEntity.class);
-			if (categories != null) {
-				for (CategoryEntity category : categories) {
-					AdvertisementCategory cat = new AdvertisementCategory();
-					cat.setDescription(category.getDescripton());
-					cat.setName(category.getName());
-					categoryCollection.getAdvertisementCategory().add(cat);
-				}
-			}
-		} catch (Exception e) {
-			throw new WebServiceException(e);
-		}
-		System.out.println("SIZE: "
-				+ categoryCollection.getAdvertisementCategory().size());
-		return categoryCollection;
-	}
+        try {
+            // TODO Check if the category is being used, before deleting it
+            categoryFacade.delete(CategoryEntity.class, new Integer(obsoleteCategory.getPrimaryKey()));
 
-	@Override
-	public DomainCollection readDomainBundleOperation() {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 category deleted");
+            return status;
 
-	@Override
-	public ServiceStatus updateAdvertisementTypeOperation(
-			UpdateAdvertisementTypeParam partialAdvType) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
+    }
 
-	@Override
-	public ServiceStatus updateCategoryOperation(
-			UpdateCategoryParam partialCategory) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+    @Override
+    public ServiceStatus deleteDomainOperation(DeleteDomainParam obsoleteDomain) {
 
-	@Override
-	public ServiceStatus updateDomainOperation(UpdateDomainParam partialDomain) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
 
-	@Override
-	public ServiceStatus deleteAdvertisementTypeOperation(int id) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException("operation not yet implemented");
-	}
+    @Override
+    public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
+
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
+
+    @Override
+    public CategoryCollection readCategoryBundleOperation(ReadCategoryBundleParam getCategories) {
+
+        // TODO: use the bundle request parameters as query filter.
+
+        CategoryCollection categoryCollection = new CategoryCollection();
+        try {
+            List<CategoryEntity> categories = categoryFacade.readAll(CategoryEntity.class);
+            if (categories != null) {
+                for (CategoryEntity category : categories) {
+                    AdvertisementCategory cat = new AdvertisementCategory();
+                    cat.setId(category.getId());
+                    cat.setDescription(category.getDescripton());
+                    cat.setName(category.getName());
+                    cat.setAvailable(category.getAvailable() ? 1 : 0);
+                    categoryCollection.getAdvertisementCategory().add(cat);
+                }
+            }
+        } catch (Exception e) {
+            throw new WebServiceException(e);
+        }
+        System.out.println("SIZE: " + categoryCollection.getAdvertisementCategory().size());
+        return categoryCollection;
+    }
+
+    @Override
+    public DomainCollection readDomainBundleOperation() {
+
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
+
+    @Override
+    public ServiceStatus updateAdvertisementTypeOperation(UpdateAdvertisementTypeParam partialAdvType) {
+
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
+
+    @Override
+    public ServiceStatus updateCategoryOperation(UpdateCategoryParam partialCategory) {
+
+        try {
+            CategoryEntity category = new CategoryEntity();
+            AdvertisementCategory advertisementCategory = partialCategory.getAdvertisementCategory();
+            category.setId(advertisementCategory.getId());
+            category.setDescripton(advertisementCategory.getDescription());
+            category.setName(advertisementCategory.getName());
+            category.setAvailable(advertisementCategory.getAvailable() == 1 ? Boolean.TRUE : Boolean.FALSE);
+            categoryFacade.update(category);
+
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 category updated");
+            return status;
+
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
+    }
+
+    @Override
+    public ServiceStatus updateDomainOperation(UpdateDomainParam partialDomain) {
+
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
+
+    @Override
+    public ServiceStatus deleteAdvertisementTypeOperation(int id) {
+
+        // TODO Auto-generated method stub
+        throw new WebServiceException("operation not yet implemented");
+    }
 }

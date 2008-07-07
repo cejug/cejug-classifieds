@@ -8,23 +8,30 @@ import javax.persistence.MappedSuperclass;
 
 /**
  * Entity Class.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Integer id;
 
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
+    /**
+     * @return the id
+     */
+    public Integer getId() {
 
-		return id;
-	}
+        return id;
+    }
+
+    /**
+     * @return the id
+     */
+    public void setId(Integer id) {
+
+        this.id = id;
+    }
 }
