@@ -86,7 +86,7 @@
 		</copy>
 	</target>
 
-	<target name="generate-stubs" >
+	<target name="generate-stubs" depends="init">
 		<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport" classpathref="jaxws.classpath" />
 		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${proj.src.java.generated}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
 			<produces dir="${proj.src.java.generated}" includes="${service.wsdl.generated.package}/**/*.java" />
