@@ -7,15 +7,14 @@
 
 package net.java.dev.cejug.classifieds.server.contract {
 
-    import javax.xml.datatype.XMLGregorianCalendar;
-    
+   
     [Bindable]
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.ServiceStatus")]
-    public class ServiceStatus extends ServiceStatusBase {
+    public class ServiceStatus {
 
         private var _description:String;
         private var _statusCode:int;
-        private var _timestamp:XMLGregorianCalendar;
+        private var _timestamp:Object;
 
         public function set description(value:String):void {
             _description = value;
@@ -31,10 +30,10 @@ package net.java.dev.cejug.classifieds.server.contract {
             return _statusCode;
         }
 
-        public function set timestamp(value:XMLGregorianCalendar):void {
+        public function set timestamp(value:Object):void {
             _timestamp = value;
         }
-        public function get timestamp():XMLGregorianCalendar {
+        public function get timestamp():Object {
             return _timestamp;
         }
 
