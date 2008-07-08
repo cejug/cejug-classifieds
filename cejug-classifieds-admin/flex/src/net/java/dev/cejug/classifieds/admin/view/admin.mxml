@@ -16,25 +16,7 @@
     		</mx:AddChild>
 		</mx:State>
 	</mx:states>
-    <mx:transitions>
-        <mx:Transition id="toMain" fromState="*" toState="main">
-            <mx:Dissolve target="{loginScreen}"  alphaFrom="0.0" alphaTo="1.0" duration="2000"/>
-        </mx:Transition>
-        <mx:Transition id="toLogin" fromState="*" toState="login">
-            <mx:Dissolve target="{mainScreen}"  alphaFrom="0.0" alphaTo="1.0" duration="2000"/>
-        </mx:Transition>
-    </mx:transitions>
-<!--
-    <mx:HBox width="250" height="91" x="10">
-        <mx:Image source="@Embed(source='../../../../../../../../web/images/logo_small.gif')"  verticalAlign="bottom" height="90"/>
-    </mx:HBox>
-    <mx:VBox y="5" height="38" right="10" width="158" verticalGap="0" visible="{Admin.loginInfoVisible}">
-        <mx:Label text="User: Rodrigo Lopes" />
-        <mx:HBox width="100%">
-            <mx:Label text="Sign out" click="{adminService.logout()}" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-        </mx:HBox>
-    </mx:VBox>
--->    
+  
     <mx:ApplicationControlBar id="acb" width="100%">
         <mx:Image source="@Embed(source='../../../../../../../../web/images/logo_small.gif')"  verticalAlign="bottom" height="40"/>
         <mx:Label text="Cejug Classifieds Admin" fontSize="18" fontWeight="bold" color="#f0f0f0"/>

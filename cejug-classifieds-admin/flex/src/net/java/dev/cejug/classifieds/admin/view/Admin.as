@@ -18,6 +18,7 @@ package net.java.dev.cejug.classifieds.admin.view
         }
 
         public function logout():void {
+            adminReference.mainScreen.currentState = "";
         	adminReference.currentState = "login";
         	loginInfoVisible = false;
         }

@@ -3,6 +3,7 @@
     xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
     xmlns:category="net.java.dev.cejug.classifieds.admin.view.category.*"
     creationComplete="categoryService.init(event)">
+
     <category:Category id="categoryService" />
     <mx:VBox width="100%" height="100%" id="vbCategory">
         <mx:Panel id="pCategory" title="Categories" width="100%" height="100%">
@@ -29,12 +30,12 @@
                 <mx:Panel id="pNewCategory" title="New Category" width="100%">
                     <mx:Form width="100%" id="fNewCategory">
                         <mx:FormItem label="Name"><mx:TextInput id="fNewCategoryName"/></mx:FormItem>
-                        <mx:FormItem label="Description"><mx:TextArea id="fNewCategoryDescription" /></mx:FormItem>
+                        <mx:FormItem label="Description"><mx:TextArea id="fNewCategoryDescription" width="300" height="100" /></mx:FormItem>
                         <mx:FormItem label="Available"><mx:CheckBox id="fNewCategoryAvailable"/></mx:FormItem>
                     </mx:Form>
 
                     <mx:ControlBar>
-                        <mx:Button label="Save" click="categoryService.createCategory()" />
+                        <mx:Button label="Save" enabled="{fNewCategoryName.text.length > 0}" click="categoryService.createCategory()" />
                         <mx:Button label="Cancel"  click="categoryService.resetState()"/>
                     </mx:ControlBar>
                 </mx:Panel>
@@ -47,12 +48,12 @@
                 <mx:Panel id="pUpdateCategory" title="Update Category" width="100%">
                     <mx:Form width="100%" id="fUpdateCategory">
                         <mx:FormItem label="Name"><mx:TextInput id="fUpdateCategoryName" text="{categoryService.categoryEntity.name}"/></mx:FormItem>
-                        <mx:FormItem label="Description"><mx:TextArea id="fUpdateCategoryDescription" text="{categoryService.categoryEntity.description}"/></mx:FormItem>
+                        <mx:FormItem label="Description"><mx:TextArea id="fUpdateCategoryDescription" text="{categoryService.categoryEntity.description}" width="300" height="100"/></mx:FormItem>
                         <mx:FormItem label="Available"><mx:CheckBox id="fUpdateCategoryAvailable" selected="{categoryService.categoryEntity.available==1}" /></mx:FormItem>
                     </mx:Form>
 
                     <mx:ControlBar>
-                        <mx:Button label="Save" click="categoryService.updateCategory()" />
+                        <mx:Button label="Save" enabled="{fUpdateCategoryName.text.length > 0}" click="categoryService.updateCategory()" />
                         <mx:Button label="Cancel"  click="currentState=''"/>
                     </mx:ControlBar>
                 </mx:Panel>
