@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel title="Category" horizontalAlign="center" verticalGap="0" paddingTop="8" paddingBottom="8" 
+<mx:Panel title="Advertisement Type" horizontalAlign="center" verticalGap="0" paddingTop="8" paddingBottom="8" 
     xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
     xmlns:advtype="net.java.dev.cejug.classifieds.admin.view.advtype.*"
     creationComplete="advtypeService.init(event)">
