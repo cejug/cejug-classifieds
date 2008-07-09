@@ -57,22 +57,6 @@
 		</javac>
 	</target>
 
-	<!--
-    ===========================================================================
-    Generate AS3 beans for EJBs.
-    ===========================================================================
-    -->
-	<target name="flex.generate.as3">
-		<taskdef  name="gas3" classname="org.granite.generator.ant.AntJavaAs3Task" classpathref="gas3.task.classpath" />
-		<gas3 outputdir="${proj.src.flex}">
-			<classpath refid="gas3.classpath" />
-			<fileset dir="${proj.src.java.generated}">
-				<include name="**/contract/*.class" />
-				<exclude name="**/**/package-info.class"/>
-			</fileset>
-		</gas3>
-	</target>
-
 	<target name="init">
 		<delete dir="${build.dir}" failonerror="false" />
 		<delete dir="${proj.src.java.generated}" failonerror="false" />
