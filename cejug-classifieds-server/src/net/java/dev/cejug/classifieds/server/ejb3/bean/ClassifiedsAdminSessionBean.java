@@ -47,6 +47,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLoca
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
+import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
@@ -177,10 +178,11 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
         try {
             AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-            advTypeEntity.setDescription(newAdvType.getAdvertisementType().getDescription());
-            advTypeEntity.setMaxAttachmentSize(newAdvType.getAdvertisementType().getMaxAttachmentSize());
-            advTypeEntity.setName(newAdvType.getAdvertisementType().getName());
-            advTypeEntity.setTextLength(newAdvType.getAdvertisementType().getMaxTextLength());
+            AdvertisementType advertisementType = newAdvType.getAdvertisementType();
+            advTypeEntity.setDescription(advertisementType.getDescription());
+            advTypeEntity.setMaxAttachmentSize(advertisementType.getMaxAttachmentSize());
+            advTypeEntity.setName(advertisementType.getName());
+            advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
 
             advTypeFacade.create(advTypeEntity);
 
@@ -275,8 +277,27 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
     @Override
     public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
 
-        // TODO Auto-generated method stub
-        throw new WebServiceException("operation not yet implemented");
+        // TODO: use the bundle request parameters as query filter.
+
+        AdvertisementTypeCollection advTypeCollection = new AdvertisementTypeCollection();
+        try {
+            List<AdvertisementTypeEntity> advTypes = advTypeFacade.readAll(AdvertisementTypeEntity.class);
+            if (advTypes != null) {
+                for (AdvertisementTypeEntity advTypeEntity : advTypes) {
+                    AdvertisementType advType = new AdvertisementType();
+                    advType.setId(advTypeEntity.getId());
+                    advType.setDescription(advTypeEntity.getDescription());
+                    advType.setName(advTypeEntity.getName());
+                    advType.setMaxAttachmentSize(advTypeEntity.getMaxAttachmentSize());
+                    advType.setMaxTextLength(advTypeEntity.getTextLength());
+                    advTypeCollection.getAdvertisementType().add(advType);
+                }
+            }
+        } catch (Exception e) {
+            throw new WebServiceException(e);
+        }
+        System.out.println("SIZE: " + advTypeCollection.getAdvertisementType().size());
+        return advTypeCollection;
     }
 
     @Override
@@ -314,8 +335,30 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
     @Override
     public ServiceStatus updateAdvertisementTypeOperation(UpdateAdvertisementTypeParam partialAdvType) {
 
-        // TODO Auto-generated method stub
-        throw new WebServiceException("operation not yet implemented");
+        try {
+            AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
+            AdvertisementType advertisementType = partialAdvType.getAdvertisementType();
+            advTypeEntity.setId(advertisementType.getId());
+            advTypeEntity.setDescription(advertisementType.getDescription());
+            advTypeEntity.setName(advertisementType.getName());
+            advTypeEntity.setMaxAttachmentSize(advertisementType.getMaxAttachmentSize());
+            advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
+
+            advTypeFacade.update(advTypeEntity);
+
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 advertisement type updated");
+            return status;
+
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
     }
 
     @Override
@@ -355,7 +398,23 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
     @Override
     public ServiceStatus deleteAdvertisementTypeOperation(int id) {
 
-        // TODO Auto-generated method stub
-        throw new WebServiceException("operation not yet implemented");
+        try {
+            // TODO Check if the advertisement type is being used, before
+            // deleting it
+            advTypeFacade.delete(AdvertisementTypeEntity.class, new Integer(id));
+
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 advertisement type deleted");
+            return status;
+
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
     }
 }
