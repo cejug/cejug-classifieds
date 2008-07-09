@@ -103,6 +103,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
          */
         public function updateAdvType():void {
             var advertisementType:AdvertisementType = new AdvertisementType();
+            advertisementType.id = advTypeEntity.id;
             advertisementType.name = advtypeReference.fUpdateAdvTypeName.text;
             advertisementType.description = advtypeReference.fUpdateAdvTypeDescription.text;
             
@@ -161,6 +162,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
         public function loadNewAdvType():void {
             advtypeReference.currentState = "createAdvType";
             advTypeEntity = new AdvertisementType();
+            cleanFields();
         }
 
         /**
@@ -178,7 +180,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
             switch(serviceStatus.statusCode) {
                 case 200: MessageUtils.showInfo(serviceStatus.description);
-                          resetState();
+                          advtypeReference.currentState = "";
                           readAllAdvType();
                           break;
                 case 500: MessageUtils.showError(serviceStatus.description); break;

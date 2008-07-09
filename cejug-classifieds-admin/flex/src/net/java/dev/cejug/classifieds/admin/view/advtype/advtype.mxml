@@ -12,8 +12,8 @@
                     <mx:DataGridColumn headerText="Id" dataField="id"/>
                     <mx:DataGridColumn headerText="Name" dataField="name"/>
                     <mx:DataGridColumn headerText="Description" dataField="description"/>
-                    <mx:DataGridColumn headerText="Text Length" dataField="available"  />
-                    <mx:DataGridColumn headerText="Max. Attach. Size" dataField="available"  />
+                    <mx:DataGridColumn headerText="Text Length" dataField="maxTextLength"  />
+                    <mx:DataGridColumn headerText="Max. Attach. Size" dataField="maxAttachmentSize"  />
                 </mx:columns>
             </mx:DataGrid>
 
@@ -49,10 +49,10 @@
             <mx:AddChild relativeTo="{vbAdvType}">
                 <mx:Panel id="pUpdateAdvType" title="Update Advertisement Type" width="100%">
                     <mx:Form width="100%" id="fUpdateAdvType">
-                        <mx:FormItem label="Name"><mx:TextInput id="fUpdateAdvTypeName"/></mx:FormItem>
-                        <mx:FormItem label="Description"><mx:TextArea id="fUpdateAdvTypeDescription" width="300" height="100" /></mx:FormItem>
-                        <mx:FormItem label="Text Length:"><mx:TextInput id="fUpdateAdvTypeTextLength" restrict="0-9"/></mx:FormItem>
-                        <mx:FormItem label="Max. Attachment Size:"><mx:TextInput id="fUpdateAdvTypeMaxAttSize" restrict="0-9"/></mx:FormItem>
+                        <mx:FormItem label="Name"><mx:TextInput id="fUpdateAdvTypeName" text="{advtypeService.advTypeEntity.name}" /></mx:FormItem>
+                        <mx:FormItem label="Description"><mx:TextArea id="fUpdateAdvTypeDescription" text="{advtypeService.advTypeEntity.description}" width="300" height="100" /></mx:FormItem>
+                        <mx:FormItem label="Text Length:"><mx:TextInput id="fUpdateAdvTypeTextLength" text="{advtypeService.advTypeEntity.maxTextLength}" restrict="0-9"/></mx:FormItem>
+                        <mx:FormItem label="Max. Attachment Size:"><mx:TextInput id="fUpdateAdvTypeMaxAttSize" text="{advtypeService.advTypeEntity.maxAttachmentSize}" restrict="0-9"/></mx:FormItem>
                     </mx:Form>
 
                     <mx:ControlBar>
