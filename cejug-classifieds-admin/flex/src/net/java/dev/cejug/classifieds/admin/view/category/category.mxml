@@ -12,7 +12,13 @@
                     <mx:DataGridColumn headerText="Id" dataField="id"/>
                     <mx:DataGridColumn headerText="Name" dataField="name"/>
                     <mx:DataGridColumn headerText="Description" dataField="description"/>
-                    <mx:DataGridColumn headerText="Available" dataField="available"  />
+                    <mx:DataGridColumn headerText="Available" dataField="available"  textAlign="center">
+                       <mx:itemRenderer>
+                          <mx:Component>
+                             <mx:CheckBox enabled="false" selected="{data.available == 1}"/>
+                          </mx:Component>                       
+                       </mx:itemRenderer>
+                    </mx:DataGridColumn>
                 </mx:columns>
             </mx:DataGrid>
 

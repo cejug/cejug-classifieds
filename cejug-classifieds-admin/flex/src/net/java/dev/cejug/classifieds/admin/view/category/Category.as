@@ -148,6 +148,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
         public function loadNewCategory():void {
             categoryReference.currentState = "createCategory";
             categoryEntity = new AdvertisementCategory();
+            cleanFields();
         }
 
         /**
@@ -165,7 +166,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
             switch(serviceStatus.statusCode) {
                 case 200: MessageUtils.showInfo(serviceStatus.description);
-                          resetState();
+                          categoryReference.currentState = "";
                           readAllCategory();
                           break;
                 case 500: MessageUtils.showError(serviceStatus.description); break;
