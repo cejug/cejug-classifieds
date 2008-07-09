@@ -8,7 +8,7 @@
     <view:Main id="mainService" />
     <mx:MenuBar labelField="@label"  
         dataProvider="{mainService.menuBarCollection}"
-        itemClick="mainService.itemClickHandler(event);"/>
+        itemClick="mainService.itemClickHandler(event);" width="100%"/>
     <mx:states>
         <mx:State name="category">
             <mx:AddChild position="lastChild">
