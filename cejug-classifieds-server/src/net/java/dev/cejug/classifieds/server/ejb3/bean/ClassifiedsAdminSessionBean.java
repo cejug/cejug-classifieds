@@ -56,6 +56,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryPa
 import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.DeleteCategoryParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.DeleteDomainParam;
+import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
 import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
 import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
@@ -328,8 +329,28 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
     @Override
     public DomainCollection readDomainBundleOperation() {
 
-        // TODO Auto-generated method stub
-        throw new WebServiceException("operation not yet implemented");
+        // TODO: use the bundle request parameters as query filter.
+
+        DomainCollection domainCollection = new DomainCollection();
+        try {
+            List<DomainEntity> domains = domainFacade.readAll(DomainEntity.class);
+            if (domains != null) {
+                for (DomainEntity domainEntity : domains) {
+                    Domain domain = new Domain();
+                    domain.setId(domainEntity.getId());
+                    domain.setBrand(domainEntity.getBrand());
+                    domain.setDomain(domainEntity.getDomainName());
+                    domain.setSharedQuota(domainEntity.getSharedQuota());
+                    // TODO: Categories
+                    // domain.setCategories(domainEntity.getCategories());
+                    domainCollection.getDomain().add(domain);
+                }
+            }
+        } catch (Exception e) {
+            throw new WebServiceException(e);
+        }
+        System.out.println("SIZE: " + domainCollection.getDomain().size());
+        return domainCollection;
     }
 
     @Override
@@ -391,8 +412,30 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
     @Override
     public ServiceStatus updateDomainOperation(UpdateDomainParam partialDomain) {
 
-        // TODO Auto-generated method stub
-        throw new WebServiceException("operation not yet implemented");
+        try {
+            DomainEntity domainEntity = new DomainEntity();
+            Domain domain = partialDomain.getDomain();
+            domainEntity.setId(domain.getId());
+            domainEntity.setDomainName(domain.getDomain());
+            domainEntity.setBrand(domain.getBrand());
+            domainEntity.setSharedQuota(domain.isSharedQuota());
+            // TODO: Categories
+            // domainEntity.setCategories(domain.getCategories());
+            domainFacade.update(domainEntity);
+
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 domain updated");
+            return status;
+
+        } catch (Exception e) {
+            // TODO: log.............
+            e.printStackTrace();
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
+        }
     }
 
     @Override
