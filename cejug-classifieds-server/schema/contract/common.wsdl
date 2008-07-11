@@ -3,7 +3,7 @@
 	targetNamespace="http://cejug-classifieds.dev.java.net/common"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/common"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/common"

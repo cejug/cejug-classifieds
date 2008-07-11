@@ -4,7 +4,7 @@
 	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
@@ -385,8 +385,8 @@
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CejugClassifiedsAdminBinding" type="contract:CejugClassifiedsAdmin">
-		<soap:binding style="document"
-			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
 		<!-- ADVERTISEMENT TYPE -->
 		<wsdl:operation name="CreateAdvertisementTypeOperation">
 			<soap:operation
