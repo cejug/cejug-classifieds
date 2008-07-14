@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
+import javax.jws.WebService;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
@@ -53,6 +54,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTyp
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
 import net.java.dev.cejug.classifieds.server.generated.contract.CreateAdvertisementTypeParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
 import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
@@ -73,14 +75,15 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a
- *      href="http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
- *      Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
- *      Annotations</a>
+ * @see <a * href=
+ *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
+ *      * Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
+ *      * Annotations< /a>
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
+@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
+public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
 
 	@EJB
 	private DomainFacadeLocal domainFacade;

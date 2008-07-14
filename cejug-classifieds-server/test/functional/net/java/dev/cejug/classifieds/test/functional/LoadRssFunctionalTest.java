@@ -65,7 +65,6 @@ public class LoadRssFunctionalTest {
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		System.out.println(service);
 		RssFilterCollection filterCollection = new RssFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
 

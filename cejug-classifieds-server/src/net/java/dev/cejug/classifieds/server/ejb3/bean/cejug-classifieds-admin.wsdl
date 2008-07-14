@@ -284,8 +284,8 @@
 			<wsdl:documentation>
 				CRUD - Read all active categories from the database.
 			</wsdl:documentation>
-			<wsdl:input message="contract:ReadCategoryBundleMsg" />
-			<wsdl:output message="common-wsdl:CategoryBundle" />
+			<wsdl:input name="category.bundle.request" message="contract:ReadCategoryBundleMsg" />
+			<wsdl:output name="category.bundle.response" message="common-wsdl:CategoryBundle" />
 			<wsdl:fault name="ReadCategoryBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateCategoryOperation">

@@ -14,9 +14,9 @@
 
 	<path id="jaxws.classpath">
 		<pathelement location="${java.home}/../lib/tools.jar" />
-		<fileset dir="${jaxws.lib.home}">
-			<include name="*.jar" />
-			<exclude name="j2ee.jar" />
+		<fileset dir="${env.AS_HOME}/lib/">
+			<include name="javaee.jar" />
+			<include name="appserv-ws.jar" />
 		</fileset>
 		<fileset dir="${project.lib}">
 			<include name="**/*.jar" />
@@ -45,10 +45,10 @@
 	</target>
 
 	<target name="build-server-wsdl">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
 			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
 		</wsimport>
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
 			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
 		</wsimport>
 		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
@@ -140,11 +140,24 @@
 	<!-- Package the entity classes -->
 	<target name="package-entity">
 		<jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
-			<fileset dir="${build.classes.home}">
-				<include name="**/ejb3**/**" />
+			<manifest>
+				<!-- Who is building this jar? -->
+				<attribute name="Built-By" value="${user.name}" />
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+				<attribute name="Implementation-Version" value="SNAPSHOT" />
+			</manifest>
+
+			<fileset dir="${build.classes.home}" casesensitive="yes">
+				<include name="**/**" />
+				<exclude name="test/**"/>
+			</fileset>
+			<fileset dir="${resources.folder}" casesensitive="yes">
+				<include name="**/i18n/**" />
 			</fileset>
 			<metainf dir="${basedir}/conf/ejb/META-INF">
-				<include name="persistence.xml" />
+				<include name="**/**" />
 			</metainf>
 		</jar>
 	</target>
@@ -156,7 +169,7 @@
 	</target>
 
 	<target name="deploy" depends="package-ear">
-		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${as.home}/domains/${domain}/autodeploy" />
+		<copy file="${build.ear.home}/${ant.project.name}-ejb.jar" todir="${as.home}/domains/${domain}/autodeploy" />
 	</target>
 
 	<target name="compile.functional.tests">

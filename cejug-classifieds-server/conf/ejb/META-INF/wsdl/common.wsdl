@@ -16,7 +16,9 @@
 
 
 	<!-- CATEGORY BUNDLE -->
-	<wsdl:message name="ReadCategoryBundle" />
+	<wsdl:message name="ReadCategoryBundle">
+		<wsdl:part element="common:BundleRequest" name="bundle.request" />
+	</wsdl:message>
 	<wsdl:message name="CategoryBundle">
 		<wsdl:part element="common:CategoryCollection" name="category.bundle" />
 	</wsdl:message>

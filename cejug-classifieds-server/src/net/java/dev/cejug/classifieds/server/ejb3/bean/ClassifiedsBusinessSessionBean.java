@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
+import javax.jws.WebService;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
@@ -51,7 +52,9 @@ import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCol
 import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
 import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.BundleRequest;
 import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
+import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
 import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
 import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
 import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
@@ -69,8 +72,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-public class ClassifiedsBusinessSessionBean implements
-		ClassifiedsBusinessRemote {
+@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness")
+public class ClassifiedsBusinessSessionBean implements CejugClassifiedsBusiness {
 
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
@@ -268,7 +271,8 @@ public class ClassifiedsBusinessSessionBean implements
 	}
 
 	@Override
-	public CategoryCollection readCategoryBundleOperation() {
+	public CategoryCollection readCategoryBundleOperation(
+			BundleRequest bundleRequest) {
 		CategoryCollection categoryCollection = new CategoryCollection();
 		try {
 			List<CategoryEntity> categories = categoryFacade
