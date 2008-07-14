@@ -82,8 +82,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin")
-public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
+@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin", serviceName="CejugClassifiedsServiceAdmin", portName="CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
 
 	@EJB
 	private DomainFacadeLocal domainFacade;
