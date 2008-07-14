@@ -175,7 +175,7 @@
 	<wsdl:service name="CejugClassifiedsServiceBusiness">
 		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
 			<soap:address
-				location="http://localhost:8080/cejug-classifieds-server/business" />
+				location="http://localhost:8080/ClassifiedsBusinessSessionBeanService/ClassifiedsBusinessSessionBean" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

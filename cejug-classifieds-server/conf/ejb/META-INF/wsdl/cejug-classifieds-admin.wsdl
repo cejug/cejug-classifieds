@@ -545,7 +545,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
 		<wsdl:port name="CejugClassifiedsAdmin" binding="contract:CejugClassifiedsAdminBinding">
-			<soap:address location="http://localhost:8080/cejug-classifieds-server/admin" />
+			<soap:address location="http://localhost:8080/ClassifiedsAdminSessionBeanService/ClassifiedsAdminSessionBean" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
