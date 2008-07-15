@@ -33,10 +33,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
 		public function Category()
 		{
 			adminService = new RemoteObject("CejugClassifiedsAdminService");
-			adminService.readAllCategories.addEventListener("result", getAllCategoriesResult);
-			adminService.createCategory.addEventListener("result", saveCategoryResult);
-			adminService.updateCategory.addEventListener("result", saveCategoryResult);
-			adminService.deleteCategory.addEventListener("result", saveCategoryResult);
+			adminService.readCategoryBundleOperation.addEventListener("result", getAllCategoriesResult);
+			adminService.createCategoryOperation.addEventListener("result", saveCategoryResult);
+			adminService.updateCategoryOperation.addEventListener("result", saveCategoryResult);
+			adminService.deleteCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.addEventListener("fault", onRemoteFault);
 		}
 
@@ -53,7 +53,6 @@ package net.java.dev.cejug.classifieds.admin.view.category
         private function cleanFields():void {
             categoryReference.fNewCategoryName.text = "";
             categoryReference.fNewCategoryDescription.text = "";
-            categoryReference.fNewCategoryAvailable.selected = false;
         }
 
         /**
@@ -68,7 +67,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
          */
         public function readAllCategory():void {
             var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
-            adminService.readAllCategories(params);
+            adminService.readCategoryBundleOperation(params);
         }
         
         /**
@@ -85,11 +84,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             var advertisementCategory:AdvertisementCategory = new AdvertisementCategory();
             advertisementCategory.name = categoryReference.fNewCategoryName.text;
             advertisementCategory.description = categoryReference.fNewCategoryDescription.text;
-            advertisementCategory.available = categoryReference.fNewCategoryAvailable.selected ? 1 : 0;
             
             var param:CreateCategoryParam = new CreateCategoryParam();
             param.advertisementCategory = advertisementCategory;
-            adminService.createCategory(param);
+            adminService.createCategoryOperation(param);
         }
 
         /**
@@ -100,11 +98,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             advertisementCategory.id = categoryEntity.id;
             advertisementCategory.name = categoryReference.fUpdateCategoryName.text;
             advertisementCategory.description = categoryReference.fUpdateCategoryDescription.text;
-            advertisementCategory.available = categoryReference.fUpdateCategoryAvailable.selected ? 1 : 0;
             
             var param:UpdateCategoryParam = new UpdateCategoryParam();
             param.advertisementCategory = advertisementCategory;
-            adminService.updateCategory(param);
+            adminService.updateCategoryOperation(param);
         }
 
         /**
@@ -129,7 +126,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
                     categoryEntity = categoryDataProvider.getItemAt(row) as AdvertisementCategory;
                     var param:DeleteCategoryParam = new DeleteCategoryParam();
                     param.primaryKey = categoryEntity.id;
-                    adminService.deleteCategory(param);
+                    adminService.deleteCategoryOperation(param);
                 }
             }
         }

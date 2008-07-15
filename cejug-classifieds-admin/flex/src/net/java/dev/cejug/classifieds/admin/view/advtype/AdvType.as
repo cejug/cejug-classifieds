@@ -33,10 +33,10 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
         public function AdvType()
         {
             adminService = new RemoteObject("CejugClassifiedsAdminService");
-            adminService.readAllAdvTypes.addEventListener("result", getAllAdvTypesResult);
-            adminService.createAdvType.addEventListener("result", saveAdvTypeResult);
-            adminService.updateAdvType.addEventListener("result", saveAdvTypeResult);
-            adminService.deleteAdvType.addEventListener("result", saveAdvTypeResult);
+            adminService.readAdvertisementTypeBundleOperation.addEventListener("result", getAllAdvTypesResult);
+            adminService.createAdvertisementTypeOperation.addEventListener("result", saveAdvTypeResult);
+            adminService.updateAdvertisementTypeOperation.addEventListener("result", saveAdvTypeResult);
+            adminService.deleteAdvertisementTypeOperation.addEventListener("result", saveAdvTypeResult);
             adminService.addEventListener("fault", onRemoteFault);
         }
 
@@ -69,7 +69,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
          */
         public function readAllAdvType():void {
             var params:ReadAdvertisementTypeBundleParam = new ReadAdvertisementTypeBundleParam();
-            adminService.readAllAdvTypes(params);
+            adminService.readAdvertisementTypeBundleOperation(params);
         }
         
         /**
@@ -95,7 +95,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
             
             var param:CreateAdvertisementTypeParam = new CreateAdvertisementTypeParam();
             param.advertisementType = advertisementType;
-            adminService.createAdvType(param);
+            adminService.createAdvertisementTypeOperation(param);
         }
 
         /**
@@ -117,7 +117,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
             
             var param:UpdateAdvertisementTypeParam = new UpdateAdvertisementTypeParam();
             param.advertisementType = advertisementType;
-            adminService.updateAdvType(param);
+            adminService.updateAdvertisementTypeOperation(param);
         }
 
         /**
@@ -143,7 +143,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
                     advTypeEntity = advtypeDataProvider.getItemAt(row) as AdvertisementType;
                     var param:DeleteAdvertisementTypeParam = new DeleteAdvertisementTypeParam();
                     param.primaryKey = advTypeEntity.id;
-                    adminService.deleteAdvType(param);
+                    adminService.deleteAdvertisementTypeOperation(param);
                 }
             }
         }

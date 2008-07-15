@@ -16,6 +16,7 @@ package net.java.dev.cejug.classifieds.server.contract {
         private var _id:Number;
         private var _sharedQuota:Boolean;
         private var _timezone:String;
+        private var _categoryCollection:CategoryCollection;
 
         public function set brand(value:String):void {
             _brand = value;
@@ -52,5 +53,11 @@ package net.java.dev.cejug.classifieds.server.contract {
             return _timezone;
         }
 
+        public function set categoryCollection(value:CategoryCollection):void {
+            _categoryCollection = value;
+        }
+        public function get categoryCollection():CategoryCollection {
+            return _categoryCollection;
+        }
     }
 }
