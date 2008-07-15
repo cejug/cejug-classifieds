@@ -237,15 +237,21 @@ public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
             // TODO: review validation...
             DomainEntity entity = new DomainEntity();
             entity.setDomainName(newDomain.getDomain().getDomain());
-            entity.setSharedQuota(false);
+            entity.setSharedQuota(newDomain.getDomain().isSharedQuota());
             entity.setBrand(newDomain.getDomain().getBrand());
             domainFacade.create(entity);
+
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            status.setDescription("1 domain created");
+            return status;
         } catch (Exception e) {
             // TODO Logging....
-            throw new WebServiceException(e);
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(500);
+            status.setDescription(e.getMessage());
+            return status;
         }
-
-        return new ServiceStatus();
     }
 
     @Override
