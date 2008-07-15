@@ -85,6 +85,7 @@
 				<xsd:element name="domain" type="xsd:string" />
 				<xsd:element name="brand" type="xsd:string" />
 				<xsd:element name="timezone" type="xsd:string" default="Fortaleza/Ceara" />
+				<xsd:element ref="common:CategoryCollection" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -153,6 +154,7 @@
 				<xsd:element name="name" type="xsd:NMTOKEN" />
 				<xsd:element name="description" type="xsd:string" />
 				<xsd:element name="available" type="xsd:int" />
+				<xsd:element ref="common:AdvertisementCategory" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
