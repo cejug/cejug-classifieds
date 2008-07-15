@@ -14,6 +14,7 @@ package net.java.dev.cejug.classifieds.server.contract {
         private var _description:String;
         private var _id:Number;
         private var _name:String;
+        private var _advertisementCategory:AdvertisementCategory;
 
         public function set available(value:int):void {
             _available = value;
@@ -41,6 +42,12 @@ package net.java.dev.cejug.classifieds.server.contract {
         }
         public function get name():String {
             return _name;
+        }
+        public function set advertisementCategory(value:String):void {
+            _advertisementCategory = value;
+        }
+        public function get advertisementCategory():String {
+            return _advertisementCategory;
         }
     }
 }
