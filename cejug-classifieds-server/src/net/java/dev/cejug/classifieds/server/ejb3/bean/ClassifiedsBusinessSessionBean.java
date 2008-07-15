@@ -112,17 +112,15 @@ public class ClassifiedsBusinessSessionBean implements CejugClassifiedsBusiness 
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {
 				FeedType feed = new FeedType();
-				// EntryType entry = new EntryType();
 				TextType title = new TextType();
 				title.setType(adv.getTitle());
 				feed.getAuthorOrCategoryOrContributor().add(title);
 
 				Item item = new Item();
-				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor(adv.getCustomer().getLogin());
 				item.setAuthor("INCOMPLETE DATA SET");
 				item.setDescription(adv.getSummary());
-				// item.setPubDate(adv.getPublishingPeriod().iterator().next().
-				// getDay());
+				item.setPubDate(adv.getStart());
 				atomCollection.add(feed);
 			}
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="generated"/>
-	<classpathentry kind="src" path="schema/config"/>
-	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="src" path="test/unit"/>
-	<classpathentry kind="src" path="test/functional"/>
-	<classpathentry kind="lib" path="lib/ext/junit-4.4.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/ext/javaee.jar"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="src" path="src" />
+	<classpathentry kind="src" path="generated" />
+	<classpathentry kind="src" path="schema/config" />
+	<classpathentry kind="src" path="resources" />
+	<classpathentry kind="src" path="test/unit" />
+	<classpathentry kind="src" path="test/functional" />
+	<classpathentry kind="lib" path="lib/ext/junit-4.4.jar" />
+	<classpathentry kind="con"
+		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry kind="lib" path="lib/ext/javaee.jar" />
+	<classpathentry kind="output" path="build/classes" />
 </classpath>
