@@ -3,7 +3,6 @@
 	<property file="build.properties" />
 	<property environment="env" />
 	<property name="as.home" value="${env.AS_HOME}" />
-	<property name="jaxws.lib.home" value="${env.JAXWS_HOME}/lib" />
 	<property name="project.lib" value="${basedir}/lib" />
 	<property name="build.home" value="${basedir}/build" />
 	<property name="build.ear.home" value="${build.home}/ear" />
