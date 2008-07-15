@@ -76,13 +76,14 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a * href=
- *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
- *      * Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
- *      * Annotations< /a>
+ *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity"> *
+ *      Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using *
+ *      Annotations< /a>
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin", serviceName="CejugClassifiedsServiceAdmin", portName="CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
+@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
+public class ClassifiedsAdminSessionBean implements CejugClassifiedsAdmin {
 
 	@EJB
 	private DomainFacadeLocal domainFacade;
@@ -267,8 +268,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
 
 		try {
 			// TODO Check if the category is being used, before deleting it
-			categoryFacade.delete(CategoryEntity.class, new Integer(
-					obsoleteCategory.getPrimaryKey()));
+			categoryFacade.delete(CategoryEntity.class, Integer
+					.valueOf(obsoleteCategory.getPrimaryKey()));
 
 			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
@@ -476,8 +477,8 @@ import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainPara
 		try {
 			// TODO Check if the advertisement type is being used, before
 			// deleting it
-			advTypeFacade
-					.delete(AdvertisementTypeEntity.class, new Integer(id));
+			advTypeFacade.delete(AdvertisementTypeEntity.class, Integer
+					.valueOf(id));
 
 			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);

@@ -59,7 +59,7 @@ public class MaintainCategoriesFunctionalTest {
 				.getCejugClassifiedsAdmin();
 		ReadCategoryBundleParam param = new ReadCategoryBundleParam();
 
-/*		if (service.readCategoryBundleOperation(param)
+		if (service.readCategoryBundleOperation(param)
 				.getAdvertisementCategory().isEmpty()) {
 			AdvertisementCategory category = new AdvertisementCategory();
 			category.setName("cars");
@@ -83,8 +83,7 @@ public class MaintainCategoriesFunctionalTest {
 			status = service.createCategoryOperation(catParam);
 			System.out.println(status.getDescription());
 			assert status.getDescription().equalsIgnoreCase("OK");
-			
 		}
-		*/
+
 	}
 }
