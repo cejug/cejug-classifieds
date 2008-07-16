@@ -8,7 +8,7 @@
 	<property name="proj.src.flex" location="${basedir}/src" />
 	<property name="proj.src.java" location="${basedir}/../java/src" />
 	<property name="proj.src.java.generated" location="${basedir}/../java/generated" />
-	<property name="proj.src.flex.root" value="${proj.src.flex}\net\java\dev\cejug\classifieds\admin\view" />
+	<property name="proj.src.flex.root" value="${proj.src.flex}/net/java/dev/cejug/classifieds/admin/view" />
 
 	<property name="dev.libs" location="${basedir}/libs" />
 	<property name="build.dir" location="${basedir}/../build" />
@@ -39,9 +39,7 @@
 		</fileset>
 	</path>
 	
-	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
-		<classpath refid="jaxws.classpath" />
-	</taskdef>
+
 	
     <path id="gas3.task.classpath">
         <fileset dir="${dev.libs}/gas3">
@@ -76,6 +74,7 @@
 	</target>
 
 	<target name="generate-stubs" depends="init">
+		  <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport" classpath="jaxws.classpath" />
 		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${proj.src.java.generated}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
 			<produces dir="${proj.src.java.generated}" includes="${service.wsdl.generated.package}/**/*.java" />
 		</wsimport>
