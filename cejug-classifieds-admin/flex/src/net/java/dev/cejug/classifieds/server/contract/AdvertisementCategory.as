@@ -43,10 +43,10 @@ package net.java.dev.cejug.classifieds.server.contract {
         public function get name():String {
             return _name;
         }
-        public function set advertisementCategory(value:String):void {
+        public function set advertisementCategory(value:AdvertisementCategory):void {
             _advertisementCategory = value;
         }
-        public function get advertisementCategory():String {
+        public function get advertisementCategory():AdvertisementCategory {
             return _advertisementCategory;
         }
     }
