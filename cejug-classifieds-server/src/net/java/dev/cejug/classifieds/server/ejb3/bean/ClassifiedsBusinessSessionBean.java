@@ -73,7 +73,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
-public class ClassifiedsBusinessSessionBean implements CejugClassifiedsBusiness {
+public class ClassifiedsBusinessSessionBean implements ClassifiedsBusinessRemote {
 
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
