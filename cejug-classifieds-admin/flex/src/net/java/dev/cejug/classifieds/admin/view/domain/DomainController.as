@@ -9,10 +9,10 @@ package net.java.dev.cejug.classifieds.admin.view.domain
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
-    import net.java.dev.cejug.classifieds.server.contract.Domain;
     import net.java.dev.cejug.classifieds.server.contract.CreateDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteDomainParam;
-    import net.java.dev.cejug.classifieds.server.contract.ReadDomainBundleParam;
+    import net.java.dev.cejug.classifieds.server.contract.Domain;
+    import net.java.dev.cejug.classifieds.server.contract.ReadCategoryBundleParam;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateDomainParam;
     
@@ -28,6 +28,10 @@ package net.java.dev.cejug.classifieds.admin.view.domain
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.Domain")]
         public var domainDataProvider:ArrayCollection = new ArrayCollection();
 
+        [Bindable]
+        [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
+        public var categoryDataProvider:ArrayCollection = new ArrayCollection();
+        
         private var serviceStatus:ServiceStatus;
 
 		public function DomainController()
@@ -37,6 +41,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 			adminService.createDomainOperation.addEventListener("result", saveDomainResult);
 			adminService.updateDomainOperation.addEventListener("result", saveDomainResult);
 			adminService.deleteDomainOperation.addEventListener("result", saveDomainResult);
+			adminService.readCategoryBundleOperation.addEventListener("result", loadCategoriesResult);
 			adminService.addEventListener("fault", onRemoteFault);
 		}
 
@@ -165,6 +170,15 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             if (row >= 0) {
                 domainEntity = domainDataProvider.getItemAt(row) as Domain;
             }
+        }
+
+        private function loadCategories():void {
+            var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
+            adminService.readCategoryBundleOperation(params);
+        }
+
+        private function loadCategoriesResult(event:ResultEvent):void {
+            categoryDataProvider = event.result as ArrayCollection;
         }
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
