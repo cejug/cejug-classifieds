@@ -8,8 +8,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 /**
  * @author $Author: felipegaucho $
  * @version $Rev: 309 $ ($Date: 2008-06-18 13:21:41 +0200 (Wed, 18 Jun 2008) $) *
- * @param <T>
- *            the entity used in the persistence operations.
+ * @see CRUDEntityFacade
  */
 public interface EntityFacade<T extends AbstractEntity> {
 

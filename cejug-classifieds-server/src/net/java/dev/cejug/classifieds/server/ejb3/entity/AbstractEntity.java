@@ -7,14 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Entity Class.
+ * Entity type.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -24,15 +23,13 @@ public abstract class AbstractEntity {
 	 * @return the id
 	 */
 	public Integer getId() {
-
 		return id;
 	}
 
 	/**
-	 * @return the id
+	 * Sets the id of the entity.
 	 */
 	public void setId(Integer id) {
-
 		this.id = id;
 	}
 }

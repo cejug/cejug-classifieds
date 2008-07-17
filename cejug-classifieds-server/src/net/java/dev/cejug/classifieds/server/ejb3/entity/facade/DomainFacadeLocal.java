@@ -30,6 +30,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see EntityFacade
  */
 @Local
 public interface DomainFacadeLocal extends EntityFacade<DomainEntity> {

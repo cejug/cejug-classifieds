@@ -37,6 +37,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see CRUDEntityFacade
  */
 @Stateless
 public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements

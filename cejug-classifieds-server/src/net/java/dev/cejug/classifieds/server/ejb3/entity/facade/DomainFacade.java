@@ -30,6 +30,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see CRUDEntityFacade
  */
 @Stateless
 public class DomainFacade extends CRUDEntityFacade<DomainEntity> implements
