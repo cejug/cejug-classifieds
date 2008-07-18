@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds-admin"
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
-	xmlns:admin="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:admin   ="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import
 		namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
-		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			targetNamespace="http://cejug-classifieds.dev.java.net/admin"
-			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
-			elementFormDefault="qualified">
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import
 				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
@@ -214,8 +210,7 @@
 				between Domains and Advertisement Types - not all types
 				registered in the database are avaialble to all domains.
 			</wsdl:documentation>
-			<wsdl:input
-				message="admin:ReadAdvertisementTypeBundleMsg" />
+			<wsdl:input message="admin:ReadAdvertisementTypeBundleMsg" />
 			<wsdl:output message="common-wsdl:AdvertisementTypeBundle" />
 			<wsdl:fault name="ReadAllAdvertisementTypesException"
 				message="common-wsdl:ClassifiedsFault" />

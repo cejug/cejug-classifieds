@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds-business"
 	targetNamespace="http://cejug-classifieds.dev.java.net/business"
-	xmlns:business="http://cejug-classifieds.dev.java.net/business"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:business="http://cejug-classifieds.dev.java.net/business"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import
 		namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
-		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			targetNamespace="http://cejug-classifieds.dev.java.net/business"
-			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
-			elementFormDefault="qualified">
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import
 				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
