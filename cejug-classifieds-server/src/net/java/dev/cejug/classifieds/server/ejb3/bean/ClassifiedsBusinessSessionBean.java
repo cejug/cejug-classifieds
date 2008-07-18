@@ -114,7 +114,7 @@ public class ClassifiedsBusinessSessionBean implements
 				FeedType feed = new FeedType();
 				TextType title = new TextType();
 				title.setType(adv.getTitle());
-				feed.getAuthorOrCategoryOrContributor().add(title);
+				//feed.getAuthorOrCategoryOrContributor().add(title);
 
 				Item item = new Item();
 				item.setAuthor(adv.getCustomer().getLogin());
