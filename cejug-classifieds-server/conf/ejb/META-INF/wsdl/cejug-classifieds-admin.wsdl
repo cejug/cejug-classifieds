@@ -1,191 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds-admin"
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
-	xmlns:contract="http://cejug-classifieds.dev.java.net/admin"
-	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:admin="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import
 		namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			targetNamespace="http://cejug-classifieds.dev.java.net/admin/metadata"
-			xmlns:metadata="http://cejug-classifieds.dev.java.net/admin/metadata"
+			targetNamespace="http://cejug-classifieds.dev.java.net/admin"
 			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+			xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 			elementFormDefault="qualified">
 			<xsd:import
 				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
-			<xsd:element name="MonitorQuery">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="query" type="xsd:string"
-							minOccurs="0" maxOccurs="1" />
-						<xsd:element name="average.response.length"
-							type="xsd:int" default="10" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="MonitorResponse">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element name="service.name"
-							type="xsd:string" />
-						<xsd:element name="online.since"
-							type="xsd:dateTime" />
-						<xsd:element name="records"
-							type="metadata:OperationTimestamp" minOccurs="0"
-							maxOccurs="unbounded" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="CancelQuotaInfo">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element ref="common:Quota" minOccurs="0"
-							maxOccurs="1" />
-						<xsd:element name="cancellation.reason"
-							type="xsd:string" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="true" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="AddQuotaInfo">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element ref="common:Quota" minOccurs="0"
-							maxOccurs="1" />
-						<xsd:element name="notify.domain.owner"
-							type="xsd:boolean" default="false" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:complexType name="OperationTimestamp">
-				<xsd:sequence>
-					<xsd:element name="operation.name"
-						type="xsd:string" />
-					<xsd:element name="start" type="xsd:dateTime" />
-					<xsd:element name="finish" type="xsd:dateTime" />
-					<xsd:element name="client.id" type="xsd:string" />
-					<xsd:element name="status" type="xsd:boolean"
-						default="true" />
-					<xsd:element name="note" type="xsd:string"
-						nillable="true" />
-				</xsd:sequence>
-			</xsd:complexType>
-			<xsd:element name="Credentials">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="client.id" type="xsd:string" />
-						<xsd:element name="customer.id"
-							type="xsd:string" />
-						<xsd:element name="customer.role"
-							type="xsd:string" />
-						<xsd:element name="group" type="xsd:string"
-							minOccurs="0" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:complexType name="PinSet">
-				<xsd:sequence>
-					<xsd:element name="pin" type="xsd:string" />
-					<xsd:element name="type" type="xsd:int" />
-				</xsd:sequence>
-			</xsd:complexType>
-
-			<!-- ADVERTISEMENT TYPE PARAMETERS -->
-			<xsd:element name="CreateAdvertisementTypeParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:AdvertisementType" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="UpdateAdvertisementTypeParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:AdvertisementType" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="DeleteAdvertisementTypeParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:PrimaryKey" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="ReadAdvertisementTypeBundleParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:BundleRequest" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<!-- DOMAIN PARAMETERS -->
-			<xsd:element name="CreateDomainParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:Domain" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="UpdateDomainParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:Domain" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="DeleteDomainParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:PrimaryKey" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="ReadDomainBundleParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:BundleRequest" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<!-- CATEGORY PARAMETERS -->
-			<xsd:element name="CreateCategoryParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:AdvertisementCategory" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="UpdateCategoryParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:AdvertisementCategory" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="DeleteCategoryParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:PrimaryKey" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-			<xsd:element name="ReadCategoryBundleParam">
-				<xsd:complexType>
-					<xsd:sequence minOccurs="1" maxOccurs="1">
-						<xsd:element ref="common:BundleRequest" />
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/admin"
+				schemaLocation="admin.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 
@@ -279,8 +116,8 @@
 				evaluation can be done through the Glassfish Admin
 				Console or other service profiling tool.
 			</wsdl:documentation>
-			<wsdl:input message="contract:CheckMonitor" />
-			<wsdl:output message="contract:CheckMonitorResponse" />
+			<wsdl:input message="admin:CheckMonitor" />
+			<wsdl:output message="admin:CheckMonitorResponse" />
 			<wsdl:fault name="CheckMonitorException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
@@ -288,7 +125,7 @@
 			<wsdl:documentation>
 				TODO: Add quota documentation
 			</wsdl:documentation>
-			<wsdl:input message="contract:AddQuota" />
+			<wsdl:input message="admin:AddQuota" />
 			<wsdl:output name="AddQuotaResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="AddQuotaException"
@@ -298,7 +135,7 @@
 			<wsdl:documentation>
 				TODO: Cancel quota documentation
 			</wsdl:documentation>
-			<wsdl:input message="contract:CancelQuota" />
+			<wsdl:input message="admin:CancelQuota" />
 			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="CancelQuotaException"
 				message="common-wsdl:ClassifiedsFault" />
@@ -311,7 +148,7 @@
 				create categories. If the category already exists, it
 				throws an exception.
 			</wsdl:documentation>
-			<wsdl:input message="contract:CreateCategoryMsg" />
+			<wsdl:input message="admin:CreateCategoryMsg" />
 			<wsdl:output name="CreateCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="CreateCagegoriesException"
@@ -321,7 +158,7 @@
 			<wsdl:documentation>
 				CRUD - Read all active categories from the database.
 			</wsdl:documentation>
-			<wsdl:input message="contract:ReadCategoryBundleMsg" />
+			<wsdl:input message="admin:ReadCategoryBundleMsg" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
 			<wsdl:fault name="ReadCategoryBundleException"
 				message="common-wsdl:ClassifiedsFault" />
@@ -333,7 +170,7 @@
 				an exception, otherwise it return an HTTP Created status
 				(201).
 			</wsdl:documentation>
-			<wsdl:input message="contract:UpdateCategoryMsg" />
+			<wsdl:input message="admin:UpdateCategoryMsg" />
 			<wsdl:output name="UpdateCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="UpdateCagegoriesException"
@@ -344,7 +181,7 @@
 				CRUD - Deletes the category by its ID. If the category
 				doesn't exist in the database, it throws an exception.
 			</wsdl:documentation>
-			<wsdl:input message="contract:DeleteCategoryMsg" />
+			<wsdl:input message="admin:DeleteCategoryMsg" />
 			<wsdl:output name="DeleteCategoryResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="DeleteCagegoriesException"
@@ -362,7 +199,7 @@
 				from the classifieds owner - the system admin or his
 				representatives.
 			</wsdl:documentation>
-			<wsdl:input message="contract:CreateAdvertisementTypeMsg" />
+			<wsdl:input message="admin:CreateAdvertisementTypeMsg" />
 			<wsdl:output name="CreateAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="CreateAdvertisementTypeException"
@@ -378,7 +215,7 @@
 				registered in the database are avaialble to all domains.
 			</wsdl:documentation>
 			<wsdl:input
-				message="contract:ReadAdvertisementTypeBundleMsg" />
+				message="admin:ReadAdvertisementTypeBundleMsg" />
 			<wsdl:output message="common-wsdl:AdvertisementTypeBundle" />
 			<wsdl:fault name="ReadAllAdvertisementTypesException"
 				message="common-wsdl:ClassifiedsFault" />
@@ -390,7 +227,7 @@
 				exists it throws an exception, otherwise it return an
 				HTTP Created status (201).
 			</wsdl:documentation>
-			<wsdl:input message="contract:UpdateAdvertisementTypeMsg" />
+			<wsdl:input message="admin:UpdateAdvertisementTypeMsg" />
 			<wsdl:output name="UpdateAdvertisementTypeResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="UpdateAdvertisementTypeException"
@@ -416,7 +253,7 @@
 				create domains. If the domain already exists, it throws
 				an exception.
 			</wsdl:documentation>
-			<wsdl:input message="contract:CreateDomainMsg" />
+			<wsdl:input message="admin:CreateDomainMsg" />
 			<wsdl:output name="CreateDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="CreateDomainException"
@@ -442,7 +279,7 @@
 				exception, otherwise it return an HTTP Created status
 				(201).
 			</wsdl:documentation>
-			<wsdl:input message="contract:UpdateDomainMsg" />
+			<wsdl:input message="admin:UpdateDomainMsg" />
 			<wsdl:output name="UpdateDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="UpdateDomainException"
@@ -453,7 +290,7 @@
 				CRUD - Deletes a Domain by its ID. If the domain record
 				doesn't exist in the database, it throws an exception.
 			</wsdl:documentation>
-			<wsdl:input message="contract:DeleteDomainMsg" />
+			<wsdl:input message="admin:DeleteDomainMsg" />
 			<wsdl:output name="DeleteDomainResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="DeleteDomainException"
@@ -461,7 +298,7 @@
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CejugClassifiedsAdminBinding"
-		type="contract:CejugClassifiedsAdmin">
+		type="admin:CejugClassifiedsAdmin">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
 			style="document" />
 		<!-- ADVERTISEMENT TYPE -->
@@ -621,7 +458,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
 		<wsdl:port name="CejugClassifiedsAdmin"
-			binding="contract:CejugClassifiedsAdminBinding">
+			binding="admin:CejugClassifiedsAdminBinding">
 			<soap:address
 				location="http://localhost:8080/ClassifiedsAdminSessionBeanService/ClassifiedsAdminSessionBean" />
 		</wsdl:port>
