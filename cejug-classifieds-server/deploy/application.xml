@@ -11,8 +11,14 @@
 	<display-name>cejug-classifieds</display-name>
 	<module>
 		<web>
-			<web-uri>cejug-classifieds-server.war</web-uri>
-			<context-root>cejug-classifieds-server</context-root>
+			<web-uri>cejug-classifieds-web.war</web-uri>
+			<context-root>cejug-classifieds-web</context-root>
+		</web>
+	</module>
+	<module>
+		<web>
+			<web-uri>cejug-classifieds-admin.war</web-uri>
+			<context-root>cejug-classifieds-admin</context-root>
 		</web>
 	</module>
 	<module>

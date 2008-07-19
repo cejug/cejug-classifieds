@@ -147,7 +147,7 @@
 		</jar>
 	</target>
 
-	<target name="package-ear" depends="server, package-entity">
+	<target name="package-ear" >
 		<ear destfile="${build.ear.home}/${ant.project.name}.ear" appxml="deploy/application.xml">
 			<fileset dir="${build.ear.home}" includes="*.jar,*.war" />
 		</ear>
