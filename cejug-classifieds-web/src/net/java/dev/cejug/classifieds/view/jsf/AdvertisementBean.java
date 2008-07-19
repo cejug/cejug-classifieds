@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 CEJUG - Ceará Java Users Group
+ Copyright (C) 2008 CEJUG - Cearï¿½ Java Users Group
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -16,7 +16,7 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Ceará Java Users Group.
+ originally used by CEJUG - Cearï¿½ Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
@@ -32,14 +32,14 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
-import net.java.dev.cejug.classifieds.server.generated.contract.Locale;
-import net.java.dev.cejug.classifieds.server.generated.contract.Period;
-import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
-import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.Customer;
+import net.java.dev.cejug_classifieds.metadata.business.Locale;
+import net.java.dev.cejug_classifieds.metadata.business.Period;
+import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * This class is responsible for the operations related to advertisement.

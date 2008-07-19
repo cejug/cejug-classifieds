@@ -14,9 +14,9 @@
 
 	<path id="jaxws.classpath">
 		<pathelement location="${java.home}/../lib/tools.jar" />
-		<fileset dir="${jaxws.lib.home}">
-			<include name="*.jar" />
-			<exclude name="j2ee.jar" />
+		<fileset dir="${env.AS_HOME}/lib/">
+			<include name="javaee.jar" />
+			<include name="appserv-ws.jar" />
 		</fileset>
 		<fileset dir="${project.lib}">
 			<include name="**/*.jar" />
@@ -100,16 +100,16 @@
 	</target>
 
 	<target name="generate-stubs" depends="setup">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
-			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
+			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+		</wsimport>
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
+			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
 		</wsimport>
 		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
 			<classpath refid="jaxws.classpath" />
 		</javac>
-		<!--wsimport debug="true" verbose="${verbose}" keep="true" extension="true" destdir="${generated.dir}" package="${service.wsdl.generated.package}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
-			<produces dir="${generated.dir}" includes="${service.wsdl.generated.package}/**/*.java" />
-		</wsimport-->
 		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
-		<delete dir="${generated.dir}" /-->
+			<delete dir="${generated.dir}" /-->
 	</target>
 </project>

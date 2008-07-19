@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="dev-lib/jaxb/jsr173_1.0_api.jar"/>
 	<classpathentry kind="lib" path="dev-lib/javaee.jar"/>
 	<classpathentry kind="lib" path="dev-lib/junit-4.4.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

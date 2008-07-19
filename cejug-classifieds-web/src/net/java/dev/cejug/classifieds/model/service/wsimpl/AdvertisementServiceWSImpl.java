@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 CEJUG - Ceará Java Users Group
+ Copyright (C) 2008 CEJUG - Cearï¿½ Java Users Group
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -16,7 +16,7 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Ceará Java Users Group.
+ originally used by CEJUG - Cearï¿½ Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
@@ -27,13 +27,14 @@ import java.util.Collections;
 import java.util.List;
 
 import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
-import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 
 /**
  * This implementation is responsible for the communication with the
@@ -70,8 +71,10 @@ public class AdvertisementServiceWSImpl implements AdvertisementService {
 	public List<AdvertisementCategory> getCategories() {
 		CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		CategoryCollection collection = classifiedsBusinessService.readCategoryBundleOperation()
-				;
+		BundleRequest request = new BundleRequest();
+		CategoryCollection collection = classifiedsBusinessService
+				.readCategoryBundleOperation(request);
+		;
 		return Collections.unmodifiableList(collection
 				.getAdvertisementCategory());
 

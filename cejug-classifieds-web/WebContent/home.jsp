@@ -53,7 +53,8 @@
 					</f:facet>
 					<rich:panel>
 						<h:panelGrid columns="1">
-							<h:outputText rendered="#{cat.name ne null}" value="#{cat.name} (#{cat.available})"
+							<h:outputText rendered="#{cat.name ne null}"
+								value="#{cat.name} (#{cat.available})"
 								title="#{cat.description }" />
 						</h:panelGrid>
 					</rich:panel>
@@ -86,9 +87,9 @@
 			</tr>
 		</table>
 	</h:form>
-	<hr/>
-	<p align="center"><font color="darkgrey"><small>powered by <a
-		href="https://cejug-classifieds.dev.java.net/">Cejug-Classifieds</a>
+	<hr />
+	<p align="center"><font color="darkgrey"><small>powered
+	by <a href="https://cejug-classifieds.dev.java.net/">Cejug-Classifieds</a>
 	&reg; 2008-2009 </small></font></p>
 </f:view>
 
