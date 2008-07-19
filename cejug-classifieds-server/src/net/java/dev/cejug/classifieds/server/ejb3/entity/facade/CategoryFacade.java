@@ -39,11 +39,11 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
 		CategoryFacadeLocal {
 	/**
-	 * @see <a
-	 *      href="http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html">Extending
-	 *      the NetBeans Tutorial JSF-JPA-Hibernate Application, Part 3 -
-	 *      Enabling JMX Monitoring on Hibernate v3 and Ehcache 1.3.0 on
-	 *      SimpleJpaHibernateApp</a>
+	 * @see <a * href=
+	 *      "http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html"
+	 *      >Extending * the NetBeans Tutorial JSF-JPA-Hibernate Application,
+	 *      Part 3 - * Enabling JMX Monitoring on Hibernate v3 and Ehcache 1.3.0
+	 *      on * SimpleJpaHibernateApp< /a>
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	@Override

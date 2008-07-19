@@ -15,9 +15,9 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
  * 
  * @author $Author: rodrigolopes $
  * @version $Rev: 1 $ ($Date: 2008-06-08 13:29:07 +0200 (dom, 08 jun 2008) $)
- * @see <a
- *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">Create,
- *      read, update and delete (CRUD)</a>
+ * @see <a *
+ *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
+ *      Create, * read, update and delete (CRUD)< /a>
  */
 public class CRUDEntityFacade<T extends AbstractEntity> implements
 		EntityFacade<T> {
@@ -29,8 +29,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	protected EntityManager manager;
 
 	/**
-	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a
-	 * new entity in the database.
+	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a new
+	 * entity in the database.
 	 * 
 	 * @param entity
 	 *            The entity to be included in the database.
