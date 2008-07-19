@@ -6,16 +6,12 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:admin   ="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
-	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import
 		namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
-				schemaLocation="common.xsd" />
 			<xsd:import
 				namespace="http://cejug-classifieds.dev.java.net/metadata/admin"
 				schemaLocation="admin.xsd" />

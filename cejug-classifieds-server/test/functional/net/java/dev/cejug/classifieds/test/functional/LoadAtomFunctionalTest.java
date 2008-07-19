@@ -29,11 +29,11 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug.classifieds.server.generated.contract.SyndicationFilter;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
+import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.After;
 import org.junit.Before;

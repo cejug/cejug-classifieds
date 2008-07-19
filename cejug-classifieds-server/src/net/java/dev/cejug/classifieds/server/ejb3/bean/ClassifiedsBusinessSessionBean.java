@@ -46,24 +46,26 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFac
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
-import net.java.dev.cejug.classifieds.server.generated.contract.Advertisement;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCollectionFilter;
-import net.java.dev.cejug.classifieds.server.generated.contract.AtomCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.AtomFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.BundleRequest;
-import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.Channel;
-import net.java.dev.cejug.classifieds.server.generated.contract.Customer;
-import net.java.dev.cejug.classifieds.server.generated.contract.FeedType;
-import net.java.dev.cejug.classifieds.server.generated.contract.Item;
-import net.java.dev.cejug.classifieds.server.generated.contract.PublishingHeader;
-import net.java.dev.cejug.classifieds.server.generated.contract.RssCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.RssFilterCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.contract.SpamReport;
-import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
+import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
+import net.java.dev.cejug_classifieds.metadata.business.Customer;
+import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
+import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
+import net.java.dev.cejug_classifieds.metadata.business.SpamReport;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+
+import org.w3._2005.atom.FeedType;
+import org.w3._2005.atom.TextType;
+
+import edu.harvard.law.blogs.rss20.Channel;
+import edu.harvard.law.blogs.rss20.Item;
 
 /**
  * @author $Author$
@@ -71,7 +73,7 @@ import net.java.dev.cejug.classifieds.server.generated.contract.TextType;
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
+@WebService(endpointInterface = "net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
 public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessRemote {
 
@@ -114,7 +116,7 @@ public class ClassifiedsBusinessSessionBean implements
 				FeedType feed = new FeedType();
 				TextType title = new TextType();
 				title.setType(adv.getTitle());
-				//feed.getAuthorOrCategoryOrContributor().add(title);
+				// feed.getAuthorOrCategoryOrContributor().add(title);
 
 				Item item = new Item();
 				item.setAuthor(adv.getCustomer().getLogin());
@@ -179,8 +181,8 @@ public class ClassifiedsBusinessSessionBean implements
 		// TODO: to implement the real code.
 		try {
 			/*
-			 * // loading customer Map<String, String> params = new HashMap<String,
-			 * String>(); params.clear(); params.put("d",
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
 			 * header.getCustomerDomain()); params.put("l",
 			 * header.getCustomerLogin());
 			 */

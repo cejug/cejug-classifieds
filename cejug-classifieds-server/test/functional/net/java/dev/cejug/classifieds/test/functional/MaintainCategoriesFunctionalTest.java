@@ -23,12 +23,12 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.functional;
 
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin;
-import net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsServiceAdmin;
-import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.ReadCategoryBundleParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
+import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.After;
 import org.junit.Before;

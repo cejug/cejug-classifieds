@@ -48,40 +48,40 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLo
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
-import net.java.dev.cejug.classifieds.server.generated.contract.AddQuotaInfo;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementCategory;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementType;
-import net.java.dev.cejug.classifieds.server.generated.contract.AdvertisementTypeCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.CancelQuotaInfo;
-import net.java.dev.cejug.classifieds.server.generated.contract.CategoryCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.CreateAdvertisementTypeParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.CreateCategoryParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.CreateDomainParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.DeleteCategoryParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.DeleteDomainParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.Domain;
-import net.java.dev.cejug.classifieds.server.generated.contract.DomainCollection;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorQuery;
-import net.java.dev.cejug.classifieds.server.generated.contract.MonitorResponse;
-import net.java.dev.cejug.classifieds.server.generated.contract.Quota;
-import net.java.dev.cejug.classifieds.server.generated.contract.ReadAdvertisementTypeBundleParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.ReadCategoryBundleParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.ServiceStatus;
-import net.java.dev.cejug.classifieds.server.generated.contract.UpdateAdvertisementTypeParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.UpdateCategoryParam;
-import net.java.dev.cejug.classifieds.server.generated.contract.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
+import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
+import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
+import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
+import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
+import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
+import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
+import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
+import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
+import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
+import net.java.dev.cejug_classifieds.metadata.common.Quota;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a * href=
- *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity"> *
- *      Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using *
- *      Annotations< /a>
+ *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
+ *      * Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
+ *      * Annotations< /a>
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
-@WebService(endpointInterface = "net.java.dev.cejug.classifieds.server.generated.contract.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
+@WebService(endpointInterface = "net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
 public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
 
 	@EJB

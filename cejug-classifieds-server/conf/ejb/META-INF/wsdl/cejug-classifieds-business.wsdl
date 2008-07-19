@@ -1,50 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds-business"
 	targetNamespace="http://cejug-classifieds.dev.java.net/business"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:business="http://cejug-classifieds.dev.java.net/business"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:business="http://cejug-classifieds.dev.java.net/business"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
-	<wsdl:import
-		namespace="http://cejug-classifieds.dev.java.net/common"
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/business"
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- MESSAGES -->
-	<wsdl:message name="ClassifiedsFault">
-		<wsdl:part element="common:ServiceFault" name="fault" />
-	</wsdl:message>
-
 	<!-- LOAD RSS -->
 	<wsdl:message name="LoadRss">
 		<wsdl:part element="metadata:RssFilterCollection" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadRssResponse">
-		<wsdl:part element="metadata:RssCollection"
-			name="rss.collection" />
+		<wsdl:part element="metadata:RssCollection" name="rss.collection" />
 	</wsdl:message>
 
 	<!-- LOAD ATOM -->
 	<wsdl:message name="LoadAtom">
-		<wsdl:part element="metadata:AtomFilterCollection"
-			name="filter" />
+		<wsdl:part element="metadata:AtomFilterCollection" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadAtomResponse">
-		<wsdl:part element="metadata:AtomCollection"
-			name="atom.collection" />
+		<wsdl:part element="metadata:AtomCollection" name="atom.collection" />
 	</wsdl:message>
 
 	<!-- GET ADVERTISEMENT COLLECTION -->
@@ -53,18 +41,13 @@
 			name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadAdvertisementResponse">
-		<wsdl:part element="metadata:AdvertisementCollection"
-			name="advertisements" />
+		<wsdl:part element="metadata:AdvertisementCollection" name="advertisements" />
 	</wsdl:message>
 
 	<!-- ADVERTISEMENT PUBLISHING -->
 	<wsdl:message name="Publish">
-		<wsdl:part element="metadata:Advertisement"
-			name="advertisement" />
+		<wsdl:part element="metadata:Advertisement" name="advertisement" />
 		<wsdl:part name="header" element="metadata:PublishingHeader" />
-	</wsdl:message>
-	<wsdl:message name="PublishResponse">
-		<wsdl:part element="common:ServiceStatus" name="status" />
 	</wsdl:message>
 
 	<!-- REPORT SPAM -->
@@ -79,48 +62,40 @@
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsBusiness">
 		<wsdl:operation name="ReadCategoryBundleOperation">
-			<wsdl:input name="ReadCategoryBundle"
-				message="common-wsdl:ReadCategoryBundle" />
+			<wsdl:input name="ReadCategoryBundle" message="common-wsdl:ReadCategoryBundle" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
-			<wsdl:fault name="ReadCategoryBundleException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="ReadCategoryBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadAdvertisementOperation">
 			<wsdl:input message="business:LoadAdvertisement" />
 			<wsdl:output message="business:LoadAdvertisementResponse" />
-			<wsdl:fault name="LoadAdvertisementException"
-				message="business:ClassifiedsFault" />
+			<wsdl:fault name="LoadAdvertisementException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadRssOperation">
 			<wsdl:input message="business:LoadRss" />
 			<wsdl:output message="business:LoadRssResponse" />
-			<wsdl:fault name="LoadRssException"
-				message="business:ClassifiedsFault" />
+			<wsdl:fault name="LoadRssException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="LoadAtomOperation">
 			<wsdl:input message="business:LoadAtom" />
 			<wsdl:output message="business:LoadAtomResponse" />
-			<wsdl:fault name="LoadAtomException"
-				message="business:ClassifiedsFault" />
+			<wsdl:fault name="LoadAtomException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="PublishOperation">
 			<wsdl:input message="business:Publish" />
-			<wsdl:output message="business:PublishResponse" />
-			<wsdl:fault name="PublishException"
-				message="business:ClassifiedsFault" />
+			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="PublishException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReportSpamOperation">
 			<wsdl:input message="business:ReportSpam" />
 			<wsdl:output message="business:ReportSpamResponse" />
-			<wsdl:fault name="ReportSpamException"
-				message="business:ClassifiedsFault" />
+			<wsdl:fault name="ReportSpamException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- BINDING -->
-	<wsdl:binding name="CejugClassifiedsBusinessBinding"
-		type="business:CejugClassifiedsBusiness">
+	<wsdl:binding name="CejugClassifiedsBusinessBinding" type="business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
 			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
 		<wsdl:operation name="ReadCategoryBundleOperation">
@@ -187,8 +162,7 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceBusiness">
-		<wsdl:port name="CejugClassifiedsBusiness"
-			binding="business:CejugClassifiedsBusinessBinding">
+		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
 			<soap:address
 				location="http://localhost:8080/ClassifiedsBusinessSessionBeanService/ClassifiedsBusinessSessionBean" />
 		</wsdl:port>
