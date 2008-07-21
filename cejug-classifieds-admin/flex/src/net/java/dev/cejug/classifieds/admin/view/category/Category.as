@@ -20,6 +20,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
 	{
 	    private var categoryReference:category;
         private var adminService:RemoteObject;
+        private var adminAuxService:RemoteObject;
 
         [Bindable]
         public var categoryEntity:AdvertisementCategory;
@@ -28,6 +29,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
         public var categoryDataProvider:ArrayCollection = new ArrayCollection();
 
+        [Bindable]
+        [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
+        public var parentDataProvider:ArrayCollection = new ArrayCollection();
+        
         private var serviceStatus:ServiceStatus;
 
 		public function Category()
@@ -38,6 +43,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
 			adminService.updateCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.deleteCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.addEventListener("fault", onRemoteFault);
+			
+			adminAuxService = new RemoteObject("CejugClassifiedsAdminService");
+            adminAuxService.readCategoryBundleOperation.addEventListener("result", getParentResult);
+            adminAuxService.addEventListener("fault", onRemoteFault);
 		}
 
         public function init(event:FlexEvent):void {
@@ -53,6 +62,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
         private function cleanFields():void {
             categoryReference.fNewCategoryName.text = "";
             categoryReference.fNewCategoryDescription.text = "";
+            categoryReference.fNewCategoryParent.selectedIndex = 0;
         }
 
         /**
@@ -76,7 +86,53 @@ package net.java.dev.cejug.classifieds.admin.view.category
         private function getAllCategoriesResult(event:ResultEvent):void {
             categoryDataProvider = event.result as ArrayCollection; 
         }
+        
+        /**
+         * Loads all the parents categories.
+         */
+        public function getParents():void {
+            var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
+            adminAuxService.readCategoryBundleOperation(params);
+        }
+        
+        /**
+         * Handles the result of loading all the parents categories.
+         */
+        private function getParentResult(event:ResultEvent):void {
+            parentDataProvider = event.result as ArrayCollection; 
+            var item:Object = new Object();
+            item['name'] = 'Select...';
+            parentDataProvider.addItemAt(item, 0);
 
+            if (categoryEntity != null) {
+                removeCurrentFromParent();
+                selectParent();
+            } else {
+                categoryReference.fNewCategoryParent.selectedIndex = 0;
+            }
+        }
+
+        private function selectParent():void {
+            var index:int = 0;
+            if (categoryEntity != null && categoryEntity.advertisementCategory != null) {
+                for (var i:int = 1; i < parentDataProvider.length; i++) {
+                    if (parentDataProvider[i].id == categoryEntity.advertisementCategory.id) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            categoryReference.fUpdateCategoryParent.selectedIndex = index;
+        }
+
+        private function removeCurrentFromParent():void {
+            for (var i:int = 0; i < parentDataProvider.length; i++) {
+                if (parentDataProvider[i].id == categoryEntity.id) {
+                    parentDataProvider.removeItemAt(i);
+                    break;
+                }
+            }
+        }
         /**
          * Create a new category.
          */
@@ -84,7 +140,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             var advertisementCategory:AdvertisementCategory = new AdvertisementCategory();
             advertisementCategory.name = categoryReference.fNewCategoryName.text;
             advertisementCategory.description = categoryReference.fNewCategoryDescription.text;
-            
+            var index:int = categoryReference.fNewCategoryParent.selectedIndex; 
+            if (index > 0) {
+                advertisementCategory.advertisementCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
+            }
             var param:CreateCategoryParam = new CreateCategoryParam();
             param.advertisementCategory = advertisementCategory;
             adminService.createCategoryOperation(param);
@@ -98,7 +157,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             advertisementCategory.id = categoryEntity.id;
             advertisementCategory.name = categoryReference.fUpdateCategoryName.text;
             advertisementCategory.description = categoryReference.fUpdateCategoryDescription.text;
-            
+            var index:int = categoryReference.fUpdateCategoryParent.selectedIndex; 
+            if (index > 0) {
+                advertisementCategory.advertisementCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
+            }
             var param:UpdateCategoryParam = new UpdateCategoryParam();
             param.advertisementCategory = advertisementCategory;
             adminService.updateCategoryOperation(param);
@@ -144,7 +206,8 @@ package net.java.dev.cejug.classifieds.admin.view.category
          */
         public function loadNewCategory():void {
             categoryReference.currentState = "createCategory";
-            categoryEntity = new AdvertisementCategory();
+            categoryEntity = null; //new AdvertisementCategory();
+            getParents();
             cleanFields();
         }
 
@@ -152,17 +215,18 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Loads the screen to update a category.
          */
         public function loadUpdateCategory():void {
-            categoryReference.currentState = "updateCategory";
             var row:int = categoryReference.dgCategories.selectedIndex;
 
             if (row >= 0) {
+                categoryReference.currentState = "updateCategory";
                 categoryEntity = categoryDataProvider.getItemAt(row) as AdvertisementCategory;
+                getParents();
             }
         }
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
             switch(serviceStatus.statusCode) {
-                case 200: MessageUtils.showInfo(serviceStatus.description);
+                case 200: //MessageUtils.showInfo(serviceStatus.description);
                           categoryReference.currentState = "";
                           readAllCategory();
                           break;

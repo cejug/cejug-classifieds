@@ -183,7 +183,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
             switch(serviceStatus.statusCode) {
-                case 200: MessageUtils.showInfo(serviceStatus.description);
+                case 200: //MessageUtils.showInfo(serviceStatus.description);
                           domainReference.currentState = "";
                           readAllDomain();
                           break;

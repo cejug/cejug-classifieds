@@ -179,7 +179,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
             switch(serviceStatus.statusCode) {
-                case 200: MessageUtils.showInfo(serviceStatus.description);
+                case 200: //MessageUtils.showInfo(serviceStatus.description);
                           advtypeReference.currentState = "";
                           readAllAdvType();
                           break;

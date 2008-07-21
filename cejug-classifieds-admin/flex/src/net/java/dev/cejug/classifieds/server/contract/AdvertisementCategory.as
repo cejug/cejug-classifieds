@@ -16,6 +16,10 @@ package net.java.dev.cejug.classifieds.server.contract {
         private var _name:String;
         private var _advertisementCategory:AdvertisementCategory;
 
+        public function toString():String {
+            return name;
+        }
+
         public function set available(value:int):void {
             _available = value;
         }
