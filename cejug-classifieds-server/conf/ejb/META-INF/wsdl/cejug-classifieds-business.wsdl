@@ -163,7 +163,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceBusiness">
 		<wsdl:documentation>
-			<Version>$Id$</Version>
+			<Version>$Rev: 399 $</Version>
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
 			<soap:address
