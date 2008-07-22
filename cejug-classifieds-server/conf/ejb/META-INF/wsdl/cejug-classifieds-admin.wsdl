@@ -448,7 +448,7 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
-		<wsdl:documentation>
+		<wsdl:documentation> 
 			<Version>$Rev$</Version>
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsAdmin"
