@@ -4,7 +4,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:admin   ="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:admin="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import
@@ -448,6 +448,9 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
+		<wsdl:documentation>
+			<Version>$Rev$</Version>
+		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsAdmin"
 			binding="admin:CejugClassifiedsAdminBinding">
 			<soap:address
