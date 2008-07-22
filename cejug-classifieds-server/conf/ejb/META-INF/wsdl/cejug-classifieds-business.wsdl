@@ -162,6 +162,9 @@
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceBusiness">
+		<wsdl:documentation>
+			<Version>$Rev: 397 $</Version>
+		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
 			<soap:address
 				location="http://localhost:8080/ClassifiedsBusinessSessionBeanService/ClassifiedsBusinessSessionBean" />
