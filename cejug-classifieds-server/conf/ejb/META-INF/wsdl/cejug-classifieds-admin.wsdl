@@ -449,7 +449,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CejugClassifiedsServiceAdmin">
 		<wsdl:documentation> 
-			<Version>$Rev$</Version>
+			<Version>$Id$</Version>
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsAdmin"
 			binding="admin:CejugClassifiedsAdminBinding">
