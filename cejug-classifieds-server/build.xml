@@ -12,7 +12,6 @@
 	<property name="domain" value="domain1" />
 
 	<path id="jaxws.classpath">
-		<pathelement location="${java.home}/../lib/tools.jar" />
 		<fileset dir="${env.AS_HOME}/lib/">
 			<include name="javaee.jar" />
 			<include name="appserv-ws.jar" />
@@ -136,7 +135,7 @@
 
 			<fileset dir="${build.classes.home}" casesensitive="yes">
 				<include name="**/**" />
-				<exclude name="test/**"/>
+				<exclude name="test/**" />
 			</fileset>
 			<fileset dir="${resources.folder}" casesensitive="yes">
 				<include name="**/i18n/**" />
