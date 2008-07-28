@@ -2,12 +2,9 @@
 <project basedir="." default="help" name="cejug-classifieds-server">
 	<property file="build.properties" />
 	<property environment="env" />
-	<property name="as.home" value="${env.AS_HOME}" />
 	<property name="project.lib" value="${basedir}/lib" />
 	<property name="build.home" value="${basedir}/build" />
 	<property name="build.ear.home" value="${build.home}/ear" />
-	<property name="build.admin.stubs.home" value="${build.home}/admin-stubs" />
-	<property name="build.entity.package" value="${build.home}/entities" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 
@@ -38,7 +35,6 @@
 	<target name="setup">
 		<mkdir dir="${build.classes.home}" />
 		<mkdir dir="${build.ear.home}" />
-		<mkdir dir="${build.admin.stubs.home}" />
 		<mkdir dir="${generated.dir}" />
 	</target>
 
@@ -153,7 +149,7 @@
 	</target>
 
 	<target name="deploy" depends="package-ear">
-		<copy file="${build.ear.home}/${ant.project.name}-ejb.jar" todir="${as.home}/domains/${domain}/autodeploy" />
+		<copy file="${build.ear.home}/${ant.project.name}-ejb.jar" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
 	</target>
 
 	<target name="compile.functional.tests">
