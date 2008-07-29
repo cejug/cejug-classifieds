@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
@@ -238,9 +239,18 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
         try {
             // TODO: review validation...
             DomainEntity entity = new DomainEntity();
-            entity.setDomainName(newDomain.getDomain().getDomain());
-            entity.setSharedQuota(newDomain.getDomain().isSharedQuota());
-            entity.setBrand(newDomain.getDomain().getBrand());
+            Domain domain = newDomain.getDomain();
+            entity.setDomainName(domain.getDomain());
+            entity.setSharedQuota(domain.isSharedQuota());
+            entity.setBrand(domain.getBrand());
+            Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
+            if (domain.getCategoryCollection() != null && domain.getCategoryCollection().getAdvertisementCategory() != null) {
+                for (AdvertisementCategory category : domain.getCategoryCollection().getAdvertisementCategory()) {
+                    CategoryEntity categoryEntity = fillCategoryEntity(category);
+                    categories.add(categoryEntity);
+                }
+            }
+            entity.setCategories(categories);
             domainFacade.create(entity);
 
             ServiceStatus status = new ServiceStatus();
@@ -351,6 +361,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
         // TODO: use the bundle request parameters as query filter.
 
         DomainCollection domainCollection = new DomainCollection();
+        CategoryCollection categoryCollection = null;
         try {
             List<DomainEntity> domains = domainFacade.readAll(DomainEntity.class);
             if (domains != null) {
@@ -360,8 +371,16 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
                     domain.setBrand(domainEntity.getBrand());
                     domain.setDomain(domainEntity.getDomainName());
                     domain.setSharedQuota(domainEntity.getSharedQuota());
-                    // TODO: Categories
-                    // domain.setCategories(domainEntity.getCategories());
+
+                    categoryCollection = new CategoryCollection();
+                    if (domainEntity.getCategories() != null) {
+                        for (CategoryEntity categoryEntity : domainEntity.getCategories()) {
+                            AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
+                            categoryCollection.getAdvertisementCategory().add(category);
+                        }
+                    }
+                    domain.setCategoryCollection(categoryCollection);
+
                     domainCollection.getDomain().add(domain);
                 }
             }
@@ -447,8 +466,16 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
             domainEntity.setDomainName(domain.getDomain());
             domainEntity.setBrand(domain.getBrand());
             domainEntity.setSharedQuota(domain.isSharedQuota());
-            // TODO: Categories
-            // domainEntity.setCategories(domain.getCategories());
+
+            Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
+            if (domain.getCategoryCollection() != null && domain.getCategoryCollection().getAdvertisementCategory() != null) {
+                for (AdvertisementCategory category : domain.getCategoryCollection().getAdvertisementCategory()) {
+                    CategoryEntity categoryEntity = fillCategoryEntity(category);
+                    categories.add(categoryEntity);
+                }
+            }
+            domainEntity.setCategories(categories);
+
             domainFacade.update(domainEntity);
 
             ServiceStatus status = new ServiceStatus();
