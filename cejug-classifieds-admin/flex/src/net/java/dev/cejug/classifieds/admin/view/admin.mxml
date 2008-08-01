@@ -4,8 +4,6 @@
 	xmlns:view="net.java.dev.cejug.classifieds.admin.view.*" currentState="login"
 	creationComplete="adminService.init(event)" >
 	
-	<mx:Style source="../../../../../../../../web/css/admin.css" />
-	
 	<view:Admin id="adminService" />
 	<mx:states>
 		<mx:State name="login">
