@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 Felipe Gaúcho
+ Copyright (C) 2008 Felipe GaÃºcho
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -16,24 +16,17 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Cear� Java Users Group.
+ originally used by CEJUG - Cearï¿½ Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
+package net.java.dev.cejug.classifieds.test.functional.business;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
-import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
-import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.metadata.business.SpamReport;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +38,7 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class LoadRssFunctionalTest {
+public class ReportSpamFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -59,40 +52,21 @@ public class LoadRssFunctionalTest {
 	}
 
 	@Test
-	public void testLoadRssOperation() {
+	public void reportSpamOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		RssFilterCollection filterCollection = new RssFilterCollection();
-		SyndicationFilter filter = new SyndicationFilter();
+		SpamReport spam = new SpamReport();
+		spam.setAdvertisementId(10);
+		spam.setReason("slang terms and porn image");
 
-		// retrieve the advertisement RSS since yesterday to today.
-		GregorianCalendar today = new GregorianCalendar();
-		GregorianCalendar yesterday = new GregorianCalendar();
-		yesterday.roll(Calendar.DAY_OF_YEAR, false);
-
-		try {
-			filter.setDateInitial(DatatypeFactory.newInstance()
-					.newXMLGregorianCalendar(yesterday));
-			filter.setDateFinal(DatatypeFactory.newInstance()
-					.newXMLGregorianCalendar(today));
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		filterCollection.getFilterCollection().add(filter);
-
-		RssCollection collection = service.loadRssOperation(filterCollection);
-
-		System.out.println(collection.getRssCollection().get(0).getItem()
-				.toString());
-		// assert collection.getRssCollection().size() > 0;
+		ServiceStatus status = service.reportSpamOperation(spam);
+		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 
 	@Test
-	public void testLoadRssOperationFail() {
+	public void testReportSpamOperationFail() {
 	}
 }

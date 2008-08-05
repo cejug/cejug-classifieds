@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional;
+package net.java.dev.cejug.classifieds.test.functional.business;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -31,8 +31,8 @@ import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
-import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
+import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
+import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.After;
@@ -45,28 +45,27 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class LoadAtomFunctionalTest {
+public class LoadRssFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// TODO: include or activate a new advertisement (submit via service or
-		// direct
+		// include or activate a new advertisement (submit via service or direct
 		// into database)
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// TODO: remove or inactive the test advertisement
+		// remove or inactive the test advertisement
 	}
 
 	@Test
-	public void testAtomOperation() {
+	public void testLoadRssOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		AtomFilterCollection filterCollection = new AtomFilterCollection();
+		RssFilterCollection filterCollection = new RssFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
 
 		// retrieve the advertisement RSS since yesterday to today.
@@ -86,11 +85,14 @@ public class LoadAtomFunctionalTest {
 
 		filterCollection.getFilterCollection().add(filter);
 
-		AtomCollection collection = service.loadAtomOperation(filterCollection);
-		assert collection.getAtomCollection().size() > 0;
+		RssCollection collection = service.loadRssOperation(filterCollection);
+
+		System.out.println(collection.getRssCollection().get(0).getItem()
+				.toString());
+		// assert collection.getRssCollection().size() > 0;
 	}
 
 	@Test
-	public void testLoadAtomOperationFail() {
+	public void testLoadRssOperationFail() {
 	}
 }

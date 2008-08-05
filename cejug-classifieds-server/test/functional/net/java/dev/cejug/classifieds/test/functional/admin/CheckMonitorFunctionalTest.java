@@ -21,14 +21,12 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional;
+package net.java.dev.cejug.classifieds.test.functional.admin;
 
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
-import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,9 +36,9 @@ import org.junit.Test;
  * Test the diploma validation operation.
  * 
  * @author $Author: felipegaucho $
- * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
+ * @version $Rev: 399 $ ($Date: 2008-07-22 12:49:48 +0200 (Di, 22 Jul 2008) $)
  */
-public class MaintainCategoriesFunctionalTest {
+public class CheckMonitorFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -54,36 +52,16 @@ public class MaintainCategoriesFunctionalTest {
 	}
 
 	@Test
-	public void testCategory() {
+	public void checkMonitor() {
+		/*
+		 * check if the test advertisement comes with the RSS
+		 */
 		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-		ReadCategoryBundleParam param = new ReadCategoryBundleParam();
-
-		if (service.readCategoryBundleOperation(param)
-				.getAdvertisementCategory().isEmpty()) {
-			AdvertisementCategory category = new AdvertisementCategory();
-			category.setName("cars");
-			category.setDescription("new and used cars.");
-			CreateCategoryParam catParam = new CreateCategoryParam();
-			catParam.setAdvertisementCategory(category);
-			ServiceStatus status = service.createCategoryOperation(catParam);
-			assert status.getDescription().equalsIgnoreCase("OK");
-
-			category = new AdvertisementCategory();
-			category.setName("jobs");
-			category.setDescription("find a new job today.");
-			catParam.setAdvertisementCategory(category);
-			status = service.createCategoryOperation(catParam);
-			assert status.getDescription().equalsIgnoreCase("OK");
-
-			category = new AdvertisementCategory();
-			category.setName("gadgets");
-			category.setDescription("tech tools & gadgets.");
-			catParam.setAdvertisementCategory(category);
-			status = service.createCategoryOperation(catParam);
-			System.out.println(status.getDescription());
-			assert status.getDescription().equalsIgnoreCase("OK");
-		}
-
+		MonitorQuery query = new MonitorQuery();
+		query.setAverageResponseLength(5);
+		query.setQuery("");
+		MonitorResponse response = service.checkMonitorOperation(query);
+		assert response.getServiceName() != null;
 	}
 }
