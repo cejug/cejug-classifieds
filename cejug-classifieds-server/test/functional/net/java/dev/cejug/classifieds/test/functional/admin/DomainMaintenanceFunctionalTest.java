@@ -111,8 +111,8 @@ public class DomainMaintenanceFunctionalTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		// Assert.assertEquals(availableDomainsBeforeTests,
-		// countAvailableDomainsOnDatabase());
+		Assert.assertEquals(availableDomainsBeforeTests,
+				countAvailableDomainsOnDatabase());
 	}
 
 	@Test
