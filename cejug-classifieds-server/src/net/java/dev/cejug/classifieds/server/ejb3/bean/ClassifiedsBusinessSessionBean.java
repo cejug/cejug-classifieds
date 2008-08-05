@@ -181,8 +181,8 @@ public class ClassifiedsBusinessSessionBean implements
 		// TODO: to implement the real code.
 		try {
 			/*
-			 * // loading customer Map<String, String> params = new
-			 * HashMap<String, String>(); params.clear(); params.put("d",
+			 * // loading customer Map<String, String> params = new HashMap<String,
+			 * String>(); params.clear(); params.put("d",
 			 * header.getCustomerDomain()); params.put("l",
 			 * header.getCustomerLogin());
 			 */

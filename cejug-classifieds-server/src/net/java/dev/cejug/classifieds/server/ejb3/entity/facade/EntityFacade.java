@@ -7,15 +7,14 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 
 /**
  * @author $Author: felipegaucho $
- * @version $Rev: 309 $ ($Date: 2008-06-18 13:21:41 +0200 (Wed, 18 Jun 2008) $)
- *          *
+ * @version $Rev: 309 $ ($Date: 2008-06-18 13:21:41 +0200 (Wed, 18 Jun 2008) $) *
  * @see CRUDEntityFacade
  */
 public interface EntityFacade<T extends AbstractEntity> {
 
 	/**
-	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a new
-	 * entity in the database.
+	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a
+	 * new entity in the database.
 	 * 
 	 * @param entity
 	 *            The entity to be included in the database.

@@ -29,8 +29,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	protected EntityManager manager;
 
 	/**
-	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a new
-	 * entity in the database.
+	 * <strong>C</strong><font color='gray'>rud</font> operation - inserts a
+	 * new entity in the database.
 	 * 
 	 * @param entity
 	 *            The entity to be included in the database.

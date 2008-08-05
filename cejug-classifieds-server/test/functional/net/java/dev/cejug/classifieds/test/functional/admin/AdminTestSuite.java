@@ -5,6 +5,6 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { CategoryMaintenanceFunctionalTest.class,
-		CheckMonitorFunctionalTest.class })
+		DomainMaintenanceFunctionalTest.class, CheckMonitorFunctionalTest.class })
 public class AdminTestSuite {
 }
