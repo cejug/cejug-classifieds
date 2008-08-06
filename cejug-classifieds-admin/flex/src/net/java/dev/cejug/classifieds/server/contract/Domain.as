@@ -6,18 +6,26 @@
  */
 
 package net.java.dev.cejug.classifieds.server.contract {
+    import mx.collections.ListCollectionView;
+    
 
     [Bindable]
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.Domain")]
     public class Domain {
 
+        private var _advertisementCategory:ListCollectionView;
         private var _brand:String;
         private var _domain:String;
         private var _id:Number;
         private var _sharedQuota:Boolean;
         private var _timezone:String;
-        private var _categoryCollection:CategoryCollection;
 
+        public function get advertisementCategory():ListCollectionView {
+            return _advertisementCategory;
+        }
+        public function set advertisementCategory(value:ListCollectionView):void {
+            _advertisementCategory = value;
+        }
         public function set brand(value:String):void {
             _brand = value;
         }
@@ -51,13 +59,6 @@ package net.java.dev.cejug.classifieds.server.contract {
         }
         public function get timezone():String {
             return _timezone;
-        }
-
-        public function set categoryCollection(value:CategoryCollection):void {
-            _categoryCollection = value;
-        }
-        public function get categoryCollection():CategoryCollection {
-            return _categoryCollection;
         }
     }
 }

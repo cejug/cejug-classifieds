@@ -18,6 +18,8 @@ package net.java.dev.cejug.classifieds.server.contract {
         public function get advertisementCategory():ListCollectionView {
             return _advertisementCategory;
         }
-
+        public function set advertisementCategory(value:ListCollectionView):void {
+            _advertisementCategory = value;
+        }
     }
 }

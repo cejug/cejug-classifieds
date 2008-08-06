@@ -2,6 +2,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 {
     import mx.collections.ArrayCollection;
     import mx.controls.Alert;
+    import mx.controls.List;
     import mx.events.CloseEvent;
     import mx.events.FlexEvent;
     import mx.rpc.events.FaultEvent;
@@ -9,6 +10,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
+    import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
     import net.java.dev.cejug.classifieds.server.contract.CreateDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.Domain;
@@ -30,8 +32,12 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 
         [Bindable]
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
-        public var categoryDataProvider:ArrayCollection = new ArrayCollection();
-        
+        public var domainCategoryDataProvider:ArrayCollection = new ArrayCollection();
+
+        [Bindable]
+        [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
+        public var notInDomainCategoryDataProvider:ArrayCollection = new ArrayCollection();
+                
         private var serviceStatus:ServiceStatus;
 
 		public function DomainController()
@@ -80,7 +86,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Handles the result of loading all the domains.
          */
         private function getAllDomainsResult(event:ResultEvent):void {
-            domainDataProvider = event.result as ArrayCollection; 
+            domainDataProvider = event.result as ArrayCollection;
         }
 
         /**
@@ -154,9 +160,12 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          */
         public function loadNewDomain():void {
             domainReference.currentState = "createDomain";
-            //TODO load categories
+            loadCategories();
 
             domainEntity = new Domain();
+            domainCategoryDataProvider = new ArrayCollection();
+            loadCategories();
+
             cleanFields();
         }
 
@@ -164,12 +173,37 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Loads the screen to update a domain.
          */
         public function loadUpdateDomain():void {
-            domainReference.currentState = "updateDomain";
+
             var row:int = domainReference.dgDomains.selectedIndex;
 
             if (row >= 0) {
                 domainEntity = domainDataProvider.getItemAt(row) as Domain;
+                var collection:ArrayCollection = domainEntity.advertisementCategory as ArrayCollection;
+                domainCategoryDataProvider.removeAll();
+                for (var i:int = 0; i < collection.length; i++) {
+                    domainCategoryDataProvider.addItem(collection.getItemAt(i));
+                }
+                
+                loadCategories();
+                domainReference.currentState = "updateDomain";
             }
+        }
+
+        private function removeCategories():void {
+            // TODO: Improve this search
+            var categoryInDomain: AdvertisementCategory;
+            var categoryNotInDomain: AdvertisementCategory;
+            for (var i:int = 0; i < notInDomainCategoryDataProvider.length; i++) {
+                categoryNotInDomain = notInDomainCategoryDataProvider.getItemAt(i) as AdvertisementCategory;
+                for (var j:int = 0; j < domainCategoryDataProvider.length; j++) {
+                    categoryInDomain = domainCategoryDataProvider.getItemAt(j) as AdvertisementCategory;
+                    if (categoryNotInDomain.id == categoryInDomain.id) {
+                        notInDomainCategoryDataProvider.removeItemAt(i);
+                        i--;
+                        break;
+                    }
+                }
+            }            
         }
 
         private function loadCategories():void {
@@ -178,7 +212,44 @@ package net.java.dev.cejug.classifieds.admin.view.domain
         }
 
         private function loadCategoriesResult(event:ResultEvent):void {
-            categoryDataProvider = event.result as ArrayCollection;
+            notInDomainCategoryDataProvider = event.result as ArrayCollection;
+            removeCategories();
+        }
+
+        public function addCategory(list:List):void {
+            var selIndices:Array = list.selectedIndices;
+            if (selIndices != null && selIndices.length > 0) {
+                for (var i:int = 0; i < selIndices.length; i++) { 
+                   domainCategoryDataProvider.addItem(notInDomainCategoryDataProvider.getItemAt(selIndices[i]));
+                }
+                for (var j:int = 0; j < selIndices.length; j++) { 
+                   notInDomainCategoryDataProvider.removeItemAt(selIndices[j]);
+                }
+            }
+        }
+
+        public function removeCategory(list:List):void {
+            var selIndices:Array = list.selectedIndices;
+            if (selIndices != null && selIndices.length > 0) {
+                for (var i:int = 0; i < selIndices.length; i++) { 
+                   notInDomainCategoryDataProvider.addItem(domainCategoryDataProvider.getItemAt(selIndices[i]));
+                }
+                for (var j:int = 0; j < selIndices.length; j++) { 
+                   domainCategoryDataProvider.removeItemAt(selIndices[j]);
+                }
+            }
+        }
+        public function addAllCategory():void {
+            for (var i:int = 0; i < notInDomainCategoryDataProvider.length; i++) {
+                domainCategoryDataProvider.addItem(notInDomainCategoryDataProvider.getItemAt(i));
+            }
+            notInDomainCategoryDataProvider.removeAll();
+        }
+        public function removeAllCategory():void {
+            for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
+                notInDomainCategoryDataProvider.addItem(domainCategoryDataProvider.getItemAt(i));
+            }
+            domainCategoryDataProvider.removeAll();
         }
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
