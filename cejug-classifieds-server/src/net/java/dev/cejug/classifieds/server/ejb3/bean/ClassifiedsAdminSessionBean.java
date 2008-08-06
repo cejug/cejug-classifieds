@@ -244,8 +244,8 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
             entity.setSharedQuota(domain.isSharedQuota());
             entity.setBrand(domain.getBrand());
             Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-            if (domain.getCategoryCollection() != null && domain.getCategoryCollection().getAdvertisementCategory() != null) {
-                for (AdvertisementCategory category : domain.getCategoryCollection().getAdvertisementCategory()) {
+            if (domain.getAdvertisementCategory() != null) {
+                for (AdvertisementCategory category : domain.getAdvertisementCategory()) {
                     CategoryEntity categoryEntity = fillCategoryEntity(category);
                     categories.add(categoryEntity);
                 }
@@ -376,7 +376,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
         // TODO: use the bundle request parameters as query filter.
 
         DomainCollection domainCollection = new DomainCollection();
-        CategoryCollection categoryCollection = null;
+
         try {
             List<DomainEntity> domains = domainFacade.readAll(DomainEntity.class);
             if (domains != null) {
@@ -387,14 +387,12 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
                     domain.setDomain(domainEntity.getDomainName());
                     domain.setSharedQuota(domainEntity.getSharedQuota());
 
-                    categoryCollection = new CategoryCollection();
                     if (domainEntity.getCategories() != null) {
                         for (CategoryEntity categoryEntity : domainEntity.getCategories()) {
                             AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
-                            categoryCollection.getAdvertisementCategory().add(category);
+                            domain.getAdvertisementCategory().add(category);
                         }
                     }
-                    domain.setCategoryCollection(categoryCollection);
 
                     domainCollection.getDomain().add(domain);
                 }
@@ -483,8 +481,8 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
             domainEntity.setSharedQuota(domain.isSharedQuota());
 
             Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-            if (domain.getCategoryCollection() != null && domain.getCategoryCollection().getAdvertisementCategory() != null) {
-                for (AdvertisementCategory category : domain.getCategoryCollection().getAdvertisementCategory()) {
+            if (domain.getAdvertisementCategory() != null) {
+                for (AdvertisementCategory category : domain.getAdvertisementCategory()) {
                     CategoryEntity categoryEntity = fillCategoryEntity(category);
                     categories.add(categoryEntity);
                 }
