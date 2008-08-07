@@ -3,7 +3,10 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified"
 	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
 	<xsd:annotation>
 		<xsd:documentation>
 			This version of the Atom schema is based on version 1.0 of

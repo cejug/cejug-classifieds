@@ -24,7 +24,12 @@
 package net.java.dev.cejug.classifieds.test.functional.admin;
 
 import java.util.List;
+import java.util.Properties;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
@@ -64,10 +69,6 @@ import org.junit.Test;
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 public class CategoryMaintenanceFunctionalTest {
-	private CejugClassifiedsAdmin admin = null;
-	private AdvertisementCategory category = null;
-	private int availableCategoriesBeforeTests = -1;
-
 	/**
 	 * We first store the number of already available categories. After all
 	 * tests, we check this number again, to be sure our tests didn't changed
@@ -79,23 +80,7 @@ public class CategoryMaintenanceFunctionalTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
-		availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase();
-	}
-
-	/**
-	 * Shared count categories method, to be sure the same counting mechanism is
-	 * used before and after the tests. It loads from the server a list of
-	 * available categories and returns its size.
-	 * 
-	 * @return the number of categories stored in the database.
-	 */
-	private int countAvailableCategoriesOnDatabase() {
-		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(new ReadCategoryBundleParam())
-				.getAdvertisementCategory();
-		return categories.size();
-
+		// database pre-setup
 	}
 
 	/**
@@ -110,14 +95,67 @@ public class CategoryMaintenanceFunctionalTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		Assert.assertEquals(availableCategoriesBeforeTests,
-				countAvailableCategoriesOnDatabase());
+		// database pre-setup
+	}
+
+	/**
+	 * Shared count categories method, to be sure the same counting mechanism is
+	 * used before and after the tests. It loads from the server a list of
+	 * available categories and returns its size.
+	 * 
+	 * @return the number of categories stored in the database.
+	 */
+	private int countAvailableCategoriesOnDatabase(CejugClassifiedsAdmin admin) {
+		List<AdvertisementCategory> categories = admin
+				.readCategoryBundleOperation(new ReadCategoryBundleParam())
+				.getAdvertisementCategory();
+		return categories.size();
+
 	}
 
 	@Test
-	public void crudCategory() {
+	public void testingSoapWebService() {
+		try {
+			CejugClassifiedsAdmin adminEndpoint = new CejugClassifiedsServiceAdmin()
+					.getCejugClassifiedsAdmin();
+			int availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase(adminEndpoint);
+			crudCategory(adminEndpoint);
+			Assert.assertEquals(availableCategoriesBeforeTests,
+					countAvailableCategoriesOnDatabase(adminEndpoint));
+
+		} catch (Exception n) {
+			n.printStackTrace();
+			Assert.fail(n.getMessage());
+		}
+	}
+
+	@Test
+	public void testingRemoteEjb() {
+		try {
+			Properties props = new Properties();
+			props.setProperty("java.naming.factory.initial",
+					"com.sun.enterprise.naming.SerialInitContextFactory");
+			props.setProperty("java.naming.factory.url.pkgs",
+					"com.sun.enterprise.naming");
+			props
+					.setProperty("java.naming.factory.state",
+							"com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+			InitialContext ctx = new InitialContext(props);
+			CejugClassifiedsAdmin adminSessionBean = (ClassifiedsAdminRemote) ctx
+					.lookup("CejugClassifiedsAdmin");
+			int availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase(adminSessionBean);
+			crudCategory(adminSessionBean);
+			Assert.assertEquals(availableCategoriesBeforeTests,
+					countAvailableCategoriesOnDatabase(adminSessionBean));
+		} catch (NamingException n) {
+			n.printStackTrace();
+			Assert.fail(n.getMessage());
+		}
+	}
+
+	private void crudCategory(CejugClassifiedsAdmin admin) {
 		// CREATE
-		category = new AdvertisementCategory();
+		AdvertisementCategory category = new AdvertisementCategory();
 		category.setName("FunctionalTest" + System.currentTimeMillis());
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");

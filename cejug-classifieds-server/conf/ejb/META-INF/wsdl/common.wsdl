@@ -2,14 +2,25 @@
 <wsdl:definitions name="cejug-classifieds"
 	targetNamespace="http://cejug-classifieds.dev.java.net/common"
 	xmlns:contract="http://cejug-classifieds.dev.java.net/common"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common">
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
+	<xsd:annotation>
+		<xsd:documentation>
+			Shared messages and metadata.
+		</xsd:documentation>
+	</xsd:annotation>
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			targetNamespace="http://cejug-classifieds.dev.java.net/common"
 			xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 			elementFormDefault="qualified">
-			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+			<xsd:import
+				namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 				schemaLocation="common.xsd" />
 		</xsd:schema>
 	</wsdl:types>
@@ -20,16 +31,19 @@
 		<wsdl:part element="common:BundleRequest" name="bundle.request" />
 	</wsdl:message>
 	<wsdl:message name="CategoryBundle">
-		<wsdl:part element="common:CategoryCollection" name="category.bundle" />
+		<wsdl:part element="common:CategoryCollection"
+			name="category.bundle" />
 	</wsdl:message>
 	<wsdl:message name="Category">
-		<wsdl:part element="common:AdvertisementCategory" name="category" />
+		<wsdl:part element="common:AdvertisementCategory"
+			name="category" />
 	</wsdl:message>
 
 	<!-- DOMAIN BUNDLE -->
 	<wsdl:message name="ReadDomainBundle" />
 	<wsdl:message name="DomainBundle">
-		<wsdl:part element="common:DomainCollection" name="domain.bundle" />
+		<wsdl:part element="common:DomainCollection"
+			name="domain.bundle" />
 	</wsdl:message>
 	<wsdl:message name="Domain">
 		<wsdl:part element="common:Domain" name="domain" />
@@ -45,7 +59,8 @@
 			name="domain.bundle" />
 	</wsdl:message>
 	<wsdl:message name="AdvertisementType">
-		<wsdl:part element="common:AdvertisementType" name="advertisement.type" />
+		<wsdl:part element="common:AdvertisementType"
+			name="advertisement.type" />
 	</wsdl:message>
 
 	<!-- GENERAL FAILURE MESSAGE -->

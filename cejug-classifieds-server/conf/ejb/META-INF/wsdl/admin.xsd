@@ -6,15 +6,24 @@
 	xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
 	xmlns:atom10="http://www.w3.org/2005/Atom"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-	elementFormDefault="qualified">
+	elementFormDefault="qualified"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
 
-	<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+	<xsd:import
+		namespace="http://cejug-classifieds.dev.java.net/metadata/common"
 		schemaLocation="common.xsd" />
-		
+
 	<xsd:annotation>
 		<xsd:documentation>
 			The Admin Meta-data of CEJUG-Classifieds.
 		</xsd:documentation>
+		<xsd:appinfo>
+			<jaxb:globalBindings>
+				<xjc:serializable uid="-6026937020915831338" />
+			</jaxb:globalBindings>
+		</xsd:appinfo>
 	</xsd:annotation>
 
 	<xsd:element name="MonitorQuery">

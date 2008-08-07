@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.test.functional.admin;
 
 import java.util.List;
 import java.util.TimeZone;
+
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
@@ -34,6 +35,7 @@ import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,122 +61,135 @@ import org.junit.Test;
  * domains in the server side to be sure the state of the database haven't
  * changed.</li>
  * </ul>
+ * 
  * @author $Author: felipegaucho $
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 public class DomainMaintenanceFunctionalTest {
 
-    private CejugClassifiedsAdmin admin = null;
+	private CejugClassifiedsAdmin admin = null;
 
-    private Domain domain = null;
+	private Domain domain = null;
 
-    private int availableDomainsBeforeTests = -1;
+	private int availableDomainsBeforeTests = -1;
 
-    /**
-     * We first store the number of already available categories. After all
-     * tests, we check this number again, to be sure our tests didn't changed
-     * the state of the database.
-     * @throws Exception Generic exception, thrown by connection failure or read
-     *             bundle categories errors.
-     */
-    @Before
-    public void setUp() throws Exception {
+	/**
+	 * We first store the number of already available categories. After all
+	 * tests, we check this number again, to be sure our tests didn't changed
+	 * the state of the database.
+	 * 
+	 * @throws Exception
+	 *             Generic exception, thrown by connection failure or read
+	 *             bundle categories errors.
+	 */
+	@Before
+	public void setUp() throws Exception {
 
-        admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
-        availableDomainsBeforeTests = countAvailableDomainsOnDatabase();
-    }
+		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+		availableDomainsBeforeTests = countAvailableDomainsOnDatabase();
+	}
 
-    /**
-     * Shared count categories method, to be sure the same counting mechanism is
-     * used before and after the tests. It loads from the server a list of
-     * available categories and returns its size.
-     * @return the number of categories stored in the database.
-     */
-    private int countAvailableDomainsOnDatabase() {
+	/**
+	 * Shared count categories method, to be sure the same counting mechanism is
+	 * used before and after the tests. It loads from the server a list of
+	 * available categories and returns its size.
+	 * 
+	 * @return the number of categories stored in the database.
+	 */
+	private int countAvailableDomainsOnDatabase() {
 
-        List<Domain> domains = admin.readDomainBundleOperation().getDomain();
-        return domains.size();
+		List<Domain> domains = admin.readDomainBundleOperation().getDomain();
+		return domains.size();
 
-    }
+	}
 
-    /**
-     * Check if the number of available categories remains the same after the
-     * tests. A successful test shouldn't modify the original state of the
-     * database, otherwise we never know what to expect in the next test ;) The
-     * server database is supposed to be reseted before a complete test run.
-     * @throws Exception Generic exception, thrown by connection failure or read
-     *             bundle categories errors.
-     */
-    @After
-    public void tearDown() throws Exception {
+	/**
+	 * Check if the number of available categories remains the same after the
+	 * tests. A successful test shouldn't modify the original state of the
+	 * database, otherwise we never know what to expect in the next test ;) The
+	 * server database is supposed to be reseted before a complete test run.
+	 * 
+	 * @throws Exception
+	 *             Generic exception, thrown by connection failure or read
+	 *             bundle categories errors.
+	 */
+	@After
+	public void tearDown() throws Exception {
 
-        Assert.assertEquals(availableDomainsBeforeTests, countAvailableDomainsOnDatabase());
-    }
+		Assert.assertEquals(availableDomainsBeforeTests,
+				countAvailableDomainsOnDatabase());
+	}
 
-    @Test
-    public void crudDomain() {
+	@Test
+	public void crudDomain() {
 
-        // CREATE
-        domain = new Domain();
-        domain.setDomain("functional.test." + System.currentTimeMillis());
-        domain.setBrand("Functional Domain");
-        domain.setSharedQuota(false);
-        domain.setTimezone(TimeZone.getDefault().getDisplayName());
-        CreateDomainParam createParam = new CreateDomainParam();
-        createParam.setDomain(domain);
-        ServiceStatus status = admin.createDomainOperation(createParam);
-        Assert.assertEquals(status.getStatusCode(), 200);
+		// CREATE
+		domain = new Domain();
+		domain.setDomain("functional.test." + System.currentTimeMillis());
+		domain.setBrand("Functional Domain");
+		domain.setSharedQuota(false);
+		domain.setTimezone(TimeZone.getDefault().getDisplayName());
+		CreateDomainParam createParam = new CreateDomainParam();
+		createParam.setDomain(domain);
+		ServiceStatus status = admin.createDomainOperation(createParam);
+		Assert.assertEquals(status.getStatusCode(), 200);
 
-        // READ
-        List<Domain> domains = admin.readDomainBundleOperation().getDomain();
-        Assert.assertFalse(domains.isEmpty());
+		// READ
+		List<Domain> domains = admin.readDomainBundleOperation().getDomain();
+		Assert.assertFalse(domains.isEmpty());
 
-        boolean createdOk = false;
-        for (Domain readDomain : domains) {
-            if (readDomain.getDomain().equals(domain.getDomain())) {
-                // The just created domain has no ID, so we need to lookup for
-                // its domain name in the received list in order to know its ID.
-                domain = readDomain;
-                createdOk = true;
-                break;
-            }
-        }
-        Assert.assertTrue(createdOk);
+		boolean createdOk = false;
+		for (Domain readDomain : domains) {
+			if (readDomain.getDomain().equals(domain.getDomain())) {
+				// The just created domain has no ID, so we need to lookup for
+				// its domain name in the received list in order to know its ID.
+				domain = readDomain;
+				createdOk = true;
+				break;
+			}
+		}
+		Assert.assertTrue(createdOk);
 
-        // UPDATE
-        // If we have categories available, let's add one to our new domain.
-        List<AdvertisementCategory> categories = admin.readCategoryBundleOperation(new ReadCategoryBundleParam()).getAdvertisementCategory();
+		// UPDATE
+		// If we have categories available, let's add one to our new domain.
+		List<AdvertisementCategory> categories = admin
+				.readCategoryBundleOperation(new ReadCategoryBundleParam())
+				.getAdvertisementCategory();
 
-        if (!categories.isEmpty()) {
-            domain.getAdvertisementCategory().add(categories.get(0));
-        }
-        domain.setBrand("New Brand on the block " + System.currentTimeMillis());
+		if (!categories.isEmpty()) {
+			domain.getAdvertisementCategory().add(categories.get(0));
+		}
+		domain.setBrand("New Brand on the block " + System.currentTimeMillis());
 
-        UpdateDomainParam updateParam = new UpdateDomainParam();
-        updateParam.setDomain(domain);
-        ServiceStatus updateStatus = admin.updateDomainOperation(updateParam);
-        Assert.assertEquals(updateStatus.getStatusCode(), 200);
+		UpdateDomainParam updateParam = new UpdateDomainParam();
+		updateParam.setDomain(domain);
+		ServiceStatus updateStatus = admin.updateDomainOperation(updateParam);
+		Assert.assertEquals(updateStatus.getStatusCode(), 200);
 
-        List<Domain> updatedDomains = admin.readDomainBundleOperation().getDomain();
+		List<Domain> updatedDomains = admin.readDomainBundleOperation()
+				.getDomain();
 
-        boolean updateOk = false;
-        for (Domain updatedDomain : updatedDomains) {
-            if (updatedDomain.getId().equals(domain.getId())) {
-                // Check if the received domain has the newly create name.
-                Assert.assertEquals(updatedDomain.getBrand(), domain.getBrand());
-                Assert.assertEquals(updatedDomain.getAdvertisementCategory().size(), domain.getAdvertisementCategory().size());
+		boolean updateOk = false;
+		for (Domain updatedDomain : updatedDomains) {
+			if (updatedDomain.getId().equals(domain.getId())) {
+				// Check if the received domain has the newly create name.
+				Assert
+						.assertEquals(updatedDomain.getBrand(), domain
+								.getBrand());
+				Assert.assertEquals(updatedDomain.getAdvertisementCategory()
+						.size(), domain.getAdvertisementCategory().size());
 
-                updateOk = true;
-                break;
-            }
-        }
-        Assert.assertTrue(updateOk);
+				updateOk = true;
+				break;
+			}
+		}
+		Assert.assertTrue(updateOk);
 
-        // DELETE
-        // remove or inactive the test advertisement
-        DeleteDomainParam deleteParam = new DeleteDomainParam();
-        deleteParam.setPrimaryKey(domain.getId());
-        ServiceStatus deleteStatus = admin.deleteDomainOperation(deleteParam);
-        Assert.assertEquals(deleteStatus.getStatusCode(), 200);
-    }
+		// DELETE
+		// remove or inactive the test advertisement
+		DeleteDomainParam deleteParam = new DeleteDomainParam();
+		deleteParam.setPrimaryKey(domain.getId());
+		ServiceStatus deleteStatus = admin.deleteDomainOperation(deleteParam);
+		Assert.assertEquals(deleteStatus.getStatusCode(), 200);
+	}
 }

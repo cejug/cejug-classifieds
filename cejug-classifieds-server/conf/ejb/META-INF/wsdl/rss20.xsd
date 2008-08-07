@@ -2,6 +2,10 @@
 <xs:schema version="1.1.0"
 	targetNamespace="http://blogs.law.harvard.edu/RSS20.xsd"
 	xmlns="http://blogs.law.harvard.edu/RSS20.xsd"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1"
+	elementFormDefault="qualified"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:annotation>
 		<xs:documentation>

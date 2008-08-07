@@ -46,6 +46,7 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -174,6 +175,7 @@ public class PublishFunctionalTest {
 			assert status.getDescription().equalsIgnoreCase("OK");
 		} catch (Exception ee) {
 			ee.printStackTrace();
+			Assert.fail(ee.getMessage());
 		}
 	}
 
