@@ -2,13 +2,14 @@
 <project xmlns="http://www.netbeans.org/ns/project/1">
 	<type>org.netbeans.modules.ant.freeform</type>
 	<configuration>
-		<general-data
-			xmlns="http://www.netbeans.org/ns/freeform-project/1">
+		<general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
 			<name>cejug-classifieds-server</name>
 		</general-data>
-		<general-data
-			xmlns="http://www.netbeans.org/ns/freeform-project/2">
-			<!-- Do not use Project Properties customizer when editing this file manually. -->
+		<general-data xmlns="http://www.netbeans.org/ns/freeform-project/2">
+			<!--
+				Do not use Project Properties customizer when editing this file
+				manually.
+			-->
 			<name>cejug-classifieds-server</name>
 			<properties />
 			<folders>
@@ -142,20 +143,17 @@
 			</view>
 			<subprojects />
 		</general-data>
-		<java-data
-			xmlns="http://www.netbeans.org/ns/freeform-project-java/2">
+		<java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/2">
 			<compilation-unit>
 				<package-root>src</package-root>
 				<classpath mode="compile">
-					generated;lib/ext/javaee.jar;build/classes;resources
-				</classpath>
+					generated;lib/ext/javaee.jar;build/classes;resources </classpath>
 				<built-to>build/classes</built-to>
 				<source-level>1.5</source-level>
 			</compilation-unit>
 			<compilation-unit>
 				<package-root>generated</package-root>
-				<classpath mode="compile">
-					lib/ext/javaee.jar;build/classes
+				<classpath mode="compile"> lib/ext/javaee.jar;build/classes 
 				</classpath>
 				<built-to>build/classes</built-to>
 				<source-level>1.5</source-level>
@@ -163,7 +161,7 @@
 			<compilation-unit>
 				<package-root>test/functional</package-root>
 				<classpath mode="compile">
-					lib/ext/junit-4.4.jar;build/classes;generated/net/java/dev/cejug/classifieds/client/generated
+					lib/ext/junit-4.4.jar;build/classes;generated/net/java/dev/cejug/classifieds/client/generated 
 				</classpath>
 				<built-to>build/classes</built-to>
 				<source-level>1.5</source-level>
@@ -172,8 +170,7 @@
 				<package-root>test/unit</package-root>
 				<unit-tests />
 				<classpath mode="compile">
-					resources;lib/ext/junit-4.4.jar;src;generated;schema
-				</classpath>
+					resources;lib/ext/junit-4.4.jar;src;generated;schema </classpath>
 				<built-to>build/classes</built-to>
 				<source-level>1.5</source-level>
 			</compilation-unit>

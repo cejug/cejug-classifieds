@@ -29,7 +29,7 @@ import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.bean.ClassifiedsAdminRemote;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
@@ -69,6 +69,7 @@ import org.junit.Test;
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 public class CategoryMaintenanceFunctionalTest {
+
 	/**
 	 * We first store the number of already available categories. After all
 	 * tests, we check this number again, to be sure our tests didn't changed
@@ -142,7 +143,7 @@ public class CategoryMaintenanceFunctionalTest {
 							"com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
 			InitialContext ctx = new InitialContext(props);
 			CejugClassifiedsAdmin adminSessionBean = (ClassifiedsAdminRemote) ctx
-					.lookup("CejugClassifiedsAdmin");
+					.lookup("net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote");
 			int availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase(adminSessionBean);
 			crudCategory(adminSessionBean);
 			Assert.assertEquals(availableCategoriesBeforeTests,

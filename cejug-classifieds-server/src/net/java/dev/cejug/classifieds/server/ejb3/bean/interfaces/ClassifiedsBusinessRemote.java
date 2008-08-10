@@ -21,17 +21,17 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.server.ejb3.bean;
+package net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces;
 
 import javax.ejb.Remote;
 
-import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * 
  */
 @Remote
-public interface ClassifiedsAdminRemote extends CejugClassifiedsAdmin {
-
+public interface ClassifiedsBusinessRemote extends CejugClassifiedsBusiness {
 }

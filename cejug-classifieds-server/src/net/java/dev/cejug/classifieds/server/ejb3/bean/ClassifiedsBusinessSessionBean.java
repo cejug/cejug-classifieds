@@ -38,6 +38,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
@@ -75,7 +77,7 @@ import edu.harvard.law.blogs.rss20.Item;
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
 public class ClassifiedsBusinessSessionBean implements
-		ClassifiedsBusinessRemote {
+		ClassifiedsBusinessLocal, ClassifiedsBusinessRemote {
 
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
@@ -181,8 +183,8 @@ public class ClassifiedsBusinessSessionBean implements
 		// TODO: to implement the real code.
 		try {
 			/*
-			 * // loading customer Map<String, String> params = new HashMap<String,
-			 * String>(); params.clear(); params.put("d",
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
 			 * header.getCustomerDomain()); params.put("l",
 			 * header.getCustomerLogin());
 			 */

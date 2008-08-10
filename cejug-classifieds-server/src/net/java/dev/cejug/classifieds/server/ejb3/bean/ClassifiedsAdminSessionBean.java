@@ -40,6 +40,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
