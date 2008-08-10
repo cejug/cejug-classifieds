@@ -35,7 +35,9 @@
 	<target name="setup">
 		<mkdir dir="${build.classes.home}" />
 		<mkdir dir="${build.ear.home}" />
+		<mkdir dir="${build.ear.home}/lib" />
 		<mkdir dir="${generated.dir}" />
+		
 	</target>
 
 	<target name="build-server-wsdl">
@@ -55,10 +57,8 @@
 	<target name="create-war">
 		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
 			<webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
-			<zipfileset dir="${contract.folder}" includes="*.wsdl, *.xsd" prefix="WEB-INF/wsdl" />
-			<zipfileset dir="${resources.folder}" includes="**/**" excludes="**/META-INF/**/**" prefix="WEB-INF/classes" />
-			<zipfileset dir="${config.folder}" includes="**/**" prefix="WEB-INF/classes" />
-			<classes dir="${build.classes.home}" excludes="**/ejb3/**/**,**/test/**/**," />
+			<zipfileset dir="${basedir}/conf/war/" includes="**/**" excludes="**/WEB-INF/**/**" />
+			<classes dir="${build.classes.home}" includes="**/java/dev/cejug/classifieds/server/welcome/**/**" />
 		</war>
 	</target>
 
@@ -117,8 +117,56 @@
 		<delete dir="${generated.dir}" />
 	</target>
 
+	
+	
+	<!-- Package the persistence entities -->
+	<target name="pack-ejb-entities">
+		<jar jarfile="${build.ear.home}/lib/${ant.project.name}-entities.jar">
+			<manifest>
+				<!-- Who is building this jar? -->
+				<attribute name="Built-By" value="${user.name}" />
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+				<attribute name="Implementation-Version" value="SNAPSHOT" />
+			</manifest>
+
+			<fileset dir="${build.classes.home}" casesensitive="yes">
+				<include name="net/java/dev/cejug/classifieds/server/ejb3/entity/**/**" />
+				<exclude name="test/**" />
+			</fileset>
+			<fileset dir="${resources.folder}" casesensitive="yes">
+				<include name="**/i18n/**" />
+			</fileset>
+			<metainf dir="${basedir}/conf/ejb/META-INF">
+				<include name="**/**" />
+				<exclude name="wsdl/**"/>
+			</metainf>
+		</jar>
+	</target>
+
+	<!-- Package the persistence entities -->
+	<target name="pack-ejb-interfaces">
+		<jar jarfile="${build.ear.home}/lib/${ant.project.name}-ejb-interfaces.jar">
+			<manifest>
+				<!-- Who is building this jar? -->
+				<attribute name="Built-By" value="${user.name}" />
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+				<attribute name="Implementation-Version" value="SNAPSHOT" />
+			</manifest>
+
+			<fileset dir="${build.classes.home}" casesensitive="yes">
+				<include name="net/java/dev/cejug/classifieds/server/ejb3/bean/interfaces/**" />
+				<exclude name="test/**" />
+			</fileset>
+		</jar>
+	</target>
+
+	
 	<!-- Package the entity classes -->
-	<target name="package-entity">
+	<target name="pack-ejb-beans">
 		<jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
 			<manifest>
 				<!-- Who is building this jar? -->
@@ -131,25 +179,28 @@
 
 			<fileset dir="${build.classes.home}" casesensitive="yes">
 				<include name="**/**" />
-				<exclude name="test/**" />
+				<exclude name="test/**,**/entity/**,**/interfaces/**" />
+				
 			</fileset>
 			<fileset dir="${resources.folder}" casesensitive="yes">
 				<include name="**/i18n/**" />
 			</fileset>
 			<metainf dir="${basedir}/conf/ejb/META-INF">
 				<include name="**/**" />
+				<exclude name="**/persistence.xml" />		
 			</metainf>
 		</jar>
 	</target>
 
-	<target name="package-ear" depends="server, package-entity">
-		<ear destfile="${build.ear.home}/${ant.project.name}.ear" appxml="deploy/application.xml">
-			<fileset dir="${build.ear.home}" includes="*.jar,*.war" />
-		</ear>
+	<target name="package-ear" depends="server, pack-ejb-beans, pack-ejb-interfaces,pack-ejb-entities">
+		<!--jar destfile="${build.ear.home}/lib/ejb-interfaces.jar" basedir="${build.classes.home}" excludes="**/*.java" includes="./net/java/dev/cejug/classifieds/server/ejb3/bean/**/**" /-->
+		<jar destfile="${build.ear.home}/${ant.project.name}.ear">
+			<fileset dir="${build.ear.home}" includes="*.jar,*.war,**/lib/**"  />
+		</jar>
 	</target>
 
 	<target name="deploy" depends="package-ear">
-		<copy file="${build.ear.home}/${ant.project.name}-ejb.jar" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
+		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
 	</target>
 
 	<target name="compile.functional.tests">

@@ -39,6 +39,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
@@ -76,14 +77,15 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a * href=
- *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity"> *
- *      Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using *
- *      Annotations< /a>
+ *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
+ *      * Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using
+ *      * Annotations< /a>
  */
 @Interceptors(TimerInterceptor.class)
-@Stateless(mappedName = "CejugClassifiedsAdmin")
+@Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
-public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote {
+public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
+		ClassifiedsAdminLocal {
 
 	@EJB
 	private DomainFacadeLocal domainFacade;
