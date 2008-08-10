@@ -1,1 +1,185 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><table class="axial" border="0"><tbody><tr><th class="mceVisualAid"><strong>What is it?</strong></th><td>CEJUG-Classifieds is a 100% pure Java <a href="http://en.wikipedia.org/wiki/Classified_advertising">classified advertising</a> system.</td></tr></tbody></table><div class="h3" id="goals"><h3>Project Goals</h3><table border="0"><tbody><tr><td><img height="150" alt="cejug-classifieds" src="images/logo.jpg" width="150" border="0" /></td><td valign="middle"><p>The goal of the project is to create the infrastructure to support a classified advertising system, including three sub-systems:</p><ol><li><strong>Middleware</strong>: a web-service based system responsible by: <ul><li>The business logic.</li><li>Users management.</li><li>Interoperability with third party systems.</li></ul></li><li><strong>Persistence</strong>: an <a href="http://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a> system used to persist the data - it will be based on a popular framework, not yet selected.</li><li><strong>GUI</strong>: a end customer application planned to be the most human-friendly and efficient way to access the classified advertising system.</li></ol></td></tr></tbody></table></div><div class="h3" id="design"><h3>Project Design</h3><p>We are re-evaluating the project these days, and the collaboration diagram below represents what we are looking to achieve.</p><p><img height="188" alt="Cejug-Classifieds Collaboration Diagram" src="/files/documents/8128/91734/collaboration.png" width="773" border="0" /></p><!-- p><br />  The current prototype has the following interface:</p>  <p align="center"><img alt="Contract Diagram"  	width="723" height="394" src="/files/documents/8128/91792/wsdl.png" mce_src="/files/documents/8128/91792/wsdl.png"  	border="0"></p--></div><div class="h3" id="documentation"><h3>Documentation</h3><p>Not yet, sorry.</p><div><h3>Downloads</h3><p>We don't have yet a stable release, but you can try the preview EAR or checkout the snapshot code. Instructions:</p><p><strong>Preview EAR</strong>: if you want just to deploy the latest snapshot version to checkout its functionalities, we provide <a href="https://cejug-classifieds.dev.java.net/files/documents/8128/97920/cejug-classifieds-server.ear">this EAR</a> configured to run on Glassfish. To run:</p><ol><li>Copy the EAR to the folder: $glassfish/domains/domain1/autodeploy</li><li>Open these URLs in a browser: <ul><li>http://localhost:8080/cejug-classifieds-server/business</li><li>http://localhost:8080/cejug-classifieds-server/admin</li></ul></li></ol><br /><p>Getting the <strong>code snapshot</strong>:</p><ol><li>Setup (in case you don't have any of the below tools installed): <ol><li>Install <a href="https://glassfish.dev.java.net/">Glassfish</a></li><li>Install <a href="http://ant.apache.org/">Apache ANT</a></li><li>Install <a href="http://subversion.tigris.org/">Subversion</a>&nbsp;Client</li></ol>* please pay special attention to the environment variables:.: </li><ul><li>AS_HOME = &lt;<em>your Glassfish installation folder</em>&gt;</li><li>PATH: </li><li><ul><li><strong>windows:</strong> PATH=%PATH%;%AS_HOME%\bin;%AS_HOME%\javadb\bin;</li><li><strong>linux:</strong> PATH=$PATH:$AS_HOME\bin:$AS_HOME\javadb\bin;</li></ul></li></ul><li>Checkout the snapshot code:<pre>svn checkout https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk cejug-classifieds --username username</pre></li><li>Start default server and the default database: <pre>asadmin start-domain domain1 asadmin start-database</pre></li><li>Go to the checkout folder and run the ANT task to delpoy the service: <pre>ant deploy</pre></li><li>Open a browser with the URL: <a href="http://localhost:8080/cejug-classifieds-server/server">http://localhost:8080/cejug-classifieds-server/server</a></li><li>To check if the service is working, you can run the following ANT task:<pre>ant functional.tests</pre></li></ol><p>* If the service does not load, you can check the LOG file at <!--ASSFISH_HOM-->\domains\domain1\logs\server.log</p><p>Under progress work:</p><ul><li>You can check the contract (WSDL) and also the metadata schema (XSD) files at <a href="https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/trunk/cejug-classifieds-server/schema/contract/">this link</a>.</li><li>You can get the latest source code (snapshot) of the project from our <a href="https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/">SVN repository</a>.</li><li>Feedback: please send your opinion, suggestions or questions to dev@cejug-classifieds.dev.java.net</li></ul></div><div><h3>Acknowledge</h3><table border="0"><tbody><tr><td valign="top"><p>Several people are contributing with ideas, code snippets and tips about how to do Cejug-Classifieds much better than my self-education alone could do. To these friends and colleagues, all my respect and gratitude:</p><ul><li>Stefan Odendahl, architect of Netcetera AG. His senior view about how to design a software is quite inspirational and his precision in to identify weak points in the project implementation is a great contribution for the quality assurance of our project.</li><li>JUG community, specially CEJUG, RSJUG and JAVARN, thousand of members suggesting, criticizing and discussing everything about Java. <em>Para todos voc&ecirc;s, meus amigos virtuais, meu eterno obrigado</em>.</li><li>Sun Microsystems, specially Metro community and the java.net team.</li></ul></td><td><table border="0"><tbody><tr><td colspan="2">  <img height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" border="0" />  </td></tr><tr><td valign="middle"><a href="http://www.netbeans.org/"><img height="37" alt="built-on-nb.gif" src="/files/documents/7027/91234/built-on-nb.gif" width="89" border="0" /></a></td><td valign="middle"><a href="http://www.eclipse.org/"><img height="37" alt="eclipse.png" src="/files/documents/7027/91233/eclipse.png" width="72" border="0" /></a></td></tr><tr><td colspan="2">The project is based on ANT build files - you are welcome to use your preferred IDE.</td></tr></tbody></table></td><td style="width: 10%" align="right"><a id="clustrMapsLink" href="http://www4.clustrmaps.com/counter/maps.php?url=https://cejug-classifieds.dev.java.net/"><img id="clustrMapsImg" title="Locations of visitors to this page" style="border: 0px" alt="Locations of visitors to this page" src="http://www4.clustrmaps.com/counter/index2.php?url=https://cejug-classifieds.dev.java.net/" border="0" /> </a></td></tr></tbody></table><p align="right"><font color="#00e000">$LastChangedDate: 2008-06-05 09:42:56 +0200 (Do, 05 Jun 2008) $</font></p></div></div>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<table class="axial" border="0">
+	<tbody>
+		<tr>
+			<th class="mceVisualAid"><strong>What is it?</strong></th>
+			<td>CEJUG-Classifieds is a 100% pure Java <a
+				href="http://en.wikipedia.org/wiki/Classified_advertising">classified
+			advertising</a> system.</td>
+		</tr>
+	</tbody>
+</table>
+<div class="h3" id="goals">
+<h3>Project Goals</h3>
+<table border="0">
+	<tbody>
+		<tr>
+			<td><img height="150" alt="cejug-classifieds"
+				src="images/logo.jpg" width="150" border="0" /></td>
+			<td valign="middle">
+			<p>The goal of the project is to create the infrastructure to
+			support a classified advertising system, including three sub-systems:</p>
+			<ol>
+				<li><strong>Middleware</strong>: a web-service based system
+				responsible by:
+				<ul>
+					<li>The business logic.</li>
+					<li>Users management.</li>
+					<li>Interoperability with third party systems.</li>
+				</ul>
+				</li>
+				<li><strong>Persistence</strong>: an <a
+					href="http://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a>
+				system used to persist the data - it will be based on a popular
+				framework, not yet selected.</li>
+				<li><strong>GUI</strong>: a end customer application planned to
+				be the most human-friendly and efficient way to access the
+				classified advertising system.</li>
+			</ol>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="h3" id="design">
+<h3>Project Design</h3>
+<p>We are re-evaluating the project these days, and the
+collaboration diagram below represents what we are looking to achieve.</p>
+<p><img height="188" alt="Cejug-Classifieds Collaboration Diagram"
+	src="/files/documents/8128/91734/collaboration.png" width="773"
+	border="0" /></p>
+<!-- p><br />  The current prototype has the following interface:</p>  <p align="center"><img alt="Contract Diagram"  	width="723" height="394" src="/files/documents/8128/91792/wsdl.png" mce_src="/files/documents/8128/91792/wsdl.png"  	border="0"></p--></div>
+<div class="h3" id="documentation">
+<h3>Documentation</h3>
+<p>Not yet, sorry.</p>
+<div>
+<h3>Downloads</h3>
+<p>We don't have yet a stable release, but you can try the preview
+EAR or checkout the snapshot code. Instructions:</p>
+<p><strong>Preview EAR</strong>: if you want just to deploy the
+latest snapshot version to checkout its functionalities, we provide <a
+	href="https://cejug-classifieds.dev.java.net/files/documents/8128/97920/cejug-classifieds-server.ear">this
+EAR</a> configured to run on Glassfish. To run:</p>
+<ol>
+	<li>Start the JavaDB that comes embeded in the Glassfish:
+	<ul>
+		<li>Open a terminal console and type: <code>asadmin start-database</code></li>
+	</ul>
+	</li>
+	<li>Copy the EAR to the folder:
+	$glassfish/domains/domain1/autodeploy</li>
+	<li>Open these URLs in a browser:
+	<ul>
+		<li>http://localhost:8080/cejug-classifieds-server/</li>
+		<li>http://localhost:8080/cejug-classifieds-server/monitor</li>
+	</ul>
+	</li>
+</ol>
+<br />
+<p>Getting the <strong>code snapshot</strong>:</p>
+<ol>
+	<li>Setup (in case you don't have any of the below tools
+	installed):
+	<ol>
+		<li>Install <a href="https://glassfish.dev.java.net/">Glassfish</a></li>
+		<li>Install <a href="http://ant.apache.org/">Apache ANT</a></li>
+		<li>Install <a href="http://subversion.tigris.org/">Subversion</a>&nbsp;Client</li>
+	</ol>
+	* please pay special attention to the environment variables:.:</li>
+	<ul>
+		<li>AS_HOME = &lt;<em>your Glassfish installation folder</em>&gt;</li>
+		<li>PATH:</li>
+		<li>
+		<ul>
+			<li><strong>windows:</strong>
+			PATH=%PATH%;%AS_HOME%\bin;%AS_HOME%\javadb\bin;</li>
+			<li><strong>linux:</strong>
+			PATH=$PATH:$AS_HOME\bin:$AS_HOME\javadb\bin;</li>
+		</ul>
+		</li>
+	</ul>
+	<li>Checkout the snapshot code:<pre>svn checkout https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk cejug-classifieds --username username</pre></li>
+	<li>Start default server and the default database: <pre>asadmin start-domain domain1 asadmin start-database</pre></li>
+	<li>Go to the checkout folder and run the ANT task to delpoy the
+	service: <pre>ant deploy</pre></li>
+	<li>Open a browser with the URL: <a
+		href="http://localhost:8080/cejug-classifieds-server/server">http://localhost:8080/cejug-classifieds-server/server</a></li>
+	<li>To check if the service is working, you can run the following
+	ANT task:<pre>ant functional.tests</pre></li>
+</ol>
+<p>* If the service does not load, you can check the LOG file at <!--ASSFISH_HOM-->\domains\domain1\logs\server.log</p>
+<p>Under progress work:</p>
+<ul>
+	<li>You can check the contract (WSDL) and also the metadata schema
+	(XSD) files at <a
+		href="https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/trunk/cejug-classifieds-server/schema/contract/">this
+	link</a>.</li>
+	<li>You can get the latest source code (snapshot) of the project
+	from our <a
+		href="https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/">SVN
+	repository</a>.</li>
+	<li>Feedback: please send your opinion, suggestions or questions
+	to dev@cejug-classifieds.dev.java.net</li>
+</ul>
+</div>
+<div>
+<h3>Acknowledge</h3>
+<table border="0">
+	<tbody>
+		<tr>
+			<td valign="top">
+			<p>Several people are contributing with ideas, code snippets and
+			tips about how to do Cejug-Classifieds much better than my
+			self-education alone could do. To these friends and colleagues, all
+			my respect and gratitude:</p>
+			<ul>
+				<li>Stefan Odendahl, architect of Netcetera AG. His senior view
+				about how to design a software is quite inspirational and his
+				precision in to identify weak points in the project implementation
+				is a great contribution for the quality assurance of our project.</li>
+				<li>JUG community, specially CEJUG, RSJUG and JAVARN, thousand
+				of members suggesting, criticizing and discussing everything about
+				Java. <em>Para todos voc&ecirc;s, meus amigos virtuais, meu
+				eterno obrigado</em>.</li>
+				<li>Sun Microsystems, specially Metro community and the
+				java.net team.</li>
+			</ul>
+			</td>
+			<td>
+			<table border="0">
+				<tbody>
+					<tr>
+						<td colspan="2"><img height="1"
+							src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1"
+							border="0" /></td>
+					</tr>
+					<tr>
+						<td valign="middle"><a href="http://www.netbeans.org/"><img
+							height="37" alt="built-on-nb.gif"
+							src="/files/documents/7027/91234/built-on-nb.gif" width="89"
+							border="0" /></a></td>
+						<td valign="middle"><a href="http://www.eclipse.org/"><img
+							height="37" alt="eclipse.png"
+							src="/files/documents/7027/91233/eclipse.png" width="72"
+							border="0" /></a></td>
+					</tr>
+					<tr>
+						<td colspan="2">The project is based on ANT build files - you
+						are welcome to use your preferred IDE.</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			<td style="width: 10%" align="right"><a id="clustrMapsLink"
+				href="http://www4.clustrmaps.com/counter/maps.php?url=https://cejug-classifieds.dev.java.net/"><img
+				id="clustrMapsImg" title="Locations of visitors to this page"
+				style="border: 0px" alt="Locations of visitors to this page"
+				src="http://www4.clustrmaps.com/counter/index2.php?url=https://cejug-classifieds.dev.java.net/"
+				border="0" /> </a></td>
+		</tr>
+	</tbody>
+</table>
+<p align="right"><font color="#00e000">$LastChangedDate:2008-08-06
+15:56:52 +0200 (Wed, 06 Aug 2008) $</font></p>
+</div>
+</div>
