@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="lib/ext/javaee.jar"/>
 	<classpathentry kind="lib" path="lib/ext/appserv-ext.jar"/>
 	<classpathentry kind="lib" path="lib/ext/appserv-rt.jar"/>
-	<classpathentry kind="lib" path="/home/fgaucho/dev/glassfish/lib/appserv-deployment-client.jar"/>
+	<classpathentry kind="lib" path="lib/ext/appserv-deployment-client.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
