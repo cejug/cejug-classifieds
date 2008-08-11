@@ -20,7 +20,7 @@ public class Welcome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private ClassifiedsAdminLocal admin;
+	private transient ClassifiedsAdminLocal admin;
 
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
