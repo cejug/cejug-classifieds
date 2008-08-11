@@ -97,7 +97,15 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             domain.domain = domainReference.fNewDomainName.text;
             domain.brand = domainReference.fNewDomainBrand.text;
             domain.sharedQuota = domainReference.fNewDomainSharedQuota.selected;
-            //TODO timezone and categories
+
+            if (domain.advertisementCategory == null) {
+                domain.advertisementCategory = new ArrayCollection();
+            } else {
+                domain.advertisementCategory.removeAll();
+            }
+            for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
+                domain.advertisementCategory.addItem(domainCategoryDataProvider.getItemAt(i));
+            }
 
             var param:CreateDomainParam = new CreateDomainParam();
             param.domain = domain;
@@ -113,8 +121,16 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             domain.domain = domainReference.fUpdateDomainName.text;
             domain.brand = domainReference.fUpdateDomainBrand.text;
             domain.sharedQuota = domainReference.fUpdateDomainSharedQuota.selected;
-            //TODO timezone and categories
-            
+
+            if (domain.advertisementCategory == null) {
+                domain.advertisementCategory = new ArrayCollection();
+            } else {
+                domain.advertisementCategory.removeAll();
+            }
+            for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
+                domain.advertisementCategory.addItem(domainCategoryDataProvider.getItemAt(i));
+            }
+                
             var param:UpdateDomainParam = new UpdateDomainParam();
             param.domain = domain;
             adminService.updateDomainOperation(param);
@@ -189,6 +205,9 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             }
         }
 
+        /**
+         * Removes the categories associated to the domain from the notInDomainCategoryDataProvider.
+         */
         private function removeCategories():void {
             // TODO: Improve this search
             var categoryInDomain: AdvertisementCategory;
@@ -206,16 +225,25 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             }            
         }
 
+        /**
+         * Loads all the categories.
+         */
         private function loadCategories():void {
             var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
             adminService.readCategoryBundleOperation(params);
         }
 
+        /**
+         * Gets the result of loading all the categories
+         */
         private function loadCategoriesResult(event:ResultEvent):void {
             notInDomainCategoryDataProvider = event.result as ArrayCollection;
             removeCategories();
         }
 
+        /**
+         * Adds the selected categories to the domain
+         */
         public function addCategory(list:List):void {
             var selIndices:Array = list.selectedIndices;
             if (selIndices != null && selIndices.length > 0) {
@@ -228,6 +256,9 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             }
         }
 
+        /**
+         * Removes the selected categories from the domain
+         */
         public function removeCategory(list:List):void {
             var selIndices:Array = list.selectedIndices;
             if (selIndices != null && selIndices.length > 0) {
@@ -239,12 +270,20 @@ package net.java.dev.cejug.classifieds.admin.view.domain
                 }
             }
         }
+
+        /**
+         * Adds all the categories to the domain
+         */
         public function addAllCategory():void {
             for (var i:int = 0; i < notInDomainCategoryDataProvider.length; i++) {
                 domainCategoryDataProvider.addItem(notInDomainCategoryDataProvider.getItemAt(i));
             }
             notInDomainCategoryDataProvider.removeAll();
         }
+
+        /**
+         * Removes all the categories from the domain
+         */
         public function removeAllCategory():void {
             for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
                 notInDomainCategoryDataProvider.addItem(domainCategoryDataProvider.getItemAt(i));
