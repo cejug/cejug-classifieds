@@ -34,8 +34,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
@@ -91,19 +89,6 @@ public class ClassifiedsBusinessSessionBean implements
 	 */
 	private static Logger logger = Logger.getLogger(
 			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
-
-	private final DatatypeFactory factory;
-
-	public ClassifiedsBusinessSessionBean() {
-
-		try {
-			factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
-			// TODO: log
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
 
 	@Override
 	public AtomCollection loadAtomOperation(AtomFilterCollection filter) {
