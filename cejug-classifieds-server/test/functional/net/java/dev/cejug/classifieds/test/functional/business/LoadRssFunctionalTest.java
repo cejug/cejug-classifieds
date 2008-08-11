@@ -73,15 +73,8 @@ public class LoadRssFunctionalTest {
 		GregorianCalendar yesterday = new GregorianCalendar();
 		yesterday.roll(Calendar.DAY_OF_YEAR, false);
 
-		try {
-			filter.setDateInitial(DatatypeFactory.newInstance()
-					.newXMLGregorianCalendar(yesterday));
-			filter.setDateFinal(DatatypeFactory.newInstance()
-					.newXMLGregorianCalendar(today));
-		} catch (DatatypeConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		filter.setDateInitial(yesterday);
+		filter.setDateFinal(today);
 
 		filterCollection.getFilterCollection().add(filter);
 

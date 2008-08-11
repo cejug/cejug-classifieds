@@ -139,17 +139,14 @@ public class PublishFunctionalTest {
 
 			advertisement.setAdvertiser(customer);
 			// Publishing period
-			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();
 			Period period = new Period();
-			period.setStart(factory
-					.newXMLGregorianCalendar((GregorianCalendar) today));
+			period.setStart(today);
 
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
 			period
-					.setFinish(factory
-							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
+					.setFinish(fiveDaysLater);
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
 			advertisement.setHeadline("JAXWSUnleashed");

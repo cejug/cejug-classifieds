@@ -225,9 +225,8 @@ public class ClassifiedsBusinessSessionBean implements
 			status.setStatusCode(202);
 
 			status
-					.setTimestamp(factory
-							.newXMLGregorianCalendar((GregorianCalendar) GregorianCalendar
-									.getInstance()));
+					.setTimestamp(GregorianCalendar
+									.getInstance());
 
 			return status;
 		} catch (Exception e) {

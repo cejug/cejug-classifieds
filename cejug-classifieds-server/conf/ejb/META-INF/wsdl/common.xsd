@@ -62,7 +62,7 @@
 			<xsd:sequence minOccurs="1">
 				<xsd:element ref="common:StatusCode" />
 				<xsd:element name="description" type="xsd:string" />
-				<xsd:element name="timestamp" type="xsd:date" />
+				<xsd:element name="timestamp" type="xsd:dateTime" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

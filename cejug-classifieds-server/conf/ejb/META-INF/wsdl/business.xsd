@@ -9,11 +9,6 @@
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
-	<xsd:annotation>
-		<xsd:documentation>
-			The Business Meta-data of CEJUG-Classifieds.
-		</xsd:documentation>
-	</xsd:annotation>
 	<xsd:import namespace="http://www.w3.org/2005/Atom"
 		schemaLocation="atom10.xsd" />
 
@@ -27,6 +22,11 @@
 		<xsd:appinfo>
 			<jaxb:globalBindings>
 				<xjc:serializable uid="-6026937020915831338" />
+                <jaxb:javaType 
+                  name="java.util.Calendar" 
+                  xmlType="xsd:dateTime"
+                  parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+                  printMethod="javax.xml.bind.DatatypeConverter.printDate" />
 			</jaxb:globalBindings>
 		</xsd:appinfo>
 	</xsd:annotation>

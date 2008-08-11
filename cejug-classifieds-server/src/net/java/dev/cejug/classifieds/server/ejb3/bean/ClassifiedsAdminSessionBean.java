@@ -128,7 +128,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 		response.setServiceName("Cejug-Classifieds");
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.roll(Calendar.DAY_OF_MONTH, -3);
-		response.setOnlineSince(factory.newXMLGregorianCalendar(calendar));
+		response.setOnlineSince(calendar);
 		return response;
 	}
 
