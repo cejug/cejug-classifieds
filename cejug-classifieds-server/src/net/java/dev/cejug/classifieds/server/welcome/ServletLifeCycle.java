@@ -25,32 +25,33 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.ServiceLifeCycleFacadeLocal;
 
 public class ServletLifeCycle implements ServletContextListener {
-  @EJB
-  ServiceLifeCycleFacadeLocal lifeObserver;
-  private int id = -1;
+	@EJB
+	ServiceLifeCycleFacadeLocal lifeObserver;
+	private int id = -1;
 
-  @Override
-  public void contextDestroyed(ServletContextEvent arg0) {
-    try {
-      ServiceLifeCycleEntity lifeCycle = lifeObserver.read(ServiceLifeCycleEntity.class, id);
-      lifeCycle.setFinish(Calendar.getInstance());
-      lifeObserver.update(lifeCycle);
-    } catch (Exception e) {
-      throw new WebServiceException(e.getMessage());
-    }
-  }
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		try {
+			ServiceLifeCycleEntity lifeCycle = lifeObserver.read(
+					ServiceLifeCycleEntity.class, id);
+			lifeCycle.setFinish(Calendar.getInstance());
+			lifeObserver.update(lifeCycle);
+		} catch (Exception e) {
+			throw new WebServiceException(e.getMessage());
+		}
+	}
 
-  @Override
-  public void contextInitialized(ServletContextEvent arg0) {
-    try {
-      ServiceLifeCycleEntity lifeCycle = new ServiceLifeCycleEntity();
-      lifeCycle = new ServiceLifeCycleEntity();
-      lifeCycle.setName("Welcome");
-      lifeCycle.setStart(Calendar.getInstance());
-      lifeObserver.create(lifeCycle);
-      id = lifeCycle.getId();
-    } catch (Exception e) {
-      throw new WebServiceException(e.getMessage());
-    }
-  }
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		try {
+			ServiceLifeCycleEntity lifeCycle = new ServiceLifeCycleEntity();
+			lifeCycle = new ServiceLifeCycleEntity();
+			lifeCycle.setName("test");
+			lifeCycle.setStart(Calendar.getInstance());
+			lifeObserver.create(lifeCycle);
+			id = lifeCycle.getId();
+		} catch (Exception e) {
+			throw new WebServiceException(e.getMessage());
+		}
+	}
 }
