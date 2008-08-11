@@ -39,44 +39,39 @@ import javax.persistence.TemporalType;
 @Table(name = "LIFE_CYCLE")
 public class ServiceLifeCycleEntity extends AbstractEntity {
 
-  @Column(name = "NAME", nullable = false)
-  private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-  @Column(nullable = false)
-  @Temporal(TemporalType.TIMESTAMP)
-  private Calendar start;
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar start;
 
-  @Column(nullable = true)
-  @Temporal(TemporalType.TIMESTAMP)
-  private Calendar finish;
+	@Column(nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar finish;
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public Calendar getStart() {
+		return start;
+	}
 
+	public void setStart(Calendar start) {
+		this.start = start;
+	}
 
-  public Calendar getStart() {
-    return start;
-  }
+	public Calendar getFinish() {
+		return finish;
+	}
 
-
-  public void setStart(Calendar start) {
-    this.start = start;
-  }
-
-
-  public Calendar getFinish() {
-    return finish;
-  }
-
-
-  public void setFinish(Calendar finish) {
-    this.finish = finish;
-  }
+	public void setFinish(Calendar finish) {
+		this.finish = finish;
+	}
 
 }

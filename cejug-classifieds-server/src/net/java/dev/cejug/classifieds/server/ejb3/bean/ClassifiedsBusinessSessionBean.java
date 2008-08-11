@@ -224,9 +224,7 @@ public class ClassifiedsBusinessSessionBean implements
 			status.setDescription("OK");
 			status.setStatusCode(202);
 
-			status
-					.setTimestamp(GregorianCalendar
-									.getInstance());
+			status.setTimestamp(GregorianCalendar.getInstance());
 
 			return status;
 		} catch (Exception e) {

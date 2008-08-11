@@ -20,28 +20,28 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
  */
 public class Welcome extends HttpServlet {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * A life cycle is a time window where this service is alive.
-   */
-  private ServiceLifeCycleEntity lifeCycle = null;
+	/**
+	 * A life cycle is a time window where this service is alive.
+	 */
+	private ServiceLifeCycleEntity lifeCycle = null;
 
-  @EJB
-  private transient ClassifiedsAdminLocal admin;
+	@EJB
+	private transient ClassifiedsAdminLocal admin;
 
-  @EJB
-  private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
+	@EJB
+	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
 
-  @Override
-  public void service(ServletRequest request, ServletResponse response) throws ServletException,
-      IOException {
-    MonitorQuery query = new MonitorQuery();
-    query.setAverageResponseLength(44);
-    MonitorResponse monResponse = admin.checkMonitorOperation(query);
+	@Override
+	public void service(ServletRequest request, ServletResponse response)
+			throws ServletException, IOException {
+		MonitorQuery query = new MonitorQuery();
+		query.setAverageResponseLength(44);
+		MonitorResponse monResponse = admin.checkMonitorOperation(query);
 
-    PrintWriter out = response.getWriter();
-    out.println(monResponse.getServiceName() + " is online since "
-        + monResponse.getOnlineSince().getTime());
-  }
+		PrintWriter out = response.getWriter();
+		out.println(monResponse.getServiceName() + " is online since "
+				+ monResponse.getOnlineSince().getTime());
+	}
 }

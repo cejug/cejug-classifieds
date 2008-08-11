@@ -33,6 +33,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
  * @see CRUDEntityFacade
  */
 @Stateless
-public class ServiceLifeCycleFacade extends CRUDEntityFacade<ServiceLifeCycleEntity> implements
-    ServiceLifeCycleFacadeLocal {
+public class ServiceLifeCycleFacade extends
+		CRUDEntityFacade<ServiceLifeCycleEntity> implements
+		ServiceLifeCycleFacadeLocal {
 }

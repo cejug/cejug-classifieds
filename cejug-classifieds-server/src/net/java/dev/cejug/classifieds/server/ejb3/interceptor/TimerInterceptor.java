@@ -24,7 +24,6 @@
 package net.java.dev.cejug.classifieds.server.ejb3.interceptor;
 
 import java.util.Calendar;
-import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;

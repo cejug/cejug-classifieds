@@ -33,5 +33,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
  * @see EntityFacade
  */
 @Local
-public interface ServiceLifeCycleFacadeLocal extends EntityFacade<ServiceLifeCycleEntity> {
+public interface ServiceLifeCycleFacadeLocal extends
+		EntityFacade<ServiceLifeCycleEntity> {
 }
