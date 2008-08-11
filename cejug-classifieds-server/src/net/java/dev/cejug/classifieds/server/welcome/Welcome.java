@@ -10,8 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.ServiceLifeCycleFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
@@ -22,26 +20,21 @@ public class Welcome extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * A life cycle is a time window where this service is alive.
-	 */
-	private ServiceLifeCycleEntity lifeCycle = null;
-
 	@EJB
 	private transient ClassifiedsAdminLocal admin;
-
-	@EJB
-	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
 
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 		MonitorQuery query = new MonitorQuery();
-		query.setAverageResponseLength(44);
+		query.setResponseTimeLength(20);
+		query.setAlivePeriodsLength(20);		
 		MonitorResponse monResponse = admin.checkMonitorOperation(query);
 
-		PrintWriter out = response.getWriter();
+		request.setAttribute("monitorResponse", monResponse);
+		request.getRequestDispatcher("/welcome.jsp").forward(request, response);
+		/*PrintWriter out = response.getWriter();
 		out.println(monResponse.getServiceName() + " is online since "
-				+ monResponse.getOnlineSince().getTime());
+				+ monResponse.getOnlineSince().getTime());*/
 	}
 }

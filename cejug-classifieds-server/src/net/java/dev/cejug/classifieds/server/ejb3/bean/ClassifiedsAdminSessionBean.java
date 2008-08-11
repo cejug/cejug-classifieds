@@ -44,6 +44,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
@@ -51,6 +52,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLoca
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.ServiceLifeCycleFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
+import net.java.dev.cejug_classifieds.metadata.admin.AlivePeriod;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
@@ -115,9 +117,27 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 		// TODO: implement the real database call and response assembly.
 		MonitorResponse response = new MonitorResponse();
 		response.setServiceName("Cejug-Classifieds");
+
+		try {
+			List<ServiceLifeCycleEntity> alivePeriods = lifeCycleFacade
+					.readAll(ServiceLifeCycleEntity.class);
+			List<AlivePeriod> periods = response.getAlivePeriods();
+			for (ServiceLifeCycleEntity lifeCycle : alivePeriods) {
+				AlivePeriod period = new AlivePeriod();
+				period.setStart(lifeCycle.getStart());
+				period.setFinish(lifeCycle.getFinish());
+				period.setNote(lifeCycle.getName());
+				periods.add(period);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.roll(Calendar.DAY_OF_MONTH, -3);
-		response.setOnlineSince(calendar);
+
+		// response.setOnlineSince(calendar);
 		return response;
 	}
 

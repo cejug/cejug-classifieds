@@ -59,7 +59,8 @@ public class CheckMonitorFunctionalTest {
 		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
 		MonitorQuery query = new MonitorQuery();
-		query.setAverageResponseLength(5);
+		query.setAlivePeriodsLength(5);
+		query.setResponseTimeLength(30);
 		query.setQuery("");
 		MonitorResponse response = service.checkMonitorOperation(query);
 		assert response.getServiceName() != null;

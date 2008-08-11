@@ -50,7 +50,6 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> readAll(Class<T> entityClass) throws Exception {
-
 		Query query = manager.createQuery("select e from "
 				+ entityClass.getSimpleName() + " e");
 		List<T> response = query.getResultList();

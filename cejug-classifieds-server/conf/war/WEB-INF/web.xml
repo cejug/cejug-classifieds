@@ -5,11 +5,6 @@
   <display-name>Welcome to CEJUG Classifieds</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>monitor</servlet-name>
@@ -17,7 +12,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>monitor</servlet-name>
-    <url-pattern>/monitor</url-pattern>
+    <url-pattern>/index.html</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class> net.java.dev.cejug.classifieds.server.welcome.ServletLifeCycle </listener-class>
