@@ -39,8 +39,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 */
 	@Override
 	public void create(T entity) throws Exception {
-
 		manager.persist(entity);
+		manager.flush();
 	}
 
 	/**

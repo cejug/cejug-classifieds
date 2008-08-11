@@ -86,11 +86,11 @@ public class AdvertisementEntity extends AbstractEntity {
 	private CategoryEntity category;
 
 	@Column(name = "START", nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar start;
 
 	@Column(name = "FINISH", nullable = false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar finish;
 
 	@Column(nullable = false)

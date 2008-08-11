@@ -32,92 +32,51 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 399 $ ($Date: 2008-07-22 12:49:48 +0200 (Di, 22 Jul 2008) $)
  */
 @Entity
-@Table(name = "RESPONSE_TIME")
-public class OperationTimestampEntity extends AbstractEntity {
+@Table(name = "LIFE_CYCLE")
+public class ServiceLifeCycleEntity extends AbstractEntity {
 
-	// TODO falta modelar essa tabela
+  @Column(name = "NAME", nullable = false)
+  private String name;
 
-	@Column(nullable = false)
-	private String operationName;
+  @Column(nullable = false)
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar start;
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar date;
+  @Column(nullable = true)
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar finish;
 
-	@Column(nullable = false)
-	private Long responseTime;
+  public String getName() {
+    return name;
+  }
 
-	@Column(nullable = false)
-	private Boolean status;
 
-	@Column(nullable = false)
-	private String clientId;
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@Column(nullable = true)
-	private String fault;
 
-	public String getOperationName() {
+  public Calendar getStart() {
+    return start;
+  }
 
-		return operationName;
-	}
 
-	public void setOperationName(String operationName) {
+  public void setStart(Calendar start) {
+    this.start = start;
+  }
 
-		this.operationName = operationName;
-	}
 
-	public Calendar getDate() {
+  public Calendar getFinish() {
+    return finish;
+  }
 
-		return date;
-	}
 
-	public void setDate(Calendar date) {
-
-		this.date = date;
-	}
-
-	public Long getResponseTime() {
-
-		return responseTime;
-	}
-
-	public void setResponseTime(Long responseTime) {
-
-		this.responseTime = responseTime;
-	}
-
-	public Boolean getStatus() {
-
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-
-		this.status = status;
-	}
-
-	public String getClientId() {
-
-		return clientId;
-	}
-
-	public void setClientId(String clientId) {
-
-		this.clientId = clientId;
-	}
-
-	public String getFault() {
-
-		return fault;
-	}
-
-	public void setFault(String fault) {
-
-		this.fault = fault;
-	}
+  public void setFinish(Calendar finish) {
+    this.finish = finish;
+  }
 
 }

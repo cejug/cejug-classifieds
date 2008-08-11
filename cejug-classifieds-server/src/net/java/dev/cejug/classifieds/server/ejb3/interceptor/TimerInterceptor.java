@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.interceptor;
 
 import java.util.Calendar;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ejb.EJB;
@@ -65,7 +66,7 @@ public class TimerInterceptor {
 						.getTimeInMillis()
 						- start.getTimeInMillis());
 				stamp.setStatus(true);
-				stamp.setClientId("TODO: get client ID");
+				stamp.setClientId("TODO: get client ID -> ");
 				if (errorMessage != null) {
 					stamp.setStatus(false);
 					stamp.setFault(errorMessage);
