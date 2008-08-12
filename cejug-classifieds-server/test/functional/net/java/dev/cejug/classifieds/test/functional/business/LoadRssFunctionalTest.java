@@ -26,9 +26,6 @@ package net.java.dev.cejug.classifieds.test.functional.business;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.RssCollection;

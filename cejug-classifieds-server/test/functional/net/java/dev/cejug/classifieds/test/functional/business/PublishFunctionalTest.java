@@ -28,7 +28,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;

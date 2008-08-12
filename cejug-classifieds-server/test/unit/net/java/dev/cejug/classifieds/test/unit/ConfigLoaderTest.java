@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.test.unit;
 
 import junit.framework.Assert;
+
 import net.java.dev.cejug.classifieds.server.config.ConfigLoader;
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 
