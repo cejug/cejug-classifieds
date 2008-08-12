@@ -45,7 +45,6 @@ public class ServletLifeCycle implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
 			ServiceLifeCycleEntity lifeCycle = new ServiceLifeCycleEntity();
-			lifeCycle = new ServiceLifeCycleEntity();
 			lifeCycle.setName("test");
 			lifeCycle.setStart(Calendar.getInstance());
 			lifeObserver.create(lifeCycle);
