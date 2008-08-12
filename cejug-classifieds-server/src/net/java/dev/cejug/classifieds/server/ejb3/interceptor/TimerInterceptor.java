@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.server.ejb3.interceptor;
 
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
@@ -42,18 +43,29 @@ public class TimerInterceptor {
 	@EJB
 	private TimeKeeperFacadeLocal timeKeeperFacade;
 
+	/**
+	 * the global log manager, used to al low third party services to override
+	 * the defult logger.
+	 */
+	private static Logger logger = Logger.getLogger(TimerInterceptor.class
+			.getName(), "i18n/log");
+
 	/*
 	 * Intercepter method within the bean (the bean is the aspect)
 	 */
 	@AroundInvoke
 	public Object timerLog(InvocationContext ctx) throws Exception {
 		// TODO: include timezone from config file...
+		logger.severe("IIIIIIIIIIII " + 1);
 		TimeZone timezone = TimeZone.getDefault();
 		Calendar start = Calendar.getInstance(timezone);
 		String errorMessage = null;
+		logger.severe("IIIIIIIIIIII " + 2);
 		try {
+			logger.severe("IIIIIIIIIIII " + 3);
 			return ctx.proceed();
 		} catch (Exception error) {
+			logger.severe("SSSSSSSS " + error.getMessage());
 			errorMessage = error.getMessage();
 			throw new WebServiceException(error);
 		} finally {
@@ -65,13 +77,15 @@ public class TimerInterceptor {
 						.getTimeInMillis()
 						- start.getTimeInMillis());
 				stamp.setStatus(true);
-				stamp.setClientId("TODO: get client ID -> ");
+				stamp.setClientId("TODO: get client ID");
 				if (errorMessage != null) {
 					stamp.setStatus(false);
 					stamp.setFault(errorMessage);
 				}
 				timeKeeperFacade.create(stamp);
+				logger.severe("CREATED");
 			} catch (Exception error) {
+				logger.severe("PPPPPPP" + error.getMessage());
 				throw new WebServiceException(error);
 			}
 		}

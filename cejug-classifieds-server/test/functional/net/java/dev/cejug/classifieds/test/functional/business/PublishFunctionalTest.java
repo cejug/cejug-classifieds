@@ -118,7 +118,6 @@ public class PublishFunctionalTest {
 
 	@After
 	public void tearDown() throws Exception {
-
 		// remove or inactive the test advertisement
 	}
 
@@ -133,7 +132,8 @@ public class PublishFunctionalTest {
 
 			Advertisement advertisement = new Advertisement();
 			Customer customer = new Customer();
-			customer.setDomain(domain);
+			customer.setDomain("cejug.functional.test.domain"
+					+ System.currentTimeMillis());
 			customer.setLogin("fgaucho");
 
 			advertisement.setAdvertiser(customer);
@@ -144,8 +144,7 @@ public class PublishFunctionalTest {
 
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			period
-					.setFinish(fiveDaysLater);
+			period.setFinish(fiveDaysLater);
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
 			advertisement.setHeadline("JAXWSUnleashed");

@@ -17,26 +17,26 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
  */
 public class Welcome extends HttpServlet {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The reference to the local interface of the Admin Session Bean.
-   */
-  @EJB
-  private transient ClassifiedsAdminLocal admin;
+	/**
+	 * The reference to the local interface of the Admin Session Bean.
+	 */
+	@EJB
+	private transient ClassifiedsAdminLocal admin;
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void service(ServletRequest request, ServletResponse response) throws ServletException,
-      IOException {
-    MonitorQuery query = new MonitorQuery();
-    query.setResponseTimeLength(20);
-    query.setAlivePeriodsLength(20);
-    MonitorResponse monResponse = admin.checkMonitorOperation(query);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void service(ServletRequest request, ServletResponse response)
+			throws ServletException, IOException {
+		MonitorQuery query = new MonitorQuery();
+		query.setResponseTimeLength(20);
+		query.setAlivePeriodsLength(20);
+		MonitorResponse monResponse = admin.checkMonitorOperation(query);
 
-    request.setAttribute("monitorResponse", monResponse);
-    request.getRequestDispatcher("/welcome.jsp").forward(request, response);
-  }
+		request.setAttribute("monitorResponse", monResponse);
+		request.getRequestDispatcher("/welcome.jsp").forward(request, response);
+	}
 }

@@ -43,6 +43,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
@@ -79,6 +80,10 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@EJB
 	private AdvertisementFacadeLocal advertisementFacade;
+
+	@EJB
+	private AdvertisementTypeFacadeLocal advTypeFacade;
+
 	@EJB
 	private CustomerFacadeLocal customerFacade;
 	@EJB
@@ -183,12 +188,8 @@ public class ClassifiedsBusinessSessionBean implements
 
 			entity.setCustomer(customer);
 
-			// TODO: load the AdvertisementTypeEntity
-			AdvertisementTypeEntity type = new AdvertisementTypeEntity();
-			type.setDescription("oo");
-			type.setMaxAttachmentSize(300L);
-			type.setName("courtesy");
-			type.setTextLength(250L);
+			AdvertisementTypeEntity type = advTypeFacade.read(
+					AdvertisementTypeEntity.class, advertisement.getTypeId());
 			entity.setType(type);
 
 			entity.setSummary(advertisement.getShortDescription());
