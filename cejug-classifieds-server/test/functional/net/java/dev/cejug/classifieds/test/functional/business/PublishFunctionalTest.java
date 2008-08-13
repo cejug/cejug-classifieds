@@ -36,11 +36,11 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.Customer;
 import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -136,7 +136,8 @@ public class PublishFunctionalTest {
 					+ System.currentTimeMillis());
 			customer.setLogin("fgaucho");
 
-			advertisement.setAdvertiser(customer);
+			advertisement.setCustomer(customer);
+
 			// Publishing period
 			Calendar today = GregorianCalendar.getInstance();
 			Period period = new Period();

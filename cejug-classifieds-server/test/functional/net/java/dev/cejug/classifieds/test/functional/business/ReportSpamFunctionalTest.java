@@ -25,7 +25,6 @@ package net.java.dev.cejug.classifieds.test.functional.business;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.SpamReport;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.After;
@@ -58,11 +57,8 @@ public class ReportSpamFunctionalTest {
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		SpamReport spam = new SpamReport();
-		spam.setAdvertisementId(10);
-		spam.setReason("slang terms and porn image");
 
-		ServiceStatus status = service.reportSpamOperation(spam);
+		ServiceStatus status = service.reportSpamOperation(10);
 		assert status.getDescription().equalsIgnoreCase("OK");
 	}
 

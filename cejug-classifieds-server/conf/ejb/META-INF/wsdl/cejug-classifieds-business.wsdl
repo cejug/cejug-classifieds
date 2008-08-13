@@ -4,14 +4,11 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:business="http://cejug-classifieds.dev.java.net/business"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
-				schemaLocation="common.xsd" />
 			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
 		</xsd:schema>
@@ -50,14 +47,6 @@
 		<wsdl:part name="header" element="metadata:PublishingHeader" />
 	</wsdl:message>
 
-	<!-- REPORT SPAM -->
-	<wsdl:message name="ReportSpam">
-		<wsdl:part element="metadata:SpamReport" name="spam" />
-	</wsdl:message>
-	<wsdl:message name="ReportSpamResponse">
-		<wsdl:part element="common:ServiceStatus" name="status" />
-	</wsdl:message>
-
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- PORT -->
 	<wsdl:portType name="CejugClassifiedsBusiness">
@@ -87,8 +76,8 @@
 			<wsdl:fault name="PublishException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReportSpamOperation">
-			<wsdl:input message="business:ReportSpam" />
-			<wsdl:output message="business:ReportSpamResponse" />
+			<wsdl:input name="advertisement.id" message="common-wsdl:PrimaryKey" />
+			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="ReportSpamException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>

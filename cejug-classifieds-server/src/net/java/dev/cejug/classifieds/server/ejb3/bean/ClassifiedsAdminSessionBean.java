@@ -70,10 +70,15 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
+import net.java.dev.cejug_classifieds.metadata.common.CustomerCollection;
+import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
 import net.java.dev.cejug_classifieds.metadata.common.Quota;
+import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
 /**
  * @author $Author$
@@ -580,5 +585,32 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 			status.setDescription(e.getMessage());
 			return status;
 		}
+	}
+
+	@Override
+	public ServiceStatus createCustomerOperation(CreateCustomerParam newCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteCustomerOperation(
+			DeleteCustomerParam obsoleteCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public CustomerCollection readCustomerBundleOperation(
+			ReadCustomerBundleParam getCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus updateCustomerOperation(
+			UpdateCustomerParam partialCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
 	}
 }

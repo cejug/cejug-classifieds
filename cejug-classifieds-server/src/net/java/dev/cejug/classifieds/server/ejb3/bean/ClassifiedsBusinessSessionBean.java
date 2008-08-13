@@ -52,14 +52,13 @@ import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
-import net.java.dev.cejug_classifieds.metadata.business.Customer;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
 import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
-import net.java.dev.cejug_classifieds.metadata.business.SpamReport;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.w3._2005.atom.FeedType;
@@ -158,15 +157,6 @@ public class ClassifiedsBusinessSessionBean implements
 	}
 
 	@Override
-	public ServiceStatus reportSpamOperation(SpamReport spam) {
-		ServiceStatus status = new ServiceStatus();
-		status.setDescription("OK");
-		status.setStatusCode(200);
-		return status;
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public ServiceStatus publishOperation(Advertisement advertisement,
 			PublishingHeader header) {
 
@@ -238,7 +228,7 @@ public class ClassifiedsBusinessSessionBean implements
 				Customer c = new Customer();
 				c.setDomain("www.cejug.org");
 				c.setLogin("test");
-				adv.setAdvertiser(c);
+				adv.setCustomer(c);
 				adv.setFullText(entity.getText());
 				adv
 						.setKeywords(Arrays.toString(entity.getKeywords()
@@ -279,5 +269,15 @@ public class ClassifiedsBusinessSessionBean implements
 			// throw new WebServiceException(e);
 		}
 		return categoryCollection;
+	}
+
+	@Override
+	public ServiceStatus reportSpamOperation(int id) {
+		// ServiceStatus status = new ServiceStatus();
+		// status.setDescription("OK");
+		// status.setStatusCode(200);
+		// return status;
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
 	}
 }

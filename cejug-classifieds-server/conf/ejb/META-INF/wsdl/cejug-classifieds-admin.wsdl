@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="cejug-classifieds-admin"
 	targetNamespace="http://cejug-classifieds.dev.java.net/admin"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:admin="http://cejug-classifieds.dev.java.net/admin"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:admin="http://cejug-classifieds.dev.java.net/admin"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
-	<wsdl:import
-		namespace="http://cejug-classifieds.dev.java.net/common"
+	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			<xsd:import
-				namespace="http://cejug-classifieds.dev.java.net/metadata/admin"
+			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/admin"
 				schemaLocation="admin.xsd" />
 		</xsd:schema>
 	</wsdl:types>
@@ -25,20 +21,17 @@
 		<wsdl:part element="metadata:MonitorQuery" name="monitor" />
 	</wsdl:message>
 	<wsdl:message name="CheckMonitorResponse">
-		<wsdl:part element="metadata:MonitorResponse"
-			name="service.status" />
+		<wsdl:part element="metadata:MonitorResponse" name="service.status" />
 	</wsdl:message>
 
 	<!-- ADD QUOTA -->
 	<wsdl:message name="AddQuota">
-		<wsdl:part element="metadata:AddQuotaInfo"
-			name="add.quota.request" />
+		<wsdl:part element="metadata:AddQuotaInfo" name="add.quota.request" />
 	</wsdl:message>
 
 	<!-- CANCEL QUOTA -->
 	<wsdl:message name="CancelQuota">
-		<wsdl:part element="metadata:CancelQuotaInfo"
-			name="cancel.quota.request" />
+		<wsdl:part element="metadata:CancelQuotaInfo" name="cancel.quota.request" />
 	</wsdl:message>
 
 	<!-- ADVERTISEMENT TYPE CRUD MESSAGES -->
@@ -61,43 +54,34 @@
 
 	<!-- DOMAIN CRUD MESSAGES -->
 	<wsdl:message name="CreateDomainMsg">
-		<wsdl:part element="metadata:CreateDomainParam"
-			name="new.domain" />
+		<wsdl:part element="metadata:CreateDomainParam" name="new.domain" />
 	</wsdl:message>
 	<wsdl:message name="UpdateDomainMsg">
-		<wsdl:part element="metadata:UpdateDomainParam"
-			name="partial.domain" />
+		<wsdl:part element="metadata:UpdateDomainParam" name="partial.domain" />
 	</wsdl:message>
 	<wsdl:message name="DeleteDomainMsg">
-		<wsdl:part element="metadata:DeleteDomainParam"
-			name="obsolete.domain" />
+		<wsdl:part element="metadata:DeleteDomainParam" name="obsolete.domain" />
 	</wsdl:message>
 	<wsdl:message name="ReadDomainBundleMsg">
-		<wsdl:part element="metadata:ReadDomainBundleParam"
-			name="get.domains" />
+		<wsdl:part element="metadata:ReadDomainBundleParam" name="get.domains" />
 	</wsdl:message>
-
 
 	<!-- CATEGORY CRUD MESSAGES -->
 	<wsdl:message name="CreateCategoryMsg">
-		<wsdl:part element="metadata:CreateCategoryParam"
-			name="new.category" />
+		<wsdl:part element="metadata:CreateCategoryParam" name="new.category" />
 	</wsdl:message>
 	<wsdl:message name="UpdateCategoryMsg">
-		<wsdl:part element="metadata:UpdateCategoryParam"
-			name="partial.category" />
+		<wsdl:part element="metadata:UpdateCategoryParam" name="partial.category" />
 	</wsdl:message>
 	<wsdl:message name="DeleteCategoryMsg">
-		<wsdl:part element="metadata:DeleteCategoryParam"
-			name="obsolete.category" />
+		<wsdl:part element="metadata:DeleteCategoryParam" name="obsolete.category" />
 	</wsdl:message>
 	<wsdl:message name="ReadCategoryBundleMsg">
-		<wsdl:part element="metadata:ReadCategoryBundleParam"
-			name="get.categories" />
+		<wsdl:part element="metadata:ReadCategoryBundleParam" name="get.categories" />
 	</wsdl:message>
-
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- PORT -->
+	<!--                                                    -->
+	<!-- ============ PORT (service interface) ============ -->
+	<!--                                                    -->
 	<wsdl:portType name="CejugClassifiedsAdmin">
 		<wsdl:operation name="CheckMonitorOperation">
 			<wsdl:documentation>
@@ -110,18 +94,15 @@
 			</wsdl:documentation>
 			<wsdl:input message="admin:CheckMonitor" />
 			<wsdl:output message="admin:CheckMonitorResponse" />
-			<wsdl:fault name="CheckMonitorException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="CheckMonitorException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="AddQuotaOperation">
 			<wsdl:documentation>
 				TODO: Add quota documentation
 			</wsdl:documentation>
 			<wsdl:input message="admin:AddQuota" />
-			<wsdl:output name="AddQuotaResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="AddQuotaException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="AddQuotaResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="AddQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="CancelQuotaOperation">
 			<wsdl:documentation>
@@ -129,8 +110,7 @@
 			</wsdl:documentation>
 			<wsdl:input message="admin:CancelQuota" />
 			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="CancelQuotaException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="CancelQuotaException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 
 		<!-- CATEGORY CRUD -->
@@ -141,10 +121,8 @@
 				throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:CreateCategoryMsg" />
-			<wsdl:output name="CreateCategoryResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="CreateCagegoriesException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="CreateCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadCategoryBundleOperation">
 			<wsdl:documentation>
@@ -152,8 +130,7 @@
 			</wsdl:documentation>
 			<wsdl:input message="admin:ReadCategoryBundleMsg" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
-			<wsdl:fault name="ReadCategoryBundleException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="ReadCategoryBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateCategoryOperation">
 			<wsdl:documentation>
@@ -163,10 +140,8 @@
 				(201).
 			</wsdl:documentation>
 			<wsdl:input message="admin:UpdateCategoryMsg" />
-			<wsdl:output name="UpdateCategoryResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="UpdateCagegoriesException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="UpdateCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteCategoryOperation">
 			<wsdl:documentation>
@@ -174,10 +149,8 @@
 				doesn't exist in the database, it throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:DeleteCategoryMsg" />
-			<wsdl:output name="DeleteCategoryResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="DeleteCagegoriesException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="DeleteCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteCagegoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 
 		<!-- ADVERTISEMENT TYPE CRUD -->
@@ -245,10 +218,8 @@
 				an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:CreateDomainMsg" />
-			<wsdl:output name="CreateDomainResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="CreateDomainException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="CreateDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateDomainException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadDomainBundleOperation">
 			<wsdl:documentation>
@@ -260,8 +231,7 @@
 			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:ReadDomainBundle" />
 			<wsdl:output message="common-wsdl:DomainBundle" />
-			<wsdl:fault name="ReadDomainBundleException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:fault name="ReadDomainBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="UpdateDomainOperation">
 			<wsdl:documentation>
@@ -271,10 +241,8 @@
 				(201).
 			</wsdl:documentation>
 			<wsdl:input message="admin:UpdateDomainMsg" />
-			<wsdl:output name="UpdateDomainResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="UpdateDomainException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="UpdateDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateDomainException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="DeleteDomainOperation">
 			<wsdl:documentation>
@@ -282,14 +250,52 @@
 				doesn't exist in the database, it throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:DeleteDomainMsg" />
-			<wsdl:output name="DeleteDomainResponse"
-				message="common-wsdl:OperationExecutionStatus" />
-			<wsdl:fault name="DeleteDomainException"
-				message="common-wsdl:ClassifiedsFault" />
+			<wsdl:output name="DeleteDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteDomainException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+
+		<!-- CATEGORY CRUD -->
+		<wsdl:operation name="CreateCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Creates a new category. Only administrators can
+				create categories. If the category already exists, it
+				throws an exception.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:CreateCustomerMsg" />
+			<wsdl:output name="CreateCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateCustomerException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="ReadCustomerBundleOperation">
+			<wsdl:documentation>
+				CRUD - Read all active categories from the database.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:ReadCustomerBundleMsg" />
+			<wsdl:output message="common-wsdl:CustomerBundle" />
+			<wsdl:fault name="ReadCustomerBundleException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Updates a category (merge new attributes data in
+				the database). If the category doesn't exists it throws
+				an exception, otherwise it return an HTTP Created status
+				(201).
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:UpdateCustomerMsg" />
+			<wsdl:output name="UpdateCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateCustomerException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Deletes the category by its ID. If the category
+				doesn't exist in the database, it throws an exception.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:DeleteCustomerMsg" />
+			<wsdl:output name="DeleteCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteCustomerException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="CejugClassifiedsAdminBinding"
-		type="admin:CejugClassifiedsAdmin">
+	<!-- ============ BINDING ============ -->
+	<wsdl:binding name="CejugClassifiedsAdminBinding" type="admin:CejugClassifiedsAdmin">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
 			style="document" />
 		<!-- ADVERTISEMENT TYPE -->
@@ -415,6 +421,47 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<!-- CUSTOMER -->
+		<wsdl:operation name="CreateCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/CreateCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReadCustomerBundleOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/LoadCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/UpdateCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/admin/DeleteCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
 		<!-- ADVERTISEMENT TYPE -->
 		<wsdl:operation name="CheckMonitorOperation">
 			<soap:operation
@@ -451,8 +498,7 @@
 		<wsdl:documentation> 
 			<Version>$Rev$</Version>
 		</wsdl:documentation>
-		<wsdl:port name="CejugClassifiedsAdmin"
-			binding="admin:CejugClassifiedsAdminBinding">
+		<wsdl:port name="CejugClassifiedsAdmin" binding="admin:CejugClassifiedsAdminBinding">
 			<soap:address
 				location="http://localhost:8080/ClassifiedsAdminSessionBeanService/ClassifiedsAdminSessionBean" />
 		</wsdl:port>

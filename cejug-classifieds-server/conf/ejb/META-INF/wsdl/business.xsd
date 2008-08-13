@@ -2,19 +2,17 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:mime="http://www.w3.org/2005/05/xmlmim"
-	xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
-	xmlns:atom10="http://www.w3.org/2005/Atom"
-	elementFormDefault="qualified"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim" xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
+	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:atom10="http://www.w3.org/2005/Atom" elementFormDefault="qualified"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
+	<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
+		schemaLocation="common.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/Atom"
 		schemaLocation="atom10.xsd" />
-
 	<xsd:import namespace="http://blogs.law.harvard.edu/RSS20.xsd"
 		schemaLocation="rss20.xsd" />
-
 	<xsd:annotation>
 		<xsd:documentation>
 			The Business Meta-data of CEJUG-Classifieds.
@@ -22,82 +20,57 @@
 		<xsd:appinfo>
 			<jaxb:globalBindings>
 				<xjc:serializable uid="-6026937020915831338" />
-                <jaxb:javaType 
-                  name="java.util.Calendar" 
-                  xmlType="xsd:dateTime"
-                  parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
-                  printMethod="javax.xml.bind.DatatypeConverter.printDate" />
+                <jaxb:javaType name="java.util.Calendar"
+			xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+			printMethod="javax.xml.bind.DatatypeConverter.printDate" />
 			</jaxb:globalBindings>
 		</xsd:appinfo>
 	</xsd:annotation>
-
 	<xsd:complexType name="AbstractAdvertisement" abstract="true">
 		<xsd:sequence minOccurs="1">
 			<xsd:element name="headline" type="xsd:string" />
 			<xsd:element name="keywords" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
-
-	<!-- xsd:element name="PdfAdvertisement">
-		<xsd:complexType>
-		<xsd:complexContent>
-		<xsd:extension base="business:AbstractAdvertisement">
-		<xsd:attribute name="bbb" type="xsd:string"
-		use="required" />
-		</xsd:extension>
-		</xsd:complexContent>
-		</xsd:complexType>
-		</xsd:element>
-		
-		<xsd:complexType name="ImageAttachment">
-		<xsd:sequence>
-		<xsd:element name="name" type="xsd:string" />
-		<xsd:element name="flash" type="xsd:base64Binary"
+	<!--
+		xsd:element name="PdfAdvertisement"> <xsd:complexType>
+		<xsd:complexContent> <xsd:extension
+		base="business:AbstractAdvertisement"> <xsd:attribute name="bbb"
+		type="xsd:string" use="required" /> </xsd:extension>
+		</xsd:complexContent> </xsd:complexType> </xsd:element>
+		<xsd:complexType name="ImageAttachment"> <xsd:sequence> <xsd:element
+		name="name" type="xsd:string" /> <xsd:element name="flash"
+		type="xsd:base64Binary"
 		mime:expectedContentTypes="application/x-shockwave-flash" />
-		</xsd:sequence>
-		</xsd:complexType>
-		
-		<xsd:element name="FlashAdvertisement">
-		<xsd:complexType>
-		<xsd:complexContent>
-		<xsd:extension base="business:AbstractAdvertisement">
-		<xsd:sequence>
-		<xsd:element name="swf.collection"
-		type="business:FlashAttachment" minOccurs="0"
-		maxOccurs="unbounded" />
-		</xsd:sequence>
-		</xsd:extension>
-		</xsd:complexContent>
-		</xsd:complexType>
-		</xsd:element>
-		
-		<xsd:complexType name="FlashAttachment">
-		<xsd:sequence>
-		<xsd:element name="name" type="xsd:string" />
-		<xsd:element name="flash" type="xsd:base64Binary"
+		</xsd:sequence> </xsd:complexType> <xsd:element
+		name="FlashAdvertisement"> <xsd:complexType> <xsd:complexContent>
+		<xsd:extension base="business:AbstractAdvertisement"> <xsd:sequence>
+		<xsd:element name="swf.collection" type="business:FlashAttachment"
+		minOccurs="0" maxOccurs="unbounded" /> </xsd:sequence>
+		</xsd:extension> </xsd:complexContent> </xsd:complexType>
+		</xsd:element> <xsd:complexType name="FlashAttachment"> <xsd:sequence>
+		<xsd:element name="name" type="xsd:string" /> <xsd:element
+		name="flash" type="xsd:base64Binary"
 		mime:expectedContentTypes="application/x-shockwave-flash" />
-		</xsd:sequence>
-		</xsd:complexType-->
-
+		</xsd:sequence> </xsd:complexType
+	-->
 	<xsd:complexType name="Section">
 		<xsd:sequence>
 			<xsd:element name="names" type="xsd:string" />
 			<xsd:element name="description" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
-
 	<xsd:element name="Advertisement">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="id" type="xsd:int" />
-				<xsd:element name="advertiser" type="business:Customer" />
+				<xsd:element ref="common:Customer" />
 				<xsd:element name="headline" type="xsd:string" />
 				<xsd:element name="short.description" type="xsd:string" />
 				<xsd:element name="full.text" type="xsd:string" />
 				<xsd:element name="status" type="xsd:int" />
 				<xsd:element name="keywords" type="xsd:string" />
-				<xsd:element name="publishing.period"
-					type="business:Period" />
+				<xsd:element name="publishing.period" type="business:Period" />
 				<xsd:element name="attachment.id" type="xsd:int"
 					minOccurs="0" maxOccurs="unbounded" />
 				<xsd:element name="category.id" type="xsd:int" />
@@ -106,8 +79,6 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
-
 	<xsd:element name="PublishingHeader">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -116,14 +87,6 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
-	<xsd:complexType name="Customer">
-		<xsd:sequence>
-			<xsd:element name="login" type="xsd:string" />
-			<xsd:element name="domain" type="xsd:string" />
-		</xsd:sequence>
-	</xsd:complexType>
-
 	<xsd:complexType name="Locale">
 		<xsd:sequence>
 			<xsd:element name="language" type="xsd:string" />
@@ -137,7 +100,6 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:element name="AdvertisementCollection">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
@@ -145,48 +107,41 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:element name="AdvertisementCollectionFilter">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="category" type="xsd:NMTOKEN" />
-				<xsd:element name="maximum.number.of.records"
-					type="xsd:int" default="30" />
+				<xsd:element name="maximum.number.of.records" type="xsd:int"
+					default="30" />
 				<xsd:element name="period" type="business:Period"
 					nillable="true" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:complexType name="Period">
 		<xsd:sequence>
 			<xsd:element name="start" type="xsd:dateTime" />
 			<xsd:element name="finish" type="xsd:dateTime" />
 		</xsd:sequence>
 	</xsd:complexType>
-
 	<xsd:element name="AtomCollection">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-				<xsd:element name="atom.collection"
-					type="atom10:feedType" />
+				<xsd:element name="atom.collection" type="atom10:feedType" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:element name="AtomFilterCollection">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-				<xsd:element name="filter.collection"
-					type="business:SyndicationFilter" nillable="true" />
+				<xsd:element name="filter.collection" type="business:SyndicationFilter"
+					nillable="true" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:complexType name="SyndicationFilter">
 		<xsd:sequence>
-			<xsd:element name="upper.bound" type="xsd:int"
-				nillable="true" />
+			<xsd:element name="upper.bound" type="xsd:int" nillable="true" />
 			<xsd:element name="date.initial" type="xsd:dateTime" />
 			<xsd:element name="date.final" type="xsd:dateTime" />
 			<xsd:element name="section" type="xsd:string" />
@@ -194,16 +149,14 @@
 				maxOccurs="unbounded" />
 		</xsd:sequence>
 	</xsd:complexType>
-
 	<xsd:element name="RssFilterCollection">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-				<xsd:element name="filter.collection"
-					type="business:SyndicationFilter" nillable="true" />
+				<xsd:element name="filter.collection" type="business:SyndicationFilter"
+					nillable="true" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-
 	<xsd:element name="SpamReport">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
