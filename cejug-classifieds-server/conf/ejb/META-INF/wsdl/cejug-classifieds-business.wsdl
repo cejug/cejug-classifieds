@@ -80,6 +80,45 @@
 			<wsdl:output message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="ReportSpamException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
+		<!-- CUSTOMER CRUD -->
+		<wsdl:operation name="CreateCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Creates a new customer. Only administrators can
+				create categories. If the customer already exists, it
+				throws an exception.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:CreateCustomerMsg" />
+			<wsdl:output name="CreateCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="CreateCustomerException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="ReadCustomerBundleOperation">
+			<wsdl:documentation>
+				CRUD - Read all active categories from the database.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:ReadCustomerBundleMsg" />
+			<wsdl:output message="common-wsdl:CustomerBundle" />
+			<wsdl:fault name="ReadCustomerBundleException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Updates a customer (merge new attributes data in
+				the database). If the customer doesn't exists it throws
+				an exception, otherwise it return an HTTP Created status
+				(201).
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:UpdateCustomerMsg" />
+			<wsdl:output name="UpdateCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="UpdateCustomerException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomerOperation">
+			<wsdl:documentation>
+				CRUD - Deletes the customer by its ID. If the customer
+				doesn't exist in the database, it throws an exception.
+			</wsdl:documentation>
+			<wsdl:input message="common-wsdl:DeleteCustomerMsg" />
+			<wsdl:output name="DeleteCustomerResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:fault name="DeleteCustomerException" message="common-wsdl:ClassifiedsFault" />
+		</wsdl:operation>
 	</wsdl:portType>
 
 	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -142,6 +181,47 @@
 		<wsdl:operation name="ReportSpamOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/ReportSpam" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- CUSTOMER -->
+		<wsdl:operation name="CreateCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/CreateCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReadCustomerBundleOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/UpdateCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomerOperation">
+			<soap:operation
+				soapAction="http://cejug-classifieds.dev.java.net/business/DeleteCustomer" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

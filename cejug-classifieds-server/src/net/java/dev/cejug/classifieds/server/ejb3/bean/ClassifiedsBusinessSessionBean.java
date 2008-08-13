@@ -58,8 +58,13 @@ import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
+import net.java.dev.cejug_classifieds.metadata.common.CustomerCollection;
+import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
+import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
 import org.w3._2005.atom.FeedType;
 import org.w3._2005.atom.TextType;
@@ -89,7 +94,7 @@ public class ClassifiedsBusinessSessionBean implements
 	private CategoryFacadeLocal categoryFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
-	 * the defult logger.
+	 * the default logger.
 	 */
 	private static Logger logger = Logger.getLogger(
 			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
@@ -277,6 +282,33 @@ public class ClassifiedsBusinessSessionBean implements
 		// status.setDescription("OK");
 		// status.setStatusCode(200);
 		// return status;
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus createCustomerOperation(CreateCustomerParam newCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus deleteCustomerOperation(
+			DeleteCustomerParam obsoleteCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public CustomerCollection readCustomerBundleOperation(
+			ReadCustomerBundleParam getCustomer) {
+		// TODO
+		throw new WebServiceException("operation not yet implemented");
+	}
+
+	@Override
+	public ServiceStatus updateCustomerOperation(
+			UpdateCustomerParam partialCustomer) {
 		// TODO
 		throw new WebServiceException("operation not yet implemented");
 	}

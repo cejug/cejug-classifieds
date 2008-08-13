@@ -254,11 +254,11 @@
 			<wsdl:fault name="DeleteDomainException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 
-		<!-- CATEGORY CRUD -->
+		<!-- CUSTOMER CRUD -->
 		<wsdl:operation name="CreateCustomerOperation">
 			<wsdl:documentation>
-				CRUD - Creates a new category. Only administrators can
-				create categories. If the category already exists, it
+				CRUD - Creates a new customer. Only administrators can
+				create categories. If the customer already exists, it
 				throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:CreateCustomerMsg" />
@@ -275,8 +275,8 @@
 		</wsdl:operation>
 		<wsdl:operation name="UpdateCustomerOperation">
 			<wsdl:documentation>
-				CRUD - Updates a category (merge new attributes data in
-				the database). If the category doesn't exists it throws
+				CRUD - Updates a customer (merge new attributes data in
+				the database). If the customer doesn't exists it throws
 				an exception, otherwise it return an HTTP Created status
 				(201).
 			</wsdl:documentation>
@@ -286,7 +286,7 @@
 		</wsdl:operation>
 		<wsdl:operation name="DeleteCustomerOperation">
 			<wsdl:documentation>
-				CRUD - Deletes the category by its ID. If the category
+				CRUD - Deletes the customer by its ID. If the customer
 				doesn't exist in the database, it throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="common-wsdl:DeleteCustomerMsg" />
