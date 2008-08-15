@@ -181,7 +181,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 			logger
 					.finest("TODO: fix logging... 1 {0} quota added to customer {1} of domain {2}");
 		} catch (Exception e) {
-			// TODO: log.............
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
 		}
@@ -198,6 +198,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	public ServiceStatus createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
 			AdvertisementType advertisementType = newAdvType
@@ -210,56 +211,47 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 			advTypeFacade.create(advTypeEntity);
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 advertisement type added");
-			return status;
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
-
+		return status;
 	}
 
 	@Override
 	public ServiceStatus createCategoryOperation(
 			final CreateCategoryParam newCategory) {
 
-		AdvertisementCategory advertisementCategory = newCategory
+		AdvertisementCategory advCategory = newCategory
 				.getAdvertisementCategory();
-		CategoryEntity category = fillCategoryEntity(advertisementCategory);
-		AdvertisementCategory parent = advertisementCategory
-				.getAdvertisementCategory();
+		CategoryEntity category = fillCategoryEntity(advCategory);
+		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
 		if (parent != null) {
 			category.setParent(fillCategoryEntity(parent));
 		}
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			categoryFacade.create(category);
 
 			// TODO: create a generic status response in the super class...
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 category added");
-			return status;
 		} catch (Exception e) {
-			// TODO log....
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
-
+		return status;
 	}
 
 	@Override
 	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			// TODO: review validation...
 			DomainEntity entity = new DomainEntity();
@@ -278,65 +270,56 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 			entity.setCategories(categories);
 			domainFacade.create(entity);
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 domain created");
-			return status;
 		} catch (Exception e) {
-			// TODO Logging....
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			// TODO Check if the category is being used, before deleting it
 			categoryFacade.delete(CategoryEntity.class, Integer
 					.valueOf(obsoleteCategory.getPrimaryKey()));
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 category deleted");
-			return status;
 
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			// TODO Check if the domain is being used, before deleting it
 			domainFacade.delete(DomainEntity.class, obsoleteDomain
 					.getPrimaryKey());
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 domain deleted");
-			return status;
 
 		} catch (Exception e) {
-			// TODO: log.............
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
-
+		return status;
 	}
 
 	@Override
@@ -362,6 +345,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 				}
 			}
 		} catch (Exception e) {
+			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 		return advTypeCollection;
@@ -389,6 +373,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 				}
 			}
 		} catch (Exception e) {
+			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 		return categoryCollection;
@@ -435,6 +420,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 				}
 			}
 		} catch (Exception e) {
+			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 		return domainCollection;
@@ -444,6 +430,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
 			AdvertisementType advertisementType = partialAdvType
@@ -457,65 +444,57 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 			advTypeFacade.update(advTypeEntity);
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 advertisement type updated");
-			return status;
 
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	@Override
 	public ServiceStatus updateCategoryOperation(
 			final UpdateCategoryParam partialCategory) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
-			AdvertisementCategory advertisementCategory = partialCategory
+			AdvertisementCategory advCategory = partialCategory
 					.getAdvertisementCategory();
-			CategoryEntity category = fillCategoryEntity(advertisementCategory);
-			AdvertisementCategory parent = advertisementCategory
+			CategoryEntity category = fillCategoryEntity(advCategory);
+			AdvertisementCategory parent = advCategory
 					.getAdvertisementCategory();
 			if (parent != null) {
 				category.setParent(fillCategoryEntity(parent));
 			}
 			categoryFacade.update(category);
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 category updated");
-			return status;
-
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	private CategoryEntity fillCategoryEntity(
-			AdvertisementCategory advertisementCategory) {
+			final AdvertisementCategory advCategory) {
 
 		CategoryEntity category = new CategoryEntity();
-		category.setId(advertisementCategory.getId());
-		category.setDescripton(advertisementCategory.getDescription());
-		category.setName(advertisementCategory.getName());
+		category.setId(advCategory.getId());
+		category.setDescripton(advCategory.getDescription());
+		category.setName(advCategory.getName());
 		return category;
 	}
 
 	@Override
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
-
+		ServiceStatus status = new ServiceStatus();
 		try {
 			DomainEntity domainEntity = new DomainEntity();
 			Domain domain = partialDomain.getDomain();
@@ -536,43 +515,34 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 			domainFacade.update(domainEntity);
 
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 domain updated");
-			return status;
 
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
 
+		ServiceStatus status = new ServiceStatus();
 		try {
 			// TODO Check if the advertisement type is being used, before
 			// deleting it
 			advTypeFacade.delete(AdvertisementTypeEntity.class, Integer
 					.valueOf(id));
-
-			ServiceStatus status = new ServiceStatus();
 			status.setStatusCode(200);
 			status.setDescription("1 advertisement type deleted");
-			return status;
-
 		} catch (Exception e) {
-			// TODO: log.............
-			e.printStackTrace();
-			ServiceStatus status = new ServiceStatus();
+			logger.severe(e.getMessage());
 			status.setStatusCode(500);
 			status.setDescription(e.getMessage());
-			return status;
 		}
+		return status;
 	}
 
 	@Override
