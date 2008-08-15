@@ -125,7 +125,7 @@
 	<!-- BINDING -->
 	<wsdl:binding name="CejugClassifiedsBusinessBinding" type="business:CejugClassifiedsBusiness">
 		<soap:binding style="document"
-			transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="ReadCategoryBundleOperation">
 			<soap:operation
 				soapAction="http://cejug-classifieds.dev.java.net/business/LoadCategories" />
