@@ -5,6 +5,7 @@
     <property name="project.lib" value="${basedir}/lib" />
     <property name="build.home" value="${basedir}/build" />
     <property name="build.ear.home" value="${build.home}/ear" />
+    <property name="quality.home" value="${build.home}/quality" />    
     <property name="build.classes.home" value="${build.home}/classes" />
     <property name="domain" value="domain1" />
 
@@ -31,7 +32,7 @@
 
     <target name="findbugs">
         <echo>${findbugs.home}</echo>
-        <findbugs home="${env.FINDBUGS_HOME}" output="xml:withMessages" outputFile="bcel-fb.xml" failOnError="true">
+        <findbugs home="${env.FINDBUGS_HOME}" output="xml:withMessages" outputFile="${quality.home}/classifieds-server.xml" failOnError="true">
             <auxClasspath refid="jaxws.classpath" />
             <sourcePath path="${basedir}/src" />
             <class location="${basedir}/build/classes" />
