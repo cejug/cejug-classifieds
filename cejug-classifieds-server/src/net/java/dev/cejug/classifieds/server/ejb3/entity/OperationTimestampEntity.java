@@ -39,85 +39,85 @@ import javax.persistence.TemporalType;
 @Table(name = "RESPONSE_TIME")
 public class OperationTimestampEntity extends AbstractEntity {
 
-  // TODO falta modelar essa tabela
+	// TODO falta modelar essa tabela
 
-  @Column(nullable = false)
-  private String operationName;
+	@Column(nullable = false)
+	private String operationName;
 
-  @Column(nullable = false)
-  @Temporal(TemporalType.TIMESTAMP)
-  private Calendar date;
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar date;
 
-  @Column(nullable = false)
-  private Long responseTime;
+	@Column(nullable = false)
+	private Long responseTime;
 
-  @Column(nullable = false)
-  private Boolean status;
+	@Column(nullable = false)
+	private Boolean status;
 
-  @Column(nullable = false)
-  private String clientId;
+	@Column(nullable = false)
+	private String clientId;
 
-  @Column(nullable = true)
-  private String fault;
+	@Column(nullable = true)
+	private String fault;
 
-  public String getOperationName() {
+	public String getOperationName() {
 
-    return operationName;
-  }
+		return operationName;
+	}
 
-  public void setOperationName(final String operationName) {
+	public void setOperationName(final String operationName) {
 
-    this.operationName = operationName;
-  }
+		this.operationName = operationName;
+	}
 
-  public Calendar getDate() {
+	public Calendar getDate() {
 
-    return date;
-  }
+		return date;
+	}
 
-  public void setDate(final Calendar date) {
+	public void setDate(final Calendar date) {
 
-    this.date = date;
-  }
+		this.date = date;
+	}
 
-  public Long getResponseTime() {
+	public Long getResponseTime() {
 
-    return responseTime;
-  }
+		return responseTime;
+	}
 
-  public void setResponseTime(final Long responseTime) {
+	public void setResponseTime(final Long responseTime) {
 
-    this.responseTime = responseTime;
-  }
+		this.responseTime = responseTime;
+	}
 
-  public Boolean getStatus() {
+	public Boolean getStatus() {
 
-    return status;
-  }
+		return status;
+	}
 
-  public void setStatus(final Boolean status) {
+	public void setStatus(final Boolean status) {
 
-    this.status = status;
-  }
+		this.status = status;
+	}
 
-  public String getClientId() {
+	public String getClientId() {
 
-    return clientId;
-  }
+		return clientId;
+	}
 
-  public void setClientId(final String clientId) {
+	public void setClientId(final String clientId) {
 
-    this.clientId = clientId;
-  }
+		this.clientId = clientId;
+	}
 
-  public String getFault() {
+	public String getFault() {
 
-    return fault;
-  }
+		return fault;
+	}
 
-  public void setFault(final String fault) {
+	public void setFault(final String fault) {
 
-    this.fault = fault;
-  }
+		this.fault = fault;
+	}
 
 }

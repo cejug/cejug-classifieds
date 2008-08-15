@@ -39,90 +39,93 @@ import javax.persistence.UniqueConstraint;
  * @version $Rev$ ($Date$)
  */
 @Entity
-@Table(name = "CATEGORY", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
+@Table(name = "CATEGORY", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
 public class CategoryEntity extends AbstractEntity {
 
-  @Column(name = "NAME", nullable = false)
-  private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-  @Column(name = "DESCRIPTION", nullable = false)
-  private String descripton;
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String descripton;
 
-  @Transient
-  private Integer available = 0;
+	@Transient
+	private Integer available = 0;
 
-  @ManyToOne
-  @JoinColumn(name = "PARENT_ID", nullable = true)
-  private CategoryEntity parent;
+	@ManyToOne
+	@JoinColumn(name = "PARENT_ID", nullable = true)
+	private CategoryEntity parent;
 
-  @OneToMany(mappedBy = "parent")
-  private Collection<CategoryEntity> subCategories;
+	@OneToMany(mappedBy = "parent")
+	private Collection<CategoryEntity> subCategories;
 
-  public String getName() {
+	public String getName() {
 
-    return name;
-  }
+		return name;
+	}
 
-  public void setName(final String name) {
+	public void setName(final String name) {
 
-    this.name = name;
-  }
+		this.name = name;
+	}
 
-  public String getDescripton() {
+	public String getDescripton() {
 
-    return descripton;
-  }
+		return descripton;
+	}
 
-  public void setDescripton(final String descripton) {
+	public void setDescripton(final String descripton) {
 
-    this.descripton = descripton;
-  }
+		this.descripton = descripton;
+	}
 
-  /**
-   * @return the parent
-   */
-  public CategoryEntity getParent() {
+	/**
+	 * @return the parent
+	 */
+	public CategoryEntity getParent() {
 
-    return parent;
-  }
+		return parent;
+	}
 
-  /**
-   * @param parent the parent to set
-   */
-  public void setParent(final CategoryEntity parent) {
+	/**
+	 * @param parent
+	 *            the parent to set
+	 */
+	public void setParent(final CategoryEntity parent) {
 
-    this.parent = parent;
-  }
+		this.parent = parent;
+	}
 
-  /**
-   * @return the subCategories
-   */
-  public Collection<CategoryEntity> getSubCategories() {
+	/**
+	 * @return the subCategories
+	 */
+	public Collection<CategoryEntity> getSubCategories() {
 
-    return subCategories;
-  }
+		return subCategories;
+	}
 
-  /**
-   * @param subCategories the subCategories to set
-   */
-  public void setSubCategories(final Collection<CategoryEntity> subCategories) {
+	/**
+	 * @param subCategories
+	 *            the subCategories to set
+	 */
+	public void setSubCategories(final Collection<CategoryEntity> subCategories) {
 
-    this.subCategories = subCategories;
-  }
+		this.subCategories = subCategories;
+	}
 
-  /**
-   * @return the available
-   */
-  public Integer getAvailable() {
+	/**
+	 * @return the available
+	 */
+	public Integer getAvailable() {
 
-    return available;
-  }
+		return available;
+	}
 
-  /**
-   * @param available the available to set
-   */
-  public void setAvailable(final Integer available) {
+	/**
+	 * @param available
+	 *            the available to set
+	 */
+	public void setAvailable(final Integer available) {
 
-    this.available = available;
-  }
+		this.available = available;
+	}
 }

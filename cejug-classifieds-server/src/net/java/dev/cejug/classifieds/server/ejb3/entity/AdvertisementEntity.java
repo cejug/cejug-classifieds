@@ -142,7 +142,8 @@ public class AdvertisementEntity extends AbstractEntity {
 		return keywords;
 	}
 
-	public void setKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
+	public void setKeywords(
+			final Collection<AdvertisementKeywordEntity> keywords) {
 
 		this.keywords = keywords;
 	}

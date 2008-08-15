@@ -31,11 +31,11 @@ import java.nio.charset.Charset;
 
 import javax.xml.bind.JAXBException;
 
-import org.xml.sax.SAXException;
-
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 import net.java.dev.cejug.utils.config.ConfigXmlReader;
 import net.java.dev.cejug.utils.config.XmlStreamFactory;
+
+import org.xml.sax.SAXException;
 
 /**
  * An utility class to load the configuration file. It keeps the latest loaded
@@ -64,24 +64,26 @@ public final class ConfigLoader {
 	private ConfigLoader() {
 	}
 
-	public ClassifiedsServerConfig reload() throws MalformedURLException, JAXBException, SAXException{
+	public ClassifiedsServerConfig reload() throws MalformedURLException,
+			JAXBException, SAXException {
 		return this.load();
 
 	}
 
-	public ClassifiedsServerConfig load() throws MalformedURLException, JAXBException, SAXException {
+	public ClassifiedsServerConfig load() throws MalformedURLException,
+			JAXBException, SAXException {
 		if (lastLoaded == null) {
-                  XmlStreamFactory<ClassifiedsServerConfig> factory = new XmlStreamFactory<ClassifiedsServerConfig>();
-                  ConfigXmlReader<ClassifiedsServerConfig> reader = factory
-                                  .getReader(new ConfigUnmarshallerListener(), null);
-                  ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                  synchronized (this) {
-                          InputStream stream = loader.getResourceAsStream(CONFIG);
-                          InputStreamReader streamReader = new InputStreamReader(stream,
-                                          Charset.forName(UTF8));
-                          lastLoaded = reader.read(streamReader, DEFAULT_CONTEXT,
-                                          new URL(CONFIG_SCHEMA)).getValue();
-                  }
+			XmlStreamFactory<ClassifiedsServerConfig> factory = new XmlStreamFactory<ClassifiedsServerConfig>();
+			ConfigXmlReader<ClassifiedsServerConfig> reader = factory
+					.getReader(new ConfigUnmarshallerListener(), null);
+			ClassLoader loader = Thread.currentThread().getContextClassLoader();
+			synchronized (this) {
+				InputStream stream = loader.getResourceAsStream(CONFIG);
+				InputStreamReader streamReader = new InputStreamReader(stream,
+						Charset.forName(UTF8));
+				lastLoaded = reader.read(streamReader, DEFAULT_CONTEXT,
+						new URL(CONFIG_SCHEMA)).getValue();
+			}
 		}
 		return lastLoaded;
 	}

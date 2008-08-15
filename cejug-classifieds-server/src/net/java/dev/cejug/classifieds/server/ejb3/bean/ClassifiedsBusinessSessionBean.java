@@ -79,224 +79,238 @@ import edu.harvard.law.blogs.rss20.Item;
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
-public class ClassifiedsBusinessSessionBean implements ClassifiedsBusinessLocal,
-    ClassifiedsBusinessRemote {
+public class ClassifiedsBusinessSessionBean implements
+		ClassifiedsBusinessLocal, ClassifiedsBusinessRemote {
 
-  private static final String NOT_IMPLEMENTED = "operation not yet implemented";
+	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
-  @EJB
-  private transient AdvertisementFacadeLocal advFacade;
+	@EJB
+	private transient AdvertisementFacadeLocal advFacade;
 
-  @EJB
-  private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-  @EJB
-  private transient CustomerFacadeLocal customerFacade;
-  @EJB
-  private transient CategoryFacadeLocal categoryFacade;
-  /**
-   * the global log manager, used to allow third party services to override the
-   * default logger.
-   */
-  private static final Logger logger = Logger.getLogger(
-      ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
+	@EJB
+	private transient CustomerFacadeLocal customerFacade;
+	@EJB
+	private transient CategoryFacadeLocal categoryFacade;
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
 
-  @Override
-  public AtomCollection loadAtomOperation(final AtomFilterCollection filter) {
-    try {
-      // TODO: converter filter in a map of parameters...
-      List<AdvertisementEntity> result = advFacade.readAll(AdvertisementEntity.class);
+	@Override
+	public AtomCollection loadAtomOperation(final AtomFilterCollection filter) {
+		try {
+			// TODO: converter filter in a map of parameters...
+			List<AdvertisementEntity> result = advFacade
+					.readAll(AdvertisementEntity.class);
 
-      List<FeedType> atomCollection = new ArrayList<FeedType>();
-      for (AdvertisementEntity adv : result) {
-        FeedType feed = new FeedType();
-        TextType title = new TextType();
-        title.setType(adv.getTitle());
-        // feed.getAuthorOrCategoryOrContributor().add(title);
+			List<FeedType> atomCollection = new ArrayList<FeedType>();
+			for (AdvertisementEntity adv : result) {
+				FeedType feed = new FeedType();
+				TextType title = new TextType();
+				title.setType(adv.getTitle());
+				// feed.getAuthorOrCategoryOrContributor().add(title);
 
-        Item item = new Item();
-        item.setAuthor(adv.getCustomer().getLogin());
-        item.setAuthor("INCOMPLETE DATA SET");
-        item.setDescription(adv.getSummary());
-        item.setPubDate(adv.getStart());
-        atomCollection.add(feed);
-      }
+				Item item = new Item();
+				item.setAuthor(adv.getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
+				item.setDescription(adv.getSummary());
+				item.setPubDate(adv.getStart());
+				atomCollection.add(feed);
+			}
 
-      AtomCollection atoms = new AtomCollection();
-      // atoms.getAtomCollection().add(atomCollection);
-      return atoms;
-    } catch (Exception e) {
-      // TODO: log
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-  }
+			AtomCollection atoms = new AtomCollection();
+			// atoms.getAtomCollection().add(atomCollection);
+			return atoms;
+		} catch (Exception e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-  @Override
-  public RssCollection loadRssOperation(final RssFilterCollection filter) {
+	@Override
+	public RssCollection loadRssOperation(final RssFilterCollection filter) {
 
-    try {
-      // TODO: converter filter in a map of parameters...
-      List<AdvertisementEntity> result = advFacade.readAll(AdvertisementEntity.class);
+		try {
+			// TODO: converter filter in a map of parameters...
+			List<AdvertisementEntity> result = advFacade
+					.readAll(AdvertisementEntity.class);
 
-      Channel channel = new Channel();
-      for (AdvertisementEntity adv : result) {
-        Item item = new Item();
-        // item.setAuthor(adv.getVoucher().getCustomer().getLogin());
-        item.setAuthor("INCOMPLETE DATA SET");
-        item.setTitle(adv.getTitle());
-        item.setDescription(adv.getSummary());
-        // item.setPubDate(adv.getPublishingPeriod().iterator().next().
-        // getDay());
-        channel.getItem().add(item);
-      }
-      RssCollection col = new RssCollection();
-      col.getRssCollection().add(channel);
-      return col;
-    } catch (Exception e) {
-      // TODO: log
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-  }
+			Channel channel = new Channel();
+			for (AdvertisementEntity adv : result) {
+				Item item = new Item();
+				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
+				item.setAuthor("INCOMPLETE DATA SET");
+				item.setTitle(adv.getTitle());
+				item.setDescription(adv.getSummary());
+				// item.setPubDate(adv.getPublishingPeriod().iterator().next().
+				// getDay());
+				channel.getItem().add(item);
+			}
+			RssCollection col = new RssCollection();
+			col.getRssCollection().add(channel);
+			return col;
+		} catch (Exception e) {
+			// TODO: log
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-  @Override
-  public ServiceStatus publishOperation(final Advertisement advertisement,
-      final PublishingHeader header) {
+	@Override
+	public ServiceStatus publishOperation(final Advertisement advertisement,
+			final PublishingHeader header) {
 
-    // TODO: to implement the real code.
-    try {
-      /*
-       * // loading customer Map<String, String> params = new HashMap<String,
-       * String>(); params.clear(); params.put("d", header.getCustomerDomain());
-       * params.put("l", header.getCustomerLogin());
-       */
-      CustomerEntity customer = customerFacade.findOrCreate(header.getCustomerDomainId(),
-          header.getCustomerLogin());
+		// TODO: to implement the real code.
+		try {
+			/*
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
+			 * header.getCustomerDomain()); params.put("l",
+			 * header.getCustomerLogin());
+			 */
+			CustomerEntity customer = customerFacade.findOrCreate(header
+					.getCustomerDomainId(), header.getCustomerLogin());
 
-      // validating advertisement PIN
-      AdvertisementEntity entity = new AdvertisementEntity();
-      // entity.setKeywords(advertisement.getKeywords()); // TODO
-      entity.setText(advertisement.getFullText());
+			// validating advertisement PIN
+			AdvertisementEntity entity = new AdvertisementEntity();
+			// entity.setKeywords(advertisement.getKeywords()); // TODO
+			entity.setText(advertisement.getFullText());
 
-      entity.setCustomer(customer);
+			entity.setCustomer(customer);
 
-      AdvertisementTypeEntity type = advTypeFacade.read(AdvertisementTypeEntity.class,
-          advertisement.getTypeId());
-      entity.setType(type);
+			AdvertisementTypeEntity type = advTypeFacade.read(
+					AdvertisementTypeEntity.class, advertisement.getTypeId());
+			entity.setType(type);
 
-      entity.setSummary(advertisement.getShortDescription());
-      entity.setTitle(advertisement.getHeadline());
+			entity.setSummary(advertisement.getShortDescription());
+			entity.setTitle(advertisement.getHeadline());
 
-      CategoryEntity category = categoryFacade.read(CategoryEntity.class,
-          advertisement.getCategoryId());
-      entity.setCategory(category);
+			CategoryEntity category = categoryFacade.read(CategoryEntity.class,
+					advertisement.getCategoryId());
+			entity.setCategory(category);
 
-      Calendar start = Calendar.getInstance();
-      Calendar finish = Calendar.getInstance();
-      finish.add(Calendar.HOUR, 3);
-      entity.setStart(start);
-      entity.setFinish(finish);
-      advFacade.create(entity);
+			Calendar start = Calendar.getInstance();
+			Calendar finish = Calendar.getInstance();
+			finish.add(Calendar.HOUR, 3);
+			entity.setStart(start);
+			entity.setFinish(finish);
+			advFacade.create(entity);
 
-      ServiceStatus status = new ServiceStatus();
-      status.setDescription("OK");
-      status.setStatusCode(202);
+			ServiceStatus status = new ServiceStatus();
+			status.setDescription("OK");
+			status.setStatusCode(202);
 
-      status.setTimestamp(GregorianCalendar.getInstance());
+			status.setTimestamp(GregorianCalendar.getInstance());
 
-      return status;
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
+			return status;
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 
-  }
+	}
 
-  @Override
-  public AdvertisementCollection loadAdvertisementOperation(final AdvertisementCollectionFilter filter) {
+	@Override
+	public AdvertisementCollection loadAdvertisementOperation(
+			final AdvertisementCollectionFilter filter) {
 
-    // TODO: load advertisements from timetable.... filtering with periods,
-    // etc..
+		// TODO: load advertisements from timetable.... filtering with periods,
+		// etc..
 
-    try {
-      AdvertisementCollection collection = new AdvertisementCollection();
-      List<AdvertisementEntity> entities = advFacade.readAll(AdvertisementEntity.class);
-      for (AdvertisementEntity entity : entities) {
-        Advertisement adv = new Advertisement();
-        adv.setId(entity.getId());
-        Customer newCustomer = new Customer();
-        newCustomer.setDomain("www.cejug.org");
-        newCustomer.setLogin("test");
-        adv.setCustomer(newCustomer);
-        adv.setFullText(entity.getText());
-        adv.setKeywords(Arrays.toString(entity.getKeywords().toArray()));
-        adv.setShortDescription(entity.getSummary());
-        adv.setHeadline(entity.getTitle());
-        collection.getAdvertisement().add(adv);
-      }
-      return collection;
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-  }
+		try {
+			AdvertisementCollection collection = new AdvertisementCollection();
+			List<AdvertisementEntity> entities = advFacade
+					.readAll(AdvertisementEntity.class);
+			for (AdvertisementEntity entity : entities) {
+				Advertisement adv = new Advertisement();
+				adv.setId(entity.getId());
+				Customer newCustomer = new Customer();
+				newCustomer.setDomain("www.cejug.org");
+				newCustomer.setLogin("test");
+				adv.setCustomer(newCustomer);
+				adv.setFullText(entity.getText());
+				adv
+						.setKeywords(Arrays.toString(entity.getKeywords()
+								.toArray()));
+				adv.setShortDescription(entity.getSummary());
+				adv.setHeadline(entity.getTitle());
+				collection.getAdvertisement().add(adv);
+			}
+			return collection;
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-  @Override
-  public CategoryCollection readCategoryBundleOperation(final BundleRequest bundleRequest) {
-    CategoryCollection categorySet;
-    categorySet = new CategoryCollection();
-    try {
-      List<CategoryEntity> categories = categoryFacade.readAll(CategoryEntity.class);
-      if (categories != null) {
-        for (CategoryEntity category : categories) {
-          AdvertisementCategory cat = new AdvertisementCategory();
-          cat.setDescription(category.getDescripton());
-          cat.setName(category.getName());
-          int available = categoryFacade.countAdvertisements(category);
-          cat.setAvailable(available);
-          categorySet.getAdvertisementCategory().add(cat);
-        }
-      }
-    } catch (Exception e) {
-      // TODO log.......
-      // e.printStackTrace();
-      throw new WebServiceException(e);
-    }
-    return categorySet;
-  }
+	@Override
+	public CategoryCollection readCategoryBundleOperation(
+			final BundleRequest bundleRequest) {
+		CategoryCollection categorySet;
+		categorySet = new CategoryCollection();
+		try {
+			List<CategoryEntity> categories = categoryFacade
+					.readAll(CategoryEntity.class);
+			if (categories != null) {
+				for (CategoryEntity category : categories) {
+					AdvertisementCategory cat = new AdvertisementCategory();
+					cat.setDescription(category.getDescripton());
+					cat.setName(category.getName());
+					int available = categoryFacade
+							.countAdvertisements(category);
+					cat.setAvailable(available);
+					categorySet.getAdvertisementCategory().add(cat);
+				}
+			}
+		} catch (Exception e) {
+			// TODO log.......
+			// e.printStackTrace();
+			throw new WebServiceException(e);
+		}
+		return categorySet;
+	}
 
-  @Override
-  public ServiceStatus reportSpamOperation(final int advId) {
-    // ServiceStatus status = new ServiceStatus();
-    // status.setDescription("OK");
-    // status.setStatusCode(200);
-    // return status;
-    // TODO
-    throw new WebServiceException(NOT_IMPLEMENTED);
-  }
+	@Override
+	public ServiceStatus reportSpamOperation(final int advId) {
+		// ServiceStatus status = new ServiceStatus();
+		// status.setDescription("OK");
+		// status.setStatusCode(200);
+		// return status;
+		// TODO
+		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
 
-  @Override
-  public ServiceStatus createCustomerOperation(final CreateCustomerParam newCustomer) {
-    // TODO
-    throw new WebServiceException(NOT_IMPLEMENTED);
-  }
+	@Override
+	public ServiceStatus createCustomerOperation(
+			final CreateCustomerParam newCustomer) {
+		// TODO
+		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
 
-  @Override
-  public ServiceStatus deleteCustomerOperation(final DeleteCustomerParam obsoleteCustomer) {
-    // TODO
-    throw new WebServiceException(NOT_IMPLEMENTED);
-  }
+	@Override
+	public ServiceStatus deleteCustomerOperation(
+			final DeleteCustomerParam obsoleteCustomer) {
+		// TODO
+		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
 
-  @Override
-  public CustomerCollection readCustomerBundleOperation(final ReadCustomerBundleParam getCustomer) {
-    // TODO
-    throw new WebServiceException(NOT_IMPLEMENTED);
-  }
+	@Override
+	public CustomerCollection readCustomerBundleOperation(
+			final ReadCustomerBundleParam getCustomer) {
+		// TODO
+		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
 
-  @Override
-  public ServiceStatus updateCustomerOperation(final UpdateCustomerParam partialCustomer) {
-    // TODO
-    throw new WebServiceException(NOT_IMPLEMENTED);
-  }
+	@Override
+	public ServiceStatus updateCustomerOperation(
+			final UpdateCustomerParam partialCustomer) {
+		// TODO
+		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
 }

@@ -36,86 +36,86 @@ import javax.persistence.Table;
 @Table(name = "ADVERTISEMENT_TYPE")
 @NamedQuery(name = "selectFromAdvertisementTypeEntity", query = "SELECT type FROM AdvertisementTypeEntity type")
 public class AdvertisementTypeEntity extends AbstractEntity implements
-    Comparable<AdvertisementTypeEntity> {
+		Comparable<AdvertisementTypeEntity> {
 
-  @Column(name = "NAME", nullable = false)
-  private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-  @Column(name = "DESCRIPTION", nullable = false)
-  private String description;
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String description;
 
-  @Column(name = "TEXT_LENGTH", nullable = false)
-  private Long textLength;
+	@Column(name = "TEXT_LENGTH", nullable = false)
+	private Long textLength;
 
-  @Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
-  private Long maxAttachmentSize;
+	@Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
+	private Long maxAttachmentSize;
 
-  public String getName() {
+	public String getName() {
 
-    return name;
-  }
+		return name;
+	}
 
-  public void setName(final String name) {
+	public void setName(final String name) {
 
-    this.name = name;
-  }
+		this.name = name;
+	}
 
-  public String getDescription() {
+	public String getDescription() {
 
-    return description;
-  }
+		return description;
+	}
 
-  public void setDescription(final String description) {
+	public void setDescription(final String description) {
 
-    this.description = description;
-  }
+		this.description = description;
+	}
 
-  public Long getTextLength() {
+	public Long getTextLength() {
 
-    return textLength;
-  }
+		return textLength;
+	}
 
-  public void setTextLength(final Long textLength) {
+	public void setTextLength(final Long textLength) {
 
-    this.textLength = textLength;
-  }
+		this.textLength = textLength;
+	}
 
-  public Long getMaxAttachmentSize() {
+	public Long getMaxAttachmentSize() {
 
-    return maxAttachmentSize;
-  }
+		return maxAttachmentSize;
+	}
 
-  public void setMaxAttachmentSize(final Long maxAttachmentSize) {
+	public void setMaxAttachmentSize(final Long maxAttachmentSize) {
 
-    this.maxAttachmentSize = maxAttachmentSize;
-  }
+		this.maxAttachmentSize = maxAttachmentSize;
+	}
 
-  @Override
-  public int compareTo(final AdvertisementTypeEntity other) {
-    Integer thisId;
-    thisId = getId();
-    Integer otherId;
-    otherId = other.getId();
-    int value;
-    if (thisId == null || otherId == null) {
-      value = -1;
-    } else {
-      value = getId() - other.getId();
-    }
-    return value;
-  }
+	@Override
+	public int compareTo(final AdvertisementTypeEntity other) {
+		Integer thisId;
+		thisId = getId();
+		Integer otherId;
+		otherId = other.getId();
+		int value;
+		if (thisId == null || otherId == null) {
+			value = -1;
+		} else {
+			value = getId() - other.getId();
+		}
+		return value;
+	}
 
-  @Override
-  public boolean equals(final Object obj) {
+	@Override
+	public boolean equals(final Object obj) {
 
-    return (obj instanceof AdvertisementTypeEntity)
-        && compareTo((AdvertisementTypeEntity) obj) == 0;
-  }
+		return (obj instanceof AdvertisementTypeEntity)
+				&& compareTo((AdvertisementTypeEntity) obj) == 0;
+	}
 
-  @Override
-  public int hashCode() {
-    Integer hashCode;
-    hashCode = getId();
-    return hashCode == null ? super.hashCode() : hashCode;
-  }
+	@Override
+	public int hashCode() {
+		Integer hashCode;
+		hashCode = getId();
+		return hashCode == null ? super.hashCode() : hashCode;
+	}
 }

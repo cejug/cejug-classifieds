@@ -15,22 +15,23 @@ import javax.persistence.Table;
 @Table(name = "KEYWORD")
 public class AdvertisementKeywordEntity extends AbstractEntity {
 
-  @Column(name = "NAME", nullable = false)
-  private String name;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
-  /**
-   * @return the name
-   */
-  public String getName() {
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 
-    return name;
-  }
+		return name;
+	}
 
-  /**
-   * @param name the name to set
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(final String name) {
+		this.name = name;
+	}
 
 }

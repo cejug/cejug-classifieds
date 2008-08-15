@@ -44,7 +44,7 @@ public class QuotaEntity extends AbstractEntity {
 
 	@Column(name = "AMOUNT", nullable = false)
 	private Integer amount;
-  @ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
 	private CustomerEntity customer;
 
@@ -104,17 +104,13 @@ public class QuotaEntity extends AbstractEntity {
 
 		this.domain = domain;
 	}
-	
 
-        
-	  public Integer getAmount() {
-	    return amount;
-	  }
+	public Integer getAmount() {
+		return amount;
+	}
 
-	  
-	  public void setAmount(final Integer amount) {
-	    this.amount = amount;
-	  }
-
+	public void setAmount(final Integer amount) {
+		this.amount = amount;
+	}
 
 }

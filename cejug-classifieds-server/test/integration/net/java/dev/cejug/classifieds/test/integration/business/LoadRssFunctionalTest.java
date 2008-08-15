@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -35,9 +37,6 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
-
 
 /**
  * Test the diploma validation operation.
@@ -84,7 +83,6 @@ public class LoadRssFunctionalTest {
 	}
 
 	/*
-	@Test
-	public void testLoadRssOperationFail() {
-	}*/
+	 * @Test public void testLoadRssOperationFail() { }
+	 */
 }

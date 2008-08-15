@@ -19,92 +19,96 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
  * @author $Author: rodrigolopes $
  * @version $Rev: 1 $ ($Date: 2008-06-08 13:29:07 +0200 (dom, 08 jun 2008) $)
  * @see <a *
- * href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete"> Create,
- * * read, update and delete (CRUD)< /a>
+ *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
+ *      Create, * read, update and delete (CRUD)< /a>
  */
-public class CRUDEntityFacade<T extends AbstractEntity> implements EntityFacade<T> {
+public class CRUDEntityFacade<T extends AbstractEntity> implements
+		EntityFacade<T> {
 
-  /**
-   * The entity manager is injected by the container JEE 5+.
-   */
-  @PersistenceContext
-  protected transient EntityManager manager;
+	/**
+	 * The entity manager is injected by the container JEE 5+.
+	 */
+	@PersistenceContext
+	protected transient EntityManager manager;
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void create(final T entity) throws EntityExistsException, IllegalStateException,
-      IllegalArgumentException, TransactionRequiredException {
-    manager.persist(entity);
-    manager.flush();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void create(final T entity) throws EntityExistsException,
+			IllegalStateException, IllegalArgumentException,
+			TransactionRequiredException {
+		manager.persist(entity);
+		manager.flush();
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<T> readAll(final Class<T> entityClass) throws IllegalStateException,
-      IllegalArgumentException {
-    Query query;
-    query = manager.createQuery("select e from " + entityClass.getSimpleName() + " e");
-    List<T> response = query.getResultList();
-    if (response == null) {
-      response = new ArrayList<T>();
-    }
-    return response;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> readAll(final Class<T> entityClass)
+			throws IllegalStateException, IllegalArgumentException {
+		Query query;
+		query = manager.createQuery("select e from "
+				+ entityClass.getSimpleName() + " e");
+		List<T> response = query.getResultList();
+		if (response == null) {
+			response = new ArrayList<T>();
+		}
+		return response;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public T read(final Class<T> entityClass, final Serializable primaryKey)
-      throws IllegalStateException, IllegalArgumentException {
-    return manager.find(entityClass, primaryKey);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public T read(final Class<T> entityClass, final Serializable primaryKey)
+			throws IllegalStateException, IllegalArgumentException {
+		return manager.find(entityClass, primaryKey);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void delete(final T entity) throws IllegalStateException, IllegalArgumentException,
-      TransactionRequiredException, PersistenceException {
-    manager.remove(entity);
-    manager.flush();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(final T entity) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException,
+			PersistenceException {
+		manager.remove(entity);
+		manager.flush();
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void delete(final Class<T> entityClass, final Serializable primaryKey)
-      throws IllegalStateException, IllegalArgumentException, TransactionRequiredException,
-      PersistenceException {
-    manager.remove(read(entityClass, primaryKey));
-    manager.flush();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(final Class<T> entityClass, final Serializable primaryKey)
+			throws IllegalStateException, IllegalArgumentException,
+			TransactionRequiredException, PersistenceException {
+		manager.remove(read(entityClass, primaryKey));
+		manager.flush();
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void deleteAll(final List<T> entities) throws IllegalStateException,
-      IllegalArgumentException, TransactionRequiredException, PersistenceException {
-    for (T t : entities) {
-      manager.remove(t);
-    }
-    manager.flush();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteAll(final List<T> entities) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException,
+			PersistenceException {
+		for (T t : entities) {
+			manager.remove(t);
+		}
+		manager.flush();
+	}
 
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public T update(final T entity) throws IllegalStateException, IllegalArgumentException,
-      TransactionRequiredException {
-    return manager.merge(entity);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public T update(final T entity) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException {
+		return manager.merge(entity);
+	}
 }

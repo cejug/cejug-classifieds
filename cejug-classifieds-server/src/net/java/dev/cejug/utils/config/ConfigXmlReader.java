@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public interface ConfigXmlReader<T> {
 
-  public JAXBElement<T> read(final InputStreamReader inputStreamReader,
-      final String context,
-      final URL schemaLocation) throws JAXBException, SAXException;
+	public JAXBElement<T> read(final InputStreamReader inputStreamReader,
+			final String context, final URL schemaLocation)
+			throws JAXBException, SAXException;
 }

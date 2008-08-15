@@ -60,8 +60,8 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	 * @param inputStream
 	 * @param schemaLocation
 	 * @return
-	 * @throws JAXBException 
-	 * @throws SAXException 
+	 * @throws JAXBException
+	 * @throws SAXException
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
