@@ -105,7 +105,8 @@ public class ClassifiedsBusinessSessionBean implements
 	public AtomCollection loadAtomOperation(final AtomFilterCollection filter) {
 		try {
 			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade
+			List<AdvertisementEntity> result;
+			result = advFacade
 					.readAll(AdvertisementEntity.class);
 
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
