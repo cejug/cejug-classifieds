@@ -12,13 +12,14 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 /**
  * @author $Author: felipegaucho $
  * @version $Rev: 309 $ ($Date: 2008-06-18 13:21:41 +0200 (Wed, 18 Jun 2008) $)
- * *
+ *
  * @see CRUDEntityFacade
+ * @see <a href='http://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete'>CRUD @ Wikipedia.</a>
  */
 public interface EntityFacade<T extends AbstractEntity> {
 
   /**
-   * <strong>C</strong><font color='gray'>rud</font> operation - inserts a new
+   * <strong>C</strong><font color='gray'>RUD</font> operation - inserts a new
    * entity in the database.
    * 
    * @param entity The entity to be included in the database.
@@ -28,7 +29,7 @@ public interface EntityFacade<T extends AbstractEntity> {
       IllegalArgumentException, TransactionRequiredException;
 
   /**
-   * <font color='gray'>C</font><strong>R</strong><font color='gray'>ud</font>
+   * <font color='gray'>C</font><strong>R</strong><font color='gray'>UD</font>
    * operation - inserts a new entity in the database. Read all records
    * available on database for a certain type of entity.
    * 
@@ -46,14 +47,14 @@ public interface EntityFacade<T extends AbstractEntity> {
    * 
    * @param entityClass
    * @param primaryKey
-   * @return
+   * @return an object of type T
    * @throws Exception
    */
   T read(Class<T> entityClass, Serializable primaryKey) throws IllegalStateException,
       IllegalArgumentException;
 
   /**
-   * <font color='gray'>cru</font><strong>D</strong> operation - removes an
+   * <font color='gray'>CRU</font><strong>D</strong> operation - removes an
    * entity from the database.
    * 
    * @param entity The entity to be excluded from the database.
@@ -69,7 +70,7 @@ public interface EntityFacade<T extends AbstractEntity> {
       TransactionRequiredException, PersistenceException;
 
   /**
-   * <font color='gray'>cr</font><strong>U</strong><font color='gray'>d</font>
+   * <font color='gray'>CR</font><strong>U</strong><font color='gray'>D</font>
    * operation - merges the entity with the database one.
    * 
    * @param entity The entity to be merged in the database.
