@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 Felipe Gaúcho
+ Copyright (C) 2008 Felipe GaÃºcho
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -16,21 +16,17 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Cear� Java Users Group.
+ originally used by CEJUG - Cearï¿½ Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional.business;
+package net.java.dev.cejug.classifieds.test.integration.admin;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
-import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
-import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,10 +35,10 @@ import org.junit.Test;
 /**
  * Test the diploma validation operation.
  * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 399 $ ($Date: 2008-07-22 12:49:48 +0200 (Di, 22 Jul 2008) $)
  */
-public class LoadRssFunctionalTest {
+public class CheckMonitorFunctionalTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -56,33 +52,17 @@ public class LoadRssFunctionalTest {
 	}
 
 	@Test
-	public void testLoadRssOperation() {
+	public void checkMonitor() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
-		RssFilterCollection filterCollection = new RssFilterCollection();
-		SyndicationFilter filter = new SyndicationFilter();
-
-		// retrieve the advertisement RSS since yesterday to today.
-		GregorianCalendar today = new GregorianCalendar();
-		GregorianCalendar yesterday = new GregorianCalendar();
-		yesterday.roll(Calendar.DAY_OF_YEAR, false);
-
-		filter.setDateInitial(yesterday);
-		filter.setDateFinal(today);
-
-		filterCollection.getFilterCollection().add(filter);
-
-		RssCollection collection = service.loadRssOperation(filterCollection);
-
-		System.out.println(collection.getRssCollection().get(0).getItem()
-				.toString());
-		// assert collection.getRssCollection().size() > 0;
-	}
-
-	@Test
-	public void testLoadRssOperationFail() {
+		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
+				.getCejugClassifiedsAdmin();
+		MonitorQuery query = new MonitorQuery();
+		query.setAlivePeriodsLength(5);
+		query.setResponseTimeLength(30);
+		query.setQuery("");
+		MonitorResponse response = service.checkMonitorOperation(query);
+		assert response.getServiceName() != null;
 	}
 }

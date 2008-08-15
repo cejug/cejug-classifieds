@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional.business;
+package net.java.dev.cejug.classifieds.test.integration.business;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
@@ -39,30 +39,33 @@ import org.junit.Test;
  */
 public class ReportSpamFunctionalTest {
 
-	@Before
-	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
-	}
+  @Before
+  public void setUp() throws Exception {
+    // include or activate a new advertisement (submit via service or direct
+    // into database)
+  }
 
-	@After
-	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
-	}
+  @After
+  public void tearDown() throws Exception {
+    // remove or inactive the test advertisement
+  }
 
-	@Test
-	public void reportSpamOperation() {
-		/*
-		 * check if the test advertisement comes with the RSS
-		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
+  @Test
+  public void reportSpamOperation() {
+    /*
+     * check if the test advertisement comes with the RSS
+     */
+    CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness().getCejugClassifiedsBusiness();
 
-		ServiceStatus status = service.reportSpamOperation(10);
-		assert status.getDescription().equalsIgnoreCase("OK");
-	}
+    /**
+     * TODO: to create an advertisement to be reported as Spam, otherwise the
+     * advertisement ID 1 cannot be available.
+     */
+    ServiceStatus status = service.reportSpamOperation(1);
+    assert status.getDescription().equalsIgnoreCase("OK");
+  }
 
-	@Test
-	public void testReportSpamOperationFail() {
-	}
+  @Test
+  public void testReportSpamOperationFail() {
+  }
 }

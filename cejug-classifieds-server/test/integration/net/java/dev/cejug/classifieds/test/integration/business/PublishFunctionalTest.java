@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional.business;
+package net.java.dev.cejug.classifieds.test.integration.business;
 
 import java.net.MalformedURLException;
 import java.util.Calendar;

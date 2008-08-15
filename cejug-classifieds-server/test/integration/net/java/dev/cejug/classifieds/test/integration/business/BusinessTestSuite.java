@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.test.functional.business;
+package net.java.dev.cejug.classifieds.test.integration.business;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

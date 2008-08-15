@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.test.functional.admin;
+package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

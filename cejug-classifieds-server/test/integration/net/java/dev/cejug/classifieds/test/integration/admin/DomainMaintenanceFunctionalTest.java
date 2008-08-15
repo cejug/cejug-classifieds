@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.functional.admin;
+package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import java.util.List;
 import java.util.TimeZone;
