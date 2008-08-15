@@ -12,7 +12,8 @@
 	<classpathentry kind="lib" path="lib/ext/appserv-ext.jar"/>
 	<classpathentry kind="lib" path="lib/ext/appserv-rt.jar"/>
 	<classpathentry kind="lib" path="lib/ext/appserv-deployment-client.jar"/>
-	<classpathentry kind="lib" path="lib/ext/findbugs-ant.jar"/>
-	<classpathentry kind="lib" path="lib/ext/findbugs.jar"/>
+	<classpathentry kind="lib" path="lib/ext/findbugs/dom4j-full.jar"/>
+	<classpathentry kind="lib" path="lib/ext/findbugs/findbugs-ant.jar"/>
+	<classpathentry kind="lib" path="lib/ext/findbugs/findbugs.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -41,7 +41,7 @@ public class ConfigUnmarshallerListener extends Listener {
 	/**
 	 * The Unmarshaller logger.
 	 */
-	private transient Logger logger;
+	private transient final Logger logger;
 
 	/**
 	 * Classifieds-Server config marshalling listener.
