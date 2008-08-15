@@ -31,8 +31,7 @@
     </taskdef>
 
     <target name="findbugs">
-        <echo>${findbugs.home}</echo>
-        <findbugs home="${env.FINDBUGS_HOME}" output="xml:withMessages" outputFile="${quality.home}/classifieds-server.xml" failOnError="true">
+        <findbugs home="${env.FINDBUGS_HOME}" output="xml:withMessages" outputFile="${quality.home}/classifieds-server.xml" failOnError="true" effort="max">
             <auxClasspath refid="jaxws.classpath" />
             <sourcePath path="${basedir}/src" />
             <class location="${basedir}/build/classes" />
