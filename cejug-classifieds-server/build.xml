@@ -1,230 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="help" name="cejug-classifieds-server">
-	<property file="build.properties" />
-	<property environment="env" />
-	<property name="project.lib" value="${basedir}/lib" />
-	<property name="build.home" value="${basedir}/build" />
-	<property name="build.ear.home" value="${build.home}/ear" />
-	<property name="build.classes.home" value="${build.home}/classes" />
-	<property name="domain" value="domain1" />
+    <property file="build.properties" />
+    <property environment="env" />
+    <property name="project.lib" value="${basedir}/lib" />
+    <property name="build.home" value="${basedir}/build" />
+    <property name="build.ear.home" value="${build.home}/ear" />
+    <property name="build.classes.home" value="${build.home}/classes" />
+    <property name="domain" value="domain1" />
 
-	<path id="jaxws.classpath">
-		<fileset dir="${env.AS_HOME}/lib/">
-			<include name="javaee.jar" />
-			<include name="appserv-ws.jar" />
-		</fileset>
-		<fileset dir="${project.lib}">
-			<include name="**/*.jar" />
-		</fileset>
-	</path>
+    <path id="jaxws.classpath">
+        <fileset dir="${env.AS_HOME}/lib/">
+            <include name="javaee.jar" />
+            <include name="appserv-ws.jar" />
+        </fileset>
+        <fileset dir="${project.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
 
-	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
-		<classpath refid="jaxws.classpath" />
-	</taskdef>
+    <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+        <classpath refid="jaxws.classpath" />
+    </taskdef>
+    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+        <classpath refid="jaxws.classpath" />
+    </taskdef>
 
-	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-		<classpath refid="jaxws.classpath" />
-	</taskdef>
+    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+        <classpath refid="jaxws.classpath" />
+    </taskdef>
 
-	<target name="clean">
-		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
-		<delete dir="${build.ear.home}" includeEmptyDirs="true" />
-		<delete dir="${generated.dir}" includeEmptyDirs="true" />
-	</target>
+    <target name="findbugs">
+        <echo>${findbugs.home}</echo>
+        <findbugs home="${env.FINDBUGS_HOME}" output="xml:withMessages" outputFile="bcel-fb.xml" failOnError="true">
+            <auxClasspath refid="jaxws.classpath" />
+            <sourcePath path="${basedir}/src" />
+            <class location="${basedir}/build/classes" />
+        </findbugs>
+    </target>
+    <target name="clean">
+        <delete dir="${build.classes.home}" includeEmptyDirs="true" />
+        <delete dir="${build.ear.home}" includeEmptyDirs="true" />
+        <delete dir="${generated.dir}" includeEmptyDirs="true" />
+    </target>
 
-	<target name="setup">
-		<mkdir dir="${build.classes.home}" />
-		<mkdir dir="${build.ear.home}" />
-		<mkdir dir="${build.ear.home}/lib" />
-		<mkdir dir="${generated.dir}" />
-		
-	</target>
+    <target name="setup">
+        <mkdir dir="${build.classes.home}" />
+        <mkdir dir="${build.ear.home}" />
+        <mkdir dir="${build.ear.home}/lib" />
+        <mkdir dir="${generated.dir}" />
 
-	<target name="build-server-wsdl">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
-			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-		</wsimport>
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
-			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-		</wsimport>
-		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
-			<classpath refid="jaxws.classpath" />
-		</javac>
-		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
+    </target>
+
+    <target name="build-server-wsdl">
+        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
+            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+        </wsimport>
+        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
+            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+        </wsimport>
+        <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+            <classpath refid="jaxws.classpath" />
+        </javac>
+        <!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
 		<delete dir="${generated.dir}" /-->
-	</target>
+    </target>
 
-	<target name="create-war">
-		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
-			<webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
-			<zipfileset dir="${basedir}/conf/war/" includes="**/**" excludes="**/WEB-INF/**/**" />
-			<classes dir="${build.classes.home}" includes="**/java/dev/cejug/classifieds/server/welcome/**/**" />
-		</war>
-	</target>
+    <target name="create-war">
+        <war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
+            <webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
+            <zipfileset dir="${basedir}/conf/war/" includes="**/**" excludes="**/WEB-INF/**/**" />
+            <classes dir="${build.classes.home}" includes="**/java/dev/cejug/classifieds/server/welcome/**/**" />
+        </war>
+    </target>
 
-	<target name="help">
-		<echo message="server:             Builds the service endpoint WAR" />
-		<echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
-		<echo message="functional.tests:   Runs the functional tests against the delpoyied service" />
-		<echo message="" />
+    <target name="help">
+        <echo message="server:             Builds the service endpoint WAR" />
+        <echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
+        <echo message="functional.tests:   Runs the functional tests against the delpoyied service" />
+        <echo message="" />
 
-		<echo message=" >> ATTENTION >>    %JAXWS_HOME% and %AS_HOME% should be well configured" />
-		<echo message=" >> ATTENTION >>    be sure to have JAXWS and GLASSFISH properly installed" />
-		<echo message=" >> ATTENTION >>    JAXWS:  https://jax-ws.dev.java.net/" />
-		<echo message=" >> ATTENTION >>    JAXWS:  https://glassfish.dev.java.net/" />
-		<echo message="" />
-		<echo message="Thanks for testing Cejug-Classifieds. Any feedback? dev@cejug-classifieds.dev.java.net" />
-	</target>
+        <echo message=" >> ATTENTION >>    %JAXWS_HOME% and %AS_HOME% should be well configured" />
+        <echo message=" >> ATTENTION >>    be sure to have JAXWS and GLASSFISH properly installed" />
+        <echo message=" >> ATTENTION >>    JAXWS:  https://jax-ws.dev.java.net/" />
+        <echo message=" >> ATTENTION >>    JAXWS:  https://glassfish.dev.java.net/" />
+        <echo message="" />
+        <echo message="Thanks for testing Cejug-Classifieds. Any feedback? dev@cejug-classifieds.dev.java.net" />
+    </target>
 
-	<target name="server" depends="clean,setup,compile.resources.schema">
-		<antcall target="build-server-wsdl" />
-		<antcall target="create-war" />
-		<antcall target="compile.functional.tests" />
-	</target>
+    <target name="server" depends="clean,setup,compile.resources.schema">
+        <antcall target="build-server-wsdl" />
+        <antcall target="create-war" />
+        <antcall target="compile.functional.tests" />
+    </target>
 
-	<target name="full.build">
-		<antcall target="server" />
-		<waitfor maxwait="3000" maxwaitunit="millisecond" checkevery="500">
-			<http url="${functional.tests.wsdllocation}" />
-		</waitfor>
-		<!--sleep seconds="10" /-->
-		<antcall target="functional.tests" />
-	</target>
+    <target name="full.build">
+        <antcall target="server" />
+        <waitfor maxwait="3000" maxwaitunit="millisecond" checkevery="500">
+            <http url="${functional.tests.wsdllocation}" />
+        </waitfor>
+        <!--sleep seconds="10" /-->
+        <antcall target="functional.tests" />
+    </target>
 
-	<target name="compile.resources.schema">
-		<echo message="Compiling the Classifieds-Server Config Schema..." />
-		<xjc schema="${jaxb.config.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}">
-			<produces dir="${generated.dir}" includes="${jaxb.config.package}/**/*.java" />
-		</xjc>
-		<xjc schema="${jaxb.i18n.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}">
-			<produces dir="${generated.dir}" includes="${jaxb.i18n.package}/**/*.java" />
-		</xjc>
-		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
+    <target name="compile.resources.schema">
+        <echo message="Compiling the Classifieds-Server Config Schema..." />
+        <xjc schema="${jaxb.config.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.config.package}">
+            <produces dir="${generated.dir}" includes="${jaxb.config.package}/**/*.java" />
+        </xjc>
+        <xjc schema="${jaxb.i18n.xsd}" removeOldOutput="no" readonly="yes" stackSize="2mb" extension="true" classpath="${jaxws.classpath}" destdir="${generated.dir}" package="${jaxb.i18n.package}">
+            <produces dir="${generated.dir}" includes="${jaxb.i18n.package}/**/*.java" />
+        </xjc>
+        <javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
 
-		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
+        <!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
 		<delete dir="${generated.dir}" /-->
-	</target>
+    </target>
 
-	<target name="compile.i18.nkeys">
-		<echo message="Compiling the I18N keys XML Schema..." />
-		<mkdir dir="${jaxb.classes.dir}" />
-		<mkdir dir="${generated.dir}" />
-		<xjc schema="${i18n.schema}" extension="true" classpath="${build.dir.classes}" target="${generated.dir}" package="${jaxb.bindingclasses.package}">
-			<produces dir="${jaxb.classes.dir}" includes="**/*.java" />
-		</xjc>
-		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
-		<jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
-		<delete dir="${generated.dir}" />
-	</target>
+    <target name="compile.i18.nkeys">
+        <echo message="Compiling the I18N keys XML Schema..." />
+        <mkdir dir="${jaxb.classes.dir}" />
+        <mkdir dir="${generated.dir}" />
+        <xjc schema="${i18n.schema}" extension="true" classpath="${build.dir.classes}" target="${generated.dir}" package="${jaxb.bindingclasses.package}">
+            <produces dir="${jaxb.classes.dir}" includes="**/*.java" />
+        </xjc>
+        <javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
+        <jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
+        <delete dir="${generated.dir}" />
+    </target>
 
-	
-	
-	<!-- Package the persistence entities -->
-	<target name="pack-ejb-entities">
-		<jar jarfile="${build.ear.home}/lib/${ant.project.name}-entities.jar">
-			<manifest>
-				<!-- Who is building this jar? -->
-				<attribute name="Built-By" value="${user.name}" />
-				<!-- Information about the program itself -->
-				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
-				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
-				<attribute name="Implementation-Version" value="SNAPSHOT" />
-			</manifest>
 
-			<fileset dir="${build.classes.home}" casesensitive="yes">
-				<include name="net/java/dev/cejug/classifieds/server/ejb3/entity/**/**" />
-				<exclude name="test/**" />
-			</fileset>
-			<fileset dir="${resources.folder}" casesensitive="yes">
-				<include name="**/i18n/**" />
-			</fileset>
-			<metainf dir="${basedir}/conf/ejb/META-INF">
-				<include name="**/**" />
-				<exclude name="wsdl/**"/>
-			</metainf>
-		</jar>
-	</target>
 
-	<!-- Package the persistence entities -->
-	<target name="pack-ejb-interfaces">
-		<jar jarfile="${build.ear.home}/lib/${ant.project.name}-ejb-interfaces.jar">
-			<manifest>
-				<!-- Who is building this jar? -->
-				<attribute name="Built-By" value="${user.name}" />
-				<!-- Information about the program itself -->
-				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
-				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
-				<attribute name="Implementation-Version" value="SNAPSHOT" />
-			</manifest>
+    <!-- Package the persistence entities -->
+    <target name="pack-ejb-entities">
+        <jar jarfile="${build.ear.home}/lib/${ant.project.name}-entities.jar">
+            <manifest>
+                <!-- Who is building this jar? -->
+                <attribute name="Built-By" value="${user.name}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+                <attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+                <attribute name="Implementation-Version" value="SNAPSHOT" />
+            </manifest>
 
-			<fileset dir="${build.classes.home}" casesensitive="yes">
-				<include name="net/java/dev/cejug/classifieds/server/ejb3/bean/interfaces/**" />
-				<exclude name="test/**" />
-			</fileset>
-		</jar>
-	</target>
+            <fileset dir="${build.classes.home}" casesensitive="yes">
+                <include name="net/java/dev/cejug/classifieds/server/ejb3/entity/**/**" />
+                <exclude name="test/**" />
+            </fileset>
+            <fileset dir="${resources.folder}" casesensitive="yes">
+                <include name="**/i18n/**" />
+            </fileset>
+            <metainf dir="${basedir}/conf/ejb/META-INF">
+                <include name="**/**" />
+                <exclude name="wsdl/**" />
+            </metainf>
+        </jar>
+    </target>
 
-	
-	<!-- Package the entity classes -->
-	<target name="pack-ejb-beans">
-		<jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
-			<manifest>
-				<!-- Who is building this jar? -->
-				<attribute name="Built-By" value="${user.name}" />
-				<!-- Information about the program itself -->
-				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
-				<attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
-				<attribute name="Implementation-Version" value="SNAPSHOT" />
-			</manifest>
+    <!-- Package the persistence entities -->
+    <target name="pack-ejb-interfaces">
+        <jar jarfile="${build.ear.home}/lib/${ant.project.name}-ejb-interfaces.jar">
+            <manifest>
+                <!-- Who is building this jar? -->
+                <attribute name="Built-By" value="${user.name}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+                <attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+                <attribute name="Implementation-Version" value="SNAPSHOT" />
+            </manifest>
 
-			<fileset dir="${build.classes.home}" casesensitive="yes">
-				<include name="**/**" />
-				<exclude name="test/**,**/entity/**,**/interfaces/**" />
-				
-			</fileset>
-			<fileset dir="${resources.folder}" casesensitive="yes">
-				<include name="**/i18n/**" />
-			</fileset>
-			<metainf dir="${basedir}/conf/ejb/META-INF">
-				<include name="**/**" />
-				<exclude name="**/persistence.xml" />		
-			</metainf>
-		</jar>
-	</target>
+            <fileset dir="${build.classes.home}" casesensitive="yes">
+                <include name="net/java/dev/cejug/classifieds/server/ejb3/bean/interfaces/**" />
+                <exclude name="test/**" />
+            </fileset>
+        </jar>
+    </target>
 
-	<target name="package-ear" depends="server, pack-ejb-beans, pack-ejb-interfaces,pack-ejb-entities">
-		<!--jar destfile="${build.ear.home}/lib/ejb-interfaces.jar" basedir="${build.classes.home}" excludes="**/*.java" includes="./net/java/dev/cejug/classifieds/server/ejb3/bean/**/**" /-->
-		<jar destfile="${build.ear.home}/${ant.project.name}.ear">
-			<fileset dir="${build.ear.home}" includes="*.jar,*.war,**/lib/**"  />
-		</jar>
-	</target>
 
-	<target name="deploy" depends="package-ear">
-		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
-	</target>
+    <!-- Package the entity classes -->
+    <target name="pack-ejb-beans">
+        <jar jarfile="${build.ear.home}/${ant.project.name}-ejb.jar">
+            <manifest>
+                <!-- Who is building this jar? -->
+                <attribute name="Built-By" value="${user.name}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+                <attribute name="Implementation-Title" value="J2EE EJB-Module + SOAP 1.2 WS" />
+                <attribute name="Implementation-Version" value="SNAPSHOT" />
+            </manifest>
 
-	<target name="compile.functional.tests">
-		<javac srcdir="test" destdir="${build.classes.home}">
-			<classpath refid="jaxws.classpath" />
-			<include name="**/*.java" />
-		</javac>
-	</target>
+            <fileset dir="${build.classes.home}" casesensitive="yes">
+                <include name="**/**" />
+                <exclude name="test/**,**/entity/**,**/interfaces/**" />
 
-	<path id="functional.classpath">
-		<pathelement location="${build.classes.home}" />
-		<fileset dir="${project.lib}">
-			<include name="**/*.jar" />
-		</fileset>
-	</path>
+            </fileset>
+            <fileset dir="${resources.folder}" casesensitive="yes">
+                <include name="**/i18n/**" />
+            </fileset>
+            <metainf dir="${basedir}/conf/ejb/META-INF">
+                <include name="**/**" />
+                <exclude name="**/persistence.xml" />
+            </metainf>
+        </jar>
+    </target>
 
-	<!-- Test -->
-	<target name="functional.tests" depends="compile.functional.tests">
-		<junit fork="yes" haltonfailure="yes" printsummary="no">
-			<test name="net.java.dev.cejug.classifieds.test.functional.FunctionalTestSuite" />
-			<classpath refid="functional.classpath" />
-			<formatter type="plain" usefile="false" />
-			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
-		</junit>
-	</target>
+    <target name="package-ear" depends="server, pack-ejb-beans, pack-ejb-interfaces,pack-ejb-entities">
+        <!--jar destfile="${build.ear.home}/lib/ejb-interfaces.jar" basedir="${build.classes.home}" excludes="**/*.java" includes="./net/java/dev/cejug/classifieds/server/ejb3/bean/**/**" /-->
+        <jar destfile="${build.ear.home}/${ant.project.name}.ear">
+            <fileset dir="${build.ear.home}" includes="*.jar,*.war,**/lib/**" />
+        </jar>
+    </target>
+
+    <target name="deploy" depends="package-ear">
+        <copy file="${build.ear.home}/${ant.project.name}.ear" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
+    </target>
+
+    <target name="compile.functional.tests">
+        <javac srcdir="test" destdir="${build.classes.home}">
+            <classpath refid="jaxws.classpath" />
+            <include name="**/*.java" />
+        </javac>
+    </target>
+
+    <path id="functional.classpath">
+        <pathelement location="${build.classes.home}" />
+        <fileset dir="${project.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <!-- Test -->
+    <target name="functional.tests" depends="compile.functional.tests">
+        <junit fork="yes" haltonfailure="yes" printsummary="no">
+            <test name="net.java.dev.cejug.classifieds.test.functional.FunctionalTestSuite" />
+            <classpath refid="functional.classpath" />
+            <formatter type="plain" usefile="false" />
+            <jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
+        </junit>
+    </target>
 
 </project>
