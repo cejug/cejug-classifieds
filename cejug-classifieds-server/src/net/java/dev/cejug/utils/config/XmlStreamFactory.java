@@ -32,13 +32,13 @@ import javax.xml.bind.ValidationEventHandler;
  */
 public class XmlStreamFactory<T> {
 	/** @return new JaxbCurriculumReader(). */
-	public ConfigXmlReader<T> getReader(Unmarshaller.Listener listener,
-			ValidationEventHandler handler) {
+	public ConfigXmlReader<T> getReader(final Unmarshaller.Listener listener,
+			final ValidationEventHandler handler) {
 		return new ConfigXmlReaderImpl<T>(listener, handler);
 	}
 
 	/** @return new JaxbCurriculumWriter(). */
-	public ConfigXmlWriter<T> getWriter(ValidationEventHandler handler) {
+	public ConfigXmlWriter<T> getWriter(final ValidationEventHandler handler) {
 		return new ConfigXmlWriterImpl<T>(handler);
 	}
 }

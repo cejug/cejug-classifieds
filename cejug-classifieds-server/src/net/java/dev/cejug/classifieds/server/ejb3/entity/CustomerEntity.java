@@ -66,7 +66,7 @@ public class CustomerEntity extends AbstractEntity {
 		return login;
 	}
 
-	public void setLogin(String login) {
+	public void setLogin(final String login) {
 
 		this.login = login;
 	}
@@ -76,7 +76,7 @@ public class CustomerEntity extends AbstractEntity {
 		return domain;
 	}
 
-	public void setDomain(DomainEntity domain) {
+	public void setDomain(final DomainEntity domain) {
 
 		this.domain = domain;
 	}
@@ -86,7 +86,7 @@ public class CustomerEntity extends AbstractEntity {
 		return quotas;
 	}
 
-	public void setQuotas(Collection<QuotaEntity> quotas) {
+	public void setQuotas(final Collection<QuotaEntity> quotas) {
 
 		this.quotas = quotas;
 	}

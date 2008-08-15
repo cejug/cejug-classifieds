@@ -36,6 +36,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+
 /**
  * Test the diploma validation operation.
  * 
@@ -77,12 +80,11 @@ public class LoadRssFunctionalTest {
 
 		RssCollection collection = service.loadRssOperation(filterCollection);
 
-		System.out.println(collection.getRssCollection().get(0).getItem()
-				.toString());
-		// assert collection.getRssCollection().size() > 0;
+		assertTrue("RSS empty", collection.getRssCollection().size() > 0);
 	}
 
+	/*
 	@Test
 	public void testLoadRssOperationFail() {
-	}
+	}*/
 }

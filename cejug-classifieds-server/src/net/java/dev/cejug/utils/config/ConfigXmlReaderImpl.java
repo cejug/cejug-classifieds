@@ -28,10 +28,13 @@ import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+
+import org.xml.sax.SAXException;
 
 /**
  * @author $Author$
@@ -57,11 +60,13 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	 * @param inputStream
 	 * @param schemaLocation
 	 * @return
+	 * @throws JAXBException 
+	 * @throws SAXException 
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	public JAXBElement<T> read(InputStreamReader inputStream, String context,
-			URL schemaLocation) throws Exception {
+			URL schemaLocation) throws JAXBException, SAXException {
 		// TODO: thread safe
 		JAXBContext jc = JAXBContext.newInstance(context, this.getClass()
 				.getClassLoader());

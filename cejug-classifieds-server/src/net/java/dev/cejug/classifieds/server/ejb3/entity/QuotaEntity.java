@@ -44,8 +44,7 @@ public class QuotaEntity extends AbstractEntity {
 
 	@Column(name = "AMOUNT", nullable = false)
 	private Integer amount;
-
-	@ManyToOne
+  @ManyToOne
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
 	private CustomerEntity customer;
 
@@ -57,7 +56,7 @@ public class QuotaEntity extends AbstractEntity {
 		return type;
 	}
 
-	public void setType(AdvertisementTypeEntity type) {
+	public void setType(final AdvertisementTypeEntity type) {
 
 		this.type = type;
 	}
@@ -67,7 +66,7 @@ public class QuotaEntity extends AbstractEntity {
 		return amount;
 	}
 
-	public void setAvailable(Integer available) {
+	public void setAvailable(final Integer available) {
 
 		this.amount = available;
 	}
@@ -84,7 +83,7 @@ public class QuotaEntity extends AbstractEntity {
 	 * @param customer
 	 *            the customer to set
 	 */
-	public void setCustomer(CustomerEntity customer) {
+	public void setCustomer(final CustomerEntity customer) {
 
 		this.customer = customer;
 	}
@@ -101,8 +100,21 @@ public class QuotaEntity extends AbstractEntity {
 	 * @param domain
 	 *            the domain to set
 	 */
-	public void setDomain(DomainEntity domain) {
+	public void setDomain(final DomainEntity domain) {
 
 		this.domain = domain;
 	}
+	
+
+        
+	  public Integer getAmount() {
+	    return amount;
+	  }
+
+	  
+	  public void setAmount(final Integer amount) {
+	    this.amount = amount;
+	  }
+
+
 }

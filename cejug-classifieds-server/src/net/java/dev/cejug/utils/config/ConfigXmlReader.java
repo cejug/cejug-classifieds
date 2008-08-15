@@ -27,12 +27,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+
+import org.xml.sax.SAXException;
 
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 public interface ConfigXmlReader<T> {
-	public JAXBElement<T> read(InputStreamReader inputStreamReader,
-			String context, URL schemaLocation) throws Exception;
+
+  public JAXBElement<T> read(final InputStreamReader inputStreamReader,
+      final String context,
+      final URL schemaLocation) throws JAXBException, SAXException;
 }

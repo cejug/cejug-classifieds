@@ -102,7 +102,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 
 		this.title = title;
 	}
@@ -112,7 +112,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return summary;
 	}
 
-	public void setSummary(String summary) {
+	public void setSummary(final String summary) {
 
 		this.summary = summary;
 	}
@@ -122,7 +122,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 
 		this.text = text;
 	}
@@ -132,7 +132,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return customer;
 	}
 
-	public void setCustomer(CustomerEntity customer) {
+	public void setCustomer(final CustomerEntity customer) {
 
 		this.customer = customer;
 	}
@@ -142,19 +142,20 @@ public class AdvertisementEntity extends AbstractEntity {
 		return keywords;
 	}
 
-	public void setKeywords(Collection<AdvertisementKeywordEntity> keywords) {
+	public void setKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
 
 		this.keywords = keywords;
 	}
 
-	public void addKeyword(String keyword) {
+	public void addKeyword(final String keyword) {
 
-		AdvertisementKeywordEntity advKeyword = new AdvertisementKeywordEntity();
+		AdvertisementKeywordEntity advKeyword;
+		advKeyword = new AdvertisementKeywordEntity();
 		advKeyword.setName(keyword);
 		addKeyword(advKeyword);
 	}
 
-	public void addKeyword(AdvertisementKeywordEntity keyword) {
+	public void addKeyword(final AdvertisementKeywordEntity keyword) {
 
 		if (this.keywords == null) {
 			this.keywords = new ArrayList<AdvertisementKeywordEntity>();
@@ -174,7 +175,7 @@ public class AdvertisementEntity extends AbstractEntity {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(AdvertisementTypeEntity type) {
+	public void setType(final AdvertisementTypeEntity type) {
 
 		this.type = type;
 	}
@@ -184,7 +185,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return start;
 	}
 
-	public void setStart(Calendar start) {
+	public void setStart(final Calendar start) {
 
 		this.start = start;
 	}
@@ -194,7 +195,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return finish;
 	}
 
-	public void setFinish(Calendar finish) {
+	public void setFinish(final Calendar finish) {
 
 		this.finish = finish;
 	}
@@ -204,7 +205,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return state;
 	}
 
-	public void setState(AdvertisementStatus state) {
+	public void setState(final AdvertisementStatus state) {
 
 		this.state = state;
 	}
@@ -213,7 +214,7 @@ public class AdvertisementEntity extends AbstractEntity {
 		return category;
 	}
 
-	public void setCategory(CategoryEntity category) {
+	public void setCategory(final CategoryEntity category) {
 		this.category = category;
 	}
 }

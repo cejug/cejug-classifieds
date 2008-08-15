@@ -29,7 +29,7 @@ public abstract class AbstractEntity {
 	/**
 	 * Sets the id of the entity.
 	 */
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 }

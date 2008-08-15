@@ -27,6 +27,7 @@ import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
 
@@ -35,28 +36,35 @@ import javax.xml.bind.ValidationEventHandler;
  * @version $Rev$ ($Date$)
  */
 class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
-	private ValidationEventHandler handler;
 
-	ConfigXmlWriterImpl(ValidationEventHandler handler) {
-		this.handler = handler;
-	}
+  private final transient ValidationEventHandler handler;
 
-	/**
-	 * WARNING: it never store passwords.
-	 * 
-	 */
-	public void write(JAXBElement<T> config, String context, Writer writer,
-			String schemaLocation) throws Exception {
-		try {
-			JAXBContext jc = JAXBContext.newInstance(context, this.getClass()
-					.getClassLoader());
-			Marshaller m = jc.createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, schemaLocation);
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.setEventHandler(handler);
-			m.marshal(config, writer);
-		} catch (Exception exception) {
-			throw new Exception(exception.getMessage(), exception);
-		}
-	}
+  ConfigXmlWriterImpl(final ValidationEventHandler handler) {
+    this.handler = handler;
+  }
+
+  private transient Marshaller marshaller = null;
+
+  /**
+   * WARNING: it never store passwords.
+   * 
+   * @throws JAXBException
+   */
+  public void write(final JAXBElement<T> config,
+      final String context,
+      final Writer writer,
+      final String schemaLocation) throws JAXBException {
+    JAXBContext jaxbContext = null;
+    // try {
+    jaxbContext = JAXBContext.newInstance(context, Thread.currentThread().getContextClassLoader());
+    marshaller = jaxbContext.createMarshaller();
+    marshaller.setProperty(Marshaller.JAXB_ENCODING, schemaLocation);
+    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    marshaller.setEventHandler(handler);
+    marshaller.marshal(config, writer);
+    /*
+     * } catch (Exception exception) { throw new
+     * Exception(exception.getMessage(), exception); }
+     */
+  }
 }

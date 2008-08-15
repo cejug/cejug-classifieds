@@ -54,7 +54,7 @@ public class ServiceLifeCycleEntity extends AbstractEntity {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -62,7 +62,7 @@ public class ServiceLifeCycleEntity extends AbstractEntity {
 		return start;
 	}
 
-	public void setStart(Calendar start) {
+	public void setStart(final Calendar start) {
 		this.start = start;
 	}
 
@@ -70,7 +70,7 @@ public class ServiceLifeCycleEntity extends AbstractEntity {
 		return finish;
 	}
 
-	public void setFinish(Calendar finish) {
+	public void setFinish(final Calendar finish) {
 		this.finish = finish;
 	}
 

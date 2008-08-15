@@ -9,31 +9,35 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.fail;
+
 public class ConfigLoaderTest {
 
-	@Before
-	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
-	}
+  @Before
+  public void setUp() throws Exception {
+    // include or activate a new advertisement (submit via service or direct
+    // into database)
+  }
 
-	@After
-	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
-	}
+  @After
+  public void tearDown() throws Exception {
+    // remove or inactive the test advertisement
+  }
 
-	@Test
-	public void testConfigLoading() {
-		try {
-			// Marshall listener should replace missed information by the
-			// service defaults.
-			ConfigLoader loader = ConfigLoader.getInstance();
-			ClassifiedsServerConfig config = loader.load();
-			Assert.assertNotNull(config.getInjection()
-					.getServiceImplementation());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+  private static final ConfigLoader loader = ConfigLoader.getInstance();
+
+  @Test
+  public void testConfigLoading() {
+    try {
+      // Marshall listener should replace missed information by the
+      // service defaults.
+
+      ClassifiedsServerConfig config;
+      config = loader.load();
+      Assert.assertNotNull(config.getInjection().getServiceImplementation());
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      fail(e.getMessage());
+    }
+  }
 }

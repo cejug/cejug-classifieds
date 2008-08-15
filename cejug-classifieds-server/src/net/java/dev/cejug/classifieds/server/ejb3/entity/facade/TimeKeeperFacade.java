@@ -32,7 +32,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class TimeKeeperFacade extends
-		CRUDEntityFacade<OperationTimestampEntity> implements
-		TimeKeeperFacadeLocal {
+public class TimeKeeperFacade extends CRUDEntityFacade<OperationTimestampEntity> implements
+    TimeKeeperFacadeLocal {
 }
