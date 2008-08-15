@@ -238,4 +238,21 @@
         </junit>
     </target>
 
+	<path id="pmd.classpath">
+        <fileset dir="${project.lib}/ext/pmd">
+            <include name="**/*.jar" />
+        </fileset>
+	</path>
+	<target name="pmd">
+		<mkdir dir="${quality.home}/pmd"/>
+	    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath"/>
+	    <pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
+	    	<ruleset>rulesets/favorites.xml</ruleset>
+	        <formatter type="html" toFile="${quality.home}/pmd/pmd_report.html" />
+	        <fileset dir="${basedir}/src">
+	            <include name="**/*.java"/>
+	        </fileset>
+	    </pmd>
+	</target>
+
 </project>
