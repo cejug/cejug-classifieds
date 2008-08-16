@@ -26,6 +26,7 @@ package net.java.dev.cejug.utils.config;
 import java.io.Writer;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 
 /**
  * @author $Author$
@@ -40,6 +41,7 @@ public interface ConfigXmlWriter<T> {
 	 * @param streamWriter
 	 * @throws Exception
 	 */
-	public void write(JAXBElement<T> config, String context,
-			Writer streamWriter, String schemaLocation) throws Exception;
+	public void write(final JAXBElement<T> config, final String context,
+			final Writer streamWriter, String schemaLocation)
+			throws JAXBException;
 }

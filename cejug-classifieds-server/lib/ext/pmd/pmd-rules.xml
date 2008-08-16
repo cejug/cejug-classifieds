@@ -13,21 +13,23 @@
   <rule ref="rulesets/codesize.xml">
     <exclude name="ExcessiveClassLength"/>
     <exclude name="ExcessiveMethodLength"/>
-    <exclude name="ExcessivePublicCountRule"/>
+    <exclude name="ExcessivePublicCount"/>
     <exclude name="TooManyMethods"/>
+    <exclude name="TooManyFields"/>
   </rule>
   <rule ref="rulesets/controversial.xml">
     <exclude name="UnnecessaryConstructorRule"/>
     <exclude name="AtLeastOneConstructor"/>
+    <exclude name="UnnecessaryConstructor"/>
     <!-- exclude name="NullAssignment"/-->
+    <exclude name="DataflowAnomalyAnalysis"/>
     <exclude name="OnlyOneReturn"/>
     <exclude name="UnusedModifier"/>
     <exclude name="DontImportSunRule"/>
     <exclude name="SuspiciousOctalEscapeRule"/>
   </rule>
   <rule ref="rulesets/coupling.xml">
-    <exclude name="ExcessiveImportsRule"/>
-    <exclude name="ExcessiveImportsRule"/>
+    <exclude name="ExcessiveImports"/>
   </rule>
   <rule ref="rulesets/design.xml">
     <exclude name="UseSingletonRule"/>

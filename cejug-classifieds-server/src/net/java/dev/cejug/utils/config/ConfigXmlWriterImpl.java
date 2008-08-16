@@ -43,8 +43,6 @@ class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
 		this.handler = handler;
 	}
 
-	private transient Marshaller marshaller = null;
-
 	/**
 	 * WARNING: it never store passwords.
 	 * 
@@ -57,7 +55,7 @@ class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
 		// try {
 		jaxbContext = JAXBContext.newInstance(context, Thread.currentThread()
 				.getContextClassLoader());
-		marshaller = jaxbContext.createMarshaller();
+		Marshaller marshaller = jaxbContext.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, schemaLocation);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.setEventHandler(handler);

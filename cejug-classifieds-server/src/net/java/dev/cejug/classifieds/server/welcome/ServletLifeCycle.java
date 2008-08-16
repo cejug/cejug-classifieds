@@ -26,8 +26,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.ServiceLifeCycle
 
 public class ServletLifeCycle implements ServletContextListener {
 	@EJB
-	ServiceLifeCycleFacadeLocal lifeObserver;
-	private int id = -1;
+	private transient ServiceLifeCycleFacadeLocal lifeObserver;
+	private transient int id = -1;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -37,7 +37,7 @@ public class ServletLifeCycle implements ServletContextListener {
 			lifeCycle.setFinish(Calendar.getInstance());
 			lifeObserver.update(lifeCycle);
 		} catch (Exception e) {
-			throw new WebServiceException(e.getMessage());
+			throw new WebServiceException(e);
 		}
 	}
 
@@ -50,7 +50,7 @@ public class ServletLifeCycle implements ServletContextListener {
 			lifeObserver.create(lifeCycle);
 			id = lifeCycle.getId();
 		} catch (Exception e) {
-			throw new WebServiceException(e.getMessage());
+			throw new WebServiceException(e);
 		}
 	}
 }

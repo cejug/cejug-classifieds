@@ -27,8 +27,10 @@ import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
@@ -44,11 +46,12 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 		CustomerFacadeLocal {
 
 	@EJB
-	DomainFacadeLocal domainFacade;
+	private transient DomainFacadeLocal domainFacade;
 
 	@Override
 	public CustomerEntity findOrCreate(int domainId, String login)
-			throws Exception {
+			throws EntityExistsException, IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException {
 		Query query = manager
 				.createNamedQuery("selectCustomerByLoginAndDomain");
 		query.setParameter("d", Integer.valueOf(domainId));

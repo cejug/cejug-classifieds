@@ -67,11 +67,9 @@ import org.junit.Test;
  */
 public class DomainMaintenanceFunctionalTest {
 
-	private CejugClassifiedsAdmin admin = null;
+	private transient CejugClassifiedsAdmin admin = null;
 
-	private Domain domain = null;
-
-	private int availableDomainsBeforeTests = -1;
+	private transient int availableDomainsBeforeTests = -1;
 
 	/**
 	 * We first store the number of already available categories. After all
@@ -124,7 +122,7 @@ public class DomainMaintenanceFunctionalTest {
 	public void crudDomain() {
 
 		// CREATE
-		domain = new Domain();
+		Domain domain = new Domain();
 		domain.setDomain("functional.test." + System.currentTimeMillis());
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);

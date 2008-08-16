@@ -66,9 +66,8 @@ import org.junit.Test;
  * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
  */
 public class AdvertisementTypeMaintenanceFunctionalTest {
-	private CejugClassifiedsAdmin admin = null;
-	private AdvertisementType advType = null;
-	private int availableAdvTypesBeforeTests = -1;
+	private transient CejugClassifiedsAdmin admin = null;
+	private transient int availableAdvTypesBeforeTests = -1;
 
 	/**
 	 * We first store the number of already available advertisement types. After
@@ -119,7 +118,7 @@ public class AdvertisementTypeMaintenanceFunctionalTest {
 	@Test
 	public void crudCategory() {
 		// CREATE
-		advType = new AdvertisementType();
+		AdvertisementType advType = new AdvertisementType();
 		advType.setName("FunctionalTest" + System.currentTimeMillis());
 		advType.setDescription("Functional ADV Type Test.");
 		advType.setMaxAttachmentSize(987L);

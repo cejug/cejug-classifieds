@@ -57,15 +57,10 @@ import org.junit.Test;
  */
 public class PublishFunctionalTest {
 
-	private CejugClassifiedsBusiness business = null;
-
-	private CejugClassifiedsAdmin admin = null;
-
-	String domain = "cejug.functional.test.domain" + System.currentTimeMillis();
+	private transient CejugClassifiedsBusiness business = null;
 
 	@Before
 	public void setUp() throws Exception {
-
 		/*
 		 * -- TODO: review this code and do the proper test sequence: - create a
 		 * new domain, for tests - insert new advertisement - load the
@@ -78,9 +73,12 @@ public class PublishFunctionalTest {
 		business = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 
-		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+		CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
+				.getCejugClassifiedsAdmin();
 
 		// TODO: review (it is only a test)
+		String domain = "cejug.functional.test.domain"
+				+ System.currentTimeMillis();
 		Domain newDomain = new Domain();
 		newDomain.setDomain(domain);
 		newDomain.setBrand("CEJUG");
@@ -177,6 +175,6 @@ public class PublishFunctionalTest {
 
 	@Test
 	public void testPublishOperationFail() {
-
+		// TODO: simulates an invalid publishing request and check if it fails.
 	}
 }

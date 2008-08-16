@@ -41,8 +41,8 @@ import org.xml.sax.SAXException;
  * @version $Rev$ ($Date$)
  */
 class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
-	private Unmarshaller.Listener listener;
-	private ValidationEventHandler handler;
+	private transient Unmarshaller.Listener listener;
+	private transient ValidationEventHandler handler;
 
 	ConfigXmlReaderImpl() {
 		this(null, null);
@@ -68,8 +68,8 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	public JAXBElement<T> read(InputStreamReader inputStream, String context,
 			URL schemaLocation) throws JAXBException, SAXException {
 		// TODO: thread safe
-		JAXBContext jc = JAXBContext.newInstance(context, this.getClass()
-				.getClassLoader());
+		JAXBContext jc = JAXBContext.newInstance(context, Thread
+				.currentThread().getContextClassLoader());
 
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
 		if (handler != null) {

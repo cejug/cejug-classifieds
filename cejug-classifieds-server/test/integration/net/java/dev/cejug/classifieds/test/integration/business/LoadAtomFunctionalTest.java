@@ -82,5 +82,6 @@ public class LoadAtomFunctionalTest {
 
 	@Test
 	public void testLoadAtomOperationFail() {
+		// TODO: simulates an invalid atom request and check if it fails.
 	}
 }

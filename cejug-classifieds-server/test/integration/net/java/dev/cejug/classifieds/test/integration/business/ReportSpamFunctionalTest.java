@@ -68,5 +68,6 @@ public class ReportSpamFunctionalTest {
 
 	@Test
 	public void testReportSpamOperationFail() {
+		// TODO: simulates an invalid report spam request and check if it fails.
 	}
 }

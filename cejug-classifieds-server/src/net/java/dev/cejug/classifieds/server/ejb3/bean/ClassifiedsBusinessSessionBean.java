@@ -106,8 +106,7 @@ public class ClassifiedsBusinessSessionBean implements
 		try {
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result;
-			result = advFacade
-					.readAll(AdvertisementEntity.class);
+			result = advFacade.readAll(AdvertisementEntity.class);
 
 			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {

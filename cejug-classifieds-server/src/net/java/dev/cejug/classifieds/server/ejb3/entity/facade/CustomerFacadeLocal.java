@@ -24,6 +24,8 @@
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
 import javax.ejb.Local;
+import javax.persistence.EntityExistsException;
+import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 
@@ -34,5 +36,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
  */
 @Local
 public interface CustomerFacadeLocal extends EntityFacade<CustomerEntity> {
-	CustomerEntity findOrCreate(int domainId, String login) throws Exception;
+	CustomerEntity findOrCreate(int domainId, String login)
+			throws EntityExistsException, IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException;
 }
