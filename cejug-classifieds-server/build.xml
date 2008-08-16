@@ -252,6 +252,9 @@
 	        <fileset dir="${basedir}/src">
 	            <include name="**/*.java"/>
 	        </fileset>
+	        <fileset dir="${basedir}/generated">
+	            <include name="**/*.java"/>
+	        </fileset>
 	    </pmd>
 	</target>
 
