@@ -21,6 +21,7 @@
     <exclude name="UnnecessaryConstructorRule"/>
     <exclude name="AtLeastOneConstructor"/>
     <exclude name="UnnecessaryConstructor"/>
+    <exclude name="UnnecessaryParentheses"/>    
     <!-- exclude name="NullAssignment"/-->
     <exclude name="DataflowAnomalyAnalysis"/>
     <exclude name="OnlyOneReturn"/>
@@ -40,6 +41,7 @@
     <exclude name="BooleanInstantiation"/>
     <exclude name="NonStaticInitializer"/>
     <exclude name="ConfusingTernary"/>
+    <exclude name="UncommentedEmptyConstructor"/>
   </rule>
   <rule ref="rulesets/finalizers.xml"/>
   <rule ref="rulesets/imports.xml"/>
