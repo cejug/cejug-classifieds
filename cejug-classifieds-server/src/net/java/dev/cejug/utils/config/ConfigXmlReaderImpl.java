@@ -48,8 +48,8 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 		this(null, null);
 	}
 
-	ConfigXmlReaderImpl(Unmarshaller.Listener listener,
-			ValidationEventHandler handler) {
+	ConfigXmlReaderImpl(final Unmarshaller.Listener listener,
+			final ValidationEventHandler handler) {
 		this.listener = listener;
 		this.handler = handler;
 	}
@@ -65,8 +65,8 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public JAXBElement<T> read(InputStreamReader inputStream, String context,
-			URL schemaLocation) throws JAXBException, SAXException {
+	public JAXBElement<T> read(final InputStreamReader inputStream, final String context,
+			final URL schemaLocation) throws JAXBException, SAXException {
 		// TODO: thread safe
 		JAXBContext jc = JAXBContext.newInstance(context, Thread
 				.currentThread().getContextClassLoader());
