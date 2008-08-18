@@ -51,11 +51,12 @@ class ConfigXmlWriterImpl<T> implements ConfigXmlWriter<T> {
 	public void write(final JAXBElement<T> config, final String context,
 			final Writer writer, final String schemaLocation)
 			throws JAXBException {
-		JAXBContext jaxbContext = null;
+		JAXBContext jaxbContext;
 		// try {
 		jaxbContext = JAXBContext.newInstance(context, Thread.currentThread()
 				.getContextClassLoader());
-		Marshaller marshaller = jaxbContext.createMarshaller();
+		Marshaller marshaller;
+		marshaller = jaxbContext.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, schemaLocation);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		marshaller.setEventHandler(handler);
