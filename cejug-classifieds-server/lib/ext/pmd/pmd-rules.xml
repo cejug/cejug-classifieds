@@ -33,15 +33,16 @@
     <exclude name="ExcessiveImports"/>
   </rule>
   <rule ref="rulesets/design.xml">
-    <exclude name="UseSingletonRule"/>
+    <!-- exclude name="UseSingletonRule"/ -->
     <exclude name="SwitchStmtsShouldHaveDefault"/>
     <exclude name="ConstructorCallsOverridableMethodRule"/>
     <exclude name="AccessorClassGenerationRule"/>
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="BooleanInstantiation"/>
     <exclude name="NonStaticInitializer"/>
-    <exclude name="ConfusingTernary"/>
+    <!-- exclude name="ConfusingTernary"/ -->
     <exclude name="UncommentedEmptyConstructor"/>
+    <exclude name="AbstractClassWithoutAbstractMethod"/>
   </rule>
   <rule ref="rulesets/finalizers.xml"/>
   <rule ref="rulesets/imports.xml"/>
