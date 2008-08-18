@@ -54,9 +54,11 @@
     <target name="build-server-wsdl">
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+            <xjcarg value="-Xcollection-setter-injector"/>            
         </wsimport>
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+            <xjcarg value="-Xcollection-setter-injector"/>
         </wsimport>
         <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
             <classpath refid="jaxws.classpath" />
