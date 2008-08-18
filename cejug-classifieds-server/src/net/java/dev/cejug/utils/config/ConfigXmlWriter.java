@@ -34,14 +34,14 @@ import javax.xml.bind.JAXBException;
  */
 public interface ConfigXmlWriter<T> {
 	/**
-	 * Thread safe config writer.
+	 * Configuration writer. The implementation should be Thread safe.
 	 * 
 	 * @param config
 	 * @param context
 	 * @param streamWriter
 	 * @throws Exception
 	 */
-	public void write(final JAXBElement<T> config, final String context,
+	void write(final JAXBElement<T> config, final String context,
 			final Writer streamWriter, String schemaLocation)
 			throws JAXBException;
 }
