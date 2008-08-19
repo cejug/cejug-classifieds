@@ -18,18 +18,18 @@
 	<!-- MESSAGES -->
 	<!-- LOAD RSS -->
 	<wsdl:message name="LoadRss">
-		<wsdl:part element="metadata:RssFilterCollection" name="filter" />
+		<wsdl:part element="metadata:RssFilter" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadRssResponse">
-		<wsdl:part element="metadata:RssCollection" name="rss.collection" />
+		<wsdl:part element="metadata:RssFeed" name="rss.2.0" />
 	</wsdl:message>
 
 	<!-- LOAD ATOM -->
 	<wsdl:message name="LoadAtom">
-		<wsdl:part element="metadata:AtomFilterCollection" name="filter" />
+		<wsdl:part element="metadata:AtomFilter" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadAtomResponse">
-		<wsdl:part element="metadata:AtomCollection" name="atom.collection" />
+		<wsdl:part element="metadata:AtomFeed" name="atom.1.0" />
 	</wsdl:message>
 
 	<!-- GET ADVERTISEMENT COLLECTION -->

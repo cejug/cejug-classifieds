@@ -26,11 +26,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
-import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
-import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
-import edu.harvard.law.blogs.rss20.Channel;
-import edu.harvard.law.blogs.rss20.Rss;
-
+import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import uk.co.thearchitect.schemas.rss_2_0.TRss;
 
 /**
  * REST rss feed, to allow other applications to consume the RSS feed directly
@@ -40,46 +37,47 @@ import edu.harvard.law.blogs.rss20.Rss;
  */
 public class RssFeed extends HttpServlet {
 
-  /** <code>serialVersionUID = {@value}</code>. */
-  private final static long serialVersionUID = -6026937020915831338L;
+	/** <code>serialVersionUID = {@value}</code>. */
+	private final static long serialVersionUID = -6026937020915831338L;
 
-  @EJB
-  private transient ClassifiedsBusinessLocal business;
+	@EJB
+	private transient ClassifiedsBusinessLocal business;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    RssFilterCollection filter = new RssFilterCollection();
-    RssCollection collection = business.loadRssOperation(filter);
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		SyndicationFilter filter = new SyndicationFilter();
+		TRss rss = business.loadRssOperation(filter);
 
-    // Little trick: http://www.petefreitag.com/item/381.cfm
-    String agent = request.getHeader("User-Agent");
-    if (agent != null && agent.toUpperCase().contains("MOZILLA")) {
-      response.setContentType("text/xml");
-    } else {
-      response.setContentType("application/rss+xml");
-    }
+		// Little trick: http://www.petefreitag.com/item/381.cfm
+		String agent = request.getHeader("User-Agent");
+		if (agent != null && agent.toUpperCase().contains("MOZILLA")) {
+			response.setContentType("text/xml");
+		} else {
+			response.setContentType("application/rss+xml");
+		}
 
-    PrintWriter out = response.getWriter();
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance("edu.harvard.law.blogs.rss20",
-          Thread.currentThread().getContextClassLoader());
-      Marshaller marshaller;
-      marshaller = jaxbContext.createMarshaller();
-      marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      Rss rss = new Rss();
-      rss.setChannel(collection.getRssCollection().get(0));
-      marshaller.marshal(rss, out);
-    } catch (Exception ee) {
-      out.print("<?xml version='1.0' encoding='utf-8' ?><error>AAA" + ee.getMessage() + "</error>");
-    }
-  }
+		PrintWriter out = response.getWriter();
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(
+					"edu.harvard.law.blogs.rss20", Thread.currentThread()
+							.getContextClassLoader());
+			Marshaller marshaller;
+			marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
+					Boolean.TRUE);
+			marshaller.marshal(rss, out);
+		} catch (Exception ee) {
+			out.print("<?xml version='1.0' encoding='utf-8' ?><error>AAA"
+					+ ee.getMessage() + "</error>");
+		}
+	}
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
-    resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
-    super.doPost(req, resp);
-  }
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		super.doPost(req, resp);
+	}
 }

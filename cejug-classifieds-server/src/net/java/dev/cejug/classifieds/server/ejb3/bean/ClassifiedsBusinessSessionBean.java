@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,6 +33,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
+import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
@@ -50,11 +50,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
-import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
-import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
-import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
+import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
@@ -66,11 +63,15 @@ import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
+import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.FeedType;
-import org.w3._2005.atom.TextType;
+import org.w3._2005.atom.IdType;
+import org.w3._2005.atom.PersonType;
+import org.w3._2005.atom.UriType;
 
-import edu.harvard.law.blogs.rss20.Channel;
-import edu.harvard.law.blogs.rss20.Item;
+import uk.co.thearchitect.schemas.rss_2_0.TRss;
+import uk.co.thearchitect.schemas.rss_2_0.TRssChannel;
+import uk.co.thearchitect.schemas.rss_2_0.TRssItem;
 
 /**
  * @author $Author$
@@ -101,31 +102,88 @@ public class ClassifiedsBusinessSessionBean implements
 	private static final Logger logger = Logger.getLogger(
 			ClassifiedsBusinessSessionBean.class.getName(), "i18n/log");
 
+	/**
+	 * @return <a href=
+	 *         "http://en.wikipedia.org/wiki/Atom_(standard)#Example_of_an_Atom_1.0_Feed"
+	 *         >Example:</a>
+	 * 
+	 *         <pre>
+	 * &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+	 * &lt;feed xmlns=&quot;http://www.w3.org/2005/Atom&quot;&gt;
+	 *  
+	 *  &lt;title&gt;Example Feed&lt;/title&gt;
+	 *  &lt;subtitle&gt;A subtitle.&lt;/subtitle&gt;
+	 *  &lt;link href=&quot;http://example.org/feed/&quot; rel=&quot;self&quot;/&gt;
+	 *  &lt;link href=&quot;http://example.org/&quot;/&gt;
+	 *  &lt;updated&gt;2003-12-13T18:30:02Z&lt;/updated&gt;
+	 *  &lt;author&gt;
+	 *    &lt;name&gt;John Doe&lt;/name&gt;
+	 *    &lt;email&gt;johndoe@example.com&lt;/email&gt;
+	 *  &lt;/author&gt;
+	 *  &lt;id&gt;urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6&lt;/id&gt;
+	 *  
+	 *  &lt;entry&gt;
+	 *    &lt;title&gt;Atom-Powered Robots Run Amok&lt;/title&gt;
+	 *    &lt;link href=&quot;http://example.org/2003/12/13/atom03&quot;/&gt;
+	 *    &lt;id&gt;urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a&lt;/id&gt;
+	 *    &lt;updated&gt;2003-12-13T18:30:02Z&lt;/updated&gt;
+	 *    &lt;summary&gt;Some text.&lt;/summary&gt;
+	 *  &lt;/entry&gt;
+	 *  
+	 * &lt;/feed&gt;
+	 * </pre>
+	 */
 	@Override
-	public AtomCollection loadAtomOperation(final AtomFilterCollection filter) {
+	public FeedType loadAtomOperation(SyndicationFilter filter) {
 		try {
+			FeedType atomFeed = new FeedType();
+			atomFeed.getOtherAttributes().put(
+					new QName("http://www.w3.org/2005/Atom", "title"),
+					"Cars @ Cejug Classifieds");
+			atomFeed.getOtherAttributes().put(
+					new QName("http://www.w3.org/2005/Atom", "subtitle"),
+					"All cars");
+			atomFeed.getOtherAttributes().put(
+					new QName("http://www.w3.org/2005/Atom", "link"),
+					"http://cejug-classifieds-server/atom&section=cars");
+			atomFeed.getOtherAttributes().put(
+					new QName("http://www.w3.org/2005/Atom", "updated"),
+					Calendar.getInstance().toString());
+
+			PersonType author = new PersonType();
+			author.getNameOrUriOrEmail().add("Cejug-Classifieds");
+			author.getNameOrUriOrEmail().add(
+					"dev@cejug-classifieds.dev.java.net");
+			UriType uri = new UriType();
+			uri.setValue("http://cejug-classifieds-server/atom&section=cars");
+			author.getNameOrUriOrEmail().add(uri);
+			atomFeed.getAuthorOrCategoryOrContributor().add(author);
+
+			IdType feedId = new IdType();
+			feedId.setValue("urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6");
+			atomFeed.getAuthorOrCategoryOrContributor().add(feedId);
+
 			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result;
-			result = advFacade.readAll(AdvertisementEntity.class);
+			List<AdvertisementEntity> result = advFacade
+					.readAll(AdvertisementEntity.class);
 
-			List<FeedType> atomCollection = new ArrayList<FeedType>();
 			for (AdvertisementEntity adv : result) {
-				FeedType feed = new FeedType();
-				TextType title = new TextType();
-				title.setType(adv.getTitle());
-				// feed.getAuthorOrCategoryOrContributor().add(title);
 
-				Item item = new Item();
-				item.setAuthor(adv.getCustomer().getLogin());
-				item.setAuthor("INCOMPLETE DATA SET");
-				item.setDescription(adv.getSummary());
-				item.setPubDate(adv.getStart());
-				atomCollection.add(feed);
+				EntryType entry = new EntryType();
+
+				entry.getOtherAttributes().put(
+						new QName("http://www.w3.org/2005/Atom", "title"),
+						adv.getTitle());
+				entry.getOtherAttributes().put(
+						new QName("http://www.w3.org/2005/Atom", "link"),
+						"http://cejug-classifieds-server/atom&id="
+								+ adv.getId());
+				atomFeed.getOtherAttributes().put(
+						new QName("http://www.w3.org/2005/Atom", "updated"),
+						Calendar.getInstance().toString());
+				atomFeed.getAuthorOrCategoryOrContributor().add(entry);
 			}
-
-			AtomCollection atoms = new AtomCollection();
-			// atoms.getAtomCollection().add(atomCollection);
-			return atoms;
+			return atomFeed;
 		} catch (Exception e) {
 			// TODO: log
 			logger.severe(e.getMessage());
@@ -133,28 +191,91 @@ public class ClassifiedsBusinessSessionBean implements
 		}
 	}
 
+	/**
+	 * <pre>
+	 * &lt;?xml version=&quot;1.0&quot;?&gt;
+	 * &lt;rss version=&quot;2.0&quot;&gt;
+	 *    &lt;channel&gt;
+	 *       &lt;title&gt;Liftoff News&lt;/title&gt;
+	 *       &lt;link&gt;http://liftoff.msfc.nasa.gov/&lt;/link&gt;
+	 *       &lt;description&gt;Liftoff to Space Exploration.&lt;/description&gt;
+	 *       &lt;language&gt;en-us&lt;/language&gt;
+	 *       &lt;pubDate&gt;Tue, 10 Jun 2003 04:00:00 GMT&lt;/pubDate&gt;
+	 * 
+	 *       &lt;lastBuildDate&gt;Tue, 10 Jun 2003 09:41:01 GMT&lt;/lastBuildDate&gt;
+	 *       &lt;docs&gt;http://blogs.law.harvard.edu/tech/rss&lt;/docs&gt;
+	 *       &lt;generator&gt;Weblog Editor 2.0&lt;/generator&gt;
+	 *       &lt;managingEditor&gt;editor@example.com&lt;/managingEditor&gt;
+	 *       &lt;webMaster&gt;webmaster@example.com&lt;/webMaster&gt;
+	 *       &lt;item&gt;
+	 * 
+	 *          &lt;title&gt;Star City&lt;/title&gt;
+	 *          &lt;link&gt;http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp&lt;/link&gt;
+	 *          &lt;description&gt;How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's &lt;a href=&quot;http://howe.iki.rssi.ru/GCTC/gctc_e.htm&quot;&gt;Star City&lt;/a&gt;.&lt;/description&gt;
+	 *          &lt;pubDate&gt;Tue, 03 Jun 2003 09:39:21 GMT&lt;/pubDate&gt;
+	 *          &lt;guid&gt;http://liftoff.msfc.nasa.gov/2003/06/03.html#item573&lt;/guid&gt;
+	 * 
+	 *       &lt;/item&gt;
+	 *    &lt;/channel&gt;
+	 * &lt;/rss&gt;
+	 * </pre>
+	 */
 	@Override
-	public RssCollection loadRssOperation(final RssFilterCollection filter) {
-
+	public TRss loadRssOperation(SyndicationFilter filter) {
 		try {
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advFacade
 					.readAll(AdvertisementEntity.class);
 
-			Channel channel = new Channel();
+			TRss rssFeed = new TRss();
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"title"), "Cars @ Cejug Classifieds");
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"link"),
+					"http://cejug-classifieds-server/atom&section=cars");
+			rssFeed
+					.getOtherAttributes()
+					.put(
+							new QName(
+									"http://www.thearchitect.co.uk/schemas/rss-2_0",
+									"description"),
+							"TODO: add description to sections");
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"pubDate"), Calendar.getInstance().toString());
+			rssFeed
+					.getOtherAttributes()
+					.put(
+							new QName(
+									"http://www.thearchitect.co.uk/schemas/rss-2_0",
+									"lastBuildDate"),
+							Calendar.getInstance().toString());
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"docs"), "TODO: docs reference");
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"managingEditor"),
+					"dev@cejug-classifieds.dev.java.net");
+			rssFeed.getOtherAttributes().put(
+					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+							"webMaster"), "dev@cejug-classifieds.dev.java.net");
+
+			TRssChannel channel = new TRssChannel();
 			for (AdvertisementEntity adv : result) {
-				Item item = new Item();
-				// item.setAuthor(adv.getVoucher().getCustomer().getLogin());
-				item.setAuthor("INCOMPLETE DATA SET");
-				item.setTitle(adv.getTitle());
-				item.setDescription(adv.getSummary());
-				// item.setPubDate(adv.getPublishingPeriod().iterator().next().
-				// getDay());
-				channel.getItem().add(item);
+				TRssItem item = new TRssItem();
+				item
+						.getOtherAttributes()
+						.put(
+								new QName(
+										"http://www.thearchitect.co.uk/schemas/rss-2_0",
+										"title"), adv.getTitle());
+				channel.getTitleOrLinkOrDescription().add(item);
 			}
-			RssCollection col = new RssCollection();
-			col.getRssCollection().add(channel);
-			return col;
+			rssFeed.setChannel(channel);
+			return rssFeed;
 		} catch (Exception e) {
 			// TODO: log
 			logger.severe(e.getMessage());

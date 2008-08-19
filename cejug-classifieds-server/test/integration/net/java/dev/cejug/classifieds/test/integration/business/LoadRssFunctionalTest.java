@@ -30,13 +30,13 @@ import java.util.GregorianCalendar;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
-import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import uk.co.thearchitect.schemas.rss_2_0.TRss;
 
 /**
  * Test the diploma validation operation.
@@ -64,7 +64,6 @@ public class LoadRssFunctionalTest {
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		RssFilterCollection filterCollection = new RssFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
 
 		// retrieve the advertisement RSS since yesterday to today.
@@ -75,11 +74,9 @@ public class LoadRssFunctionalTest {
 		filter.setDateInitial(yesterday);
 		filter.setDateFinal(today);
 
-		filterCollection.getFilterCollection().add(filter);
+		TRss rss = service.loadRssOperation(filter);
 
-		RssCollection collection = service.loadRssOperation(filterCollection);
-
-		assertTrue("RSS empty", collection.getRssCollection().size() > 0);
+		assertTrue("RSS empty", rss.getChannel().getTitleOrLinkOrDescription().size() > 0);
 	}
 
 	/*

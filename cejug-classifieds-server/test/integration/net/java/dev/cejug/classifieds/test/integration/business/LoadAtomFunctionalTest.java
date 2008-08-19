@@ -28,13 +28,13 @@ import java.util.GregorianCalendar;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.business.AtomCollection;
-import net.java.dev.cejug_classifieds.metadata.business.AtomFilterCollection;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3._2005.atom.FeedType;
 
 /**
  * Test the diploma validation operation.
@@ -63,7 +63,6 @@ public class LoadAtomFunctionalTest {
 		 */
 		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
-		AtomFilterCollection filterCollection = new AtomFilterCollection();
 		SyndicationFilter filter = new SyndicationFilter();
 
 		// retrieve the advertisement RSS since yesterday to today.
@@ -74,10 +73,8 @@ public class LoadAtomFunctionalTest {
 		filter.setDateInitial(yesterday);
 		filter.setDateFinal(today);
 
-		filterCollection.getFilterCollection().add(filter);
-
-		AtomCollection collection = service.loadAtomOperation(filterCollection);
-		assert collection.getAtomCollection().size() > 0;
+		FeedType feed = service.loadAtomOperation(filter);
+		Assert.assertNotNull(feed);
 	}
 
 	@Test
