@@ -29,6 +29,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBus
 import net.java.dev.cejug_classifieds.metadata.business.RssCollection;
 import net.java.dev.cejug_classifieds.metadata.business.RssFilterCollection;
 import edu.harvard.law.blogs.rss20.Channel;
+import edu.harvard.law.blogs.rss20.Rss;
 
 
 /**
@@ -61,15 +62,17 @@ public class RssFeed extends HttpServlet {
 
     PrintWriter out = response.getWriter();
     try {
-      JAXBContext jaxbContext = JAXBContext.newInstance("edu.harvard.law.blogs.rss20.Channel",
+      JAXBContext jaxbContext = JAXBContext.newInstance("edu.harvard.law.blogs.rss20",
           Thread.currentThread().getContextClassLoader());
       Marshaller marshaller;
       marshaller = jaxbContext.createMarshaller();
-      marshaller.setProperty(Marshaller.JAXB_ENCODING, "http://blogs.law.harvard.edu/RSS20.xsd");
+      marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
       marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-      marshaller.marshal((Channel) collection.getRssCollection().get(0), out);
+      Rss rss = new Rss();
+      rss.setChannel(collection.getRssCollection().get(0));
+      marshaller.marshal(rss, out);
     } catch (Exception ee) {
-      out.print("<?xml version='1.0' encoding='utf-8' ?><error>" + ee.getMessage() + "</error>");
+      out.print("<?xml version='1.0' encoding='utf-8' ?><error>AAA" + ee.getMessage() + "</error>");
     }
   }
 

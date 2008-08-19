@@ -58,6 +58,7 @@ import org.junit.Test;
 public class PublishFunctionalTest {
 
 	private transient CejugClassifiedsBusiness business = null;
+	private Domain newDomain = null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -79,7 +80,7 @@ public class PublishFunctionalTest {
 		// TODO: review (it is only a test)
 		String domain = "cejug.functional.test.domain"
 				+ System.currentTimeMillis();
-		Domain newDomain = new Domain();
+		newDomain = new Domain();
 		newDomain.setDomain(domain);
 		newDomain.setBrand("CEJUG");
 		newDomain.setSharedQuota(true);
@@ -133,7 +134,7 @@ public class PublishFunctionalTest {
 			customer.setDomain("cejug.functional.test.domain"
 					+ System.currentTimeMillis());
 			customer.setLogin("fgaucho");
-
+			customer.setDomain(newDomain.getDomain());
 			advertisement.setCustomer(customer);
 
 			// Publishing period
@@ -161,7 +162,7 @@ public class PublishFunctionalTest {
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(1);
+			header.setCustomerDomainId(2);
 			header.setCustomerLogin("fgaucho");
 
 			ServiceStatus status = business.publishOperation(advertisement,
