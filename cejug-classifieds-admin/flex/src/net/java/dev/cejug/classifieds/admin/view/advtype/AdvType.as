@@ -8,6 +8,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
     import mx.rpc.events.ResultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
+    import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
     import net.java.dev.cejug.classifieds.server.contract.CreateAdvertisementTypeParam;
@@ -32,7 +33,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
 
         public function AdvType()
         {
-            adminService = new RemoteObject("CejugClassifiedsAdminService");
+            adminService = new AdminService().getRemoteObject();
             adminService.readAdvertisementTypeBundleOperation.addEventListener("result", getAllAdvTypesResult);
             adminService.createAdvertisementTypeOperation.addEventListener("result", saveAdvTypeResult);
             adminService.updateAdvertisementTypeOperation.addEventListener("result", saveAdvTypeResult);

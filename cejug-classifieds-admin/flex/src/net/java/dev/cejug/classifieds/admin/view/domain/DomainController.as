@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.admin.view.domain
 {
     import mx.collections.ArrayCollection;
+    import mx.collections.ListCollectionView;
     import mx.controls.Alert;
     import mx.controls.List;
     import mx.events.CloseEvent;
@@ -9,8 +10,10 @@ package net.java.dev.cejug.classifieds.admin.view.domain
     import mx.rpc.events.ResultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
+    import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
+    import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
     import net.java.dev.cejug.classifieds.server.contract.CreateDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.Domain;
@@ -36,13 +39,13 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 
         [Bindable]
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
-        public var notInDomainCategoryDataProvider:ArrayCollection = new ArrayCollection();
+        public var notInDomainCategoryDataProvider:ListCollectionView = new ArrayCollection();
                 
         private var serviceStatus:ServiceStatus;
 
 		public function DomainController()
 		{
-			adminService = new RemoteObject("CejugClassifiedsAdminService");
+			adminService = new AdminService().getRemoteObject();
 			adminService.readDomainBundleOperation.addEventListener("result", getAllDomainsResult);
 			adminService.createDomainOperation.addEventListener("result", saveDomainResult);
 			adminService.updateDomainOperation.addEventListener("result", saveDomainResult);
@@ -237,7 +240,13 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Gets the result of loading all the categories
          */
         private function loadCategoriesResult(event:ResultEvent):void {
-            notInDomainCategoryDataProvider = event.result as ArrayCollection;
+            var catCol:CategoryCollection = event.result as CategoryCollection;
+            if (catCol != null && catCol.advertisementCategory != null) {
+                notInDomainCategoryDataProvider = catCol.advertisementCategory;
+            } else {
+                notInDomainCategoryDataProvider = new ArrayCollection();
+            }
+
             removeCategories();
         }
 

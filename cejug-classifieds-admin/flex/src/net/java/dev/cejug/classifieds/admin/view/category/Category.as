@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.admin.view.category
 {
     import mx.collections.ArrayCollection;
+    import mx.collections.ListCollectionView;
     import mx.controls.Alert;
     import mx.events.CloseEvent;
     import mx.events.FlexEvent;
@@ -8,8 +9,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
     import mx.rpc.events.ResultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
+    import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
+    import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
     import net.java.dev.cejug.classifieds.server.contract.CreateCategoryParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteCategoryParam;
     import net.java.dev.cejug.classifieds.server.contract.ReadCategoryBundleParam;
@@ -27,24 +30,24 @@ package net.java.dev.cejug.classifieds.admin.view.category
 
         [Bindable]
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
-        public var categoryDataProvider:ArrayCollection = new ArrayCollection();
+        public var categoryDataProvider:ListCollectionView = new ArrayCollection();
 
         [Bindable]
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
-        public var parentDataProvider:ArrayCollection = new ArrayCollection();
+        public var parentDataProvider:ListCollectionView = new ArrayCollection();
         
         private var serviceStatus:ServiceStatus;
 
 		public function Category()
 		{
-			adminService = new RemoteObject("CejugClassifiedsAdminService");
+			adminService = new AdminService().getRemoteObject();
 			adminService.readCategoryBundleOperation.addEventListener("result", getAllCategoriesResult);
 			adminService.createCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.updateCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.deleteCategoryOperation.addEventListener("result", saveCategoryResult);
 			adminService.addEventListener("fault", onRemoteFault);
 			
-			adminAuxService = new RemoteObject("CejugClassifiedsAdminService");
+			adminAuxService = new AdminService().getRemoteObject();
             adminAuxService.readCategoryBundleOperation.addEventListener("result", getParentResult);
             adminAuxService.addEventListener("fault", onRemoteFault);
 		}
@@ -84,7 +87,12 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Handles the result of loading all the categories.
          */
         private function getAllCategoriesResult(event:ResultEvent):void {
-            categoryDataProvider = event.result as ArrayCollection; 
+            var catCol:CategoryCollection = event.result as CategoryCollection;
+            if (catCol != null) {
+                categoryDataProvider = catCol.advertisementCategory;
+            } else {
+                categoryDataProvider = new ArrayCollection();
+            }
         }
         
         /**
@@ -99,10 +107,21 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Handles the result of loading all the parents categories.
          */
         private function getParentResult(event:ResultEvent):void {
-            parentDataProvider = event.result as ArrayCollection; 
+
             var item:Object = new Object();
             item['name'] = 'Select...';
-            parentDataProvider.addItemAt(item, 0);
+
+            var catCol:CategoryCollection = event.result as CategoryCollection;
+            if (catCol != null && catCol.advertisementCategory != null) {
+                parentDataProvider = catCol.advertisementCategory;
+                parentDataProvider.addItemAt(item, 0);
+            } else {
+                parentDataProvider = new ArrayCollection();
+                parentDataProvider.addItem(item);
+            }
+
+
+
 
             if (categoryEntity != null) {
                 removeCurrentFromParent();
