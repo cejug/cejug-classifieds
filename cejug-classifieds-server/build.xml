@@ -5,7 +5,7 @@
     <property name="project.lib" value="${basedir}/lib" />
     <property name="build.home" value="${basedir}/build" />
     <property name="build.ear.home" value="${build.home}/ear" />
-    <property name="quality.home" value="${build.home}/quality" />    
+    <property name="quality.home" value="${build.home}/quality" />
     <property name="build.classes.home" value="${build.home}/classes" />
     <property name="domain" value="domain1" />
 
@@ -37,28 +37,25 @@
             <class location="${basedir}/build/classes" />
         </findbugs>
     </target>
-    <target name="clean">
+
+    <target name="setup">
         <delete dir="${build.classes.home}" includeEmptyDirs="true" />
         <delete dir="${build.ear.home}" includeEmptyDirs="true" />
         <delete dir="${generated.dir}" includeEmptyDirs="true" />
-    </target>
-
-    <target name="setup">
         <mkdir dir="${build.classes.home}" />
         <mkdir dir="${build.ear.home}" />
         <mkdir dir="${build.ear.home}/lib" />
         <mkdir dir="${generated.dir}" />
-
     </target>
 
     <target name="build-server-wsdl">
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdllocation}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-            <xjcarg value="-Xcollection-setter-injector"/>            
+            <xjcarg value="-Xcollection-setter-injector" />
         </wsimport>
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdllocation}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-            <xjcarg value="-Xcollection-setter-injector"/>
+            <xjcarg value="-Xcollection-setter-injector" />
         </wsimport>
         <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
             <classpath refid="jaxws.classpath" />
@@ -89,7 +86,7 @@
         <echo message="Thanks for testing Cejug-Classifieds. Any feedback? dev@cejug-classifieds.dev.java.net" />
     </target>
 
-    <target name="server" depends="clean,setup,compile.resources.schema">
+    <target name="server" depends="setup,compile.resources.schema">
         <antcall target="build-server-wsdl" />
         <antcall target="create-war" />
         <antcall target="compile.functional.tests" />
@@ -206,7 +203,6 @@
     </target>
 
     <target name="package-ear" depends="server, pack-ejb-beans, pack-ejb-interfaces,pack-ejb-entities">
-        <!--jar destfile="${build.ear.home}/lib/ejb-interfaces.jar" basedir="${build.classes.home}" excludes="**/*.java" includes="./net/java/dev/cejug/classifieds/server/ejb3/bean/**/**" /-->
         <jar destfile="${build.ear.home}/${ant.project.name}.ear">
             <fileset dir="${build.ear.home}" includes="*.jar,*.war,**/lib/**" />
         </jar>
@@ -240,24 +236,24 @@
         </junit>
     </target>
 
-	<path id="pmd.classpath">
+    <path id="pmd.classpath">
         <fileset dir="${project.lib}/ext/pmd">
             <include name="**/*.jar" />
         </fileset>
-	</path>
-	<target name="pmd">
-		<mkdir dir="${quality.home}/pmd"/>
-	    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath"/>
-	    <pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
-	    	<ruleset>rulesets/favorites.xml</ruleset>
-	        <formatter type="html" toFile="${quality.home}/pmd/pmd_report.html" />
-	        <fileset dir="${basedir}/src">
-	            <include name="**/*.java"/>
-	        </fileset>
-	        <fileset dir="${basedir}/generated">
-	            <include name="**/*.java"/>
-	        </fileset>
-	    </pmd>
-	</target>
+    </path>
+    <target name="pmd">
+        <mkdir dir="${quality.home}/pmd" />
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath" />
+        <pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
+            <ruleset>rulesets/favorites.xml</ruleset>
+            <formatter type="html" toFile="${quality.home}/pmd/pmd_report.html" />
+            <fileset dir="${basedir}/src">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${basedir}/generated">
+                <include name="**/*.java" />
+            </fileset>
+        </pmd>
+    </target>
 
 </project>

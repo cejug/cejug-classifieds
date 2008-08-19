@@ -8,13 +8,21 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>monitor</servlet-name>
-    <servlet-class>net.java.dev.cejug.classifieds.server.welcome.Welcome</servlet-class>
+    <servlet-class>net.java.dev.cejug.classifieds.server.rest.Welcome</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>monitor</servlet-name>
     <url-pattern>/index.html</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>rss</servlet-name>
+    <servlet-class>net.java.dev.cejug.classifieds.server.rest.RssFeed</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>rss</servlet-name>
+    <url-pattern>/rss</url-pattern>
+  </servlet-mapping>
   <listener>
-    <listener-class> net.java.dev.cejug.classifieds.server.welcome.ServletLifeCycle </listener-class>
+    <listener-class> net.java.dev.cejug.classifieds.server.rest.ServletLifeCycle </listener-class>
   </listener>
 </web-app>

@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.server.welcome;
+package net.java.dev.cejug.classifieds.server.rest;
 
 import java.io.IOException;
 
@@ -17,7 +17,8 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
  */
 public class Welcome extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+        /** <code>serialVersionUID = {@value}</code>. */
+        private final static long serialVersionUID = -6026937020915831338L;
 
 	/**
 	 * The reference to the local interface of the Admin Session Bean.
@@ -35,7 +36,6 @@ public class Welcome extends HttpServlet {
 		query.setResponseTimeLength(20);
 		query.setAlivePeriodsLength(20);
 		MonitorResponse monResponse = admin.checkMonitorOperation(query);
-
 		request.setAttribute("monitorResponse", monResponse);
 		request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 	}
