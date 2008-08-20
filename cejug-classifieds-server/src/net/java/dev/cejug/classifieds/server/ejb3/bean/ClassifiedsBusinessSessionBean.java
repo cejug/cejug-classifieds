@@ -69,7 +69,7 @@ import org.w3._2005.atom.IdType;
 import org.w3._2005.atom.PersonType;
 import org.w3._2005.atom.UriType;
 
-import uk.co.thearchitect.schemas.rss_2_0.TRss;
+import uk.co.thearchitect.schemas.rss_2_0.Rss;
 import uk.co.thearchitect.schemas.rss_2_0.TRssChannel;
 import uk.co.thearchitect.schemas.rss_2_0.TRssItem;
 
@@ -221,49 +221,49 @@ public class ClassifiedsBusinessSessionBean implements
 	 * </pre>
 	 */
 	@Override
-	public TRss loadRssOperation(SyndicationFilter filter) {
+	public Rss loadRssOperation(SyndicationFilter filter) {
 		try {
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advFacade
 					.readAll(AdvertisementEntity.class);
 
-			TRss rssFeed = new TRss();
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"title"), "Cars @ Cejug Classifieds");
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"link"),
-					"http://cejug-classifieds-server/atom&section=cars");
-			rssFeed
-					.getOtherAttributes()
-					.put(
-							new QName(
-									"http://www.thearchitect.co.uk/schemas/rss-2_0",
-									"description"),
-							"TODO: add description to sections");
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"pubDate"), Calendar.getInstance().toString());
-			rssFeed
-					.getOtherAttributes()
-					.put(
-							new QName(
-									"http://www.thearchitect.co.uk/schemas/rss-2_0",
-									"lastBuildDate"),
-							Calendar.getInstance().toString());
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"docs"), "TODO: docs reference");
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"managingEditor"),
-					"dev@cejug-classifieds.dev.java.net");
-			rssFeed.getOtherAttributes().put(
-					new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-							"webMaster"), "dev@cejug-classifieds.dev.java.net");
-
+			Rss rssFeed = new Rss();
+                        rssFeed.getOtherAttributes().put(
+                            new QName("", "version"), "2.0");
 			TRssChannel channel = new TRssChannel();
+                        /*rssFeed.getOtherAttributes().put(
+                                        new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                        "link"),
+                                        "http://cejug-classifieds-server/atom&section=cars");
+                        rssFeed
+                                        .getOtherAttributes()
+                                        .put(
+                                                        new QName(
+                                                                        "http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                                        "description"),
+                                                        "TODO: add description to sections");
+                        rssFeed.getOtherAttributes().put(
+                                        new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                        "pubDate"), Calendar.getInstance().toString());
+                        rssFeed
+                                        .getOtherAttributes()
+                                        .put(
+                                                        new QName(
+                                                                        "http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                                        "lastBuildDate"),
+                                                        Calendar.getInstance().toString());
+                        rssFeed.getOtherAttributes().put(
+                                        new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                        "docs"), "TODO: docs reference");
+                        rssFeed.getOtherAttributes().put(
+                                        new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                        "managingEditor"),
+                                        "dev@cejug-classifieds.dev.java.net");
+                        rssFeed.getOtherAttributes().put(
+                                        new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
+                                                        "webMaster"), "dev@cejug-classifieds.dev.java.net");
+*/
+			
 			for (AdvertisementEntity adv : result) {
 				TRssItem item = new TRssItem();
 				item

@@ -56,17 +56,18 @@
 		<xs:documentation>Date: 25-May-2008</xs:documentation>
 		<xs:documentation>Feedback to: http://www.codeplex.com/rss2schema/WorkItem/List.aspx</xs:documentation>
 	</xs:annotation>
-	<xs:element name="rss" type="rss20:tRss" />
-	<xs:complexType name="tRss">
-		<xs:sequence>
-			<xs:element name="channel" type="rss20:tRssChannel" />
-			<xs:any namespace="##other" processContents="lax" minOccurs="0"
-				maxOccurs="unbounded" />
-		</xs:sequence>
-		<xs:attribute name="version" type="xs:decimal" use="required"
-			fixed="2.0" />
-		<xs:anyAttribute namespace="##any" />
-	</xs:complexType>
+	<xs:element name="Rss">
+    	<xs:complexType>
+    		<xs:sequence>
+    			<xs:element name="channel" type="rss20:tRssChannel" />
+    			<xs:any namespace="##other" processContents="lax" minOccurs="0"
+    				maxOccurs="unbounded" />
+    		</xs:sequence>
+    		<xs:attribute name="version" type="xs:decimal" use="required"
+    			fixed="2.0" />
+    		<xs:anyAttribute namespace="##any" />
+    	</xs:complexType>
+    </xs:element>
 	<xs:complexType name="tRssItem">
 		<xs:annotation>
 			<xs:documentation>An item may represent a "story" -- much like a story in a newspaper or magazine; if so its description is a synopsis of the story, and the link points to the full story. An item may also be complete in itself, if so, the description contains the text (entity-encoded HTML is allowed), and the link and title may be omitted.</xs:documentation>

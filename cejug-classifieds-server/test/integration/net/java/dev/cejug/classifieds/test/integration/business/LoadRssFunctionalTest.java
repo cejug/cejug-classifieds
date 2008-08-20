@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -36,7 +34,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.co.thearchitect.schemas.rss_2_0.TRss;
+import uk.co.thearchitect.schemas.rss_2_0.Rss;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test the diploma validation operation.
@@ -74,7 +74,7 @@ public class LoadRssFunctionalTest {
 		filter.setDateInitial(yesterday);
 		filter.setDateFinal(today);
 
-		TRss rss = service.loadRssOperation(filter);
+		Rss rss = service.loadRssOperation(filter);
 
 		assertTrue("RSS empty", rss.getChannel().getTitleOrLinkOrDescription().size() > 0);
 	}

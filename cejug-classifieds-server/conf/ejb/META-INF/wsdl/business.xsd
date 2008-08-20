@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:mime="http://www.w3.org/2005/05/xmlmim" xmlns:rss20="http://www.thearchitect.co.uk/schemas/rss-2_0"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim"
 	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:atom10="http://www.w3.org/2005/Atom" elementFormDefault="qualified"
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
@@ -11,8 +11,6 @@
 		schemaLocation="common.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/Atom"
 		schemaLocation="atom10.xsd" />
-	<xsd:import namespace="http://www.thearchitect.co.uk/schemas/rss-2_0"
-		schemaLocation="rss-2_0.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>
 			The Business Meta-data of CEJUG-Classifieds.
@@ -120,7 +118,6 @@
 	<xsd:element name="AtomFilter" type="business:SyndicationFilter" />
 	<xsd:element name="AtomFeed" type="atom10:feedType" />
 	<xsd:element name="RssFilter" type="business:SyndicationFilter" />
-	<xsd:element name="RssFeed" type="rss20:tRss" />
 	<xsd:complexType name="SyndicationFilter">
 		<xsd:sequence>
 			<xsd:element name="upper.bound" type="xsd:int" nillable="true" />
