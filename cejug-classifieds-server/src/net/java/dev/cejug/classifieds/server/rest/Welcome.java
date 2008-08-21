@@ -17,8 +17,8 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
  */
 public class Welcome extends HttpServlet {
 
-        /** <code>serialVersionUID = {@value}</code>. */
-        private final static long serialVersionUID = -6026937020915831338L;
+	/** <code>serialVersionUID = {@value}</code>. */
+	private final static long serialVersionUID = -6026937020915831338L;
 
 	/**
 	 * The reference to the local interface of the Admin Session Bean.

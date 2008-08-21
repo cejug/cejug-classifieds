@@ -65,8 +65,9 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public JAXBElement<T> read(final InputStreamReader inputStream, final String context,
-			final URL schemaLocation) throws JAXBException, SAXException {
+	public JAXBElement<T> read(final InputStreamReader inputStream,
+			final String context, final URL schemaLocation)
+			throws JAXBException, SAXException {
 		// TODO: thread safe
 		JAXBContext jc = JAXBContext.newInstance(context, Thread
 				.currentThread().getContextClassLoader());

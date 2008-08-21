@@ -27,8 +27,7 @@ import javax.xml.bind.Marshaller;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
-
-import com.codeplex.rss2schema.Rss;
+import net.java.dev.cejug_classifieds.rss.Rss;
 
 /**
  * REST rss feed, to allow other applications to consume the RSS feed directly
@@ -61,18 +60,19 @@ public class RssFeed extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(
-					"com.codeplex.rss2schema", Thread.currentThread()
-							.getContextClassLoader());
+					"net.java.dev.cejug_classifieds.rss", Thread
+							.currentThread().getContextClassLoader());
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
 					Boolean.TRUE);
-                        // marshaller.setProperty(Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, "http://www.thearchitect.co.uk/schemas/rss-2_0.xsd");
+			marshaller
+					.setProperty(Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION,
+							"https://cejug-classifieds.dev.java.net/files/documents/8128/108281/rss.xsd");
 			marshaller.marshal(rss, out);
 		} catch (Exception ee) {
-		        ee.printStackTrace(out);
-			out.print("<error>"
-					+ ee.getMessage() + "</error>");
+			ee.printStackTrace(out);
+			out.print("<error>" + ee.getMessage() + "</error>");
 		}
 	}
 
