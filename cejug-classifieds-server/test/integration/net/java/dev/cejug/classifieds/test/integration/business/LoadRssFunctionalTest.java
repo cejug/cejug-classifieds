@@ -31,6 +31,7 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -76,7 +77,7 @@ public class LoadRssFunctionalTest {
 
 		Rss rss = service.loadRssOperation(filter);
 
-		assertTrue("RSS empty", rss.getChannel().getTitleOrLinkOrDescription().size() > 0);
+		Assert.assertNotNull("RSS empty", rss.getChannel().getTitle());
 	}
 
 	/*

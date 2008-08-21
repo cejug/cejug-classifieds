@@ -55,19 +55,71 @@ The terms "reproduce," "reproduction," "derivative works," and "distribution" ha
 	<xs:element name="rss">
 	<xs:complexType>
 		<xs:sequence>
-			<xs:element name="channel" type="rss20:tRssChannel"/>
+			<xs:element ref="rss20:channel"/>
 			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="version" type="xs:decimal" use="required" fixed="2.0"/>
 		<xs:anyAttribute namespace="##any"/>
 	</xs:complexType>
   </xs:element>
+
+    <!--  http://www.ibm.com/developerworks/webservices/library/ws-tip-xsdchoice.html -->
+    <xs:complexType abstract="true" name="RssItem">
+      <xs:sequence>
+      	<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Extensibility element.</xs:documentation>
+            </xs:annotation>
+          </xs:any>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TtemTitle">
+      <xs:complexContent>
+        <xs:extension base="rss20:RssItem">
+          <xs:sequence>
+            <xs:element name="title" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ItemDescription">
+      <xs:complexContent>
+        <xs:extension base="rss20:RssItem">
+          <xs:sequence>
+            <xs:element name="description" nillable="true" type="xs:string"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="ItemLink">
+      <xs:complexContent>
+        <xs:extension base="rss20:RssItem">
+          <xs:sequence>
+            <xs:element name="link" nillable="true" type="xs:anyURI"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="ItemAuthor">
+      <xs:complexContent>
+        <xs:extension base="rss20:RssItem">
+          <xs:sequence>
+            <xs:element name="author" nillable="true" type="rss20:tEmailAddress"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+    
+
 	<xs:complexType name="tRssItem">
 		<xs:annotation>
-			<xs:documentation>An item may represent a "story" -- much like a story in a newspaper or magazine; if so its description is a synopsis of the story, and the link points to the full story. An item may also be complete in itself, if so, the description contains the text (entity-encoded HTML is allowed), and the link and title may be omitted.</xs:documentation>
+			<xs:documentation>An item may represent a "story" - - much like a story in a newspaper or magazine; if so its description is a synopsis of the story, and the link points to the full story. An item may also be complete in itself, if so, the description contains the text (entity-encoded HTML is allowed), and the link and title may be omitted.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:choice maxOccurs="unbounded">
 				<xs:element name="title" type="xs:string" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>The title of the item.</xs:documentation>
@@ -123,13 +175,12 @@ The terms "reproduce," "reproduction," "derivative works," and "distribution" ha
 						<xs:documentation>Extensibility element.</xs:documentation>
 					</xs:annotation>
 				</xs:any>
-			</xs:choice>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##any"/>
 	</xs:complexType>
-	<xs:complexType name="tRssChannel">
+	<xs:element name="channel">
+  <xs:complexType>
 		<xs:sequence>
-			<xs:choice maxOccurs="unbounded">
 				<xs:element name="title" type="xs:string">
 					<xs:annotation>
 						<xs:documentation>The name of the channel. It's how people refer to your service. If you have an HTML website that contains the same information as your RSS file, the title of your channel should be the same as the title of your website.</xs:documentation>
@@ -225,16 +276,11 @@ The terms "reproduce," "reproduction," "derivative works," and "distribution" ha
 						<xs:documentation>Extensibility element.</xs:documentation>
 					</xs:annotation>
 				</xs:any>
-			</xs:choice>
 			<xs:element name="item" type="rss20:tRssItem" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>Extensibility element.</xs:documentation>
-				</xs:annotation>
-			</xs:any>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##any"/>
 	</xs:complexType>
+  </xs:element>
 	<xs:simpleType name="tSkipHour">
 		<xs:annotation>
 			<xs:documentation>A time in GMT when aggregators should not request the channel data.

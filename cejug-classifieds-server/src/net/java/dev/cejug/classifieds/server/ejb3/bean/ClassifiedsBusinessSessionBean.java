@@ -69,8 +69,10 @@ import org.w3._2005.atom.IdType;
 import org.w3._2005.atom.PersonType;
 import org.w3._2005.atom.UriType;
 
+import com.codeplex.rss2schema.Channel;
+import com.codeplex.rss2schema.ItemAuthor;
 import com.codeplex.rss2schema.Rss;
-import com.codeplex.rss2schema.TRssChannel;
+import com.codeplex.rss2schema.RssItem;
 import com.codeplex.rss2schema.TRssItem;
 
 /**
@@ -230,7 +232,9 @@ public class ClassifiedsBusinessSessionBean implements
 			Rss rssFeed = new Rss();
                         rssFeed.getOtherAttributes().put(
                             new QName("", "version"), "2.0");
-			TRssChannel channel = new TRssChannel();
+			Channel channel = new Channel();
+			channel.setTitle("test");
+
                         /*rssFeed.getOtherAttributes().put(
                                         new QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
                                                         "link"),
@@ -265,14 +269,9 @@ public class ClassifiedsBusinessSessionBean implements
 */
 			
 			for (AdvertisementEntity adv : result) {
-				TRssItem item = new TRssItem();
-				item
-						.getOtherAttributes()
-						.put(
-								new QName(
-										"http://www.thearchitect.co.uk/schemas/rss-2_0",
-										"title"), adv.getTitle());
-				channel.getTitleOrLinkOrDescription().add(item);
+			  TRssItem item = new TRssItem();
+			  item.setAuthor(adv.getCustomer().getLogin());
+			  channel.getItem().add(item);
 			}
 			rssFeed.setChannel(channel);
 			return rssFeed;
