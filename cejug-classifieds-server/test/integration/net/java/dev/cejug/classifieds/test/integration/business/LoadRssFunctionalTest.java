@@ -34,7 +34,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.co.thearchitect.schemas.rss_2_0.Rss;
+import com.codeplex.rss2schema.Rss;
 
 import static org.junit.Assert.assertTrue;
 

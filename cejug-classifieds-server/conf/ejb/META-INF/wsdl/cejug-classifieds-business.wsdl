@@ -4,7 +4,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
     xmlns:business="http://cejug-classifieds.dev.java.net/business"
-    xmlns:rss20="http://www.thearchitect.co.uk/schemas/rss-2_0"
+    xmlns:rss20="http://www.codeplex.com/rss2schema/"
 	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
@@ -13,7 +13,7 @@
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
-            <xsd:import namespace="http://www.thearchitect.co.uk/schemas/rss-2_0"
+            <xsd:import namespace="http://www.codeplex.com/rss2schema/"
               schemaLocation="rss-2_0.xsd" />
 		</xsd:schema>
 	</wsdl:types>
@@ -25,7 +25,7 @@
 		<wsdl:part element="metadata:RssFilter" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadRssResponse">
-		<wsdl:part element="rss20:Rss" name="rss.2.0" />
+		<wsdl:part element="rss20:rss" name="rss.2.0" />
 	</wsdl:message>
 
 	<!-- LOAD ATOM -->

@@ -69,9 +69,9 @@ import org.w3._2005.atom.IdType;
 import org.w3._2005.atom.PersonType;
 import org.w3._2005.atom.UriType;
 
-import uk.co.thearchitect.schemas.rss_2_0.Rss;
-import uk.co.thearchitect.schemas.rss_2_0.TRssChannel;
-import uk.co.thearchitect.schemas.rss_2_0.TRssItem;
+import com.codeplex.rss2schema.Rss;
+import com.codeplex.rss2schema.TRssChannel;
+import com.codeplex.rss2schema.TRssItem;
 
 /**
  * @author $Author$

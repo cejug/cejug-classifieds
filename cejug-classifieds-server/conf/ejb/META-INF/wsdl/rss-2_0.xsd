@@ -1,73 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.thearchitect.co.uk/schemas/rss-2_0"
-	xmlns:rss20="http://www.thearchitect.co.uk/schemas/rss-2_0" version="2.0.1.12"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1"
-	elementFormDefault="qualified">
-	<!--
-		XML Schema for RSS v2.0 Copyright (C) 2003-2008 Jorgen Thelin
-		Microsoft Public License (Ms-PL) This license governs use of the
-		accompanying software. If you use the software, you accept this
-		license. If you do not accept the license, do not use the software. 1.
-		Definitions The terms "reproduce," "reproduction," "derivative works,"
-		and "distribution" have the same meaning here as under U.S. copyright
-		law. A "contribution" is the original software, or any additions or
-		changes to the software. A "contributor" is any person that
-		distributes its contribution under this license. "Licensed patents"
-		are a contributor's patent claims that read directly on its
-		contribution. 2. Grant of Rights (A) Copyright Grant- Subject to the
-		terms of this license, including the license conditions and
-		limitations in section 3, each contributor grants you a non-exclusive,
-		worldwide, royalty-free copyright license to reproduce its
-		contribution, prepare derivative works of its contribution, and
-		distribute its contribution or any derivative works that you create.
-		(B) Patent Grant- Subject to the terms of this license, including the
-		license conditions and limitations in section 3, each contributor
-		grants you a non-exclusive, worldwide, royalty-free license under its
-		licensed patents to make, have made, use, sell, offer for sale,
-		import, and/or otherwise dispose of its contribution in the software
-		or derivative works of the contribution in the software. 3. Conditions
-		and Limitations (A) No Trademark License- This license does not grant
-		you rights to use any contributors' name, logo, or trademarks. (B) If
-		you bring a patent claim against any contributor over patents that you
-		claim are infringed by the software, your patent license from such
-		contributor to the software ends automatically. (C) If you distribute
-		any portion of the software, you must retain all copyright, patent,
-		trademark, and attribution notices that are present in the software.
-		(D) If you distribute any portion of the software in source code form,
-		you may do so only under this license by including a complete copy of
-		this license with your distribution. If you distribute any portion of
-		the software in compiled or object code form, you may only do so under
-		a license that complies with this license. (E) The software is
-		licensed "as-is." You bear the risk of using it. The contributors give
-		no express warranties, guarantees or conditions. You may have
-		additional consumer rights under your local laws which this license
-		cannot change. To the extent permitted under your local laws, the
-		contributors exclude the implied warranties of merchantability,
-		fitness for a particular purpose and non-infringement.
-	-->
+<!--
+    XML Schema for RSS v2.0
+    Copyright (C) 2003-2008  Jorgen Thelin
+
+Microsoft Public License (Ms-PL)
+
+This license governs use of the accompanying software. 
+If you use the software, you accept this license. 
+If you do not accept the license, do not use the software.
+
+1. Definitions
+
+The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning here as under U.S. copyright law.
+
+    A "contribution" is the original software, or any additions or changes to the software.
+
+    A "contributor" is any person that distributes its contribution under this license.
+
+    "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+
+2. Grant of Rights
+
+    (A) Copyright Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free copyright license to reproduce its contribution, prepare derivative works of its contribution, and distribute its contribution or any derivative works that you create.
+
+    (B) Patent Grant- Subject to the terms of this license, including the license conditions and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise dispose of its contribution in the software or derivative works of the contribution in the software.
+
+3. Conditions and Limitations
+
+    (A) No Trademark License- This license does not grant you rights to use any contributors' name, logo, or trademarks.
+
+    (B) If you bring a patent claim against any contributor over patents that you claim are infringed by the software, your patent license from such contributor to the software ends automatically.
+
+    (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and attribution notices that are present in the software.
+
+    (D) If you distribute any portion of the software in source code form, you may do so only under this license by including a complete copy of this license with your distribution. If you distribute any portion of the software in compiled or object code form, you may only do so under a license that complies with this license.
+
+    (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement. 
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified"
+        	targetNamespace="http://www.codeplex.com/rss2schema/"
+        	xmlns:rss20="http://www.codeplex.com/rss2schema/"  
+           version="2.0.1.12">
 	<xs:annotation>
 		<xs:documentation>XML Schema for RSS v2.0 feed files.</xs:documentation>
-		<xs:documentation>Project home: http://www.codeplex.com/rss2schema/</xs:documentation>
-		<xs:documentation>Based on the RSS 2.0 specification document at http://cyber.law.harvard.edu/rss/rss.html</xs:documentation>
-		<xs:documentation>Author: Jorgen Thelin</xs:documentation>
-		<xs:documentation>Revision: 12</xs:documentation>
+    <xs:documentation>Project home: http://www.codeplex.com/rss2schema/</xs:documentation>
+    <xs:documentation>Based on the RSS 2.0 specification document at http://cyber.law.harvard.edu/rss/rss.html</xs:documentation>
+    <xs:documentation>Author: Jorgen Thelin</xs:documentation>
+    <xs:documentation>Revision: 12</xs:documentation>
 		<xs:documentation>Date: 25-May-2008</xs:documentation>
 		<xs:documentation>Feedback to: http://www.codeplex.com/rss2schema/WorkItem/List.aspx</xs:documentation>
 	</xs:annotation>
-	<xs:element name="Rss">
-    	<xs:complexType>
-    		<xs:sequence>
-    			<xs:element name="channel" type="rss20:tRssChannel" />
-    			<xs:any namespace="##other" processContents="lax" minOccurs="0"
-    				maxOccurs="unbounded" />
-    		</xs:sequence>
-    		<xs:attribute name="version" type="xs:decimal" use="required"
-    			fixed="2.0" />
-    		<xs:anyAttribute namespace="##any" />
-    	</xs:complexType>
-    </xs:element>
+	<xs:element name="rss">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="channel" type="rss20:tRssChannel"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="version" type="xs:decimal" use="required" fixed="2.0"/>
+		<xs:anyAttribute namespace="##any"/>
+	</xs:complexType>
+  </xs:element>
 	<xs:complexType name="tRssItem">
 		<xs:annotation>
 			<xs:documentation>An item may represent a "story" -- much like a story in a newspaper or magazine; if so its description is a synopsis of the story, and the link points to the full story. An item may also be complete in itself, if so, the description contains the text (entity-encoded HTML is allowed), and the link and title may be omitted.</xs:documentation>
@@ -79,8 +73,7 @@
 						<xs:documentation>The title of the item.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="description" type="xs:string"
-					minOccurs="0">
+				<xs:element name="description" type="xs:string" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>The item synopsis.</xs:documentation>
 					</xs:annotation>
@@ -90,14 +83,12 @@
 						<xs:documentation>The URL of the item.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="author" type="rss20:tEmailAddress"
-					minOccurs="0">
+				<xs:element name="author" type="rss20:tEmailAddress" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Email address of the author of the item.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="category" type="rss20:tCategory"
-					minOccurs="0">
+				<xs:element name="category" type="rss20:tCategory" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Includes the item in one or more categories. </xs:documentation>
 					</xs:annotation>
@@ -107,8 +98,7 @@
 						<xs:documentation>URL of a page for comments relating to the item.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="enclosure" type="rss20:tEnclosure"
-					minOccurs="0">
+				<xs:element name="enclosure" type="rss20:tEnclosure" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Describes a media object that is attached to the item.</xs:documentation>
 					</xs:annotation>
@@ -118,8 +108,7 @@
 						<xs:documentation>guid or permalink URL for this entry</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="pubDate" type="rss20:tRfc822FormatDate"
-					minOccurs="0">
+				<xs:element name="pubDate" type="rss20:tRfc822FormatDate" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Indicates when the item was published.</xs:documentation>
 					</xs:annotation>
@@ -129,15 +118,14 @@
 						<xs:documentation>The RSS channel that the item came from.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:any namespace="##other" processContents="lax" minOccurs="0"
-					maxOccurs="unbounded">
+				<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Extensibility element.</xs:documentation>
 					</xs:annotation>
 				</xs:any>
 			</xs:choice>
 		</xs:sequence>
-		<xs:anyAttribute namespace="##any" />
+		<xs:anyAttribute namespace="##any"/>
 	</xs:complexType>
 	<xs:complexType name="tRssChannel">
 		<xs:sequence>
@@ -167,32 +155,27 @@
 						<xs:documentation>Copyright notice for content in the channel.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="managingEditor" type="rss20:tEmailAddress"
-					minOccurs="0">
+				<xs:element name="managingEditor" type="rss20:tEmailAddress" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Email address for person responsible for editorial content.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="webMaster" type="rss20:tEmailAddress"
-					minOccurs="0">
+				<xs:element name="webMaster" type="rss20:tEmailAddress" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Email address for person responsible for technical issues relating to channel.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="pubDate" type="rss20:tRfc822FormatDate"
-					minOccurs="0">
+				<xs:element name="pubDate" type="rss20:tRfc822FormatDate" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>The publication date for the content in the channel. All date-times in RSS conform to the Date and Time Specification of RFC 822, with the exception that the year may be expressed with two characters or four characters (four preferred).</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="lastBuildDate" type="rss20:tRfc822FormatDate"
-					minOccurs="0">
+				<xs:element name="lastBuildDate" type="rss20:tRfc822FormatDate" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>The last time the content of the channel changed.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="category" type="rss20:tCategory"
-					minOccurs="0">
+				<xs:element name="category" type="rss20:tCategory" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Specify one or more categories that the channel belongs to.</xs:documentation>
 					</xs:annotation>
@@ -212,8 +195,7 @@
 						<xs:documentation>Allows processes to register with a cloud to be notified of updates to the channel, implementing a lightweight publish-subscribe protocol for RSS feeds.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="ttl" type="xs:nonNegativeInteger"
-					minOccurs="0">
+				<xs:element name="ttl" type="xs:nonNegativeInteger" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>ttl stands for time to live. It's a number of minutes that indicates how long a channel can be cached before refreshing from the source.</xs:documentation>
 					</xs:annotation>
@@ -223,41 +205,35 @@
 						<xs:documentation>Specifies a GIF, JPEG or PNG image that can be displayed with the channel.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="textInput" type="rss20:tTextInput"
-					minOccurs="0">
+				<xs:element name="textInput" type="rss20:tTextInput" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Specifies a text input box that can be displayed with the channel.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="skipHours" type="rss20:tSkipHoursList"
-					minOccurs="0">
+				<xs:element name="skipHours" type="rss20:tSkipHoursList" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>A hint for aggregators telling them which hours they can skip.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="skipDays" type="rss20:tSkipDaysList"
-					minOccurs="0">
+				<xs:element name="skipDays" type="rss20:tSkipDaysList" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>A hint for aggregators telling them which days they can skip.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:any namespace="##other" processContents="lax" minOccurs="0"
-					maxOccurs="unbounded">
+				<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Extensibility element.</xs:documentation>
 					</xs:annotation>
 				</xs:any>
 			</xs:choice>
-			<xs:element name="item" type="rss20:tRssItem" minOccurs="0"
-				maxOccurs="unbounded" />
-			<!-- xs:any namespace="##other" processContents="lax" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="item" type="rss20:tRssItem" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Extensibility element.</xs:documentation>
 				</xs:annotation>
-			</xs:any> -->
+			</xs:any>
 		</xs:sequence>
-		<xs:anyAttribute namespace="##any" />
+		<xs:anyAttribute namespace="##any"/>
 	</xs:complexType>
 	<xs:simpleType name="tSkipHour">
 		<xs:annotation>
@@ -265,14 +241,13 @@
                         The hour beginning at midnight is hour zero.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:nonNegativeInteger">
-			<xs:minInclusive value="0" />
-			<xs:maxInclusive value="23" />
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="23"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="tSkipHoursList">
 		<xs:sequence>
-			<xs:element name="hour" type="rss20:tSkipHour" minOccurs="0"
-				maxOccurs="24" />
+			<xs:element name="hour" type="rss20:tSkipHour" minOccurs="0" maxOccurs="24"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="tSkipDay">
@@ -280,19 +255,18 @@
 			<xs:documentation>A day when aggregators should not request the channel data.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Monday" />
-			<xs:enumeration value="Tuesday" />
-			<xs:enumeration value="Wednesday" />
-			<xs:enumeration value="Thursday" />
-			<xs:enumeration value="Friday" />
-			<xs:enumeration value="Saturday" />
-			<xs:enumeration value="Sunday" />
+			<xs:enumeration value="Monday"/>
+			<xs:enumeration value="Tuesday"/>
+			<xs:enumeration value="Wednesday"/>
+			<xs:enumeration value="Thursday"/>
+			<xs:enumeration value="Friday"/>
+			<xs:enumeration value="Saturday"/>
+			<xs:enumeration value="Sunday"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="tSkipDaysList">
 		<xs:sequence>
-			<xs:element name="day" type="rss20:tSkipDay" minOccurs="0"
-				maxOccurs="7">
+			<xs:element name="day" type="rss20:tSkipDay" minOccurs="0" maxOccurs="7">
 				<xs:annotation>
 					<xs:documentation>A time in GMT, when aggregators should not request the channel data.
                         The hour beginning at midnight is hour zero.</xs:documentation>
@@ -303,7 +277,7 @@
 	<xs:complexType name="tCategory">
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
-				<xs:attribute name="domain" type="xs:string" use="optional" />
+				<xs:attribute name="domain" type="xs:string" use="optional"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
