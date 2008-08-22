@@ -16,6 +16,7 @@ package net.java.dev.cejug.classifieds.server.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -51,7 +52,7 @@ public class RssFeed extends HttpServlet {
 
 		// Little trick: http://www.petefreitag.com/item/381.cfm
 		String agent = request.getHeader("User-Agent");
-		if (agent != null && agent.toUpperCase().contains("MOZILLA")) {
+		if (agent != null && agent.toUpperCase(Locale.US).contains("MOZILLA")) {
 			response.setContentType("text/xml");
 		} else {
 			response.setContentType("application/rss+xml");

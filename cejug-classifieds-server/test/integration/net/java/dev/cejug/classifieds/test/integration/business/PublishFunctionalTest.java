@@ -56,9 +56,8 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class PublishFunctionalTest {
-
-	private transient CejugClassifiedsBusiness business = null;
-	private Domain newDomain = null;
+	private transient CejugClassifiedsBusiness business;
+	private transient Domain newDomain;
 
 	@Before
 	public void setUp() throws Exception {
