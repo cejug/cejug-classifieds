@@ -29,13 +29,12 @@ import java.util.GregorianCalendar;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.rss.Rss;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.codeplex.rss2schema.Rss;
 
 /**
  * Test the diploma validation operation.
