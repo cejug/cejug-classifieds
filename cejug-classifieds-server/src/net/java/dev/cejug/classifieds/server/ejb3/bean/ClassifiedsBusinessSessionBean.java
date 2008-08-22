@@ -23,10 +23,14 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -84,7 +88,12 @@ public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessLocal, ClassifiedsBusinessRemote {
 
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
-
+	
+        /**
+         * GMT date format, used to print the XML dates in GMT format: {@value}.
+         */
+	private static final String GMT_DATE_PATTERN = "EEE MMM dd HH:mm:ss z yyyy";
+	
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
@@ -259,14 +268,17 @@ public class ClassifiedsBusinessSessionBean implements
 			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
 			 * "webMaster"), "dev@cejug-classifieds.dev.java.net");
 			 */
+		        
 
+			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale.getDefault());
+		        gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 			for (AdvertisementEntity adv : result) {
 				Item item = new Item();
 				item.setAuthor("dev@cejug-classifieds.dev.java.net ("
 						+ adv.getCustomer().getLogin() + ")");
 				item.setTitle(adv.getTitle());
 				item.setTitle(adv.getText());
-				item.setPubDate(adv.getStart().getTime().toGMTString());
+				item.setPubDate(gmt.format(adv.getStart().getTime()));
 				TGuid guid = new TGuid();
 				guid.setIsPermaLink(Boolean.FALSE);
 				guid
