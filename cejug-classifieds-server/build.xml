@@ -219,11 +219,17 @@
         </javac>
     </target>
 
-    <!-- Test -->
+    <path id="tests.classpath">
+        <pathelement location="${build.classes.home}" />
+        <fileset dir="${project.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+	<!-- Test -->
     <target name="run.tests" depends="compile.tests">
         <junit fork="yes" haltonfailure="yes" printsummary="no">
             <test name="${test.suite}" />
-            <classpath refid="project.classpath" />
+            <classpath refid="tests.classpath" />
             <formatter type="plain" usefile="false" />
             <jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
         </junit>
