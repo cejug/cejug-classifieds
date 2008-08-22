@@ -95,7 +95,9 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target name="setup">
+	<target name="setup" depends="clean">
+		<mkdir dir="${build.classes.home}" />
+		<mkdir dir="${build.ear.home}" />
 		<mkdir dir="${generated.dir}" />
 	</target>
 

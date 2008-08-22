@@ -35,10 +35,10 @@ import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.Customer;
 import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -76,7 +76,7 @@ public class AdvertisementBean {
 			customer.setDomain(domain);
 			customer.setLogin("fgaucho");
 
-			advertisement.setAdvertiser(customer);
+			advertisement.setCustomer(customer);
 			// Publishing period
 			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();

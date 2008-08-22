@@ -12,7 +12,7 @@
 
 <table>
 	<tr>
-		<td><img id="logo" src="images/logo_small.gif" /></td>
+		<td><img id="logo" src="./images/logo_small.gif" /></td>
 		<td>
 		<h2>CEJUG-Classifieds</h2>
 		</td>
