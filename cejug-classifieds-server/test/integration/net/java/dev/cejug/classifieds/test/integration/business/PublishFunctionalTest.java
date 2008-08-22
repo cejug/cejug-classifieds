@@ -114,6 +114,22 @@ public class PublishFunctionalTest {
 		// into database)
 	}
 
+	/**
+	 * Utility method for creating of random strings.
+	 * 
+	 * @param length
+	 *            the string length, different in title, description and full
+	 *            text parts of the advertisements;
+	 * @return a random string.
+	 */
+	private String randomString(int length) {
+		String sKey = Long.toHexString(System.currentTimeMillis());
+		if (sKey.length() > length) {
+			sKey = sKey.substring(0, length);
+		}
+		return sKey;
+	}
+
 	@After
 	public void tearDown() throws Exception {
 		// remove or inactive the test advertisement
@@ -146,18 +162,23 @@ public class PublishFunctionalTest {
 			period.setFinish(fiveDaysLater);
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
-			advertisement.setHeadline("JAXWSUnleashed");
-			advertisement
-					.setShortDescription("JAXWS Unleashed book for only $15,-");
-			advertisement
-					.setFullText("This is a test advertisement.. several lines here.");
-
+			advertisement.setHeadline(randomString(1 + Math.abs((int) (Math
+					.random() * 20))));
+			advertisement.setShortDescription(randomString(1 + Math
+					.abs((int) (Math.random() * 50))));
+			advertisement.setFullText(randomString(1 + Math.abs((int) (Math
+					.random() * 250))));
+			advertisement.setKeywords(randomString(1 + Math.abs((int) (Math
+					.random() * 250))));
 			advertisement.setCategoryId(1);
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
-			advertisement.setKeywords("J2EE,JAXWS");
+			advertisement.setKeywords(randomString(1 + Math.abs((int) (Math
+					.random() * 15)))
+					+ ", "
+					+ randomString(1 + Math.abs((int) (Math.random() * 15))));
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();

@@ -28,6 +28,7 @@
     <exclude name="UnusedModifier"/>
     <exclude name="DontImportSunRule"/>
     <exclude name="SuspiciousOctalEscapeRule"/>
+    <exclude name="UnnecessaryParentheses"/>
   </rule>
   <rule ref="rulesets/coupling.xml">
     <exclude name="ExcessiveImports"/>

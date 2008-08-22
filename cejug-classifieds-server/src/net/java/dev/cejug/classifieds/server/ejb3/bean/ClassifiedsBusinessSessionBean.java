@@ -51,6 +51,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTyp
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
@@ -78,30 +79,48 @@ import org.w3._2005.atom.PersonType;
 import org.w3._2005.atom.UriType;
 
 /**
+ * Business Service implementation of the interface defined in the cejug-classifieds-business.
+ * 
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see CejugClassifiedsBusiness
  */
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
 public class ClassifiedsBusinessSessionBean implements
 		ClassifiedsBusinessLocal, ClassifiedsBusinessRemote {
-
+	/**
+	 * Used by not yet implemented operations: {@value} .
+	 */
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
-	
-        /**
-         * GMT date format, used to print the XML dates in GMT format: {@value}.
-         */
+
+	/**
+	 * GMT date format, used to print the XML dates in GMT format: {@value} .
+	 */
 	private static final String GMT_DATE_PATTERN = "EEE MMM dd HH:mm:ss z yyyy";
-	
+
+	/**
+	 * Persistence façade of Advertisement entities.
+	 */
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
+	/**
+	 * Persistence façade of Advertisement Type entities.
+	 */
 	@EJB
 	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
+	/**
+	 * Persistence façade of Customer entities.
+	 */
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
+
+	/**
+	 * Persistence façade of Category entities.
+	 */
 	@EJB
 	private transient CategoryFacadeLocal categoryFacade;
 	/**
@@ -246,38 +265,16 @@ public class ClassifiedsBusinessSessionBean implements
 			channel
 					.setDescription("TODO: include the section description: getSection().getDescription();");
 
-			/*
-			 * rssFeed.getOtherAttributes().put( new
-			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0", "link"),
-			 * "http://cejug-classifieds-server/atom&section=cars"); rssFeed
-			 * .getOtherAttributes() .put( new QName(
-			 * "http://www.thearchitect.co.uk/schemas/rss-2_0", "description"),
-			 * "TODO: add description to sections");
-			 * rssFeed.getOtherAttributes().put( new
-			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-			 * "pubDate"), Calendar.getInstance().toString()); rssFeed
-			 * .getOtherAttributes() .put( new QName(
-			 * "http://www.thearchitect.co.uk/schemas/rss-2_0",
-			 * "lastBuildDate"), Calendar.getInstance().toString());
-			 * rssFeed.getOtherAttributes().put( new
-			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0", "docs"),
-			 * "TODO: docs reference"); rssFeed.getOtherAttributes().put( new
-			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-			 * "managingEditor"), "dev@cejug-classifieds.dev.java.net");
-			 * rssFeed.getOtherAttributes().put( new
-			 * QName("http://www.thearchitect.co.uk/schemas/rss-2_0",
-			 * "webMaster"), "dev@cejug-classifieds.dev.java.net");
-			 */
-		        
-
-			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale.getDefault());
-		        gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale
+					.getDefault());
+			gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 			for (AdvertisementEntity adv : result) {
 				Item item = new Item();
 				item.setAuthor("dev@cejug-classifieds.dev.java.net ("
 						+ adv.getCustomer().getLogin() + ")");
 				item.setTitle(adv.getTitle());
-				item.setTitle(adv.getText());
+				item.setDescription(adv.getText());
+				item.setComments(adv.getSummary());
 				item.setPubDate(gmt.format(adv.getStart().getTime()));
 				TGuid guid = new TGuid();
 				guid.setIsPermaLink(Boolean.FALSE);
