@@ -26,6 +26,7 @@ package net.java.dev.cejug.classifieds.test.integration.business;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
@@ -157,28 +158,23 @@ public class PublishFunctionalTest {
 			Period period = new Period();
 			period.setStart(today);
 
+			Random random = new Random();
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
 			period.setFinish(fiveDaysLater);
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
-			advertisement.setHeadline(randomString(1 + Math.abs((int) (Math
-					.random() * 20))));
-			advertisement.setShortDescription(randomString(1 + Math
-					.abs((int) (Math.random() * 50))));
-			advertisement.setFullText(randomString(1 + Math.abs((int) (Math
-					.random() * 250))));
-			advertisement.setKeywords(randomString(1 + Math.abs((int) (Math
-					.random() * 250))));
+			advertisement.setHeadline(randomString(1 + random.nextInt(15)));
+			advertisement.setShortDescription(randomString(1 + random
+					.nextInt(50)));
+			advertisement.setFullText(randomString(1 + random.nextInt(250)));
 			advertisement.setCategoryId(1);
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
-			advertisement.setKeywords(randomString(1 + Math.abs((int) (Math
-					.random() * 15)))
-					+ ", "
-					+ randomString(1 + Math.abs((int) (Math.random() * 15))));
+			advertisement.setKeywords(random.nextInt(20) + ", "
+					+ randomString(random.nextInt(20)));
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
