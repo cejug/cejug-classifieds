@@ -35,7 +35,6 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.w3._2005.atom.EntryType;
@@ -45,12 +44,10 @@ import org.w3._2005.atom.PersonType;
 import org.w3._2005.atom.UriType;
 
 /**
- * Business Service implementation of the interface defined in the
- * cejug-classifieds-business.
+ * TODO: to comment.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
- * @see CejugClassifiedsBusiness
  */
 @Stateless
 public class LoadAtomOperation implements LoadAtomOperationLocal {

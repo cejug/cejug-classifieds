@@ -34,19 +34,16 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadAdvertisementOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 /**
- * Business Service implementation of the interface defined in the
- * cejug-classifieds-business.
+ * TODO: to comment.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
- * @see CejugClassifiedsBusiness
  */
 @Stateless
 public class LoadAdvertisementOperation implements

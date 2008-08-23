@@ -40,18 +40,15 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFac
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
- * Business Service implementation of the interface defined in the
- * cejug-classifieds-business.
+ * TODO: to comment.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
- * @see CejugClassifiedsBusiness
  */
 @Stateless
 public class PublishOperation implements PublishOperationLocal {

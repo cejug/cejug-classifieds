@@ -33,18 +33,15 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadCategorybundleOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 
 /**
- * Business Service implementation of the interface defined in the
- * cejug-classifieds-business.
+ * TODO: to comment.
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
- * @see CejugClassifiedsBusiness
  */
 @Stateless
 public class LoadCategoryBundleOperation implements
