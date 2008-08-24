@@ -32,8 +32,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 399 $ ($Date: 2008-07-22 12:49:48 +0200 (Di, 22 Jul 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "LIFE_CYCLE")

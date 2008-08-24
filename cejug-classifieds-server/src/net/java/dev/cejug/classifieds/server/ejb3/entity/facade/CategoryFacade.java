@@ -31,8 +31,8 @@ import javax.persistence.Query;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 
 /**
- * @author $Author: rodrigolopes $
- * @version $Rev: 305 $ ($Date: 2008-06-17 19:03:29 +0200 (Tue, 17 Jun 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see CRUDEntityFacade
  */
 @Stateless

@@ -16,8 +16,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 /**
  * CRUD operations shared by the Entity Facades.
  * 
- * @author $Author: rodrigolopes $
- * @version $Rev: 1 $ ($Date: 2008-06-08 13:29:07 +0200 (dom, 08 jun 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see <a *
  *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
  *      Create, * read, update and delete (CRUD)< /a>

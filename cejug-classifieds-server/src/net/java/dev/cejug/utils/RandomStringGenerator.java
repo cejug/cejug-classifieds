@@ -7,8 +7,8 @@ import java.util.Random;
  * 
  * @author Alain Fagot B&#233;arez, Bruno Duarte, Daniel Macedo (<em>original
  *         contributors</em>)
- * @author $Author: felipegaucho $
- * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see java.util.Random
  */
 public class RandomStringGenerator {

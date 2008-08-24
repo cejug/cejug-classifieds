@@ -6,8 +6,8 @@
 		<xs:documentation>Based on the RSS 2.0 schema published at
 			http://www.codeplex.com/rss2schema/</xs:documentation>
 		<xs:documentation>$HeadURL$</xs:documentation>
-		<xs:documentation>$Author: felipegaucho $</xs:documentation>
-		<xs:documentation>$Rev: 455 $</xs:documentation>
+		<xs:documentation>$Author$</xs:documentation>
+		<xs:documentation>$Rev$</xs:documentation>
 		<xs:documentation>$Date: 2008-08-15 19:29:14 +0200 (Fri, 15 Aug
 			2008) $</xs:documentation>
 	</xs:annotation>

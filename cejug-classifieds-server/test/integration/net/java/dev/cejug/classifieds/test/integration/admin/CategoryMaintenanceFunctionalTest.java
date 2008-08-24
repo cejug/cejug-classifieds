@@ -65,8 +65,8 @@ import org.junit.Test;
  * changed.</li>
  * </ul>
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class CategoryMaintenanceFunctionalTest {
 

@@ -28,8 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 249 $ ($Date: 2008-06-08 13:29:07 +0200 (Sun, 08 Jun 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see EntityFacade
  */
 @Local

@@ -40,8 +40,8 @@ import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class LoadCategoryBundleOperation implements

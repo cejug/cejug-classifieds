@@ -28,8 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 399 $ ($Date: 2008-07-22 12:49:48 +0200 (Tue, 22 Jul 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Local
 public interface ClassifiedsAdminLocal extends CejugClassifiedsAdmin {
