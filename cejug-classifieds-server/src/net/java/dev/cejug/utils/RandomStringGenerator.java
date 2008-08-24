@@ -5,7 +5,8 @@ import java.util.Random;
 /**
  * A utility class to create random sequence of characters.
  * 
- * @author Alain Fagot Béarez (original design)
+ * @author Alain Fagot B&#233;arez, Bruno Duarte, Daniel Macedo (<em>original
+ *         contributors</em>)
  * @author $Author: felipegaucho $
  * @version $Rev: 498 $ ($Date: 2008-08-22 20:01:39 +0200 (Fri, 22 Aug 2008) $)
  * @see java.util.Random
