@@ -3,7 +3,12 @@ package net.java.dev.cejug.utils;
 import java.util.Random;
 
 /**
- * A utility class to create random sequence of characters.
+ * A utility class to create random sequence of characters. It uses a prevalent
+ * buffer of characters to try to optimize the performance of the multiple
+ * string generations - and a <em>cutting heuristic</em> that removes ten
+ * percent of the buffer all the time a new string is generates, providing
+ * slightly different strings without penalize the overall performance.
+ * 
  * 
  * @author Alain Fagot B&#233;arez, Bruno Duarte, Daniel Macedo (<em>original
  *         contributors</em>)
