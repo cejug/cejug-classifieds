@@ -60,16 +60,16 @@ public class RandomStringGenerator {
 	 */
 	public String generateString(int length) {
 		Random random = new Random();
-		int currentCapacity = randomCharsBuffer.capacity();
-		randomCharsBuffer.delete(0, currentCapacity > 1000 ? 150
-				: currentCapacity / 10);
-		while (randomCharsBuffer.capacity() < length) {
+		int available = randomCharsBuffer.length();
+		randomCharsBuffer.delete(0, available > 1000 ? 150
+				: available / 10);
+		while (randomCharsBuffer.length() < length) {
 			char c = (char) (random.nextInt(200));
 			if (accept(c)) {
 				randomCharsBuffer.append(c);
 			}
 		}
-		return randomCharsBuffer.toString();
+		return randomCharsBuffer.substring(0, length);
 	}
 
 	public static void main(String[] args) {
