@@ -123,7 +123,7 @@
 			<xsd:element name="upper.bound" type="xsd:int" nillable="true" />
 			<xsd:element name="date.initial" type="xsd:dateTime" />
 			<xsd:element name="date.final" type="xsd:dateTime" />
-			<xsd:element name="section" type="xsd:string" />
+			<xsd:element name="category.id" type="xsd:int" />
 			<xsd:element name="keywords" type="xsd:string" minOccurs="0"
 				maxOccurs="unbounded" />
 		</xsd:sequence>
