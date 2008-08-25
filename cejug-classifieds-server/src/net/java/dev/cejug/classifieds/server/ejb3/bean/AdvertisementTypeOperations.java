@@ -47,108 +47,119 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Stateless
-public class AdvertisementTypeOperations implements AdvertisementTypeOperationsLocal {
+public class AdvertisementTypeOperations implements
+		AdvertisementTypeOperationsLocal {
 
-  @EJB
-  private transient AdvertisementTypeFacadeLocal advTypeFacade;
-  /**
-   * the global log manager, used to allow third party services to override the
-   * default logger.
-   */
-  private static final Logger logger = Logger.getLogger(
-      AdvertisementTypeOperations.class.getName(), "i18n/log");
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			AdvertisementTypeOperations.class.getName(), "i18n/log");
 
-  @Override
-  public ServiceStatus createAdvertisementTypeOperation(final CreateAdvertisementTypeParam newAdvType) {
+	@Override
+	public ServiceStatus createAdvertisementTypeOperation(
+			final CreateAdvertisementTypeParam newAdvType) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-      AdvertisementType advertisementType = newAdvType.getAdvertisementType();
-      advTypeEntity.setDescription(advertisementType.getDescription());
-      advTypeEntity.setMaxAttachmentSize(advertisementType.getMaxAttachmentSize());
-      advTypeEntity.setName(advertisementType.getName());
-      advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
+		ServiceStatus status = new ServiceStatus();
+		try {
+			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
+			AdvertisementType advertisementType = newAdvType
+					.getAdvertisementType();
+			advTypeEntity.setDescription(advertisementType.getDescription());
+			advTypeEntity.setMaxAttachmentSize(advertisementType
+					.getMaxAttachmentSize());
+			advTypeEntity.setName(advertisementType.getName());
+			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
 
-      advTypeFacade.create(advTypeEntity);
+			advTypeFacade.create(advTypeEntity);
 
-      status.setStatusCode(200);
-      status.setDescription("1 advertisement type added");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+			status.setStatusCode(200);
+			status.setDescription("1 advertisement type added");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(final ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
+	@Override
+	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			final ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
 
-    // TODO: use the bundle request parameters as query filter.
+		// TODO: use the bundle request parameters as query filter.
 
-    AdvertisementTypeCollection advTypeCollection = new AdvertisementTypeCollection();
-    try {
-      List<AdvertisementTypeEntity> advTypes = advTypeFacade.readAll(AdvertisementTypeEntity.class);
-      if (advTypes != null) {
-        for (AdvertisementTypeEntity advTypeEntity : advTypes) {
-          AdvertisementType advType = new AdvertisementType();
-          advType.setId(advTypeEntity.getId());
-          advType.setDescription(advTypeEntity.getDescription());
-          advType.setName(advTypeEntity.getName());
-          advType.setMaxAttachmentSize(advTypeEntity.getMaxAttachmentSize());
-          advType.setMaxTextLength(advTypeEntity.getTextLength());
-          advTypeCollection.getAdvertisementType().add(advType);
-        }
-      }
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-    return advTypeCollection;
-  }
+		AdvertisementTypeCollection advTypeCollection = new AdvertisementTypeCollection();
+		try {
+			List<AdvertisementTypeEntity> advTypes = advTypeFacade
+					.readAll(AdvertisementTypeEntity.class);
+			if (advTypes != null) {
+				for (AdvertisementTypeEntity advTypeEntity : advTypes) {
+					AdvertisementType advType = new AdvertisementType();
+					advType.setId(advTypeEntity.getId());
+					advType.setDescription(advTypeEntity.getDescription());
+					advType.setName(advTypeEntity.getName());
+					advType.setMaxAttachmentSize(advTypeEntity
+							.getMaxAttachmentSize());
+					advType.setMaxTextLength(advTypeEntity.getTextLength());
+					advTypeCollection.getAdvertisementType().add(advType);
+				}
+			}
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+		return advTypeCollection;
+	}
 
-  @Override
-  public ServiceStatus updateAdvertisementTypeOperation(final UpdateAdvertisementTypeParam partialAdvType) {
+	@Override
+	public ServiceStatus updateAdvertisementTypeOperation(
+			final UpdateAdvertisementTypeParam partialAdvType) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-      AdvertisementType advertisementType = partialAdvType.getAdvertisementType();
-      advTypeEntity.setId(advertisementType.getId());
-      advTypeEntity.setDescription(advertisementType.getDescription());
-      advTypeEntity.setName(advertisementType.getName());
-      advTypeEntity.setMaxAttachmentSize(advertisementType.getMaxAttachmentSize());
-      advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
+		ServiceStatus status = new ServiceStatus();
+		try {
+			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
+			AdvertisementType advertisementType = partialAdvType
+					.getAdvertisementType();
+			advTypeEntity.setId(advertisementType.getId());
+			advTypeEntity.setDescription(advertisementType.getDescription());
+			advTypeEntity.setName(advertisementType.getName());
+			advTypeEntity.setMaxAttachmentSize(advertisementType
+					.getMaxAttachmentSize());
+			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
 
-      advTypeFacade.update(advTypeEntity);
+			advTypeFacade.update(advTypeEntity);
 
-      status.setStatusCode(200);
-      status.setDescription("1 advertisement type updated");
+			status.setStatusCode(200);
+			status.setDescription("1 advertisement type updated");
 
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
+	@Override
+	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      // TODO Check if the advertisement type is being used, before
-      // deleting it
-      advTypeFacade.delete(AdvertisementTypeEntity.class, Integer.valueOf(id));
-      status.setStatusCode(200);
-      status.setDescription("1 advertisement type deleted");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+		ServiceStatus status = new ServiceStatus();
+		try {
+			// TODO Check if the advertisement type is being used, before
+			// deleting it
+			advTypeFacade.delete(AdvertisementTypeEntity.class, Integer
+					.valueOf(id));
+			status.setStatusCode(200);
+			status.setDescription("1 advertisement type deleted");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 }

@@ -58,110 +58,115 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 @Stateless
 public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
-  /**
-   * Persistence façade of Advertisement entities.
-   */
-  @EJB
-  private transient AdvertisementFacadeLocal advFacade;
+	/**
+	 * Persistence façade of Advertisement entities.
+	 */
+	@EJB
+	private transient AdvertisementFacadeLocal advFacade;
 
-  /**
-   * Persistence façade of Advertisement Type entities.
-   */
-  @EJB
-  private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	/**
+	 * Persistence façade of Advertisement Type entities.
+	 */
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-  @EJB
-  private transient CustomerFacadeLocal customerFacade;
+	@EJB
+	private transient CustomerFacadeLocal customerFacade;
 
-  @EJB
-  private transient CategoryFacadeLocal categoryFacade;
+	@EJB
+	private transient CategoryFacadeLocal categoryFacade;
 
-  /**
-   * the global log manager, used to allow third party services to override the
-   * default logger.
-   */
-  private static final Logger logger = Logger.getLogger(AdvertisementOperations.class.getName(),
-      "i18n/log");
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			AdvertisementOperations.class.getName(), "i18n/log");
 
-  @Override
-  public AdvertisementCollection loadAdvertisementOperation(final AdvertisementCollectionFilter filter) {
+	@Override
+	public AdvertisementCollection loadAdvertisementOperation(
+			final AdvertisementCollectionFilter filter) {
 
-    // TODO: load advertisements from timetable.... filtering with periods,
-    // etc..
+		// TODO: load advertisements from timetable.... filtering with periods,
+		// etc..
 
-    try {
-      AdvertisementCollection collection = new AdvertisementCollection();
-      List<AdvertisementEntity> entities = advFacade.readAll(AdvertisementEntity.class);
-      for (AdvertisementEntity entity : entities) {
-        Advertisement adv = new Advertisement();
-        adv.setId(entity.getId());
-        Customer newCustomer = new Customer();
-        newCustomer.setDomain("www.cejug.org");
-        newCustomer.setLogin("test");
-        adv.setCustomer(newCustomer);
-        adv.setFullText(entity.getText());
-        adv.setKeywords(Arrays.toString(entity.getKeywords().toArray()));
-        adv.setShortDescription(entity.getSummary());
-        adv.setHeadline(entity.getTitle());
-        collection.getAdvertisement().add(adv);
-      }
-      return collection;
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-  }
+		try {
+			AdvertisementCollection collection = new AdvertisementCollection();
+			List<AdvertisementEntity> entities = advFacade
+					.readAll(AdvertisementEntity.class);
+			for (AdvertisementEntity entity : entities) {
+				Advertisement adv = new Advertisement();
+				adv.setId(entity.getId());
+				Customer newCustomer = new Customer();
+				newCustomer.setDomain("www.cejug.org");
+				newCustomer.setLogin("test");
+				adv.setCustomer(newCustomer);
+				adv.setFullText(entity.getText());
+				adv
+						.setKeywords(Arrays.toString(entity.getKeywords()
+								.toArray()));
+				adv.setShortDescription(entity.getSummary());
+				adv.setHeadline(entity.getTitle());
+				collection.getAdvertisement().add(adv);
+			}
+			return collection;
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+	}
 
-  @Override
-  public ServiceStatus publishOperation(final Advertisement advertisement,
-      final PublishingHeader header) {
+	@Override
+	public ServiceStatus publishOperation(final Advertisement advertisement,
+			final PublishingHeader header) {
 
-    // TODO: to implement the real code.
-    try {
-      /*
-       * // loading customer Map<String, String> params = new HashMap<String,
-       * String>(); params.clear(); params.put("d", header.getCustomerDomain());
-       * params.put("l", header.getCustomerLogin());
-       */
-      CustomerEntity customer = customerFacade.findOrCreate(header.getCustomerDomainId(),
-          header.getCustomerLogin());
+		// TODO: to implement the real code.
+		try {
+			/*
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
+			 * header.getCustomerDomain()); params.put("l",
+			 * header.getCustomerLogin());
+			 */
+			CustomerEntity customer = customerFacade.findOrCreate(header
+					.getCustomerDomainId(), header.getCustomerLogin());
 
-      // validating advertisement PIN
-      AdvertisementEntity entity = new AdvertisementEntity();
-      // entity.setKeywords(advertisement.getKeywords()); // TODO
-      entity.setText(advertisement.getFullText());
+			// validating advertisement PIN
+			AdvertisementEntity entity = new AdvertisementEntity();
+			// entity.setKeywords(advertisement.getKeywords()); // TODO
+			entity.setText(advertisement.getFullText());
 
-      entity.setCustomer(customer);
+			entity.setCustomer(customer);
 
-      AdvertisementTypeEntity type = advTypeFacade.read(AdvertisementTypeEntity.class,
-          advertisement.getTypeId());
-      entity.setType(type);
+			AdvertisementTypeEntity type = advTypeFacade.read(
+					AdvertisementTypeEntity.class, advertisement.getTypeId());
+			entity.setType(type);
 
-      entity.setSummary(advertisement.getShortDescription());
-      entity.setTitle(advertisement.getHeadline());
+			entity.setSummary(advertisement.getShortDescription());
+			entity.setTitle(advertisement.getHeadline());
 
-      CategoryEntity category = categoryFacade.read(CategoryEntity.class,
-          advertisement.getCategoryId());
-      entity.setCategory(category);
+			CategoryEntity category = categoryFacade.read(CategoryEntity.class,
+					advertisement.getCategoryId());
+			entity.setCategory(category);
 
-      Calendar start = Calendar.getInstance();
-      Calendar finish = Calendar.getInstance();
-      finish.add(Calendar.HOUR, 3);
-      entity.setStart(start);
-      entity.setFinish(finish);
-      advFacade.create(entity);
+			Calendar start = Calendar.getInstance();
+			Calendar finish = Calendar.getInstance();
+			finish.add(Calendar.HOUR, 3);
+			entity.setStart(start);
+			entity.setFinish(finish);
+			advFacade.create(entity);
 
-      ServiceStatus status = new ServiceStatus();
-      status.setDescription("OK");
-      status.setStatusCode(202);
+			ServiceStatus status = new ServiceStatus();
+			status.setDescription("OK");
+			status.setStatusCode(202);
 
-      status.setTimestamp(GregorianCalendar.getInstance());
+			status.setTimestamp(GregorianCalendar.getInstance());
 
-      return status;
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
+			return status;
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 
-  }
+	}
 }

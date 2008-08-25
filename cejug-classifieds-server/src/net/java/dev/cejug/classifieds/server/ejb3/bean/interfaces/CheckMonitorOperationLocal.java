@@ -34,8 +34,8 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
  */
 @Local
 public interface CheckMonitorOperationLocal {
-  /**
-   * TODO: to comment.
-   */
-  MonitorResponse checkMonitorOperation(final MonitorQuery monitor);
+	/**
+	 * TODO: to comment.
+	 */
+	MonitorResponse checkMonitorOperation(final MonitorQuery monitor);
 }

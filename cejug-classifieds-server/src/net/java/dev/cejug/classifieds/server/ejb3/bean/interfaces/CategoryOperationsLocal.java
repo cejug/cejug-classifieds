@@ -38,23 +38,25 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  */
 @Local
 public interface CategoryOperationsLocal {
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus createCategoryOperation(final CreateCategoryParam newCategory);
-  
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus updateCategoryOperation(final UpdateCategoryParam partialCategory);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus createCategoryOperation(final CreateCategoryParam newCategory);
 
-  /**
-   * TODO: to comment.
-   */
-  CategoryCollection readCategoryBundleOperation(BundleRequest bundleRequest);
-  
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus deleteCategoryOperation(final DeleteCategoryParam obsoleteCategory);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus updateCategoryOperation(
+			final UpdateCategoryParam partialCategory);
+
+	/**
+	 * TODO: to comment.
+	 */
+	CategoryCollection readCategoryBundleOperation(BundleRequest bundleRequest);
+
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus deleteCategoryOperation(
+			final DeleteCategoryParam obsoleteCategory);
 }

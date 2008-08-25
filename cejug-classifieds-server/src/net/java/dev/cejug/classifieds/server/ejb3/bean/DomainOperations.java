@@ -51,132 +51,140 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Stateless
-public class DomainOperations extends AbstractOperation implements DomainOperationsLocal {
+public class DomainOperations extends AbstractOperation implements
+		DomainOperationsLocal {
 
-  /**
-   * the global log manager, used to allow third party services to override the
-   * default logger.
-   */
-  private static final Logger logger = Logger.getLogger(DomainOperations.class.getName(),
-      "i18n/log");
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			DomainOperations.class.getName(), "i18n/log");
 
-  @EJB
-  private transient DomainFacadeLocal domainFacade;
+	@EJB
+	private transient DomainFacadeLocal domainFacade;
 
-  @Override
-  public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
-    ServiceStatus status = new ServiceStatus();
-    try {
-      // TODO: review validation...
-      DomainEntity entity = new DomainEntity();
-      Domain domain = newDomain.getDomain();
-      entity.setDomainName(domain.getDomain());
-      entity.setSharedQuota(domain.isSharedQuota());
-      entity.setBrand(domain.getBrand());
-      Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-      if (domain.getAdvertisementCategory() != null) {
-        for (AdvertisementCategory category : domain.getAdvertisementCategory()) {
-          CategoryEntity categoryEntity = fillCategoryEntity(category);
-          categories.add(categoryEntity);
-        }
-      }
-      entity.setCategories(categories);
-      domainFacade.create(entity);
+	@Override
+	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
+		ServiceStatus status = new ServiceStatus();
+		try {
+			// TODO: review validation...
+			DomainEntity entity = new DomainEntity();
+			Domain domain = newDomain.getDomain();
+			entity.setDomainName(domain.getDomain());
+			entity.setSharedQuota(domain.isSharedQuota());
+			entity.setBrand(domain.getBrand());
+			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
+			if (domain.getAdvertisementCategory() != null) {
+				for (AdvertisementCategory category : domain
+						.getAdvertisementCategory()) {
+					CategoryEntity categoryEntity = fillCategoryEntity(category);
+					categories.add(categoryEntity);
+				}
+			}
+			entity.setCategories(categories);
+			domainFacade.create(entity);
 
-      status.setStatusCode(200);
-      status.setDescription("1 domain created");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+			status.setStatusCode(200);
+			status.setDescription("1 domain created");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public ServiceStatus deleteDomainOperation(final DeleteDomainParam obsoleteDomain) {
+	@Override
+	public ServiceStatus deleteDomainOperation(
+			final DeleteDomainParam obsoleteDomain) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      // TODO Check if the domain is being used, before deleting it
-      domainFacade.delete(DomainEntity.class, obsoleteDomain.getPrimaryKey());
+		ServiceStatus status = new ServiceStatus();
+		try {
+			// TODO Check if the domain is being used, before deleting it
+			domainFacade.delete(DomainEntity.class, obsoleteDomain
+					.getPrimaryKey());
 
-      status.setStatusCode(200);
-      status.setDescription("1 domain deleted");
+			status.setStatusCode(200);
+			status.setDescription("1 domain deleted");
 
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public DomainCollection readDomainBundleOperation() {
+	@Override
+	public DomainCollection readDomainBundleOperation() {
 
-    // TODO: use the bundle request parameters as query filter.
+		// TODO: use the bundle request parameters as query filter.
 
-    DomainCollection domainCollection = new DomainCollection();
+		DomainCollection domainCollection = new DomainCollection();
 
-    try {
-      List<DomainEntity> domains = domainFacade.readAll(DomainEntity.class);
-      if (domains != null) {
-        for (DomainEntity domainEntity : domains) {
-          Domain domain = new Domain();
-          domain.setId(domainEntity.getId());
-          domain.setBrand(domainEntity.getBrand());
-          domain.setDomain(domainEntity.getDomainName());
-          domain.setSharedQuota(domainEntity.getSharedQuota());
+		try {
+			List<DomainEntity> domains = domainFacade
+					.readAll(DomainEntity.class);
+			if (domains != null) {
+				for (DomainEntity domainEntity : domains) {
+					Domain domain = new Domain();
+					domain.setId(domainEntity.getId());
+					domain.setBrand(domainEntity.getBrand());
+					domain.setDomain(domainEntity.getDomainName());
+					domain.setSharedQuota(domainEntity.getSharedQuota());
 
-          if (domainEntity.getCategories() != null) {
-            for (CategoryEntity categoryEntity : domainEntity.getCategories()) {
-              AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
-              domain.getAdvertisementCategory().add(category);
-            }
-          }
+					if (domainEntity.getCategories() != null) {
+						for (CategoryEntity categoryEntity : domainEntity
+								.getCategories()) {
+							AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
+							domain.getAdvertisementCategory().add(category);
+						}
+					}
 
-          domainCollection.getDomain().add(domain);
-        }
-      }
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-    return domainCollection;
-  }
+					domainCollection.getDomain().add(domain);
+				}
+			}
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+		return domainCollection;
+	}
 
-  @Override
-  public ServiceStatus updateDomainOperation(final UpdateDomainParam partialDomain) {
-    ServiceStatus status = new ServiceStatus();
-    try {
-      DomainEntity domainEntity = new DomainEntity();
-      Domain domain = partialDomain.getDomain();
-      domainEntity.setId(domain.getId());
-      domainEntity.setDomainName(domain.getDomain());
-      domainEntity.setBrand(domain.getBrand());
-      domainEntity.setSharedQuota(domain.isSharedQuota());
+	@Override
+	public ServiceStatus updateDomainOperation(
+			final UpdateDomainParam partialDomain) {
+		ServiceStatus status = new ServiceStatus();
+		try {
+			DomainEntity domainEntity = new DomainEntity();
+			Domain domain = partialDomain.getDomain();
+			domainEntity.setId(domain.getId());
+			domainEntity.setDomainName(domain.getDomain());
+			domainEntity.setBrand(domain.getBrand());
+			domainEntity.setSharedQuota(domain.isSharedQuota());
 
-      Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-      if (domain.getAdvertisementCategory() != null) {
-        for (AdvertisementCategory category : domain.getAdvertisementCategory()) {
-          CategoryEntity categoryEntity = fillCategoryEntity(category);
-          categories.add(categoryEntity);
-        }
-      }
-      domainEntity.setCategories(categories);
+			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
+			if (domain.getAdvertisementCategory() != null) {
+				for (AdvertisementCategory category : domain
+						.getAdvertisementCategory()) {
+					CategoryEntity categoryEntity = fillCategoryEntity(category);
+					categories.add(categoryEntity);
+				}
+			}
+			domainEntity.setCategories(categories);
 
-      domainFacade.update(domainEntity);
+			domainFacade.update(domainEntity);
 
-      status.setStatusCode(200);
-      status.setDescription("1 domain updated");
+			status.setStatusCode(200);
+			status.setDescription("1 domain updated");
 
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
 }

@@ -38,23 +38,26 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 @Local
 public interface AdvertisementTypeOperationsLocal {
 
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus createAdvertisementTypeOperation(final CreateAdvertisementTypeParam newAdvType);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus createAdvertisementTypeOperation(
+			final CreateAdvertisementTypeParam newAdvType);
 
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus updateAdvertisementTypeOperation(final UpdateAdvertisementTypeParam partialAdvType);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus updateAdvertisementTypeOperation(
+			final UpdateAdvertisementTypeParam partialAdvType);
 
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus deleteAdvertisementTypeOperation(final int id);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus deleteAdvertisementTypeOperation(final int id);
 
-  /**
-   * TODO: to comment.
-   */
-  AdvertisementTypeCollection readAdvertisementTypeBundleOperation(final ReadAdvertisementTypeBundleParam getAdvertisementTypes);
+	/**
+	 * TODO: to comment.
+	 */
+	AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			final ReadAdvertisementTypeBundleParam getAdvertisementTypes);
 }

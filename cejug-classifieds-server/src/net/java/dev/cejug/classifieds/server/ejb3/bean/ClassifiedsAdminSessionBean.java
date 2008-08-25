@@ -86,8 +86,8 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
-	  @EJB
-	  private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
@@ -95,12 +95,12 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@EJB
 	private transient AdvertisementTypeOperationsLocal crudAdvType;
 
-        @EJB
-        private transient CategoryOperationsLocal crudCategory;
-	       
-        @EJB
-        private transient DomainOperationsLocal crudDomain;
-        
+	@EJB
+	private transient CategoryOperationsLocal crudCategory;
+
+	@EJB
+	private transient DomainOperationsLocal crudDomain;
+
 	@EJB
 	private transient CheckMonitorOperationLocal checkMonitorImpl;
 
@@ -113,7 +113,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
-	  return checkMonitorImpl.checkMonitorOperation(monitor);
+		return checkMonitorImpl.checkMonitorOperation(monitor);
 	}
 
 	@Override
@@ -170,64 +170,65 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
-	  return crudAdvType.createAdvertisementTypeOperation(newAdvType);
+		return crudAdvType.createAdvertisementTypeOperation(newAdvType);
 	}
 
 	@Override
 	public ServiceStatus createCategoryOperation(
 			final CreateCategoryParam newCategory) {
-	  return crudCategory.createCategoryOperation(newCategory);
+		return crudCategory.createCategoryOperation(newCategory);
 	}
 
 	@Override
 	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
-	  return crudDomain.createDomainOperation(newDomain);
+		return crudDomain.createDomainOperation(newDomain);
 	}
 
 	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
-	  return crudCategory.deleteCategoryOperation(obsoleteCategory);
+		return crudCategory.deleteCategoryOperation(obsoleteCategory);
 	}
 
 	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
-	  return crudDomain.deleteDomainOperation(obsoleteDomain);
+		return crudDomain.deleteDomainOperation(obsoleteDomain);
 	}
 
 	@Override
 	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
 			final ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
-	  return crudAdvType.readAdvertisementTypeBundleOperation(getAdvertisementTypes);
+		return crudAdvType
+				.readAdvertisementTypeBundleOperation(getAdvertisementTypes);
 	}
 
 	@Override
 	public DomainCollection readDomainBundleOperation() {
-	  return crudDomain.readDomainBundleOperation();
+		return crudDomain.readDomainBundleOperation();
 	}
 
 	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
-	  return crudAdvType.updateAdvertisementTypeOperation(partialAdvType);
+		return crudAdvType.updateAdvertisementTypeOperation(partialAdvType);
 	}
 
 	@Override
 	public ServiceStatus updateCategoryOperation(
 			final UpdateCategoryParam partialCategory) {
-	  return crudCategory.updateCategoryOperation(partialCategory);
+		return crudCategory.updateCategoryOperation(partialCategory);
 	}
 
 	@Override
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
-	  return crudDomain.updateDomainOperation(partialDomain);
+		return crudDomain.updateDomainOperation(partialDomain);
 	}
 
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
-	  return crudAdvType.deleteAdvertisementTypeOperation(id);
+		return crudAdvType.deleteAdvertisementTypeOperation(id);
 	}
 
 	@Override
@@ -258,8 +259,9 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
-        @Override
-        public CategoryCollection readCategoryBundleOperation(BundleRequest bundleRequest) {
-          return crudCategory.readCategoryBundleOperation(bundleRequest);
-        }
+	@Override
+	public CategoryCollection readCategoryBundleOperation(
+			BundleRequest bundleRequest) {
+		return crudCategory.readCategoryBundleOperation(bundleRequest);
+	}
 }

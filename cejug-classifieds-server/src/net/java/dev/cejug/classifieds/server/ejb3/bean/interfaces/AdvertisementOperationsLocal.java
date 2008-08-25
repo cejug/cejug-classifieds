@@ -40,10 +40,12 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 @Local
 public interface AdvertisementOperationsLocal {
 
-  /**
-   * TODO: to comment.
-   */
-  AdvertisementCollection loadAdvertisementOperation(final AdvertisementCollectionFilter filter);
+	/**
+	 * TODO: to comment.
+	 */
+	AdvertisementCollection loadAdvertisementOperation(
+			final AdvertisementCollectionFilter filter);
 
-  ServiceStatus publishOperation(final Advertisement advertisement, final PublishingHeader header);
+	ServiceStatus publishOperation(final Advertisement advertisement,
+			final PublishingHeader header);
 }

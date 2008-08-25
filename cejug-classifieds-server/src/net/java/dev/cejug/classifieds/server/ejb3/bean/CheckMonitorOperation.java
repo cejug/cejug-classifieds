@@ -46,40 +46,40 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 @Stateless
 public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 
-  @EJB
-  private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
-  /**
-   * the global log manager, used to allow third party services to override
-   * the default logger.
-   */
-  private static final Logger logger = Logger.getLogger(
-      CheckMonitorOperation.class.getName(), "i18n/log");
+	@EJB
+	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			CheckMonitorOperation.class.getName(), "i18n/log");
 
-  @Override
-  public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
+	@Override
+	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
 
-    // TODO: implement the real database call and response assembly.
-    MonitorResponse response;
-    response = new MonitorResponse();
-    response.setServiceName("Cejug-Classifieds");
+		// TODO: implement the real database call and response assembly.
+		MonitorResponse response;
+		response = new MonitorResponse();
+		response.setServiceName("Cejug-Classifieds");
 
-    try {
-      List<ServiceLifeCycleEntity> alivePeriods = lifeCycleFacade.readAll(ServiceLifeCycleEntity.class);
-      List<AlivePeriod> periods = response.getAlivePeriods();
-      for (ServiceLifeCycleEntity lifeCycle : alivePeriods) {
-        AlivePeriod period = new AlivePeriod();
-        period.setStart(lifeCycle.getStart());
-        period.setFinish(lifeCycle.getFinish());
-        period.setNote(lifeCycle.getName());
-        periods.add(period);
-      }
-      logger.finest(periods.size()
-          + "periods returned successfully");
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-    return response;
-  }
+		try {
+			List<ServiceLifeCycleEntity> alivePeriods = lifeCycleFacade
+					.readAll(ServiceLifeCycleEntity.class);
+			List<AlivePeriod> periods = response.getAlivePeriods();
+			for (ServiceLifeCycleEntity lifeCycle : alivePeriods) {
+				AlivePeriod period = new AlivePeriod();
+				period.setStart(lifeCycle.getStart());
+				period.setFinish(lifeCycle.getFinish());
+				period.setNote(lifeCycle.getName());
+				periods.add(period);
+			}
+			logger.finest(periods.size() + "periods returned successfully");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+		return response;
+	}
 }

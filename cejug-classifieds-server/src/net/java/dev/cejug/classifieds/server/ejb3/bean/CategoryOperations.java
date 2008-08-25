@@ -48,107 +48,118 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Stateless
-public class CategoryOperations extends AbstractOperation implements CategoryOperationsLocal {
+public class CategoryOperations extends AbstractOperation implements
+		CategoryOperationsLocal {
 
-  /**
-   * the global log manager, used to allow third party services to override the
-   * default logger.
-   */
-  private static final Logger logger = Logger.getLogger(CategoryOperations.class.getName(),
-      "i18n/log");
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private static final Logger logger = Logger.getLogger(
+			CategoryOperations.class.getName(), "i18n/log");
 
-  @EJB
-  private transient CategoryFacadeLocal categoryFacade;
+	@EJB
+	private transient CategoryFacadeLocal categoryFacade;
 
-  @Override
-  public ServiceStatus createCategoryOperation(final CreateCategoryParam newCategory) {
+	@Override
+	public ServiceStatus createCategoryOperation(
+			final CreateCategoryParam newCategory) {
 
-    AdvertisementCategory advCategory = newCategory.getAdvertisementCategory();
-    CategoryEntity category = fillCategoryEntity(advCategory);
-    AdvertisementCategory parent = advCategory.getAdvertisementCategory();
-    if (parent != null) {
-      category.setParent(fillCategoryEntity(parent));
-    }
+		AdvertisementCategory advCategory = newCategory
+				.getAdvertisementCategory();
+		CategoryEntity category = fillCategoryEntity(advCategory);
+		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
+		if (parent != null) {
+			category.setParent(fillCategoryEntity(parent));
+		}
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      categoryFacade.create(category);
+		ServiceStatus status = new ServiceStatus();
+		try {
+			categoryFacade.create(category);
 
-      // TODO: create a generic status response in the super class...
-      status.setStatusCode(200);
-      status.setDescription("1 category added");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+			// TODO: create a generic status response in the super class...
+			status.setStatusCode(200);
+			status.setDescription("1 category added");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public ServiceStatus deleteCategoryOperation(final DeleteCategoryParam obsoleteCategory) {
+	@Override
+	public ServiceStatus deleteCategoryOperation(
+			final DeleteCategoryParam obsoleteCategory) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      // TODO Check if the category is being used, before deleting it
-      categoryFacade.delete(CategoryEntity.class, Integer.valueOf(obsoleteCategory.getPrimaryKey()));
+		ServiceStatus status = new ServiceStatus();
+		try {
+			// TODO Check if the category is being used, before deleting it
+			categoryFacade.delete(CategoryEntity.class, Integer
+					.valueOf(obsoleteCategory.getPrimaryKey()));
 
-      status.setStatusCode(200);
-      status.setDescription("1 category deleted");
+			status.setStatusCode(200);
+			status.setDescription("1 category deleted");
 
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 
-  @Override
-  public CategoryCollection readCategoryBundleOperation(final BundleRequest bundleRequest) {
-    CategoryCollection categorySet;
-    categorySet = new CategoryCollection();
-    try {
-      List<CategoryEntity> categories = categoryFacade.readAll(CategoryEntity.class);
-      if (categories != null) {
-        for (CategoryEntity category : categories) {
-          AdvertisementCategory cat = new AdvertisementCategory();
-          cat.setDescription(category.getDescripton());
-          cat.setName(category.getName());
-          int available = categoryFacade.countAdvertisements(category);
-          cat.setAvailable(available);
-          categorySet.getAdvertisementCategory().add(cat);
-        }
-      }
-      logger.finest(categorySet.getAdvertisementCategory().size()
-          + "categories returned successfully");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      throw new WebServiceException(e);
-    }
-    return categorySet;
-  }
+	@Override
+	public CategoryCollection readCategoryBundleOperation(
+			final BundleRequest bundleRequest) {
+		CategoryCollection categorySet;
+		categorySet = new CategoryCollection();
+		try {
+			List<CategoryEntity> categories = categoryFacade
+					.readAll(CategoryEntity.class);
+			if (categories != null) {
+				for (CategoryEntity category : categories) {
+					AdvertisementCategory cat = new AdvertisementCategory();
+					cat.setDescription(category.getDescripton());
+					cat.setName(category.getName());
+					int available = categoryFacade
+							.countAdvertisements(category);
+					cat.setAvailable(available);
+					categorySet.getAdvertisementCategory().add(cat);
+				}
+			}
+			logger.finest(categorySet.getAdvertisementCategory().size()
+					+ "categories returned successfully");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
+		return categorySet;
+	}
 
-  @Override
-  public ServiceStatus updateCategoryOperation(final UpdateCategoryParam partialCategory) {
+	@Override
+	public ServiceStatus updateCategoryOperation(
+			final UpdateCategoryParam partialCategory) {
 
-    ServiceStatus status = new ServiceStatus();
-    try {
-      AdvertisementCategory advCategory = partialCategory.getAdvertisementCategory();
-      CategoryEntity category = fillCategoryEntity(advCategory);
-      AdvertisementCategory parent = advCategory.getAdvertisementCategory();
-      if (parent != null) {
-        category.setParent(fillCategoryEntity(parent));
-      }
-      categoryFacade.update(category);
+		ServiceStatus status = new ServiceStatus();
+		try {
+			AdvertisementCategory advCategory = partialCategory
+					.getAdvertisementCategory();
+			CategoryEntity category = fillCategoryEntity(advCategory);
+			AdvertisementCategory parent = advCategory
+					.getAdvertisementCategory();
+			if (parent != null) {
+				category.setParent(fillCategoryEntity(parent));
+			}
+			categoryFacade.update(category);
 
-      status.setStatusCode(200);
-      status.setDescription("1 category updated");
-    } catch (Exception e) {
-      logger.severe(e.getMessage());
-      status.setStatusCode(500);
-      status.setDescription(e.getMessage());
-    }
-    return status;
-  }
+			status.setStatusCode(200);
+			status.setDescription("1 category updated");
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			status.setStatusCode(500);
+			status.setDescription(e.getMessage());
+		}
+		return status;
+	}
 }

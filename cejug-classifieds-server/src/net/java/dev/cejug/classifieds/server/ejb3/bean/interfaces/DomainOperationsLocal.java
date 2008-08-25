@@ -38,24 +38,24 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 @Local
 public interface DomainOperationsLocal {
 
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus createDomainOperation(final CreateDomainParam newDomain);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus createDomainOperation(final CreateDomainParam newDomain);
 
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus updateDomainOperation(final UpdateDomainParam partialDomain);
-  
-  /**
-   * TODO: to comment.
-   */
-  DomainCollection readDomainBundleOperation();
-  
-  /**
-   * TODO: to comment.
-   */
-  ServiceStatus deleteDomainOperation(final DeleteDomainParam obsoleteDomain);
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus updateDomainOperation(final UpdateDomainParam partialDomain);
+
+	/**
+	 * TODO: to comment.
+	 */
+	DomainCollection readDomainBundleOperation();
+
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus deleteDomainOperation(final DeleteDomainParam obsoleteDomain);
 
 }

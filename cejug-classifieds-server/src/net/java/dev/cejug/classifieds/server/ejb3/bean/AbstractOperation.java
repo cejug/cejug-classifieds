@@ -17,23 +17,24 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
-
 public abstract class AbstractOperation {
 
-  protected CategoryEntity fillCategoryEntity(final AdvertisementCategory advCategory) {
-    CategoryEntity category = new CategoryEntity();
-    category.setId(advCategory.getId());
-    category.setDescripton(advCategory.getDescription());
-    category.setName(advCategory.getName());
-    return category;
-  }
+	protected CategoryEntity fillCategoryEntity(
+			final AdvertisementCategory advCategory) {
+		CategoryEntity category = new CategoryEntity();
+		category.setId(advCategory.getId());
+		category.setDescripton(advCategory.getDescription());
+		category.setName(advCategory.getName());
+		return category;
+	}
 
-  protected AdvertisementCategory fillAdvertisementCategory(final CategoryEntity entity) {
-    AdvertisementCategory cat = new AdvertisementCategory();
-    cat.setId(entity.getId());
-    cat.setDescription(entity.getDescripton());
-    cat.setName(entity.getName());
-    cat.setAvailable(entity.getAvailable());
-    return cat;
-  }
+	protected AdvertisementCategory fillAdvertisementCategory(
+			final CategoryEntity entity) {
+		AdvertisementCategory cat = new AdvertisementCategory();
+		cat.setId(entity.getId());
+		cat.setDescription(entity.getDescripton());
+		cat.setName(entity.getName());
+		cat.setAvailable(entity.getAvailable());
+		return cat;
+	}
 }

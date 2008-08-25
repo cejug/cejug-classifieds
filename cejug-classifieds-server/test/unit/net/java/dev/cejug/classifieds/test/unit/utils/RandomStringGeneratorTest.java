@@ -14,12 +14,11 @@
  */
 package net.java.dev.cejug.classifieds.test.unit.utils;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import net.java.dev.cejug.utils.RandomStringGenerator;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 /**
  * TODO: to comment.
@@ -29,23 +28,24 @@ import static org.junit.Assert.assertFalse;
  */
 public class RandomStringGeneratorTest {
 
-  private RandomStringGenerator rsg = new RandomStringGenerator();
+	private RandomStringGenerator rsg = new RandomStringGenerator();
 
-  @Test
-  public void testGeneratedLengthIsGivenLength() {
-    String aleaJactaEst = rsg.generateString(10);
-    assertEquals(10, aleaJactaEst.length());
-    aleaJactaEst = rsg.generateString(273);
-    assertEquals(273, aleaJactaEst.length());
-    aleaJactaEst = rsg.generateString(2);
-    assertEquals(2, aleaJactaEst.length());
-  }
+	@Test
+	public void testGeneratedLengthIsGivenLength() {
+		String aleaJactaEst = rsg.generateString(10);
+		assertEquals(10, aleaJactaEst.length());
+		aleaJactaEst = rsg.generateString(273);
+		assertEquals(273, aleaJactaEst.length());
+		aleaJactaEst = rsg.generateString(2);
+		assertEquals(2, aleaJactaEst.length());
+	}
 
-  @Test
-  public void testGeneratedStringsAreDifferent() {
-    RandomStringGenerator rsg = new RandomStringGenerator();
-    String first = rsg.generateString(10);
-    String second = rsg.generateString(10);
-    assertFalse("Two identical strings generated consecutively", first.equals(second));
-  }
+	@Test
+	public void testGeneratedStringsAreDifferent() {
+		RandomStringGenerator rsg = new RandomStringGenerator();
+		String first = rsg.generateString(10);
+		String second = rsg.generateString(10);
+		assertFalse("Two identical strings generated consecutively", first
+				.equals(second));
+	}
 }
