@@ -34,7 +34,6 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
