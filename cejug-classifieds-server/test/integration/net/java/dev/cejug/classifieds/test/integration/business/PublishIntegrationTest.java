@@ -49,6 +49,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.Description;
 
 /**
  * Test the diploma validation operation.
@@ -56,9 +57,11 @@ import org.junit.Test;
  * @author $Author:felipegaucho $
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class PublishIntegrationTest {
+public class PublishIntegrationTest { // extends Runner {
 	private transient CejugClassifiedsBusiness business;
 	private transient Domain newDomain;
+	private Description description = Description.createTestDescription(
+			PublishIntegrationTest.class, "Advertisement publishing test.");
 
 	@Before
 	public void setUp() throws Exception {
@@ -188,10 +191,5 @@ public class PublishIntegrationTest {
 			ee.printStackTrace();
 			Assert.fail(ee.getMessage());
 		}
-	}
-
-	@Test
-	public void testPublishOperationFail() {
-		// TODO: simulates an invalid publishing request and check if it fails.
 	}
 }

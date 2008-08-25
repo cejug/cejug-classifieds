@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="test/unit"/>
 	<classpathentry kind="src" path="test/integration"/>
-	<classpathentry kind="lib" path="lib/ext/junit-4.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ext/javaee.jar"/>
 	<classpathentry kind="lib" path="lib/ext/appserv-ext.jar"/>
@@ -15,5 +14,7 @@
 	<classpathentry kind="lib" path="lib/ext/findbugs/dom4j-full.jar"/>
 	<classpathentry kind="lib" path="lib/ext/findbugs/findbugs-ant.jar"/>
 	<classpathentry kind="lib" path="lib/ext/findbugs/findbugs.jar"/>
+	<classpathentry kind="lib" path="lib/ext/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/ext/junit-dep-4.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

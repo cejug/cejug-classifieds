@@ -35,7 +35,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBus
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadRssOperationLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.PublishOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
@@ -79,9 +78,6 @@ public class ClassifiedsBusinessSessionBean implements
 	private transient LoadAtomOperationLocal loadAtomImpl;
 
 	@EJB
-	private transient PublishOperationLocal publishImpl;
-
-	@EJB
 	private transient AdvertisementOperationsLocal crudAdvertisement;
 
 	@EJB
@@ -116,7 +112,7 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public ServiceStatus publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
-		return publishImpl.publishOperation(advertisement, header);
+		return crudAdvertisement.publishOperation(advertisement, header);
 	}
 
 	@Override

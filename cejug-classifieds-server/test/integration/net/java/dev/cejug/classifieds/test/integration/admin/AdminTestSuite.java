@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { CategoryMaintenanceIntegrationTest.class,
-		DomainMaintenanceIntegrationTest.class, CheckMonitorIntegrationTest.class })
+		DomainMaintenanceIntegrationTest.class,
+		CheckMonitorIntegrationTest.class })
 public class AdminTestSuite {
 }
