@@ -37,6 +37,7 @@ import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.After;
@@ -108,7 +109,7 @@ public class CategoryMaintenanceFunctionalTest {
 	 */
 	private int countAvailableCategoriesOnDatabase(CejugClassifiedsAdmin admin) {
 		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(new ReadCategoryBundleParam())
+				.readCategoryBundleOperation(new BundleRequest())
 				.getAdvertisementCategory();
 		return categories.size();
 
@@ -167,7 +168,7 @@ public class CategoryMaintenanceFunctionalTest {
 		Assert.assertEquals(status.getStatusCode(), 200);
 
 		// READ
-		ReadCategoryBundleParam param = new ReadCategoryBundleParam();
+		BundleRequest param = new BundleRequest();
 		List<AdvertisementCategory> categories = admin
 				.readCategoryBundleOperation(param).getAdvertisementCategory();
 		// We created a category on the setup method, so we assume there is at

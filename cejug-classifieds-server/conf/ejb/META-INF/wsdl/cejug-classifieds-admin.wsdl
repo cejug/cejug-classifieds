@@ -125,10 +125,7 @@
 			<wsdl:fault name="CreateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadCategoryBundleOperation">
-			<wsdl:documentation>
-				CRUD - Read all active categories from the database.
-			</wsdl:documentation>
-			<wsdl:input message="admin:ReadCategoryBundleMsg" />
+			<wsdl:input name="ReadCategoryBundle" message="common-wsdl:ReadCategoryBundle" />
 			<wsdl:output message="common-wsdl:CategoryBundle" />
 			<wsdl:fault name="ReadCategoryBundleException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>

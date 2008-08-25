@@ -29,11 +29,11 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementOperationsLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsBusinessRemote;
-import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadAdvertisementOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadAtomOperationLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadCategorybundleOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.PublishOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
@@ -82,10 +82,10 @@ public class ClassifiedsBusinessSessionBean implements
 	private transient PublishOperationLocal publishImpl;
 
 	@EJB
-	private transient LoadAdvertisementOperationLocal loadAdvertisementImpl;
+	private transient AdvertisementOperationsLocal crudAdvertisement;
 
 	@EJB
-	private transient LoadCategorybundleOperationLocal loadCategoryBundleImpl;
+	private transient CategoryOperationsLocal crudCategory;
 
 	/**
 	 * @return an <a href=
@@ -122,14 +122,13 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
-		return loadAdvertisementImpl.loadAdvertisementOperation(filter);
+		return crudAdvertisement.loadAdvertisementOperation(filter);
 	}
 
 	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
-		return loadCategoryBundleImpl
-				.readCategoryBundleOperation(bundleRequest);
+		return crudCategory.readCategoryBundleOperation(bundleRequest);
 	}
 
 	@Override

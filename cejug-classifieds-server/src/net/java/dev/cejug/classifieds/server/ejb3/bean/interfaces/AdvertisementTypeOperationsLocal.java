@@ -25,20 +25,36 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces;
 
 import javax.ejb.Local;
 
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
+import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
+import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
- * TODO: to comment.
- * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Local
-public interface LoadCategorybundleOperationLocal {
-	/**
-	 * TODO: to comment.
-	 */
-	CategoryCollection readCategoryBundleOperation(
-			final BundleRequest bundleRequest);
+public interface AdvertisementTypeOperationsLocal {
+
+  /**
+   * TODO: to comment.
+   */
+  ServiceStatus createAdvertisementTypeOperation(final CreateAdvertisementTypeParam newAdvType);
+
+  /**
+   * TODO: to comment.
+   */
+  ServiceStatus updateAdvertisementTypeOperation(final UpdateAdvertisementTypeParam partialAdvType);
+
+  /**
+   * TODO: to comment.
+   */
+  ServiceStatus deleteAdvertisementTypeOperation(final int id);
+
+  /**
+   * TODO: to comment.
+   */
+  AdvertisementTypeCollection readAdvertisementTypeBundleOperation(final ReadAdvertisementTypeBundleParam getAdvertisementTypes);
 }

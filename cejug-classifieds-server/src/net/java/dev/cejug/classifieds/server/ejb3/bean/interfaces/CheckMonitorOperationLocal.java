@@ -25,20 +25,17 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces;
 
 import javax.ejb.Local;
 
-import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
-import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
 /**
- * TODO: to comment.
- * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Local
-public interface LoadAdvertisementOperationLocal {
-	/**
-	 * TODO: to comment.
-	 */
-	AdvertisementCollection loadAdvertisementOperation(
-			final AdvertisementCollectionFilter filter);
+public interface CheckMonitorOperationLocal {
+  /**
+   * TODO: to comment.
+   */
+  MonitorResponse checkMonitorOperation(final MonitorQuery monitor);
 }

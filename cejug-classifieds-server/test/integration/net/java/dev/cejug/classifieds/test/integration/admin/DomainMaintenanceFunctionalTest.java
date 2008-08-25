@@ -30,9 +30,9 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -151,7 +151,7 @@ public class DomainMaintenanceFunctionalTest {
 		// UPDATE
 		// If we have categories available, let's add one to our new domain.
 		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(new ReadCategoryBundleParam())
+				.readCategoryBundleOperation(new BundleRequest())
 				.getAdvertisementCategory();
 
 		if (!categories.isEmpty()) {

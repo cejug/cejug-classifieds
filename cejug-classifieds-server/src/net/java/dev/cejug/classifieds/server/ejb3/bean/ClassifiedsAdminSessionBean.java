@@ -23,10 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -35,22 +33,19 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementTypeOperationsLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CategoryOperationsLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CheckMonitorOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.ServiceLifeCycleEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.ServiceLifeCycleFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
-import net.java.dev.cejug_classifieds.metadata.admin.AlivePeriod;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
@@ -60,18 +55,15 @@ import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadCategoryBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.CustomerCollection;
 import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
-import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
 import net.java.dev.cejug_classifieds.metadata.common.Quota;
 import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
@@ -94,20 +86,23 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
-	@EJB
-	private transient DomainFacadeLocal domainFacade;
+	  @EJB
+	  private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
 
 	@EJB
-	private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	private transient AdvertisementTypeOperationsLocal crudAdvType;
 
+        @EJB
+        private transient CategoryOperationsLocal crudCategory;
+	       
+        @EJB
+        private transient DomainOperationsLocal crudDomain;
+        
 	@EJB
-	private transient CategoryFacadeLocal categoryFacade;
-
-	@EJB
-	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
+	private transient CheckMonitorOperationLocal checkMonitorImpl;
 
 	/**
 	 * the global log manager, used to al low third party services to override
@@ -118,29 +113,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
-
-		// TODO: implement the real database call and response assembly.
-		MonitorResponse response;
-		response = new MonitorResponse();
-		response.setServiceName("Cejug-Classifieds");
-
-		try {
-			List<ServiceLifeCycleEntity> alivePeriods = lifeCycleFacade
-					.readAll(ServiceLifeCycleEntity.class);
-			List<AlivePeriod> periods = response.getAlivePeriods();
-			for (ServiceLifeCycleEntity lifeCycle : alivePeriods) {
-				AlivePeriod period = new AlivePeriod();
-				period.setStart(lifeCycle.getStart());
-				period.setFinish(lifeCycle.getFinish());
-				period.setNote(lifeCycle.getName());
-				periods.add(period);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new WebServiceException(e);
-		}
-
-		return response;
+	  return checkMonitorImpl.checkMonitorOperation(monitor);
 	}
 
 	@Override
@@ -197,352 +170,64 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-			AdvertisementType advertisementType = newAdvType
-					.getAdvertisementType();
-			advTypeEntity.setDescription(advertisementType.getDescription());
-			advTypeEntity.setMaxAttachmentSize(advertisementType
-					.getMaxAttachmentSize());
-			advTypeEntity.setName(advertisementType.getName());
-			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
-
-			advTypeFacade.create(advTypeEntity);
-
-			status.setStatusCode(200);
-			status.setDescription("1 advertisement type added");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudAdvType.createAdvertisementTypeOperation(newAdvType);
 	}
 
 	@Override
 	public ServiceStatus createCategoryOperation(
 			final CreateCategoryParam newCategory) {
-
-		AdvertisementCategory advCategory = newCategory
-				.getAdvertisementCategory();
-		CategoryEntity category = fillCategoryEntity(advCategory);
-		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
-		if (parent != null) {
-			category.setParent(fillCategoryEntity(parent));
-		}
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			categoryFacade.create(category);
-
-			// TODO: create a generic status response in the super class...
-			status.setStatusCode(200);
-			status.setDescription("1 category added");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudCategory.createCategoryOperation(newCategory);
 	}
 
 	@Override
 	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			// TODO: review validation...
-			DomainEntity entity = new DomainEntity();
-			Domain domain = newDomain.getDomain();
-			entity.setDomainName(domain.getDomain());
-			entity.setSharedQuota(domain.isSharedQuota());
-			entity.setBrand(domain.getBrand());
-			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-			if (domain.getAdvertisementCategory() != null) {
-				for (AdvertisementCategory category : domain
-						.getAdvertisementCategory()) {
-					CategoryEntity categoryEntity = fillCategoryEntity(category);
-					categories.add(categoryEntity);
-				}
-			}
-			entity.setCategories(categories);
-			domainFacade.create(entity);
-
-			status.setStatusCode(200);
-			status.setDescription("1 domain created");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudDomain.createDomainOperation(newDomain);
 	}
 
 	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			// TODO Check if the category is being used, before deleting it
-			categoryFacade.delete(CategoryEntity.class, Integer
-					.valueOf(obsoleteCategory.getPrimaryKey()));
-
-			status.setStatusCode(200);
-			status.setDescription("1 category deleted");
-
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudCategory.deleteCategoryOperation(obsoleteCategory);
 	}
 
 	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			// TODO Check if the domain is being used, before deleting it
-			domainFacade.delete(DomainEntity.class, obsoleteDomain
-					.getPrimaryKey());
-
-			status.setStatusCode(200);
-			status.setDescription("1 domain deleted");
-
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudDomain.deleteDomainOperation(obsoleteDomain);
 	}
 
 	@Override
 	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
 			final ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
-
-		// TODO: use the bundle request parameters as query filter.
-
-		AdvertisementTypeCollection advTypeCollection = new AdvertisementTypeCollection();
-		try {
-			List<AdvertisementTypeEntity> advTypes = advTypeFacade
-					.readAll(AdvertisementTypeEntity.class);
-			if (advTypes != null) {
-				for (AdvertisementTypeEntity advTypeEntity : advTypes) {
-					AdvertisementType advType = new AdvertisementType();
-					advType.setId(advTypeEntity.getId());
-					advType.setDescription(advTypeEntity.getDescription());
-					advType.setName(advTypeEntity.getName());
-					advType.setMaxAttachmentSize(advTypeEntity
-							.getMaxAttachmentSize());
-					advType.setMaxTextLength(advTypeEntity.getTextLength());
-					advTypeCollection.getAdvertisementType().add(advType);
-				}
-			}
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-		return advTypeCollection;
-	}
-
-	@Override
-	public CategoryCollection readCategoryBundleOperation(
-			final ReadCategoryBundleParam getCategories) {
-
-		// TODO: use the bundle request parameters as query filter.
-
-		CategoryCollection categoryCollection = new CategoryCollection();
-		try {
-			List<CategoryEntity> categories = categoryFacade
-					.readAll(CategoryEntity.class);
-			if (categories != null) {
-				for (CategoryEntity category : categories) {
-					AdvertisementCategory cat = fillAdvertisementCategory(category);
-					if (category.getParent() != null) {
-						cat
-								.setAdvertisementCategory(fillAdvertisementCategory(category
-										.getParent()));
-					}
-					categoryCollection.getAdvertisementCategory().add(cat);
-				}
-			}
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-		return categoryCollection;
-	}
-
-	private AdvertisementCategory fillAdvertisementCategory(
-			final CategoryEntity entity) {
-
-		AdvertisementCategory cat = new AdvertisementCategory();
-		cat.setId(entity.getId());
-		cat.setDescription(entity.getDescripton());
-		cat.setName(entity.getName());
-		cat.setAvailable(entity.getAvailable());
-		return cat;
+	  return crudAdvType.readAdvertisementTypeBundleOperation(getAdvertisementTypes);
 	}
 
 	@Override
 	public DomainCollection readDomainBundleOperation() {
-
-		// TODO: use the bundle request parameters as query filter.
-
-		DomainCollection domainCollection = new DomainCollection();
-
-		try {
-			List<DomainEntity> domains = domainFacade
-					.readAll(DomainEntity.class);
-			if (domains != null) {
-				for (DomainEntity domainEntity : domains) {
-					Domain domain = new Domain();
-					domain.setId(domainEntity.getId());
-					domain.setBrand(domainEntity.getBrand());
-					domain.setDomain(domainEntity.getDomainName());
-					domain.setSharedQuota(domainEntity.getSharedQuota());
-
-					if (domainEntity.getCategories() != null) {
-						for (CategoryEntity categoryEntity : domainEntity
-								.getCategories()) {
-							AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
-							domain.getAdvertisementCategory().add(category);
-						}
-					}
-
-					domainCollection.getDomain().add(domain);
-				}
-			}
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-		return domainCollection;
+	  return crudDomain.readDomainBundleOperation();
 	}
 
 	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-			AdvertisementType advertisementType = partialAdvType
-					.getAdvertisementType();
-			advTypeEntity.setId(advertisementType.getId());
-			advTypeEntity.setDescription(advertisementType.getDescription());
-			advTypeEntity.setName(advertisementType.getName());
-			advTypeEntity.setMaxAttachmentSize(advertisementType
-					.getMaxAttachmentSize());
-			advTypeEntity.setTextLength(advertisementType.getMaxTextLength());
-
-			advTypeFacade.update(advTypeEntity);
-
-			status.setStatusCode(200);
-			status.setDescription("1 advertisement type updated");
-
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudAdvType.updateAdvertisementTypeOperation(partialAdvType);
 	}
 
 	@Override
 	public ServiceStatus updateCategoryOperation(
 			final UpdateCategoryParam partialCategory) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			AdvertisementCategory advCategory = partialCategory
-					.getAdvertisementCategory();
-			CategoryEntity category = fillCategoryEntity(advCategory);
-			AdvertisementCategory parent = advCategory
-					.getAdvertisementCategory();
-			if (parent != null) {
-				category.setParent(fillCategoryEntity(parent));
-			}
-			categoryFacade.update(category);
-
-			status.setStatusCode(200);
-			status.setDescription("1 category updated");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
-	}
-
-	private CategoryEntity fillCategoryEntity(
-			final AdvertisementCategory advCategory) {
-
-		CategoryEntity category = new CategoryEntity();
-		category.setId(advCategory.getId());
-		category.setDescripton(advCategory.getDescription());
-		category.setName(advCategory.getName());
-		return category;
+	  return crudCategory.updateCategoryOperation(partialCategory);
 	}
 
 	@Override
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
-		ServiceStatus status = new ServiceStatus();
-		try {
-			DomainEntity domainEntity = new DomainEntity();
-			Domain domain = partialDomain.getDomain();
-			domainEntity.setId(domain.getId());
-			domainEntity.setDomainName(domain.getDomain());
-			domainEntity.setBrand(domain.getBrand());
-			domainEntity.setSharedQuota(domain.isSharedQuota());
-
-			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-			if (domain.getAdvertisementCategory() != null) {
-				for (AdvertisementCategory category : domain
-						.getAdvertisementCategory()) {
-					CategoryEntity categoryEntity = fillCategoryEntity(category);
-					categories.add(categoryEntity);
-				}
-			}
-			domainEntity.setCategories(categories);
-
-			domainFacade.update(domainEntity);
-
-			status.setStatusCode(200);
-			status.setDescription("1 domain updated");
-
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudDomain.updateDomainOperation(partialDomain);
 	}
 
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			// TODO Check if the advertisement type is being used, before
-			// deleting it
-			advTypeFacade.delete(AdvertisementTypeEntity.class, Integer
-					.valueOf(id));
-			status.setStatusCode(200);
-			status.setDescription("1 advertisement type deleted");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	  return crudAdvType.deleteAdvertisementTypeOperation(id);
 	}
 
 	@Override
@@ -572,4 +257,9 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
+
+        @Override
+        public CategoryCollection readCategoryBundleOperation(BundleRequest bundleRequest) {
+          return crudCategory.readCategoryBundleOperation(bundleRequest);
+        }
 }
