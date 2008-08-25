@@ -35,10 +35,12 @@ public class ConcurrentTestSuite {
 			for (Thread t : processes) {
 				t.start();
 			}
+			
+			// TODO: include a decent timer here instead of this blatant
+			// counter.
 			int i = 0;
 			while (adminTestSuiteGroup.activeCount() > 0 && i < 2000000) {
 				i++;
-				System.out.println(i);
 			}
 
 		} catch (InitializationError e) {
