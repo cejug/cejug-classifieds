@@ -213,7 +213,7 @@
     </target>
 
     <target name="compile.tests">
-        <javac srcdir="test" destdir="${build.classes.home}">
+        <javac srcdir="test/integration" destdir="${build.classes.home}">
             <classpath refid="project.classpath" />
             <include name="**/*.java" />
         </javac>
@@ -265,4 +265,26 @@
             <fileset dir="${contract.folder}" includes="**/**"/>
         </schemavalidate-->
     </target>
+    
+    <!-- dbmonster classpath -->
+    <path id="dbmonster.classpath">
+        <fileset dir="${project.lib}/ext/dbmonster">
+            <include name="*.jar"/>
+        </fileset>
+        <!-- JDBC driver --> 
+        <fileset dir="${env.AS_HOME}/javadb/lib">
+            <include name="derbyclient.jar"/>
+        </fileset>
+    </path>
+
+    <!-- Generates random test data using DBMonster (http://dbmonster.kernelpanic.pl/) -->
+    <target name="gendb">
+        <taskdef name="dbmonster" classname="pl.kernelpanic.dbmonster.ant.DBMonsterTask" classpathref="dbmonster.classpath" />
+        <dbmonster
+            config="${project.lib}/ext/dbmonster/dbmonster.properties"
+            verbose="true"
+            schema="${project.lib}/ext/dbmonster/classifieds.xml">
+        </dbmonster>
+    </target>
+
 </project>
