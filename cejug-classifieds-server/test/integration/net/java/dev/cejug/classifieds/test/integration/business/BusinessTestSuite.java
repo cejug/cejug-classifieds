@@ -4,8 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { LoadAtomFunctionalTest.class,
-		LoadRssFunctionalTest.class, PublishFunctionalTest.class,
-		ReportSpamFunctionalTest.class })
+@Suite.SuiteClasses( { LoadAtomIntegrationTest.class,
+		LoadRssIntegrationTest.class, PublishIntegrationTest.class,
+		ReportSpamIntegrationTest.class })
 public class BusinessTestSuite {
 }

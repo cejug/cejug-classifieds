@@ -16,7 +16,7 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Ceará Java Users Group.
+ originally used by CEJUG - Cear� Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
@@ -29,34 +29,35 @@ import java.util.GregorianCalendar;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
-import net.java.dev.cejug_classifieds.rss.Rss;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3._2005.atom.FeedType;
 
 /**
  * Test the diploma validation operation.
  * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class LoadRssFunctionalTest {
+public class LoadAtomIntegrationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
+		// TODO: include or activate a new advertisement (submit via service or
+		// direct
 		// into database)
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
+		// TODO: remove or inactive the test advertisement
 	}
 
 	@Test
-	public void testLoadRssOperation() {
+	public void testAtomOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
@@ -72,12 +73,12 @@ public class LoadRssFunctionalTest {
 		filter.setDateInitial(yesterday);
 		filter.setDateFinal(today);
 
-		Rss rss = service.loadRssOperation(filter);
-
-		Assert.assertNotNull("RSS empty", rss.getChannel().getTitle());
+		FeedType feed = service.loadAtomOperation(filter);
+		Assert.assertNotNull(feed);
 	}
 
-	/*
-	 * @Test public void testLoadRssOperationFail() { }
-	 */
+	@Test
+	public void testLoadAtomOperationFail() {
+		// TODO: simulates an invalid atom request and check if it fails.
+	}
 }

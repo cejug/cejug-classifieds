@@ -21,11 +21,12 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.test.integration.business;
+package net.java.dev.cejug.classifieds.test.integration.admin;
 
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
+import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +38,7 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class ReportSpamFunctionalTest {
+public class CheckMonitorIntegrationTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -51,23 +52,17 @@ public class ReportSpamFunctionalTest {
 	}
 
 	@Test
-	public void reportSpamOperation() {
+	public void checkMonitor() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
-
-		/**
-		 * TODO: to create an advertisement to be reported as Spam, otherwise
-		 * the advertisement ID 1 cannot be available.
-		 */
-		ServiceStatus status = service.reportSpamOperation(1);
-		assert status.getDescription().equalsIgnoreCase("OK");
-	}
-
-	@Test
-	public void testReportSpamOperationFail() {
-		// TODO: simulates an invalid report spam request and check if it fails.
+		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
+				.getCejugClassifiedsAdmin();
+		MonitorQuery query = new MonitorQuery();
+		query.setAlivePeriodsLength(5);
+		query.setResponseTimeLength(30);
+		query.setQuery("");
+		MonitorResponse response = service.checkMonitorOperation(query);
+		assert response.getServiceName() != null;
 	}
 }

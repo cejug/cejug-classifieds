@@ -68,7 +68,7 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class CategoryMaintenanceFunctionalTest {
+public class CategoryMaintenanceIntegrationTest {
 
 	/**
 	 * We first store the number of already available categories. After all

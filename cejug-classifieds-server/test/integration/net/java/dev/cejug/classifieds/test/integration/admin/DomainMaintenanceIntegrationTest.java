@@ -65,7 +65,7 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class DomainMaintenanceFunctionalTest {
+public class DomainMaintenanceIntegrationTest {
 
 	private transient CejugClassifiedsAdmin admin = null;
 

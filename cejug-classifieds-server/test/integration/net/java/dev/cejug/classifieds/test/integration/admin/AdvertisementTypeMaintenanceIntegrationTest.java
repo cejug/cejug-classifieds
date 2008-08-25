@@ -65,7 +65,7 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class AdvertisementTypeMaintenanceFunctionalTest {
+public class AdvertisementTypeMaintenanceIntegrationTest {
 	private transient CejugClassifiedsAdmin admin = null;
 	private transient int availableAdvTypesBeforeTests = -1;
 

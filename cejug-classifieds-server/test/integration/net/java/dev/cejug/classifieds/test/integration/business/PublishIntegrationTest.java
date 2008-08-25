@@ -53,10 +53,10 @@ import org.junit.Test;
 /**
  * Test the diploma validation operation.
  * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class PublishFunctionalTest {
+public class PublishIntegrationTest {
 	private transient CejugClassifiedsBusiness business;
 	private transient Domain newDomain;
 
