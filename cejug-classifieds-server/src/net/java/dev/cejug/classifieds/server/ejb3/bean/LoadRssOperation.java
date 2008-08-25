@@ -37,7 +37,9 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.rss.Channel;
 import net.java.dev.cejug_classifieds.rss.Item;
@@ -63,6 +65,12 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
+        /**
+         * Persistence façade of Advertisement entities.
+         */
+        @EJB
+        private transient CategoryFacadeLocal categoryFacade;
+	
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the default logger.
@@ -71,6 +79,12 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			LoadRssOperation.class.getName(), "i18n/log");
 
 	/**
+	 * Produces an RSS document with the latest active 
+	 * advertisements in the database. The response XML document should
+	 * have the same format as the 
+	 * <a href='http://cyber.law.harvard.edu/rss/examples/rss2sample.xml'>
+	 * sample RSS</a> below:
+	 * 
 	 * <pre>
 	 * &lt;?xml version=&quot;1.0&quot;?&gt;
 	 * &lt;rss version=&quot;2.0&quot;&gt;
@@ -98,9 +112,15 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 *    &lt;/channel&gt;
 	 * &lt;/rss&gt;
 	 * </pre>
+	 * @return an XML document containing the advetisements RSS.
 	 */
 	public Rss loadRssOperation(SyndicationFilter filter) {
 		try {
+		        
+		        // Category ID parameter is mandatory in the filter. 
+		        CategoryEntity category = 
+		          categoryFacade.read(CategoryEntity.class, Integer.valueOf(filter.getCategoryId()));
+		        
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advFacade
 					.readAll(AdvertisementEntity.class);
@@ -109,7 +129,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");
 			Channel channel = new Channel();
 			channel.setTitle("TODO: include the section name: "
-					+ filter.getSection());
+					+ filter.getCategoryId());
 			channel
 					.setLink("http://localhost:8080/cejug-classifieds-server/rss");
 			channel
