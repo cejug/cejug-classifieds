@@ -33,6 +33,7 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3._2005.atom.FeedType;
 
@@ -56,6 +57,7 @@ public class LoadAtomIntegrationTest {
 		// TODO: remove or inactive the test advertisement
 	}
 
+	@Ignore(value = "not yet implemented")
 	@Test
 	public void testAtomOperation() {
 		/*
