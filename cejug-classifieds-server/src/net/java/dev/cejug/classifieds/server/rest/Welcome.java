@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
@@ -37,6 +38,7 @@ public class Welcome extends HttpServlet {
 		query.setAlivePeriodsLength(20);
 		MonitorResponse monResponse = admin.checkMonitorOperation(query);
 		request.setAttribute("monitorResponse", monResponse);
+		((HttpServletResponse)response).setHeader("Expires", "Thu, 15 Apr 2010 20:00:00 GMT");
 		request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 	}
 }
