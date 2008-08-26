@@ -23,6 +23,8 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
+import org.junit.Ignore;
+
 public abstract class AbstractOperation {
 
 	protected CategoryEntity fillCategoryEntity(
@@ -34,6 +36,7 @@ public abstract class AbstractOperation {
 		return category;
 	}
 
+	@Ignore(value = "under construction!")
 	protected Object copyValuesByAttributeNames(Object source, Class target)
 			throws SecurityException, NoSuchMethodException,
 			IllegalArgumentException, InstantiationException,
