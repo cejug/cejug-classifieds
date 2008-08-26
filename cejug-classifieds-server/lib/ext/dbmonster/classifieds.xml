@@ -301,12 +301,8 @@
       </generator>
     </column>
     <column name="STATE" databaseDefault="false">
-      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
-        <property name="allowSpaces" value="true"/>
-        <property name="excludeChars" value=""/>
-        <property name="maxLength" value="255"/>
-        <property name="minLength" value="0"/>
-        <property name="nulls" value="0"/>
+      <generator type="pl.kernelpanic.dbmonster.generator.ConstantGenerator">
+        <property name="constant" value="ONLINE"/>
       </generator>
     </column>
     <column name="SUMMARY" databaseDefault="false">
