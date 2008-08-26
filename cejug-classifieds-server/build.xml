@@ -235,7 +235,9 @@
         </junit>
     </target>
 
+    <!-- Verify source code with PMD -->
     <target name="pmd">
+        <!-- where the report will be generated -->
         <mkdir dir="${quality.home}/pmd" />
         <pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
             <ruleset>rulesets/favorites.xml</ruleset>
@@ -287,4 +289,23 @@
         </dbmonster>
     </target>
 
+    <target name="cpd">
+        <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
+            <classpath refid="project.classpath" />
+        </taskdef>
+        <mkdir dir="${quality.home}/cpd" />
+
+        <cpd minimumTokenCount="20" format="xml" outputFile="${quality.home}/cpd/cpd.xml" encoding="UTF-8">
+            <fileset dir="${basedir}/src">
+                <include name="**/*.java" />
+            </fileset>
+            <!-- I don't think that it makes sense to check generated code 
+            <fileset dir="${basedir}/generated">
+                <include name="**/*.java" />
+            </fileset>
+            -->
+        </cpd>
+        <xslt in="${quality.home}/cpd/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${quality.home}/cpd/cpd.html" />
+        <!--delete file="${quality.home}/cpd/cpd.xml" /-->
+    </target>
 </project>
