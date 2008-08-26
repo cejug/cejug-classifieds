@@ -62,7 +62,7 @@ public class CategoryOperations extends AbstractOperation implements
 	private transient CategoryFacadeLocal categoryFacade;
 
 	@Override
-	public ServiceStatus createCategoryOperation(
+	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam newCategory) {
 
 		AdvertisementCategory advCategory = newCategory
@@ -73,19 +73,13 @@ public class CategoryOperations extends AbstractOperation implements
 			category.setParent(fillCategoryEntity(parent));
 		}
 
-		ServiceStatus status = new ServiceStatus();
 		try {
 			categoryFacade.create(category);
-
-			// TODO: create a generic status response in the super class...
-			status.setStatusCode(200);
-			status.setDescription("1 category added");
+			return fillAdvertisementCategory(category);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
+			throw new WebServiceException(e);
 		}
-		return status;
 	}
 
 	@Override
@@ -119,13 +113,8 @@ public class CategoryOperations extends AbstractOperation implements
 					.readAll(CategoryEntity.class);
 			if (categories != null) {
 				for (CategoryEntity category : categories) {
-					AdvertisementCategory cat = new AdvertisementCategory();
-					cat.setDescription(category.getDescripton());
-					cat.setName(category.getName());
-					int available = categoryFacade
-							.countAdvertisements(category);
-					cat.setAvailable(available);
-					categorySet.getAdvertisementCategory().add(cat);
+					categorySet.getAdvertisementCategory().add(
+							fillAdvertisementCategory(category));
 				}
 			}
 			logger.finest(categorySet.getAdvertisementCategory().size()

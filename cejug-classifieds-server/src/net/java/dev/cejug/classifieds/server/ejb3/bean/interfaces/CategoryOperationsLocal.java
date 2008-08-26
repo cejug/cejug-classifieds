@@ -28,6 +28,7 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
@@ -41,7 +42,8 @@ public interface CategoryOperationsLocal {
 	/**
 	 * TODO: to comment.
 	 */
-	ServiceStatus createCategoryOperation(final CreateCategoryParam newCategory);
+	AdvertisementCategory createCategoryOperation(
+			final CreateCategoryParam newCategory);
 
 	/**
 	 * TODO: to comment.

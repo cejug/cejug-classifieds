@@ -121,7 +121,7 @@
 				throws an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:CreateCategoryMsg" />
-			<wsdl:output name="CreateCategoryResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:output name="CreateCategoryResponse" message="common-wsdl:Category" />
 			<wsdl:fault name="CreateCagegoriesException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadCategoryBundleOperation">

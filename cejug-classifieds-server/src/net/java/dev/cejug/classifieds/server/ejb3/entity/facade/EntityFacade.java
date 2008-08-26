@@ -93,6 +93,6 @@ public interface EntityFacade<T extends AbstractEntity> {
 	 * @throws Exception
 	 *             database exception, or incompatible entity.
 	 */
-	public T update(T entity) throws IllegalStateException,
+	void update(T entity) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
 }

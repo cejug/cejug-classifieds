@@ -58,6 +58,7 @@ import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundle
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
@@ -174,7 +175,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	}
 
 	@Override
-	public ServiceStatus createCategoryOperation(
+	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam newCategory) {
 		return crudCategory.createCategoryOperation(newCategory);
 	}

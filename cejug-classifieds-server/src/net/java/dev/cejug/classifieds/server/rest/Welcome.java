@@ -38,7 +38,8 @@ public class Welcome extends HttpServlet {
 		query.setAlivePeriodsLength(20);
 		MonitorResponse monResponse = admin.checkMonitorOperation(query);
 		request.setAttribute("monitorResponse", monResponse);
-		((HttpServletResponse)response).setHeader("Expires", "Thu, 15 Apr 2010 20:00:00 GMT");
+		((HttpServletResponse) response).setHeader("Expires",
+				"Thu, 15 Apr 2010 20:00:00 GMT");
 		request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 	}
 }

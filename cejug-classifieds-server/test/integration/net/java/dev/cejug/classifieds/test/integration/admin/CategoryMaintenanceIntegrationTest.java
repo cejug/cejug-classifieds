@@ -163,8 +163,9 @@ public class CategoryMaintenanceIntegrationTest {
 		category.setDescription("Functional Category Test.");
 		CreateCategoryParam catParam = new CreateCategoryParam();
 		catParam.setAdvertisementCategory(category);
-		ServiceStatus status = admin.createCategoryOperation(catParam);
-		Assert.assertEquals(status.getStatusCode(), 200);
+		AdvertisementCategory newCategory = admin
+				.createCategoryOperation(catParam);
+		// Assert.assertEquals(status.getStatusCode(), 200);
 
 		// READ
 		BundleRequest param = new BundleRequest();
@@ -174,39 +175,42 @@ public class CategoryMaintenanceIntegrationTest {
 		// least 1 category.
 		Assert.assertFalse(categories.isEmpty());
 
+		boolean greenBar = false;
 		for (AdvertisementCategory advertisementCategory : categories) {
-			if (advertisementCategory.getName().equals(category.getName())) {
-				// The just created category has no ID, so we need to lookup for
-				// its name in the received list in order to know its ID.
-				category = advertisementCategory;
+			if (advertisementCategory.getId().equals(newCategory.getId())) {
+				// We found the just created category :) Green bar !
+				greenBar = true;
 				break;
 			}
 		}
+		Assert.assertTrue("Couldn't find the just created category (ID="
+				+ newCategory.getId(), greenBar);
 
 		// UPDATE
 		String newName = "NewName" + System.currentTimeMillis();
-		category.setName(newName);
+		newCategory.setName(newName);
 		UpdateCategoryParam updateParam = new UpdateCategoryParam();
-		updateParam.setAdvertisementCategory(category);
+		updateParam.setAdvertisementCategory(newCategory);
 		admin.updateCategoryOperation(updateParam);
 		List<AdvertisementCategory> updatedCategories = admin
 				.readCategoryBundleOperation(param).getAdvertisementCategory();
 
-		boolean updateOk = false;
+		greenBar = false;
 		for (AdvertisementCategory advertisementCategory : updatedCategories) {
-			if (advertisementCategory.getId().equals(category.getId())) {
+			if (advertisementCategory.getId().equals(newCategory.getId())) {
 				// Check if the received category has the newly create name.
 				Assert.assertEquals(advertisementCategory.getName(), newName);
-				updateOk = true;
+				greenBar = true;
 				break;
 			}
 		}
-		Assert.assertTrue(updateOk);
+		Assert.assertTrue("Couldn't update the name of a category (ID="
+				+ newCategory.getId() + ")", greenBar);
 
 		// DELETE
 		// remove or inactive the test advertisement
 		DeleteCategoryParam deleteParam = new DeleteCategoryParam();
-		deleteParam.setPrimaryKey(category.getId());
+		deleteParam.setPrimaryKey(newCategory.getId());
 		ServiceStatus deleteStatus = admin.deleteCategoryOperation(deleteParam);
 		Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 	}

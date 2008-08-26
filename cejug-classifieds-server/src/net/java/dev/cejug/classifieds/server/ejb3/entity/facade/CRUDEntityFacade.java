@@ -107,8 +107,9 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public T update(final T entity) throws IllegalStateException,
+	public void update(final T entity) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {
-		return manager.merge(entity);
+		manager.merge(entity);
+		manager.flush();
 	}
 }

@@ -35,7 +35,7 @@ public class ConcurrentTestSuite {
 			for (Thread t : processes) {
 				t.start();
 			}
-			
+
 			// TODO: include a decent timer here instead of this blatant
 			// counter.
 			int i = 0;
