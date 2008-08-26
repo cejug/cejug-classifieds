@@ -301,8 +301,8 @@
       </generator>
     </column>
     <column name="STATE" databaseDefault="false">
-      <generator type="pl.kernelpanic.dbmonster.generator.ConstantGenerator">
-        <property name="constant" value="ONLINE"/>
+      <generator type="pl.kernelpanic.dbmonster.generator.DictionaryGenerator">
+        <property name="dictFile" value="advState.zip"/>
       </generator>
     </column>
     <column name="SUMMARY" databaseDefault="false">
