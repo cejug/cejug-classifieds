@@ -119,10 +119,7 @@ public class CategoryMaintenanceIntegrationTest {
 		try {
 			CejugClassifiedsAdmin adminEndpoint = new CejugClassifiedsServiceAdmin()
 					.getCejugClassifiedsAdmin();
-			int availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase(adminEndpoint);
 			crudCategory(adminEndpoint);
-			Assert.assertEquals(availableCategoriesBeforeTests,
-					countAvailableCategoriesOnDatabase(adminEndpoint));
 
 		} catch (Exception n) {
 			n.printStackTrace();

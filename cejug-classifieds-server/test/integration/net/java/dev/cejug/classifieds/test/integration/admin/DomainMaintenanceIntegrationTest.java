@@ -69,8 +69,6 @@ public class DomainMaintenanceIntegrationTest {
 
 	private transient CejugClassifiedsAdmin admin = null;
 
-	private transient int availableDomainsBeforeTests = -1;
-
 	/**
 	 * We first store the number of already available categories. After all
 	 * tests, we check this number again, to be sure our tests didn't changed
@@ -82,23 +80,7 @@ public class DomainMaintenanceIntegrationTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-
 		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
-		availableDomainsBeforeTests = countAvailableDomainsOnDatabase();
-	}
-
-	/**
-	 * Shared count categories method, to be sure the same counting mechanism is
-	 * used before and after the tests. It loads from the server a list of
-	 * available categories and returns its size.
-	 * 
-	 * @return the number of categories stored in the database.
-	 */
-	private int countAvailableDomainsOnDatabase() {
-
-		List<Domain> domains = admin.readDomainBundleOperation().getDomain();
-		return domains.size();
-
 	}
 
 	/**
@@ -113,9 +95,6 @@ public class DomainMaintenanceIntegrationTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-
-		Assert.assertEquals(availableDomainsBeforeTests,
-				countAvailableDomainsOnDatabase());
 	}
 
 	@Test

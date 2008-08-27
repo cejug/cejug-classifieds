@@ -1,8 +1,14 @@
 package net.java.dev.cejug.classifieds.test.integration;
 
+import java.util.List;
+
+import junit.framework.ComparisonFailure;
+
 import net.java.dev.cejug.classifieds.test.integration.admin.AdminTestSuite;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
@@ -29,6 +35,7 @@ public class ConcurrentTestSuite {
 					processes[i * concurrencyFactor + j] = new Thread(
 							adminTestSuiteGroup, new JUnitRunnable(
 									testSuite[i], notifier));
+					notifier.incrementThreadsCounter();
 				}
 			}
 
@@ -39,10 +46,14 @@ public class ConcurrentTestSuite {
 			// TODO: include a decent timer here instead of this blatant
 			// counter.
 			int i = 0;
-			while (adminTestSuiteGroup.activeCount() > 0 && i < 2000000) {
-				i++;
+			while (notifier.getThreadCounter() > 0) {
+				Thread.yield();
 			}
 
+			List<Failure> failures = notifier.getFailures();
+			if (failures.size() > 0) {
+				Assert.fail(failures.get(0).getTrace());
+			}
 		} catch (InitializationError e) {
 			e.printStackTrace();
 		}
