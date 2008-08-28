@@ -29,17 +29,17 @@ import org.junit.Ignore;
 
 public abstract class AbstractOperation {
 	@Ignore(value = "under construction!")
-	protected Object copyValuesByAttributeNames(Object source, Class target)
+	protected Object copyValuesByAttributeNames(Object source, Class<?> target)
 			throws SecurityException, NoSuchMethodException,
 			IllegalArgumentException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {
 		try {
-			Constructor defaultConstructor = target
+			Constructor<?> defaultConstructor = target
 					.getConstructor(new Class[0]);
 			Object targetInstance = defaultConstructor
 					.newInstance(new Object[0]);
 			Method[] targetMethods = target.getMethods();
-			Class sourceType = source.getClass();
+			Class<?> sourceType = source.getClass();
 
 			for (Method method : targetMethods) {
 				String methodName = method.getName();
@@ -48,11 +48,9 @@ public abstract class AbstractOperation {
 							+ method.getName().substring(3);
 					Method sourceMethod = sourceType.getMethod(
 							getterMethodName, new Class[0]);
-					System.out.println("ZZZZZZZ" + sourceMethod.getName());
 					if (sourceMethod != null) {
 						Object sourceAttributeValue = sourceMethod.invoke(
 								source, new Object[0]);
-						System.out.println("LLLLLL" + sourceAttributeValue);
 						method.invoke(targetInstance,
 								new Object[] { sourceAttributeValue });
 					}
