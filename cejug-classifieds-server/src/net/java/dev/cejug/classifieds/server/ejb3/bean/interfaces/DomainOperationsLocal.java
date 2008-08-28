@@ -28,6 +28,7 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -41,7 +42,7 @@ public interface DomainOperationsLocal {
 	/**
 	 * TODO: to comment.
 	 */
-	ServiceStatus createDomainOperation(final CreateDomainParam newDomain);
+        Domain createDomainOperation(final CreateDomainParam newDomain);
 
 	/**
 	 * TODO: to comment.

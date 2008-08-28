@@ -215,7 +215,7 @@
 				an exception.
 			</wsdl:documentation>
 			<wsdl:input message="admin:CreateDomainMsg" />
-			<wsdl:output name="CreateDomainResponse" message="common-wsdl:OperationExecutionStatus" />
+			<wsdl:output name="CreateDomainResponse" message="common-wsdl:Domain" />
 			<wsdl:fault name="CreateDomainException" message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
 		<wsdl:operation name="ReadDomainBundleOperation">

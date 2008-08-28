@@ -21,21 +21,13 @@ import java.lang.reflect.Method;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 import org.junit.Ignore;
 
 public abstract class AbstractOperation {
-
-	protected CategoryEntity fillCategoryEntity(
-			final AdvertisementCategory advCategory) {
-		CategoryEntity category = new CategoryEntity();
-		category.setId(advCategory.getId());
-		category.setDescripton(advCategory.getDescription());
-		category.setName(advCategory.getName());
-		return category;
-	}
-
 	@Ignore(value = "under construction!")
 	protected Object copyValuesByAttributeNames(Object source, Class target)
 			throws SecurityException, NoSuchMethodException,
@@ -82,4 +74,33 @@ public abstract class AbstractOperation {
 		cat.setAvailable(entity.getAvailable());
 		return cat;
 	}
+
+	protected CategoryEntity fillCategoryEntity(
+            final AdvertisementCategory advCategory) {
+            CategoryEntity category = new CategoryEntity();
+            category.setId(advCategory.getId());
+            category.setDescripton(advCategory.getDescription());
+            category.setName(advCategory.getName());
+            return category;
+        }
+	
+        protected Domain fillDomain(
+            final DomainEntity entity) {
+          Domain domain = new Domain();
+          domain.setDomain(entity.getDomainName());
+          domain.setSharedQuota(entity.getSharedQuota());
+          domain.setBrand(entity.getBrand());
+          domain.setId(entity.getId());
+          return domain;
+        }
+        
+        protected DomainEntity fillDomainEntity(
+        final Domain domain) {
+          DomainEntity entity = new DomainEntity();
+          entity.setDomainName(domain.getDomain());
+          entity.setSharedQuota(domain.isSharedQuota());
+          entity.setBrand(domain.getBrand());
+          entity.setId(domain.getId());
+          return entity;
+        }
 }

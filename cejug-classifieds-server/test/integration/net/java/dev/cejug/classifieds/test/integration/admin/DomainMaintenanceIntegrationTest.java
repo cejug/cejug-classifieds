@@ -108,8 +108,8 @@ public class DomainMaintenanceIntegrationTest {
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());
 		CreateDomainParam createParam = new CreateDomainParam();
 		createParam.setDomain(domain);
-		ServiceStatus status = admin.createDomainOperation(createParam);
-		Assert.assertEquals(status.getStatusCode(), 200);
+		domain = admin.createDomainOperation(createParam);
+		Assert.assertNotNull(domain.getId());
 
 		// READ
 		List<Domain> domains = admin.readDomainBundleOperation().getDomain();

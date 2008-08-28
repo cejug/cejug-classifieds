@@ -65,15 +65,11 @@ public class DomainOperations extends AbstractOperation implements
 	private transient DomainFacadeLocal domainFacade;
 
 	@Override
-	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
-		ServiceStatus status = new ServiceStatus();
+	public Domain createDomainOperation(final CreateDomainParam newDomain) {
 		try {
 			// TODO: review validation...
-			DomainEntity entity = new DomainEntity();
-			Domain domain = newDomain.getDomain();
-			entity.setDomainName(domain.getDomain());
-			entity.setSharedQuota(domain.isSharedQuota());
-			entity.setBrand(domain.getBrand());
+		        Domain domain = newDomain.getDomain();      
+      		        DomainEntity entity = fillDomainEntity(domain);
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
 				for (AdvertisementCategory category : domain
@@ -84,15 +80,12 @@ public class DomainOperations extends AbstractOperation implements
 			}
 			entity.setCategories(categories);
 			domainFacade.create(entity);
-
-			status.setStatusCode(200);
-			status.setDescription("1 domain created");
+			return fillDomain(entity); 
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
+			throw new WebServiceException(e);
 		}
-		return status;
+		
 	}
 
 	@Override

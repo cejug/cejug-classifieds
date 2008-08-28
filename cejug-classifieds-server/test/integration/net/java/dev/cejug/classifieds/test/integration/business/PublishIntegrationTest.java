@@ -90,7 +90,7 @@ public class PublishIntegrationTest { // extends Runner {
 		newDomain.setTimezone("America/Fortaleza");
 		CreateDomainParam param = new CreateDomainParam();
 		param.setDomain(newDomain);
-		admin.createDomainOperation(param);
+		newDomain = admin.createDomainOperation(param);
 
 		AdvertisementType type = new AdvertisementType();
 		type.setDescription("oo");
@@ -142,7 +142,6 @@ public class PublishIntegrationTest { // extends Runner {
 	@Test
 	public void testPublishOperation() throws DatatypeConfigurationException,
 			MalformedURLException {
-
 		try {
 			/*
 			 * check if the test advertisement comes with the RSS
@@ -150,8 +149,6 @@ public class PublishIntegrationTest { // extends Runner {
 
 			Advertisement advertisement = new Advertisement();
 			Customer customer = new Customer();
-			customer.setDomain("cejug.functional.test.domain"
-					+ System.currentTimeMillis());
 			customer.setLogin("fgaucho");
 			customer.setDomain(newDomain.getDomain());
 			advertisement.setCustomer(customer);

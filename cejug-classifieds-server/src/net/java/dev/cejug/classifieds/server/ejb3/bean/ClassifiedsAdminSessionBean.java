@@ -65,6 +65,7 @@ import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.CustomerCollection;
 import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
 import net.java.dev.cejug_classifieds.metadata.common.Quota;
 import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
@@ -181,7 +182,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	}
 
 	@Override
-	public ServiceStatus createDomainOperation(final CreateDomainParam newDomain) {
+	public Domain createDomainOperation(final CreateDomainParam newDomain) {
 		return crudDomain.createDomainOperation(newDomain);
 	}
 
