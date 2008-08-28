@@ -66,6 +66,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class DomainMaintenanceIntegrationTest {
+        private static int idCounter = 0;
 
 	private transient CejugClassifiedsAdmin admin = null;
 
@@ -102,7 +103,7 @@ public class DomainMaintenanceIntegrationTest {
 
 		// CREATE
 		Domain domain = new Domain();
-		domain.setDomain("functional.test." + System.currentTimeMillis());
+		domain.setDomain("functional.test." + idCounter++);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());

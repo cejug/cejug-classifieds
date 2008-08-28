@@ -69,6 +69,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class CategoryMaintenanceIntegrationTest {
+        private static int idCounter = 0;
 
 	/**
 	 * We first store the number of already available categories. After all
@@ -154,7 +155,7 @@ public class CategoryMaintenanceIntegrationTest {
 	private void crudCategory(CejugClassifiedsAdmin admin) {
 		// CREATE
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("FunctionalTest" + System.currentTimeMillis());
+		category.setName("FunctionalTest" + idCounter++);
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");
 		category.setDescription("Functional Category Test.");
@@ -184,7 +185,7 @@ public class CategoryMaintenanceIntegrationTest {
 				+ newCategory.getId(), greenBar);
 
 		// UPDATE
-		String newName = "NewName" + System.currentTimeMillis();
+		String newName = "NewName" + idCounter++;
 		newCategory.setName(newName);
 		UpdateCategoryParam updateParam = new UpdateCategoryParam();
 		updateParam.setAdvertisementCategory(newCategory);

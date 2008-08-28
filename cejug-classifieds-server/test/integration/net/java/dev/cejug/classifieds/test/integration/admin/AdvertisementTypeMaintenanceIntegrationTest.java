@@ -66,6 +66,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class AdvertisementTypeMaintenanceIntegrationTest {
+        private static int idCounter = 0;
 	private transient CejugClassifiedsAdmin admin = null;
 	private transient int availableAdvTypesBeforeTests = -1;
 
@@ -119,7 +120,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest {
 	public void crudCategory() {
 		// CREATE
 		AdvertisementType advType = new AdvertisementType();
-		advType.setName("FunctionalTest" + System.currentTimeMillis());
+		advType.setName("FunctionalTest" + idCounter++);
 		advType.setDescription("Functional ADV Type Test.");
 		advType.setMaxAttachmentSize(987L);
 		advType.setMaxTextLength(5642L);
@@ -148,7 +149,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest {
 		}
 
 		// UPDATE
-		String newName = "NewName" + System.currentTimeMillis();
+		String newName = "NewName" + idCounter++;
 		advType.setName(newName);
 		UpdateAdvertisementTypeParam updateParam = new UpdateAdvertisementTypeParam();
 		updateParam.setAdvertisementType(advType);
