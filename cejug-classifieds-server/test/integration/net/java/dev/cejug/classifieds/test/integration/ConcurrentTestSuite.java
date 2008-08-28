@@ -3,6 +3,7 @@ package net.java.dev.cejug.classifieds.test.integration;
 import java.util.List;
 
 import net.java.dev.cejug.classifieds.test.integration.admin.AdminTestSuite;
+import net.java.dev.cejug.classifieds.test.integration.business.BusinessTestSuite;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,17 +13,30 @@ import org.junit.runners.model.InitializationError;
 
 public class ConcurrentTestSuite {
 	private DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
-	private int concurrencyFactor = 3;
+	private int concurrencyFactor = 10;
 
-	public static void main(String[] args) {
-		new ConcurrentTestSuite().test();
+	@Test
+	public void admin() {
+		Suite.SuiteClasses annos = AdminTestSuite.class
+				.getAnnotation(Suite.SuiteClasses.class);
+		List<Failure> failures = runAll(annos);
+		if (failures.size() > 0) {
+			Assert.fail(failures.get(0).getTrace());
+		}
 	}
 
 	@Test
-	public void test() {
+	public void business() {
+		Suite.SuiteClasses annos = BusinessTestSuite.class
+				.getAnnotation(Suite.SuiteClasses.class);
+		List<Failure> failures = runAll(annos);
+		if (failures.size() > 0) {
+			Assert.fail(failures.get(0).getTrace());
+		}
+	}
+
+	private synchronized List<Failure> runAll(Suite.SuiteClasses annos) {
 		try {
-			Suite.SuiteClasses annos = AdminTestSuite.class
-					.getAnnotation(Suite.SuiteClasses.class);
 			Class<?>[] testSuite = annos.value();
 			Thread[] processes = new Thread[testSuite.length
 					* concurrencyFactor];
@@ -47,12 +61,9 @@ public class ConcurrentTestSuite {
 				Thread.yield();
 			}
 
-			List<Failure> failures = notifier.getFailures();
-			if (failures.size() > 0) {
-				Assert.fail(failures.get(0).getTrace());
-			}
+			return notifier.getFailures();
 		} catch (InitializationError e) {
-			e.printStackTrace();
+			return null;
 		}
 	}
 }

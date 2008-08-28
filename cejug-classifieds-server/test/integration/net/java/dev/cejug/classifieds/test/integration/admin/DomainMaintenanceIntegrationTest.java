@@ -67,7 +67,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class DomainMaintenanceIntegrationTest {
-        private static Random random = new Random();
+	private static Random random = new Random();
 
 	private transient CejugClassifiedsAdmin admin = null;
 
@@ -104,7 +104,8 @@ public class DomainMaintenanceIntegrationTest {
 
 		// CREATE
 		Domain domain = new Domain();
-		String name = "test." + Math.abs(random.nextInt()) + "." + Math.abs(random.nextInt());
+		String name = "test." + random.nextInt() + "."
+				+ random.nextInt();
 		System.out.println(name);
 		domain.setDomain(name);
 		domain.setBrand("Functional Domain");
@@ -112,8 +113,8 @@ public class DomainMaintenanceIntegrationTest {
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());
 		CreateDomainParam createParam = new CreateDomainParam();
 		createParam.setDomain(domain);
-	        domain = admin.createDomainOperation(createParam);
-		
+		domain = admin.createDomainOperation(createParam);
+
 		Assert.assertNotNull(domain.getId());
 
 		// READ

@@ -31,5 +31,6 @@ public class DefaultJUnitNotifier extends RunNotifier {
 	@Override
 	public void fireTestFinished(Description description) {
 		threadCounter--;
+		System.out.println(description.getDisplayName() + " finished.");
 	}
 }

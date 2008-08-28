@@ -105,12 +105,69 @@ public class CategoryMaintenanceIntegrationTest {
 	@Test
 	public void testingSoapWebService() {
 		try {
-			CejugClassifiedsAdmin adminEndpoint = new CejugClassifiedsServiceAdmin()
+			CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 					.getCejugClassifiedsAdmin();
-			crudCategory(adminEndpoint);
+			// CREATE
+			AdvertisementCategory category = new AdvertisementCategory();
+			category.setName("test.cat." + random.nextInt() + "." + random.nextInt());
+			category
+					.setDescription("This category was created just for testing, you are free to delete it");
+			category.setDescription("Functional Category Test.");
+			CreateCategoryParam catParam = new CreateCategoryParam();
+			catParam.setAdvertisementCategory(category);
+			System.out.println(catParam.getAdvertisementCategory().getName());
+			AdvertisementCategory newCategory = admin
+					.createCategoryOperation(catParam);
+			// Assert.assertEquals(status.getStatusCode(), 200);
+
+			// READ
+			BundleRequest param = new BundleRequest();
+			List<AdvertisementCategory> categories = admin
+					.readCategoryBundleOperation(param).getAdvertisementCategory();
+			// We created a category on the setup method, so we assume there is at
+			// least 1 category.
+			Assert.assertFalse(categories.isEmpty());
+
+			boolean greenBar = false;
+			for (AdvertisementCategory advertisementCategory : categories) {
+				if (advertisementCategory.getId().equals(newCategory.getId())) {
+					// We found the just created category :) Green bar !
+					greenBar = true;
+					break;
+				}
+			}
+			Assert.assertTrue("Couldn't find the just created category (ID="
+					+ newCategory.getId(), greenBar);
+
+			// UPDATE
+			String newName = "test." + random.nextInt() + "." + random.nextInt();
+			newCategory.setName(newName);
+			UpdateCategoryParam updateParam = new UpdateCategoryParam();
+			updateParam.setAdvertisementCategory(newCategory);
+			admin.updateCategoryOperation(updateParam);
+			List<AdvertisementCategory> updatedCategories = admin
+					.readCategoryBundleOperation(param).getAdvertisementCategory();
+
+			greenBar = false;
+			for (AdvertisementCategory advertisementCategory : updatedCategories) {
+				if (advertisementCategory.getId().equals(newCategory.getId())) {
+					// Check if the received category has the newly create name.
+					Assert.assertEquals(advertisementCategory.getName(), newName);
+					greenBar = true;
+					break;
+				}
+			}
+			Assert.assertTrue("Couldn't update the name of a category (ID="
+					+ newCategory.getId() + ")", greenBar);
+
+			// DELETE
+			// remove or inactive the test advertisement
+			DeleteCategoryParam deleteParam = new DeleteCategoryParam();
+			deleteParam.setPrimaryKey(newCategory.getId());
+			ServiceStatus deleteStatus = admin.deleteCategoryOperation(deleteParam);
+			Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 
 		} catch (Exception n) {
-			n.printStackTrace();
 			Assert.fail(n.getMessage());
 		}
 	}
@@ -139,7 +196,7 @@ public class CategoryMaintenanceIntegrationTest {
 	private void crudCategory(CejugClassifiedsAdmin admin) {
 		// CREATE
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("test.cat." + Math.abs(random.nextInt()) + "." + Math.abs(random.nextInt()));
+		category.setName("test.cat." + random.nextInt() + "." + random.nextInt());
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");
 		category.setDescription("Functional Category Test.");

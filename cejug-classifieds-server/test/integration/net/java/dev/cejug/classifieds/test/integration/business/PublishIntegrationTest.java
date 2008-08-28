@@ -63,57 +63,6 @@ public class PublishIntegrationTest { // extends Runner {
 
 	@Before
 	public void setUp() throws Exception {
-		/*
-		 * -- TODO: review this code and do the proper test sequence: - create a
-		 * new domain, for tests - insert new advertisement - load the
-		 * advertisement - delete the domain and all of its advertisement
-		 * (cleanup)
-		 * 
-		 * WARNING: for our first tests, we are creating a new domain on each
-		 * test.
-		 */
-		business = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
-
-		CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
-				.getCejugClassifiedsAdmin();
-
-		// TODO: review (it is only a test)
-		String domain = "cejug.functional.test.domain"
-				+ System.currentTimeMillis();
-		newDomain = new Domain();
-		newDomain.setDomain(domain);
-		newDomain.setBrand("CEJUG");
-		newDomain.setSharedQuota(true);
-		newDomain.setTimezone("America/Fortaleza");
-		CreateDomainParam param = new CreateDomainParam();
-		param.setDomain(newDomain);
-		newDomain = admin.createDomainOperation(param);
-
-		AdvertisementType type = new AdvertisementType();
-		type.setDescription("oo");
-		type.setMaxAttachmentSize(300);
-		type.setName("courtesy");
-		type.setMaxTextLength(250);
-		CreateAdvertisementTypeParam advParam = new CreateAdvertisementTypeParam();
-		advParam.setAdvertisementType(type);
-		admin.createAdvertisementTypeOperation(advParam);
-
-		// TODO: admin.updateDomain();
-
-		// ServiceStatus status = facade.publishOperation(bundle);
-
-		// connecting the web-service and calling the publish operation
-		/*
-		 * URL wsdlLocation = new URL(
-		 * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
-		 * serviceName = new QName(
-		 * "http://cejug-classifieds.dev.java.net/server",
-		 * "CejugClassifiedsService");
-		 */
-
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
 	}
 
 	/**
@@ -141,6 +90,57 @@ public class PublishIntegrationTest { // extends Runner {
 	public void testPublishOperation() throws DatatypeConfigurationException,
 			MalformedURLException {
 		try {
+			/*
+			 * -- TODO: review this code and do the proper test sequence: - create a
+			 * new domain, for tests - insert new advertisement - load the
+			 * advertisement - delete the domain and all of its advertisement
+			 * (cleanup)
+			 * 
+			 * WARNING: for our first tests, we are creating a new domain on each
+			 * test.
+			 */
+			business = new CejugClassifiedsServiceBusiness()
+					.getCejugClassifiedsBusiness();
+
+			CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
+					.getCejugClassifiedsAdmin();
+
+			// TODO: review (it is only a test)
+			String domain = "cejug.functional.test.domain"
+					+ System.currentTimeMillis();
+			newDomain = new Domain();
+			newDomain.setDomain(domain);
+			newDomain.setBrand("CEJUG");
+			newDomain.setSharedQuota(true);
+			newDomain.setTimezone("America/Fortaleza");
+			CreateDomainParam param = new CreateDomainParam();
+			param.setDomain(newDomain);
+			newDomain = admin.createDomainOperation(param);
+
+			AdvertisementType type = new AdvertisementType();
+			type.setDescription("oo");
+			type.setMaxAttachmentSize(300);
+			type.setName("courtesy");
+			type.setMaxTextLength(250);
+			CreateAdvertisementTypeParam advParam = new CreateAdvertisementTypeParam();
+			advParam.setAdvertisementType(type);
+			admin.createAdvertisementTypeOperation(advParam);
+
+			// TODO: admin.updateDomain();
+
+			// ServiceStatus status = facade.publishOperation(bundle);
+
+			// connecting the web-service and calling the publish operation
+			/*
+			 * URL wsdlLocation = new URL(
+			 * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
+			 * serviceName = new QName(
+			 * "http://cejug-classifieds.dev.java.net/server",
+			 * "CejugClassifiedsService");
+			 */
+
+			// include or activate a new advertisement (submit via service or direct
+			// into database)
 			/*
 			 * check if the test advertisement comes with the RSS
 			 */
@@ -183,7 +183,6 @@ public class PublishIntegrationTest { // extends Runner {
 					header);
 			assert status.getDescription().equalsIgnoreCase("OK");
 		} catch (Exception ee) {
-			ee.printStackTrace();
 			Assert.fail(ee.getMessage());
 		}
 	}
