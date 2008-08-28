@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
@@ -66,7 +67,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class DomainMaintenanceIntegrationTest {
-        private static int idCounter = 0;
+        private static Random random = new Random();
 
 	private transient CejugClassifiedsAdmin admin = null;
 
@@ -103,13 +104,16 @@ public class DomainMaintenanceIntegrationTest {
 
 		// CREATE
 		Domain domain = new Domain();
-		domain.setDomain("functional.test." + idCounter++);
+		String name = "test." + Math.abs(random.nextInt()) + "." + Math.abs(random.nextInt());
+		System.out.println(name);
+		domain.setDomain(name);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());
 		CreateDomainParam createParam = new CreateDomainParam();
 		createParam.setDomain(domain);
-		domain = admin.createDomainOperation(createParam);
+	        domain = admin.createDomainOperation(createParam);
+		
 		Assert.assertNotNull(domain.getId());
 
 		// READ
@@ -118,7 +122,7 @@ public class DomainMaintenanceIntegrationTest {
 
 		boolean createdOk = false;
 		for (Domain readDomain : domains) {
-			if (readDomain.getDomain().equals(domain.getDomain())) {
+			if (readDomain.getId().equals(domain.getId())) {
 				// The just created domain has no ID, so we need to lookup for
 				// its domain name in the received list in order to know its ID.
 				domain = readDomain;

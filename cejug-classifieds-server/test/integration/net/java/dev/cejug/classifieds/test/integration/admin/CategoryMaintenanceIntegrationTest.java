@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -69,7 +70,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class CategoryMaintenanceIntegrationTest {
-        private static int idCounter = 0;
+        private static Random random = new Random();
 
 	/**
 	 * We first store the number of already available categories. After all
@@ -100,20 +101,6 @@ public class CategoryMaintenanceIntegrationTest {
 		// database pre-setup
 	}
 
-	/**
-	 * Shared count categories method, to be sure the same counting mechanism is
-	 * used before and after the tests. It loads from the server a list of
-	 * available categories and returns its size.
-	 * 
-	 * @return the number of categories stored in the database.
-	 */
-	private int countAvailableCategoriesOnDatabase(CejugClassifiedsAdmin admin) {
-		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(new BundleRequest())
-				.getAdvertisementCategory();
-		return categories.size();
-
-	}
 
 	@Test
 	public void testingSoapWebService() {
@@ -142,10 +129,7 @@ public class CategoryMaintenanceIntegrationTest {
 			InitialContext ctx = new InitialContext(props);
 			CejugClassifiedsAdmin adminSessionBean = (ClassifiedsAdminRemote) ctx
 					.lookup("net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote");
-			int availableCategoriesBeforeTests = countAvailableCategoriesOnDatabase(adminSessionBean);
 			crudCategory(adminSessionBean);
-			Assert.assertEquals(availableCategoriesBeforeTests,
-					countAvailableCategoriesOnDatabase(adminSessionBean));
 		} catch (NamingException n) {
 			n.printStackTrace();
 			Assert.fail(n.getMessage());
@@ -155,12 +139,13 @@ public class CategoryMaintenanceIntegrationTest {
 	private void crudCategory(CejugClassifiedsAdmin admin) {
 		// CREATE
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("FunctionalTest" + idCounter++);
+		category.setName("test.cat." + Math.abs(random.nextInt()) + "." + Math.abs(random.nextInt()));
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");
 		category.setDescription("Functional Category Test.");
 		CreateCategoryParam catParam = new CreateCategoryParam();
 		catParam.setAdvertisementCategory(category);
+		System.out.println(catParam.getAdvertisementCategory().getName());
 		AdvertisementCategory newCategory = admin
 				.createCategoryOperation(catParam);
 		// Assert.assertEquals(status.getStatusCode(), 200);
@@ -185,7 +170,7 @@ public class CategoryMaintenanceIntegrationTest {
 				+ newCategory.getId(), greenBar);
 
 		// UPDATE
-		String newName = "NewName" + idCounter++;
+		String newName = "test." + random.nextInt() + "." + random.nextInt();
 		newCategory.setName(newName);
 		UpdateCategoryParam updateParam = new UpdateCategoryParam();
 		updateParam.setAdvertisementCategory(newCategory);
