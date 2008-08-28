@@ -48,8 +48,23 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"LOGIN", "DOMAIN" }) })
-@NamedQuery(name = "selectCustomerByLoginAndDomain", query = "SELECT c FROM CustomerEntity c WHERE c.domain.id= :d AND c.login= :l")
+@NamedQuery(name = CustomerEntity.QUERIES.SELECT_BY_DOMAIN, query = "SELECT c FROM CustomerEntity c WHERE c.domain.id= :domain AND c.login= :login")
 public class CustomerEntity extends AbstractEntity {
+        public static class QUERIES {
+          /**
+           * Parameters:
+           * <ul>
+           * <li><strong>login</strong>: the customer login (use <code>CustomerEntity.QUERIES.SELECT_BY_DOMAIN_LOGIN</code>).</li>
+           * <li><strong>domain</strong>: the domain of the customer (use <code>CustomerEntity.QUERIES.SELECT_BY_DOMAIN_DOMAIN</code>).</li>
+           * </ul>
+           */
+          public static final String SELECT_BY_DOMAIN = "selectByLoginAndDomain";
+          /** {@value} */
+          public static final String SELECT_BY_DOMAIN_LOGIN = "login";
+          /** {@value} */
+          public static final String SELECT_BY_DOMAIN_DOMAIN = "domain";
+        }
+  
 
 	@Column(name = "LOGIN", nullable = false)
 	private String login;

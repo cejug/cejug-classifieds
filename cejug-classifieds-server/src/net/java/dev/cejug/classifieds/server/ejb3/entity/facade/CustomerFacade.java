@@ -44,7 +44,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 @Stateless
 public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 		CustomerFacadeLocal {
-
 	@EJB
 	private transient DomainFacadeLocal domainFacade;
 
@@ -53,9 +52,9 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {
 		Query query = manager
-				.createNamedQuery("selectCustomerByLoginAndDomain");
-		query.setParameter("d", Integer.valueOf(domainId));
-		query.setParameter("l", login);
+				.createNamedQuery(CustomerEntity.QUERIES.SELECT_BY_DOMAIN);
+		query.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_DOMAIN, Integer.valueOf(domainId));
+		query.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_LOGIN, login);
 
 		try {
 			return (CustomerEntity) query.getSingleResult();
