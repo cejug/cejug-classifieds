@@ -2,8 +2,6 @@ package net.java.dev.cejug.classifieds.test.integration;
 
 import java.util.List;
 
-import junit.framework.ComparisonFailure;
-
 import net.java.dev.cejug.classifieds.test.integration.admin.AdminTestSuite;
 
 import org.junit.Assert;

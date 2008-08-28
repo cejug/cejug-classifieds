@@ -49,7 +49,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.Description;
 
 /**
  * Test the diploma validation operation.
@@ -60,8 +59,7 @@ import org.junit.runner.Description;
 public class PublishIntegrationTest { // extends Runner {
 	private transient CejugClassifiedsBusiness business;
 	private transient Domain newDomain;
-	private Description description = Description.createTestDescription(
-			PublishIntegrationTest.class, "Advertisement publishing test.");
+	// private Description description = Description.createTestDescription(PublishIntegrationTest.class, "Advertisement publishing test.");
 
 	@Before
 	public void setUp() throws Exception {
@@ -150,7 +148,7 @@ public class PublishIntegrationTest { // extends Runner {
 			Advertisement advertisement = new Advertisement();
 			Customer customer = new Customer();
 			customer.setLogin("fgaucho");
-			customer.setDomain(newDomain.getDomain());
+			customer.setDomainId(newDomain.getId());
 			advertisement.setCustomer(customer);
 
 			// Publishing period
@@ -178,7 +176,7 @@ public class PublishIntegrationTest { // extends Runner {
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(2);
+			header.setCustomerDomainId(newDomain.getId());
 			header.setCustomerLogin("fgaucho");
 
 			ServiceStatus status = business.publishOperation(advertisement,

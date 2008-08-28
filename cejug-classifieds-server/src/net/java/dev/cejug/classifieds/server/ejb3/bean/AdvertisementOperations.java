@@ -86,7 +86,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
-
+	  
 		// TODO: load advertisements from timetable.... filtering with periods,
 		// etc..
 
@@ -97,9 +97,10 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			for (AdvertisementEntity entity : entities) {
 				Advertisement adv = new Advertisement();
 				adv.setId(entity.getId());
+				CustomerEntity entityCustomer = entity.getCustomer();
 				Customer newCustomer = new Customer();
-				newCustomer.setDomain("www.cejug.org");
-				newCustomer.setLogin("test");
+				newCustomer.setDomainId(entityCustomer.getDomain().getId());
+				newCustomer.setLogin(entityCustomer.getLogin());
 				adv.setCustomer(newCustomer);
 				adv.setFullText(entity.getText());
 				adv
