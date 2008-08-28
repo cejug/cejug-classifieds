@@ -43,7 +43,6 @@ public class ConcurrentTestSuite {
 
 			// TODO: include a decent timer here instead of this blatant
 			// counter.
-			int i = 0;
 			while (notifier.getThreadCounter() > 0) {
 				Thread.yield();
 			}
