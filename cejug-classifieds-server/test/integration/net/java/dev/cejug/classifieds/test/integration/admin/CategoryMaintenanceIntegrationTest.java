@@ -70,7 +70,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class CategoryMaintenanceIntegrationTest {
-        private static Random random = new Random();
+	private static Random random = new Random();
 
 	/**
 	 * We first store the number of already available categories. After all
@@ -101,7 +101,6 @@ public class CategoryMaintenanceIntegrationTest {
 		// database pre-setup
 	}
 
-
 	@Test
 	public void testingSoapWebService() {
 		try {
@@ -109,7 +108,8 @@ public class CategoryMaintenanceIntegrationTest {
 					.getCejugClassifiedsAdmin();
 			// CREATE
 			AdvertisementCategory category = new AdvertisementCategory();
-			category.setName("test.cat." + random.nextInt() + "." + random.nextInt());
+			category.setName("test.cat." + random.nextInt() + "."
+					+ random.nextInt());
 			category
 					.setDescription("This category was created just for testing, you are free to delete it");
 			category.setDescription("Functional Category Test.");
@@ -123,8 +123,10 @@ public class CategoryMaintenanceIntegrationTest {
 			// READ
 			BundleRequest param = new BundleRequest();
 			List<AdvertisementCategory> categories = admin
-					.readCategoryBundleOperation(param).getAdvertisementCategory();
-			// We created a category on the setup method, so we assume there is at
+					.readCategoryBundleOperation(param)
+					.getAdvertisementCategory();
+			// We created a category on the setup method, so we assume there is
+			// at
 			// least 1 category.
 			Assert.assertFalse(categories.isEmpty());
 
@@ -140,19 +142,22 @@ public class CategoryMaintenanceIntegrationTest {
 					+ newCategory.getId(), greenBar);
 
 			// UPDATE
-			String newName = "test." + random.nextInt() + "." + random.nextInt();
+			String newName = "test." + random.nextInt() + "."
+					+ random.nextInt();
 			newCategory.setName(newName);
 			UpdateCategoryParam updateParam = new UpdateCategoryParam();
 			updateParam.setAdvertisementCategory(newCategory);
 			admin.updateCategoryOperation(updateParam);
 			List<AdvertisementCategory> updatedCategories = admin
-					.readCategoryBundleOperation(param).getAdvertisementCategory();
+					.readCategoryBundleOperation(param)
+					.getAdvertisementCategory();
 
 			greenBar = false;
 			for (AdvertisementCategory advertisementCategory : updatedCategories) {
 				if (advertisementCategory.getId().equals(newCategory.getId())) {
 					// Check if the received category has the newly create name.
-					Assert.assertEquals(advertisementCategory.getName(), newName);
+					Assert.assertEquals(advertisementCategory.getName(),
+							newName);
 					greenBar = true;
 					break;
 				}
@@ -164,7 +169,8 @@ public class CategoryMaintenanceIntegrationTest {
 			// remove or inactive the test advertisement
 			DeleteCategoryParam deleteParam = new DeleteCategoryParam();
 			deleteParam.setPrimaryKey(newCategory.getId());
-			ServiceStatus deleteStatus = admin.deleteCategoryOperation(deleteParam);
+			ServiceStatus deleteStatus = admin
+					.deleteCategoryOperation(deleteParam);
 			Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 
 		} catch (Exception n) {
@@ -196,7 +202,8 @@ public class CategoryMaintenanceIntegrationTest {
 	private void crudCategory(CejugClassifiedsAdmin admin) {
 		// CREATE
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("test.cat." + random.nextInt() + "." + random.nextInt());
+		category.setName("test.cat." + random.nextInt() + "."
+				+ random.nextInt());
 		category
 				.setDescription("This category was created just for testing, you are free to delete it");
 		category.setDescription("Functional Category Test.");

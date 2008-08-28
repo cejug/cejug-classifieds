@@ -86,7 +86,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
-	  
+
 		// TODO: load advertisements from timetable.... filtering with periods,
 		// etc..
 

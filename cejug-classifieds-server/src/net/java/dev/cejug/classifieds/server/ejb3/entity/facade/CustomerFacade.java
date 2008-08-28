@@ -53,8 +53,11 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 			IllegalArgumentException, TransactionRequiredException {
 		Query query = manager
 				.createNamedQuery(CustomerEntity.QUERIES.SELECT_BY_DOMAIN);
-		query.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_DOMAIN, Integer.valueOf(domainId));
-		query.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_LOGIN, login);
+		query.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_DOMAIN,
+				Integer.valueOf(domainId));
+		query
+				.setParameter(CustomerEntity.QUERIES.SELECT_BY_DOMAIN_LOGIN,
+						login);
 
 		try {
 			return (CustomerEntity) query.getSingleResult();

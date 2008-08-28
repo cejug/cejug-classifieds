@@ -68,8 +68,8 @@ public class DomainOperations extends AbstractOperation implements
 	public Domain createDomainOperation(final CreateDomainParam newDomain) {
 		try {
 			// TODO: review validation...
-		        Domain domain = newDomain.getDomain();      
-      		        DomainEntity entity = fillDomainEntity(domain);
+			Domain domain = newDomain.getDomain();
+			DomainEntity entity = fillDomainEntity(domain);
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
 				for (AdvertisementCategory category : domain
@@ -80,12 +80,12 @@ public class DomainOperations extends AbstractOperation implements
 			}
 			entity.setCategories(categories);
 			domainFacade.create(entity);
-			return fillDomain(entity); 
+			return fillDomain(entity);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
-		
+
 	}
 
 	@Override

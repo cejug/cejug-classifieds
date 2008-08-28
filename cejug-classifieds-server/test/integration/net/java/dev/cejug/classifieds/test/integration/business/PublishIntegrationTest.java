@@ -59,7 +59,10 @@ import org.junit.Test;
 public class PublishIntegrationTest { // extends Runner {
 	private transient CejugClassifiedsBusiness business;
 	private transient Domain newDomain;
-	// private Description description = Description.createTestDescription(PublishIntegrationTest.class, "Advertisement publishing test.");
+
+	// private Description description =
+	// Description.createTestDescription(PublishIntegrationTest.class,
+	// "Advertisement publishing test.");
 
 	@Before
 	public void setUp() throws Exception {
@@ -91,13 +94,13 @@ public class PublishIntegrationTest { // extends Runner {
 			MalformedURLException {
 		try {
 			/*
-			 * -- TODO: review this code and do the proper test sequence: - create a
-			 * new domain, for tests - insert new advertisement - load the
-			 * advertisement - delete the domain and all of its advertisement
-			 * (cleanup)
+			 * -- TODO: review this code and do the proper test sequence: -
+			 * create a new domain, for tests - insert new advertisement - load
+			 * the advertisement - delete the domain and all of its
+			 * advertisement (cleanup)
 			 * 
-			 * WARNING: for our first tests, we are creating a new domain on each
-			 * test.
+			 * WARNING: for our first tests, we are creating a new domain on
+			 * each test.
 			 */
 			business = new CejugClassifiedsServiceBusiness()
 					.getCejugClassifiedsBusiness();
@@ -133,13 +136,14 @@ public class PublishIntegrationTest { // extends Runner {
 			// connecting the web-service and calling the publish operation
 			/*
 			 * URL wsdlLocation = new URL(
-			 * "http://localhost:8080/cejug-classifieds-server/server?wsdl"); QName
-			 * serviceName = new QName(
+			 * "http://localhost:8080/cejug-classifieds-server/server?wsdl");
+			 * QName serviceName = new QName(
 			 * "http://cejug-classifieds.dev.java.net/server",
 			 * "CejugClassifiedsService");
 			 */
 
-			// include or activate a new advertisement (submit via service or direct
+			// include or activate a new advertisement (submit via service or
+			// direct
 			// into database)
 			/*
 			 * check if the test advertisement comes with the RSS

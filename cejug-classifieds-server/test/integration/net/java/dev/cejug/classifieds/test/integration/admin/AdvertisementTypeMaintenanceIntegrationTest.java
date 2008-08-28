@@ -66,7 +66,7 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class AdvertisementTypeMaintenanceIntegrationTest {
-        private static int idCounter = 0;
+	private static int idCounter = 0;
 	private transient CejugClassifiedsAdmin admin = null;
 	private transient int availableAdvTypesBeforeTests = -1;
 

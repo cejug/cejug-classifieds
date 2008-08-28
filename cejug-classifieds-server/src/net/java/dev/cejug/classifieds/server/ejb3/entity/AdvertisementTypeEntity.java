@@ -37,7 +37,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "selectFromAdvertisementTypeEntity", query = "SELECT type FROM AdvertisementTypeEntity type")
 public class AdvertisementTypeEntity extends AbstractEntity implements
 		Comparable<AdvertisementTypeEntity> {
-  
+
 	@Column(name = "NAME", nullable = false)
 	private String name;
 

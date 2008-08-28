@@ -42,7 +42,7 @@ public interface DomainOperationsLocal {
 	/**
 	 * TODO: to comment.
 	 */
-        Domain createDomainOperation(final CreateDomainParam newDomain);
+	Domain createDomainOperation(final CreateDomainParam newDomain);
 
 	/**
 	 * TODO: to comment.

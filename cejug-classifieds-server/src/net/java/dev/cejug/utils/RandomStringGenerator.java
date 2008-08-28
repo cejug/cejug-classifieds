@@ -63,7 +63,7 @@ public class RandomStringGenerator {
 		int available = randomCharsBuffer.length();
 		randomCharsBuffer.delete(0, available > 1000 ? 150 : available / 10);
 		while (randomCharsBuffer.length() < length) {
-			char c = (char) (random.nextInt(200));
+			char c = (char) (random.nextInt(70));
 			if (accept(c)) {
 				randomCharsBuffer.append(c);
 			}

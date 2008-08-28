@@ -74,31 +74,29 @@ public abstract class AbstractOperation {
 	}
 
 	protected CategoryEntity fillCategoryEntity(
-            final AdvertisementCategory advCategory) {
-            CategoryEntity category = new CategoryEntity();
-            category.setId(advCategory.getId());
-            category.setDescripton(advCategory.getDescription());
-            category.setName(advCategory.getName());
-            return category;
-        }
-	
-        protected Domain fillDomain(
-            final DomainEntity entity) {
-          Domain domain = new Domain();
-          domain.setDomain(entity.getDomainName());
-          domain.setSharedQuota(entity.getSharedQuota());
-          domain.setBrand(entity.getBrand());
-          domain.setId(entity.getId());
-          return domain;
-        }
-        
-        protected DomainEntity fillDomainEntity(
-        final Domain domain) {
-          DomainEntity entity = new DomainEntity();
-          entity.setDomainName(domain.getDomain());
-          entity.setSharedQuota(domain.isSharedQuota());
-          entity.setBrand(domain.getBrand());
-          entity.setId(domain.getId());
-          return entity;
-        }
+			final AdvertisementCategory advCategory) {
+		CategoryEntity category = new CategoryEntity();
+		category.setId(advCategory.getId());
+		category.setDescripton(advCategory.getDescription());
+		category.setName(advCategory.getName());
+		return category;
+	}
+
+	protected Domain fillDomain(final DomainEntity entity) {
+		Domain domain = new Domain();
+		domain.setDomain(entity.getDomainName());
+		domain.setSharedQuota(entity.getSharedQuota());
+		domain.setBrand(entity.getBrand());
+		domain.setId(entity.getId());
+		return domain;
+	}
+
+	protected DomainEntity fillDomainEntity(final Domain domain) {
+		DomainEntity entity = new DomainEntity();
+		entity.setDomainName(domain.getDomain());
+		entity.setSharedQuota(domain.isSharedQuota());
+		entity.setBrand(domain.getBrand());
+		entity.setId(domain.getId());
+		return entity;
+	}
 }

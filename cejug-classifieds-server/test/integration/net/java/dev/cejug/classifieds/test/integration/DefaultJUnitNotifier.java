@@ -14,7 +14,7 @@ public class DefaultJUnitNotifier extends RunNotifier {
 	public List<Failure> getFailures() {
 		return failures;
 	}
-	
+
 	public void incrementThreadsCounter() {
 		threadCounter++;
 	}

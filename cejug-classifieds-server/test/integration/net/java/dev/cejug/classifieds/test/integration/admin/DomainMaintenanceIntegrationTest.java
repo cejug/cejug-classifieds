@@ -104,8 +104,7 @@ public class DomainMaintenanceIntegrationTest {
 
 		// CREATE
 		Domain domain = new Domain();
-		String name = "test." + random.nextInt() + "."
-				+ random.nextInt();
+		String name = "test." + random.nextInt() + "." + random.nextInt();
 		System.out.println(name);
 		domain.setDomain(name);
 		domain.setBrand("Functional Domain");
