@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/ext/findbugs/findbugs.jar"/>
 	<classpathentry kind="lib" path="lib/ext/junit-4.5.jar"/>
 	<classpathentry kind="lib" path="lib/ext/junit-dep-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/ext/dbmonster/dbmonster-core-1.0.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

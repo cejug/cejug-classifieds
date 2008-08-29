@@ -12,15 +12,15 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
 public class ConcurrentTestSuite {
-	private DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
-	private int concurrencyFactor = 10;
+	private transient final DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
+	private transient final int concurrencyFactor = 10;
 
 	@Test
 	public void admin() {
 		Suite.SuiteClasses annos = AdminTestSuite.class
 				.getAnnotation(Suite.SuiteClasses.class);
 		List<Failure> failures = runAll(annos);
-		if (failures.size() > 0) {
+		if (!failures.isEmpty()) {
 			Assert.fail(failures.get(0).getTrace());
 		}
 	}
@@ -30,7 +30,7 @@ public class ConcurrentTestSuite {
 		Suite.SuiteClasses annos = BusinessTestSuite.class
 				.getAnnotation(Suite.SuiteClasses.class);
 		List<Failure> failures = runAll(annos);
-		if (failures.size() > 0) {
+		if (!failures.isEmpty()) {
 			Assert.fail(failures.get(0).getTrace());
 		}
 	}
@@ -41,11 +41,10 @@ public class ConcurrentTestSuite {
 			Thread[] processes = new Thread[testSuite.length
 					* concurrencyFactor];
 
-			ThreadGroup adminTestSuiteGroup = new ThreadGroup("AdminTestSuite");
 			for (int i = 0; i < testSuite.length; i++) {
 				for (int j = 0; j < concurrencyFactor; j++) {
 					processes[i * concurrencyFactor + j] = new Thread(
-							adminTestSuiteGroup, new JUnitRunnable(
+							new JUnitRunnable(
 									testSuite[i], notifier));
 					notifier.incrementThreadsCounter();
 				}

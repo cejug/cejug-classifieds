@@ -12,7 +12,7 @@ import org.junit.runners.model.InitializationError;
  * 
  */
 public class JUnitRunnable extends BlockJUnit4ClassRunner implements Runnable {
-	private RunNotifier notifier;
+	private transient final RunNotifier notifier;
 
 	public JUnitRunnable(Class<?> testCase, RunNotifier notifier)
 			throws InitializationError {

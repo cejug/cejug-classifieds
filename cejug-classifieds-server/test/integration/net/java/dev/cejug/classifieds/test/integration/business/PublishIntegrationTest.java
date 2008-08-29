@@ -30,10 +30,10 @@ import java.util.Random;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
@@ -45,10 +45,14 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import pl.kernelpanic.dbmonster.DBMonster;
+import pl.kernelpanic.dbmonster.DBMonsterContext;
+import pl.kernelpanic.dbmonster.DictionaryManager;
+import pl.kernelpanic.dbmonster.generator.StringGenerator;
 
 /**
  * Test the diploma validation operation.
@@ -56,39 +60,23 @@ import org.junit.Test;
  * @author $Author:felipegaucho $
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class PublishIntegrationTest { // extends Runner {
-	private transient CejugClassifiedsBusiness business;
-	private transient Domain newDomain;
-
-	// private Description description =
-	// Description.createTestDescription(PublishIntegrationTest.class,
-	// "Advertisement publishing test.");
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * Utility method for creating of random strings.
-	 * 
-	 * @param length
-	 *            the string length, different in title, description and full
-	 *            text parts of the advertisements;
-	 * @return a random string.
-	 */
-	private String randomString(int length) {
-		String sKey = Long.toHexString(System.currentTimeMillis());
-		if (sKey.length() > length) {
-			sKey = sKey.substring(0, length);
-		}
-		return sKey;
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
-	}
-
+public class PublishIntegrationTest extends AbstractServiceTestCase {
+  private transient final StringGenerator strGen = new StringGenerator();
+        @Before
+        public void init() {
+          try {
+            DBMonsterContext ctx = new DBMonsterContext();
+            DictionaryManager dictmanager = new DictionaryManager();
+            Random random = new java.util.Random();
+            dictmanager.setRandom(random);
+            ctx.setProperty(DBMonster.DICTIONARY_MANAGER_KEY, dictmanager);
+            ctx.setProperty(DBMonster.RANDOM_KEY, random);
+            strGen.initialize(ctx);
+          } catch (Exception e) {
+            Assert.fail(e.getMessage());
+          }
+        }
+      
 	@Test
 	public void testPublishOperation() throws DatatypeConfigurationException,
 			MalformedURLException {
@@ -102,8 +90,8 @@ public class PublishIntegrationTest { // extends Runner {
 			 * WARNING: for our first tests, we are creating a new domain on
 			 * each test.
 			 */
-			business = new CejugClassifiedsServiceBusiness()
-					.getCejugClassifiedsBusiness();
+	                CejugClassifiedsBusiness service = 
+	                  getBusinessService().getCejugClassifiedsBusiness();
 
 			CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 					.getCejugClassifiedsAdmin();
@@ -111,7 +99,8 @@ public class PublishIntegrationTest { // extends Runner {
 			// TODO: review (it is only a test)
 			String domain = "cejug.functional.test.domain"
 					+ System.currentTimeMillis();
-			newDomain = new Domain();
+			      
+			Domain newDomain = new Domain();
 			newDomain.setDomain(domain);
 			newDomain.setBrand("CEJUG");
 			newDomain.setSharedQuota(true);
@@ -160,30 +149,36 @@ public class PublishIntegrationTest { // extends Runner {
 			Period period = new Period();
 			period.setStart(today);
 
-			Random random = new Random();
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
 			period.setFinish(fiveDaysLater);
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
-			advertisement.setHeadline(randomString(1 + random.nextInt(15)));
-			advertisement.setShortDescription(randomString(1 + random
-					.nextInt(50)));
-			advertisement.setFullText(randomString(1 + random.nextInt(250)));
+			strGen.setAllowSpaces(true);
+			strGen.setMinLength(1);
+			strGen.setMaxLength(15);
+			advertisement.setHeadline(strGen.generate().toString());
+			strGen.setMaxLength(40);
+			advertisement.setShortDescription(strGen.generate().toString());
+			strGen.setMaxLength(250);
+			advertisement.setFullText(strGen.generate().toString());
 			advertisement.setCategoryId(1);
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
-			advertisement.setKeywords(random.nextInt(20) + ", "
-					+ randomString(random.nextInt(20)));
+			
+			strGen.setAllowSpaces(false);
+			strGen.setMaxLength(20);
+			advertisement.setKeywords(strGen.generate().toString() + ", "
+					+ strGen.generate().toString());
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
 			header.setCustomerDomainId(newDomain.getId());
 			header.setCustomerLogin("fgaucho");
 
-			ServiceStatus status = business.publishOperation(advertisement,
+			ServiceStatus status = service.publishOperation(advertisement,
 					header);
 			assert status.getDescription().equalsIgnoreCase("OK");
 		} catch (Exception ee) {

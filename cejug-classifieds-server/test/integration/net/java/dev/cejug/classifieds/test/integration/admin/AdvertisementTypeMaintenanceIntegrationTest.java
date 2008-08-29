@@ -25,8 +25,8 @@ package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import java.util.List;
 
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
-import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
@@ -34,9 +34,7 @@ import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypePara
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -65,59 +63,13 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class AdvertisementTypeMaintenanceIntegrationTest {
+public class AdvertisementTypeMaintenanceIntegrationTest extends AbstractServiceTestCase {
 	private static int idCounter = 0;
-	private transient CejugClassifiedsAdmin admin = null;
-	private transient int availableAdvTypesBeforeTests = -1;
-
-	/**
-	 * We first store the number of already available advertisement types. After
-	 * all tests, we check this number again, to be sure our tests didn't
-	 * changed the state of the database.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle advertisement types errors.
-	 */
-	@Before
-	public void setUp() throws Exception {
-		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
-		availableAdvTypesBeforeTests = countAvailableAdvTypesOnDatabase();
-	}
-
-	/**
-	 * Shared count advertisement types method, to be sure the same counting
-	 * mechanism is used before and after the tests. It loads from the server a
-	 * list of available advertisement types and returns its size.
-	 * 
-	 * @return the number of advertisement types stored in the database.
-	 */
-	private int countAvailableAdvTypesOnDatabase() {
-		List<AdvertisementType> advertisementTypes = admin
-				.readAdvertisementTypeBundleOperation(
-						new ReadAdvertisementTypeBundleParam())
-				.getAdvertisementType();
-		return advertisementTypes.size();
-	}
-
-	/**
-	 * Check if the number of available advertisement types remains the same
-	 * after the tests. A successful test shouldn't modify the original state of
-	 * the database, otherwise we never know what to expect in the next test ;)
-	 * The server database is supposed to be reseted before a complete test run.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle advertisement types errors.
-	 */
-	@After
-	public void tearDown() throws Exception {
-		Assert.assertEquals(availableAdvTypesBeforeTests,
-				countAvailableAdvTypesOnDatabase());
-	}
 
 	@Test
 	public void crudCategory() {
+	        CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
+
 		// CREATE
 		AdvertisementType advType = new AdvertisementType();
 		advType.setName("FunctionalTest" + idCounter++);

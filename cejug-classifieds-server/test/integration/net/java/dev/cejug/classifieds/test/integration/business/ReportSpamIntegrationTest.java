@@ -24,6 +24,8 @@
 package net.java.dev.cejug.classifieds.test.integration.business;
 
 import junit.framework.Assert;
+
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
@@ -39,7 +41,7 @@ import org.junit.Test;
  * @author $Author:felipegaucho $
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class ReportSpamIntegrationTest {
+public class ReportSpamIntegrationTest extends AbstractServiceTestCase {
 
 	@Before
 	public void setUp() throws Exception {

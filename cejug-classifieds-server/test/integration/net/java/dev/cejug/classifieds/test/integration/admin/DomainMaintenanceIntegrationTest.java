@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
-import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
@@ -37,9 +37,7 @@ import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -66,42 +64,12 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class DomainMaintenanceIntegrationTest {
+public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 	private static Random random = new Random();
-
-	private transient CejugClassifiedsAdmin admin = null;
-
-	/**
-	 * We first store the number of already available categories. After all
-	 * tests, we check this number again, to be sure our tests didn't changed
-	 * the state of the database.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle categories errors.
-	 */
-	@Before
-	public void setUp() throws Exception {
-		admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
-	}
-
-	/**
-	 * Check if the number of available categories remains the same after the
-	 * tests. A successful test shouldn't modify the original state of the
-	 * database, otherwise we never know what to expect in the next test ;) The
-	 * server database is supposed to be reseted before a complete test run.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle categories errors.
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
 
 	@Test
 	public void crudDomain() {
-
+	        CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
 		// CREATE
 		Domain domain = new Domain();
 		String name = "test." + random.nextInt() + "." + random.nextInt();

@@ -8,8 +8,8 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 
 public class DefaultJUnitNotifier extends RunNotifier {
-	private int threadCounter = 0;
-	List<Failure> failures = new ArrayList<Failure>();
+	private transient int threadCounter = 0;
+	private transient final List<Failure> failures = new ArrayList<Failure>();
 
 	public List<Failure> getFailures() {
 		return failures;

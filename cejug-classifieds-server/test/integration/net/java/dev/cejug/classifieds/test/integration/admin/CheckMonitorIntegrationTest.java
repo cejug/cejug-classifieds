@@ -23,13 +23,11 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.admin;
 
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
-import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -38,26 +36,13 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class CheckMonitorIntegrationTest {
-
-	@Before
-	public void setUp() throws Exception {
-		// include or activate a new advertisement (submit via service or direct
-		// into database)
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		// remove or inactive the test advertisement
-	}
-
+public class CheckMonitorIntegrationTest extends AbstractServiceTestCase {
 	@Test
 	public void checkMonitor() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsAdmin service = new CejugClassifiedsServiceAdmin()
-				.getCejugClassifiedsAdmin();
+		CejugClassifiedsAdmin service = getAdminService().getCejugClassifiedsAdmin();
 		MonitorQuery query = new MonitorQuery();
 		query.setAlivePeriodsLength(5);
 		query.setResponseTimeLength(30);

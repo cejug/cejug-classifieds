@@ -26,13 +26,11 @@ package net.java.dev.cejug.classifieds.test.integration.business;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.w3._2005.atom.FeedType;
@@ -43,28 +41,14 @@ import org.w3._2005.atom.FeedType;
  * @author $Author:felipegaucho $
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
-public class LoadAtomIntegrationTest {
-
-	@Before
-	public void setUp() throws Exception {
-		// TODO: include or activate a new advertisement (submit via service or
-		// direct
-		// into database)
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		// TODO: remove or inactive the test advertisement
-	}
-
+public class LoadAtomIntegrationTest extends AbstractServiceTestCase {
 	@Ignore(value = "not yet implemented")
 	@Test
 	public void testAtomOperation() {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
+		CejugClassifiedsBusiness service = getBusinessService().getCejugClassifiedsBusiness();
 		SyndicationFilter filter = new SyndicationFilter();
 
 		// retrieve the advertisement RSS since yesterday to today.

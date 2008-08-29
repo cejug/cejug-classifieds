@@ -31,8 +31,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
+import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
-import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
@@ -40,9 +40,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -69,43 +67,13 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class CategoryMaintenanceIntegrationTest {
+public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase {
 	private static Random random = new Random();
-
-	/**
-	 * We first store the number of already available categories. After all
-	 * tests, we check this number again, to be sure our tests didn't changed
-	 * the state of the database.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle categories errors.
-	 */
-	@Before
-	public void setUp() throws Exception {
-		// database pre-setup
-	}
-
-	/**
-	 * Check if the number of available categories remains the same after the
-	 * tests. A successful test shouldn't modify the original state of the
-	 * database, otherwise we never know what to expect in the next test ;) The
-	 * server database is supposed to be reseted before a complete test run.
-	 * 
-	 * @throws Exception
-	 *             Generic exception, thrown by connection failure or read
-	 *             bundle categories errors.
-	 */
-	@After
-	public void tearDown() throws Exception {
-		// database pre-setup
-	}
 
 	@Test
 	public void testingSoapWebService() {
 		try {
-			CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
-					.getCejugClassifiedsAdmin();
+			CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
 			// CREATE
 			AdvertisementCategory category = new AdvertisementCategory();
 			category.setName("test.cat." + random.nextInt() + "."
