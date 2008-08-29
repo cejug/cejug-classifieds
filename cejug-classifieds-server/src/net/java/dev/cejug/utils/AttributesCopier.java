@@ -17,47 +17,30 @@ package net.java.dev.cejug.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.xml.ws.WebServiceException;
-
 public class AttributesCopier<S, T> {
+
   public static final String GET_PREFIX = "get";
   public static final String SET_PREFIX = "set";
 
   public void copyValuesByAttributeNames(S source, T target) throws SecurityException,
       NoSuchMethodException, IllegalArgumentException, InstantiationException,
       IllegalAccessException, InvocationTargetException {
-    try {
-      Method[] targetMethods = target.getClass().getMethods();
-      Class<?> sourceType = source.getClass();
-      Method[] m = sourceType.getMethods();
-      for(Method mm : m) {
-        System.out.println("M: " + mm.getName());
-      }
-      for (Method setter : targetMethods) {
-        String setterName = setter.getName();
-        if (setterName.startsWith(SET_PREFIX)) {
-          String getterName = GET_PREFIX + setterName.substring(3);
-          try{
-            System.out.println("GETTER NAME = '" + getterName + "'");
-            Method getter = 
-              sourceType.getMethod(getterName, new Class[0]);
-            if (getter != null) {
-              Class<?> getType = getter.getReturnType();
-              Class<?>[] setTypes = setter.getParameterTypes();
-              if (setTypes.length == 1 && setTypes[0].isAssignableFrom(getType)) {
-                Object sourceAttributeValue = getter.invoke(source, new Object[0]);
-                setter.invoke(target, new Object[]{sourceAttributeValue});
-                System.out.println(getterName + "() --> " + setterName + "() OK :)");
-              }
-            }
-          } catch(NoSuchMethodException error) {
-            System.out.println("NAO EXISTE: " + error.getMessage());
+    Method[] setterCandidates = target.getClass().getMethods();
+    Class<?> sourceType = source.getClass();
+    for (Method setter : setterCandidates) {
+      String setterName = setter.getName();
+      if (setterName.startsWith(SET_PREFIX)) {
+        String getterName = GET_PREFIX + setterName.substring(3);
+        Method getter = sourceType.getMethod(getterName, new Class[0]);
+        if (getter != null) {
+          Class<?> getType = getter.getReturnType();
+          Class<?>[] setTypes = setter.getParameterTypes();
+          if (setTypes.length == 1 && setTypes[0].isAssignableFrom(getType)) {
+            Object sourceAttributeValue = getter.invoke(source, new Object[0]);
+            setter.invoke(target, new Object[]{sourceAttributeValue});
           }
         }
       }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-      throw new WebServiceException(e);
     }
   }
 }
