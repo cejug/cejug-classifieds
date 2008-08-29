@@ -69,11 +69,12 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 
 	@Test
 	public void crudDomain() {
-	        CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
+		CejugClassifiedsAdmin admin = getAdminService()
+				.getCejugClassifiedsAdmin();
 		// CREATE
 		Domain domain = new Domain();
 		String name = "test." + random.nextInt() + "." + random.nextInt();
-		System.out.println(name);
+
 		domain.setDomain(name);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);

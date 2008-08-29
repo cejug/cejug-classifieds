@@ -63,12 +63,14 @@ import org.junit.Test;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public class AdvertisementTypeMaintenanceIntegrationTest extends AbstractServiceTestCase {
+public class AdvertisementTypeMaintenanceIntegrationTest extends
+		AbstractServiceTestCase {
 	private static int idCounter = 0;
 
 	@Test
 	public void crudCategory() {
-	        CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
+		CejugClassifiedsAdmin admin = getAdminService()
+				.getCejugClassifiedsAdmin();
 
 		// CREATE
 		AdvertisementType advType = new AdvertisementType();

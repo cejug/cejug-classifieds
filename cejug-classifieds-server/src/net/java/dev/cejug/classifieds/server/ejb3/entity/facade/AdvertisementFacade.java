@@ -23,16 +23,35 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  * @see CRUDEntityFacade
  */
 @Stateless
 public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
 		implements AdvertisementFacadeLocal {
+
+	/**
+	 * Read all advertisements of a category.
+	 * 
+	 * @param categoryId
+	 *            The ID of the advertisements' category.
+	 * @return a list of advertisements of a certain category.
+	 */
+	public List<AdvertisementEntity> readByCategory(final int categoryId)
+			throws IllegalStateException, IllegalArgumentException {
+		Query query = manager
+				.createNamedQuery(AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY);
+		query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID,
+				Integer.valueOf(categoryId));
+		return doQuery(query);
+	}
 }

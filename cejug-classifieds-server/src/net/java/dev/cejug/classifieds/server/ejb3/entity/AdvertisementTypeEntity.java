@@ -25,7 +25,6 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -34,7 +33,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADVERTISEMENT_TYPE")
-@NamedQuery(name = "selectFromAdvertisementTypeEntity", query = "SELECT type FROM AdvertisementTypeEntity type")
 public class AdvertisementTypeEntity extends AbstractEntity implements
 		Comparable<AdvertisementTypeEntity> {
 

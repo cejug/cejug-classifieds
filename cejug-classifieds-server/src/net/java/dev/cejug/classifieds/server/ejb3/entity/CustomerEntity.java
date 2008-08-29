@@ -50,12 +50,14 @@ import javax.persistence.UniqueConstraint;
 		"LOGIN", "DOMAIN" }) })
 @NamedQuery(name = CustomerEntity.QUERIES.SELECT_BY_DOMAIN, query = "SELECT c FROM CustomerEntity c WHERE c.domain.id= :domain AND c.login= :login")
 public class CustomerEntity extends AbstractEntity {
-	public static class QUERIES {
+	public static final class QUERIES {
 		/**
 		 * Parameters:
 		 * <ul>
-		 * <li><code>CustomerEntity.QUERIES.PARAM_LOGIN</code>: the customer login.</li>
-		 * <li><code>CustomerEntity.QUERIES.PARAM_DOMAIN</code>: the domain of the customer</li>
+		 * <li><code>CustomerEntity.QUERIES.PARAM_LOGIN</code>: the customer
+		 * login.</li>
+		 * <li><code>CustomerEntity.QUERIES.PARAM_DOMAIN</code>: the domain of
+		 * the customer</li>
 		 * </ul>
 		 */
 		public static final String SELECT_BY_DOMAIN = "selectByLoginAndDomain";

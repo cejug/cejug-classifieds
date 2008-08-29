@@ -35,11 +35,13 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
+import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
@@ -61,22 +63,23 @@ import pl.kernelpanic.dbmonster.generator.StringGenerator;
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 public class PublishIntegrationTest extends AbstractServiceTestCase {
-  private transient final StringGenerator strGen = new StringGenerator();
-        @Before
-        public void init() {
-          try {
-            DBMonsterContext ctx = new DBMonsterContext();
-            DictionaryManager dictmanager = new DictionaryManager();
-            Random random = new java.util.Random();
-            dictmanager.setRandom(random);
-            ctx.setProperty(DBMonster.DICTIONARY_MANAGER_KEY, dictmanager);
-            ctx.setProperty(DBMonster.RANDOM_KEY, random);
-            strGen.initialize(ctx);
-          } catch (Exception e) {
-            Assert.fail(e.getMessage());
-          }
-        }
-      
+	private transient final StringGenerator strGen = new StringGenerator();
+
+	@Before
+	public void init() {
+		try {
+			DBMonsterContext ctx = new DBMonsterContext();
+			DictionaryManager dictmanager = new DictionaryManager();
+			Random random = new java.util.Random();
+			dictmanager.setRandom(random);
+			ctx.setProperty(DBMonster.DICTIONARY_MANAGER_KEY, dictmanager);
+			ctx.setProperty(DBMonster.RANDOM_KEY, random);
+			strGen.initialize(ctx);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
 	@Test
 	public void testPublishOperation() throws DatatypeConfigurationException,
 			MalformedURLException {
@@ -90,8 +93,8 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			 * WARNING: for our first tests, we are creating a new domain on
 			 * each test.
 			 */
-	                CejugClassifiedsBusiness service = 
-	                  getBusinessService().getCejugClassifiedsBusiness();
+			CejugClassifiedsBusiness service = getBusinessService()
+					.getCejugClassifiedsBusiness();
 
 			CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 					.getCejugClassifiedsAdmin();
@@ -99,7 +102,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			// TODO: review (it is only a test)
 			String domain = "cejug.functional.test.domain"
 					+ System.currentTimeMillis();
-			      
+
 			Domain newDomain = new Domain();
 			newDomain.setDomain(domain);
 			newDomain.setBrand("CEJUG");
@@ -118,6 +121,25 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			advParam.setAdvertisementType(type);
 			admin.createAdvertisementTypeOperation(advParam);
 
+			Random random = new Random();
+
+			int[] categoriesIds = new int[10];
+			// CREATE
+			for (int i = 0; i < categoriesIds.length; i++) {
+				AdvertisementCategory category = new AdvertisementCategory();
+				category.setName("test.cat." + random.nextInt() + "."
+						+ random.nextInt());
+				category
+						.setDescription("This category was created just for testing, you are free to delete it");
+				category.setDescription("Functional Category Test ("
+						+ System.currentTimeMillis() + ").");
+				CreateCategoryParam catParam = new CreateCategoryParam();
+				catParam.setAdvertisementCategory(category);
+
+				AdvertisementCategory newCategory = admin
+						.createCategoryOperation(catParam);
+				categoriesIds[i] = newCategory.getId();
+			}
 			// TODO: admin.updateDomain();
 
 			// ServiceStatus status = facade.publishOperation(bundle);
@@ -162,12 +184,13 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			advertisement.setShortDescription(strGen.generate().toString());
 			strGen.setMaxLength(250);
 			advertisement.setFullText(strGen.generate().toString());
-			advertisement.setCategoryId(1);
+			advertisement.setCategoryId(categoriesIds[(int) (Math.random()
+					* categoriesIds.length - 0.00001)]);
 			Locale locale = new Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
-			
+
 			strGen.setAllowSpaces(false);
 			strGen.setMaxLength(20);
 			advertisement.setKeywords(strGen.generate().toString() + ", "

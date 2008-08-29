@@ -45,18 +45,13 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> readAll(final Class<T> entityClass)
 			throws IllegalStateException, IllegalArgumentException {
 		Query query;
 		query = manager.createQuery("select e from "
 				+ entityClass.getSimpleName() + " e");
-		List<T> response = query.getResultList();
-		if (response == null) {
-			response = new ArrayList<T>();
-		}
-		return response;
+		return doQuery(query);
 	}
 
 	/**
@@ -111,5 +106,16 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 			IllegalArgumentException, TransactionRequiredException {
 		manager.merge(entity);
 		manager.flush();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> doQuery(Query query) throws IllegalStateException,
+			IllegalArgumentException {
+		List<T> response = query.getResultList();
+		if (response == null) {
+			response = new ArrayList<T>();
+		}
+		return response;
 	}
 }

@@ -65,26 +65,26 @@ public class CategoryOperations extends AbstractOperation implements
 	@Override
 	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam newCategory) {
-       	      try {
-                        AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity 
-                            = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
-          
-                        AdvertisementCategory advCategory = newCategory
-                          .getAdvertisementCategory();
-          		CategoryEntity entity =  new CategoryEntity();
-          		categoryToEntity.copyValuesByAttributeNames(advCategory, entity);
-          		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
-          		if (parent != null) {
-          		        CategoryEntity parentEntity =  new CategoryEntity();
-          		        categoryToEntity.copyValuesByAttributeNames(parent, parentEntity);
-          			entity.setParent(parentEntity);
-          		}
+		try {
+			AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
+
+			AdvertisementCategory advCategory = newCategory
+					.getAdvertisementCategory();
+			CategoryEntity entity = new CategoryEntity();
+			categoryToEntity.copyValuesByAttributeNames(advCategory, entity);
+			AdvertisementCategory parent = advCategory
+					.getAdvertisementCategory();
+			if (parent != null) {
+				CategoryEntity parentEntity = new CategoryEntity();
+				categoryToEntity.copyValuesByAttributeNames(parent,
+						parentEntity);
+				entity.setParent(parentEntity);
+			}
 
 			categoryFacade.create(entity);
-                        AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory
-                          = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
-                        AdvertisementCategory category = new AdvertisementCategory();
-                        entityToCategory.copyValuesByAttributeNames(entity, category);
+			AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
+			AdvertisementCategory category = new AdvertisementCategory();
+			entityToCategory.copyValuesByAttributeNames(entity, category);
 			return category;
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -121,12 +121,11 @@ public class CategoryOperations extends AbstractOperation implements
 		try {
 			List<CategoryEntity> categories = categoryFacade
 					.readAll(CategoryEntity.class);
-			AttributesCopier<CategoryEntity, AdvertisementCategory> copier 
-			  = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
+			AttributesCopier<CategoryEntity, AdvertisementCategory> copier = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
 			if (categories != null) {
 				for (CategoryEntity category : categories) {
-	                                AdvertisementCategory advCategory = new AdvertisementCategory();
-	                                copier.copyValuesByAttributeNames(category, advCategory);
+					AdvertisementCategory advCategory = new AdvertisementCategory();
+					copier.copyValuesByAttributeNames(category, advCategory);
 					categorySet.getAdvertisementCategory().add(advCategory);
 				}
 			}
@@ -145,8 +144,7 @@ public class CategoryOperations extends AbstractOperation implements
 
 		ServiceStatus status = new ServiceStatus();
 		try {
-                        AttributesCopier<AdvertisementCategory, CategoryEntity> copier 
-                          = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
+			AttributesCopier<AdvertisementCategory, CategoryEntity> copier = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
 			AdvertisementCategory advCategory = partialCategory
 					.getAdvertisementCategory();
 			CategoryEntity category = new CategoryEntity();
@@ -154,9 +152,9 @@ public class CategoryOperations extends AbstractOperation implements
 			AdvertisementCategory parent = advCategory
 					.getAdvertisementCategory();
 			if (parent != null) {
-	                  CategoryEntity entity = new CategoryEntity();
-	                  copier.copyValuesByAttributeNames(parent, entity);
-			  category.setParent(entity);
+				CategoryEntity entity = new CategoryEntity();
+				copier.copyValuesByAttributeNames(parent, entity);
+				category.setParent(entity);
 			}
 			categoryFacade.update(category);
 

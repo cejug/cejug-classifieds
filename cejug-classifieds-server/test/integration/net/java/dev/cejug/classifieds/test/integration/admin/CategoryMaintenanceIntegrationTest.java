@@ -73,7 +73,8 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 	@Test
 	public void testingSoapWebService() {
 		try {
-			CejugClassifiedsAdmin admin = getAdminService().getCejugClassifiedsAdmin();
+			CejugClassifiedsAdmin admin = getAdminService()
+					.getCejugClassifiedsAdmin();
 			// CREATE
 			AdvertisementCategory category = new AdvertisementCategory();
 			category.setName("test.cat." + random.nextInt() + "."
@@ -83,7 +84,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			category.setDescription("Functional Category Test.");
 			CreateCategoryParam catParam = new CreateCategoryParam();
 			catParam.setAdvertisementCategory(category);
-			System.out.println(catParam.getAdvertisementCategory().getName());
+
 			AdvertisementCategory newCategory = admin
 					.createCategoryOperation(catParam);
 			// Assert.assertEquals(status.getStatusCode(), 200);
@@ -162,7 +163,6 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 					.lookup("net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote");
 			crudCategory(adminSessionBean);
 		} catch (NamingException n) {
-			n.printStackTrace();
 			Assert.fail(n.getMessage());
 		}
 	}
@@ -177,7 +177,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 		category.setDescription("Functional Category Test.");
 		CreateCategoryParam catParam = new CreateCategoryParam();
 		catParam.setAdvertisementCategory(category);
-		System.out.println(catParam.getAdvertisementCategory().getName());
+
 		AdvertisementCategory newCategory = admin
 				.createCategoryOperation(catParam);
 		// Assert.assertEquals(status.getStatusCode(), 200);

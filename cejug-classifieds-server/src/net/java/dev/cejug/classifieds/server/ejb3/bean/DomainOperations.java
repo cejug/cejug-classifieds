@@ -73,12 +73,12 @@ public class DomainOperations extends AbstractOperation implements
 			DomainEntity entity = fillDomainEntity(domain);
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
-	                        AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity 
-	                            = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
+				AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
 				for (AdvertisementCategory category : domain
 						.getAdvertisementCategory()) {
 					CategoryEntity categoryEntity = new CategoryEntity();
-					categoryToEntity.copyValuesByAttributeNames(category, categoryEntity);
+					categoryToEntity.copyValuesByAttributeNames(category,
+							categoryEntity);
 					categories.add(categoryEntity);
 				}
 			}
@@ -134,10 +134,10 @@ public class DomainOperations extends AbstractOperation implements
 					if (domainEntity.getCategories() != null) {
 						for (CategoryEntity entity : domainEntity
 								.getCategories()) {
-				                        AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory
-				                          = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
+							AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
 							AdvertisementCategory category = new AdvertisementCategory();
-							entityToCategory.copyValuesByAttributeNames(entity, category);
+							entityToCategory.copyValuesByAttributeNames(entity,
+									category);
 							domain.getAdvertisementCategory().add(category);
 						}
 					}
@@ -166,13 +166,13 @@ public class DomainOperations extends AbstractOperation implements
 
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
-                                AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity 
-                                  = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
+				AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
 				for (AdvertisementCategory category : domain
 						.getAdvertisementCategory()) {
-                                    CategoryEntity categoryEntity = new CategoryEntity();
-                                    categoryToEntity.copyValuesByAttributeNames(category, categoryEntity);
-                                    categories.add(categoryEntity);
+					CategoryEntity categoryEntity = new CategoryEntity();
+					categoryToEntity.copyValuesByAttributeNames(category,
+							categoryEntity);
+					categories.add(categoryEntity);
 				}
 			}
 			domainEntity.setCategories(categories);

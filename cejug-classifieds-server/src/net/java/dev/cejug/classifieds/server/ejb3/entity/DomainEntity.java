@@ -30,7 +30,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,14 +37,12 @@ import javax.persistence.Table;
  * A domain is company or a group of people. The domain should be registered in
  * the Cejug-Classifieds system, and a domain has a unique domain name.
  * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 @Entity
 @Table(name = "DOMAIN")
-@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domainName= :domain")
 public class DomainEntity extends AbstractEntity {
-
 	@Column(name = "NAME", nullable = false, unique = true)
 	private String domainName;
 

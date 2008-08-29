@@ -42,7 +42,8 @@ public class CheckMonitorIntegrationTest extends AbstractServiceTestCase {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsAdmin service = getAdminService().getCejugClassifiedsAdmin();
+		CejugClassifiedsAdmin service = getAdminService()
+				.getCejugClassifiedsAdmin();
 		MonitorQuery query = new MonitorQuery();
 		query.setAlivePeriodsLength(5);
 		query.setResponseTimeLength(30);

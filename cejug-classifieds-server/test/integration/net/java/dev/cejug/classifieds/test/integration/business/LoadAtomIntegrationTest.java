@@ -48,7 +48,8 @@ public class LoadAtomIntegrationTest extends AbstractServiceTestCase {
 		/*
 		 * check if the test advertisement comes with the RSS
 		 */
-		CejugClassifiedsBusiness service = getBusinessService().getCejugClassifiedsBusiness();
+		CejugClassifiedsBusiness service = getBusinessService()
+				.getCejugClassifiedsBusiness();
 		SyndicationFilter filter = new SyndicationFilter();
 
 		// retrieve the advertisement RSS since yesterday to today.

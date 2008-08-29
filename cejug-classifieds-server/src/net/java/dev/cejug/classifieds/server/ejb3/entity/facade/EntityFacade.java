@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
@@ -95,4 +96,17 @@ public interface EntityFacade<T extends AbstractEntity> {
 	 */
 	void update(T entity) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
+
+	/**
+	 * Execute a query against the database and return the result set
+	 * (eventually empty).
+	 * 
+	 * @param query
+	 *            the named query.
+	 * @return a list of entities (eventually empty).
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
+	 */
+	List<T> doQuery(Query query) throws IllegalStateException,
+			IllegalArgumentException;
 }

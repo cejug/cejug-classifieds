@@ -43,14 +43,26 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  * 
  */
 @Entity
 @Table(name = "ADVERTISEMENT")
-@NamedQuery(name = "selectAdvertisementByFilter", query = "SELECT adv FROM AdvertisementEntity adv")
+@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId")
 public class AdvertisementEntity extends AbstractEntity {
+	public static final class QUERIES {
+		/**
+		 * Parameters:
+		 * <ul>
+		 * <li><code>CustomerEntity.PARAM_CATEGORY_ID</code>: the ID of the
+		 * category</li>
+		 * </ul>
+		 */
+		public static final String SELECT_BY_CATEGORY = "selectByCategory";
+		/** {@value} */
+		public static final String PARAM_CATEGORY_ID = "catId";
+	}
 
 	/**
 	 * This assumes a scheduled process (quartz?) that will update the status of

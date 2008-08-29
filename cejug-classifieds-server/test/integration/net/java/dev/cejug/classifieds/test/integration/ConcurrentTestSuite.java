@@ -44,8 +44,7 @@ public class ConcurrentTestSuite {
 			for (int i = 0; i < testSuite.length; i++) {
 				for (int j = 0; j < concurrencyFactor; j++) {
 					processes[i * concurrencyFactor + j] = new Thread(
-							new JUnitRunnable(
-									testSuite[i], notifier));
+							new JUnitRunnable(testSuite[i], notifier));
 					notifier.incrementThreadsCounter();
 				}
 			}

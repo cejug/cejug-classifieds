@@ -37,9 +37,7 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.rss.Channel;
 import net.java.dev.cejug_classifieds.rss.Item;
@@ -51,7 +49,8 @@ import net.java.dev.cejug_classifieds.rss.TGuid;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification</a>
+ * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification</a
+ *      >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
@@ -65,12 +64,6 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 */
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
-
-	/**
-	 * Persistence façade of Advertisement entities.
-	 */
-	@EJB
-	private transient CategoryFacadeLocal categoryFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -118,13 +111,9 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	public Rss loadRssOperation(SyndicationFilter filter) {
 		try {
 
-			// Category ID parameter is mandatory in the filter.
-			CategoryEntity category = categoryFacade.read(CategoryEntity.class,
-					Integer.valueOf(filter.getCategoryId()));
-
 			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade
-					.readAll(AdvertisementEntity.class);
+			List<AdvertisementEntity> result = advFacade.readByCategory(filter
+					.getCategoryId());
 
 			Rss rssFeed = new Rss();
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");

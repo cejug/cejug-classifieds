@@ -48,6 +48,10 @@ public class RssFeed extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		SyndicationFilter filter = new SyndicationFilter();
+		String categoryId = request.getParameter("category");
+		if (categoryId != null) {
+			filter.setCategoryId(Integer.valueOf(categoryId));
+		}
 		Rss rss = business.loadRssOperation(filter);
 
 		// Little trick: http://www.petefreitag.com/item/381.cfm

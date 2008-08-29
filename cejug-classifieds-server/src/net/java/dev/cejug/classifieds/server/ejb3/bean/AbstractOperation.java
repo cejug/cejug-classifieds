@@ -18,30 +18,24 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**
- * S - source object (with the members values to be copied)
- * T - target object (with blank members) 
+ * S - source object (with the members values to be copied) T - target object
+ * (with blank members)
  */
 public abstract class AbstractOperation {
-/*
-	protected AdvertisementCategory fillAdvertisementCategory(
-			final CategoryEntity entity) {
-		AdvertisementCategory cat = new AdvertisementCategory();
-		cat.setId(entity.getId());
-		cat.setDescription(entity.getDescription());
-		cat.setName(entity.getName());
-		cat.setAvailable(entity.getAvailable());
-		return cat;
-	}
-
-	protected CategoryEntity fillCategoryEntity(
-			final AdvertisementCategory advCategory) {
-		CategoryEntity category = new CategoryEntity();
-		category.setId(advCategory.getId());
-		category.setDescription(advCategory.getDescription());
-		category.setName(advCategory.getName());
-		return category;
-	}
-*/
+	/*
+	 * protected AdvertisementCategory fillAdvertisementCategory( final
+	 * CategoryEntity entity) { AdvertisementCategory cat = new
+	 * AdvertisementCategory(); cat.setId(entity.getId());
+	 * cat.setDescription(entity.getDescription());
+	 * cat.setName(entity.getName()); cat.setAvailable(entity.getAvailable());
+	 * return cat; }
+	 * 
+	 * protected CategoryEntity fillCategoryEntity( final AdvertisementCategory
+	 * advCategory) { CategoryEntity category = new CategoryEntity();
+	 * category.setId(advCategory.getId());
+	 * category.setDescription(advCategory.getDescription());
+	 * category.setName(advCategory.getName()); return category; }
+	 */
 	protected Domain fillDomain(final DomainEntity entity) {
 		Domain domain = new Domain();
 		domain.setDomain(entity.getDomainName());

@@ -17,26 +17,25 @@ package net.java.dev.cejug.classifieds.test.integration;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 
-
 /**
  * 
  */
 public abstract class AbstractServiceTestCase {
 
-  private static CejugClassifiedsServiceAdmin adminService = null;
-  private static CejugClassifiedsServiceBusiness businessService = null;
+	private static CejugClassifiedsServiceAdmin adminService = null;
+	private static CejugClassifiedsServiceBusiness businessService = null;
 
-  public synchronized static final CejugClassifiedsServiceBusiness getBusinessService() {
-    if (businessService == null) {
-      businessService = new CejugClassifiedsServiceBusiness();
-    }
-    return businessService;
-  }
+	public synchronized static final CejugClassifiedsServiceBusiness getBusinessService() {
+		if (businessService == null) {
+			businessService = new CejugClassifiedsServiceBusiness();
+		}
+		return businessService;
+	}
 
-  public synchronized static final CejugClassifiedsServiceAdmin getAdminService() {
-    if (adminService == null) {
-      adminService = new CejugClassifiedsServiceAdmin();
-    }
-    return adminService;
-  }
+	public synchronized static final CejugClassifiedsServiceAdmin getAdminService() {
+		if (adminService == null) {
+			adminService = new CejugClassifiedsServiceAdmin();
+		}
+		return adminService;
+	}
 }
