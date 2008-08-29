@@ -36,6 +36,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.DomainOperatio
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
+import net.java.dev.cejug.utils.AttributesCopier;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
@@ -72,9 +73,12 @@ public class DomainOperations extends AbstractOperation implements
 			DomainEntity entity = fillDomainEntity(domain);
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
+	                        AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity 
+	                            = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
 				for (AdvertisementCategory category : domain
 						.getAdvertisementCategory()) {
-					CategoryEntity categoryEntity = fillCategoryEntity(category);
+					CategoryEntity categoryEntity = new CategoryEntity();
+					categoryToEntity.copyValuesByAttributeNames(category, categoryEntity);
 					categories.add(categoryEntity);
 				}
 			}
@@ -128,9 +132,12 @@ public class DomainOperations extends AbstractOperation implements
 					domain.setSharedQuota(domainEntity.getSharedQuota());
 
 					if (domainEntity.getCategories() != null) {
-						for (CategoryEntity categoryEntity : domainEntity
+						for (CategoryEntity entity : domainEntity
 								.getCategories()) {
-							AdvertisementCategory category = fillAdvertisementCategory(categoryEntity);
+				                        AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory
+				                          = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
+							AdvertisementCategory category = new AdvertisementCategory();
+							entityToCategory.copyValuesByAttributeNames(entity, category);
 							domain.getAdvertisementCategory().add(category);
 						}
 					}
@@ -159,10 +166,13 @@ public class DomainOperations extends AbstractOperation implements
 
 			Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 			if (domain.getAdvertisementCategory() != null) {
+                                AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity 
+                                  = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
 				for (AdvertisementCategory category : domain
 						.getAdvertisementCategory()) {
-					CategoryEntity categoryEntity = fillCategoryEntity(category);
-					categories.add(categoryEntity);
+                                    CategoryEntity categoryEntity = new CategoryEntity();
+                                    categoryToEntity.copyValuesByAttributeNames(category, categoryEntity);
+                                    categories.add(categoryEntity);
 				}
 			}
 			domainEntity.setCategories(categories);

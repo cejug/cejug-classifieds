@@ -46,7 +46,7 @@ public class CategoryEntity extends AbstractEntity {
 	private String name;
 
 	@Column(name = "DESCRIPTION", nullable = false)
-	private String descripton;
+	private String description;
 
 	@Transient
 	private Integer available = 0;
@@ -68,14 +68,14 @@ public class CategoryEntity extends AbstractEntity {
 		this.name = name;
 	}
 
-	public String getDescripton() {
+	public String getDescription() {
 
-		return descripton;
+		return description;
 	}
 
-	public void setDescripton(final String descripton) {
+	public void setDescription(final String descripton) {
 
-		this.descripton = descripton;
+		this.description = descripton;
 	}
 
 	/**

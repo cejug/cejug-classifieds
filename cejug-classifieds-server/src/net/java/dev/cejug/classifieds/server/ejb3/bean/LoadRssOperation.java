@@ -51,6 +51,7 @@ import net.java.dev.cejug_classifieds.rss.TGuid;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
+ * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification</a>
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {

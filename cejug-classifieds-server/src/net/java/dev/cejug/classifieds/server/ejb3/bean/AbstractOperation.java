@@ -14,60 +14,20 @@
  */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.xml.ws.WebServiceException;
-
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
-import org.junit.Ignore;
-
+/**
+ * S - source object (with the members values to be copied)
+ * T - target object (with blank members) 
+ */
 public abstract class AbstractOperation {
-	@Ignore(value = "under construction!")
-	protected Object copyValuesByAttributeNames(Object source, Class<?> target)
-			throws SecurityException, NoSuchMethodException,
-			IllegalArgumentException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
-		try {
-			Constructor<?> defaultConstructor = target
-					.getConstructor(new Class[0]);
-			Object targetInstance = defaultConstructor
-					.newInstance(new Object[0]);
-			Method[] targetMethods = target.getMethods();
-			Class<?> sourceType = source.getClass();
-
-			for (Method method : targetMethods) {
-				String methodName = method.getName();
-				if (method.isAccessible() && methodName.startsWith("set")) {
-					String getterMethodName = "get"
-							+ method.getName().substring(3);
-					Method sourceMethod = sourceType.getMethod(
-							getterMethodName, new Class[0]);
-					if (sourceMethod != null) {
-						Object sourceAttributeValue = sourceMethod.invoke(
-								source, new Object[0]);
-						method.invoke(targetInstance,
-								new Object[] { sourceAttributeValue });
-					}
-				}
-			}
-			return targetInstance;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new WebServiceException(e);
-		}
-	}
-
+/*
 	protected AdvertisementCategory fillAdvertisementCategory(
 			final CategoryEntity entity) {
 		AdvertisementCategory cat = new AdvertisementCategory();
 		cat.setId(entity.getId());
-		cat.setDescription(entity.getDescripton());
+		cat.setDescription(entity.getDescription());
 		cat.setName(entity.getName());
 		cat.setAvailable(entity.getAvailable());
 		return cat;
@@ -77,11 +37,11 @@ public abstract class AbstractOperation {
 			final AdvertisementCategory advCategory) {
 		CategoryEntity category = new CategoryEntity();
 		category.setId(advCategory.getId());
-		category.setDescripton(advCategory.getDescription());
+		category.setDescription(advCategory.getDescription());
 		category.setName(advCategory.getName());
 		return category;
 	}
-
+*/
 	protected Domain fillDomain(final DomainEntity entity) {
 		Domain domain = new Domain();
 		domain.setDomain(entity.getDomainName());
