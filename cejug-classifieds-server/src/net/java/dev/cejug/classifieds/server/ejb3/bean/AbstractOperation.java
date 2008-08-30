@@ -38,7 +38,7 @@ public abstract class AbstractOperation {
 	 */
 	protected Domain fillDomain(final DomainEntity entity) {
 		Domain domain = new Domain();
-		domain.setDomain(entity.getDomainName());
+		domain.setUri(entity.getUri());
 		domain.setSharedQuota(entity.getSharedQuota());
 		domain.setBrand(entity.getBrand());
 		domain.setId(entity.getId());
@@ -47,7 +47,7 @@ public abstract class AbstractOperation {
 
 	protected DomainEntity fillDomainEntity(final Domain domain) {
 		DomainEntity entity = new DomainEntity();
-		entity.setDomainName(domain.getDomain());
+		entity.setUri(domain.getUri());
 		entity.setSharedQuota(domain.isSharedQuota());
 		entity.setBrand(domain.getBrand());
 		entity.setId(domain.getId());

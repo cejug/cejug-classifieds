@@ -84,7 +84,11 @@ public class DomainOperations extends AbstractOperation implements
 			}
 			entity.setCategories(categories);
 			domainFacade.create(entity);
-			return fillDomain(entity);
+
+			AttributesCopier<DomainEntity, Domain> entityToDomain = new AttributesCopier<DomainEntity, Domain>();
+			Domain response = new Domain();
+			entityToDomain.copyValuesByAttributeNames(entity, response);
+			return response;
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -128,7 +132,7 @@ public class DomainOperations extends AbstractOperation implements
 					Domain domain = new Domain();
 					domain.setId(domainEntity.getId());
 					domain.setBrand(domainEntity.getBrand());
-					domain.setDomain(domainEntity.getDomainName());
+					domain.setUri(domainEntity.getUri());
 					domain.setSharedQuota(domainEntity.getSharedQuota());
 
 					if (domainEntity.getCategories() != null) {
@@ -160,7 +164,7 @@ public class DomainOperations extends AbstractOperation implements
 			DomainEntity domainEntity = new DomainEntity();
 			Domain domain = partialDomain.getDomain();
 			domainEntity.setId(domain.getId());
-			domainEntity.setDomainName(domain.getDomain());
+			domainEntity.setUri(domain.getUri());
 			domainEntity.setBrand(domain.getBrand());
 			domainEntity.setSharedQuota(domain.isSharedQuota());
 

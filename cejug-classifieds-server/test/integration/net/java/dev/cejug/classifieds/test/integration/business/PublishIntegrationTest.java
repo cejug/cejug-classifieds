@@ -104,7 +104,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 					+ System.currentTimeMillis();
 
 			Domain newDomain = new Domain();
-			newDomain.setDomain(domain);
+			newDomain.setUri(domain);
 			newDomain.setBrand("CEJUG");
 			newDomain.setSharedQuota(true);
 			newDomain.setTimezone("America/Fortaleza");

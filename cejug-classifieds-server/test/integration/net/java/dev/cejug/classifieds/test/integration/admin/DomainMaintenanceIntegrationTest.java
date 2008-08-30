@@ -75,7 +75,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		Domain domain = new Domain();
 		String name = "test." + random.nextInt() + "." + random.nextInt();
 
-		domain.setDomain(name);
+		domain.setUri(name);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());

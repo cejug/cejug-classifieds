@@ -43,8 +43,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DOMAIN")
 public class DomainEntity extends AbstractEntity {
-	@Column(name = "NAME", nullable = false, unique = true)
-	private String domainName;
+	@Column(name = "URI", nullable = false, unique = true)
+	private String uri;
 
 	@Column(name = "SHARED_COTA", nullable = false)
 	private Boolean sharedQuota;
@@ -60,50 +60,41 @@ public class DomainEntity extends AbstractEntity {
 	private Collection<CategoryEntity> categories;
 
 	public Boolean getSharedQuota() {
-
 		return sharedQuota;
 	}
 
 	public void setSharedQuota(final Boolean sharedQuota) {
-
 		this.sharedQuota = sharedQuota;
 	}
 
 	public String getBrand() {
-
 		return brand;
 	}
 
 	public void setBrand(final String brand) {
-
 		this.brand = brand;
 	}
 
 	public Collection<QuotaEntity> getQuotas() {
-
 		return quotas;
 	}
 
 	public void setQuotas(final Collection<QuotaEntity> quotas) {
-
 		this.quotas = quotas;
 	}
 
-	public String getDomainName() {
-
-		return domainName;
+	public String getUri() {
+		return uri;
 	}
 
-	public void setDomainName(final String domainName) {
-
-		this.domainName = domainName;
+	public void setUri(final String uri) {
+		this.uri = uri;
 	}
 
 	/**
 	 * @return the categories
 	 */
 	public Collection<CategoryEntity> getCategories() {
-
 		return categories;
 	}
 
@@ -112,7 +103,6 @@ public class DomainEntity extends AbstractEntity {
 	 *            the categories to set
 	 */
 	public void setCategories(final Collection<CategoryEntity> categories) {
-
 		this.categories = categories;
 	}
 }

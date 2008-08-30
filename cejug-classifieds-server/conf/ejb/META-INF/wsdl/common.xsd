@@ -84,7 +84,7 @@
 			<xsd:sequence>
 				<xsd:element name="id" type="xsd:int" nillable="true" />
 				<xsd:element name="shared.quota" type="xsd:boolean" />
-				<xsd:element name="domain" type="xsd:string" />
+				<xsd:element name="uri" type="xsd:string" />
 				<xsd:element name="brand" type="xsd:string" />
 				<xsd:element name="timezone" type="xsd:string" default="Fortaleza/Ceara" />
 				<xsd:element ref="common:AdvertisementCategory"
