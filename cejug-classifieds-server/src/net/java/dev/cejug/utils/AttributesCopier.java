@@ -39,7 +39,6 @@ public class AttributesCopier<S, T> {
 	public static final String GET_PREFIX = "get";
 	public static final String SET_PREFIX = "set";
 	public static final int PREFIX_LENGTH = 3;
-	
 
 	/*
 	 * TODO: check the getter methods with return type List on the target
@@ -57,23 +56,25 @@ public class AttributesCopier<S, T> {
 		for (Method setter : setterCandidates) {
 			String setterName = setter.getName();
 			if (setterName.startsWith(SET_PREFIX)) {
-				Class<?>[] setTypes = setter.getParameterTypes();
-				if(setTypes.length != 1) {
+				Class<?>[] setterParamTypes = setter.getParameterTypes();
+				if (setterParamTypes.length == 0) {
 					continue;
 				}
-				
+
 				String getterName;
-				if (setTypes[0].isAssignableFrom(Boolean.class)) {
-					getterName = IS_PREFIX + setterName.substring(PREFIX_LENGTH);
+				if (setterParamTypes[0].isAssignableFrom(Boolean.class)) {
+					getterName = IS_PREFIX
+							+ setterName.substring(PREFIX_LENGTH);
 				} else {
-					getterName = GET_PREFIX + setterName.substring(PREFIX_LENGTH);
+					getterName = GET_PREFIX
+							+ setterName.substring(PREFIX_LENGTH);
 				}
 
 				Method getter = sourceType.getMethod(getterName, new Class[0]);
 				if (getter != null) {
 					Class<?> getType = getter.getReturnType();
 
-					if (setTypes[0].isAssignableFrom(getType)) {
+					if (setterParamTypes[0].isAssignableFrom(getType)) {
 						Object sourceAttributeValue = getter.invoke(source,
 								new Object[0]);
 						setter.invoke(target,

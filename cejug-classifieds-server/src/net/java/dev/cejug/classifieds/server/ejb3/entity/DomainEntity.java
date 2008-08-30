@@ -48,7 +48,7 @@ public class DomainEntity extends AbstractEntity {
 	@Column(name = "SHARED_COTA", nullable = false)
 	private Boolean sharedQuota;
 
-	public Boolean getSharedQuota() {
+	public Boolean isSharedQuota() {
 		return sharedQuota;
 	}
 
