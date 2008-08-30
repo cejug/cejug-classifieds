@@ -30,7 +30,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -46,8 +45,16 @@ public class DomainEntity extends AbstractEntity {
 	@Column(name = "URI", nullable = false, unique = true)
 	private String uri;
 
-	// @Column(name = "SHARED_COTA", nullable = false)
-	// private Boolean sharedQuota;
+	@Column(name = "SHARED_COTA", nullable = false)
+	private Boolean sharedQuota;
+
+	public Boolean getSharedQuota() {
+		return sharedQuota;
+	}
+
+	public void setSharedQuota(Boolean sharedQuota) {
+		this.sharedQuota = sharedQuota;
+	}
 
 	@Column(name = "BRAND", nullable = false)
 	private String brand;
@@ -57,7 +64,7 @@ public class DomainEntity extends AbstractEntity {
 
 	@ManyToMany
 	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
-	private Collection<CategoryEntity> categories;
+	private Collection<CategoryEntity> advertisementCategory;
 
 	public String getBrand() {
 		return brand;
@@ -78,15 +85,16 @@ public class DomainEntity extends AbstractEntity {
 	/**
 	 * @return the categories
 	 */
-	public Collection<CategoryEntity> getCategories() {
-		return categories;
+	public Collection<CategoryEntity> getAdvertisementCategory() {
+		return advertisementCategory;
 	}
 
 	/**
 	 * @param categories
 	 *            the categories to set
 	 */
-	public void setCategories(final Collection<CategoryEntity> categories) {
-		this.categories = categories;
+	public void setAdvertisementCategory(
+			final Collection<CategoryEntity> categories) {
+		this.advertisementCategory = categories;
 	}
 }

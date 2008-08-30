@@ -35,8 +35,11 @@ import java.lang.reflect.Method;
  */
 public class AttributesCopier<S, T> {
 
+	public static final String IS_PREFIX = "is";
 	public static final String GET_PREFIX = "get";
 	public static final String SET_PREFIX = "set";
+	public static final int PREFIX_LENGTH = 3;
+	
 
 	/*
 	 * TODO: check the getter methods with return type List on the target
@@ -54,13 +57,23 @@ public class AttributesCopier<S, T> {
 		for (Method setter : setterCandidates) {
 			String setterName = setter.getName();
 			if (setterName.startsWith(SET_PREFIX)) {
-				String getterName = GET_PREFIX + setterName.substring(3);
+				Class<?>[] setTypes = setter.getParameterTypes();
+				if(setTypes.length != 1) {
+					continue;
+				}
+				
+				String getterName;
+				if (setTypes[0].isAssignableFrom(Boolean.class)) {
+					getterName = IS_PREFIX + setterName.substring(PREFIX_LENGTH);
+				} else {
+					getterName = GET_PREFIX + setterName.substring(PREFIX_LENGTH);
+				}
+
 				Method getter = sourceType.getMethod(getterName, new Class[0]);
 				if (getter != null) {
 					Class<?> getType = getter.getReturnType();
-					Class<?>[] setTypes = setter.getParameterTypes();
-					if (setTypes.length == 1
-							&& setTypes[0].isAssignableFrom(getType)) {
+
+					if (setTypes[0].isAssignableFrom(getType)) {
 						Object sourceAttributeValue = getter.invoke(source,
 								new Object[0]);
 						setter.invoke(target,
