@@ -70,10 +70,14 @@ public class AdvertisementBean {
 			 * and it should be previously registered in the cejug-classifieds
 			 * server. Only known domain can publish advertisements.
 			 */
-			String domain = "www.cejug.org";
 			Advertisement advertisement = getAdvertisement();
 			Customer customer = new Customer();
-			customer.setDomain(domain);
+			/*
+			 * The domain ID will be mapped in the authentication credential
+			 * (pending security implementation). For now, let's just include
+			 * the had code 1 :(
+			 */
+			customer.setDomainId(1);
 			customer.setLogin("fgaucho");
 
 			advertisement.setCustomer(customer);
