@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.util.Collections;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -124,7 +126,10 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
-		return crudCategory.readCategoryBundleOperation(bundleRequest);
+		CategoryCollection collection = new CategoryCollection();
+		Collections.copy(collection.getAdvertisementCategory(), crudCategory
+				.readBundleOperation(bundleRequest));
+		return collection;
 	}
 
 	@Override

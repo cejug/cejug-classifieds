@@ -46,26 +46,18 @@ public class DomainEntity extends AbstractEntity {
 	@Column(name = "URI", nullable = false, unique = true)
 	private String uri;
 
-	@Column(name = "SHARED_COTA", nullable = false)
-	private Boolean sharedQuota;
+	// @Column(name = "SHARED_COTA", nullable = false)
+	// private Boolean sharedQuota;
 
 	@Column(name = "BRAND", nullable = false)
 	private String brand;
 
-	@OneToMany(mappedBy = "domain")
-	private Collection<QuotaEntity> quotas;
+	// @OneToMany(mappedBy = "domain")
+	// private Collection<QuotaEntity> quotas;
 
 	@ManyToMany
 	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
 	private Collection<CategoryEntity> categories;
-
-	public Boolean getSharedQuota() {
-		return sharedQuota;
-	}
-
-	public void setSharedQuota(final Boolean sharedQuota) {
-		this.sharedQuota = sharedQuota;
-	}
 
 	public String getBrand() {
 		return brand;
@@ -73,14 +65,6 @@ public class DomainEntity extends AbstractEntity {
 
 	public void setBrand(final String brand) {
 		this.brand = brand;
-	}
-
-	public Collection<QuotaEntity> getQuotas() {
-		return quotas;
-	}
-
-	public void setQuotas(final Collection<QuotaEntity> quotas) {
-		this.quotas = quotas;
 	}
 
 	public String getUri() {

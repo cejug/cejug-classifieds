@@ -21,36 +21,39 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.server.ejb3.bean;
+package net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import java.util.List;
 
-import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementTypeOperationsLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
+import javax.ejb.Local;
+
+import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
- * TODO: to comment.
- * 
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-@Stateless
-public class AdvertisementTypeOperations extends
-		AbstractCRUDOperations<AdvertisementTypeEntity, AdvertisementType>
-		implements AdvertisementTypeOperationsLocal {
-	@EJB
-	private transient AdvertisementTypeFacadeLocal facade;
+@Local
+public interface CRUDLocal<T> {
+	/**
+	 * TODO: to comment.
+	 */
+	T create(final T type);
 
-	public AdvertisementTypeOperations() {
-		super(AdvertisementTypeEntity.class, AdvertisementType.class);
-	}
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus update(final T type);
 
-	@Override
-	EntityFacade<AdvertisementTypeEntity> getEntityFacade() {
-		return facade;
-	}
+	/**
+	 * TODO: to comment.
+	 */
+	List<T> readBundleOperation(BundleRequest bundleRequest);
+
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus delete(final int id);
 }

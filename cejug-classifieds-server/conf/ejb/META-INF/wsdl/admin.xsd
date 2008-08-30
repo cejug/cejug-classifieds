@@ -123,7 +123,7 @@
 	<xsd:element name="ReadAdvertisementTypeBundleParam">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element ref="common:BundleRequest" />
+				<xsd:element ref="common:AdvertisementTypeBundleRequest" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -153,7 +153,7 @@
 	<xsd:element name="ReadDomainBundleParam">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element ref="common:BundleRequest" />
+				<xsd:element ref="common:DomainBundleRequest" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

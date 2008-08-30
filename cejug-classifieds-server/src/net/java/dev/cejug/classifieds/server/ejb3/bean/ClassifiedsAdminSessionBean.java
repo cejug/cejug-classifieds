@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -54,11 +55,11 @@ import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
@@ -107,7 +108,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	private transient CheckMonitorOperationLocal checkMonitorImpl;
 
 	/**
-	 * the global log manager, used to al low third party services to override
+	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
@@ -170,67 +171,72 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	}
 
 	@Override
-	public ServiceStatus createAdvertisementTypeOperation(
+	public AdvertisementType createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
-		return crudAdvType.createAdvertisementTypeOperation(newAdvType);
+		return crudAdvType.create(newAdvType.getAdvertisementType());
 	}
 
 	@Override
 	public AdvertisementCategory createCategoryOperation(
-			final CreateCategoryParam newCategory) {
-		return crudCategory.createCategoryOperation(newCategory);
+			final CreateCategoryParam param) {
+		return crudCategory.create(param.getAdvertisementCategory());
 	}
 
 	@Override
-	public Domain createDomainOperation(final CreateDomainParam newDomain) {
-		return crudDomain.createDomainOperation(newDomain);
+	public Domain createDomainOperation(final CreateDomainParam param) {
+		return crudDomain.create(param.getDomain());
 	}
 
 	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
-		return crudCategory.deleteCategoryOperation(obsoleteCategory);
+		return crudCategory.delete(obsoleteCategory.getPrimaryKey());
 	}
 
 	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
-		return crudDomain.deleteDomainOperation(obsoleteDomain);
+		return crudDomain.delete(obsoleteDomain.getPrimaryKey());
 	}
 
 	@Override
 	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
-			final ReadAdvertisementTypeBundleParam getAdvertisementTypes) {
-		return crudAdvType
-				.readAdvertisementTypeBundleOperation(getAdvertisementTypes);
+			final BundleRequest bundleRequest) {
+		AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
+		Collections.copy(collection.getAdvertisementType(), crudAdvType
+				.readBundleOperation(bundleRequest));
+		return collection;
 	}
 
 	@Override
-	public DomainCollection readDomainBundleOperation() {
-		return crudDomain.readDomainBundleOperation();
+	public DomainCollection readDomainBundleOperation(
+			BundleRequest bundleRequest) {
+		DomainCollection collection = new DomainCollection();
+		Collections.copy(crudDomain.readBundleOperation(bundleRequest),
+				collection.getDomain());
+		return collection;
 	}
 
 	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
-		return crudAdvType.updateAdvertisementTypeOperation(partialAdvType);
+		return crudAdvType.update(partialAdvType.getAdvertisementType());
 	}
 
 	@Override
-	public ServiceStatus updateCategoryOperation(
-			final UpdateCategoryParam partialCategory) {
-		return crudCategory.updateCategoryOperation(partialCategory);
+	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
+		return crudCategory.update(param.getAdvertisementCategory());
 	}
 
 	@Override
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
-		return crudDomain.updateDomainOperation(partialDomain);
+		return crudDomain.update(partialDomain.getDomain());
 	}
 
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
-		return crudAdvType.deleteAdvertisementTypeOperation(id);
+		return crudAdvType.delete(id);
 	}
 
 	@Override
@@ -264,6 +270,9 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			BundleRequest bundleRequest) {
-		return crudCategory.readCategoryBundleOperation(bundleRequest);
+		CategoryCollection collection = new CategoryCollection();
+		Collections.copy(collection.getAdvertisementCategory(), crudCategory
+				.readBundleOperation(bundleRequest));
+		return collection;
 	}
 }

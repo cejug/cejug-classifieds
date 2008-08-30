@@ -86,7 +86,8 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		Assert.assertNotNull(domain.getId());
 
 		// READ
-		List<Domain> domains = admin.readDomainBundleOperation().getDomain();
+		List<Domain> domains = admin.readDomainBundleOperation(
+				new BundleRequest()).getDomain();
 		Assert.assertFalse(domains.isEmpty());
 
 		boolean createdOk = false;
@@ -117,8 +118,8 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		ServiceStatus updateStatus = admin.updateDomainOperation(updateParam);
 		Assert.assertEquals(updateStatus.getStatusCode(), 200);
 
-		List<Domain> updatedDomains = admin.readDomainBundleOperation()
-				.getDomain();
+		List<Domain> updatedDomains = admin.readDomainBundleOperation(
+				new BundleRequest()).getDomain();
 
 		boolean updateOk = false;
 		for (Domain updatedDomain : updatedDomains) {

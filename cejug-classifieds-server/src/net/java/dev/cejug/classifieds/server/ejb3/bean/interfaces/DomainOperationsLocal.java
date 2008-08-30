@@ -25,38 +25,12 @@ package net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces;
 
 import javax.ejb.Local;
 
-import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
-import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
-import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
-import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Local
-public interface DomainOperationsLocal {
-
-	/**
-	 * TODO: to comment.
-	 */
-	Domain createDomainOperation(final CreateDomainParam newDomain);
-
-	/**
-	 * TODO: to comment.
-	 */
-	ServiceStatus updateDomainOperation(final UpdateDomainParam partialDomain);
-
-	/**
-	 * TODO: to comment.
-	 */
-	DomainCollection readDomainBundleOperation();
-
-	/**
-	 * TODO: to comment.
-	 */
-	ServiceStatus deleteDomainOperation(final DeleteDomainParam obsoleteDomain);
-
+public interface DomainOperationsLocal extends CRUDLocal<Domain> {
 }

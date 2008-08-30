@@ -35,7 +35,7 @@ public abstract class AbstractOperation {
 	 * category.setId(advCategory.getId());
 	 * category.setDescription(advCategory.getDescription());
 	 * category.setName(advCategory.getName()); return category; }
-	 */
+	 *
 	protected Domain fillDomain(final DomainEntity entity) {
 		Domain domain = new Domain();
 		domain.setUri(entity.getUri());
@@ -52,5 +52,5 @@ public abstract class AbstractOperation {
 		entity.setBrand(domain.getBrand());
 		entity.setId(domain.getId());
 		return entity;
-	}
+	}*/
 }

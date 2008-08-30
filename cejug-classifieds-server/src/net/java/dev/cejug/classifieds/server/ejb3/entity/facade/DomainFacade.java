@@ -28,8 +28,8 @@ import javax.ejb.Stateless;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  * @see CRUDEntityFacade
  */
 @Stateless

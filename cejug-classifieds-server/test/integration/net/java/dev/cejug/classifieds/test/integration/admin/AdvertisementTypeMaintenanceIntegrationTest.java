@@ -29,9 +29,9 @@ import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteAdvertisementTypeParam;
-import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementTypeBundleParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.Assert;
@@ -80,12 +80,12 @@ public class AdvertisementTypeMaintenanceIntegrationTest extends
 		advType.setMaxTextLength(5642L);
 		CreateAdvertisementTypeParam createParam = new CreateAdvertisementTypeParam();
 		createParam.setAdvertisementType(advType);
-		ServiceStatus status = admin
+		AdvertisementType status = admin
 				.createAdvertisementTypeOperation(createParam);
-		Assert.assertEquals(status.getStatusCode(), 200);
+		Assert.assertTrue(status.getId() != 0);
 
 		// READ
-		ReadAdvertisementTypeBundleParam readParam = new ReadAdvertisementTypeBundleParam();
+		BundleRequest readParam = new BundleRequest();
 		List<AdvertisementType> availableTypes = admin
 				.readAdvertisementTypeBundleOperation(readParam)
 				.getAdvertisementType();
@@ -109,8 +109,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest extends
 		updateParam.setAdvertisementType(advType);
 		admin.updateAdvertisementTypeOperation(updateParam);
 		List<AdvertisementType> updatedAdvTypes = admin
-				.readAdvertisementTypeBundleOperation(
-						new ReadAdvertisementTypeBundleParam())
+				.readAdvertisementTypeBundleOperation(new BundleRequest())
 				.getAdvertisementType();
 
 		boolean updateOk = false;

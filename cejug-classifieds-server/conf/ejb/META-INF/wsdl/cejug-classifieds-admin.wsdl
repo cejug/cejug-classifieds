@@ -47,10 +47,6 @@
 		<wsdl:part element="metadata:DeleteAdvertisementTypeParam"
 			name="obsolete.adv.type" />
 	</wsdl:message>
-	<wsdl:message name="ReadAdvertisementTypeBundleMsg">
-		<wsdl:part element="metadata:ReadAdvertisementTypeBundleParam"
-			name="get.advertisement.types" />
-	</wsdl:message>
 
 	<!-- DOMAIN CRUD MESSAGES -->
 	<wsdl:message name="CreateDomainMsg">
@@ -62,9 +58,6 @@
 	<wsdl:message name="DeleteDomainMsg">
 		<wsdl:part element="metadata:DeleteDomainParam" name="obsolete.domain" />
 	</wsdl:message>
-	<wsdl:message name="ReadDomainBundleMsg">
-		<wsdl:part element="metadata:ReadDomainBundleParam" name="get.domains" />
-	</wsdl:message>
 
 	<!-- CATEGORY CRUD MESSAGES -->
 	<wsdl:message name="CreateCategoryMsg">
@@ -75,9 +68,6 @@
 	</wsdl:message>
 	<wsdl:message name="DeleteCategoryMsg">
 		<wsdl:part element="metadata:DeleteCategoryParam" name="obsolete.category" />
-	</wsdl:message>
-	<wsdl:message name="ReadCategoryBundleMsg">
-		<wsdl:part element="metadata:ReadCategoryBundleParam" name="get.categories" />
 	</wsdl:message>
 	<!--                                                    -->
 	<!-- ============ PORT (service interface) ============ -->
@@ -163,7 +153,7 @@
 			</wsdl:documentation>
 			<wsdl:input message="admin:CreateAdvertisementTypeMsg" />
 			<wsdl:output name="CreateAdvertisementTypeResponse"
-				message="common-wsdl:OperationExecutionStatus" />
+				message="common-wsdl:AdvertisementType" />
 			<wsdl:fault name="CreateAdvertisementTypeException"
 				message="common-wsdl:ClassifiedsFault" />
 		</wsdl:operation>
@@ -176,7 +166,7 @@
 				between Domains and Advertisement Types - not all types
 				registered in the database are avaialble to all domains.
 			</wsdl:documentation>
-			<wsdl:input message="admin:ReadAdvertisementTypeBundleMsg" />
+			<wsdl:input message="common-wsdl:ReadAdvertisementTypeBundle" />
 			<wsdl:output message="common-wsdl:AdvertisementTypeBundle" />
 			<wsdl:fault name="ReadAllAdvertisementTypesException"
 				message="common-wsdl:ClassifiedsFault" />

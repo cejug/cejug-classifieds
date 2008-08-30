@@ -23,24 +23,14 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.List;
-import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
-import net.java.dev.cejug.utils.AttributesCopier;
-import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;
-import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
-import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * TODO: to comment.
@@ -49,122 +39,18 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Stateless
-public class CategoryOperations extends AbstractOperation implements
+public class CategoryOperations extends
+		AbstractCRUDOperations<CategoryEntity, AdvertisementCategory> implements
 		CategoryOperationsLocal {
-
-	/**
-	 * the global log manager, used to allow third party services to override
-	 * the default logger.
-	 */
-	private static final Logger logger = Logger.getLogger(
-			CategoryOperations.class.getName(), "i18n/log");
-
 	@EJB
-	private transient CategoryFacadeLocal categoryFacade;
+	private CategoryFacadeLocal categoryFacade;
 
-	@Override
-	public AdvertisementCategory createCategoryOperation(
-			final CreateCategoryParam newCategory) {
-		try {
-			AttributesCopier<AdvertisementCategory, CategoryEntity> categoryToEntity = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
-
-			AdvertisementCategory advCategory = newCategory
-					.getAdvertisementCategory();
-			CategoryEntity entity = new CategoryEntity();
-			categoryToEntity.copyValuesByAttributeNames(advCategory, entity);
-			AdvertisementCategory parent = advCategory
-					.getAdvertisementCategory();
-			if (parent != null) {
-				CategoryEntity parentEntity = new CategoryEntity();
-				categoryToEntity.copyValuesByAttributeNames(parent,
-						parentEntity);
-				entity.setParent(parentEntity);
-			}
-
-			categoryFacade.create(entity);
-			AttributesCopier<CategoryEntity, AdvertisementCategory> entityToCategory = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
-			AdvertisementCategory category = new AdvertisementCategory();
-			entityToCategory.copyValuesByAttributeNames(entity, category);
-			return category;
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
+	public CategoryOperations() {
+		super(CategoryEntity.class, AdvertisementCategory.class);
 	}
 
 	@Override
-	public ServiceStatus deleteCategoryOperation(
-			final DeleteCategoryParam obsoleteCategory) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			// TODO Check if the category is being used, before deleting it
-			categoryFacade.delete(CategoryEntity.class, Integer
-					.valueOf(obsoleteCategory.getPrimaryKey()));
-
-			status.setStatusCode(200);
-			status.setDescription("1 category deleted");
-
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
-	}
-
-	@Override
-	public CategoryCollection readCategoryBundleOperation(
-			final BundleRequest bundleRequest) {
-		CategoryCollection categorySet;
-		categorySet = new CategoryCollection();
-		try {
-			List<CategoryEntity> categories = categoryFacade
-					.readAll(CategoryEntity.class);
-			AttributesCopier<CategoryEntity, AdvertisementCategory> copier = new AttributesCopier<CategoryEntity, AdvertisementCategory>();
-			if (categories != null) {
-				for (CategoryEntity category : categories) {
-					AdvertisementCategory advCategory = new AdvertisementCategory();
-					copier.copyValuesByAttributeNames(category, advCategory);
-					categorySet.getAdvertisementCategory().add(advCategory);
-				}
-			}
-			logger.finest(categorySet.getAdvertisementCategory().size()
-					+ "categories returned successfully");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-		return categorySet;
-	}
-
-	@Override
-	public ServiceStatus updateCategoryOperation(
-			final UpdateCategoryParam partialCategory) {
-
-		ServiceStatus status = new ServiceStatus();
-		try {
-			AttributesCopier<AdvertisementCategory, CategoryEntity> copier = new AttributesCopier<AdvertisementCategory, CategoryEntity>();
-			AdvertisementCategory advCategory = partialCategory
-					.getAdvertisementCategory();
-			CategoryEntity category = new CategoryEntity();
-			copier.copyValuesByAttributeNames(advCategory, category);
-			AdvertisementCategory parent = advCategory
-					.getAdvertisementCategory();
-			if (parent != null) {
-				CategoryEntity entity = new CategoryEntity();
-				copier.copyValuesByAttributeNames(parent, entity);
-				category.setParent(entity);
-			}
-			categoryFacade.update(category);
-
-			status.setStatusCode(200);
-			status.setDescription("1 category updated");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+	EntityFacade<CategoryEntity> getEntityFacade() {
+		return categoryFacade;
 	}
 }

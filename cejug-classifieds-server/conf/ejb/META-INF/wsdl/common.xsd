@@ -25,14 +25,16 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="BundleRequest">
-		<xsd:complexType>
-			<xsd:sequence minOccurs="1" maxOccurs="unbounded">
-				<xsd:element type="xsd:int" name="skip" nillable="true" />
-				<xsd:element type="xsd:int" name="amount" nillable="true" />
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
+	<xsd:complexType name="BundleRequest">
+		<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+			<xsd:element type="xsd:int" name="skip" nillable="true" />
+			<xsd:element type="xsd:int" name="amount" nillable="true" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="DomainBundleRequest" type="common:BundleRequest" />
+	<xsd:element name="CategoryBundleRequest" type="common:BundleRequest" />
+	<xsd:element name="CustomerBundleRequest" type="common:BundleRequest" />
+	<xsd:element name="AdvertisementTypeBundleRequest" type="common:BundleRequest" />
 	<xsd:element name="PrimaryKey">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -201,7 +203,7 @@
 	<xsd:element name="ReadCustomerBundleParam">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element ref="common:BundleRequest" />
+				<xsd:element ref="common:CustomerBundleRequest" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
