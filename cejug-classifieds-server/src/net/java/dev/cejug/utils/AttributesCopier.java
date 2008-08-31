@@ -25,6 +25,8 @@ package net.java.dev.cejug.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Utility class to copy the values from an object to another - using the
@@ -39,6 +41,16 @@ public class AttributesCopier<S, T> {
 	public static final String GET_PREFIX = "get";
 	public static final String SET_PREFIX = "set";
 	public static final int PREFIX_LENGTH = 3;
+	boolean identicalTypes = false;
+	private Logger logger = null;
+
+	public AttributesCopier(boolean identicalTypes) {
+		this.identicalTypes = identicalTypes;
+	}
+
+	public AttributesCopier() {
+		this(false);
+	}
 
 	/*
 	 * TODO: check the getter methods with return type List on the target
@@ -51,37 +63,99 @@ public class AttributesCopier<S, T> {
 			throws SecurityException, NoSuchMethodException,
 			IllegalArgumentException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {
+		logger = Logger.getLogger("AttributesCopier<" + source + ", " + target
+				+ ">", "i18n/log");
 		Method[] setterCandidates = target.getClass().getMethods();
-		Class<?> sourceType = source.getClass();
+
 		for (Method setter : setterCandidates) {
 			String setterName = setter.getName();
 			if (setterName.startsWith(SET_PREFIX)) {
 				Class<?>[] setterParamTypes = setter.getParameterTypes();
 				if (setterParamTypes.length == 0) {
-					continue;
-				}
-
-				String getterName;
-				if (setterParamTypes[0].isAssignableFrom(Boolean.class)) {
-					getterName = IS_PREFIX
-							+ setterName.substring(PREFIX_LENGTH);
-				} else {
-					getterName = GET_PREFIX
-							+ setterName.substring(PREFIX_LENGTH);
-				}
-
-				Method getter = sourceType.getMethod(getterName, new Class[0]);
-				if (getter != null) {
-					Class<?> getType = getter.getReturnType();
-
-					if (setterParamTypes[0].isAssignableFrom(getType)) {
-						Object sourceAttributeValue = getter.invoke(source,
-								new Object[0]);
-						setter.invoke(target,
-								new Object[] { sourceAttributeValue });
-					}
+					// nothing to copy - WARNING: no setBoolean pattern
+					// not supported, it requires external mapping (not yet
+					// implemented).
+					throw new IllegalArgumentException(
+							"empty setter method not supported: "
+									+ setter.toString());
+				} else if (setterParamTypes[0].isArray()) {
+					// array copy - iteration required.
+					arrayCopy(source, target, setter);
+				} else if (setterParamTypes[0].isAssignableFrom(List.class)) {
+					// Collection requires recursvive deep copy.
+					listCopy(source, target, setter);
+				} else { // if (setterParamTypes[0].isPrimitive() ||
+					// setterParamTypes
+					// [0].isAssignableFrom(String.class)) {
+					// shallow copy attempt
+					shallowCopy(source, target, setter);
 				}
 			}
+		}
+	}
+
+	private void arrayCopy(S source, T target, Method setter) {
+		// TODO Auto-generated method stub
+		logger.severe("Arrays not yet implemented");
+		throw new IllegalArgumentException("Arrays copy not yet implemented"
+				+ setter.toString());
+	}
+
+	private void listCopy(S source, T target, Method setter) {
+		logger.severe("Arrays not yet implemented");
+		throw new IllegalArgumentException("List copy not yet implemented"
+				+ setter.toString());
+	}
+
+	/**
+	 * If the identicalTypes flag is set to false and if the objects are not
+	 * instances of identical types (i.e., same number and types of attributes),
+	 * it will ignore attributes without equivalence between the
+	 * <code>source</code> and <code>target</code> objects.
+	 * 
+	 * @param source
+	 * @param target
+	 * @param setter
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws IllegalArgumentException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private void shallowCopy(S source, T target, Method setter)
+			throws IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException {
+		Class<?>[] setterParamTypes = setter.getParameterTypes();
+		Class<?> sourceType = source.getClass();
+		String getterName;
+
+		if (setterParamTypes[0].isAssignableFrom(boolean.class)
+				|| setterParamTypes[0].isAssignableFrom(Boolean.class)) {
+			getterName = IS_PREFIX + setter.getName().substring(PREFIX_LENGTH);
+		} else {
+			getterName = GET_PREFIX + setter.getName().substring(PREFIX_LENGTH);
+		}
+
+		try {
+			Method getter = sourceType.getMethod(getterName, new Class[0]);
+			Class<?> getType = getter.getReturnType();
+			System.out.println("Class<?> getType = " + getType + " : "
+					+ setterParamTypes[0]);
+			if (setterParamTypes[0].isAssignableFrom(getType)) {
+				Object sourceAttributeValue = getter.invoke(source,
+						new Object[0]);
+				setter.invoke(target, new Object[] { sourceAttributeValue });
+			}
+		} catch (NoSuchMethodException ignorable) {
+			if (identicalTypes) {
+				throw ignorable;
+			}
+			// else, it will copy only the equivalent attributes.
 		}
 	}
 }

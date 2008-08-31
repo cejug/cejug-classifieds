@@ -46,13 +46,13 @@ public class DomainEntity extends AbstractEntity {
 	private String uri;
 
 	@Column(name = "SHARED_COTA", nullable = false)
-	private Boolean sharedQuota;
+	private boolean sharedQuota;
 
-	public Boolean isSharedQuota() {
+	public boolean isSharedQuota() {
 		return sharedQuota;
 	}
 
-	public void setSharedQuota(Boolean sharedQuota) {
+	public void setSharedQuota(boolean sharedQuota) {
 		this.sharedQuota = sharedQuota;
 	}
 
