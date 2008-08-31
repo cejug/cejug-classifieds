@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
