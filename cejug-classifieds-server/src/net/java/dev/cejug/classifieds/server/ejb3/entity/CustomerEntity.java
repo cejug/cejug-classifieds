@@ -23,16 +23,18 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 /**
  * A person that can write and/or read the entries in the classifieds system. A
@@ -49,7 +51,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"LOGIN", "DOMAIN" }) })
 @NamedQuery(name = CustomerEntity.QUERIES.SELECT_BY_DOMAIN, query = "SELECT c FROM CustomerEntity c WHERE c.domain.id= :domain AND c.login= :login")
-public class CustomerEntity extends AbstractEntity {
+public class CustomerEntity extends Customer {
+	private final static long serialVersionUID = -6026937020915831338L;
+
 	public static final class QUERIES {
 		/**
 		 * Parameters:
@@ -67,44 +71,30 @@ public class CustomerEntity extends AbstractEntity {
 		public static final String PARAM_DOMAIN = "domain";
 	}
 
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return entityId;
+	}
+
 	@Column(name = "LOGIN", nullable = false)
-	private String login;
-
-	@JoinColumn(name = "DOMAIN", nullable = false)
-	@ManyToOne
-	private DomainEntity domain;
-
-	@OneToMany(mappedBy = "customer")
-	private Collection<QuotaEntity> quotas;
-
 	public String getLogin() {
-
 		return login;
 	}
 
-	public void setLogin(final String login) {
-
-		this.login = login;
-	}
-
+	@JoinColumn(name = "DOMAIN", nullable = false)
+	@ManyToOne
 	public DomainEntity getDomain() {
-
-		return domain;
+		// get Domain from ID
+		return null;
 	}
 
-	public void setDomain(final DomainEntity domain) {
-
-		this.domain = domain;
-	}
-
-	public Collection<QuotaEntity> getQuotas() {
-
-		return quotas;
-	}
-
-	public void setQuotas(final Collection<QuotaEntity> quotas) {
-
-		this.quotas = quotas;
-	}
-
+	/*
+	 * @OneToMany(mappedBy = "customer") public Collection<QuotaEntity>
+	 * getQuotas() { return quotas; }
+	 */
 }
