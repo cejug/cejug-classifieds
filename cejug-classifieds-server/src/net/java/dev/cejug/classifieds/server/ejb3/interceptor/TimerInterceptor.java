@@ -36,8 +36,8 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.OperationTimestampEntit
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.TimeKeeperFacadeLocal;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 public class TimerInterceptor {
 
@@ -76,9 +76,8 @@ public class TimerInterceptor {
 		OperationTimestampEntity stamp;
 		stamp = new OperationTimestampEntity();
 		stamp.setOperationName(ctx.getMethod().getName());
-		stamp.setDate(start);
-		stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis()
-				- start.getTimeInMillis());
+		stamp.setStart(start);
+		stamp.setFinish(Calendar.getInstance(timezone));
 		stamp.setStatus(true);
 		stamp.setClientId("TODO: get client ID");
 		if (error == null) {
