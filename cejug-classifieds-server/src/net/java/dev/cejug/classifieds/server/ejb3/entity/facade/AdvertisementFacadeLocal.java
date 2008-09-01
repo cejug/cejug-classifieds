@@ -39,5 +39,4 @@ public interface AdvertisementFacadeLocal extends
 		EntityFacade<AdvertisementEntity> {
 	List<AdvertisementEntity> readByCategory(final int categoryId)
 			throws IllegalStateException, IllegalArgumentException;
-
 }

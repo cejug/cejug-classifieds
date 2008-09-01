@@ -36,4 +36,5 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity
 public class AdvertisementTypeFacade extends
 		CRUDEntityFacade<AdvertisementTypeEntity> implements
 		AdvertisementTypeFacadeLocal {
+
 }
