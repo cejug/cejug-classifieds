@@ -48,7 +48,7 @@ public class AdvertisementTypeEntity extends AdvertisementType implements
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getId() {
 		return entityId;
 	}
 
@@ -74,17 +74,12 @@ public class AdvertisementTypeEntity extends AdvertisementType implements
 
 	@Override
 	public int compareTo(final AdvertisementTypeEntity other) {
-		Long thisId;
+		long thisId;
 		thisId = getEntityId();
-		Long otherId;
+		long otherId;
 		otherId = other.getId();
-		int value;
-		if (thisId == null || otherId == null) {
-			value = -1;
-		} else {
-			value = thisId.intValue() - otherId.intValue();
-		}
-		return value;
+		return Long.valueOf(thisId - otherId).intValue();
+
 	}
 
 	@Override
@@ -96,7 +91,7 @@ public class AdvertisementTypeEntity extends AdvertisementType implements
 
 	@Override
 	public int hashCode() {
-		Long hashCode = getId();
-		return hashCode == null ? super.hashCode() : hashCode.intValue();
+		long hashCode = getId();
+		return Long.valueOf(hashCode).intValue();
 	}
 }

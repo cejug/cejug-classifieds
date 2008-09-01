@@ -66,7 +66,7 @@ public class QuotaEntity extends Quota {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getId() {
 		return entityId;
 	}
 

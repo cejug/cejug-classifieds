@@ -36,7 +36,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
  */
 @Local
 public interface CustomerFacadeLocal extends EntityFacade<CustomerEntity> {
-	CustomerEntity findOrCreate(Long domainId, String login)
+	CustomerEntity findOrCreate(long domainId, String login)
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
 }

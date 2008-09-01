@@ -45,7 +45,7 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 	private transient DomainFacadeLocal domainFacade;
 
 	@Override
-	public CustomerEntity findOrCreate(Long domainId, String login)
+	public CustomerEntity findOrCreate(long domainId, String login)
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {
 		Query query = manager

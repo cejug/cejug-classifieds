@@ -77,7 +77,7 @@ public class CustomerEntity extends Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getId() {
 		return entityId;
 	}
 

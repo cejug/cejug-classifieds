@@ -62,7 +62,6 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 @NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId")
 public class AdvertisementEntity extends Advertisement {
 	private final static long serialVersionUID = -6026937020915831338L;
-
 	@Transient
 	private Collection<AdvertisementKeywordEntity> kewordsCollection = null;
 
@@ -91,7 +90,7 @@ public class AdvertisementEntity extends Advertisement {
 	@EJB
 	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-	// @Transient @EJB private transient CategoryFacadeLocal categoryFacade; 
+	// @Transient @EJB private transient CategoryFacadeLocal categoryFacade;
 
 	/**
 	 * @return the id
@@ -99,7 +98,7 @@ public class AdvertisementEntity extends Advertisement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getEntityId() {
 		return super.getEntityId();
 	}
 

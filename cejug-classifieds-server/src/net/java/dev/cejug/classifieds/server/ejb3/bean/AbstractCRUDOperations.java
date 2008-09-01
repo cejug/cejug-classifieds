@@ -77,7 +77,7 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends
 		}
 	}
 
-	public ServiceStatus delete(final Long id) {
+	public ServiceStatus delete(final long id) {
 
 		ServiceStatus status = new ServiceStatus();
 		try {

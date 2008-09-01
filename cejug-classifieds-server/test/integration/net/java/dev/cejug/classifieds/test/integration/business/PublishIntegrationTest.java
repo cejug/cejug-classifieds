@@ -123,7 +123,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 
 			Random random = new Random();
 
-			Long[] categoriesIds = new Long[10];
+			long[] categoriesIds = new long[10];
 			// CREATE
 			for (int i = 0; i < categoriesIds.length; i++) {
 				AdvertisementCategory category = new AdvertisementCategory();

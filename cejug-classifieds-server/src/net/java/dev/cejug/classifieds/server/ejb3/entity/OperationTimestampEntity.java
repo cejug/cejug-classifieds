@@ -52,7 +52,7 @@ public class OperationTimestampEntity extends OperationTimestamp {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getId() {
 		return entityId;
 	}
 
@@ -71,7 +71,7 @@ public class OperationTimestampEntity extends OperationTimestamp {
 	}
 
 	@Column(nullable = false)
-	public Long getResponseTime() {
+	public long getResponseTime() {
 		return finish.getTimeInMillis() - start.getTimeInMillis();
 	}
 

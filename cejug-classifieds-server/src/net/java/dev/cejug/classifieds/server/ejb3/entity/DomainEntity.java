@@ -59,7 +59,7 @@ public class DomainEntity extends Domain {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	public Long getId() {
+	public long getId() {
 		return entityId;
 	}
 
