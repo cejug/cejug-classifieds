@@ -23,80 +23,70 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**
  * A domain is company or a group of people. The domain should be registered in
  * the Cejug-Classifieds system, and a domain has a unique domain name.
  * 
  * @author $Author:felipegaucho $
- * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @version $Rev $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 @Entity
 @Table(name = "DOMAIN")
-public class DomainEntity extends AbstractEntity {
-	@Column(name = "URI", nullable = false, unique = true)
-	private String uri;
+public class DomainEntity extends Domain {
+	/**
+	 * 
+	 */
+	private final static long serialVersionUID = -6026937020915831338L;
 
-	
-	
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return entityId;
+	}
+
 	@Column(name = "SHARED_COTA", nullable = false)
-	private boolean sharedQuota;
-
 	public boolean isSharedQuota() {
 		return sharedQuota;
 	}
 
-	public void setSharedQuota(boolean sharedQuota) {
-		this.sharedQuota = sharedQuota;
-	}
-
-	@Column(name = "BRAND", nullable = false)
-	private String brand;
-
 	// @OneToMany(mappedBy = "domain")
 	// private Collection<QuotaEntity> quotas;
 
-	@ManyToMany
-	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
-	private Collection<CategoryEntity> advertisementCategory;
-
+	@Column(name = "BRAND", nullable = false)
 	public String getBrand() {
 		return brand;
 	}
 
-	public void setBrand(final String brand) {
-		this.brand = brand;
-	}
-
+	@Column(name = "URI", nullable = false, unique = true)
 	public String getUri() {
 		return uri;
-	}
-
-	public void setUri(final String uri) {
-		this.uri = uri;
 	}
 
 	/**
 	 * @return the categories
 	 */
-	public Collection<CategoryEntity> getAdvertisementCategory() {
-		return advertisementCategory;
-	}
-
-	/**
-	 * @param categories
-	 *            the categories to set
-	 */
-	public void setAdvertisementCategory(
-			final Collection<CategoryEntity> categories) {
-		this.advertisementCategory = categories;
+	@ManyToMany
+	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
+	public List<AdvertisementCategory> getAdvertisementCategory() {
+		return super.getAdvertisementCategory();
 	}
 }
