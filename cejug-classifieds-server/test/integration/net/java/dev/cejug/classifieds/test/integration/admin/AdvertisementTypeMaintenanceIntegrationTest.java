@@ -82,7 +82,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest extends
 		createParam.setAdvertisementType(advType);
 		AdvertisementType status = admin
 				.createAdvertisementTypeOperation(createParam);
-		Assert.assertTrue(status.getId() != 0);
+		Assert.assertTrue(status.getEntityId() != 0);
 
 		// READ
 		BundleRequest readParam = new BundleRequest();
@@ -114,7 +114,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest extends
 
 		boolean updateOk = false;
 		for (AdvertisementType advertisementType : updatedAdvTypes) {
-			if (advertisementType.getId() == advType.getId()) {
+			if (advertisementType.getEntityId() == advType.getEntityId()) {
 				// Check if the received adv type has the newly create name.
 				Assert.assertEquals(advertisementType.getName(), newName);
 				updateOk = true;
@@ -126,7 +126,7 @@ public class AdvertisementTypeMaintenanceIntegrationTest extends
 		// DELETE
 		// remove or inactive the test advertisement type
 		DeleteAdvertisementTypeParam deleteParam = new DeleteAdvertisementTypeParam();
-		deleteParam.setPrimaryKey(advType.getId());
+		deleteParam.setPrimaryKey(advType.getEntityId());
 		ServiceStatus deleteStatus = admin
 				.deleteAdvertisementTypeOperation(deleteParam.getPrimaryKey());
 		Assert.assertEquals(deleteStatus.getStatusCode(), 200);

@@ -83,7 +83,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		createParam.setDomain(domain);
 		domain = admin.createDomainOperation(createParam);
 
-		Assert.assertNotNull(domain.getId());
+		Assert.assertNotNull(domain.getEntityId());
 
 		// READ
 		List<Domain> domains = admin.readDomainBundleOperation(
@@ -92,7 +92,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 
 		boolean createdOk = false;
 		for (Domain readDomain : domains) {
-			if (readDomain.getId().equals(domain.getId())) {
+			if (readDomain.getEntityId() == domain.getEntityId()) {
 				// The just created domain has no ID, so we need to lookup for
 				// its domain name in the received list in order to know its ID.
 				domain = readDomain;
@@ -123,7 +123,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 
 		boolean updateOk = false;
 		for (Domain updatedDomain : updatedDomains) {
-			if (updatedDomain.getId().equals(domain.getId())) {
+			if (updatedDomain.getEntityId() == domain.getEntityId()) {
 				// Check if the received domain has the newly create name.
 				Assert
 						.assertEquals(updatedDomain.getBrand(), domain
@@ -140,7 +140,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		// DELETE
 		// remove or inactive the test advertisement
 		DeleteDomainParam deleteParam = new DeleteDomainParam();
-		deleteParam.setPrimaryKey(domain.getId());
+		deleteParam.setPrimaryKey(domain.getEntityId());
 		ServiceStatus deleteStatus = admin.deleteDomainOperation(deleteParam);
 		Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 	}

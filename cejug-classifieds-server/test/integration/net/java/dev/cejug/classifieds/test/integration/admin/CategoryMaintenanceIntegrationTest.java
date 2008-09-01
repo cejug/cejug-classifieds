@@ -101,14 +101,15 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 
 			boolean greenBar = false;
 			for (AdvertisementCategory advertisementCategory : categories) {
-				if (advertisementCategory.getId().equals(newCategory.getId())) {
+				if (advertisementCategory.getEntityId() == newCategory
+						.getEntityId()) {
 					// We found the just created category :) Green bar !
 					greenBar = true;
 					break;
 				}
 			}
 			Assert.assertTrue("Couldn't find the just created category (ID="
-					+ newCategory.getId(), greenBar);
+					+ newCategory.getEntityId(), greenBar);
 
 			// UPDATE
 			String newName = "test." + random.nextInt() + "."
@@ -123,7 +124,8 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 
 			greenBar = false;
 			for (AdvertisementCategory advertisementCategory : updatedCategories) {
-				if (advertisementCategory.getId().equals(newCategory.getId())) {
+				if (advertisementCategory.getEntityId() == newCategory
+						.getEntityId()) {
 					// Check if the received category has the newly create name.
 					Assert.assertEquals(advertisementCategory.getName(),
 							newName);
@@ -132,12 +134,12 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 				}
 			}
 			Assert.assertTrue("Couldn't update the name of a category (ID="
-					+ newCategory.getId() + ")", greenBar);
+					+ newCategory.getEntityId() + ")", greenBar);
 
 			// DELETE
 			// remove or inactive the test advertisement
 			DeleteCategoryParam deleteParam = new DeleteCategoryParam();
-			deleteParam.setPrimaryKey(newCategory.getId());
+			deleteParam.setPrimaryKey(newCategory.getEntityId());
 			ServiceStatus deleteStatus = admin
 					.deleteCategoryOperation(deleteParam);
 			Assert.assertEquals(deleteStatus.getStatusCode(), 200);
@@ -192,14 +194,15 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 
 		boolean greenBar = false;
 		for (AdvertisementCategory advertisementCategory : categories) {
-			if (advertisementCategory.getId().equals(newCategory.getId())) {
+			if (advertisementCategory.getEntityId() == newCategory
+					.getEntityId()) {
 				// We found the just created category :) Green bar !
 				greenBar = true;
 				break;
 			}
 		}
 		Assert.assertTrue("Couldn't find the just created category (ID="
-				+ newCategory.getId(), greenBar);
+				+ newCategory.getEntityId(), greenBar);
 
 		// UPDATE
 		String newName = "test." + random.nextInt() + "." + random.nextInt();
@@ -212,7 +215,8 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 
 		greenBar = false;
 		for (AdvertisementCategory advertisementCategory : updatedCategories) {
-			if (advertisementCategory.getId().equals(newCategory.getId())) {
+			if (advertisementCategory.getEntityId() == newCategory
+					.getEntityId()) {
 				// Check if the received category has the newly create name.
 				Assert.assertEquals(advertisementCategory.getName(), newName);
 				greenBar = true;
@@ -220,12 +224,12 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			}
 		}
 		Assert.assertTrue("Couldn't update the name of a category (ID="
-				+ newCategory.getId() + ")", greenBar);
+				+ newCategory.getEntityId() + ")", greenBar);
 
 		// DELETE
 		// remove or inactive the test advertisement
 		DeleteCategoryParam deleteParam = new DeleteCategoryParam();
-		deleteParam.setPrimaryKey(newCategory.getId());
+		deleteParam.setPrimaryKey(newCategory.getEntityId());
 		ServiceStatus deleteStatus = admin.deleteCategoryOperation(deleteParam);
 		Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 	}

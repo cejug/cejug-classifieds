@@ -123,7 +123,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 
 			Random random = new Random();
 
-			int[] categoriesIds = new int[10];
+			Long[] categoriesIds = new Long[10];
 			// CREATE
 			for (int i = 0; i < categoriesIds.length; i++) {
 				AdvertisementCategory category = new AdvertisementCategory();
@@ -138,7 +138,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 
 				AdvertisementCategory newCategory = admin
 						.createCategoryOperation(catParam);
-				categoriesIds[i] = newCategory.getId();
+				categoriesIds[i] = newCategory.getEntityId();
 			}
 			// TODO: admin.updateDomain();
 
@@ -163,7 +163,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			Advertisement advertisement = new Advertisement();
 			Customer customer = new Customer();
 			customer.setLogin("fgaucho");
-			customer.setDomainId(newDomain.getId());
+			customer.setDomainId(newDomain.getEntityId());
 			advertisement.setCustomer(customer);
 
 			// Publishing period
@@ -181,9 +181,9 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			strGen.setMaxLength(15);
 			advertisement.setHeadline(strGen.generate().toString());
 			strGen.setMaxLength(40);
-			advertisement.setShortDescription(strGen.generate().toString());
+			advertisement.setSummary(strGen.generate().toString());
 			strGen.setMaxLength(250);
-			advertisement.setFullText(strGen.generate().toString());
+			advertisement.setText(strGen.generate().toString());
 			advertisement.setCategoryId(categoriesIds[(int) (Math.random()
 					* categoriesIds.length - 0.00001)]);
 			Locale locale = new Locale();
@@ -198,7 +198,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(newDomain.getId());
+			header.setCustomerDomainId(newDomain.getEntityId());
 			header.setCustomerLogin("fgaucho");
 
 			ServiceStatus status = service.publishOperation(advertisement,
