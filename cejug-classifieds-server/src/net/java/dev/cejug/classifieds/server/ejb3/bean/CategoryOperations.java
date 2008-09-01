@@ -46,7 +46,7 @@ public class CategoryOperations extends
 	private CategoryFacadeLocal categoryFacade;
 
 	public CategoryOperations() {
-		super(CategoryEntity.class, AdvertisementCategory.class);
+		super(CategoryEntity.class);
 	}
 
 	@Override

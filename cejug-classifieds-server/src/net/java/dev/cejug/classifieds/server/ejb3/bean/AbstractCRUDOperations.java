@@ -29,9 +29,8 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
-import net.java.dev.cejug.utils.AttributesCopier;
+import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -41,7 +40,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
+public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends AbstractEntity> {
 
 	/**
 	 * The default logger.
@@ -51,14 +50,10 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
 	/** The type of the entities. */
 	private final Class<E> ec;
 
-	/** The type of the element transmitted through the service messages. */
-	private final Class<T> tc;
-
-	AbstractCRUDOperations(Class<E> ec, Class<T> tc) {
+	AbstractCRUDOperations(Class<E> ec) {
 		this.ec = ec;
-		this.tc = tc;
 		logger = Logger.getLogger("AbstractCRUDOperations<" + ec.getName()
-				+ ", " + tc.getName() + ">", "i18n/log");
+				+ ">", "i18n/log");
 	}
 
 	/**
@@ -70,24 +65,19 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
 	 */
 	abstract EntityFacade<E> getEntityFacade();
 
+	@SuppressWarnings("unchecked")
 	public T create(final T type) {
 		try {
 			// TODO: review validation...
-			E entity = ec.newInstance();
-			AttributesCopier<T, E> domainToEntity = new AttributesCopier<T, E>();
-			domainToEntity.copyValuesByAttributeNames(type, entity);
-			getEntityFacade().create(entity);
-			AttributesCopier<E, T> entityToDomain = new AttributesCopier<E, T>();
-			T response = tc.newInstance();
-			entityToDomain.copyValuesByAttributeNames(entity, response);
-			return response;
+			getEntityFacade().create((E) type);
+			return type;
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
 	}
 
-	public ServiceStatus delete(final int id) {
+	public ServiceStatus delete(final Long id) {
 
 		ServiceStatus status = new ServiceStatus();
 		try {
@@ -105,6 +95,7 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
 		return status;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> readBundleOperation(BundleRequest bundleRequest) {
 		// TODO: use the bundle request parameters as query filter.
 
@@ -113,13 +104,8 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
 		try {
 			List<E> entities = getEntityFacade().readAll(ec);
 			if (entities != null) {
-				AttributesCopier<E, T> entityToDomain = new AttributesCopier<E, T>();
-
 				for (E domainEntity : entities) {
-					T domain = tc.newInstance();
-					entityToDomain.copyValuesByAttributeNames(domainEntity,
-							domain);
-					domainCollection.add(domain);
+					domainCollection.add((T) domainEntity);
 				}
 			}
 		} catch (Exception e) {
@@ -129,13 +115,11 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T> {
 		return domainCollection;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ServiceStatus update(final T type) {
 		ServiceStatus status = new ServiceStatus();
 		try {
-			E entity = ec.newInstance();
-			AttributesCopier<T, E> domainToEntity = new AttributesCopier<T, E>();
-			domainToEntity.copyValuesByAttributeNames(type, entity);
-			getEntityFacade().update(entity);
+			getEntityFacade().update((E) type);
 			status.setStatusCode(200);
 			status.setDescription("1 domain updated");
 		} catch (Exception e) {

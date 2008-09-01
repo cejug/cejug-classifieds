@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -127,27 +128,28 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 			CustomerEntity customer = customerFacade.findOrCreate(
 					requestedQuota.getDomainId(), requestedQuota
 							.getCustomerLogin());
-			Collection<QuotaEntity> customerQuotas = customer.getQuotas();
+			// Collection<QuotaEntity> customerQuotas = customer.getQuotas();
+			Collection<QuotaEntity> customerQuotas = new ArrayList<QuotaEntity>();
 
 			AdvertisementTypeEntity type = advTypeFacade.read(
-					AdvertisementTypeEntity.class, Integer
-							.valueOf(requestedQuota.getAdvertisementTypeId()));
+					AdvertisementTypeEntity.class, requestedQuota
+							.getAdvertisementTypeId());
 
 			boolean newQuota = true;
 			for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator
 					.hasNext();) {
 				QuotaEntity entity = iterator.next();
 				if (entity.getType().equals(type)) {
-					entity.setAvailable(entity.getAvailable() + 1);
+					entity.setAmount(entity.getAvailable() + 1);
 					newQuota = false;
 				}
 			}
 			if (newQuota) {
 				QuotaEntity quota = new QuotaEntity();
-				quota.setType(type);
-				quota.setAvailable(1);
-				quota.setCustomer(customer);
-				quota.setDomain(customer.getDomain());
+				quota.setAdvertisementTypeId(type.getId());
+				quota.setAmount(1);
+				quota.setCustomerLogin(customer.getLogin());
+				quota.setDomainId(customer.getDomainId());
 				customerQuotas.add(quota);
 			}
 			customerFacade.update(customer);
@@ -235,7 +237,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	}
 
 	@Override
-	public ServiceStatus deleteAdvertisementTypeOperation(final int id) {
+	public ServiceStatus deleteAdvertisementTypeOperation(final long id) {
 		return crudAdvType.delete(id);
 	}
 

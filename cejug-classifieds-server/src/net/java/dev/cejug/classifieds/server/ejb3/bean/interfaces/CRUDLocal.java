@@ -54,5 +54,5 @@ public interface CRUDLocal<T> {
 	/**
 	 * TODO: to comment.
 	 */
-	ServiceStatus delete(final int id);
+	ServiceStatus delete(final Long id);
 }

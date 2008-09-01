@@ -46,7 +46,7 @@ public class DomainOperations extends
 	private DomainFacadeLocal facade;
 
 	public DomainOperations() {
-		super(DomainEntity.class, Domain.class);
+		super(DomainEntity.class);
 	}
 
 	@Override

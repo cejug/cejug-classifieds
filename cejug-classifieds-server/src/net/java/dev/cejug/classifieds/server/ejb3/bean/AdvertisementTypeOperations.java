@@ -46,7 +46,7 @@ public class AdvertisementTypeOperations extends
 	private transient AdvertisementTypeFacadeLocal facade;
 
 	public AdvertisementTypeOperations() {
-		super(AdvertisementTypeEntity.class, AdvertisementType.class);
+		super(AdvertisementTypeEntity.class);
 	}
 
 	@Override

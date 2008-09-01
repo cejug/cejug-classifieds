@@ -49,8 +49,8 @@ import net.java.dev.cejug_classifieds.rss.TGuid;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification</a
- *      >
+ * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification</
+ *      a >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
@@ -132,7 +132,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 				Item item = new Item();
 				item.setAuthor("dev@cejug-classifieds.dev.java.net ("
 						+ adv.getCustomer().getLogin() + ")");
-				item.setTitle(adv.getTitle());
+				item.setTitle(adv.getHeadline());
 				item.setDescription(adv.getText());
 				item.setComments(adv.getSummary());
 				item.setPubDate(gmt.format(adv.getStart().getTime()));
@@ -140,7 +140,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 				guid.setIsPermaLink(Boolean.FALSE);
 				guid
 						.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
-								+ adv.getId());
+								+ adv.getEntityId());
 				item.setGuid(guid);
 				channel.getItem().add(item);
 			}

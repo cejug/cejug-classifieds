@@ -133,7 +133,7 @@ public class ClassifiedsBusinessSessionBean implements
 	}
 
 	@Override
-	public ServiceStatus reportSpamOperation(final int advId) {
+	public ServiceStatus reportSpamOperation(final long advId) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}

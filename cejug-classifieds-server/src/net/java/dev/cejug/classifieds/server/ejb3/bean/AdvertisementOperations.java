@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -36,17 +35,15 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
+import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -73,8 +70,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
 
-	@EJB
-	private transient CategoryFacadeLocal categoryFacade;
+	// @EJB private transient CategoryFacadeLocal categoryFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -95,20 +91,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			List<AdvertisementEntity> entities = advFacade
 					.readAll(AdvertisementEntity.class);
 			for (AdvertisementEntity entity : entities) {
-				Advertisement adv = new Advertisement();
-				adv.setId(entity.getId());
-				CustomerEntity entityCustomer = entity.getCustomer();
-				Customer newCustomer = new Customer();
-				newCustomer.setDomainId(entityCustomer.getDomain().getId());
-				newCustomer.setLogin(entityCustomer.getLogin());
-				adv.setCustomer(newCustomer);
-				adv.setFullText(entity.getText());
-				adv
-						.setKeywords(Arrays.toString(entity.getKeywords()
-								.toArray()));
-				adv.setShortDescription(entity.getSummary());
-				adv.setHeadline(entity.getTitle());
-				collection.getAdvertisement().add(adv);
+				collection.getAdvertisement().add((Advertisement) entity);
 			}
 			return collection;
 		} catch (Exception e) {
@@ -135,26 +118,29 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			// validating advertisement PIN
 			AdvertisementEntity entity = new AdvertisementEntity();
 			// entity.setKeywords(advertisement.getKeywords()); // TODO
-			entity.setText(advertisement.getFullText());
+			entity.setText(advertisement.getText());
 
 			entity.setCustomer(customer);
 
 			AdvertisementTypeEntity type = advTypeFacade.read(
 					AdvertisementTypeEntity.class, advertisement.getTypeId());
-			entity.setType(type);
+			entity.setTypeId(type.getId());
 
-			entity.setSummary(advertisement.getShortDescription());
-			entity.setTitle(advertisement.getHeadline());
+			entity.setSummary(advertisement.getSummary());
+			entity.setHeadline(advertisement.getHeadline());
 
-			CategoryEntity category = categoryFacade.read(CategoryEntity.class,
-					advertisement.getCategoryId());
-			entity.setCategory(category);
+			// CategoryEntity category =
+			// categoryFacade.read(CategoryEntity.class,
+			// advertisement.getCategoryId());
+			// entity.setCategory(category);
 
 			Calendar start = Calendar.getInstance();
 			Calendar finish = Calendar.getInstance();
 			finish.add(Calendar.HOUR, 3);
-			entity.setStart(start);
-			entity.setFinish(finish);
+			Period period = new Period();
+			period.setStart(start);
+			period.setFinish(finish);
+			entity.setPublishingPeriod(new Period());
 			advFacade.create(entity);
 
 			ServiceStatus status = new ServiceStatus();

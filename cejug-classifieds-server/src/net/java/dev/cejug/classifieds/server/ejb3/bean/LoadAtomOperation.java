@@ -103,11 +103,11 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 
 				entry.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "title"),
-						adv.getTitle());
+						adv.getHeadline());
 				entry.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "link"),
 						"http://cejug-classifieds-server/atom&id="
-								+ adv.getId());
+								+ adv.getEntityId());
 				atomFeed.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "updated"),
 						Calendar.getInstance().toString());
