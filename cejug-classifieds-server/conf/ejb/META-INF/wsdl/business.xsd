@@ -2,8 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:business="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:mime="http://www.w3.org/2005/05/xmlmim"
-	xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
+	xmlns:mime="http://www.w3.org/2005/05/xmlmim" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
 	xmlns:atom10="http://www.w3.org/2005/Atom" elementFormDefault="qualified"
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
@@ -30,28 +29,41 @@
 			<xsd:element name="keywords" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
-	<!--
-		xsd:element name="PdfAdvertisement"> <xsd:complexType>
-		<xsd:complexContent> <xsd:extension
-		base="business:AbstractAdvertisement"> <xsd:attribute name="bbb"
-		type="xsd:string" use="required" /> </xsd:extension>
-		</xsd:complexContent> </xsd:complexType> </xsd:element>
-		<xsd:complexType name="ImageAttachment"> <xsd:sequence> <xsd:element
-		name="name" type="xsd:string" /> <xsd:element name="flash"
-		type="xsd:base64Binary"
-		mime:expectedContentTypes="application/x-shockwave-flash" />
-		</xsd:sequence> </xsd:complexType> <xsd:element
-		name="FlashAdvertisement"> <xsd:complexType> <xsd:complexContent>
-		<xsd:extension base="business:AbstractAdvertisement"> <xsd:sequence>
-		<xsd:element name="swf.collection" type="business:FlashAttachment"
-		minOccurs="0" maxOccurs="unbounded" /> </xsd:sequence>
-		</xsd:extension> </xsd:complexContent> </xsd:complexType>
-		</xsd:element> <xsd:complexType name="FlashAttachment"> <xsd:sequence>
-		<xsd:element name="name" type="xsd:string" /> <xsd:element
-		name="flash" type="xsd:base64Binary"
-		mime:expectedContentTypes="application/x-shockwave-flash" />
-		</xsd:sequence> </xsd:complexType
-	-->
+	<xsd:element name="PdfAdvertisement">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="business:AbstractAdvertisement">
+					<xsd:attribute name="bbb" type="xsd:string" use="required" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ImageAttachment">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="flash" type="xsd:base64Binary"
+				mime:expectedContentTypes="application/x-shockwave-flash" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FlashAdvertisement">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="business:AbstractAdvertisement">
+					<xsd:sequence>
+						<xsd:element name="swf.collection" type="business:FlashAttachment"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="FlashAttachment">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="flash" type="xsd:base64Binary"
+				mime:expectedContentTypes="application/x-shockwave-flash" />
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:complexType name="Section">
 		<xsd:sequence>
 			<xsd:element name="names" type="xsd:string" />
@@ -60,28 +72,31 @@
 	</xsd:complexType>
 	<xsd:element name="Advertisement">
 		<xsd:complexType>
-			<xsd:sequence>
-				<xsd:element name="id" type="xsd:int" />
-				<xsd:element ref="common:Customer" />
-				<xsd:element name="headline" type="xsd:string" />
-				<xsd:element name="short.description" type="xsd:string" />
-				<xsd:element name="full.text" type="xsd:string" />
-				<xsd:element name="status" type="xsd:int" />
-				<xsd:element name="keywords" type="xsd:string" />
-				<xsd:element name="publishing.period" type="business:Period" />
-				<xsd:element name="attachment.id" type="xsd:int"
-					minOccurs="0" maxOccurs="unbounded" />
-				<xsd:element name="category.id" type="xsd:int" />
-				<xsd:element name="type.id" type="xsd:int" />
-				<xsd:element name="locale" type="business:Locale" />
-			</xsd:sequence>
+			<xsd:complexContent>
+				<xsd:extension base="common:AbstractEntity">
+					<xsd:sequence>
+						<xsd:element ref="common:Customer" />
+						<xsd:element name="headline" type="xsd:string" />
+						<xsd:element name="summary" type="xsd:string" />
+						<xsd:element name="text" type="xsd:string" />
+						<xsd:element name="status" type="xsd:int" />
+						<xsd:element name="keywords" type="xsd:string" />
+						<xsd:element name="publishing.period" type="business:Period" />
+						<xsd:element name="attachment.id" type="xsd:long"
+							minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element name="category.id" type="xsd:long" />
+						<xsd:element name="type.id" type="xsd:long" />
+						<xsd:element name="locale" type="business:Locale" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="PublishingHeader">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="customer.login" type="xsd:NMTOKEN" />
-				<xsd:element name="customer.domain.id" type="xsd:int" />
+				<xsd:element name="customer.domain.id" type="xsd:long" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

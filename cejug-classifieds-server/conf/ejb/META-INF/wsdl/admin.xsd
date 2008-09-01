@@ -65,14 +65,18 @@
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:complexType name="OperationTimestamp">
-		<xsd:sequence>
-			<xsd:element name="operation.name" type="xsd:string" />
-			<xsd:element name="start" type="xsd:dateTime" />
-			<xsd:element name="finish" type="xsd:dateTime" />
-			<xsd:element name="client.id" type="xsd:string" />
-			<xsd:element name="status" type="xsd:boolean" default="true" />
-			<xsd:element name="note" type="xsd:string" nillable="true" />
-		</xsd:sequence>
+		<xsd:complexContent>
+			<xsd:extension base="common:AbstractEntity">
+				<xsd:sequence>
+					<xsd:element name="operation.name" type="xsd:string" />
+					<xsd:element name="start" type="xsd:dateTime" />
+					<xsd:element name="finish" type="xsd:dateTime" />
+					<xsd:element name="client.id" type="xsd:string" />
+					<xsd:element name="status" type="xsd:boolean" default="true" />
+					<xsd:element name="note" type="xsd:string" nillable="true" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="AlivePeriod">
 		<xsd:sequence>
