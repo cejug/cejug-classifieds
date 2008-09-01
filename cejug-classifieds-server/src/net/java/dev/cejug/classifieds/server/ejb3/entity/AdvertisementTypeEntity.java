@@ -25,7 +25,12 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
  * @author $Author$
@@ -33,71 +38,51 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADVERTISEMENT_TYPE")
-public class AdvertisementTypeEntity extends AbstractEntity implements
+public class AdvertisementTypeEntity extends AdvertisementType implements
 		Comparable<AdvertisementTypeEntity> {
+	private final static long serialVersionUID = -6026937020915831338L;
+
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return entityId;
+	}
 
 	@Column(name = "NAME", nullable = false)
-	private String name;
-
-	@Column(name = "DESCRIPTION", nullable = false)
-	private String description;
-
-	@Column(name = "TEXT_LENGTH", nullable = false)
-	private Long textLength;
-
-	@Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
-	private Long maxAttachmentSize;
-
 	public String getName() {
-
 		return name;
 	}
 
-	public void setName(final String name) {
-
-		this.name = name;
-	}
-
+	@Column(name = "DESCRIPTION", nullable = false)
 	public String getDescription() {
-
 		return description;
 	}
 
-	public void setDescription(final String description) {
-
-		this.description = description;
+	@Column(name = "TEXT_LENGTH", nullable = false)
+	public long getMaxTextLength() {
+		return maxTextLength;
 	}
 
-	public Long getTextLength() {
-		return textLength;
-	}
-
-	public void setTextLength(final Long textLength) {
-
-		this.textLength = textLength;
-	}
-
-	public Long getMaxAttachmentSize() {
-
+	@Column(name = "MAX_ATTACHMENT_SIZE", nullable = false)
+	public long getMaxAttachmentSize() {
 		return maxAttachmentSize;
-	}
-
-	public void setMaxAttachmentSize(final Long maxAttachmentSize) {
-
-		this.maxAttachmentSize = maxAttachmentSize;
 	}
 
 	@Override
 	public int compareTo(final AdvertisementTypeEntity other) {
-		Integer thisId;
-		thisId = getId();
-		Integer otherId;
+		Long thisId;
+		thisId = getEntityId();
+		Long otherId;
 		otherId = other.getId();
 		int value;
 		if (thisId == null || otherId == null) {
 			value = -1;
 		} else {
-			value = getId() - other.getId();
+			value = thisId.intValue() - otherId.intValue();
 		}
 		return value;
 	}
@@ -111,8 +96,7 @@ public class AdvertisementTypeEntity extends AbstractEntity implements
 
 	@Override
 	public int hashCode() {
-		Integer hashCode;
-		hashCode = getId();
-		return hashCode == null ? super.hashCode() : hashCode;
+		Long hashCode = getId();
+		return hashCode == null ? super.hashCode() : hashCode.intValue();
 	}
 }

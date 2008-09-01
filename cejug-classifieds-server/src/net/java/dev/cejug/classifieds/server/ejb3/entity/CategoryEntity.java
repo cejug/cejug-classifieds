@@ -27,6 +27,9 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,65 +37,48 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+
 /**
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "CATEGORY", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
-public class CategoryEntity extends AbstractEntity {
+public class CategoryEntity extends AdvertisementCategory {
+	private final static long serialVersionUID = -6026937020915831338L;
 
-	@Column(name = "NAME", nullable = false)
-	private String name;
-
-	@Column(name = "DESCRIPTION", nullable = false)
-	private String description;
-
-	@Transient
-	private Integer available = 0;
-
-	@ManyToOne
-	@JoinColumn(name = "PARENT_ID", nullable = true)
-	private CategoryEntity parent;
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return entityId;
+	}
 
 	@OneToMany(mappedBy = "parent")
 	private Collection<CategoryEntity> subCategories;
 
+	@Column(name = "NAME", nullable = false)
 	public String getName() {
-
 		return name;
 	}
 
-	public void setName(final String name) {
-
-		this.name = name;
-	}
-
+	@Column(name = "DESCRIPTION", nullable = false)
 	public String getDescription() {
-
 		return description;
-	}
-
-	public void setDescription(final String descripton) {
-
-		this.description = descripton;
 	}
 
 	/**
 	 * @return the parent
 	 */
+	@ManyToOne
+	@JoinColumn(name = "PARENT_ID", nullable = true)
 	public CategoryEntity getParent() {
-
-		return parent;
-	}
-
-	/**
-	 * @param parent
-	 *            the parent to set
-	 */
-	public void setParent(final CategoryEntity parent) {
-
-		this.parent = parent;
+		// TODO: to check this....
+		return (CategoryEntity) super.getAdvertisementCategory();
 	}
 
 	/**
@@ -104,28 +90,10 @@ public class CategoryEntity extends AbstractEntity {
 	}
 
 	/**
-	 * @param subCategories
-	 *            the subCategories to set
-	 */
-	public void setSubCategories(final Collection<CategoryEntity> subCategories) {
-
-		this.subCategories = subCategories;
-	}
-
-	/**
 	 * @return the available
 	 */
-	public Integer getAvailable() {
-
+	@Transient
+	public int getAvailable() {
 		return available;
-	}
-
-	/**
-	 * @param available
-	 *            the available to set
-	 */
-	public void setAvailable(final Integer available) {
-
-		this.available = available;
 	}
 }
