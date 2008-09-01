@@ -26,7 +26,7 @@ public class AttributesCopierTest {
 	public void testComplex() {
 		Domain d = new Domain();
 		d.setBrand("lll");
-		d.setId(1);
+		d.setEntityId(1);
 		d.setSharedQuota(true);
 		d.setTimezone("lllllllll");
 		d.setUri("h");
@@ -36,7 +36,7 @@ public class AttributesCopierTest {
 			AttributesCopier<Domain, DomainEntity> copier = new AttributesCopier<Domain, DomainEntity>();
 			copier.copyValuesByAttributeNames(d, entity);
 			Assert.assertEquals(d.getBrand(), entity.getBrand());
-			Assert.assertEquals(d.getId(), entity.getId());
+			Assert.assertTrue(d.getEntityId() == entity.getId());
 			Assert.assertEquals(d.isSharedQuota(), entity.isSharedQuota());
 			Assert.assertEquals(d.getUri(), entity.getUri());
 		} catch (Exception e) {
