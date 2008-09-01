@@ -30,13 +30,13 @@ import javax.persistence.TransactionRequiredException;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author:felipegaucho $
+ * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  * @see EntityFacade
  */
 @Local
 public interface CustomerFacadeLocal extends EntityFacade<CustomerEntity> {
-	CustomerEntity findOrCreate(int domainId, String login)
+	CustomerEntity findOrCreate(Long domainId, String login)
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
 }

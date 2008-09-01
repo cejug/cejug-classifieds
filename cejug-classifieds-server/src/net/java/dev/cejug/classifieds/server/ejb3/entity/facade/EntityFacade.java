@@ -8,7 +8,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
+import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
 
 /**
  * @author $Author$

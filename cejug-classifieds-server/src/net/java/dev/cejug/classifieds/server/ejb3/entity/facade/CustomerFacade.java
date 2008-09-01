@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import java.util.ArrayList;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -34,7 +32,6 @@ import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
 
 /**
  * @author $Author$
@@ -48,13 +45,12 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 	private transient DomainFacadeLocal domainFacade;
 
 	@Override
-	public CustomerEntity findOrCreate(int domainId, String login)
+	public CustomerEntity findOrCreate(Long domainId, String login)
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {
 		Query query = manager
 				.createNamedQuery(CustomerEntity.QUERIES.SELECT_BY_DOMAIN);
-		query.setParameter(CustomerEntity.QUERIES.PARAM_DOMAIN, Integer
-				.valueOf(domainId));
+		query.setParameter(CustomerEntity.QUERIES.PARAM_DOMAIN, domainId);
 		query.setParameter(CustomerEntity.QUERIES.PARAM_LOGIN, login);
 
 		try {
@@ -68,14 +64,14 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 			 */
 
 			// loading domain
-			DomainEntity domain = domainFacade.read(DomainEntity.class, Integer
-					.valueOf(domainId));
+			DomainEntity domain = domainFacade.read(DomainEntity.class,
+					domainId);
 
 			// insert a new customer
 			CustomerEntity customer = new CustomerEntity();
-			customer.setDomain(domain);
+			customer.setDomainId(domain.getId());
 			customer.setLogin(login);
-			customer.setQuotas(new ArrayList<QuotaEntity>());
+			// customer.setQuotas(new ArrayList<QuotaEntity>());
 			manager.persist(customer);
 			return customer;
 		}
