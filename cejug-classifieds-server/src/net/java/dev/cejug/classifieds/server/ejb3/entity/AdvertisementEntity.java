@@ -27,12 +27,17 @@ package net.java.dev.cejug.classifieds.server.ejb3.entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.StringTokenizer;
 
+import javax.ejb.EJB;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -41,6 +46,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.xml.ws.WebServiceException;
+
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
 /**
  * @author $Author:felipegaucho $
@@ -50,7 +60,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "ADVERTISEMENT")
 @NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId")
-public class AdvertisementEntity extends AbstractEntity {
+public class AdvertisementEntity extends Advertisement {
+	private final static long serialVersionUID = -6026937020915831338L;
+
+	@Transient
+	private Collection<AdvertisementKeywordEntity> kewordsCollection = null;
+
 	public static final class QUERIES {
 		/**
 		 * Parameters:
@@ -72,162 +87,102 @@ public class AdvertisementEntity extends AbstractEntity {
 		ONLINE, ARCHIVE, CANCELED
 	}
 
-	@Column(name = "TITLE", nullable = false)
-	private String title;
+	@Transient
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
+
+	// @Transient @EJB private transient CategoryFacadeLocal categoryFacade; 
+
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	public Long getId() {
+		return super.getEntityId();
+	}
+
+	@Column(name = "HEADLINE", nullable = false)
+	public String getHeadline() {
+		return headline;
+	}
 
 	@Column(name = "SUMMARY", nullable = false)
-	private String summary;
-
-	@Column(name = "TEXT", nullable = false)
-	private String text;
-
-	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
-	@ManyToOne
-	private CustomerEntity customer;
-
-	@ManyToMany
-	@JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
-	private Collection<AdvertisementKeywordEntity> keywords;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
-	private AdvertisementTypeEntity type;
-
-	@ManyToOne
-	@JoinColumn(name = "CATEGORY")
-	private CategoryEntity category;
-
-	@Column(name = "START", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar start;
-
-	@Column(name = "FINISH", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar finish;
-
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private AdvertisementStatus state = AdvertisementStatus.ONLINE;
-
-	public String getTitle() {
-
-		return title;
-	}
-
-	public void setTitle(final String title) {
-
-		this.title = title;
-	}
-
 	public String getSummary() {
-
 		return summary;
 	}
 
-	public void setSummary(final String summary) {
-
-		this.summary = summary;
-	}
-
+	@Column(name = "TEXT", nullable = false)
 	public String getText() {
-
 		return text;
 	}
 
-	public void setText(final String text) {
-
-		this.text = text;
-	}
-
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	@ManyToOne
 	public CustomerEntity getCustomer() {
-
-		return customer;
+		return (CustomerEntity) customer;
 	}
 
-	public void setCustomer(final CustomerEntity customer) {
+	@ManyToMany
+	@JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
+	public Collection<AdvertisementKeywordEntity> getKeywordCollection() {
+		// Lookup for the keywords, create the collection and then return...
+		if (kewordsCollection == null) {
+			kewordsCollection = new ArrayList<AdvertisementKeywordEntity>();
+			StringTokenizer tokenizer = new StringTokenizer(keywords, ",;",
+					false);
+			while (tokenizer.hasMoreTokens()) {
+				AdvertisementKeywordEntity advKeyword;
+				advKeyword = new AdvertisementKeywordEntity();
+				advKeyword.setName(tokenizer.nextToken());
+				kewordsCollection.add(advKeyword);
+			}
 
-		this.customer = customer;
-	}
-
-	public Collection<AdvertisementKeywordEntity> getKeywords() {
-
-		return keywords;
-	}
-
-	public void setKeywords(
-			final Collection<AdvertisementKeywordEntity> keywords) {
-
-		this.keywords = keywords;
-	}
-
-	public void addKeyword(final String keyword) {
-
-		AdvertisementKeywordEntity advKeyword;
-		advKeyword = new AdvertisementKeywordEntity();
-		advKeyword.setName(keyword);
-		addKeyword(advKeyword);
-	}
-
-	public void addKeyword(final AdvertisementKeywordEntity keyword) {
-
-		if (this.keywords == null) {
-			this.keywords = new ArrayList<AdvertisementKeywordEntity>();
 		}
-		keywords.add(keyword);
+		return kewordsCollection;
 	}
 
 	/**
 	 * @return the type
 	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
 	public AdvertisementTypeEntity getType() {
-
-		return type;
+		return advTypeFacade.read(AdvertisementTypeEntity.class, typeId);
 	}
 
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(final AdvertisementTypeEntity type) {
-
-		this.type = type;
-	}
-
+	@Column(name = "START", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Calendar getStart() {
-
-		return start;
+		return super.publishingPeriod.getStart();
 	}
 
-	public void setStart(final Calendar start) {
-
-		this.start = start;
-	}
-
+	@Column(name = "FINISH", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Calendar getFinish() {
-
-		return finish;
+		return super.publishingPeriod.getFinish();
 	}
 
-	public void setFinish(final Calendar finish) {
-
-		this.finish = finish;
-	}
-
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	public AdvertisementStatus getState() {
-
-		return state;
+		switch (super.status) {
+		case 0:
+			return AdvertisementStatus.ARCHIVE;
+		case 1:
+			return AdvertisementStatus.CANCELED;
+		case 2:
+			return AdvertisementStatus.ONLINE;
+		default:
+			throw new WebServiceException("status not defined");
+		}
 	}
 
-	public void setState(final AdvertisementStatus state) {
-
-		this.state = state;
-	}
-
+	@ManyToOne
+	@JoinColumn(name = "CATEGORY")
 	public CategoryEntity getCategory() {
-		return category;
-	}
-
-	public void setCategory(final CategoryEntity category) {
-		this.category = category;
+		// categoryFacade.read(CategoryEntity.class, super.categoryId);
+		return null;
 	}
 }
