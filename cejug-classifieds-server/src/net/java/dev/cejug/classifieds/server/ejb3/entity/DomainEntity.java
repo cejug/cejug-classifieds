@@ -45,6 +45,7 @@ public class DomainEntity extends AbstractEntity {
 	@Column(name = "URI", nullable = false, unique = true)
 	private String uri;
 
+	
 	@Column(name = "SHARED_COTA", nullable = false)
 	private boolean sharedQuota;
 
