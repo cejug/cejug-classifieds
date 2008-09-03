@@ -21,41 +21,16 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.adapter;
+package net.java.dev.cejug.classifieds.business.interfaces;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PACKAGE;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import javax.ejb.Local;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
-
-@Retention(RUNTIME)
-@Target({PACKAGE, FIELD, METHOD, TYPE, PARAMETER})
-public @interface SoapEntityAdapter {
-
-  /**
-   * Points to the class that converts a value type to a bound type or vice
-   * versa. See {@link SoapOrmAdapter} for more details.
-   */
-  Class<? extends SoapOrmAdapter<?, ?>> value();
-
-  /**
-   * If this annotation is used at the package level, then value of the type()
-   * must be specified.
-   */
-
-  Class<?> type() default DEFAULT.class;
-
-  /**
-   * Used in {@link SoapEntityAdapter#type()} to signal that the type be
-   * inferred from the signature of the field, property, parameter or the class.
-   */
-
-  static final class DEFAULT {
-  }
+/**
+ * @author $Author: felipegaucho $
+ * @version $Rev $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
+ */
+@Local
+public interface DomainOperationsLocal extends CRUDLocal<Domain> {
 }

@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
-import java.lang.annotation.Target;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;

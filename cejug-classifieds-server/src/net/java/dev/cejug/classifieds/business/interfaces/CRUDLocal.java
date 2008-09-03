@@ -21,41 +21,44 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.adapter;
+package net.java.dev.cejug.classifieds.business.interfaces;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PACKAGE;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.util.List;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import javax.ejb.Local;
 
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
-@Retention(RUNTIME)
-@Target({PACKAGE, FIELD, METHOD, TYPE, PARAMETER})
-public @interface SoapEntityAdapter {
+/**
+ * @author $Author: felipegaucho $
+ * @version $Rev $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
+ */
+@Local
+public interface CRUDLocal<T extends MessageElement> {
+	/**
+	 * TODO: to comment.
+	 */
+	T create(final T type);
 
-  /**
-   * Points to the class that converts a value type to a bound type or vice
-   * versa. See {@link SoapOrmAdapter} for more details.
-   */
-  Class<? extends SoapOrmAdapter<?, ?>> value();
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus update(final T type);
 
-  /**
-   * If this annotation is used at the package level, then value of the type()
-   * must be specified.
-   */
+	/**
+	 * TODO: to comment.
+	 */
+	List<T> readBundleOperation(BundleRequest bundleRequest);
 
-  Class<?> type() default DEFAULT.class;
+	/**
+	 * TODO: to comment.
+	 */
+	T read(long id);
 
-  /**
-   * Used in {@link SoapEntityAdapter#type()} to signal that the type be
-   * inferred from the signature of the field, property, parameter or the class.
-   */
-
-  static final class DEFAULT {
-  }
+	/**
+	 * TODO: to comment.
+	 */
+	ServiceStatus delete(final long id);
 }
