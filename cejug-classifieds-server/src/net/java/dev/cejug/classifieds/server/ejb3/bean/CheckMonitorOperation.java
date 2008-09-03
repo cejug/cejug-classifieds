@@ -65,7 +65,7 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 
 		try {
 			List<ServiceLifeCycleEntity> alivePeriods = lifeCycleFacade
-					.readAll(ServiceLifeCycleEntity.class);
+					.readAll();
 			List<AlivePeriod> periods = response.getAlivePeriods();
 			for (ServiceLifeCycleEntity lifeCycle : alivePeriods) {
 				AlivePeriod period = new AlivePeriod();

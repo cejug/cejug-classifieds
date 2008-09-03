@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
+import java.lang.annotation.Target;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -39,6 +40,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.LoadRssOperati
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.rss.Channel;
 import net.java.dev.cejug_classifieds.rss.Item;
 import net.java.dev.cejug_classifieds.rss.Rss;
@@ -49,8 +51,8 @@ import net.java.dev.cejug_classifieds.rss.TGuid;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification<
- *      / a >
+ * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification
+ *      < / a >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
@@ -132,7 +134,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 				Item item = new Item();
 				item.setAuthor("dev@cejug-classifieds.dev.java.net ("
 						+ adv.getCustomer().getLogin() + ")");
-				item.setTitle(adv.getHeadline());
+				item.setTitle(adv.getTitle());
 				item.setDescription(adv.getText());
 				item.setComments(adv.getSummary());
 				item.setPubDate(gmt.format(adv.getStart().getTime()));
@@ -140,7 +142,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 				guid.setIsPermaLink(Boolean.FALSE);
 				guid
 						.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
-								+ adv.getEntityId());
+								+ adv.getId());
 				item.setGuid(guid);
 				channel.getItem().add(item);
 			}
@@ -152,4 +154,10 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			throw new WebServiceException(e);
 		}
 	}
+}
+
+// @Retention(// a sua retention policy) //opicional
+// @Target(CLASS) //opcional, tem um import aqui que eu não lembro... 
+@interface MeuTipo{
+     Class<? extends MessageElement> getType();
 }

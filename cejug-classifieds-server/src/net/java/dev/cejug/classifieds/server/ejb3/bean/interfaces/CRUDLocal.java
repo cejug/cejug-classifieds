@@ -28,6 +28,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -35,7 +36,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Local
-public interface CRUDLocal<T> {
+public interface CRUDLocal<T extends MessageElement> {
 	/**
 	 * TODO: to comment.
 	 */
@@ -50,6 +51,11 @@ public interface CRUDLocal<T> {
 	 * TODO: to comment.
 	 */
 	List<T> readBundleOperation(BundleRequest bundleRequest);
+
+	/**
+	 * TODO: to comment.
+	 */
+	T read(long id);
 
 	/**
 	 * TODO: to comment.

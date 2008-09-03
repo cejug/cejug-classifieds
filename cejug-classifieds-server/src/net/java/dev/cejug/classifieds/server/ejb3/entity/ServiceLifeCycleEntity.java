@@ -27,14 +27,9 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
 
 /**
  * @author $Author$
@@ -42,19 +37,8 @@ import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
  */
 @Entity
 @Table(name = "LIFE_CYCLE")
-public class ServiceLifeCycleEntity extends AbstractEntity {
+public class ServiceLifeCycleEntity extends AbstractEntity<VoidMessageElement> {
 	private final static long serialVersionUID = -6026937020915831338L;
-	private int id;
-
-	/**
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public int getId() {
-		return id;
-	}
 
 	@Column(name = "NAME", nullable = false)
 	private String name;

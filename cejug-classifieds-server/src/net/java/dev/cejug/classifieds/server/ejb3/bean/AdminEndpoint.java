@@ -23,10 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -41,11 +38,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CheckMonitorOp
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.DomainOperationsLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.QuotaEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
@@ -69,7 +61,6 @@ import net.java.dev.cejug_classifieds.metadata.common.CustomerCollection;
 import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.DomainCollection;
-import net.java.dev.cejug_classifieds.metadata.common.Quota;
 import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
@@ -85,22 +76,13 @@ import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
-public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
+public class AdminEndpoint implements ClassifiedsAdminRemote,
 		ClassifiedsAdminLocal {
 
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
 	@EJB
-	private transient AdvertisementTypeFacadeLocal advTypeFacade;
-
-	@EJB
-	private transient CustomerFacadeLocal customerFacade;
-
-	@EJB
 	private transient AdvertisementTypeOperationsLocal crudAdvType;
-
-	@EJB
-	private transient CategoryOperationsLocal crudCategory;
 
 	@EJB
 	private transient DomainOperationsLocal crudDomain;
@@ -112,8 +94,8 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	 * the global log manager, used to allow third party services to override
 	 * the defult logger.
 	 */
-	private final static Logger logger = Logger.getLogger(
-			ClassifiedsAdminSessionBean.class.getName(), "i18n/log");
+	private final static Logger logger = Logger.getLogger(AdminEndpoint.class
+			.getName(), "i18n/log");
 
 	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
@@ -122,48 +104,40 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	@Override
 	public ServiceStatus addQuotaOperation(final AddQuotaInfo addQuotaRequest) {
-		ServiceStatus status = new ServiceStatus();
-		try {
-			Quota requestedQuota = addQuotaRequest.getQuota();
-			CustomerEntity customer = customerFacade.findOrCreate(
-					requestedQuota.getDomainId(), requestedQuota
-							.getCustomerLogin());
-			// Collection<QuotaEntity> customerQuotas = customer.getQuotas();
-			Collection<QuotaEntity> customerQuotas = new ArrayList<QuotaEntity>();
 
-			AdvertisementTypeEntity type = advTypeFacade.read(
-					AdvertisementTypeEntity.class, requestedQuota
-							.getAdvertisementTypeId());
-
-			boolean newQuota = true;
-			for (Iterator<QuotaEntity> iterator = customerQuotas.iterator(); iterator
-					.hasNext();) {
-				QuotaEntity entity = iterator.next();
-				if (entity.getType().equals(type)) {
-					entity.setAmount(entity.getAvailable() + 1);
-					newQuota = false;
-				}
-			}
-			if (newQuota) {
-				QuotaEntity quota = new QuotaEntity();
-				quota.setAdvertisementTypeId(type.getId());
-				quota.setAmount(1);
-				quota.setCustomerLogin(customer.getLogin());
-				quota.setDomainId(customer.getDomainId());
-				customerQuotas.add(quota);
-			}
-			customerFacade.update(customer);
-			status.setStatusCode(200);
-			status
-					.setDescription("1 {0} quota added to customer {1} of domain {2}");
-			logger
-					.finest("TODO: fix logging... 1 {0} quota added to customer {1} of domain {2}");
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			status.setStatusCode(500);
-			status.setDescription(e.getMessage());
-		}
-		return status;
+		/*
+		 * TODO: review completely this code.
+		 * 
+		 * ServiceStatus status = new ServiceStatus(); try { Quota
+		 * requestedQuota = addQuotaRequest.getQuota(); CustomerEntity customer
+		 * = customerFacade.findOrCreate( requestedQuota.getDomainId(),
+		 * requestedQuota .getCustomerLogin()); // Collection<QuotaEntity>
+		 * customerQuotas = customer.getQuotas(); Collection<QuotaEntity>
+		 * customerQuotas = new ArrayList<QuotaEntity>();
+		 * 
+		 * CrudImpl<AdvertisementTypeEntity, AdvertisementType> crud = new
+		 * CrudImpl<AdvertisementTypeEntity, AdvertisementType>( new
+		 * AdvertisementTypeAdapter(), new AdvertisementTypeFacade());
+		 * AdvertisementTypeEntity type = crud.read(requestedQuota
+		 * .getAdvertisementTypeId());
+		 * 
+		 * boolean newQuota = true; for (Iterator<QuotaEntity> iterator =
+		 * customerQuotas.iterator(); iterator .hasNext();) { QuotaEntity entity
+		 * = iterator.next(); if (entity.getType().equals(type)) {
+		 * entity.setAmount(entity.getAvailable() + 1); newQuota = false; } } if
+		 * (newQuota) { QuotaEntity quota = new QuotaEntity();
+		 * quota.setAdvertisementTypeId(type.getId()); quota.setAmount(1);
+		 * quota.setCustomerLogin(customer.getLogin());
+		 * quota.setDomainId(customer.getDomainId()); customerQuotas.add(quota);
+		 * } customerFacade.update(customer); status.setStatusCode(200); status
+		 * .setDescription("1 {0} quota added to customer {1} of domain {2}");
+		 * logger.finest(
+		 * "TODO: fix logging... 1 {0} quota added to customer {1} of domain {2}"
+		 * ); } catch (Exception e) { logger.severe(e.getMessage());
+		 * status.setStatusCode(500); status.setDescription(e.getMessage()); }
+		 * return status;
+		 */
+		return null;
 	}
 
 	@Override
@@ -181,6 +155,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam param) {
+		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		return crudCategory.create(param.getAdvertisementCategory());
 	}
 
@@ -192,6 +167,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
+		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		return crudCategory.delete(obsoleteCategory.getPrimaryKey());
 	}
 
@@ -227,6 +203,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 
 	@Override
 	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
+		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		return crudCategory.update(param.getAdvertisementCategory());
 	}
 
@@ -272,6 +249,7 @@ public class ClassifiedsAdminSessionBean implements ClassifiedsAdminRemote,
 	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			BundleRequest bundleRequest) {
+		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		CategoryCollection collection = new CategoryCollection();
 		Collections.copy(collection.getAdvertisementCategory(), crudCategory
 				.readBundleOperation(bundleRequest));

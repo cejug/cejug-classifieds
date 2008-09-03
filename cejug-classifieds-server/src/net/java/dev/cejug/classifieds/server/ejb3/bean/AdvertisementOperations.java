@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
@@ -34,15 +33,14 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CustomerEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.adapter.AdvertisementAdapter;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
-import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -88,10 +86,10 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 		try {
 			AdvertisementCollection collection = new AdvertisementCollection();
-			List<AdvertisementEntity> entities = advFacade
-					.readAll(AdvertisementEntity.class);
+			List<AdvertisementEntity> entities = advFacade.readAll();
+			AdvertisementAdapter adapter = new AdvertisementAdapter();
 			for (AdvertisementEntity entity : entities) {
-				collection.getAdvertisement().add((Advertisement) entity);
+				collection.getAdvertisement().add(adapter.toSoap(entity));
 			}
 			return collection;
 		} catch (Exception e) {
@@ -106,6 +104,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 		// TODO: to implement the real code.
 		try {
+			// TODO: re-think a factory to reuse adapters...
+			AdvertisementAdapter adapter = new AdvertisementAdapter();
 			/*
 			 * // loading customer Map<String, String> params = new
 			 * HashMap<String, String>(); params.clear(); params.put("d",
@@ -114,33 +114,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			 */
 			CustomerEntity customer = customerFacade.findOrCreate(header
 					.getCustomerDomainId(), header.getCustomerLogin());
-
-			// validating advertisement PIN
-			AdvertisementEntity entity = new AdvertisementEntity();
-			// entity.setKeywords(advertisement.getKeywords()); // TODO
-			entity.setText(advertisement.getText());
-
+			AdvertisementEntity entity = adapter.toEntity(advertisement);
 			entity.setCustomer(customer);
-
-			AdvertisementTypeEntity type = advTypeFacade.read(
-					AdvertisementTypeEntity.class, advertisement.getTypeId());
-			entity.setTypeId(type.getId());
-
-			entity.setSummary(advertisement.getSummary());
-			entity.setHeadline(advertisement.getHeadline());
-
-			// CategoryEntity category =
-			// categoryFacade.read(CategoryEntity.class,
-			// advertisement.getCategoryId());
-			// entity.setCategory(category);
-
-			Calendar start = Calendar.getInstance();
-			Calendar finish = Calendar.getInstance();
-			finish.add(Calendar.HOUR, 3);
-			Period period = new Period();
-			period.setStart(start);
-			period.setFinish(finish);
-			entity.setPublishingPeriod(new Period());
 			advFacade.create(entity);
 
 			ServiceStatus status = new ServiceStatus();

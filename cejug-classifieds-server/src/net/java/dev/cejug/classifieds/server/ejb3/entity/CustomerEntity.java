@@ -23,14 +23,14 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -51,9 +51,7 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
 @Table(name = "CUSTOMER", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"LOGIN", "DOMAIN" }) })
 @NamedQuery(name = CustomerEntity.QUERIES.SELECT_BY_DOMAIN, query = "SELECT c FROM CustomerEntity c WHERE c.domain.id= :domain AND c.login= :login")
-public class CustomerEntity extends Customer {
-	private final static long serialVersionUID = -6026937020915831338L;
-
+public class CustomerEntity extends AbstractEntity<Customer> {
 	public static final class QUERIES {
 		/**
 		 * Parameters:
@@ -71,30 +69,44 @@ public class CustomerEntity extends Customer {
 		public static final String PARAM_DOMAIN = "domain";
 	}
 
-	/**
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public long getId() {
-		return entityId;
-	}
-
 	@Column(name = "LOGIN", nullable = false)
-	public String getLogin() {
-		return login;
-	}
+	private String login;
 
 	@JoinColumn(name = "DOMAIN", nullable = false)
 	@ManyToOne
-	public DomainEntity getDomain() {
-		// get Domain from ID
-		return null;
+	private DomainEntity domain;
+
+	@OneToMany(mappedBy = "customer")
+	private Collection<QuotaEntity> quotas;
+
+	public String getLogin() {
+
+		return login;
 	}
 
-	/*
-	 * @OneToMany(mappedBy = "customer") public Collection<QuotaEntity>
-	 * getQuotas() { return quotas; }
-	 */
+	public void setLogin(final String login) {
+
+		this.login = login;
+	}
+
+	public DomainEntity getDomain() {
+
+		return domain;
+	}
+
+	public void setDomain(final DomainEntity domain) {
+
+		this.domain = domain;
+	}
+
+	public Collection<QuotaEntity> getQuotas() {
+
+		return quotas;
+	}
+
+	public void setQuotas(final Collection<QuotaEntity> quotas) {
+
+		this.quotas = quotas;
+	}
+
 }

@@ -27,9 +27,6 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,60 +34,93 @@ import javax.persistence.TemporalType;
 import net.java.dev.cejug_classifieds.metadata.admin.OperationTimestamp;
 
 /**
- * @author $Author:felipegaucho $
- * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "RESPONSE_TIME")
-public class OperationTimestampEntity extends OperationTimestamp {
-	private final static long serialVersionUID = -6026937020915831338L;
+public class OperationTimestampEntity extends
+		AbstractEntity<OperationTimestamp> {
 
 	// TODO falta modelar essa tabela
-	/**
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public long getId() {
-		return entityId;
-	}
+
+	@Column(nullable = false)
+	private String operationName;
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar date;
+
+	@Column(nullable = false)
+	private Long responseTime;
+
+	@Column(nullable = false)
+	private Boolean status;
+
+	@Column(nullable = false)
+	private String clientId;
 
 	@Column(nullable = true)
 	private String fault;
 
-	@Column(nullable = false)
 	public String getOperationName() {
+
 		return operationName;
 	}
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	public Calendar getStart() {
-		return start;
+	public void setOperationName(final String operationName) {
+
+		this.operationName = operationName;
 	}
 
-	@Column(nullable = false)
-	public long getResponseTime() {
-		return finish.getTimeInMillis() - start.getTimeInMillis();
+	public Calendar getDate() {
+
+		return date;
 	}
 
-	@Column(nullable = false)
+	public void setDate(final Calendar date) {
+
+		this.date = date;
+	}
+
+	public Long getResponseTime() {
+
+		return responseTime;
+	}
+
+	public void setResponseTime(final Long responseTime) {
+
+		this.responseTime = responseTime;
+	}
+
 	public Boolean getStatus() {
+
 		return status;
 	}
 
-	@Column(nullable = false)
+	public void setStatus(final Boolean status) {
+
+		this.status = status;
+	}
+
 	public String getClientId() {
+
 		return clientId;
 	}
 
-	@Column(nullable = false)
+	public void setClientId(final String clientId) {
+
+		this.clientId = clientId;
+	}
+
 	public String getFault() {
+
 		return fault;
 	}
 
 	public void setFault(final String fault) {
+
 		this.fault = fault;
 	}
+
 }

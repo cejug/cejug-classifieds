@@ -23,70 +23,101 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**
  * A domain is company or a group of people. The domain should be registered in
  * the Cejug-Classifieds system, and a domain has a unique domain name.
  * 
- * @author $Author:felipegaucho $
- * @version $Rev $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "DOMAIN")
-public class DomainEntity extends Domain {
-	/**
-	 * 
-	 */
-	private final static long serialVersionUID = -6026937020915831338L;
+@NamedQuery(name = "selectDomainByName", query = "SELECT d FROM DomainEntity d WHERE d.domainName= :domain")
+public class DomainEntity extends AbstractEntity<Domain> {
 
-	/**
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public long getId() {
-		return entityId;
-	}
+	@Column(name = "NAME", nullable = false, unique = true)
+	private String domainName;
 
 	@Column(name = "SHARED_COTA", nullable = false)
-	public boolean isSharedQuota() {
+	private Boolean sharedQuota;
+
+	@Column(name = "BRAND", nullable = false)
+	private String brand;
+
+	@OneToMany(mappedBy = "domain")
+	private Collection<QuotaEntity> quotas;
+
+	@ManyToMany
+	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
+	private Collection<CategoryEntity> categories;
+
+	public Boolean getSharedQuota() {
+
 		return sharedQuota;
 	}
 
-	// @OneToMany(mappedBy = "domain")
-	// private Collection<QuotaEntity> quotas;
+	public void setSharedQuota(final Boolean sharedQuota) {
 
-	@Column(name = "BRAND", nullable = false)
+		this.sharedQuota = sharedQuota;
+	}
+
 	public String getBrand() {
+
 		return brand;
 	}
 
-	@Column(name = "URI", nullable = false, unique = true)
-	public String getUri() {
-		return uri;
+	public void setBrand(final String brand) {
+
+		this.brand = brand;
+	}
+
+	public Collection<QuotaEntity> getQuotas() {
+
+		return quotas;
+	}
+
+	public void setQuotas(final Collection<QuotaEntity> quotas) {
+
+		this.quotas = quotas;
+	}
+
+	public String getDomainName() {
+
+		return domainName;
+	}
+
+	public void setDomainName(final String domainName) {
+
+		this.domainName = domainName;
 	}
 
 	/**
 	 * @return the categories
 	 */
-	@ManyToMany
-	@JoinTable(name = "DOMAIN_CATEGORY", joinColumns = @JoinColumn(name = "DOMAIN_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
-	public List<AdvertisementCategory> getAdvertisementCategory() {
-		return super.getAdvertisementCategory();
+	public Collection<CategoryEntity> getCategories() {
+
+		return categories;
+	}
+
+	/**
+	 * @param categories
+	 *            the categories to set
+	 */
+	public void setCategories(final Collection<CategoryEntity> categories) {
+
+		this.categories = categories;
 	}
 }

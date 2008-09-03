@@ -38,7 +38,6 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementEntity;
 @Stateless
 public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
 		implements AdvertisementFacadeLocal {
-
 	/**
 	 * Read all advertisements of a category.
 	 * 

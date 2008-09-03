@@ -94,8 +94,7 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			atomFeed.getAuthorOrCategoryOrContributor().add(feedId);
 
 			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade
-					.readAll(AdvertisementEntity.class);
+			List<AdvertisementEntity> result = advFacade.readAll();
 
 			for (AdvertisementEntity adv : result) {
 
@@ -103,11 +102,11 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 
 				entry.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "title"),
-						adv.getHeadline());
+						adv.getTitle());
 				entry.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "link"),
 						"http://cejug-classifieds-server/atom&id="
-								+ adv.getEntityId());
+								+ adv.getId());
 				atomFeed.getOtherAttributes().put(
 						new QName("http://www.w3.org/2005/Atom", "updated"),
 						Calendar.getInstance().toString());

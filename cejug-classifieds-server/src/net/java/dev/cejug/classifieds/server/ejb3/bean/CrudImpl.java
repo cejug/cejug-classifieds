@@ -29,9 +29,12 @@ import java.util.logging.Logger;
 
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CRUDLocal;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
-import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -40,7 +43,8 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends AbstractEntity> {
+public class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
+		implements CRUDLocal<T> {
 
 	/**
 	 * The default logger.
@@ -48,28 +52,21 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends
 	private Logger logger = null;
 
 	/** The type of the entities. */
-	private final Class<E> ec;
+	private final SoapOrmAdapter<T, E> adapter;
+	private final EntityFacade<E> facade;
 
-	AbstractCRUDOperations(Class<E> ec) {
-		this.ec = ec;
-		logger = Logger.getLogger("AbstractCRUDOperations<" + ec.getName()
-				+ ">", "i18n/log");
+	protected CrudImpl(SoapOrmAdapter<T, E> adapter, EntityFacade<E> facade) {
+		this.adapter = adapter;
+		this.facade = facade;
+		logger = Logger.getLogger("CRUD(" + adapter.getClass() + ", "
+				+ facade.getClass() + ")", "i18n/log");
 	}
 
-	/**
-	 * The generic facade cannot be instantiated from generic types, so the
-	 * subclasses should provide the persistence facade to the crud
-	 * implementation.
-	 * 
-	 * @return an entity facade for persistence of types <em>E</em>
-	 */
-	abstract EntityFacade<E> getEntityFacade();
-
-	@SuppressWarnings("unchecked")
 	public T create(final T type) {
 		try {
 			// TODO: review validation...
-			getEntityFacade().create((E) type);
+
+			facade.create(adapter.toEntity(type));
 			return type;
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -78,15 +75,13 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends
 	}
 
 	public ServiceStatus delete(final long id) {
-
 		ServiceStatus status = new ServiceStatus();
 		try {
-			// TODO Check if the domain is being used, before deleting it
-			getEntityFacade().delete(ec, id);
-
+			E entity = facade.read(id);
+			facade.delete(entity);
 			status.setStatusCode(200);
-			status.setDescription("1 domain deleted");
-
+			status
+					.setDescription("TODO: create i18n messages.. 1 domain deleted");
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			status.setStatusCode(500);
@@ -95,31 +90,24 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends
 		return status;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> readBundleOperation(BundleRequest bundleRequest) {
 		// TODO: use the bundle request parameters as query filter.
 
 		List<T> domainCollection = new ArrayList<T>();
 
-		try {
-			List<E> entities = getEntityFacade().readAll(ec);
-			if (entities != null) {
-				for (E domainEntity : entities) {
-					domainCollection.add((T) domainEntity);
-				}
-			}
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
+		/*
+		 * TODO: try { List<E> entities = getEntityFacade().readAll(ec); if
+		 * (entities != null) { for (E domainEntity : entities) {
+		 * domainCollection.add((T) domainEntity); } } } catch (Exception e) {
+		 * logger.severe(e.getMessage()); throw new WebServiceException(e); }
+		 */
 		return domainCollection;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ServiceStatus update(final T type) {
 		ServiceStatus status = new ServiceStatus();
 		try {
-			getEntityFacade().update((E) type);
+			facade.update(adapter.toEntity(type));
 			status.setStatusCode(200);
 			status.setDescription("1 domain updated");
 		} catch (Exception e) {
@@ -130,4 +118,8 @@ public abstract class AbstractCRUDOperations<E extends AbstractEntity, T extends
 		return status;
 	}
 
+	@Override
+	public T read(long id) {
+		return adapter.toSoap(facade.read(id));
+	}
 }

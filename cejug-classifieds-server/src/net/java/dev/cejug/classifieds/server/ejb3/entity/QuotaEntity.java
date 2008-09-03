@@ -23,59 +23,44 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity;
 
-import javax.ejb.EJB;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Quota;
 
 /**
- * @author $Author:felipegaucho $
- * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "QUOTA")
-public class QuotaEntity extends Quota {
-	private final static long serialVersionUID = -6026937020915831338L;
-	@Transient
-	@EJB
-	private transient AdvertisementTypeFacadeLocal advTypeFacade;
-
-	@Transient
-	@EJB
-	private transient CustomerFacadeLocal customerFacade;
-
-	@Transient
-	@EJB
-	private transient DomainFacadeLocal domainFacade;
-
-	/**
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	public long getId() {
-		return entityId;
-	}
+public class QuotaEntity extends AbstractEntity<Quota> {
 
 	@OneToOne
 	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
-	public AdvertisementTypeEntity getType() {
-		return advTypeFacade.read(AdvertisementTypeEntity.class,
-				getAdvertisementTypeId());
+	private AdvertisementTypeEntity type;
 
+	@Column(name = "AMOUNT", nullable = false)
+	private Integer amount;
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	private CustomerEntity customer;
+
+	@ManyToOne
+	@JoinColumn(name = "DOMAIN_ID", nullable = false)
+	private DomainEntity domain;
+
+	public AdvertisementTypeEntity getType() {
+		return type;
+	}
+
+	public void setType(final AdvertisementTypeEntity type) {
+
+		this.type = type;
 	}
 
 	public Integer getAvailable() {
@@ -83,26 +68,51 @@ public class QuotaEntity extends Quota {
 		return amount;
 	}
 
+	public void setAvailable(final Integer available) {
+
+		this.amount = available;
+	}
+
 	/**
 	 * @return the customer
 	 */
-	@ManyToOne
-	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
 	public CustomerEntity getCustomer() {
-		return customerFacade.findOrCreate(super.domainId, super.customerLogin);
+
+		return customer;
+	}
+
+	/**
+	 * @param customer
+	 *            the customer to set
+	 */
+	public void setCustomer(final CustomerEntity customer) {
+
+		this.customer = customer;
 	}
 
 	/**
 	 * @return the domain
 	 */
-	@ManyToOne
-	@JoinColumn(name = "DOMAIN_ID", nullable = false)
 	public DomainEntity getDomain() {
-		return domainFacade.read(DomainEntity.class, super.domainId);
+
+		return domain;
 	}
 
-	@Column(name = "AMOUNT", nullable = false)
-	public int getAmount() {
+	/**
+	 * @param domain
+	 *            the domain to set
+	 */
+	public void setDomain(final DomainEntity domain) {
+
+		this.domain = domain;
+	}
+
+	public Integer getAmount() {
 		return amount;
 	}
+
+	public void setAmount(final Integer amount) {
+		this.amount = amount;
+	}
+
 }

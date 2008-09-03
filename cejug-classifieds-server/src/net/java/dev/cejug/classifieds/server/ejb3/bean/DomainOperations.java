@@ -23,13 +23,12 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.adapter.DomainAdapter;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.DomainFacade;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**
@@ -40,17 +39,9 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
  */
 @Stateless
 public class DomainOperations extends
-		AbstractCRUDOperations<DomainEntity, Domain> implements
+		CrudImpl<DomainEntity, Domain> implements
 		DomainOperationsLocal {
-	@EJB
-	private DomainFacadeLocal facade;
-
 	public DomainOperations() {
-		super(DomainEntity.class);
-	}
-
-	@Override
-	EntityFacade<DomainEntity> getEntityFacade() {
-		return facade;
+		super(new DomainAdapter(), new DomainFacade());
 	}
 }

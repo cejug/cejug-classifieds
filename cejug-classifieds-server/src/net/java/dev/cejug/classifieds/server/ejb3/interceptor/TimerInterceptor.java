@@ -76,8 +76,9 @@ public class TimerInterceptor {
 		OperationTimestampEntity stamp;
 		stamp = new OperationTimestampEntity();
 		stamp.setOperationName(ctx.getMethod().getName());
-		stamp.setStart(start);
-		stamp.setFinish(Calendar.getInstance(timezone));
+		stamp.setDate(start);
+		stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis()
+				- start.getTimeInMillis());
 		stamp.setStatus(true);
 		stamp.setClientId("TODO: get client ID");
 		if (error == null) {

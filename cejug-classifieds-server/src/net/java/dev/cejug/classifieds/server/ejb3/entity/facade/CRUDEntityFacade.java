@@ -11,7 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 
-import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.AbstractEntity;
 
 /**
  * CRUD operations shared by the Entity Facades.
@@ -22,8 +22,16 @@ import net.java.dev.cejug_classifieds.metadata.common.AbstractEntity;
  *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
  *      Create, * read, update and delete (CRUD)< /a>
  */
-public class CRUDEntityFacade<T extends AbstractEntity> implements
+public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		EntityFacade<T> {
+
+	private Class<T> entityClass;
+
+	@SuppressWarnings("unchecked")
+	public CRUDEntityFacade() {
+		entityClass = (Class<T>) ((java.lang.reflect.ParameterizedType) this
+				.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 
 	/**
 	 * The entity manager is injected by the container JEE 5+.
@@ -46,8 +54,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<T> readAll(final Class<T> entityClass)
-			throws IllegalStateException, IllegalArgumentException {
+	public List<T> readAll() throws IllegalStateException,
+			IllegalArgumentException {
 		Query query;
 		query = manager.createQuery("select e from "
 				+ entityClass.getSimpleName() + " e");
@@ -58,8 +66,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public T read(final Class<T> entityClass, final Serializable primaryKey)
-			throws IllegalStateException, IllegalArgumentException {
+	public T read(final Serializable primaryKey) throws IllegalStateException,
+			IllegalArgumentException {
 		return manager.find(entityClass, primaryKey);
 	}
 
@@ -71,17 +79,6 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 			IllegalArgumentException, TransactionRequiredException,
 			PersistenceException {
 		manager.remove(entity);
-		manager.flush();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(final Class<T> entityClass, final Serializable primaryKey)
-			throws IllegalStateException, IllegalArgumentException,
-			TransactionRequiredException, PersistenceException {
-		manager.remove(read(entityClass, primaryKey));
 		manager.flush();
 	}
 

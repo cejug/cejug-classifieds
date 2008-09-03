@@ -66,8 +66,8 @@ import org.w3._2005.atom.FeedType;
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness", serviceName = "CejugClassifiedsServiceBusiness", portName = "CejugClassifiedsBusiness", targetNamespace = "http://cejug-classifieds.dev.java.net/business")
-public class ClassifiedsBusinessSessionBean implements
-		ClassifiedsBusinessLocal, ClassifiedsBusinessRemote {
+public class BusinessEndpoint implements ClassifiedsBusinessLocal,
+		ClassifiedsBusinessRemote {
 	/**
 	 * Used by not yet implemented operations: {@value} .
 	 */
@@ -81,9 +81,6 @@ public class ClassifiedsBusinessSessionBean implements
 
 	@EJB
 	private transient AdvertisementOperationsLocal crudAdvertisement;
-
-	@EJB
-	private transient CategoryOperationsLocal crudCategory;
 
 	/**
 	 * @return an <a href=
@@ -126,6 +123,7 @@ public class ClassifiedsBusinessSessionBean implements
 	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
+		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		CategoryCollection collection = new CategoryCollection();
 		Collections.copy(collection.getAdvertisementCategory(), crudCategory
 				.readBundleOperation(bundleRequest));

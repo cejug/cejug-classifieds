@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.entity.facade;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
 import javax.persistence.NoResultException;
@@ -41,8 +40,7 @@ import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
 @Stateless
 public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 		CustomerFacadeLocal {
-	@EJB
-	private transient DomainFacadeLocal domainFacade;
+	private transient DomainFacadeLocal domainFacade = new DomainFacade();
 
 	@Override
 	public CustomerEntity findOrCreate(long domainId, String login)
@@ -64,12 +62,12 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 			 */
 
 			// loading domain
-			DomainEntity domain = domainFacade.read(DomainEntity.class,
-					domainId);
+			DomainEntity domain = domainFacade.read(domainId);
 
 			// insert a new customer
 			CustomerEntity customer = new CustomerEntity();
-			customer.setDomainId(domain.getId());
+
+			customer.setDomain(domain);
 			customer.setLogin(login);
 			// customer.setQuotas(new ArrayList<QuotaEntity>());
 			manager.persist(customer);

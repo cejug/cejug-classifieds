@@ -23,13 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.CategoryEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.adapter.CategoryAdapter;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.CategoryFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 /**
@@ -38,19 +35,11 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-@Stateless
 public class CategoryOperations extends
-		AbstractCRUDOperations<CategoryEntity, AdvertisementCategory> implements
+		CrudImpl<CategoryEntity, AdvertisementCategory> implements
 		CategoryOperationsLocal {
-	@EJB
-	private CategoryFacadeLocal categoryFacade;
 
 	public CategoryOperations() {
-		super(CategoryEntity.class);
-	}
-
-	@Override
-	EntityFacade<CategoryEntity> getEntityFacade() {
-		return categoryFacade;
+		super(new CategoryAdapter(), new CategoryFacade());
 	}
 }

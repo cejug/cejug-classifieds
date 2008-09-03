@@ -23,13 +23,12 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.server.ejb3.bean;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.server.ejb3.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacadeLocal;
-import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.EntityFacade;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.adapter.AdvertisementTypeAdapter;
+import net.java.dev.cejug.classifieds.server.ejb3.entity.facade.AdvertisementTypeFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
@@ -40,17 +39,9 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
  */
 @Stateless
 public class AdvertisementTypeOperations extends
-		AbstractCRUDOperations<AdvertisementTypeEntity, AdvertisementType>
+		CrudImpl<AdvertisementTypeEntity, AdvertisementType>
 		implements AdvertisementTypeOperationsLocal {
-	@EJB
-	private transient AdvertisementTypeFacadeLocal facade;
-
 	public AdvertisementTypeOperations() {
-		super(AdvertisementTypeEntity.class);
-	}
-
-	@Override
-	EntityFacade<AdvertisementTypeEntity> getEntityFacade() {
-		return facade;
+		super(new AdvertisementTypeAdapter(), new AdvertisementTypeFacade());
 	}
 }

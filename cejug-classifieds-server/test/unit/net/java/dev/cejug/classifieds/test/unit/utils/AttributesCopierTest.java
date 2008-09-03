@@ -37,8 +37,8 @@ public class AttributesCopierTest {
 			copier.copyValuesByAttributeNames(d, entity);
 			Assert.assertEquals(d.getBrand(), entity.getBrand());
 			Assert.assertTrue(d.getEntityId() == entity.getId());
-			Assert.assertEquals(d.isSharedQuota(), entity.isSharedQuota());
-			Assert.assertEquals(d.getUri(), entity.getUri());
+			Assert.assertEquals(d.isSharedQuota(), entity.getSharedQuota());
+			Assert.assertEquals(d.getUri(), entity.getDomainName());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
