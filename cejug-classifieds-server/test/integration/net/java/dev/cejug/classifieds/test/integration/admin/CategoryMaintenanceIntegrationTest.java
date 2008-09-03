@@ -30,7 +30,7 @@ import java.util.Random;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote;
+import net.java.dev.cejug.classifieds.service.ejb.interfaces.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateCategoryParam;

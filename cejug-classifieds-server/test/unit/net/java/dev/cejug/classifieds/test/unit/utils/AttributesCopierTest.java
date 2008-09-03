@@ -1,6 +1,6 @@
 package net.java.dev.cejug.classifieds.test.unit.utils;
 
-import net.java.dev.cejug.classifieds.server.ejb3.entity.DomainEntity;
+import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug.utils.AttributesCopier;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 

@@ -142,7 +142,7 @@
             </manifest>
 
             <fileset dir="${build.classes.home}" casesensitive="yes">
-                <include name="net/java/dev/cejug/classifieds/server/ejb3/entity/**/**" />
+                <include name="${ear.entities.package}" />
                 <exclude name="test/**" />
             </fileset>
             <fileset dir="${resources.folder}" casesensitive="yes">
@@ -168,7 +168,7 @@
             </manifest>
 
             <fileset dir="${build.classes.home}" casesensitive="yes">
-                <include name="net/java/dev/cejug/classifieds/server/ejb3/bean/interfaces/**" />
+                <include name="${ear.ejb.interfaces.package}" />
                 <exclude name="test/**" />
             </fileset>
         </jar>
