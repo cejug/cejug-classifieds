@@ -31,12 +31,12 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.AdvertisementOperationsLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.CategoryOperationsLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.ClassifiedsBusinessLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.ClassifiedsBusinessRemote;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.LoadAtomOperationLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.LoadRssOperationLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessRemote;
+import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.service.endpoint.impl.CategoryOperations;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
