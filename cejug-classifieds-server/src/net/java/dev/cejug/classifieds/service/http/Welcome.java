@@ -9,7 +9,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.ClassifiedsAdminLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 

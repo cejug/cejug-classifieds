@@ -10,7 +10,7 @@
  * with the terms and conditions stipulated in the agreement/contract
  * under which the program(s) have been supplied.
  *
- * @(#) $Id$
+ * @(#) $Id:RssFeed.java 578 2008-09-03 17:58:27Z felipegaucho $
  */
 package net.java.dev.cejug.classifieds.service.http;
 
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.ClassifiedsBusinessLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.rss.Rss;
 
