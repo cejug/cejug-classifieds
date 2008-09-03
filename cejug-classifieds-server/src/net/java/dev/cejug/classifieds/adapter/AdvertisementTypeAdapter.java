@@ -21,7 +21,7 @@ public class AdvertisementTypeAdapter extends SoapOrmAdapter<AdvertisementType, 
     public AdvertisementType toSoap(AdvertisementTypeEntity advTypeEntity) throws IllegalStateException, IllegalArgumentException {
 
         AdvertisementType advType = new AdvertisementType();
-        advType.setId((int) advTypeEntity.getId());
+        advType.setEntityId((int) advTypeEntity.getId());
         advType.setDescription(advTypeEntity.getDescription());
         advType.setName(advTypeEntity.getName());
         advType.setMaxAttachmentSize(advTypeEntity.getMaxAttachmentSize());
