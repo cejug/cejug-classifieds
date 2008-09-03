@@ -36,9 +36,9 @@ import javax.ejb.Stateless;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.business.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.rss.Channel;

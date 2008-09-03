@@ -30,9 +30,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.business.interfaces.CheckMonitorOperationLocal;
 import net.java.dev.cejug.classifieds.entity.ServiceLifeCycleEntity;
 import net.java.dev.cejug.classifieds.entity.facade.ServiceLifeCycleFacadeLocal;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.CheckMonitorOperationLocal;
 import net.java.dev.cejug_classifieds.metadata.admin.AlivePeriod;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;

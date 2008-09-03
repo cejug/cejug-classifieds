@@ -24,9 +24,9 @@
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
 import net.java.dev.cejug.classifieds.adapter.CategoryAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacade;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 /**

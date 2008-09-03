@@ -24,9 +24,9 @@
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
 import net.java.dev.cejug.classifieds.adapter.DomainAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.entity.facade.DomainFacade;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**

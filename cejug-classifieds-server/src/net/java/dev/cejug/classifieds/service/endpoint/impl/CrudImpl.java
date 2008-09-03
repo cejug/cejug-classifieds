@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.CRUDLocal;
 import net.java.dev.cejug.classifieds.entity.AbstractEntity;
 import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.CRUDLocal;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;

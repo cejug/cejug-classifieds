@@ -26,9 +26,9 @@ package net.java.dev.cejug.classifieds.service.endpoint.impl;
 import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.adapter.AdvertisementTypeAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacade;
-import net.java.dev.cejug.classifieds.service.ejb.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
