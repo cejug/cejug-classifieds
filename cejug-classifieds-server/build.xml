@@ -68,7 +68,7 @@
         <war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
             <webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
             <zipfileset dir="${basedir}/conf/war/" includes="**/**" excludes="**/WEB-INF/**/**" />
-            <classes dir="${build.classes.home}" includes="**/java/dev/cejug/classifieds/server/welcome/**/**" />
+            <classes dir="${build.classes.home}" includes="${war.package}/**/**" />
         </war>
     </target>
 
@@ -92,14 +92,14 @@
         <antcall target="compile.tests" />
     </target>
 
-    <target name="full.build">
+    <!--target name="full.build">
         <antcall target="server" />
         <waitfor maxwait="3000" maxwaitunit="millisecond" checkevery="500">
             <http url="${run.tests.wsdllocation}" />
         </waitfor>
-        <!--sleep seconds="10" /-->
+        <sleep seconds="10" />
         <antcall target="run.tests" />
-    </target>
+    </target-->
 
     <target name="compile.resources.schema">
         <echo message="Compiling the Classifieds-Server Config Schema..." />
