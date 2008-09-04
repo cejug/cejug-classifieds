@@ -46,7 +46,9 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
  */
 public class AdvertisementAdapter extends
 		SoapOrmAdapter<Advertisement, AdvertisementEntity> {
-	@EJB
+	private static final String KEYWORDS_SEPARATOR = ";";
+
+  @EJB
 	private transient CategoryFacadeLocal categoryFacade;
 
 	@EJB
@@ -114,12 +116,12 @@ public class AdvertisementAdapter extends
 	}
 
 	private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {
-		String keyword = "";
+		StringBuffer keyword = new StringBuffer();
 		for (AdvertisementKeywordEntity key : keywords) {
-			keyword += key;
-			keyword += ";";
+			keyword.append(key);
+			keyword.append(KEYWORDS_SEPARATOR);
 		}
-		return keyword;
+		return keyword.toString();
 	}
 
 	private Collection<AdvertisementKeywordEntity> splitKeywords(String keywords) {

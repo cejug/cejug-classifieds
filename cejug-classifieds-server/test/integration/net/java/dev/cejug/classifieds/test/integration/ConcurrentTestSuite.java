@@ -12,8 +12,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
 public class ConcurrentTestSuite {
-	private transient final DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
-	private transient final int concurrencyFactor = 10;
+	private transient static final DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
+	private transient static final int concurrencyFactor = 10;
 
 	@Test
 	public void admin() {
