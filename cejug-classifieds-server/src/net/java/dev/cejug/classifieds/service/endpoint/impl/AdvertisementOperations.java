@@ -36,7 +36,6 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperation
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
@@ -61,9 +60,9 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 	/**
 	 * Persistence façade of Advertisement Type entities.
+	 * @EJB
+         * private transient AdvertisementTypeFacadeLocal advTypeFacade;
 	 */
-	@EJB
-	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
