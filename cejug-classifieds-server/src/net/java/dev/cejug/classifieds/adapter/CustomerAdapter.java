@@ -1,21 +1,34 @@
 package net.java.dev.cejug.classifieds.adapter;
 
+import javax.ejb.EJB;
+
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
+import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 public class CustomerAdapter extends SoapOrmAdapter<Customer, CustomerEntity> {
 
-	@Override
-	public CustomerEntity toEntity(Customer type) throws IllegalStateException,
-			IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @EJB
+  private transient DomainFacadeLocal domainFacade;
 
-	@Override
-	public Customer toSoap(CustomerEntity type) throws IllegalStateException,
-			IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @Override
+  public CustomerEntity toEntity(Customer customer) throws IllegalStateException,
+      IllegalArgumentException {
+    CustomerEntity entity = new CustomerEntity();
+    entity.setDomain(domainFacade.read(customer.getDomainId()));
+    entity.setId(customer.getEntityId());
+    entity.setLogin(customer.getLogin());
+    // entity.setQuotas(type.getEntityId());
+    return entity;
+  }
+
+  @Override
+  public Customer toSoap(CustomerEntity entity) throws IllegalStateException,
+      IllegalArgumentException {
+    Customer customer = new Customer();
+    customer.setDomainId(entity.getDomain().getId());
+    customer.setEntityId(entity.getId());
+    customer.setLogin(entity.getLogin());
+    return null;
+  }
 }
