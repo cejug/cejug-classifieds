@@ -60,8 +60,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 	/**
 	 * Persistence façade of Advertisement Type entities.
-	 * @EJB
-         * private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	 * 
+	 * @EJB private transient AdvertisementTypeFacadeLocal advTypeFacade;
 	 */
 
 	@EJB

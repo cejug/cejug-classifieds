@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +23,7 @@ import net.java.dev.cejug.classifieds.entity.AbstractEntity;
  *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
  *      Create, * read, update and delete (CRUD)< /a>
  */
+@Stateless
 public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		EntityFacade<T> {
 

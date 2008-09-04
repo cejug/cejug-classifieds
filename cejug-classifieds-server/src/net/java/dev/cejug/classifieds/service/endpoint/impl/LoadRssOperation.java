@@ -50,8 +50,8 @@ import net.java.dev.cejug_classifieds.rss.TGuid;
  * 
  * @author $Author: felipegaucho $
  * @version $Rev: 577 $ ($Date: 2008-09-03 18:57:21 +0200 (Wed, 03 Sep 2008) $)
- * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specification
- *      < / a >
+ * @see <a href='http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specificat
+ *      i o n < / a >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
@@ -156,7 +156,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 }
 
 // @Retention(// a sua retention policy) //opicional
-// @Target(CLASS) //opcional, tem um import aqui que eu não lembro... 
-@interface MeuTipo{
-     Class<? extends MessageElement> getType();
+// @Target(CLASS) //opcional, tem um import aqui que eu não lembro...
+@interface MeuTipo {
+	Class<? extends MessageElement> getType();
 }

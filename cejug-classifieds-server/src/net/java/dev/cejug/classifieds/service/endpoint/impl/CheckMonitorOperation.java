@@ -48,7 +48,7 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 
 	@EJB
 	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
-	
+
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the default logger.

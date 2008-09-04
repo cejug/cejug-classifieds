@@ -26,25 +26,19 @@ package net.java.dev.cejug.classifieds.service.endpoint;
 import java.util.Collections;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.adapter.AdvertisementTypeAdapter;
-import net.java.dev.cejug.classifieds.adapter.DomainAdapter;
-import net.java.dev.cejug.classifieds.business.interfaces.CRUDLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CheckMonitorOperationLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminRemote;
-import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacade;
-import net.java.dev.cejug.classifieds.entity.facade.DomainFacade;
+import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.service.endpoint.impl.CategoryOperations;
-import net.java.dev.cejug.classifieds.service.endpoint.impl.CheckMonitorOperation;
-import net.java.dev.cejug.classifieds.service.endpoint.impl.CrudImpl;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
@@ -93,6 +87,18 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
+	@EJB
+	private CheckMonitorOperationLocal checkMonitorImpl;
+
+	@EJB
+	private CategoryOperationsLocal crudCategory;
+
+	@EJB
+	private AdvertisementTypeOperationsLocal crudAdvType;
+
+	@EJB
+	DomainOperationsLocal crudDomain;
+
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the default logger.
@@ -102,8 +108,12 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
-		CheckMonitorOperationLocal checkMonitorImpl = new CheckMonitorOperation();
-		return checkMonitorImpl.checkMonitorOperation(monitor);
+		try {
+			return checkMonitorImpl.checkMonitorOperation(monitor);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 
 	@Override
@@ -153,9 +163,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public AdvertisementType createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
 		try {
-			CRUDLocal<AdvertisementType> crudAdvType = new CrudImpl<AdvertisementTypeEntity, AdvertisementType>(
-					new AdvertisementTypeAdapter(),
-					new AdvertisementTypeFacade());
 			return crudAdvType.create(newAdvType.getAdvertisementType());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -167,7 +174,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam param) {
 		try {
-			CategoryOperationsLocal crudCategory = new CategoryOperations();
 			return crudCategory.create(param.getAdvertisementCategory());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -178,8 +184,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	@Override
 	public Domain createDomainOperation(final CreateDomainParam param) {
 		try {
-			CRUDLocal<Domain> crudDomain = new CrudImpl<DomainEntity, Domain>(
-					new DomainAdapter(), new DomainFacade());
 			return crudDomain.create(param.getDomain());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -192,9 +196,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
 		try {
-			CategoryOperationsLocal crudCategory = new CategoryOperations();
 			return crudCategory.delete(obsoleteCategory.getPrimaryKey());
-
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -204,8 +206,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
-		CRUDLocal<Domain> crudDomain = new CrudImpl<DomainEntity, Domain>(
-				new DomainAdapter(), new DomainFacade());
 		return crudDomain.delete(obsoleteDomain.getPrimaryKey());
 	}
 
@@ -213,9 +213,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
 			final BundleRequest bundleRequest) {
 		try {
-			CRUDLocal<AdvertisementType> crudAdvType = new CrudImpl<AdvertisementTypeEntity, AdvertisementType>(
-					new AdvertisementTypeAdapter(),
-					new AdvertisementTypeFacade());
 			AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
 			Collections.copy(collection.getAdvertisementType(), crudAdvType
 					.readBundleOperation(bundleRequest));
@@ -231,8 +228,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public DomainCollection readDomainBundleOperation(
 			BundleRequest bundleRequest) {
 		try {
-			CRUDLocal<Domain> crudDomain = new CrudImpl<DomainEntity, Domain>(
-					new DomainAdapter(), new DomainFacade());
 			DomainCollection collection = new DomainCollection();
 			Collections.copy(crudDomain.readBundleOperation(bundleRequest),
 					collection.getDomain());
@@ -248,9 +243,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
 		try {
-			CRUDLocal<AdvertisementType> crudAdvType = new CrudImpl<AdvertisementTypeEntity, AdvertisementType>(
-					new AdvertisementTypeAdapter(),
-					new AdvertisementTypeFacade());
 			return crudAdvType.update(partialAdvType.getAdvertisementType());
 
 		} catch (Exception e) {
@@ -264,7 +256,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		try {
 			CategoryOperationsLocal crudCategory = new CategoryOperations();
 			return crudCategory.update(param.getAdvertisementCategory());
-
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -275,10 +266,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
 		try {
-			CRUDLocal<Domain> crudDomain = new CrudImpl<DomainEntity, Domain>(
-					new DomainAdapter(), new DomainFacade());
 			return crudDomain.update(partialDomain.getDomain());
-
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -288,9 +276,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final long id) {
 		try {
-			CRUDLocal<AdvertisementType> crudAdvType = new CrudImpl<AdvertisementTypeEntity, AdvertisementType>(
-					new AdvertisementTypeAdapter(),
-					new AdvertisementTypeFacade());
 			return crudAdvType.delete(id);
 
 		} catch (Exception e) {

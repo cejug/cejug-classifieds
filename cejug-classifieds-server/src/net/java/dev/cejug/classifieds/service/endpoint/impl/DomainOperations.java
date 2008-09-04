@@ -23,10 +23,15 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
 import net.java.dev.cejug.classifieds.adapter.DomainAdapter;
+import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.DomainEntity;
-import net.java.dev.cejug.classifieds.entity.facade.DomainFacade;
+import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 /**
@@ -35,10 +40,24 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-public class DomainOperations extends
-		CrudImpl<DomainEntity, Domain> implements
+@Stateless
+public class DomainOperations extends CrudImpl<DomainEntity, Domain> implements
 		DomainOperationsLocal {
-	public DomainOperations() {
-		super(new DomainAdapter(), new DomainFacade());
+
+	@EJB
+	DomainFacadeLocal domainFacade;
+
+	@EJB
+	DomainAdapter adapter;
+
+	@Override
+	protected EntityFacade<DomainEntity> getFacade() {
+		return domainFacade;
 	}
+
+	@Override
+	protected SoapOrmAdapter<Domain, DomainEntity> getAdapter() {
+		return adapter;
+	}
+
 }

@@ -33,29 +33,29 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-
 @Retention(RUNTIME)
-@Target({PACKAGE, FIELD, METHOD, TYPE, PARAMETER})
+@Target( { PACKAGE, FIELD, METHOD, TYPE, PARAMETER })
 public @interface SoapEntityAdapter {
 
-  /**
-   * Points to the class that converts a value type to a bound type or vice
-   * versa. See {@link SoapOrmAdapter} for more details.
-   */
-  Class<? extends SoapOrmAdapter<?, ?>> value();
+	/**
+	 * Points to the class that converts a value type to a bound type or vice
+	 * versa. See {@link SoapOrmAdapter} for more details.
+	 */
+	Class<? extends SoapOrmAdapter<?, ?>> value();
 
-  /**
-   * If this annotation is used at the package level, then value of the type()
-   * must be specified.
-   */
+	/**
+	 * If this annotation is used at the package level, then value of the type()
+	 * must be specified.
+	 */
 
-  Class<?> type() default DEFAULT.class;
+	Class<?> type() default DEFAULT.class;
 
-  /**
-   * Used in {@link SoapEntityAdapter#type()} to signal that the type be
-   * inferred from the signature of the field, property, parameter or the class.
-   */
+	/**
+	 * Used in {@link SoapEntityAdapter#type()} to signal that the type be
+	 * inferred from the signature of the field, property, parameter or the
+	 * class.
+	 */
 
-  static final class DEFAULT {
-  }
+	static final class DEFAULT {
+	}
 }

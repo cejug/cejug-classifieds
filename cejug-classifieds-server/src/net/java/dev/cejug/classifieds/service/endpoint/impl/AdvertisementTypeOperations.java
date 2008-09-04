@@ -23,12 +23,15 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.adapter.AdvertisementTypeAdapter;
+import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
-import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacade;
+import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
@@ -39,9 +42,22 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
  */
 @Stateless
 public class AdvertisementTypeOperations extends
-		CrudImpl<AdvertisementTypeEntity, AdvertisementType>
-		implements AdvertisementTypeOperationsLocal {
-	public AdvertisementTypeOperations() {
-		super(new AdvertisementTypeAdapter(), new AdvertisementTypeFacade());
+		CrudImpl<AdvertisementTypeEntity, AdvertisementType> implements
+		AdvertisementTypeOperationsLocal {
+	@EJB
+	AdvertisementTypeFacadeLocal facade;
+
+	@EJB
+	AdvertisementTypeAdapter adapter;
+
+	@Override
+	protected SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> getAdapter() {
+		return adapter;
 	}
+
+	@Override
+	protected EntityFacade<AdvertisementTypeEntity> getFacade() {
+		return facade;
+	}
+
 }

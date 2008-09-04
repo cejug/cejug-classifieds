@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.AdvertisementKeywordEntity;
@@ -44,11 +45,12 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
  * @author $Author: felipegaucho $
  * @version $Rev: $ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
+@Stateless
 public class AdvertisementAdapter extends
 		SoapOrmAdapter<Advertisement, AdvertisementEntity> {
 	private static final String KEYWORDS_SEPARATOR = ";";
 
-  @EJB
+	@EJB
 	private transient CategoryFacadeLocal categoryFacade;
 
 	@EJB

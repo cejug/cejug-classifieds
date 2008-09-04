@@ -40,41 +40,28 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-public class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
+public abstract class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
 		implements CRUDLocal<T> {
 
-	/** The adapter between SOAP serializable objects and the entities. */
-	private final SoapOrmAdapter<T, E> adapter;
+	protected abstract EntityFacade<E> getFacade();
 
-	/** The persistence facade. */
-	private final EntityFacade<E> facade;
-
-	/**
-	 * 
-	 * @param adapter
-	 *            the adapter between the entity type <strong>E</strong> and the
-	 *            SOAP serializable type <strong>T</strong>.
-	 * @param facade
-	 */
-	public CrudImpl(SoapOrmAdapter<T, E> adapter, EntityFacade<E> facade) {
-		this.adapter = adapter;
-		this.facade = facade;
-	}
+	protected abstract SoapOrmAdapter<T, E> getAdapter();
 
 	/** {@inheritDoc} */
 	@Override
 	public T create(final T type) {
 		// TODO: review validation...
-		facade.create(adapter.toEntity(type));
-		return type;
+		E entity = getAdapter().toEntity(type);
+		getFacade().create(entity);
+		return getAdapter().toSoap(entity);
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public ServiceStatus delete(final long id) {
 		ServiceStatus status = new ServiceStatus();
-		E entity = facade.read(id);
-		facade.delete(entity);
+		E entity = getFacade().read(id);
+		getFacade().delete(entity);
 		// TODO: define the enumeration of the response codes.
 		status.setStatusCode(200);
 		status.setDescription("TODO: create i18n messages.. 1 domain deleted");
@@ -101,7 +88,7 @@ public class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageEl
 	@Override
 	public ServiceStatus update(final T type) {
 		ServiceStatus status = new ServiceStatus();
-		facade.update(adapter.toEntity(type));
+		getFacade().update(getAdapter().toEntity(type));
 		status.setStatusCode(200);
 		status.setDescription("1 domain updated");
 		return status;
@@ -110,6 +97,6 @@ public class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageEl
 	/** {@inheritDoc} */
 	@Override
 	public T read(long id) {
-		return adapter.toSoap(facade.read(id));
+		return getAdapter().toSoap(getFacade().read(id));
 	}
 }

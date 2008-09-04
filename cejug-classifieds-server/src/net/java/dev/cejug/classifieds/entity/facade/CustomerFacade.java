@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.entity.facade;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
 import javax.persistence.NoResultException;
@@ -40,7 +41,9 @@ import net.java.dev.cejug.classifieds.entity.DomainEntity;
 @Stateless
 public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 		CustomerFacadeLocal {
-	private transient DomainFacadeLocal domainFacade = new DomainFacade();
+
+	@EJB
+	private transient DomainFacadeLocal domainFacade;
 
 	@Override
 	public CustomerEntity findOrCreate(long domainId, String login)

@@ -144,8 +144,6 @@ public class AttributesCopier<S, T> {
 		try {
 			Method getter = sourceType.getMethod(getterName, new Class[0]);
 			Class<?> getType = getter.getReturnType();
-			System.out.println("Class<?> getType = " + getType + " : "
-					+ setterParamTypes[0]);
 			if (setterParamTypes[0].isAssignableFrom(getType)) {
 				Object sourceAttributeValue = getter.invoke(source,
 						new Object[0]);
