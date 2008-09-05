@@ -68,17 +68,13 @@ public abstract class CrudImpl<E extends AbstractEntity<? extends T>, T extends 
 
 	/** {@inheritDoc} */
 	public List<T> readBundleOperation(BundleRequest bundleRequest) {
-		// TODO: use the bundle request parameters as query filter.
-
-		List<T> domainCollection = new ArrayList<T>();
-
-		/*
-		 * TODO: try { List<E> entities = getEntityFacade().readAll(ec); if
-		 * (entities != null) { for (E domainEntity : entities) {
-		 * domainCollection.add((T) domainEntity); } } } catch (Exception e) {
-		 * logger.severe(e.getMessage()); throw new WebServiceException(e); }
-		 */
-		return domainCollection;
+		List<E> entities = getFacade().readAll();
+		List<T> bundle = new ArrayList<T>(entities.size());
+		SoapOrmAdapter<T, E> adapter = getAdapter();
+		for(E entity : entities) {
+			bundle.add(adapter.toSoap(entity));
+		}
+		return bundle;
 	}
 
 	/** {@inheritDoc} */

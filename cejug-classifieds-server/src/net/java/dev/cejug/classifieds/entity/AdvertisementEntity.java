@@ -87,7 +87,7 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	@ManyToOne
 	private CustomerEntity customer;
 
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
 	private Collection<AdvertisementKeywordEntity> keywords;
 

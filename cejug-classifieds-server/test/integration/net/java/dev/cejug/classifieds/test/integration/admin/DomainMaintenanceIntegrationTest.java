@@ -72,9 +72,9 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		CejugClassifiedsAdmin admin = getAdminService()
 				.getCejugClassifiedsAdmin();
 		// CREATE
+		// TODO: review (it is only a test)
 		Domain domain = new Domain();
 		String name = "test." + random.nextInt() + "." + random.nextInt();
-
 		domain.setUri(name);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);
@@ -83,7 +83,8 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		createParam.setDomain(domain);
 		domain = admin.createDomainOperation(createParam);
 
-		Assert.assertNotNull(domain.getEntityId());
+		long id = domain.getEntityId();
+		Assert.assertNotNull(id);
 
 		// READ
 		List<Domain> domains = admin.readDomainBundleOperation(
