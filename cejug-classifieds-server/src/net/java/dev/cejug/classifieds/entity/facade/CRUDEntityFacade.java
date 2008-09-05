@@ -3,6 +3,7 @@ package net.java.dev.cejug.classifieds.entity.facade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -26,6 +27,12 @@ import net.java.dev.cejug.classifieds.entity.AbstractEntity;
 @Stateless
 public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		EntityFacade<T> {
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private final static Logger logger = Logger.getLogger(
+			CRUDEntityFacade.class.getName(), "i18n/log");
 
 	private Class<T> entityClass;
 
@@ -59,6 +66,7 @@ public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		Query query;
 		query = manager.createQuery("select e from "
 				+ entityClass.getSimpleName() + " e");
+		logger.finest("readAll: " + query.toString());
 		return doQuery(query);
 	}
 

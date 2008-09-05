@@ -89,7 +89,6 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		// READ
 		List<Domain> domains = admin.readDomainBundleOperation(
 				new BundleRequest()).getDomain();
-		Assert.assertFalse(domains.isEmpty());
 
 		boolean createdOk = false;
 		for (Domain readDomain : domains) {
