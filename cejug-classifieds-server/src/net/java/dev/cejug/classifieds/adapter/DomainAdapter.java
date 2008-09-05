@@ -3,14 +3,18 @@ package net.java.dev.cejug.classifieds.adapter;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.ejb.Stateless;
+
+import net.java.dev.cejug.classifieds.business.interfaces.DomainAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
-public class DomainAdapter extends SoapOrmAdapter<Domain, DomainEntity> {
+@Stateless
+public class DomainAdapter extends AbstractSoapOrmAdapter<Domain, DomainEntity> 
+        implements DomainAdapterLocal {
 
-	@Override
 	public DomainEntity toEntity(Domain domain) throws IllegalStateException,
 			IllegalArgumentException {
 		DomainEntity domainEntity = new DomainEntity();
@@ -31,7 +35,6 @@ public class DomainAdapter extends SoapOrmAdapter<Domain, DomainEntity> {
 		return domainEntity;
 	}
 
-	@Override
 	public Domain toSoap(DomainEntity domainEntity)
 			throws IllegalStateException, IllegalArgumentException {
 		Domain domain = new Domain();

@@ -26,8 +26,8 @@ package net.java.dev.cejug.classifieds.service.endpoint.impl;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import net.java.dev.cejug.classifieds.adapter.AdvertisementTypeAdapter;
 import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacadeLocal;
@@ -48,7 +48,7 @@ public class AdvertisementTypeOperations extends
 	AdvertisementTypeFacadeLocal facade;
 
 	@EJB
-	AdvertisementTypeAdapter adapter;
+	AdvertisementTypeAdapterLocal adapter;
 
 	@Override
 	protected SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> getAdapter() {

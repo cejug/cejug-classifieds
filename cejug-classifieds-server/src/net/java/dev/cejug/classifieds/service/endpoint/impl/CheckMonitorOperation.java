@@ -56,7 +56,6 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 	private static final Logger logger = Logger.getLogger(
 			CheckMonitorOperation.class.getName(), "i18n/log");
 
-	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
 
 		// TODO: implement the real database call and response assembly.

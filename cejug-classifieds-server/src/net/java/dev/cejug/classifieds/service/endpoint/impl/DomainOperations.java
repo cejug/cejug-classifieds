@@ -26,8 +26,8 @@ package net.java.dev.cejug.classifieds.service.endpoint.impl;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import net.java.dev.cejug.classifieds.adapter.DomainAdapter;
 import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.DomainAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
@@ -48,7 +48,7 @@ public class DomainOperations extends CrudImpl<DomainEntity, Domain> implements
 	DomainFacadeLocal domainFacade;
 
 	@EJB
-	DomainAdapter adapter;
+	DomainAdapterLocal adapter;
 
 	@Override
 	protected EntityFacade<DomainEntity> getFacade() {

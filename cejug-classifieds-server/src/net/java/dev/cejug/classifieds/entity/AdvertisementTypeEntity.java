@@ -86,19 +86,16 @@ public class AdvertisementTypeEntity extends AbstractEntity<AdvertisementType>
 		this.maxAttachmentSize = maxAttachmentSize;
 	}
 
-	@Override
 	public int compareTo(final AdvertisementTypeEntity other) {
 		return Long.valueOf(getId() - other.getId()).intValue();
 	}
 
-	@Override
 	public boolean equals(final Object obj) {
 
 		return (obj instanceof AdvertisementTypeEntity)
 				&& compareTo((AdvertisementTypeEntity) obj) == 0;
 	}
 
-	@Override
 	public int hashCode() {
 		return Long.valueOf(getId()).intValue();
 	}

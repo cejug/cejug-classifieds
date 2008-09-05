@@ -2,14 +2,15 @@ package net.java.dev.cejug.classifieds.adapter;
 
 import javax.ejb.Stateless;
 
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 @Stateless
 public class AdvertisementTypeAdapter extends
-		SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> {
+		AbstractSoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> 
+        implements AdvertisementTypeAdapterLocal{
 
-	@Override
 	public AdvertisementTypeEntity toEntity(AdvertisementType type)
 			throws IllegalStateException, IllegalArgumentException {
 
@@ -22,7 +23,6 @@ public class AdvertisementTypeAdapter extends
 		return advTypeEntity;
 	}
 
-	@Override
 	public AdvertisementType toSoap(AdvertisementTypeEntity advTypeEntity)
 			throws IllegalStateException, IllegalArgumentException {
 

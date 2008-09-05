@@ -31,7 +31,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.adapter.AdvertisementAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
@@ -58,6 +58,9 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
+	@EJB
+	AdvertisementAdapterLocal advAdapter;
+	
 	/**
 	 * Persistence façade of Advertisement Type entities.
 	 * 
@@ -76,7 +79,6 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	private static final Logger logger = Logger.getLogger(
 			AdvertisementOperations.class.getName(), "i18n/log");
 
-	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
 
@@ -86,9 +88,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 		try {
 			AdvertisementCollection collection = new AdvertisementCollection();
 			List<AdvertisementEntity> entities = advFacade.readAll();
-			AdvertisementAdapter adapter = new AdvertisementAdapter();
 			for (AdvertisementEntity entity : entities) {
-				collection.getAdvertisement().add(adapter.toSoap(entity));
+				collection.getAdvertisement().add(advAdapter.toSoap(entity));
 			}
 			return collection;
 		} catch (Exception e) {
@@ -97,14 +98,12 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 		}
 	}
 
-	@Override
 	public ServiceStatus publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
 
 		// TODO: to implement the real code.
 		try {
 			// TODO: re-think a factory to reuse adapters...
-			AdvertisementAdapter adapter = new AdvertisementAdapter();
 			/*
 			 * // loading customer Map<String, String> params = new
 			 * HashMap<String, String>(); params.clear(); params.put("d",
@@ -113,7 +112,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			 */
 			CustomerEntity customer = customerFacade.findOrCreate(header
 					.getCustomerDomainId(), header.getCustomerLogin());
-			AdvertisementEntity entity = adapter.toEntity(advertisement);
+			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			entity.setCustomer(customer);
 			advFacade.create(entity);
 

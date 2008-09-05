@@ -2,14 +2,15 @@ package net.java.dev.cejug.classifieds.adapter;
 
 import javax.ejb.Stateless;
 
+import net.java.dev.cejug.classifieds.business.interfaces.CategoryAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 @Stateless
 public class CategoryAdapter extends
-		SoapOrmAdapter<AdvertisementCategory, CategoryEntity> {
+		AbstractSoapOrmAdapter<AdvertisementCategory, CategoryEntity> 
+          implements CategoryAdapterLocal {
 
-	@Override
 	public CategoryEntity toEntity(AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {
 
@@ -25,7 +26,6 @@ public class CategoryAdapter extends
 		return category;
 	}
 
-	@Override
 	public AdvertisementCategory toSoap(CategoryEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 

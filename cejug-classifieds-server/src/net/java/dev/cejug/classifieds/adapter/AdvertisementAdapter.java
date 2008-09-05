@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.AdvertisementKeywordEntity;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
@@ -47,7 +48,8 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
  */
 @Stateless
 public class AdvertisementAdapter extends
-		SoapOrmAdapter<Advertisement, AdvertisementEntity> {
+		AbstractSoapOrmAdapter<Advertisement, AdvertisementEntity> 
+      implements AdvertisementAdapterLocal {
 	private static final String KEYWORDS_SEPARATOR = ";";
 
 	@EJB
@@ -59,7 +61,6 @@ public class AdvertisementAdapter extends
 	@EJB
 	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-	@Override
 	public AdvertisementEntity toEntity(Advertisement soap)
 			throws IllegalStateException, IllegalArgumentException {
 		AdvertisementEntity entity = new AdvertisementEntity();
@@ -90,7 +91,6 @@ public class AdvertisementAdapter extends
 		return entity;
 	}
 
-	@Override
 	public Advertisement toSoap(AdvertisementEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 		Advertisement adv = new Advertisement();

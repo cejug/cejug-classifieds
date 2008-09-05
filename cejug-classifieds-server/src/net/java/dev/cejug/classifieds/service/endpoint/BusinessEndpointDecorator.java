@@ -91,7 +91,6 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	 *            a set of constraint on the advertisement's search in the
 	 *            database.
 	 */
-	@Override
 	public FeedType loadAtomOperation(SyndicationFilter filter) {
 		return loadAtomImpl.loadAtomOperation(filter);
 
@@ -104,24 +103,20 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	 *            a set of constraint on the advertisement's search in the
 	 *            database.
 	 */
-	@Override
 	public Rss loadRssOperation(SyndicationFilter filter) {
 		return loadRssImpl.loadRssOperation(filter);
 	}
 
-	@Override
 	public ServiceStatus publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
 		return crudAdvertisement.publishOperation(advertisement, header);
 	}
 
-	@Override
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
 		return crudAdvertisement.loadAdvertisementOperation(filter);
 	}
 
-	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
 		CategoryOperationsLocal crudCategory = new CategoryOperations();
@@ -131,34 +126,29 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 		return collection;
 	}
 
-	@Override
 	public ServiceStatus reportSpamOperation(final long advId) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
-	@Override
 	public ServiceStatus createCustomerOperation(
 			final CreateCustomerParam newCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
-	@Override
 	public ServiceStatus deleteCustomerOperation(
 			final DeleteCustomerParam obsoleteCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
-	@Override
 	public CustomerCollection readCustomerBundleOperation(
 			final ReadCustomerBundleParam getCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
-	@Override
 	public ServiceStatus updateCustomerOperation(
 			final UpdateCustomerParam partialCustomer) {
 		// TODO

@@ -29,7 +29,6 @@ public class ServletLifeCycle implements ServletContextListener {
 	private transient ServiceLifeCycleFacadeLocal lifeObserver;
 	private transient long id = -1;
 
-	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		try {
 			ServiceLifeCycleEntity lifeCycle = lifeObserver.read(id);
@@ -40,7 +39,6 @@ public class ServletLifeCycle implements ServletContextListener {
 		}
 	}
 
-	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
 			ServiceLifeCycleEntity lifeCycle = new ServiceLifeCycleEntity();

@@ -46,7 +46,6 @@ public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
 	 *      on * SimpleJpaHibernateApp< /a>
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	@Override
 	public int countAdvertisements(CategoryEntity category) {
 		Query query = manager
 				.createQuery(

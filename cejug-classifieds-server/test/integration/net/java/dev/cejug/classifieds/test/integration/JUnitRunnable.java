@@ -20,7 +20,6 @@ public class JUnitRunnable extends BlockJUnit4ClassRunner implements Runnable {
 		this.notifier = notifier;
 	}
 
-	@Override
 	public void run() {
 		run(notifier);
 	}

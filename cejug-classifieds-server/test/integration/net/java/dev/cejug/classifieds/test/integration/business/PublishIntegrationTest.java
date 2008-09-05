@@ -205,6 +205,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 					header);
 			assert status.getDescription().equalsIgnoreCase("OK");
 		} catch (Exception ee) {
+		        ee.printStackTrace();
 			Assert.fail(ee.getMessage());
 		}
 	}

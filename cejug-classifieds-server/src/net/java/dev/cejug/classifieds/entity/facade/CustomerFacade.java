@@ -45,7 +45,6 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 	@EJB
 	private transient DomainFacadeLocal domainFacade;
 
-	@Override
 	public CustomerEntity findOrCreate(long domainId, String login)
 			throws EntityExistsException, IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {

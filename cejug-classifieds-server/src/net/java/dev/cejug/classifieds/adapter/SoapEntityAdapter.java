@@ -39,9 +39,9 @@ public @interface SoapEntityAdapter {
 
 	/**
 	 * Points to the class that converts a value type to a bound type or vice
-	 * versa. See {@link SoapOrmAdapter} for more details.
+	 * versa. See {@link AbstractSoapOrmAdapter} for more details.
 	 */
-	Class<? extends SoapOrmAdapter<?, ?>> value();
+	Class<? extends AbstractSoapOrmAdapter<?, ?>> value();
 
 	/**
 	 * If this annotation is used at the package level, then value of the type()

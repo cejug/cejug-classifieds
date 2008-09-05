@@ -26,8 +26,8 @@ package net.java.dev.cejug.classifieds.service.endpoint.impl;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import net.java.dev.cejug.classifieds.adapter.CategoryAdapter;
 import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
+import net.java.dev.cejug.classifieds.business.interfaces.CategoryAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
@@ -49,7 +49,7 @@ public class CategoryOperations extends
 	CategoryFacadeLocal facade;
 
 	@EJB
-	CategoryAdapter adapter;
+	CategoryAdapterLocal adapter;
 
 	@Override
 	protected SoapOrmAdapter<AdvertisementCategory, CategoryEntity> getAdapter() {
