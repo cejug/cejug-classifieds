@@ -67,3 +67,6 @@ After that, open in your browser the URL:
 
 you should see a welcome message on the browser, otherwise please send
 your questions to dev@cejug-classifieds.dev.java.net
+
+--------------------
+$Rev$
