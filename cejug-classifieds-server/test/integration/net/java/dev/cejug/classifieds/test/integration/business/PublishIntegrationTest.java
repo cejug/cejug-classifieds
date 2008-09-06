@@ -67,6 +67,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			ee.printStackTrace();
 			Assert.fail(ee.getMessage());
 		} finally {
+			// TODO: to decide if
 			admin.tryToDeleteAdvertisement(adv);
 			admin.tryToDeleteAdvType(type);
 			admin.tryToDeleteCategory(category);

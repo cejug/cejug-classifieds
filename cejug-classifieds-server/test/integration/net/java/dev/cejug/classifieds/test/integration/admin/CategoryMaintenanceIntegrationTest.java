@@ -162,7 +162,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 							"com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
 			InitialContext ctx = new InitialContext(props);
 			CejugClassifiedsAdmin adminSessionBean = (ClassifiedsAdminRemote) ctx
-					.lookup("net.java.dev.cejug.classifieds.server.ejb3.bean.interfaces.ClassifiedsAdminRemote");
+					.lookup(ClassifiedsAdminRemote.class.getCanonicalName());
 			crudCategory(adminSessionBean);
 		} catch (NamingException n) {
 			Assert.fail(n.getMessage());

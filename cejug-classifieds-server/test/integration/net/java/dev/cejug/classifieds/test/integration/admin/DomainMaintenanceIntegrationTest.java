@@ -31,6 +31,7 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
@@ -68,9 +69,10 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		CejugClassifiedsAdmin admin = getAdminService()
 				.getCejugClassifiedsAdmin();
 		Domain domain = client.createDomain();
+		Assert.assertNotNull(domain.getEntityId());
 
-		long id = domain.getEntityId();
-		Assert.assertNotNull(id);
+		// AdvertisementCategory category = client.createCategory();
+		// Assert.assertNotNull(category.getEntityId());
 
 		// READ
 		List<Domain> domains = admin.readDomainBundleOperation(
@@ -87,16 +89,8 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 			}
 		}
 		Assert.assertTrue(createdOk);
+		// domain.getAdvertisementCategory().add(category);
 
-		// UPDATE
-		// If we have categories available, let's add one to our new domain.
-		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(new BundleRequest())
-				.getAdvertisementCategory();
-
-		if (!categories.isEmpty()) {
-			domain.getAdvertisementCategory().add(categories.get(0));
-		}
 		domain.setBrand("New Brand on the block " + System.currentTimeMillis());
 
 		UpdateDomainParam updateParam = new UpdateDomainParam();

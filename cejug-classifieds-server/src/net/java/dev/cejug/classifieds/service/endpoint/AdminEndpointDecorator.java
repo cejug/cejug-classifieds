@@ -23,7 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -178,7 +178,9 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	public Domain createDomainOperation(final CreateDomainParam param) {
 		try {
-		  System.out.println("crudDomaincrudDomaincrudDomaincrudDomaincrudDomain-> " + crudDomain);
+			System.out
+					.println("crudDomaincrudDomaincrudDomaincrudDomaincrudDomain-> "
+							+ crudDomain);
 			return crudDomain.create(param.getDomain());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -206,8 +208,8 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 			final BundleRequest bundleRequest) {
 		try {
 			AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
-			Collections.copy(collection.getAdvertisementType(), crudAdvType
-					.readBundleOperation(bundleRequest));
+			collection.getAdvertisementType().addAll(
+					crudAdvType.readBundleOperation(bundleRequest));
 			return collection;
 
 		} catch (Exception e) {
@@ -220,10 +222,10 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 			BundleRequest bundleRequest) {
 		try {
 			DomainCollection collection = new DomainCollection();
-			Collections.copy(crudDomain.readBundleOperation(bundleRequest),
-					collection.getDomain());
+			List<Domain> src = crudDomain.readBundleOperation(bundleRequest);
+			List<Domain> dest = collection.getDomain();
+			dest.addAll(src);
 			return collection;
-
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -243,7 +245,6 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
 		try {
-			CategoryOperationsLocal crudCategory = new CategoryOperations();
 			return crudCategory.update(param.getAdvertisementCategory());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -297,10 +298,9 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	public CategoryCollection readCategoryBundleOperation(
 			BundleRequest bundleRequest) {
-		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		CategoryCollection collection = new CategoryCollection();
-		Collections.copy(collection.getAdvertisementCategory(), crudCategory
-				.readBundleOperation(bundleRequest));
+		collection.getAdvertisementCategory().addAll(
+				crudCategory.readBundleOperation(bundleRequest));
 		return collection;
 	}
 }

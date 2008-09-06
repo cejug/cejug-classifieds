@@ -37,30 +37,30 @@ public class CategoryAdapter extends
 	public CategoryEntity toEntity(AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {
 
-		CategoryEntity category = new CategoryEntity();
-		category.setId(advCategory.getEntityId());
-		category.setDescription(advCategory.getDescription());
-		category.setName(advCategory.getName());
+		CategoryEntity entity = new CategoryEntity();
+		entity.setId(advCategory.getEntityId());
+		entity.setDescription(advCategory.getDescription());
+		entity.setName(advCategory.getName());
 
 		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
 		if (parent != null) {
-			category.setParent(toEntity(parent));
+			entity.setParent(toEntity(parent));
 		}
-		return category;
+		return entity;
 	}
 
 	public AdvertisementCategory toSoap(CategoryEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 
-		AdvertisementCategory cat = new AdvertisementCategory();
-		cat.setEntityId(entity.getId());
-		cat.setDescription(entity.getDescription());
-		cat.setName(entity.getName());
-		cat.setAvailable(entity.getAvailable());
+		AdvertisementCategory soapCategory = new AdvertisementCategory();
+		soapCategory.setEntityId(entity.getId());
+		soapCategory.setDescription(entity.getDescription());
+		soapCategory.setName(entity.getName());
+		soapCategory.setAvailable(entity.getAvailable());
 
 		if (entity.getParent() != null) {
-			cat.setAdvertisementCategory(toSoap(entity.getParent()));
+			soapCategory.setAdvertisementCategory(toSoap(entity.getParent()));
 		}
-		return cat;
+		return soapCategory;
 	}
 }
