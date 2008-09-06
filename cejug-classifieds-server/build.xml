@@ -40,10 +40,12 @@
         </findbugs>
     </target>
 
-    <target name="setup">
+    <target name="clean">
         <delete dir="${build.classes.home}" includeEmptyDirs="true" />
         <delete dir="${build.ear.home}" includeEmptyDirs="true" />
         <delete dir="${generated.dir}" includeEmptyDirs="true" />
+    </target>
+    <target name="setup" depends="clean">
         <mkdir dir="${build.classes.home}" />
         <mkdir dir="${build.ear.home}" />
         <mkdir dir="${build.ear.home}/lib" />
