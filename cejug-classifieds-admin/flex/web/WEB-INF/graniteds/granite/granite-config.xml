@@ -28,24 +28,24 @@
    <!--
     ! Used to get persistent class from HibernateProxy.
     !-->
-    <classgetter type="org.granite.hibernate.HibernateClassGetter"/>
+    <!-- classgetter type="org.granite.hibernate.HibernateClassGetter"/ -->
 
    <!--
     ! Use HibernateExternalizer to externalize all instances of classes annotated
     ! with @Entity or @MappedSuperclass, and DefaultExternalizer for those
     ! annotated with @Embeddable.
     !-->
-    <externalizers>
+    <!-- externalizers>
         <externalizer type="org.granite.hibernate.HibernateExternalizer">
             <include annotatedwith="javax.persistence.Entity"/>
             <include annotatedwith="javax.persistence.MappedSuperclass"/>
             <include annotatedwith="javax.persistence.Embeddable"/>
         </externalizer>
-    </externalizers>
+    </externalizers-->
 
    <!--
     ! Use Tomcat [JBoss] based security service.
     !-->
-    <security type="org.granite.messaging.service.security.TomcatSecurityService"/>
+    <!--  security type="org.granite.messaging.service.security.TomcatSecurityService"/ -->
 
 </granite-config>

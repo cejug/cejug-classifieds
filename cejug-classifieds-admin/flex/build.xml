@@ -120,7 +120,7 @@
             <arg value="-file-specs=${proj.src.flex.root}/admin.mxml" />
             <arg value="-output=${war.dir}/admin.swf" />
             <arg value="-context-root=/cejug-classifieds-admin" />
-            <arg value="-services=${basedir}/web/WEB-INF/flex/services-config.xml" />
+            <arg value="-services=${basedir}/web/WEB-INF/${flex.server.access}/flex/services-config.xml" />
             <arg line="-debug=${flex.debug} -use-network=true -link-report=${build.dir}/admin.xml" />
         </java>
     </target>

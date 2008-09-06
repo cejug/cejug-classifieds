@@ -8,7 +8,7 @@
 		     <!--
 		      ! Use "ejbFactory" and "my-graniteamf" for "person" destination (see below).
 		      !-->
-		     <destination id="CejugClassifiedsAdminServiceEJB">
+		     <destination id="CejugClassifiedsAdminService">
 		         <channels>
 		             <channel ref="my-graniteamf"/>
 		         </channels>
