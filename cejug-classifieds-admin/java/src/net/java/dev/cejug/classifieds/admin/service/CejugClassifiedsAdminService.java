@@ -111,7 +111,7 @@ public class CejugClassifiedsAdminService {
 
 		CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-		return admin.readAdvertisementTypeBundleOperation(param)
+		return admin.readAdvertisementTypeBundleOperation(param.getAdvertisementTypeBundleRequest())
 				.getAdvertisementType();
 	}
 
@@ -122,12 +122,12 @@ public class CejugClassifiedsAdminService {
 	 *            Advertisement type to be created.
 	 * @return Status about the create operation.
 	 */
-	public ServiceStatus createAdvertisementTypeOperation(
+	public AdvertisementType createAdvertisementTypeOperation(
 			CreateAdvertisementTypeParam param) {
 
 		CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-		return admin.createAdvertisementTypeOperation(param);
+		 return admin.createAdvertisementTypeOperation(param);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class CejugClassifiedsAdminService {
 
 		CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
 				.getCejugClassifiedsAdmin();
-		DomainCollection c = admin.readDomainBundleOperation();
+		DomainCollection c = admin.readDomainBundleOperation(new BundleRequest());
 		return c.getDomain();
 	}
 
