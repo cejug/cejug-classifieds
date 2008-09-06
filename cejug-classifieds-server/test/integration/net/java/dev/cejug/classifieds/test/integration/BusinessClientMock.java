@@ -84,6 +84,7 @@ public class BusinessClientMock {
 		header.setCustomerDomainId(domain.getEntityId());
 		header.setCustomerLogin("fgaucho");
 
-		return service.publishOperation(advertisement, header);
+		Advertisement adv = service.publishOperation(advertisement, header);
+		return adv;
 	}
 }

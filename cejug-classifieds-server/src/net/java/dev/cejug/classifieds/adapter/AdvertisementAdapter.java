@@ -112,9 +112,7 @@ public class AdvertisementAdapter extends
 		adv.setSummary(entity.getSummary());
 		adv.setText(entity.getText());
 		adv.setTypeId(entity.getType().getId());
-
-		// TODO Auto-generated method stub
-		return null;
+		return adv;
 	}
 
 	private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {

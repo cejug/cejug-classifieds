@@ -69,8 +69,8 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 		} finally {
 			admin.tryToDeleteAdvertisement(adv);
 			admin.tryToDeleteAdvType(type);
-			admin.tryToDeleteDomain(domain);
 			admin.tryToDeleteCategory(category);
+			admin.tryToDeleteDomain(domain);
 		}
 	}
 

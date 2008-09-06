@@ -90,7 +90,7 @@ public class AdminClientMock {
 				param.setPrimaryKey(domain.getEntityId());
 				admin.deleteDomainOperation(param);
 			} catch (Exception error) {
-				System.out.println("Impossible to delete AdvertisementType #"
+				System.out.println("Impossible to delete Domain #"
 						+ domain.getEntityId());
 				// ignore errors.. it is just a trial.
 			}
@@ -104,7 +104,7 @@ public class AdminClientMock {
 				param.setPrimaryKey(category.getEntityId());
 				admin.deleteCategoryOperation(param);
 			} catch (Exception error) {
-				System.out.println("Impossible to delete AdvertisementType #"
+				System.out.println("Impossible to delete Category #"
 						+ category.getEntityId());
 				// ignore errors.. it is just a trial.
 			}
@@ -116,7 +116,7 @@ public class AdminClientMock {
 			try {
 				admin.deleteAdvertisementTypeOperation(adv.getEntityId());
 			} catch (Exception error) {
-				System.out.println("Impossible to delete AdvertisementType #"
+				System.out.println("Impossible to delete Advertisement #"
 						+ adv.getEntityId());
 				// ignore errors.. it is just a trial.
 			}
