@@ -1,4 +1,4 @@
-CEJUG CLASSIFIEDS PROJECT
+CEJUG CLASSIFIEDS PROJECT ($Rev$)
 ####### under construction.
 
 Thanks for test Cejug-Classifieds... 
@@ -9,10 +9,10 @@ please read: http://java.sun.com/developer/technicalArticles/J2EE/intro_ee5/
 Contents:
 
 	I	- Setup 
-	I 	- Building the project
-	II	- License
-	III	- Aknowledge
-	IV	- ...
+	II 	- Building the project
+	III	- License
+	IV	- Aknowledge
+	V	- ...
 
 When you first checkout the project, you noticed several compiler errors 
 in your IDE - this is expected. It is due the need to rebuild the project
@@ -53,7 +53,7 @@ you should see a welcome message on the browser, otherwise please check:
 
 https://glassfish.dev.java.net/downloads/v2-b58g.html	
 
-I - BUILDING
+II - BUILDING
 
 1) Open a console
 2) Go to the directory where you checked out the cejug-classifieds-server 
@@ -67,6 +67,3 @@ After that, open in your browser the URL:
 
 you should see a welcome message on the browser, otherwise please send
 your questions to dev@cejug-classifieds.dev.java.net
-
---------------------
-$Rev$
