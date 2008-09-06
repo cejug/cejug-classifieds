@@ -11,9 +11,9 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
     import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
+    import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CreateAdvertisementTypeParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteAdvertisementTypeParam;
-    import net.java.dev.cejug.classifieds.server.contract.ReadAdvertisementTypeBundleParam;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateAdvertisementTypeParam;
     
@@ -69,7 +69,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
          * Loads all the advertisement types.
          */
         public function readAllAdvType():void {
-            var params:ReadAdvertisementTypeBundleParam = new ReadAdvertisementTypeBundleParam();
+            var params:BundleRequest = new BundleRequest();
             adminService.readAdvertisementTypeBundleOperation(params);
         }
         
@@ -153,8 +153,8 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
          * Handles the result of saving an advertisement type (Create, Update or Delete).
          */
         private function saveAdvTypeResult(event:ResultEvent):void {
-            serviceStatus = event.result as ServiceStatus;
-            handleServiceStatus(serviceStatus);
+            advtypeReference.currentState = "";
+            readAllAdvType();
         }
 
         /**

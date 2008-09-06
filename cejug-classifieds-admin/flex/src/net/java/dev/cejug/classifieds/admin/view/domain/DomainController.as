@@ -13,11 +13,11 @@ package net.java.dev.cejug.classifieds.admin.view.domain
     import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
+    import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
     import net.java.dev.cejug.classifieds.server.contract.CreateDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteDomainParam;
     import net.java.dev.cejug.classifieds.server.contract.Domain;
-    import net.java.dev.cejug.classifieds.server.contract.ReadCategoryBundleParam;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateDomainParam;
     
@@ -82,7 +82,8 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Loads all the domains.
          */
         public function readAllDomain():void {
-            adminService.readDomainBundleOperation();
+            var params:BundleRequest = new BundleRequest();
+            adminService.readDomainBundleOperation(params);
         }
         
         /**
@@ -170,8 +171,8 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Handles the result of saving a domain (Create, Update or Delete).
          */
         private function saveDomainResult(event:ResultEvent):void {
-            serviceStatus = event.result as ServiceStatus;
-            handleServiceStatus(serviceStatus);
+            domainReference.currentState = "";
+            readAllDomain();
         }
 
         /**
@@ -232,7 +233,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          * Loads all the categories.
          */
         private function loadCategories():void {
-            var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
+            var params:BundleRequest = new BundleRequest();
             adminService.readCategoryBundleOperation(params);
         }
 

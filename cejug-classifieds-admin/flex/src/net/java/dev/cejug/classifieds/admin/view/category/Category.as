@@ -12,10 +12,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
     import net.java.dev.cejug.classifieds.admin.AdminService;
     import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
+    import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
     import net.java.dev.cejug.classifieds.server.contract.CreateCategoryParam;
     import net.java.dev.cejug.classifieds.server.contract.DeleteCategoryParam;
-    import net.java.dev.cejug.classifieds.server.contract.ReadCategoryBundleParam;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateCategoryParam;
     
@@ -79,7 +79,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Loads all the categories.
          */
         public function readAllCategory():void {
-            var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
+            var params:BundleRequest = new BundleRequest();
             adminService.readCategoryBundleOperation(params);
         }
         
@@ -99,7 +99,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Loads all the parents categories.
          */
         public function getParents():void {
-            var params:ReadCategoryBundleParam = new ReadCategoryBundleParam();
+            var params:BundleRequest = new BundleRequest();
             adminAuxService.readCategoryBundleOperation(params);
         }
         
@@ -216,8 +216,8 @@ package net.java.dev.cejug.classifieds.admin.view.category
          * Handles the result of saving a category (Create, Update or Delete).
          */
         private function saveCategoryResult(event:ResultEvent):void {
-            serviceStatus = event.result as ServiceStatus;
-            handleServiceStatus(serviceStatus);
+            categoryReference.currentState = "";
+            readAllCategory();
         }
 
         /**

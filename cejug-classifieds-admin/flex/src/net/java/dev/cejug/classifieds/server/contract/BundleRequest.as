@@ -13,10 +13,13 @@ package net.java.dev.cejug.classifieds.server.contract {
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.BundleRequest")]
     public class BundleRequest {
         
-        private var _skipAndAmount:ListCollectionView;
+        private var _skipOrAmount:ListCollectionView;
 
-        public function get skipAndAmount():ListCollectionView {
-            return _skipAndAmount;
+        public function get skipOrAmount():ListCollectionView {
+            return _skipOrAmount;
+        }
+        public function set skipOrAmount(list:ListCollectionView):void {
+            _skipOrAmount = list;
         }
 
     }
