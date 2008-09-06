@@ -107,7 +107,7 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 		return loadRssImpl.loadRssOperation(filter);
 	}
 
-	public ServiceStatus publishOperation(final Advertisement advertisement,
+	public Advertisement publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
 		return crudAdvertisement.publishOperation(advertisement, header);
 	}

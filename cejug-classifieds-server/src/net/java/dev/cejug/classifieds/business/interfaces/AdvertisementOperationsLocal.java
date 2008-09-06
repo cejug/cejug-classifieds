@@ -29,7 +29,6 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * TODO: to comment.
@@ -46,6 +45,6 @@ public interface AdvertisementOperationsLocal {
 	AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter);
 
-	ServiceStatus publishOperation(final Advertisement advertisement,
+	Advertisement publishOperation(final Advertisement advertisement,
 			final PublishingHeader header);
 }

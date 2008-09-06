@@ -24,13 +24,10 @@
 package net.java.dev.cejug.classifieds.test.integration.admin;
 
 import java.util.List;
-import java.util.Random;
-import java.util.TimeZone;
 
 import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
+import net.java.dev.cejug.classifieds.test.integration.AdminClientMock;
 import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
-import net.java.dev.cejug_classifieds.metadata.admin.CreateDomainParam;
-import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
@@ -65,23 +62,12 @@ import org.junit.Test;
  * @version $Rev$ ($Date$)
  */
 public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
-	private static Random random = new Random();
-
 	@Test
 	public void crudDomain() {
+		AdminClientMock client = new AdminClientMock();
 		CejugClassifiedsAdmin admin = getAdminService()
 				.getCejugClassifiedsAdmin();
-		// CREATE
-		// TODO: review (it is only a test)
-		Domain domain = new Domain();
-		String name = "test." + random.nextInt() + "." + random.nextInt();
-		domain.setUri(name);
-		domain.setBrand("Functional Domain");
-		domain.setSharedQuota(false);
-		domain.setTimezone(TimeZone.getDefault().getDisplayName());
-		CreateDomainParam createParam = new CreateDomainParam();
-		createParam.setDomain(domain);
-		domain = admin.createDomainOperation(createParam);
+		Domain domain = client.createDomain();
 
 		long id = domain.getEntityId();
 		Assert.assertNotNull(id);
@@ -137,11 +123,7 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 		}
 		Assert.assertTrue(updateOk);
 
-		// DELETE
-		// remove or inactive the test advertisement
-		DeleteDomainParam deleteParam = new DeleteDomainParam();
-		deleteParam.setPrimaryKey(domain.getEntityId());
-		ServiceStatus deleteStatus = admin.deleteDomainOperation(deleteParam);
+		ServiceStatus deleteStatus = client.deleteDomain(domain);
 		Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 	}
 }

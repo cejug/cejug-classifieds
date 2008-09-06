@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -41,7 +40,6 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * TODO: to comment.
@@ -60,7 +58,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 	@EJB
 	AdvertisementAdapterLocal advAdapter;
-	
+
 	/**
 	 * Persistence façade of Advertisement Type entities.
 	 * 
@@ -98,7 +96,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 		}
 	}
 
-	public ServiceStatus publishOperation(final Advertisement advertisement,
+	public Advertisement publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
 
 		// TODO: to implement the real code.
@@ -115,14 +113,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			entity.setCustomer(customer);
 			advFacade.create(entity);
-
-			ServiceStatus status = new ServiceStatus();
-			status.setDescription("OK");
-			status.setStatusCode(202);
-
-			status.setTimestamp(GregorianCalendar.getInstance());
-
-			return status;
+			return advAdapter.toSoap(entity);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
