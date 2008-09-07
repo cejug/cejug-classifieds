@@ -44,6 +44,7 @@ public class DomainAdapter extends AbstractSoapOrmAdapter<Domain, DomainEntity>
 		domainEntity.setDomainName(domain.getUri());
 		domainEntity.setSharedQuota(domain.isSharedQuota());
 		domainEntity.setBrand(domain.getBrand());
+		domainEntity.setId(domain.getEntityId());
 		Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 		if (domain.getAdvertisementCategory() != null) {
 			CategoryAdapter categoryAdapter = new CategoryAdapter();

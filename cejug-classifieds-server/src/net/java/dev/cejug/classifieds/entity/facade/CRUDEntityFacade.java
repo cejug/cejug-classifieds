@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
+import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.entity.AbstractEntity;
 
@@ -105,6 +106,13 @@ public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 	 */
 	public void update(final T entity) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException {
+		if (entity.getId() < 1) {
+			// TODO: i18n of error messages.
+			logger.severe("Entity with ID " + entity.getId()
+					+ " cannot be updated!");
+			throw new WebServiceException("Entity with ID " + entity.getId()
+					+ " cannot be updated!");
+		}
 		manager.merge(entity);
 		manager.flush();
 	}

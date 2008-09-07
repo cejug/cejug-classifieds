@@ -80,7 +80,8 @@ public abstract class CrudImpl<E extends AbstractEntity<? extends T>, T extends 
 	/** {@inheritDoc} */
 	public ServiceStatus update(final T type) {
 		ServiceStatus status = new ServiceStatus();
-		getFacade().update(getAdapter().toEntity(type));
+		E entity = getAdapter().toEntity(type);
+		getFacade().update(entity);
 		status.setStatusCode(200);
 		status.setDescription("1 domain updated");
 		return status;

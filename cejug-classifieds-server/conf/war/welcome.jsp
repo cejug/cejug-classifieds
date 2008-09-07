@@ -30,10 +30,15 @@
 		how to configure to just installed application, tunning, installation
 		testing, links etc.</p>
 		<%
-			List<AlivePeriod> periods = (List<AlivePeriod>)m.getAlivePeriods(); 
-			AlivePeriod period =  periods.get(0);
+			List<AlivePeriod> periods = (List<AlivePeriod>) m.getAlivePeriods();
+			AlivePeriod deployment = periods.get(0);
+			AlivePeriod period = null;
+			if (periods.size() > 1) {
+				period = periods.get(periods.size() - 1);
+			}
 		%>
-		<p>The Cejug Classifieds is online since <%=period.getStart().getTime()%>.</p>
+		<p>The Cejug Classifieds was deployed on <%=deployment.getStart().getTime()%>
+		and it is online since <%=period.getStart().getTime()%>.</p>
 		</td>
 	</tr>
 </table>

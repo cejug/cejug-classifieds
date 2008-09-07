@@ -255,7 +255,8 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
 		try {
-			return crudDomain.update(partialDomain.getDomain());
+			Domain domain = partialDomain.getDomain();
+			return crudDomain.update(domain);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
