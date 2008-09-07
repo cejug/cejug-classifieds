@@ -15,9 +15,9 @@
      <h:outputLabel for="title" value="Title:"></h:outputLabel>
      <h:inputText id="title" value="#{adsBean.advertisement.headline}" required="true"></h:inputText>
      <h:outputLabel for="summary" value="Summary:"></h:outputLabel>
-     <h:inputText id="summary" value="#{adsBean.advertisement.shortDescription}" required="false"></h:inputText>
+     <h:inputText id="summary" value="#{adsBean.advertisement.summary}" required="false"></h:inputText>
      <h:outputLabel for="text" value="Text:"></h:outputLabel>
-     <h:inputTextarea id="text" value="#{adsBean.advertisement.fullText}" required="true"></h:inputTextarea>
+     <h:inputTextarea id="text" value="#{adsBean.advertisement.text}" required="true"></h:inputTextarea>
      </h:panelGrid><br/>
      <h:commandButton action="home" actionListener="#{adsBean.publish}" value="Publish"></h:commandButton>
      <h:commandButton action="home" immediate="true" value="Cancel"></h:commandButton>
