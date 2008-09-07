@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 CEJUG - Cear� Java Users Group
+ Copyright (C) 2008 CEJUG - Ceará Java Users Group
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -16,11 +16,12 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
  This file is part of the CEJUG-CLASSIFIEDS Project - an  open source classifieds system
- originally used by CEJUG - Cear� Java Users Group.
+ originally used by CEJUG - Ceará Java Users Group.
  The project is hosted https://cejug-classifieds.dev.java.net/
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */package net.java.dev.cejug.classifieds.view.jsf;
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+package net.java.dev.cejug.classifieds.view.jsf;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -39,7 +40,6 @@ import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * This class is responsible for the operations related to advertisement.
@@ -128,14 +128,15 @@ public class AdvertisementBean {
 			CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
 					.getCejugClassifiedsBusiness();
 
-			ServiceStatus status = classifiedsBusinessService.publishOperation(
+			Advertisement adv = classifiedsBusinessService.publishOperation(
 					advertisement, header);
+
 
 			// TODO: implement the front-end behavior after the server response.
 			FacesContext.getCurrentInstance().addMessage(
 					null,
-					new FacesMessage(status.getDescription()
-							+ " <<< status of the service request :)"));
+					new FacesMessage(adv.getEntityId()
+							+ " <<< the ID of the created advertisement :)"));
 			// "Your advertisement was published. Can you see it?"));
 		} catch (DatatypeConfigurationException e) {
 			// TODO Logging, throws customer error message.....
