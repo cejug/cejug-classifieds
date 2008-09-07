@@ -71,16 +71,13 @@ public class AdvertisementBean {
 			 * server. Only known domain can publish advertisements.
 			 */
 			Advertisement advertisement = getAdvertisement();
-			Customer customer = new Customer();
-			/*
-			 * The domain ID will be mapped in the authentication credential
-			 * (pending security implementation). For now, let's just include
-			 * the had code 1 :(
-			 */
-			customer.setDomainId(1);
-			customer.setLogin("fgaucho");
 
+			Customer customer = new Customer();
+			customer.setLogin("fgaucho");
+			customer.setDomainId(1);
 			advertisement.setCustomer(customer);
+			advertisement.setTypeId(1);
+
 			// Publishing period
 			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();
@@ -93,45 +90,24 @@ public class AdvertisementBean {
 			period
 					.setFinish(factory
 							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
-			// TODO: get section from user selection...
-			advertisement.setCategoryId(1);
 
-			// TODO: get locale from user ? or use default domain locale ??
-			Locale locale = new Locale();
+			// Advertisement contents
+			advertisement.setPublishingPeriod(period);
+			advertisement.setCategoryId(1);
+			Locale locale = new net.java.dev.cejug_classifieds.metadata.business.Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
 			advertisement.setLocale(locale);
-
-			advertisement.setKeywords("J2EE,JAXWS");
-
-			// TODO: status should be automatic in the server side... This
-			// attribute should be defined optional in the contract (WSDL). Or
-			// even the attribute can be removed from the advertisement element
-			// and available only through monitoring operations.
-
 			advertisement.setStatus(1);
 
-			// TODO: Domain is a static information, should be mapped to the
-			// Domain certificate - a Domain cannot fakenize another Domain ID.
 			PublishingHeader header = new PublishingHeader();
 			header.setCustomerDomainId(1);
-
-			// TODO: the customer login should be controlled by the web
-			// application - Most common suggestion is a login feature with
-			// users table in a database.
 			header.setCustomerLogin("fgaucho");
 
-			/**
-			 * TODO: EXAMPLE of how to invoke the Cejug-Classifieds-Server
-			 * operations.
-			 */
-			CejugClassifiedsBusiness classifiedsBusinessService = new CejugClassifiedsServiceBusiness()
+			CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
 					.getCejugClassifiedsBusiness();
 
-			Advertisement adv = classifiedsBusinessService.publishOperation(
-					advertisement, header);
-
-
+			Advertisement adv = service.publishOperation(advertisement, header);
 			// TODO: implement the front-end behavior after the server response.
 			FacesContext.getCurrentInstance().addMessage(
 					null,
@@ -162,5 +138,4 @@ public class AdvertisementBean {
 	public void setAdsService(AdvertisementService adsService) {
 		this.adsService = adsService;
 	}
-
 }

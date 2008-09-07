@@ -12,7 +12,7 @@
 	<property name="build.home" value="${basedir}/WebContent/WEB-INF/" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 
-	<path id="jaxws.classpath">
+	<path id="project.classpath">
 		<pathelement location="${java.home}/../lib/tools.jar" />
 		<fileset dir="${env.AS_HOME}/lib/">
 			<include name="javaee.jar" />
@@ -24,11 +24,11 @@
 	</path>
 
 	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
-		<classpath refid="jaxws.classpath" />
+		<classpath refid="project.classpath" />
 	</taskdef>
 
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-		<classpath refid="jaxws.classpath" />
+		<classpath refid="project.classpath" />
 	</taskdef>
 
 	<target name="clean">
@@ -102,16 +102,17 @@
 	</target>
 
 	<target name="generate-stubs" depends="setup">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
-			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-		</wsimport>
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
-			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-		</wsimport>
-		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
-			<classpath refid="jaxws.classpath" />
-		</javac>
-		<!--jar destfile="lib/wsdl.generated.jar" basedir="${build.classes.home}" excludes="**/*.java" />
-			<delete dir="${generated.dir}" /-->
-	</target>
+        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
+            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+            <xjcarg value="-Xcollection-setter-injector" />
+        </wsimport>
+        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
+            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+            <xjcarg value="-Xcollection-setter-injector" />
+        </wsimport>
+        <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+            <classpath refid="project.classpath" />
+        </javac>
+    </target>
+
 </project>
