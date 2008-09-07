@@ -35,6 +35,8 @@
 			AlivePeriod period = null;
 			if (periods.size() > 1) {
 				period = periods.get(periods.size() - 1);
+			} else {
+				period = deployment;
 			}
 		%>
 		<p>The Cejug Classifieds was deployed on <%=deployment.getStart().getTime()%>
