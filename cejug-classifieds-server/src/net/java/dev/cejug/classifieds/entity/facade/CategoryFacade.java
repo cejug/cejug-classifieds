@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.entity.facade;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -38,6 +40,18 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 @Stateless
 public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
 		CategoryFacadeLocal {
+
+	@Override
+	public List<CategoryEntity> readAll() throws IllegalStateException,
+			IllegalArgumentException {
+		List<CategoryEntity> bundle = super.readAll();
+		for (CategoryEntity entity : bundle) {
+			entity.setAvailable(countAdvertisements(entity));
+		}
+		return bundle;
+
+	}
+
 	/**
 	 * @see <a * href=
 	 *      "http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html"

@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -33,6 +35,7 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 
 /**
  * TODO: to comment.
@@ -59,5 +62,12 @@ public class CategoryOperations extends
 	@Override
 	protected EntityFacade<CategoryEntity> getFacade() {
 		return facade;
+	}
+	
+	@Override
+	public List<AdvertisementCategory> readBundleOperation(
+			BundleRequest bundleRequest) {
+		
+		return super.readBundleOperation(bundleRequest);
 	}
 }
