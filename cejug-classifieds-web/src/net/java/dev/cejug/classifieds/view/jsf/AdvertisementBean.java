@@ -57,7 +57,7 @@ public class AdvertisementBean {
 	 */
 	private AdvertisementService adsService;
 
-	/**
+	/**short
 	 * Publish the advertisement.
 	 * 
 	 * @param actionEvent

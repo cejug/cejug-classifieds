@@ -70,12 +70,12 @@
 							<h:outputText value="#{ad.headline}"></h:outputText>
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:outputText rendered="#{ad.shortDescription ne null}"
+							<h:outputText rendered="#{ad.summary ne null}"
 								value="Summary:" styleClass="label"></h:outputText>
-							<h:outputText rendered="#{ad.shortDescription ne null}"
-								value="#{ad.shortDescription}" />
+							<h:outputText rendered="#{ad.summary ne null}"
+								value="#{ad.summary}" />
 							<h:outputText value="Text:" styleClass="label"></h:outputText>
-							<h:outputText value="#{ad.fullText}" />
+							<h:outputText value="#{ad.text}" />
 						</h:panelGrid>
 					</rich:panel>
 					<f:facet name="footer">
