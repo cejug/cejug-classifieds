@@ -71,7 +71,7 @@ public abstract class CrudImpl<E extends AbstractEntity<? extends T>, T extends 
 		List<E> entities = getFacade().readAll();
 		List<T> bundle = new ArrayList<T>(entities.size());
 		SoapOrmAdapter<T, E> adapter = getAdapter();
-		for(E entity : entities) {
+		for (E entity : entities) {
 			bundle.add(adapter.toSoap(entity));
 		}
 		return bundle;

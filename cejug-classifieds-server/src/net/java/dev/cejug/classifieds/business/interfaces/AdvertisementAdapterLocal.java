@@ -31,5 +31,5 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
 @Local
 public interface AdvertisementAdapterLocal extends
-    SoapOrmAdapter<Advertisement, AdvertisementEntity> {
+		SoapOrmAdapter<Advertisement, AdvertisementEntity> {
 }

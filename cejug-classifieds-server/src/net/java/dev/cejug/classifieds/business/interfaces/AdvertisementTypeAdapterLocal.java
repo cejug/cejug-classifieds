@@ -31,6 +31,6 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 @Local
 public interface AdvertisementTypeAdapterLocal extends
-    SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> {
+		SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> {
 
 }

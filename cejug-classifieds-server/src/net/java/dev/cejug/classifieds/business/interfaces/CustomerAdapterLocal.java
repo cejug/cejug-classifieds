@@ -30,6 +30,7 @@ import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 @Local
-public interface CustomerAdapterLocal extends SoapOrmAdapter<Customer, CustomerEntity> {
+public interface CustomerAdapterLocal extends
+		SoapOrmAdapter<Customer, CustomerEntity> {
 
 }

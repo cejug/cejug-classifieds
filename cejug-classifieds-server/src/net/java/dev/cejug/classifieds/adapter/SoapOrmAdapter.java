@@ -23,25 +23,27 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.adapter;
 
-
 public interface SoapOrmAdapter<SoapType, EntityType> {
 
-  /**
-   * Copies the attribute values from an Entity to an object that can be
-   * serialized in SOAP messages.
-   * 
-   * @param type
-   *            the JPA entity.
-   * @return a soap object containing the values of the entity.
-   */
-  SoapType toSoap(EntityType type) throws IllegalStateException, IllegalArgumentException;
+	/**
+	 * Copies the attribute values from an Entity to an object that can be
+	 * serialized in SOAP messages.
+	 * 
+	 * @param type
+	 *            the JPA entity.
+	 * @return a soap object containing the values of the entity.
+	 */
+	SoapType toSoap(EntityType type) throws IllegalStateException,
+			IllegalArgumentException;
 
-  /**
-   * Copies the attribute values from an object that can be serialized in SOAP
-   * messages into an Entity object.
-   * 
-   * @param type a soap object containing the values of the entity.
-   * @return the JPA entity.
-   */
-  EntityType toEntity(SoapType type) throws IllegalStateException, IllegalArgumentException;
+	/**
+	 * Copies the attribute values from an object that can be serialized in SOAP
+	 * messages into an Entity object.
+	 * 
+	 * @param type
+	 *            a soap object containing the values of the entity.
+	 * @return the JPA entity.
+	 */
+	EntityType toEntity(SoapType type) throws IllegalStateException,
+			IllegalArgumentException;
 }

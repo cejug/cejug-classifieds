@@ -63,11 +63,11 @@ public class CategoryOperations extends
 	protected EntityFacade<CategoryEntity> getFacade() {
 		return facade;
 	}
-	
+
 	@Override
 	public List<AdvertisementCategory> readBundleOperation(
 			BundleRequest bundleRequest) {
-		
+
 		return super.readBundleOperation(bundleRequest);
 	}
 }

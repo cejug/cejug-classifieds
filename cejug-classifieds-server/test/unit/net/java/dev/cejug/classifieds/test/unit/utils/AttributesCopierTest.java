@@ -45,7 +45,7 @@ public class AttributesCopierTest {
 
 	}
 
-	public class A {
+	public static class A {
 		int x;
 		String y;
 
@@ -71,7 +71,7 @@ public class AttributesCopierTest {
 		}
 	}
 
-	public class B {
+	public static class B {
 		int x;
 		String y;
 

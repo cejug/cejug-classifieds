@@ -30,6 +30,7 @@ import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 @Local
-public interface DomainAdapterLocal extends SoapOrmAdapter<Domain, DomainEntity> {
+public interface DomainAdapterLocal extends
+		SoapOrmAdapter<Domain, DomainEntity> {
 
 }

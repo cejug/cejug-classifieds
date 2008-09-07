@@ -27,5 +27,5 @@ import javax.ejb.Stateless;
 
 @Stateless
 public abstract class AbstractSoapOrmAdapter<SoapType, EntityType> implements
-    SoapOrmAdapter<SoapType, EntityType> {
+		SoapOrmAdapter<SoapType, EntityType> {
 }

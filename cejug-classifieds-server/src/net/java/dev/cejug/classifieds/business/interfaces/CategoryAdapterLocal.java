@@ -30,6 +30,7 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 @Local
-public interface CategoryAdapterLocal extends SoapOrmAdapter<AdvertisementCategory, CategoryEntity> {
+public interface CategoryAdapterLocal extends
+		SoapOrmAdapter<AdvertisementCategory, CategoryEntity> {
 
 }

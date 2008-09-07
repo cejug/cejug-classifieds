@@ -38,7 +38,6 @@ import net.java.dev.cejug.classifieds.business.interfaces.CheckMonitorOperationL
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminRemote;
 import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
-import net.java.dev.cejug.classifieds.service.endpoint.impl.CategoryOperations;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;

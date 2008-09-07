@@ -31,8 +31,8 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 @Stateless
 public class CategoryAdapter extends
-		AbstractSoapOrmAdapter<AdvertisementCategory, CategoryEntity> 
-          implements CategoryAdapterLocal {
+		AbstractSoapOrmAdapter<AdvertisementCategory, CategoryEntity> implements
+		CategoryAdapterLocal {
 
 	public CategoryEntity toEntity(AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {

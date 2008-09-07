@@ -32,8 +32,9 @@ import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 @Stateless
-public class CustomerAdapter extends AbstractSoapOrmAdapter<Customer, CustomerEntity> 
-    implements CustomerAdapterLocal {
+public class CustomerAdapter extends
+		AbstractSoapOrmAdapter<Customer, CustomerEntity> implements
+		CustomerAdapterLocal {
 
 	@EJB
 	private transient DomainFacadeLocal domainFacade;
