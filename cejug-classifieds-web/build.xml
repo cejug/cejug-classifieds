@@ -101,10 +101,12 @@
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
             <xjcarg value="-Xcollection-setter-injector" />
+        	<xjcarg value="-nv" />
         </wsimport>
         <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
             <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
             <xjcarg value="-Xcollection-setter-injector" />
+            	<xjcarg value="-nv" />
         </wsimport>
         <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
             <classpath refid="project.classpath" />
