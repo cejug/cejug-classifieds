@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint;
 
-import java.util.Collections;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -37,7 +35,6 @@ import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessLoc
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessRemote;
 import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.LoadRssOperationLocal;
-import net.java.dev.cejug.classifieds.service.endpoint.impl.CategoryOperations;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
@@ -83,6 +80,9 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	@EJB
 	private transient AdvertisementOperationsLocal crudAdvertisement;
 
+	@EJB
+	private CategoryOperationsLocal crudCategory;
+
 	/**
 	 * @return an <a href=
 	 *         "http://en.wikipedia.org/wiki/Atom_(standard)#Example_of_an_Atom_1.0_Feed"
@@ -119,10 +119,9 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
-		CategoryOperationsLocal crudCategory = new CategoryOperations();
 		CategoryCollection collection = new CategoryCollection();
-		Collections.copy(collection.getAdvertisementCategory(), crudCategory
-				.readBundleOperation(bundleRequest));
+		collection.getAdvertisementCategory().addAll(
+				crudCategory.readBundleOperation(bundleRequest));
 		return collection;
 	}
 
