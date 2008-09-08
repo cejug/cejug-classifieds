@@ -38,7 +38,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 @Stateless
 public class CategoryAdapter implements CategoryAdapterLocal {
 
-        /** {@inheritDoc} */
+	/** {@inheritDoc} */
 	public CategoryEntity toEntity(AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {
 

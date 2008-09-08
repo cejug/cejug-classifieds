@@ -39,12 +39,12 @@ public class AdvertisementKeywordEntity extends
 	private String name;
 
 	public AdvertisementKeywordEntity() {
-	  super();
+		super();
 	}
 
 	public AdvertisementKeywordEntity(String name) {
-	  super();
-	  this.name = name;
+		super();
+		this.name = name;
 	}
 
 	public void setName(String name) {
