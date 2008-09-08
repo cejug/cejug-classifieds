@@ -30,9 +30,7 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 @Stateless
-public class AdvertisementTypeAdapter extends
-		AbstractSoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity>
-		implements AdvertisementTypeAdapterLocal {
+public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 
 	public AdvertisementTypeEntity toEntity(AdvertisementType type)
 			throws IllegalStateException, IllegalArgumentException {

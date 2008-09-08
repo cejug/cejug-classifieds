@@ -47,8 +47,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
  * @version $Rev: $ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 @Stateless
-public class AdvertisementAdapter extends
-		AbstractSoapOrmAdapter<Advertisement, AdvertisementEntity> implements
+public class AdvertisementAdapter implements
 		AdvertisementAdapterLocal {
 	private static final String KEYWORDS_SEPARATOR = ";";
 

@@ -35,8 +35,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 @Stateless
-public class DomainAdapter extends AbstractSoapOrmAdapter<Domain, DomainEntity>
-		implements DomainAdapterLocal {
+public class DomainAdapter implements DomainAdapterLocal {
 
 	public DomainEntity toEntity(Domain domain) throws IllegalStateException,
 			IllegalArgumentException {
