@@ -41,8 +41,8 @@ public class AttributesCopier<S, T> {
 	public static final String GET_PREFIX = "get";
 	public static final String SET_PREFIX = "set";
 	public static final int PREFIX_LENGTH = 3;
-	boolean identicalTypes = false;
-	private Logger logger = null;
+	private transient boolean identicalTypes = false;
+	private transient Logger logger = null;
 
 	public AttributesCopier(boolean identicalTypes) {
 		this.identicalTypes = identicalTypes;

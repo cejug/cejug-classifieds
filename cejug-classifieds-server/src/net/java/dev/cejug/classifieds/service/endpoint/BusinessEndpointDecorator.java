@@ -81,7 +81,7 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	private transient AdvertisementOperationsLocal crudAdvertisement;
 
 	@EJB
-	private CategoryOperationsLocal crudCategory;
+	private transient CategoryOperationsLocal crudCategory;
 
 	/**
 	 * @return an <a href=

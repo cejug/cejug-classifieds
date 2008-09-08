@@ -42,13 +42,13 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
  */
 @Stateless
 public class AdvertisementTypeOperations extends
-		CrudImpl<AdvertisementTypeEntity, AdvertisementType> implements
+		AbstractCrudImpl<AdvertisementTypeEntity, AdvertisementType> implements
 		AdvertisementTypeOperationsLocal {
 	@EJB
-	AdvertisementTypeFacadeLocal facade;
+	private transient AdvertisementTypeFacadeLocal facade;
 
 	@EJB
-	AdvertisementTypeAdapterLocal adapter;
+	private transient AdvertisementTypeAdapterLocal adapter;
 
 	@Override
 	protected SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> getAdapter() {

@@ -87,16 +87,16 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
 	@EJB
-	private CheckMonitorOperationLocal checkMonitorImpl;
+	private transient CheckMonitorOperationLocal checkMonitorImpl;
 
 	@EJB
-	private CategoryOperationsLocal crudCategory;
+	private transient CategoryOperationsLocal crudCategory;
 
 	@EJB
-	private AdvertisementTypeOperationsLocal crudAdvType;
+	private transient AdvertisementTypeOperationsLocal crudAdvType;
 
 	@EJB
-	DomainOperationsLocal crudDomain;
+	private transient DomainOperationsLocal crudDomain;
 
 	/**
 	 * the global log manager, used to allow third party services to override

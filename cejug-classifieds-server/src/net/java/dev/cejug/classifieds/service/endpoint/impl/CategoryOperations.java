@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -35,7 +33,6 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 
 /**
  * TODO: to comment.
@@ -45,14 +42,14 @@ import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
  */
 @Stateless
 public class CategoryOperations extends
-		CrudImpl<CategoryEntity, AdvertisementCategory> implements
+		AbstractCrudImpl<CategoryEntity, AdvertisementCategory> implements
 		CategoryOperationsLocal {
 
 	@EJB
-	CategoryFacadeLocal facade;
+	private transient CategoryFacadeLocal facade;
 
 	@EJB
-	CategoryAdapterLocal adapter;
+	private transient CategoryAdapterLocal adapter;
 
 	@Override
 	protected SoapOrmAdapter<AdvertisementCategory, CategoryEntity> getAdapter() {
@@ -62,12 +59,5 @@ public class CategoryOperations extends
 	@Override
 	protected EntityFacade<CategoryEntity> getFacade() {
 		return facade;
-	}
-
-	@Override
-	public List<AdvertisementCategory> readBundleOperation(
-			BundleRequest bundleRequest) {
-
-		return super.readBundleOperation(bundleRequest);
 	}
 }

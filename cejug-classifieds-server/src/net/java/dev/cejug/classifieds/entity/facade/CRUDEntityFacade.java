@@ -35,7 +35,7 @@ public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 	private final static Logger logger = Logger.getLogger(
 			CRUDEntityFacade.class.getName(), "i18n/log");
 
-	private Class<T> entityClass;
+	private transient final Class<T> entityClass;
 
 	@SuppressWarnings("unchecked")
 	public CRUDEntityFacade() {

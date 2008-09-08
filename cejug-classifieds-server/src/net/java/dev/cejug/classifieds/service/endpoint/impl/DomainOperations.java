@@ -41,14 +41,14 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
 @Stateless
-public class DomainOperations extends CrudImpl<DomainEntity, Domain> implements
+public class DomainOperations extends AbstractCrudImpl<DomainEntity, Domain> implements
 		DomainOperationsLocal {
 
 	@EJB
-	DomainFacadeLocal domainFacade;
+	private transient DomainFacadeLocal domainFacade;
 
 	@EJB
-	DomainAdapterLocal adapter;
+	private transient DomainAdapterLocal adapter;
 
 	@Override
 	protected EntityFacade<DomainEntity> getFacade() {

@@ -40,7 +40,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author: felipegaucho $
  * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
  */
-public abstract class CrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
+public abstract class AbstractCrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
 		implements CRUDLocal<T> {
 
 	protected abstract EntityFacade<E> getFacade();
