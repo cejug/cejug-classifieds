@@ -50,15 +50,25 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
 public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	private static final String KEYWORDS_SEPARATOR = ";";
 
+	/**
+	 * The persistence facade for Category entities.
+	 */
 	@EJB
 	private transient CategoryFacadeLocal categoryFacade;
 
+	/**
+	 * The persistence facade for Customer entities.
+	 */
 	@EJB
 	private transient CustomerFacadeLocal customerFacade;
 
+	/**
+	 * The persistence facade for Advertisement Type entities.
+	 */
 	@EJB
 	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
+	/** {@inheritDoc} */
 	public AdvertisementEntity toEntity(Advertisement soap)
 			throws IllegalStateException, IllegalArgumentException {
 		AdvertisementEntity entity = new AdvertisementEntity();
@@ -89,6 +99,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		return entity;
 	}
 
+	/** {@inheritDoc} */
 	public Advertisement toSoap(AdvertisementEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 		Advertisement adv = new Advertisement();
@@ -113,6 +124,14 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		return adv;
 	}
 
+	/**
+	 * Concatenates a collection of keywords in a single String formed by comma
+	 * separated tokens.
+	 * 
+	 * @param keywords
+	 *            the collection of
+	 * @return a single String formed by comma separated tokens.
+	 */
 	private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {
 		StringBuffer keyword = new StringBuffer();
 		for (AdvertisementKeywordEntity key : keywords) {
@@ -122,6 +141,14 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		return keyword.toString();
 	}
 
+	/**
+	 * Splits a String formed by comma separated tokens in a collection of
+	 * advertisement keyword entities.
+	 * 
+	 * @param keywords
+	 *            the comma separated keyword.
+	 * @return the collection of entities.
+	 */
 	private Collection<AdvertisementKeywordEntity> splitKeywords(String keywords) {
 		Collection<AdvertisementKeywordEntity> collection = new ArrayList<AdvertisementKeywordEntity>();
 		StringTokenizer tokenizer = new StringTokenizer(keywords, ";,", false);

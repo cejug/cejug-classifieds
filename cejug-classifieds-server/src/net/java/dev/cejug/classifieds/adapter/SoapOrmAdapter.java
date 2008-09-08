@@ -24,7 +24,11 @@
 package net.java.dev.cejug.classifieds.adapter;
 
 /**
- * TODO: to comment.
+ * SOAP &lt;-&gt; ORM mapping interface. The model of persistence layer is
+ * different from the model used on the service contract. Due to that, it is
+ * necessary a transformation layer, the one that should implement this
+ * interface.
+ * 
  * 
  * @author $Author: felipegaucho $
  * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)

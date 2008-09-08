@@ -29,6 +29,12 @@ import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Local
 public interface AdvertisementAdapterLocal extends
 		SoapOrmAdapter<Advertisement, AdvertisementEntity> {

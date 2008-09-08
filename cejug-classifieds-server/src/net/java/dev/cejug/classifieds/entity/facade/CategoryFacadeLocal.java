@@ -28,6 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 
 /**
+ * The persistence facade for Category entities.
+ * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see EntityFacade
