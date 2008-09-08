@@ -44,7 +44,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
  * TODO: to comment.
  * 
  * @author $Author: felipegaucho $
- * @version $Revision ($Date)
+ * @version $Rev$ ($Date)
  */
 @Stateless
 public class AdvertisementAdapter implements AdvertisementAdapterLocal {
