@@ -29,9 +29,16 @@ import net.java.dev.cejug.classifieds.business.interfaces.CategoryAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Stateless
 public class CategoryAdapter implements CategoryAdapterLocal {
 
+        /** {@inheritDoc} */
 	public CategoryEntity toEntity(AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {
 
@@ -47,6 +54,7 @@ public class CategoryAdapter implements CategoryAdapterLocal {
 		return entity;
 	}
 
+	/** {@inheritDoc} */
 	public AdvertisementCategory toSoap(CategoryEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 

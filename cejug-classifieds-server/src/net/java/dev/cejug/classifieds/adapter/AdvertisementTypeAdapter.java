@@ -29,10 +29,18 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeAdapt
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Stateless
 public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 
-	public AdvertisementTypeEntity toEntity(AdvertisementType type)
+	
+      /** {@inheritDoc} */
+      public AdvertisementTypeEntity toEntity(AdvertisementType type)
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
@@ -44,6 +52,7 @@ public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 		return advTypeEntity;
 	}
 
+      /** {@inheritDoc} */
 	public AdvertisementType toSoap(AdvertisementTypeEntity advTypeEntity)
 			throws IllegalStateException, IllegalArgumentException {
 

@@ -34,10 +34,17 @@ import net.java.dev.cejug.classifieds.entity.DomainEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Stateless
 public class DomainAdapter implements DomainAdapterLocal {
 
-	public DomainEntity toEntity(Domain domain) throws IllegalStateException,
+  /** {@inheritDoc} */	
+  public DomainEntity toEntity(Domain domain) throws IllegalStateException,
 			IllegalArgumentException {
 		DomainEntity domainEntity = new DomainEntity();
 		domainEntity.setDomainName(domain.getUri());
@@ -58,7 +65,8 @@ public class DomainAdapter implements DomainAdapterLocal {
 		return domainEntity;
 	}
 
-	public Domain toSoap(DomainEntity domainEntity)
+  /** {@inheritDoc} */	
+  public Domain toSoap(DomainEntity domainEntity)
 			throws IllegalStateException, IllegalArgumentException {
 		Domain domain = new Domain();
 		domain.setEntityId(domainEntity.getId());

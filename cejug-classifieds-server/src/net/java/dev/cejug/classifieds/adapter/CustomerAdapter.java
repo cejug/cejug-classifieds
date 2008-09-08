@@ -31,12 +31,19 @@ import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Stateless
 public class CustomerAdapter implements CustomerAdapterLocal {
 
 	@EJB
 	private transient DomainFacadeLocal domainFacade;
 
+	/** {@inheritDoc} */
 	public CustomerEntity toEntity(Customer customer)
 			throws IllegalStateException, IllegalArgumentException {
 		CustomerEntity entity = new CustomerEntity();
@@ -47,6 +54,7 @@ public class CustomerAdapter implements CustomerAdapterLocal {
 		return entity;
 	}
 
+	/** {@inheritDoc} */
 	public Customer toSoap(CustomerEntity entity) throws IllegalStateException,
 			IllegalArgumentException {
 		Customer customer = new Customer();

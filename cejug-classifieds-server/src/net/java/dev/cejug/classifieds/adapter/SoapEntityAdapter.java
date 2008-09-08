@@ -33,6 +33,12 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * TODO: to comment.
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ */
 @Retention(RUNTIME)
 @Target( { PACKAGE, FIELD, METHOD, TYPE, PARAMETER })
 public @interface SoapEntityAdapter {
