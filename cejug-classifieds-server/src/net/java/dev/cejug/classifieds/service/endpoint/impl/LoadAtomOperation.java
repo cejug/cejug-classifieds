@@ -46,8 +46,8 @@ import org.w3._2005.atom.UriType;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 577 $ ($Date: 2008-09-03 18:57:21 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class LoadAtomOperation implements LoadAtomOperationLocal {

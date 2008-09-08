@@ -30,8 +30,8 @@ package net.java.dev.cejug.classifieds.adapter;
  * interface.
  * 
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public interface SoapOrmAdapter<SoapType, EntityType> {
 

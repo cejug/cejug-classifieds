@@ -28,8 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * 
  */
 @Local

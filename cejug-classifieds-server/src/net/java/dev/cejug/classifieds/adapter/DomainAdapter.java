@@ -38,8 +38,8 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
  * Adaptation interface between Domain objects representing Soap elements and
  * the DomainEntity used to persist the domain data in the database.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class DomainAdapter implements DomainAdapterLocal {

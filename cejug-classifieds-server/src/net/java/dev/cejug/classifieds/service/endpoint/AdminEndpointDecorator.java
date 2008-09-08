@@ -71,8 +71,8 @@ import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
  * other surrounding features. No busines code should be placed here, you find
  * all implementations in the package <code>.impl</code>.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 577 $ ($Date: 2008-09-03 18:57:21 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see <a * href=
  *      "http://java.sun.com/developer/technicalArticles/ebeans/ejb_30/#entity">
  *      * Writing Performant EJB Beans in the Java EE 5 Platform (EJB 3.0) Using

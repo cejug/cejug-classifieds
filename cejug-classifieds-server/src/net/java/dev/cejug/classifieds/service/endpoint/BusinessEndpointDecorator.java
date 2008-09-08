@@ -57,8 +57,8 @@ import org.w3._2005.atom.FeedType;
  * Business Service implementation of the interface defined in the
  * cejug-classifieds-business.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 577 $ ($Date: 2008-09-03 18:57:21 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness
  */
 @Interceptors(TimerInterceptor.class)

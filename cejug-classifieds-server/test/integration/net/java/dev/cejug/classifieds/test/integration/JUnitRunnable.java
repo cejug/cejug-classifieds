@@ -7,8 +7,8 @@ import org.junit.runners.model.InitializationError;
 /**
  * A JUnit class that can be launch in concurrent mode.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * 
  */
 public class JUnitRunnable extends BlockJUnit4ClassRunner implements Runnable {

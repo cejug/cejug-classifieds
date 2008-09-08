@@ -43,7 +43,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
+ * @author $Author$
  * @version $Rev$ ($Date)
  */
 @Stateless

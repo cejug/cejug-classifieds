@@ -40,8 +40,8 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 504 $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class CheckMonitorOperation implements CheckMonitorOperationLocal {

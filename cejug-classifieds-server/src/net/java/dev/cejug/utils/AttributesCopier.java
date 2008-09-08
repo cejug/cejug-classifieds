@@ -32,8 +32,8 @@ import java.util.logging.Logger;
  * Utility class to copy the values from an object to another - using the
  * attributes names and types matching as criteria of copying.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 520 $ ($Date: 2008-08-25 20:11:50 +0200 (Mon, 25 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class AttributesCopier<S, T> {
 

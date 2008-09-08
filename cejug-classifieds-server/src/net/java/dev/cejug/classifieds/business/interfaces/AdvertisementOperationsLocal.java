@@ -33,8 +33,8 @@ import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: $ ($Date: 2008-08-24 11:22:52 +0200 (So, 24 Aug 2008) $)
+ * @author $Author$
+ * @version $Rev: $ ($Date$)
  */
 @Local
 public interface AdvertisementOperationsLocal {
