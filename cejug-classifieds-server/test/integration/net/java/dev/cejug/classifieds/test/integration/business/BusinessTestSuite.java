@@ -1,9 +1,9 @@
 package net.java.dev.cejug.classifieds.test.integration.business;
 
+import generated.Rss;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import com.codeplex.rss2schema.Rss;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { LoadAtomIntegrationTest.class,

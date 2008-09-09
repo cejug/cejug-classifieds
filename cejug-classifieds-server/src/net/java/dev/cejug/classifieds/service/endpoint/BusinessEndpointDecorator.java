@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint;
 
+import generated.Rss;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -51,8 +53,6 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
 import org.w3._2005.atom.FeedType;
-
-import com.codeplex.rss2schema.Rss;
 
 /**
  * Business Service implementation of the interface defined in the

@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
+import generated.Category;
+
 import java.net.MalformedURLException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -37,8 +39,6 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.codeplex.rss2schema.Category;
 
 /**
  * Test the diploma validation operation.

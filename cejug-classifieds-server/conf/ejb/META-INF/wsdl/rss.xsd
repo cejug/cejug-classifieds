@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.codeplex.com/rss2schema"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified"
   xmlns:rss="http://www.codeplex.com/rss2schema" version="2.0.1.12">
   <xs:annotation>
     <xs:documentation>Based on the RSS 2.0 schema published at
@@ -12,7 +12,7 @@
   <xs:element name="rss">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="channel" type="rss:RssChannel" />
+        <xs:element name="channel" type="RssChannel" />
         <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
       <xs:attribute name="version" type="xs:decimal" use="required" fixed="2.0" />
@@ -40,12 +40,12 @@
             <xs:documentation>The URL of the item.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="author" type="rss:EmailAddress" minOccurs="0">
+        <xs:element name="author" type="EmailAddress" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Email address of the author of the item.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="category" type="rss:Category" minOccurs="0">
+        <xs:element name="category" type="Category" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Includes the item in one or more categories. </xs:documentation>
           </xs:annotation>
@@ -55,22 +55,22 @@
             <xs:documentation>URL of a page for comments relating to the item.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="enclosure" type="rss:Enclosure" minOccurs="0">
+        <xs:element name="enclosure" type="Enclosure" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Describes a media object that is attached to the item.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="guid" type="rss:Guid" minOccurs="0">
+        <xs:element name="guid" type="Guid" minOccurs="0">
           <xs:annotation>
             <xs:documentation>guid or permalink URL for this entry</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="pubDate" type="rss:Rfc822FormatDate" minOccurs="0">
+        <xs:element name="pubDate" type="Rfc822FormatDate" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Indicates when the item was published.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="source" type="rss:Source" minOccurs="0">
+        <xs:element name="source" type="Source" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The RSS channel that the item came from.</xs:documentation>
           </xs:annotation>
@@ -112,27 +112,27 @@
             <xs:documentation>Copyright notice for content in the channel.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="managingEditor" type="rss:EmailAddress" minOccurs="0">
+        <xs:element name="managingEditor" type="EmailAddress" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Email address for person responsible for editorial content.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="webMaster" type="rss:EmailAddress" minOccurs="0">
+        <xs:element name="webMaster" type="EmailAddress" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Email address for person responsible for technical issues relating to channel.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="pubDate" type="rss:Rfc822FormatDate" minOccurs="0">
+        <xs:element name="pubDate" type="Rfc822FormatDate" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The publication date for the content in the channel. All date-times in RSS conform to the Date and Time Specification of RFC 822, with the exception that the year may be expressed with two characters or four characters (four preferred).</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="lastBuildDate" type="rss:Rfc822FormatDate" minOccurs="0">
+        <xs:element name="lastBuildDate" type="Rfc822FormatDate" minOccurs="0">
           <xs:annotation>
             <xs:documentation>The last time the content of the channel changed.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="category" type="rss:Category" minOccurs="0">
+        <xs:element name="category" type="Category" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Specify one or more categories that the channel belongs to.</xs:documentation>
           </xs:annotation>
@@ -147,7 +147,7 @@
             <xs:documentation>A URL that points to the documentation for the format used in the RSS file. It's probably a pointer to this page. It's for people who might stumble across an RSS file on a Web server 25 years from now and wonder what it is.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cloud" type="rss:Cloud" minOccurs="0">
+        <xs:element name="cloud" type="Cloud" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Allows processes to register with a cloud to be notified of updates to the channel, implementing a lightweight publish-subscribe protocol for RSS feeds.</xs:documentation>
           </xs:annotation>
@@ -157,22 +157,22 @@
             <xs:documentation>ttl stands for time to live. It's a number of minutes that indicates how long a channel can be cached before refreshing from the source.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element ref="rss:Image" minOccurs="0">
+        <xs:element ref="Image" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Specifies a GIF, JPEG or PNG image that can be displayed with the channel.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="textInput" type="rss:TextInput" minOccurs="0">
+        <xs:element name="textInput" type="TextInput" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Specifies a text input box that can be displayed with the channel.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="skipHours" type="rss:SkipHoursList" minOccurs="0">
+        <xs:element name="skipHours" type="SkipHoursList" minOccurs="0">
           <xs:annotation>
             <xs:documentation>A hint for aggregators telling them which hours they can skip.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="skipDays" type="rss:SkipDaysList" minOccurs="0">
+        <xs:element name="skipDays" type="SkipDaysList" minOccurs="0">
           <xs:annotation>
             <xs:documentation>A hint for aggregators telling them which days they can skip.</xs:documentation>
           </xs:annotation>
@@ -183,7 +183,7 @@
           </xs:annotation>
         </xs:any>
       </xs:choice>
-      <xs:element name="item" type="rss:RssItem" minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="item" type="RssItem" minOccurs="1" maxOccurs="unbounded">
         <!--
           HACK: According to the RSS 2.0 spec, it should strictly be possible to have zero item elements, but this makes
           the schema non-deterministic with regard to extensibility elements so for the moment we undid bug-fix 10231
@@ -209,7 +209,7 @@
   </xs:simpleType>
   <xs:complexType name="SkipHoursList">
     <xs:sequence>
-      <xs:element name="hour" type="rss:SkipHour" minOccurs="0" maxOccurs="24" />
+      <xs:element name="hour" type="SkipHour" minOccurs="0" maxOccurs="24" />
     </xs:sequence>
   </xs:complexType>
   <xs:simpleType name="SkipDay">
@@ -228,7 +228,7 @@
   </xs:simpleType>
   <xs:complexType name="SkipDaysList">
     <xs:sequence>
-      <xs:element name="day" type="rss:SkipDay" minOccurs="0" maxOccurs="7">
+      <xs:element name="day" type="SkipDay" minOccurs="0" maxOccurs="7">
         <xs:annotation>
           <xs:documentation>A time in GMT, when aggregators should not request the channel data. The hour beginning at midnight is hour zero.</xs:documentation>
         </xs:annotation>
@@ -260,12 +260,12 @@
           <xs:documentation>The URL of the site, when the channel is rendered, the image is a link to the site. (Note, in practice the image &lt;title&gt; and &lt;link&gt; should have the same value as the channel's &lt;title&gt; and &lt;link&gt;. </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="width" type="rss:ImageWidth" default="88" minOccurs="0">
+      <xs:element name="width" type="ImageWidth" default="88" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The width of the image in pixels.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="height" type="rss:ImageHeight" default="31" minOccurs="0">
+      <xs:element name="height" type="ImageHeight" default="31" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The height of the image in pixels.</xs:documentation>
         </xs:annotation>
@@ -302,7 +302,7 @@
     <xs:attribute name="port" type="xs:positiveInteger" use="required"/>
     <xs:attribute name="path" type="xs:string" use="required"/>
     <xs:attribute name="registerProcedure" type="xs:string" use="required"/>
-    <xs:attribute name="protocol" type="rss:CloudProtocol" use="required"/>
+    <xs:attribute name="protocol" type="CloudProtocol" use="required"/>
   </xs:complexType>
   <xs:simpleType name="CloudProtocol">
     <xs:restriction base="xs:string">

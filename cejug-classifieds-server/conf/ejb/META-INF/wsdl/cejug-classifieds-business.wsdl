@@ -11,7 +11,7 @@
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
-			<xsd:import namespace="http://www.codeplex.com/rss2schema"
+			<xsd:include
 				schemaLocation="rss.xsd" />
 		</xsd:schema>
 	</wsdl:types>
@@ -23,7 +23,7 @@
 		<wsdl:part element="metadata:RssFilter" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadRssResponse">
-		<wsdl:part element="rss20:rss" name="rss.2.0" />
+		<wsdl:part element="rss" name="rss.2.0" />
 	</wsdl:message>
 
 	<!-- LOAD ATOM -->

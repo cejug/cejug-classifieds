@@ -23,6 +23,14 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import generated.Guid;
+import generated.Image;
+import generated.ObjectFactory;
+import generated.Rss;
+import generated.RssChannel;
+import generated.RssItem;
+import generated.Source;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -41,22 +49,14 @@ import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 
-import com.codeplex.rss2schema.Guid;
-import com.codeplex.rss2schema.Image;
-import com.codeplex.rss2schema.ObjectFactory;
-import com.codeplex.rss2schema.Rss;
-import com.codeplex.rss2schema.RssChannel;
-import com.codeplex.rss2schema.RssItem;
-import com.codeplex.rss2schema.Source;
-
 /**
  * TODO: to comment.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a href=
- *      'http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specifi
- *      c a t i o n < / a >
+ *      'http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specif
+ *      i c a t i o n < / a >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
@@ -65,13 +65,15 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 */
 	private static final String GMT_DATE_PATTERN = "EEE MMM dd HH:mm:ss z yyyy";
 
-	public static final SimpleDateFormat rfc822DateFormats[] = new SimpleDateFormat[]{
-      new SimpleDateFormat("EEE, d MMM yy HH:mm:ss z"),
-      new SimpleDateFormat("EEE, d MMM yy HH:mm z"),
-      new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z"),
-      new SimpleDateFormat("EEE, d MMM yyyy HH:mm z"), new SimpleDateFormat("d MMM yy HH:mm z"),
-      new SimpleDateFormat("d MMM yy HH:mm:ss z"), new SimpleDateFormat("d MMM yyyy HH:mm z"),
-      new SimpleDateFormat("d MMM yyyy HH:mm:ss z"),}; 
+	public static final SimpleDateFormat rfc822DateFormats[] = new SimpleDateFormat[] {
+			new SimpleDateFormat("EEE, d MMM yy HH:mm:ss z"),
+			new SimpleDateFormat("EEE, d MMM yy HH:mm z"),
+			new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z"),
+			new SimpleDateFormat("EEE, d MMM yyyy HH:mm z"),
+			new SimpleDateFormat("d MMM yy HH:mm z"),
+			new SimpleDateFormat("d MMM yy HH:mm:ss z"),
+			new SimpleDateFormat("d MMM yyyy HH:mm z"),
+			new SimpleDateFormat("d MMM yyyy HH:mm:ss z"), };
 
 	/**
 	 * Persistence façade of Advertisement entities.
@@ -133,42 +135,65 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");
 			RssChannel channel = new RssChannel();
 			ObjectFactory factory = new ObjectFactory();
-			List<Object> channelAttributes = channel.getTitleOrLinkOrDescription(); 
-			channelAttributes.add(factory.createRssChannelTitle("TODO: include the section name: " + filter.getCategoryId()));
-			channelAttributes.add(factory.createRssChannelCategory(factory.createCategory()));
-			channelAttributes.add(factory.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
-			channelAttributes.add(factory.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
-			channelAttributes.add(factory.createRssChannelDescription("TODO: include the section description: getSection().getDescription();"));
-			channelAttributes.add(factory.createRssChannelDocs("http://www.codeplex.com/rss2schema"));
-			channelAttributes.add(factory.createRssChannelGenerator("Cejug-Classifieds"));
-			channelAttributes.add(factory.createRssChannelWebMaster("dev@cejug-classifieds.dev.java.net"));
-			channelAttributes.add(factory.createRssChannelManagingEditor("users@cejug-classifieds.dev.java.net"));
-			
+			List<Object> channelAttributes = channel
+					.getTitleOrLinkOrDescription();
+			channelAttributes.add(factory
+					.createRssChannelTitle("TODO: include the section name: "
+							+ filter.getCategoryId()));
+			channelAttributes.add(factory.createRssChannelCategory(factory
+					.createCategory()));
+			channelAttributes.add(factory
+					.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
+			channelAttributes
+					.add(factory
+							.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
+			channelAttributes
+					.add(factory
+							.createRssChannelDescription("TODO: include the section description: getSection().getDescription();"));
+			channelAttributes
+					.add(factory
+							.createRssChannelDocs("http://www.codeplex.com/rss2schema"));
+			channelAttributes.add(factory
+					.createRssChannelGenerator("Cejug-Classifieds"));
+			channelAttributes
+					.add(factory
+							.createRssChannelWebMaster("dev@cejug-classifieds.dev.java.net"));
+			channelAttributes
+					.add(factory
+							.createRssChannelManagingEditor("users@cejug-classifieds.dev.java.net"));
+
 			Image image = factory.createImage();
 			image.setDescription("Cejug-Classifieds");
 			image.setLink("https://cejug-classifieds.dev.java.net/");
 			image.setHeight(150);
 			image.setWidth(150);
 			image.setTitle("Cejug-Classifieds");
-			image.setUrl("https://cejug-classifieds.dev.java.net/images/logo.jpg");
-			
-			channelAttributes.add(image);
+			image
+					.setUrl("https://cejug-classifieds.dev.java.net/images/logo.jpg");
 
+			channelAttributes.add(image);
 
 			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale
 					.getDefault());
 			gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 			for (AdvertisementEntity adv : result) {
 				RssItem item = new RssItem();
-				List<Object> itemAttributes = item.getTitleOrDescriptionOrLink();
-				itemAttributes.add(factory.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
-                                    + adv.getCustomer().getLogin() + ")"));
+				List<Object> itemAttributes = item
+						.getTitleOrDescriptionOrLink();
+				itemAttributes
+						.add(factory
+								.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
+										+ adv.getCustomer().getLogin() + ")"));
 				itemAttributes.add(factory.createRssItemTitle(adv.getTitle()));
 				Source s = factory.createSource();
 				s.setValue(adv.getText());
-				itemAttributes.add(factory.createRssItemDescription(adv.getSummary()));
-				itemAttributes.add(factory.createRssItemComments("https://cejug-classifieds.dev.java.net/"));
-				// itemAttributes.add(factory.createRssItemPubDate(gmt.format(adv.getStart())));
+				itemAttributes.add(factory.createRssItemDescription(adv
+						.getSummary()));
+				itemAttributes
+						.add(factory
+								.createRssItemComments("https://cejug-classifieds.dev.java.net/"));
+				//itemAttributes.add(factory.createRssItemPubDate(gmt.format(adv
+				// .getStart())));
 
 				Guid guid = new Guid();
 				guid.setIsPermaLink(Boolean.FALSE);

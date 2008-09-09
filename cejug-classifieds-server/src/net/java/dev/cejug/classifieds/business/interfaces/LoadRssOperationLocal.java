@@ -23,11 +23,11 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.business.interfaces;
 
+import generated.Rss;
+
 import javax.ejb.Local;
 
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
-
-import com.codeplex.rss2schema.Rss;
 
 /**
  * @author $Author$

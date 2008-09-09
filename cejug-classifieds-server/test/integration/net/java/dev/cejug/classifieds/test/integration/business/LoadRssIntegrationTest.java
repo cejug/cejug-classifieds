@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
+import generated.Rss;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -32,8 +34,6 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.codeplex.rss2schema.Rss;
 
 /**
  * Test the diploma validation operation.
