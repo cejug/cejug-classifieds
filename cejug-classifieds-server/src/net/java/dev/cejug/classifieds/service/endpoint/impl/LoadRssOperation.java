@@ -42,10 +42,12 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 
 import com.codeplex.rss2schema.Guid;
+import com.codeplex.rss2schema.Image;
 import com.codeplex.rss2schema.ObjectFactory;
 import com.codeplex.rss2schema.Rss;
 import com.codeplex.rss2schema.RssChannel;
 import com.codeplex.rss2schema.RssItem;
+import com.codeplex.rss2schema.Source;
 
 /**
  * TODO: to comment.
@@ -137,7 +139,21 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			channelAttributes.add(factory.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
 			channelAttributes.add(factory.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
 			channelAttributes.add(factory.createRssChannelDescription("TODO: include the section description: getSection().getDescription();"));
-			channelAttributes.add(factory.createRssChannelGenerator("TODO: include generator.. classifieds framework :)"));
+			channelAttributes.add(factory.createRssChannelDocs("http://www.codeplex.com/rss2schema"));
+			channelAttributes.add(factory.createRssChannelGenerator("Cejug-Classifieds"));
+			channelAttributes.add(factory.createRssChannelWebMaster("dev@cejug-classifieds.dev.java.net"));
+			channelAttributes.add(factory.createRssChannelManagingEditor("users@cejug-classifieds.dev.java.net"));
+			
+			Image image = factory.createImage();
+			image.setDescription("Cejug-Classifieds");
+			image.setLink("https://cejug-classifieds.dev.java.net/");
+			image.setHeight(150);
+			image.setWidth(150);
+			image.setTitle("Cejug-Classifieds");
+			image.setUrl("https://cejug-classifieds.dev.java.net/images/logo.jpg");
+			
+			channelAttributes.add(image);
+
 
 			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale
 					.getDefault());
@@ -148,8 +164,10 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 				itemAttributes.add(factory.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
                                     + adv.getCustomer().getLogin() + ")"));
 				itemAttributes.add(factory.createRssItemTitle(adv.getTitle()));
+				Source s = factory.createSource();
+				s.setValue(adv.getText());
 				itemAttributes.add(factory.createRssItemDescription(adv.getSummary()));
-				itemAttributes.add(factory.createRssItemComments(adv.getText()));
+				itemAttributes.add(factory.createRssItemComments("https://cejug-classifieds.dev.java.net/"));
 				// itemAttributes.add(factory.createRssItemPubDate(gmt.format(adv.getStart())));
 
 				Guid guid = new Guid();

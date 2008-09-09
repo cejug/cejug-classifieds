@@ -38,6 +38,8 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.codeplex.rss2schema.Category;
+
 /**
  * Test the diploma validation operation.
  * 
@@ -62,6 +64,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			type = admin.createAdvType();
 			category = admin.createCategory();
 			System.out.println("Category ID " + category.getEntityId());
+			Category cat = new Category();
 			adv = business.createAdvertisement(domain, type, category);
 			Assert.assertTrue(adv.getEntityId() != 0);
 		} catch (Exception ee) {

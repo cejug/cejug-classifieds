@@ -157,7 +157,7 @@
             <xs:documentation>ttl stands for time to live. It's a number of minutes that indicates how long a channel can be cached before refreshing from the source.</xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="image" type="rss:Image" minOccurs="0">
+        <xs:element ref="rss:Image" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Specifies a GIF, JPEG or PNG image that can be displayed with the channel.</xs:documentation>
           </xs:annotation>
@@ -242,7 +242,8 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="Image">
+<xs:element name="Image">
+  <xs:complexType>
     <xs:all>
       <xs:element name="url" type="xs:anyURI">
         <xs:annotation>
@@ -276,6 +277,7 @@
       </xs:element>
     </xs:all>
   </xs:complexType>
+  </xs:element>
   <xs:simpleType name="ImageHeight">
     <xs:annotation>
       <xs:documentation>The height of the image in pixels.</xs:documentation>
