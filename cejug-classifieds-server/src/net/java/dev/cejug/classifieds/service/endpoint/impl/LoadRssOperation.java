@@ -40,10 +40,12 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
-import net.java.dev.cejug_classifieds.rss.Channel;
-import net.java.dev.cejug_classifieds.rss.Item;
-import net.java.dev.cejug_classifieds.rss.Rss;
-import net.java.dev.cejug_classifieds.rss.TGuid;
+
+import com.codeplex.rss2schema.Guid;
+import com.codeplex.rss2schema.ObjectFactory;
+import com.codeplex.rss2schema.Rss;
+import com.codeplex.rss2schema.RssChannel;
+import com.codeplex.rss2schema.RssItem;
 
 /**
  * TODO: to comment.
@@ -60,6 +62,14 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 * GMT date format, used to print the XML dates in GMT format: {@value} .
 	 */
 	private static final String GMT_DATE_PATTERN = "EEE MMM dd HH:mm:ss z yyyy";
+
+	public static final SimpleDateFormat rfc822DateFormats[] = new SimpleDateFormat[]{
+      new SimpleDateFormat("EEE, d MMM yy HH:mm:ss z"),
+      new SimpleDateFormat("EEE, d MMM yy HH:mm z"),
+      new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z"),
+      new SimpleDateFormat("EEE, d MMM yyyy HH:mm z"), new SimpleDateFormat("d MMM yy HH:mm z"),
+      new SimpleDateFormat("d MMM yy HH:mm:ss z"), new SimpleDateFormat("d MMM yyyy HH:mm z"),
+      new SimpleDateFormat("d MMM yyyy HH:mm:ss z"),}; 
 
 	/**
 	 * Persistence façade of Advertisement entities.
@@ -83,7 +93,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 * <pre>
 	 * &lt;?xml version=&quot;1.0&quot;?&gt;
 	 * &lt;rss version=&quot;2.0&quot;&gt;
-	 *    &lt;channel&gt;
+	 *    &lt;RssChannel&gt;
 	 *       &lt;title&gt;Liftoff News&lt;/title&gt;
 	 *       &lt;link&gt;http://liftoff.msfc.nasa.gov/&lt;/link&gt;
 	 *       &lt;description&gt;Liftoff to Space Exploration.&lt;/description&gt;
@@ -95,16 +105,16 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 *       &lt;generator&gt;Weblog Editor 2.0&lt;/generator&gt;
 	 *       &lt;managingEditor&gt;editor@example.com&lt;/managingEditor&gt;
 	 *       &lt;webMaster&gt;webmaster@example.com&lt;/webMaster&gt;
-	 *       &lt;item&gt;
+	 *       &lt;RssItem&gt;
 	 * 
 	 *          &lt;title&gt;Star City&lt;/title&gt;
 	 *          &lt;link&gt;http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp&lt;/link&gt;
 	 *          &lt;description&gt;How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's &lt;a href=&quot;http://howe.iki.rssi.ru/GCTC/gctc_e.htm&quot;&gt;Star City&lt;/a&gt;.&lt;/description&gt;
 	 *          &lt;pubDate&gt;Tue, 03 Jun 2003 09:39:21 GMT&lt;/pubDate&gt;
-	 *          &lt;guid&gt;http://liftoff.msfc.nasa.gov/2003/06/03.html#item573&lt;/guid&gt;
+	 *          &lt;guid&gt;http://liftoff.msfc.nasa.gov/2003/06/03.html#RssItem573&lt;/guid&gt;
 	 * 
-	 *       &lt;/item&gt;
-	 *    &lt;/channel&gt;
+	 *       &lt;/RssItem&gt;
+	 *    &lt;/RssChannel&gt;
 	 * &lt;/rss&gt;
 	 * </pre>
 	 * 
@@ -119,31 +129,35 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 
 			Rss rssFeed = new Rss();
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");
-			Channel channel = new Channel();
-			channel.setTitle("TODO: include the section name: "
-					+ filter.getCategoryId());
-			channel
-					.setLink("http://localhost:8080/cejug-classifieds-server/rss");
-			channel
-					.setDescription("TODO: include the section description: getSection().getDescription();");
+			RssChannel channel = new RssChannel();
+			ObjectFactory factory = new ObjectFactory();
+			List<Object> channelAttributes = channel.getTitleOrLinkOrDescription(); 
+			channelAttributes.add(factory.createRssChannelTitle("TODO: include the section name: " + filter.getCategoryId()));
+			channelAttributes.add(factory.createRssChannelCategory(factory.createCategory()));
+			channelAttributes.add(factory.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
+			channelAttributes.add(factory.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
+			channelAttributes.add(factory.createRssChannelDescription("TODO: include the section description: getSection().getDescription();"));
+			channelAttributes.add(factory.createRssChannelGenerator("TODO: include generator.. classifieds framework :)"));
 
 			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale
 					.getDefault());
 			gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 			for (AdvertisementEntity adv : result) {
-				Item item = new Item();
-				item.setAuthor("dev@cejug-classifieds.dev.java.net ("
-						+ adv.getCustomer().getLogin() + ")");
-				item.setTitle(adv.getTitle());
-				item.setDescription(adv.getText());
-				item.setComments(adv.getSummary());
-				item.setPubDate(gmt.format(adv.getStart().getTime()));
-				TGuid guid = new TGuid();
+				RssItem item = new RssItem();
+				List<Object> itemAttributes = item.getTitleOrDescriptionOrLink();
+				itemAttributes.add(factory.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
+                                    + adv.getCustomer().getLogin() + ")"));
+				itemAttributes.add(factory.createRssItemTitle(adv.getTitle()));
+				itemAttributes.add(factory.createRssItemDescription(adv.getSummary()));
+				itemAttributes.add(factory.createRssItemComments(adv.getText()));
+				// itemAttributes.add(factory.createRssItemPubDate(gmt.format(adv.getStart())));
+
+				Guid guid = new Guid();
 				guid.setIsPermaLink(Boolean.FALSE);
 				guid
 						.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
 								+ adv.getId());
-				item.setGuid(guid);
+				itemAttributes.add(factory.createRssItemGuid(guid));
 				channel.getItem().add(item);
 			}
 			rssFeed.setChannel(channel);

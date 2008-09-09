@@ -29,10 +29,11 @@ import java.util.GregorianCalendar;
 import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
-import net.java.dev.cejug_classifieds.rss.Rss;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.codeplex.rss2schema.Rss;
 
 /**
  * Test the diploma validation operation.
@@ -60,7 +61,7 @@ public class LoadRssIntegrationTest extends AbstractServiceTestCase {
 
 		Rss rss = service.loadRssOperation(filter);
 
-		Assert.assertNotNull("RSS empty", rss.getChannel().getTitle());
+		Assert.assertNotNull("RSS empty", rss.getChannel().getTitleOrLinkOrDescription());
 	}
 
 	/*

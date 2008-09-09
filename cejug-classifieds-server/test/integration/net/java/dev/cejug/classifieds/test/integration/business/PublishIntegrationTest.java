@@ -61,6 +61,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			domain = admin.createDomain();
 			type = admin.createAdvType();
 			category = admin.createCategory();
+			System.out.println("Category ID " + category.getEntityId());
 			adv = business.createAdvertisement(domain, type, category);
 			Assert.assertTrue(adv.getEntityId() != 0);
 		} catch (Exception ee) {

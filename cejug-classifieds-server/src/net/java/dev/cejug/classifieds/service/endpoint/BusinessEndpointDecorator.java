@@ -49,9 +49,10 @@ import net.java.dev.cejug_classifieds.metadata.common.DeleteCustomerParam;
 import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
-import net.java.dev.cejug_classifieds.rss.Rss;
 
 import org.w3._2005.atom.FeedType;
+
+import com.codeplex.rss2schema.Rss;
 
 /**
  * Business Service implementation of the interface defined in the
