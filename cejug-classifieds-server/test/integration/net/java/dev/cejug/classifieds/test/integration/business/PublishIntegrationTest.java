@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
-import generated.Category;
-
 import java.net.MalformedURLException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -64,7 +62,6 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			type = admin.createAdvType();
 			category = admin.createCategory();
 			System.out.println("Category ID " + category.getEntityId());
-			Category cat = new Category();
 			adv = business.createAdvertisement(domain, type, category);
 			Assert.assertTrue(adv.getEntityId() != 0);
 		} catch (Exception ee) {

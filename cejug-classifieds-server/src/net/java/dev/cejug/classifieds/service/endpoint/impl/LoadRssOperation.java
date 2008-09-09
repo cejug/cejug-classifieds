@@ -50,7 +50,6 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
-import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 
 /**
  * TODO: to comment.
@@ -150,6 +149,8 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 								.createRssChannelDescription("In order to retrieve the "
 										+ "advertisements RSS you should provide its Category ID. Below are the available categories."));
 				List<CategoryEntity> categories = categoryFacade.readAll();
+				System.out.println("333333333 -> " + categories.size());
+				List<RssItem> itens = channel.getItem();
 				for (CategoryEntity entity : categories) {
 					RssItem item = new RssItem();
 					List<Object> itemAttributes = item
@@ -165,11 +166,10 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 							.add(factory
 									.createRssItemLink("http://localhost:8080/cejug-classifieds-server/rss?category="
 											+ entity.getId()));
-					channel.getItem().add(item);
+					itens.add(item);
 				}
 
 			} else {
-
 				CategoryEntity category = categoryFacade.read(categoryId);
 				if (category == null) {
 					// TODO: i18n of error messages
@@ -261,10 +261,4 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 			throw new WebServiceException(e);
 		}
 	}
-}
-
-// @Retention(// a sua retention policy) //opicional
-// @Target(CLASS) //opcional, tem um import aqui que eu não lembro...
-@interface MeuTipo {
-	Class<? extends MessageElement> getType();
 }

@@ -68,7 +68,7 @@ public class BusinessClientMock {
 		advertisement.setSummary(strGen.generate().toString());
 		strGen.setMaxLength(250);
 		advertisement.setText(strGen.generate().toString());
-		advertisement.setCategoryId(6);
+		advertisement.setCategoryId(category.getEntityId());
 		Locale locale = new Locale();
 		locale.setLanguage("pt");
 		locale.setCountry("BR");
