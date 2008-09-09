@@ -62,10 +62,12 @@ public class AdminClientMock {
 
 	public AdvertisementCategory createCategory() {
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("test.cat." + random.nextInt() + "."
+		category.setName("cat.name" + random.nextInt() + "."
 				+ random.nextInt());
 		category
-				.setDescription("This category was created just for testing, feel free to delete it");
+				.setDescription("Description "
+						+ System.currentTimeMillis()
+						+ " - this category was created just for testing, feel free to delete it");
 		CreateCategoryParam catParam = new CreateCategoryParam();
 		catParam.setAdvertisementCategory(category);
 		return admin.createCategoryOperation(catParam);
