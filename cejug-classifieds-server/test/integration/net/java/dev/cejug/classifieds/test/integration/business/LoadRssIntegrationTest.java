@@ -61,7 +61,8 @@ public class LoadRssIntegrationTest extends AbstractServiceTestCase {
 
 		Rss rss = service.loadRssOperation(filter);
 
-		Assert.assertNotNull("RSS empty", rss.getChannel().getTitleOrLinkOrDescription());
+		Assert.assertNotNull("RSS empty", rss.getChannel()
+				.getTitleOrLinkOrDescription());
 	}
 
 	/*

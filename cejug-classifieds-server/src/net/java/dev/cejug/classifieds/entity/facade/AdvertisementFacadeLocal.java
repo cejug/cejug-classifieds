@@ -37,6 +37,6 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 @Local
 public interface AdvertisementFacadeLocal extends
 		EntityFacade<AdvertisementEntity> {
-	List<AdvertisementEntity> readByCategory(final int categoryId)
+	List<AdvertisementEntity> readByCategory(final long categoryId)
 			throws IllegalStateException, IllegalArgumentException;
 }

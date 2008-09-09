@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import generated.Category;
 import generated.Guid;
 import generated.Image;
 import generated.ObjectFactory;
@@ -45,7 +46,9 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.LoadRssOperationLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 
@@ -55,25 +58,15 @@ import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a href=
- *      'http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-specif
- *      i c a t i o n < / a >
+ *      'http://www.rssboard.org/rss-specification'>http://www.rssboard.org/rss-
+ *      s p e c i f i c a t i o n < / a >
  */
 @Stateless
 public class LoadRssOperation implements LoadRssOperationLocal {
 	/**
 	 * GMT date format, used to print the XML dates in GMT format: {@value} .
 	 */
-	private static final String GMT_DATE_PATTERN = "EEE MMM dd HH:mm:ss z yyyy";
-
-	public static final SimpleDateFormat rfc822DateFormats[] = new SimpleDateFormat[] {
-			new SimpleDateFormat("EEE, d MMM yy HH:mm:ss z"),
-			new SimpleDateFormat("EEE, d MMM yy HH:mm z"),
-			new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z"),
-			new SimpleDateFormat("EEE, d MMM yyyy HH:mm z"),
-			new SimpleDateFormat("d MMM yy HH:mm z"),
-			new SimpleDateFormat("d MMM yy HH:mm:ss z"),
-			new SimpleDateFormat("d MMM yyyy HH:mm z"),
-			new SimpleDateFormat("d MMM yyyy HH:mm:ss z"), };
+	private static final String GMT_DATE_PATTERN = "EEE, d MMM yyyy HH:mm:ss z";
 
 	/**
 	 * Persistence façade of Advertisement entities.
@@ -81,6 +74,8 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
+	@EJB
+	private transient CategoryFacadeLocal categoryFacade;
 	/**
 	 * the global log manager, used to allow third party services to override
 	 * the default logger.
@@ -126,22 +121,12 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	 */
 	public Rss loadRssOperation(SyndicationFilter filter) {
 		try {
-
-			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade.readByCategory(filter
-					.getCategoryId());
-
+			ObjectFactory factory = new ObjectFactory();
 			Rss rssFeed = new Rss();
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");
 			RssChannel channel = new RssChannel();
-			ObjectFactory factory = new ObjectFactory();
 			List<Object> channelAttributes = channel
 					.getTitleOrLinkOrDescription();
-			channelAttributes.add(factory
-					.createRssChannelTitle("TODO: include the section name: "
-							+ filter.getCategoryId()));
-			channelAttributes.add(factory.createRssChannelCategory(factory
-					.createCategory()));
 			channelAttributes.add(factory
 					.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
 			channelAttributes
@@ -149,59 +134,124 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 							.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
 			channelAttributes
 					.add(factory
-							.createRssChannelDescription("TODO: include the section description: getSection().getDescription();"));
-			channelAttributes
-					.add(factory
 							.createRssChannelDocs("http://www.codeplex.com/rss2schema"));
-			channelAttributes.add(factory
-					.createRssChannelGenerator("Cejug-Classifieds"));
-			channelAttributes
-					.add(factory
-							.createRssChannelWebMaster("dev@cejug-classifieds.dev.java.net"));
-			channelAttributes
-					.add(factory
-							.createRssChannelManagingEditor("users@cejug-classifieds.dev.java.net"));
 
-			Image image = factory.createImage();
-			image.setDescription("Cejug-Classifieds");
-			image.setLink("https://cejug-classifieds.dev.java.net/");
-			image.setHeight(150);
-			image.setWidth(150);
-			image.setTitle("Cejug-Classifieds");
-			image
-					.setUrl("https://cejug-classifieds.dev.java.net/images/logo.jpg");
+			DateFormat gmtDateFormatter = new SimpleDateFormat(
+					GMT_DATE_PATTERN, Locale.getDefault());
 
-			channelAttributes.add(image);
-
-			DateFormat gmt = new SimpleDateFormat(GMT_DATE_PATTERN, Locale
-					.getDefault());
-			gmt.setTimeZone(TimeZone.getTimeZone("GMT"));
-			for (AdvertisementEntity adv : result) {
-				RssItem item = new RssItem();
-				List<Object> itemAttributes = item
-						.getTitleOrDescriptionOrLink();
-				itemAttributes
+			gmtDateFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+			long categoryId = filter.getCategoryId();
+			if (categoryId == 0) {
+				// TODO: i18n of error messages
+				channelAttributes.add(factory
+						.createRssChannelTitle("Incorrect request"));
+				channelAttributes
 						.add(factory
-								.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
-										+ adv.getCustomer().getLogin() + ")"));
-				itemAttributes.add(factory.createRssItemTitle(adv.getTitle()));
-				Source s = factory.createSource();
-				s.setValue(adv.getText());
-				itemAttributes.add(factory.createRssItemDescription(adv
-						.getSummary()));
-				itemAttributes
-						.add(factory
-								.createRssItemComments("https://cejug-classifieds.dev.java.net/"));
-				//itemAttributes.add(factory.createRssItemPubDate(gmt.format(adv
-				// .getStart())));
+								.createRssChannelDescription("In order to retrieve the "
+										+ "advertisements RSS you should provide its Category ID. Below are the available categories."));
+				List<CategoryEntity> categories = categoryFacade.readAll();
+				for (CategoryEntity entity : categories) {
+					RssItem item = new RssItem();
+					List<Object> itemAttributes = item
+							.getTitleOrDescriptionOrLink();
+					itemAttributes
+							.add(factory
+									.createRssItemAuthor("users@cejug-classifieds.dev.java.net (user)"));
+					itemAttributes.add(factory.createRssItemTitle(entity
+							.getName()));
+					itemAttributes.add(factory.createRssItemDescription(entity
+							.getDescription()));
+					itemAttributes
+							.add(factory
+									.createRssItemLink("http://localhost:8080/cejug-classifieds-server/rss?category="
+											+ entity.getId()));
+					channel.getItem().add(item);
+				}
 
-				Guid guid = new Guid();
-				guid.setIsPermaLink(Boolean.FALSE);
-				guid
-						.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
-								+ adv.getId());
-				itemAttributes.add(factory.createRssItemGuid(guid));
-				channel.getItem().add(item);
+			} else {
+
+				CategoryEntity category = categoryFacade.read(categoryId);
+				if (category == null) {
+					// TODO: i18n of error messages
+					channelAttributes.add(factory
+							.createRssChannelTitle("Unavailable resource"));
+					channelAttributes
+							.add(factory
+									.createRssChannelDescription("Sorry, there is no category #"
+											+ filter.getCategoryId() + "."));
+
+				} else {
+
+					// TODO: converter filter in a map of parameters...
+					List<AdvertisementEntity> result = advFacade
+							.readByCategory(category.getId());
+
+					channelAttributes.add(factory
+							.createRssChannelTitle(category.getName()));
+					Category chCategory = factory.createCategory();
+					chCategory.setDomain(category.getName());
+					chCategory.setValue(category.getDescription());
+					channelAttributes.add(factory
+							.createRssChannelCategory(chCategory));
+					channelAttributes.add(factory
+							.createRssChannelDescription(category
+									.getDescription()));
+					channelAttributes.add(factory
+							.createRssChannelGenerator("Cejug-Classifieds"));
+					channelAttributes
+							.add(factory
+									.createRssChannelWebMaster("dev@cejug-classifieds.dev.java.net"));
+					channelAttributes
+							.add(factory
+									.createRssChannelManagingEditor("users@cejug-classifieds.dev.java.net"));
+
+					Image image = factory.createImage();
+					image.setDescription("Cejug-Classifieds");
+					image.setLink("https://cejug-classifieds.dev.java.net/");
+					image.setHeight(150);
+					image.setWidth(150);
+					image.setTitle("Cejug-Classifieds");
+					image
+							.setUrl("https://cejug-classifieds.dev.java.net/images/logo.jpg");
+
+					channelAttributes.add(image);
+
+					for (AdvertisementEntity adv : result) {
+						RssItem item = new RssItem();
+						List<Object> itemAttributes = item
+								.getTitleOrDescriptionOrLink();
+						itemAttributes
+								.add(factory
+										.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("
+												+ adv.getCustomer().getLogin()
+												+ ")"));
+						itemAttributes.add(factory.createRssItemTitle(adv
+								.getTitle()));
+						Source s = factory.createSource();
+						s.setValue(adv.getText());
+						itemAttributes.add(factory.createRssItemDescription(adv
+								.getSummary()));
+						itemAttributes
+								.add(factory
+										.createRssItemLink("http://localhost:8080/cejug-classifieds-server/rss?adv=23"));
+
+						itemAttributes
+								.add(factory
+										.createRssItemComments("https://cejug-classifieds.dev.java.net/"));
+
+						itemAttributes.add(factory
+								.createRssItemPubDate(gmtDateFormatter
+										.format(adv.getStart().getTime())));
+
+						Guid guid = new Guid();
+						guid.setIsPermaLink(Boolean.FALSE);
+						guid
+								.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
+										+ adv.getId());
+						itemAttributes.add(factory.createRssItemGuid(guid));
+						channel.getItem().add(item);
+					}
+				}
 			}
 			rssFeed.setChannel(channel);
 			return rssFeed;

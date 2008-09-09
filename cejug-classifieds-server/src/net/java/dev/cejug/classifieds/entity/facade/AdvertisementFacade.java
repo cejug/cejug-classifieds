@@ -45,12 +45,12 @@ public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
 	 *            The ID of the advertisements' category.
 	 * @return a list of advertisements of a certain category.
 	 */
-	public List<AdvertisementEntity> readByCategory(final int categoryId)
+	public List<AdvertisementEntity> readByCategory(final long categoryId)
 			throws IllegalStateException, IllegalArgumentException {
 		Query query = manager
 				.createNamedQuery(AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY);
-		query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID,
-				Integer.valueOf(categoryId));
+		query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID, Long
+				.valueOf(categoryId));
 		return doQuery(query);
 	}
 

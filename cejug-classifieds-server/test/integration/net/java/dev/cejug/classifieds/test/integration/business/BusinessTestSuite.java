@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 		LoadRssIntegrationTest.class, PublishIntegrationTest.class,
 		ReportSpamIntegrationTest.class })
 public class BusinessTestSuite {
-  public static void main(String[] args) {
-    System.out.println(Rss.class.getPackage().getName());
-  }
+	public static void main(String[] args) {
+		System.out.println(Rss.class.getPackage().getName());
+	}
 }
