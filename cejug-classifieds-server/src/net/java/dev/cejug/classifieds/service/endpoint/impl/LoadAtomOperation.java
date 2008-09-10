@@ -35,7 +35,6 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
-import org.w3._2005.atom.ContentType;
 import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.Feed;
 import org.w3._2005.atom.GeneratorType;

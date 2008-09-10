@@ -62,8 +62,8 @@ public class AdminClientMock {
 
 	public AdvertisementCategory createCategory() {
 		AdvertisementCategory category = new AdvertisementCategory();
-		category.setName("cat.name" + random.nextInt() + "."
-				+ random.nextInt());
+		category
+				.setName("cat.name" + random.nextInt() + "." + random.nextInt());
 		category
 				.setDescription("Description "
 						+ System.currentTimeMillis()
