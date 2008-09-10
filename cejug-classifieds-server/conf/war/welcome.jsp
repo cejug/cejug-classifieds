@@ -27,7 +27,7 @@
 		<td>
 		<p><span style='color: red; font-weight: bold'>TODO</span>: here
 		we should fill some instructions to the system administrators about
-		how to configure to just installed application, tunning, installation
+		how to configure to just installed application, tuning, installation
 		testing, links etc.</p>
 		<%
 			List<AlivePeriod> periods = (List<AlivePeriod>) m.getAlivePeriods();

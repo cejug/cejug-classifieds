@@ -33,7 +33,7 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.w3._2005.atom.FeedType;
+import org.w3._2005.atom.Feed;
 
 /**
  * Test the diploma validation operation.
@@ -60,7 +60,7 @@ public class LoadAtomIntegrationTest extends AbstractServiceTestCase {
 		filter.setDateInitial(yesterday);
 		filter.setDateFinal(today);
 
-		FeedType feed = service.loadAtomOperation(filter);
+		Feed feed = service.loadAtomOperation(filter);
 		Assert.assertNotNull(feed);
 	}
 

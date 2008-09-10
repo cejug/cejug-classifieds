@@ -22,6 +22,14 @@
     <servlet-name>rss</servlet-name>
     <url-pattern>/rss</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>atom</servlet-name>
+    <servlet-class>net.java.dev.cejug.classifieds.service.http.AtomFeed</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>atom</servlet-name>
+    <url-pattern>/atom</url-pattern>
+  </servlet-mapping>
   <listener>
     <listener-class>net.java.dev.cejug.classifieds.service.http.ServletLifeCycle </listener-class>
   </listener>

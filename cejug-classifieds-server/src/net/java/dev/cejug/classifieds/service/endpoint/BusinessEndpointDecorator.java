@@ -52,7 +52,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
-import org.w3._2005.atom.FeedType;
+import org.w3._2005.atom.Feed;
 
 /**
  * Business Service implementation of the interface defined in the
@@ -92,7 +92,7 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	 *            a set of constraint on the advertisement's search in the
 	 *            database.
 	 */
-	public FeedType loadAtomOperation(SyndicationFilter filter) {
+	public Feed loadAtomOperation(SyndicationFilter filter) {
 		return loadAtomImpl.loadAtomOperation(filter);
 
 	}

@@ -4,15 +4,16 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:business="http://cejug-classifieds.dev.java.net/business"
 	xmlns:rss20="http://www.codeplex.com/rss2schema" xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
-	xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
+	xmlns:atom10="http://www.w3.org/2005/Atom" xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
 	<wsdl:types>
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
-			<xsd:include
-				schemaLocation="rss.xsd" />
+			<xsd:include schemaLocation="rss.xsd" />
+			<xsd:import namespace="http://www.w3.org/2005/Atom"
+				schemaLocation="atom10.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 
@@ -31,7 +32,7 @@
 		<wsdl:part element="metadata:AtomFilter" name="filter" />
 	</wsdl:message>
 	<wsdl:message name="LoadAtomResponse">
-		<wsdl:part element="metadata:AtomFeed" name="atom.1.0" />
+		<wsdl:part element="atom10:feed" name="atom.1.0" />
 	</wsdl:message>
 
 	<!-- GET ADVERTISEMENT COLLECTION -->

@@ -27,7 +27,7 @@ import javax.ejb.Local;
 
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
-import org.w3._2005.atom.FeedType;
+import org.w3._2005.atom.Feed;
 
 /**
  * @author $Author$
@@ -66,5 +66,5 @@ public interface LoadAtomOperationLocal {
 	 * &lt;/feed&gt;
 	 * </pre>
 	 */
-	FeedType loadAtomOperation(SyndicationFilter filter);
+	Feed loadAtomOperation(SyndicationFilter filter);
 }

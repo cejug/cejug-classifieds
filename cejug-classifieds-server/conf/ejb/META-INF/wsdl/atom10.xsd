@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xsd:schema targetNamespace="http://www.w3.org/2005/Atom"
 	elementFormDefault="qualified" attributeFormDefault="unqualified"
-	xmlns:atom="http://www.w3.org/2005/Atom"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
 	<xsd:annotation>
@@ -22,7 +20,6 @@
 			as defined in section 2.
 		</xsd:documentation>
 	</xsd:annotation>
-	<xsd:element name="feed" type="atom:feedType" />
 	<xsd:element name="entry" type="atom:entryType" />
 	<xsd:complexType name="textType" mixed="true">
 		<xsd:annotation>
@@ -32,8 +29,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:any namespace="http://www.w3.org/1999/xhtml"
-				minOccurs="0" />
+			<xsd:any namespace="http://www.w3.org/1999/xhtml" minOccurs="0" />
 		</xsd:sequence>
 		<xsd:attribute name="type">
 			<xsd:simpleType>
@@ -74,45 +70,46 @@
 			<xsd:pattern value="\w+@(\w+\.)+\w+" />
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:complexType name="feedType">
-		<xsd:annotation>
-			<xsd:documentation>
+	<xsd:element name="feed">
+		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:documentation>
 				The Atom feed construct is defined in section 4.1.1 of
 				the format spec.
 			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:choice minOccurs="3" maxOccurs="unbounded">
-			<xsd:element name="author" type="atom:personType"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="category" type="atom:categoryType"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="contributor" type="atom:personType"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:element name="generator" type="atom:generatorType"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="icon" type="atom:iconType" minOccurs="0"
-				maxOccurs="1" />
-			<xsd:element name="id" type="atom:idType" minOccurs="1"
-				maxOccurs="1" />
-			<xsd:element name="link" type="atom:linkType" minOccurs="0"
-				maxOccurs="unbounded" />
-			<xsd:element name="logo" type="atom:logoType" minOccurs="0"
-				maxOccurs="1" />
-			<xsd:element name="rights" type="atom:textType"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="subtitle" type="atom:textType"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="title" type="atom:textType" minOccurs="1"
-				maxOccurs="1" />
-			<xsd:element name="updated" type="atom:dateTimeType"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="entry" type="atom:entryType"
-				minOccurs="0" maxOccurs="unbounded" />
-			<xsd:any namespace="##other" minOccurs="0"
-				maxOccurs="unbounded" />
-		</xsd:choice>
-		<xsd:attributeGroup ref="atom:commonAttributes" />
-	</xsd:complexType>
+			</xsd:annotation>
+			<xsd:choice minOccurs="3" maxOccurs="unbounded">
+				<xsd:element name="author" type="atom:personType"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="category" type="atom:categoryType"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="contributor" type="atom:personType"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="generator" type="atom:generatorType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="icon" type="atom:iconType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="id" type="atom:idType" minOccurs="1"
+					maxOccurs="1" />
+				<xsd:element name="link" type="atom:linkType" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xsd:element name="logo" type="atom:logoType" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="rights" type="atom:textType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="subtitle" type="atom:textType"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="title" type="atom:textType"
+					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="updated" type="atom:dateTimeType"
+					minOccurs="1" maxOccurs="1" />
+				<xsd:element name="entry" type="atom:entryType"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
+			</xsd:choice>
+			<xsd:attributeGroup ref="atom:commonAttributes" />
+		</xsd:complexType>
+	</xsd:element>
 	<xsd:complexType name="entryType">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -145,8 +142,7 @@
 				maxOccurs="1" />
 			<xsd:element name="updated" type="atom:dateTimeType"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:any namespace="##other" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:choice>
 		<xsd:attributeGroup ref="atom:commonAttributes" />
 	</xsd:complexType>
@@ -158,8 +154,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:any namespace="##other" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="type" type="xsd:string" />
 		<xsd:attribute name="src" type="xsd:anyURI" />
@@ -186,10 +181,8 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="xsd:string">
-				<xsd:attribute name="uri" use="optional"
-					type="xsd:anyURI" />
-				<xsd:attribute name="version" use="optional"
-					type="xsd:string" />
+				<xsd:attribute name="uri" use="optional" type="xsd:anyURI" />
+				<xsd:attribute name="version" use="optional" type="xsd:string" />
 				<xsd:attributeGroup ref="atom:commonAttributes" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -230,11 +223,9 @@
 		<xsd:attribute name="href" use="required" type="xsd:anyURI" />
 		<xsd:attribute name="rel" type="xsd:string" use="optional" />
 		<xsd:attribute name="type" use="optional" type="xsd:string" />
-		<xsd:attribute name="hreflang" use="optional"
-			type="xsd:NMTOKEN" />
+		<xsd:attribute name="hreflang" use="optional" type="xsd:NMTOKEN" />
 		<xsd:attribute name="title" use="optional" type="xsd:string" />
-		<xsd:attribute name="length" use="optional"
-			type="xsd:positiveInteger" />
+		<xsd:attribute name="length" use="optional" type="xsd:positiveInteger" />
 		<xsd:attributeGroup ref="atom:commonAttributes" />
 	</xsd:complexType>
 	<xsd:complexType name="logoType">
@@ -282,8 +273,7 @@
 				maxOccurs="1" />
 			<xsd:element name="updated" type="atom:dateTimeType"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:any namespace="##other" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
 		</xsd:choice>
 		<xsd:attributeGroup ref="atom:commonAttributes" />
 	</xsd:complexType>
@@ -304,5 +294,4 @@
 	<xsd:attributeGroup name="commonAttributes">
 		<xsd:anyAttribute namespace="##other" />
 	</xsd:attributeGroup>
-
 </xsd:schema>

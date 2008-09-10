@@ -23,13 +23,11 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
@@ -37,10 +35,16 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
+import org.w3._2005.atom.ContentType;
 import org.w3._2005.atom.EntryType;
-import org.w3._2005.atom.FeedType;
+import org.w3._2005.atom.Feed;
+import org.w3._2005.atom.GeneratorType;
 import org.w3._2005.atom.IdType;
+import org.w3._2005.atom.LinkType;
+import org.w3._2005.atom.LogoType;
+import org.w3._2005.atom.ObjectFactory;
 import org.w3._2005.atom.PersonType;
+import org.w3._2005.atom.TextType;
 import org.w3._2005.atom.UriType;
 
 /**
@@ -64,53 +68,85 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 	private static final Logger logger = Logger.getLogger(
 			LoadAtomOperation.class.getName(), "i18n/log");
 
-	public FeedType loadAtomOperation(SyndicationFilter filter) {
+	public Feed loadAtomOperation(SyndicationFilter filter) {
 		try {
-			FeedType atomFeed = new FeedType();
-			atomFeed.getOtherAttributes().put(
-					new QName("http://www.w3.org/2005/Atom", "title"),
-					"Cars @ Cejug Classifieds");
-			atomFeed.getOtherAttributes().put(
-					new QName("http://www.w3.org/2005/Atom", "subtitle"),
-					"All cars");
-			atomFeed.getOtherAttributes().put(
-					new QName("http://www.w3.org/2005/Atom", "link"),
-					"http://cejug-classifieds-server/atom&section=cars");
-			atomFeed.getOtherAttributes().put(
-					new QName("http://www.w3.org/2005/Atom", "updated"),
-					Calendar.getInstance().toString());
+			ObjectFactory factory = new ObjectFactory();
+			Feed atomFeed = factory.createFeed();
 
-			PersonType author = new PersonType();
-			author.getNameOrUriOrEmail().add("Cejug-Classifieds");
-			author.getNameOrUriOrEmail().add(
-					"dev@cejug-classifieds.dev.java.net");
-			UriType uri = new UriType();
-			uri.setValue("http://cejug-classifieds-server/atom&section=cars");
-			author.getNameOrUriOrEmail().add(uri);
-			atomFeed.getAuthorOrCategoryOrContributor().add(author);
+			List<Object> feedAttributes = atomFeed
+					.getAuthorOrCategoryOrContributor();
 
-			IdType feedId = new IdType();
-			feedId.setValue("urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6");
-			atomFeed.getAuthorOrCategoryOrContributor().add(feedId);
+			// author.
+			PersonType author = factory.createPersonType();
+			List<Object> authorAttributes = author.getNameOrUriOrEmail();
+			authorAttributes.add(factory
+					.createPersonTypeName("Cejug-Classifieds"));
+			authorAttributes
+					.add(factory
+							.createPersonTypeEmail("dev@cejug-classifieds.dev.java.net"));
+			UriType uri = factory.createUriType();
+			uri.setValue("https://cejug-classifieds.dev.java.net/");
+			authorAttributes.add(factory.createPersonTypeUri(uri));
+			feedAttributes.add(factory.createFeedAuthor(author));
+
+			// Title
+			TextType title = factory.createTextType();
+			title.setType("text");
+			title.getContent().add("Cejug Classifieds ATOM");
+			feedAttributes.add(factory.createFeedTitle(title));
+
+			TextType subtitle = factory.createTextType();
+			subtitle.setType("text");
+			subtitle.getContent().add("Cejug Classifieds ATOM SUBTITLE (TODO)");
+			feedAttributes.add(factory.createFeedSubtitle(subtitle));
+
+			LogoType logo = factory.createLogoType();
+			logo
+					.setValue("https://cejug-classifieds.dev.java.net/images/logo.jpg");
+			feedAttributes.add(factory.createFeedLogo(logo));
+
+			// Generator
+			GeneratorType generator = factory.createGeneratorType();
+			generator.setUri("https://cejug-classifieds.dev.java.net/");
+			generator.setValue("Cejug-Classifieds");
+			generator.setVersion("$Revision$");
+			feedAttributes.add(factory.createFeedGenerator(generator));
+			feedAttributes.add(factory.createFeedContributor(author));
+
+			IdType id = factory.createIdType();
+			id.setValue("urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6");
+			feedAttributes.add(factory.createFeedId(id));
 
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advFacade.readAll();
 
 			for (AdvertisementEntity adv : result) {
+				EntryType entry = factory.createEntryType();
+				List<Object> entryAttributes = entry
+						.getAuthorOrCategoryOrContent();
 
-				EntryType entry = new EntryType();
+				TextType entryTitle = factory.createTextType();
+				entryTitle.setType("text");
+				entryTitle.getContent().add(adv.getTitle());
+				entryAttributes.add(factory.createEntryTypeTitle(entryTitle));
 
-				entry.getOtherAttributes().put(
-						new QName("http://www.w3.org/2005/Atom", "title"),
-						adv.getTitle());
-				entry.getOtherAttributes().put(
-						new QName("http://www.w3.org/2005/Atom", "link"),
-						"http://cejug-classifieds-server/atom&id="
-								+ adv.getId());
-				atomFeed.getOtherAttributes().put(
-						new QName("http://www.w3.org/2005/Atom", "updated"),
-						Calendar.getInstance().toString());
-				atomFeed.getAuthorOrCategoryOrContributor().add(entry);
+				TextType entrySummary = factory.createTextType();
+				entrySummary.setType("text");
+				entrySummary.getContent().add(adv.getSummary());
+				entryAttributes.add(factory
+						.createEntryTypeSummary(entrySummary));
+
+				LinkType link = factory.createLinkType();
+				link
+						.setHref("http://localhost:8080/cejug-classifieds-server/atom?todo=path_to_advs");
+				// TODO: get from advertisement or domain or category
+				link.setHreflang("en");
+				link.setTitle(adv.getTitle());
+				link.setType("text");
+				entryAttributes.add(factory.createEntryTypeLink(link));
+
+				atomFeed.getAuthorOrCategoryOrContributor().add(
+						factory.createFeedEntry(entry));
 			}
 			return atomFeed;
 		} catch (Exception e) {
