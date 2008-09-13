@@ -11,7 +11,7 @@
 		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/business"
 				schemaLocation="business.xsd" />
-			<xsd:include schemaLocation="rss.xsd" />
+			<xsd:include schemaLocation="rss20.xsd" />
 			<xsd:import namespace="http://www.w3.org/2005/Atom"
 				schemaLocation="atom10.xsd" />
 		</xsd:schema>
