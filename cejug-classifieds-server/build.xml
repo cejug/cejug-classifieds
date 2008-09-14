@@ -48,6 +48,7 @@
 		<mkdir dir="${build.ear.home}" />
 		<mkdir dir="${build.ear.home}/lib" />
 		<mkdir dir="${generated.dir}" />
+		<mkdir dir="${basedir}/javadoc" />
 	</target>
 
 	<target name="build-server-wsdl">
