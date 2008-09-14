@@ -3,9 +3,7 @@
 	<property file="build.properties" />
 	<property environment="env" />
 	<property name="project.lib" value="${basedir}/lib" />
-	<property name="build.home" value="${basedir}/build" />
 	<property name="build.ear.home" value="${build.home}/ear" />
-	<property name="quality.home" value="${build.home}/quality" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 
@@ -201,7 +199,7 @@
 		</jar>
 	</target>
 
-	<target name="deploy" depends="package-ear">
+	<target name="deploy" depends="package-ear" if="serveronline">
 		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
 	</target>
 
@@ -219,9 +217,18 @@
 		</fileset>
 	</path>
 
-
+	
 	<!-- it deploys the application and wait a few seconds before to start the tests -->
-	<target name="deploy.and.test" depends="deploy">
+	<target name="deploy.and.test">
+		<condition property="serveronline">
+			<and>
+				<http url="http://localhost:8080" />
+				<!-- TODO: http do not work for javadb detection.. find a workaround -->
+				<http url="http://localhost:1527" />
+			</and>
+		</condition>
+
+		<antcall target="deploy" />
 		<echo message="Waiting the deployment of the EAR." level="info" />
 		<sleep milliseconds="2000" />
 		<waitfor maxwait="5000" maxwaitunit="millisecond" checkevery="250">
@@ -233,10 +240,10 @@
 
 	<!-- Test -->
 	<target name="run.tests" depends="compile.tests">
-		<junit fork="yes" haltonfailure="yes" printsummary="no">
+		<junit fork="yes" haltonfailure="yes" printsummary="no" >
 			<test name="${test.suite}" />
 			<classpath refid="tests.classpath" />
-			<formatter type="plain" usefile="false" />
+			<formatter type="xml" usefile="false" />
 			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
 		</junit>
 	</target>

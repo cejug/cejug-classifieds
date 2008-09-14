@@ -43,7 +43,7 @@ public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
-
+		advTypeEntity.setId(type.getEntityId());
 		advTypeEntity.setDescription(type.getDescription());
 		advTypeEntity.setMaxAttachmentSize(type.getMaxAttachmentSize());
 		advTypeEntity.setName(type.getName());
