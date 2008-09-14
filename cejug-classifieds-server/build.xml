@@ -199,7 +199,7 @@
 		</jar>
 	</target>
 
-	<target name="deploy" depends="package-ear" if="serveronline">
+	<target name="deploy" depends="package-ear">
 		<copy file="${build.ear.home}/${ant.project.name}.ear" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
 	</target>
 
@@ -217,7 +217,7 @@
 		</fileset>
 	</path>
 
-	
+
 	<!-- it deploys the application and wait a few seconds before to start the tests -->
 	<target name="deploy.and.test">
 		<condition property="serveronline">
@@ -240,7 +240,7 @@
 
 	<!-- Test -->
 	<target name="run.tests" depends="compile.tests">
-		<junit fork="yes" haltonfailure="yes" printsummary="no" >
+		<junit fork="yes" haltonfailure="yes" printsummary="no">
 			<test name="${test.suite}" />
 			<classpath refid="tests.classpath" />
 			<formatter type="xml" usefile="false" />
