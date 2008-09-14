@@ -104,7 +104,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
          */
         public function updateAdvType():void {
             var advertisementType:AdvertisementType = new AdvertisementType();
-            advertisementType.id = advTypeEntity.id;
+            advertisementType.entityId = advTypeEntity.entityId;
             advertisementType.name = advtypeReference.fUpdateAdvTypeName.text;
             advertisementType.description = advtypeReference.fUpdateAdvTypeDescription.text;
             
@@ -143,7 +143,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
                 if (row >= 0) {
                     advTypeEntity = advtypeDataProvider.getItemAt(row) as AdvertisementType;
                     var param:DeleteAdvertisementTypeParam = new DeleteAdvertisementTypeParam();
-                    param.primaryKey = advTypeEntity.id;
+                    param.primaryKey = advTypeEntity.entityId;
                     adminService.deleteAdvertisementTypeOperation(param);
                 }
             }

@@ -15,8 +15,8 @@ package net.java.dev.cejug.classifieds.server.contract {
 
         private var _advertisementCategory:ListCollectionView;
         private var _brand:String;
-        private var _domain:String;
-        private var _id:Number;
+        private var _uri:String;
+        private var _entityId:Number;
         private var _sharedQuota:Boolean;
         private var _timezone:String;
 
@@ -33,18 +33,18 @@ package net.java.dev.cejug.classifieds.server.contract {
             return _brand;
         }
 
-        public function set domain(value:String):void {
-            _domain = value;
+        public function set uri(value:String):void {
+            _uri = value;
         }
-        public function get domain():String {
-            return _domain;
+        public function get uri():String {
+            return _uri;
         }
 
-        public function set id(value:Number):void {
-            _id = value;
+        public function set entityId(value:Number):void {
+            _entityId = value;
         }
-        public function get id():Number {
-            return _id;
+        public function get entityId():Number {
+            return _entityId;
         }
 
         public function set sharedQuota(value:Boolean):void {

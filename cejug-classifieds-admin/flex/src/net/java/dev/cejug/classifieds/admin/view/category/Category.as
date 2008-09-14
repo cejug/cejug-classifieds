@@ -135,7 +135,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
             var index:int = 0;
             if (categoryEntity != null && categoryEntity.advertisementCategory != null) {
                 for (var i:int = 1; i < parentDataProvider.length; i++) {
-                    if (parentDataProvider[i].id == categoryEntity.advertisementCategory.id) {
+                    if (parentDataProvider[i].entityId == categoryEntity.advertisementCategory.entityId) {
                         index = i;
                         break;
                     }
@@ -146,7 +146,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
 
         private function removeCurrentFromParent():void {
             for (var i:int = 0; i < parentDataProvider.length; i++) {
-                if (parentDataProvider[i].id == categoryEntity.id) {
+                if (parentDataProvider[i].entityId == categoryEntity.entityId) {
                     parentDataProvider.removeItemAt(i);
                     break;
                 }
@@ -173,7 +173,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
          */
         public function updateCategory():void {
             var advertisementCategory:AdvertisementCategory = new AdvertisementCategory();
-            advertisementCategory.id = categoryEntity.id;
+            advertisementCategory.entityId = categoryEntity.entityId;
             advertisementCategory.name = categoryReference.fUpdateCategoryName.text;
             advertisementCategory.description = categoryReference.fUpdateCategoryDescription.text;
             var index:int = categoryReference.fUpdateCategoryParent.selectedIndex; 
@@ -206,7 +206,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
                 if (row >= 0) {
                     categoryEntity = categoryDataProvider.getItemAt(row) as AdvertisementCategory;
                     var param:DeleteCategoryParam = new DeleteCategoryParam();
-                    param.primaryKey = categoryEntity.id;
+                    param.primaryKey = categoryEntity.entityId;
                     adminService.deleteCategoryOperation(param);
                 }
             }

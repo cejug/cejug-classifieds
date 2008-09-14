@@ -9,7 +9,7 @@
         <mx:Panel id="pAdvType" title="Advertisement Types" width="100%" height="100%">
             <mx:DataGrid id="dgAdvType" dataProvider="{advtypeService.advtypeDataProvider}" width="100%" height="100%" allowMultipleSelection="false">
                 <mx:columns>
-                    <mx:DataGridColumn headerText="Id" dataField="id"/>
+                    <mx:DataGridColumn headerText="Id" dataField="entityId"/>
                     <mx:DataGridColumn headerText="Name" dataField="name"/>
                     <mx:DataGridColumn headerText="Description" dataField="description"/>
                     <mx:DataGridColumn headerText="Text Length" dataField="maxTextLength"  />

@@ -98,7 +98,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          */
         public function createDomain():void {
             var domain:Domain = new Domain();
-            domain.domain = domainReference.fNewDomainName.text;
+            domain.uri = domainReference.fNewDomainName.text;
             domain.brand = domainReference.fNewDomainBrand.text;
             domain.sharedQuota = domainReference.fNewDomainSharedQuota.selected;
 
@@ -121,8 +121,8 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          */
         public function updateDomain():void {
             var domain:Domain = new Domain();
-            domain.id = domainEntity.id;
-            domain.domain = domainReference.fUpdateDomainName.text;
+            domain.entityId = domainEntity.entityId;
+            domain.uri = domainReference.fUpdateDomainName.text;
             domain.brand = domainReference.fUpdateDomainBrand.text;
             domain.sharedQuota = domainReference.fUpdateDomainSharedQuota.selected;
 
@@ -148,7 +148,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 
             if (row >= 0) {
                 domainEntity = domainDataProvider.getItemAt(row) as Domain;
-                MessageUtils.showQuestion("Delete selected domain ["+ domainEntity.domain + "] ?", deleteDomain);
+                MessageUtils.showQuestion("Delete selected domain ["+ domainEntity.uri + "] ?", deleteDomain);
             }
         }
         /**
@@ -161,7 +161,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
                 if (row >= 0) {
                     domainEntity = domainDataProvider.getItemAt(row) as Domain;
                     var param:DeleteDomainParam = new DeleteDomainParam();
-                    param.primaryKey = domainEntity.id;
+                    param.primaryKey = domainEntity.entityId;
                     adminService.deleteDomainOperation(param);
                 }
             }
@@ -220,7 +220,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
                 categoryNotInDomain = notInDomainCategoryDataProvider.getItemAt(i) as AdvertisementCategory;
                 for (var j:int = 0; j < domainCategoryDataProvider.length; j++) {
                     categoryInDomain = domainCategoryDataProvider.getItemAt(j) as AdvertisementCategory;
-                    if (categoryNotInDomain.id == categoryInDomain.id) {
+                    if (categoryNotInDomain.entityId == categoryInDomain.entityId) {
                         notInDomainCategoryDataProvider.removeItemAt(i);
                         i--;
                         break;

@@ -12,7 +12,7 @@ package net.java.dev.cejug.classifieds.server.contract {
     public class AdvertisementType {
 
         private var _description:String;
-        private var _id:int;
+        private var _entityId:int;
         private var _maxAttachmentSize:Number;
         private var _maxTextLength:Number;
         private var _name:String;
@@ -24,11 +24,11 @@ package net.java.dev.cejug.classifieds.server.contract {
             return _description;
         }
 
-        public function set id(value:int):void {
-            _id = value;
+        public function set entityId(value:int):void {
+            _entityId = value;
         }
-        public function get id():int {
-            return _id;
+        public function get entityId():int {
+            return _entityId;
         }
 
         public function set maxAttachmentSize(value:Number):void {

@@ -12,7 +12,7 @@ package net.java.dev.cejug.classifieds.server.contract {
     public class AdvertisementCategory {
         private var _available:int;
         private var _description:String;
-        private var _id:Number;
+        private var _entityId:Number;
         private var _name:String;
         private var _advertisementCategory:AdvertisementCategory;
 
@@ -34,11 +34,11 @@ package net.java.dev.cejug.classifieds.server.contract {
             return _description;
         }
 
-        public function set id(value:Number):void {
-            _id = value;
+        public function set entityId(value:Number):void {
+            _entityId = value;
         }
-        public function get id():Number {
-            return _id;
+        public function get entityId():Number {
+            return _entityId;
         }
 
         public function set name(value:String):void {
