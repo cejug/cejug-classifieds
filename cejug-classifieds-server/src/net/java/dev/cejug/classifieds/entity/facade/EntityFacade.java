@@ -82,7 +82,6 @@ public interface EntityFacade<T extends AbstractEntity<?>> {
 	 * 
 	 * @param entity
 	 *            The entity to be merged in the database.
-	 * @return the updated entity, with latest data.
 	 * @throws Exception
 	 *             database exception, or incompatible entity.
 	 */
