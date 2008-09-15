@@ -76,7 +76,7 @@ public class AdvertisementServiceWSImpl implements AdvertisementService {
 				.readCategoryBundleOperation(request);
 		;
 		return Collections.unmodifiableList(collection
-				.getAdvertisementCategory());
+				.getAdvCategory());
 
 	}
 }
