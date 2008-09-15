@@ -28,7 +28,19 @@ public class Welcome extends HttpServlet {
 	private transient ClassifiedsAdminLocal admin;
 
 	/**
-	 * {@inheritDoc}
+	 * Call the Admin's Check Monitor operation and show a welcome JSP page
+	 * containing the last startup date of the service.
+	 * 
+	 * @param request
+	 *            the HTTP request - not used for any special purpose.
+	 * @param response
+	 *            the HTTP response used to print the JSP welcome page in the
+	 *            customer browser.
+	 * @exception IOException
+	 *                used by the superclass request dispatcher to notify
+	 *                communication problems.
+	 * @exception ServletException
+	 *                used by the superclass.
 	 */
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
