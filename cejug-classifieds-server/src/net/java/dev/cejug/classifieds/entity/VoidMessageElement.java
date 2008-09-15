@@ -1,8 +1,8 @@
 package net.java.dev.cejug.classifieds.entity;
 
-import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
+import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
 
-public class VoidMessageElement extends MessageElement {
+public class VoidMessageElement extends AbstractMessageElement {
 
 	/**
 	 * 

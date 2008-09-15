@@ -72,7 +72,7 @@
 	<xsd:element name="Advertisement">
 		<xsd:complexType>
 			<xsd:complexContent>
-				<xsd:extension base="common:MessageElement">
+				<xsd:extension base="common:AbstractMessageElement">
 					<xsd:sequence>
 						<xsd:element ref="common:Customer" />
 						<xsd:element name="headline" type="xsd:string" />

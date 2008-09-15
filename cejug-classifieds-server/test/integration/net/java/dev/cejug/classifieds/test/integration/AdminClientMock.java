@@ -69,7 +69,7 @@ public class AdminClientMock {
 						+ System.currentTimeMillis()
 						+ " - this category was created just for testing, feel free to delete it");
 		CreateCategoryParam catParam = new CreateCategoryParam();
-		catParam.setAdvertisementCategory(category);
+		catParam.setAdvCategory(category);
 		return admin.createCategoryOperation(catParam);
 	}
 

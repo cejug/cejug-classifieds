@@ -27,8 +27,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -36,7 +36,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @version $Rev $ ($Date$)
  */
 @Local
-public interface CRUDLocal<T extends MessageElement> {
+public interface CRUDLocal<T extends AbstractMessageElement> {
 	/**
 	 * TODO: to comment.
 	 */

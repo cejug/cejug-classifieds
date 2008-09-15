@@ -30,8 +30,8 @@ import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.business.interfaces.CRUDLocal;
 import net.java.dev.cejug.classifieds.entity.AbstractEntity;
 import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
+import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
@@ -40,7 +40,7 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-public abstract class AbstractCrudImpl<E extends AbstractEntity<? extends T>, T extends MessageElement>
+public abstract class AbstractCrudImpl<E extends AbstractEntity<? extends T>, T extends AbstractMessageElement>
 		implements CRUDLocal<T> {
 
 	protected abstract EntityFacade<E> getFacade();

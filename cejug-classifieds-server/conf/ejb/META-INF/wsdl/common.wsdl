@@ -30,7 +30,7 @@
 		<wsdl:part element="common:CategoryCollection" name="category.bundle" />
 	</wsdl:message>
 	<wsdl:message name="Category">
-		<wsdl:part element="common:AdvertisementCategory" name="category" />
+		<wsdl:part element="common:AdvCategory" name="category" />
 	</wsdl:message>
 
 	<!-- DOMAIN BUNDLE -->

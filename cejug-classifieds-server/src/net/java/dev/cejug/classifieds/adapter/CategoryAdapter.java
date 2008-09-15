@@ -47,7 +47,7 @@ public class CategoryAdapter implements CategoryAdapterLocal {
 		entity.setDescription(advCategory.getDescription());
 		entity.setName(advCategory.getName());
 
-		AdvertisementCategory parent = advCategory.getAdvertisementCategory();
+		AdvertisementCategory parent = advCategory.getAdvSubCategory();
 		if (parent != null) {
 			entity.setParent(toEntity(parent));
 		}
@@ -65,7 +65,7 @@ public class CategoryAdapter implements CategoryAdapterLocal {
 		soapCategory.setAvailable(entity.getAvailable());
 
 		if (entity.getParent() != null) {
-			soapCategory.setAdvertisementCategory(toSoap(entity.getParent()));
+			soapCategory.setAdvSubCategory(toSoap(entity.getParent()));
 		}
 		return soapCategory;
 	}

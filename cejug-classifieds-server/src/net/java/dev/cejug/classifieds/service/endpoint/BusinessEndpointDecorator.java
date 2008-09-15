@@ -121,7 +121,7 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
 		CategoryCollection collection = new CategoryCollection();
-		collection.getAdvertisementCategory().addAll(
+		collection.getAdvCategory().addAll(
 				crudCategory.readBundleOperation(bundleRequest));
 		return collection;
 	}

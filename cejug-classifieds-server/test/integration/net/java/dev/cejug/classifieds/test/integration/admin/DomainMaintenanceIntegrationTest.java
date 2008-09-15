@@ -106,8 +106,8 @@ public class DomainMaintenanceIntegrationTest extends AbstractServiceTestCase {
 				Assert
 						.assertEquals(updatedDomain.getBrand(), domain
 								.getBrand());
-				Assert.assertEquals(updatedDomain.getAdvertisementCategory()
-						.size(), domain.getAdvertisementCategory().size());
+				Assert.assertEquals(updatedDomain.getAdvCategory()
+						.size(), domain.getAdvCategory().size());
 
 				updateOk = true;
 				break;

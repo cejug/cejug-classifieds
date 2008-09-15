@@ -168,7 +168,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam param) {
 		try {
-			return crudCategory.create(param.getAdvertisementCategory());
+			return crudCategory.create(param.getAdvCategory());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -244,7 +244,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
 		try {
-			return crudCategory.update(param.getAdvertisementCategory());
+			return crudCategory.update(param.getAdvCategory());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
@@ -299,7 +299,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public CategoryCollection readCategoryBundleOperation(
 			BundleRequest bundleRequest) {
 		CategoryCollection collection = new CategoryCollection();
-		collection.getAdvertisementCategory().addAll(
+		collection.getAdvCategory().addAll(
 				crudCategory.readBundleOperation(bundleRequest));
 		return collection;
 	}

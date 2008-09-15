@@ -30,7 +30,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
+import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
 
 /**
  * TODO: to commnent.
@@ -39,7 +39,7 @@ import net.java.dev.cejug_classifieds.metadata.common.MessageElement;
  * @version $Rev: $ ($Date$)
  */
 @MappedSuperclass
-public abstract class AbstractEntity<T extends MessageElement> {
+public abstract class AbstractEntity<T extends AbstractMessageElement> {
 	@Transient
 	private final static long serialVersionUID = -6026937020915831338L;
 

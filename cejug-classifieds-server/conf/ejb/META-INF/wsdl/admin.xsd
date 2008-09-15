@@ -67,7 +67,7 @@
 	</xsd:element>
 	<xsd:complexType name="OperationTimestamp">
 		<xsd:complexContent>
-			<xsd:extension base="common:MessageElement">
+			<xsd:extension base="common:AbstractMessageElement">
 				<xsd:sequence>
 					<xsd:element name="operation.name" type="xsd:string" />
 					<xsd:element name="start" type="xsd:dateTime" />
@@ -167,14 +167,14 @@
 	<xsd:element name="CreateCategoryParam">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element ref="common:AdvertisementCategory" />
+				<xsd:element ref="common:AdvCategory" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="UpdateCategoryParam">
 		<xsd:complexType>
 			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element ref="common:AdvertisementCategory" />
+				<xsd:element ref="common:AdvCategory" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>

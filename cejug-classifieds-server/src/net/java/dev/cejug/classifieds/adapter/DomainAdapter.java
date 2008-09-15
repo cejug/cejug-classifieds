@@ -53,10 +53,10 @@ public class DomainAdapter implements DomainAdapterLocal {
 		domainEntity.setBrand(domain.getBrand());
 		domainEntity.setId(domain.getEntityId());
 		Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
-		if (domain.getAdvertisementCategory() != null) {
+		if (domain.getAdvCategory() != null) {
 			CategoryAdapter categoryAdapter = new CategoryAdapter();
 			for (AdvertisementCategory category : domain
-					.getAdvertisementCategory()) {
+					.getAdvCategory()) {
 				CategoryEntity categoryEntity = categoryAdapter
 						.toEntity(category);
 				categories.add(categoryEntity);
@@ -80,7 +80,7 @@ public class DomainAdapter implements DomainAdapterLocal {
 			for (CategoryEntity categoryEntity : domainEntity.getCategories()) {
 				AdvertisementCategory category = categoryAdapter
 						.toSoap(categoryEntity);
-				domain.getAdvertisementCategory().add(category);
+				domain.getAdvCategory().add(category);
 			}
 		}
 		return domain;

@@ -83,7 +83,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 					.setDescription("This category was created just for testing, you are free to delete it");
 			category.setDescription("Functional Category Test.");
 			CreateCategoryParam catParam = new CreateCategoryParam();
-			catParam.setAdvertisementCategory(category);
+			catParam.setAdvCategory(category);
 
 			AdvertisementCategory newCategory = admin
 					.createCategoryOperation(catParam);
@@ -93,7 +93,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			BundleRequest param = new BundleRequest();
 			List<AdvertisementCategory> categories = admin
 					.readCategoryBundleOperation(param)
-					.getAdvertisementCategory();
+					.getAdvCategory();
 			// We created a category on the setup method, so we assume there is
 			// at
 			// least 1 category.
@@ -116,11 +116,11 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 					+ random.nextInt();
 			newCategory.setName(newName);
 			UpdateCategoryParam updateParam = new UpdateCategoryParam();
-			updateParam.setAdvertisementCategory(newCategory);
+			updateParam.setAdvCategory(newCategory);
 			admin.updateCategoryOperation(updateParam);
 			List<AdvertisementCategory> updatedCategories = admin
 					.readCategoryBundleOperation(param)
-					.getAdvertisementCategory();
+					.getAdvCategory();
 
 			greenBar = false;
 			for (AdvertisementCategory advertisementCategory : updatedCategories) {
@@ -178,7 +178,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 				.setDescription("This category was created just for testing, you are free to delete it");
 		category.setDescription("Functional Category Test.");
 		CreateCategoryParam catParam = new CreateCategoryParam();
-		catParam.setAdvertisementCategory(category);
+		catParam.setAdvCategory(category);
 
 		AdvertisementCategory newCategory = admin
 				.createCategoryOperation(catParam);
@@ -187,7 +187,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 		// READ
 		BundleRequest param = new BundleRequest();
 		List<AdvertisementCategory> categories = admin
-				.readCategoryBundleOperation(param).getAdvertisementCategory();
+				.readCategoryBundleOperation(param).getAdvCategory();
 		// We created a category on the setup method, so we assume there is at
 		// least 1 category.
 		Assert.assertFalse(categories.isEmpty());
@@ -208,10 +208,10 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 		String newName = "test." + random.nextInt() + "." + random.nextInt();
 		newCategory.setName(newName);
 		UpdateCategoryParam updateParam = new UpdateCategoryParam();
-		updateParam.setAdvertisementCategory(newCategory);
+		updateParam.setAdvCategory(newCategory);
 		admin.updateCategoryOperation(updateParam);
 		List<AdvertisementCategory> updatedCategories = admin
-				.readCategoryBundleOperation(param).getAdvertisementCategory();
+				.readCategoryBundleOperation(param).getAdvCategory();
 
 		greenBar = false;
 		for (AdvertisementCategory advertisementCategory : updatedCategories) {
