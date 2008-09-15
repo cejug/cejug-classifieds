@@ -121,7 +121,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 	public Rss loadRssOperation(SyndicationFilter filter) {
 		try {
 			ObjectFactory factory = new ObjectFactory();
-			Rss rssFeed = new Rss();
+			Rss rssFeed = factory.createRss();
 			rssFeed.getOtherAttributes().put(new QName("", "version"), "2.0");
 			RssChannel channel = new RssChannel();
 			List<Object> channelAttributes = channel

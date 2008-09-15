@@ -31,7 +31,7 @@
 	</taskdef>
 
 	<target name="findbugs">
-		<findbugs home="${project.lib}/ext/findbugs" output="xml:withMessages" outputFile="${quality.home}/findbugs.xml" failOnError="true" effort="max">
+		<findbugs home="${project.lib}/ext/findbugs" output="xml:withMessages" outputFile="${reports.home}/findbugs/findbugs.xml" failOnError="true" effort="max">
 			<auxClasspath refid="project.classpath" />
 			<sourcePath path="${basedir}/src" />
 			<class location="${basedir}/build/classes" />
@@ -48,7 +48,6 @@
 		<mkdir dir="${build.ear.home}" />
 		<mkdir dir="${build.ear.home}/lib" />
 		<mkdir dir="${generated.dir}" />
-		<mkdir dir="${basedir}/javadoc" />
 	</target>
 
 	<target name="build-server-wsdl">
@@ -242,9 +241,9 @@
 	<!-- Test -->
 	<target name="run.tests" depends="compile.tests">
 		<junit fork="yes" haltonfailure="yes" printsummary="no">
-			<test name="${test.suite}" />
+			<test name="${test.suite}" todir="${reports.home}/junit" />
 			<classpath refid="tests.classpath" />
-			<formatter type="xml" usefile="false" />
+			<formatter type="xml" />
 			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
 		</junit>
 	</target>
@@ -252,10 +251,10 @@
 	<!-- Verify source code with PMD -->
 	<target name="pmd">
 		<!-- where the report will be generated -->
-		<mkdir dir="${quality.home}/pmd" />
+		<mkdir dir="${reports.home}/pmd" />
 		<pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
-			<formatter type="html" toFile="${quality.home}/pmd/pmd_report.html" />
-			<formatter type="xml" toFile="${quality.home}/pmd.xml" />
+			<formatter type="html" toFile="${reports.home}/pmd/pmd_report.html" />
+			<formatter type="xml" toFile="${reports.home}/pmd/pmd.xml" />
 			<fileset dir="${basedir}/src">
 				<include name="**/*.java" />
 			</fileset>
@@ -304,9 +303,9 @@
 		<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
 			<classpath refid="project.classpath" />
 		</taskdef>
-		<mkdir dir="${quality.home}/cpd" />
+		<mkdir dir="${reports.home}/cpd" />
 
-		<cpd minimumTokenCount="20" format="xml" outputFile="${quality.home}/cpd.xml" encoding="UTF-8">
+		<cpd minimumTokenCount="20" format="xml" outputFile="${reports.home}/cpd.xml" encoding="UTF-8">
 			<fileset dir="${basedir}/src">
 				<include name="**/*.java" />
 			</fileset>
@@ -315,7 +314,40 @@
 				<include name="**/*.java" />
 			</fileset>
 		</cpd>
-		<xslt in="${quality.home}/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${quality.home}/cpd/cpd.html" />
-		<!--delete file="${quality.home}/cpd/cpd.xml" /-->
+		<xslt in="${reports.home}/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
+		<!--delete file="${reports.home}/cpd/cpd.xml" /-->
 	</target>
+
+	<!-- continuous integration task -->
+	<target name="hudson">
+		<antcall target="deploy.and.test" />
+		<antcall target="pmd" />
+		<antcall target="findbugs" />
+	</target>
+
+	<!-- the glorious bug :( -->
+	<target name="javadoc">
+		<javadoc defaultexcludes="yes" destdir="${basedir}/docs/javadoc" author="true" version="true" windowtitle="Cejug-Classifieds Server" encoding="UTF-8" source="1.6">
+			<packageset dir="${basedir}/src" defaultexcludes="yes">
+				<include name="**/**" />
+			</packageset>
+			<packageset dir="${basedir}/generated" defaultexcludes="yes">
+				<include name="**/**" />
+			</packageset>
+			<doctitle>
+				<![CDATA[<h1>Cejug-Classifieds Server</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<i><small>This library is free software; you can redistribute
+		    it and/or modify it under the terms of the <b>
+				<a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" class="extiw" title="w:GNU Lesser General Public License">GNU
+		    Lesser General Public License</a>
+			</b> as published by the <a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" class="extiw" title="w:Free Software Foundation">Free Software
+		    Foundation</a>; either version 2.1 of the License, or (at your option)
+		    any later version. This library is distributed in the hope that it
+		    will be useful, but WITHOUT ANY WARRANTY; without even the implied
+		    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</small></i>]]>
+		</bottom>
+	<tag name="todo" scope="all" description="To do:" />
+</javadoc>
+</target>
 </project>
