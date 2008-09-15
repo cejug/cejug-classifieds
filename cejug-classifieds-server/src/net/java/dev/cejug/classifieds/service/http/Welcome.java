@@ -15,6 +15,9 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
 /**
  * A Servlet used to check if the classifieds were installed successfully.
+ * 
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class Welcome extends HttpServlet {
 
