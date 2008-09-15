@@ -321,6 +321,7 @@
 	<!-- continuous integration task -->
 	<target name="hudson">
 		<antcall target="deploy.and.test" />
+		<antcall target="javadoc" />
 		<antcall target="pmd" />
 		<antcall target="findbugs" />
 	</target>
