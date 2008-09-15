@@ -92,8 +92,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			// READ
 			BundleRequest param = new BundleRequest();
 			List<AdvertisementCategory> categories = admin
-					.readCategoryBundleOperation(param)
-					.getAdvCategory();
+					.readCategoryBundleOperation(param).getAdvCategory();
 			// We created a category on the setup method, so we assume there is
 			// at
 			// least 1 category.
@@ -119,8 +118,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			updateParam.setAdvCategory(newCategory);
 			admin.updateCategoryOperation(updateParam);
 			List<AdvertisementCategory> updatedCategories = admin
-					.readCategoryBundleOperation(param)
-					.getAdvCategory();
+					.readCategoryBundleOperation(param).getAdvCategory();
 
 			greenBar = false;
 			for (AdvertisementCategory advertisementCategory : updatedCategories) {

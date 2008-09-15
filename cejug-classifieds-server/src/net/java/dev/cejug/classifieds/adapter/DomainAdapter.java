@@ -55,8 +55,7 @@ public class DomainAdapter implements DomainAdapterLocal {
 		Collection<CategoryEntity> categories = new ArrayList<CategoryEntity>();
 		if (domain.getAdvCategory() != null) {
 			CategoryAdapter categoryAdapter = new CategoryAdapter();
-			for (AdvertisementCategory category : domain
-					.getAdvCategory()) {
+			for (AdvertisementCategory category : domain.getAdvCategory()) {
 				CategoryEntity categoryEntity = categoryAdapter
 						.toEntity(category);
 				categories.add(categoryEntity);
