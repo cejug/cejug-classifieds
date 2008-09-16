@@ -45,6 +45,9 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
  * on the wire, without the need of soap envelopes. READ-ONLY operations are
  * suitable for REST protocol (this is experimental, eventually we will replace
  * this servlet by a jersey code).
+ * 
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class RssFeed extends HttpServlet {
 
