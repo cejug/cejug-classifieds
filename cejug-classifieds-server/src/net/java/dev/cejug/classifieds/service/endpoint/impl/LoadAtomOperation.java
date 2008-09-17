@@ -136,8 +136,7 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 						.createEntryTypeSummary(entrySummary));
 
 				LinkType link = factory.createLinkType();
-				link
-						.setHref("http://localhost:8080/cejug-classifieds-server/atom?todo=path_to_advs");
+				link.setHref("/atom?todo=path_to_advs");
 				// TODO: get from advertisement or domain or category
 				link.setHreflang("en");
 				link.setTitle(adv.getTitle());
