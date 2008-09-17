@@ -149,7 +149,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 								.createRssChannelDescription("In order to retrieve the "
 										+ "advertisements RSS you should provide its Category ID. Below are the available categories."));
 				List<CategoryEntity> categories = categoryFacade.readAll();
-				System.out.println("333333333 -> " + categories.size());
+
 				List<RssItem> itens = channel.getItem();
 				for (CategoryEntity entity : categories) {
 					RssItem item = new RssItem();
@@ -164,8 +164,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 							.getDescription()));
 					itemAttributes
 							.add(factory
-									.createRssItemLink("http://localhost:8080/cejug-classifieds-server/rss?category="
-											+ entity.getId()));
+									.createRssItemLink("/rss?category=" + entity.getId()));
 					itens.add(item);
 				}
 
