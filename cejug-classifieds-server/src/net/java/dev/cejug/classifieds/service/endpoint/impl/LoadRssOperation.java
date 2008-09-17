@@ -164,7 +164,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 							.getDescription()));
 					itemAttributes
 							.add(factory
-									.createRssItemLink("/rss?category=" + entity.getId()));
+									.createRssItemLink("./rss?category=" + entity.getId()));
 					itens.add(item);
 				}
 
