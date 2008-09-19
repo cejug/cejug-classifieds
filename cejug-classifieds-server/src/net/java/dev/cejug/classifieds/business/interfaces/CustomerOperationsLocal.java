@@ -25,26 +25,14 @@ package net.java.dev.cejug.classifieds.business.interfaces;
 
 import javax.ejb.Local;
 
-import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
-import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
-import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 /**
- * TODO: to comment.
- * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 636 $ ($Date: 2008-09-08 18:25:25 +0200 (Mo, 08 Sep 2008) $)
  */
 @Local
-public interface AdvertisementOperationsLocal extends CRUDLocal<Advertisement> {
-
-	/**
-	 * TODO: to comment.
-	 */
-	AdvertisementCollection loadAdvertisementOperation(
-			final AdvertisementCollectionFilter filter);
-
-	Advertisement publishOperation(final Advertisement advertisement,
-			final PublishingHeader header);
+public interface CustomerOperationsLocal extends
+		CRUDLocal<Customer> {
+  Customer findOrCreate(long domainId, String login);
 }
