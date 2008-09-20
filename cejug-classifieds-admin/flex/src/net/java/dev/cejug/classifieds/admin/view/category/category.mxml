@@ -13,7 +13,7 @@
                     <mx:DataGridColumn headerText="Name" dataField="name"/>
                     <mx:DataGridColumn headerText="Description" dataField="description"/>
                     <mx:DataGridColumn headerText="Available" dataField="available" />
-                    <mx:DataGridColumn headerText="Parent" dataField="advertisementCategory" />
+                    <mx:DataGridColumn headerText="Parent" dataField="advSubCategory" />
                 </mx:columns>
             </mx:DataGrid>
 

@@ -89,7 +89,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
         private function getAllCategoriesResult(event:ResultEvent):void {
             var catCol:CategoryCollection = event.result as CategoryCollection;
             if (catCol != null) {
-                categoryDataProvider = catCol.advertisementCategory;
+                categoryDataProvider = catCol.advCategory;
             } else {
                 categoryDataProvider = new ArrayCollection();
             }
@@ -112,8 +112,8 @@ package net.java.dev.cejug.classifieds.admin.view.category
             item['name'] = 'Select...';
 
             var catCol:CategoryCollection = event.result as CategoryCollection;
-            if (catCol != null && catCol.advertisementCategory != null) {
-                parentDataProvider = catCol.advertisementCategory;
+            if (catCol != null && catCol.advCategory != null) {
+                parentDataProvider = catCol.advCategory;
                 parentDataProvider.addItemAt(item, 0);
             } else {
                 parentDataProvider = new ArrayCollection();
@@ -133,9 +133,9 @@ package net.java.dev.cejug.classifieds.admin.view.category
 
         private function selectParent():void {
             var index:int = 0;
-            if (categoryEntity != null && categoryEntity.advertisementCategory != null) {
+            if (categoryEntity != null && categoryEntity.advSubCategory != null) {
                 for (var i:int = 1; i < parentDataProvider.length; i++) {
-                    if (parentDataProvider[i].entityId == categoryEntity.advertisementCategory.entityId) {
+                    if (parentDataProvider[i].entityId == categoryEntity.advSubCategory.entityId) {
                         index = i;
                         break;
                     }
@@ -161,10 +161,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             advertisementCategory.description = categoryReference.fNewCategoryDescription.text;
             var index:int = categoryReference.fNewCategoryParent.selectedIndex; 
             if (index > 0) {
-                advertisementCategory.advertisementCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
+                advertisementCategory.advSubCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
             }
             var param:CreateCategoryParam = new CreateCategoryParam();
-            param.advertisementCategory = advertisementCategory;
+            param.advCategory = advertisementCategory;
             adminService.createCategoryOperation(param);
         }
 
@@ -178,10 +178,10 @@ package net.java.dev.cejug.classifieds.admin.view.category
             advertisementCategory.description = categoryReference.fUpdateCategoryDescription.text;
             var index:int = categoryReference.fUpdateCategoryParent.selectedIndex; 
             if (index > 0) {
-                advertisementCategory.advertisementCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
+                advertisementCategory.advSubCategory = parentDataProvider.getItemAt(index) as AdvertisementCategory; 
             }
             var param:UpdateCategoryParam = new UpdateCategoryParam();
-            param.advertisementCategory = advertisementCategory;
+            param.advCategory = advertisementCategory;
             adminService.updateCategoryOperation(param);
         }
 

@@ -13,18 +13,18 @@ package net.java.dev.cejug.classifieds.server.contract {
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.Domain")]
     public class Domain {
 
-        private var _advertisementCategory:ListCollectionView;
+        private var _advCategory:ListCollectionView;
         private var _brand:String;
         private var _uri:String;
         private var _entityId:Number;
         private var _sharedQuota:Boolean;
         private var _timezone:String;
 
-        public function get advertisementCategory():ListCollectionView {
-            return _advertisementCategory;
+        public function get advCategory():ListCollectionView {
+            return _advCategory;
         }
-        public function set advertisementCategory(value:ListCollectionView):void {
-            _advertisementCategory = value;
+        public function set advCategory(value:ListCollectionView):void {
+            _advCategory = value;
         }
         public function set brand(value:String):void {
             _brand = value;

@@ -11,13 +11,13 @@ package net.java.dev.cejug.classifieds.server.contract {
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.UpdateCategoryParam")]
     public class UpdateCategoryParam {
 
-        private var _advertisementCategory:AdvertisementCategory;
+        private var _advCategory:AdvertisementCategory;
 
-        public function set advertisementCategory(value:AdvertisementCategory):void {
-            _advertisementCategory = value;
+        public function set advCategory(value:AdvertisementCategory):void {
+            _advCategory = value;
         }
-        public function get advertisementCategory():AdvertisementCategory {
-            return _advertisementCategory;
+        public function get advCategory():AdvertisementCategory {
+            return _advCategory;
         }
 
     }

@@ -14,7 +14,7 @@ package net.java.dev.cejug.classifieds.server.contract {
         private var _description:String;
         private var _entityId:Number;
         private var _name:String;
-        private var _advertisementCategory:AdvertisementCategory;
+        private var _advSubCategory:AdvertisementCategory;
 
         public function toString():String {
             return name;
@@ -47,11 +47,11 @@ package net.java.dev.cejug.classifieds.server.contract {
         public function get name():String {
             return _name;
         }
-        public function set advertisementCategory(value:AdvertisementCategory):void {
-            _advertisementCategory = value;
+        public function set advSubCategory(value:AdvertisementCategory):void {
+            _advSubCategory = value;
         }
-        public function get advertisementCategory():AdvertisementCategory {
-            return _advertisementCategory;
+        public function get advSubCategory():AdvertisementCategory {
+            return _advSubCategory;
         }
     }
 }

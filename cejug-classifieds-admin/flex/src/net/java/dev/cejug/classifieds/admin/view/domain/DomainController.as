@@ -102,13 +102,13 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             domain.brand = domainReference.fNewDomainBrand.text;
             domain.sharedQuota = domainReference.fNewDomainSharedQuota.selected;
 
-            if (domain.advertisementCategory == null) {
-                domain.advertisementCategory = new ArrayCollection();
+            if (domain.advCategory == null) {
+                domain.advCategory = new ArrayCollection();
             } else {
-                domain.advertisementCategory.removeAll();
+                domain.advCategory.removeAll();
             }
             for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
-                domain.advertisementCategory.addItem(domainCategoryDataProvider.getItemAt(i));
+                domain.advCategory.addItem(domainCategoryDataProvider.getItemAt(i));
             }
 
             var param:CreateDomainParam = new CreateDomainParam();
@@ -126,13 +126,13 @@ package net.java.dev.cejug.classifieds.admin.view.domain
             domain.brand = domainReference.fUpdateDomainBrand.text;
             domain.sharedQuota = domainReference.fUpdateDomainSharedQuota.selected;
 
-            if (domain.advertisementCategory == null) {
-                domain.advertisementCategory = new ArrayCollection();
+            if (domain.advCategory == null) {
+                domain.advCategory = new ArrayCollection();
             } else {
-                domain.advertisementCategory.removeAll();
+                domain.advCategory.removeAll();
             }
             for (var i:int = 0; i < domainCategoryDataProvider.length; i++) {
-                domain.advertisementCategory.addItem(domainCategoryDataProvider.getItemAt(i));
+                domain.advCategory.addItem(domainCategoryDataProvider.getItemAt(i));
             }
                 
             var param:UpdateDomainParam = new UpdateDomainParam();
@@ -198,7 +198,7 @@ package net.java.dev.cejug.classifieds.admin.view.domain
 
             if (row >= 0) {
                 domainEntity = domainDataProvider.getItemAt(row) as Domain;
-                var collection:ArrayCollection = domainEntity.advertisementCategory as ArrayCollection;
+                var collection:ArrayCollection = domainEntity.advCategory as ArrayCollection;
                 domainCategoryDataProvider.removeAll();
                 for (var i:int = 0; i < collection.length; i++) {
                     domainCategoryDataProvider.addItem(collection.getItemAt(i));
@@ -242,8 +242,8 @@ package net.java.dev.cejug.classifieds.admin.view.domain
          */
         private function loadCategoriesResult(event:ResultEvent):void {
             var catCol:CategoryCollection = event.result as CategoryCollection;
-            if (catCol != null && catCol.advertisementCategory != null) {
-                notInDomainCategoryDataProvider = catCol.advertisementCategory;
+            if (catCol != null && catCol.advCategory != null) {
+                notInDomainCategoryDataProvider = catCol.advCategory;
             } else {
                 notInDomainCategoryDataProvider = new ArrayCollection();
             }

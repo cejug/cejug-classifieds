@@ -13,13 +13,13 @@ package net.java.dev.cejug.classifieds.server.contract {
     [RemoteClass(alias="net.java.dev.cejug.classifieds.server.contract.CategoryCollection")]
     public class CategoryCollection {
 
-        private var _advertisementCategory:ListCollectionView;
+        private var _advCategory:ListCollectionView;
 
-        public function get advertisementCategory():ListCollectionView {
-            return _advertisementCategory;
+        public function get advCategory():ListCollectionView {
+            return _advCategory;
         }
-        public function set advertisementCategory(value:ListCollectionView):void {
-            _advertisementCategory = value;
+        public function set advCategory(value:ListCollectionView):void {
+            _advCategory = value;
         }
     }
 }
