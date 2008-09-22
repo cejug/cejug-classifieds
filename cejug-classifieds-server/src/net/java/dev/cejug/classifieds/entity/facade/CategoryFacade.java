@@ -24,13 +24,13 @@
 package net.java.dev.cejug.classifieds.entity.facade;
 
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.Query;
-
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
+import net.java.dev.cejug.classifieds.exception.ExceptionInterceptor;
 
 /**
  * @author $Author$
@@ -38,39 +38,37 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
  * @see CRUDEntityFacade
  */
 @Stateless
-public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements
-		CategoryFacadeLocal {
+@Interceptors(ExceptionInterceptor.class)
+public class CategoryFacade extends CRUDEntityFacade<CategoryEntity> implements CategoryFacadeLocal {
 
-	@Override
-	public List<CategoryEntity> readAll() throws IllegalStateException,
-			IllegalArgumentException {
-		List<CategoryEntity> bundle = super.readAll();
-		for (CategoryEntity entity : bundle) {
-			entity.setAvailable(countAdvertisements(entity));
-		}
-		return bundle;
+    @Override
+    public List<CategoryEntity> readAll() throws IllegalStateException, IllegalArgumentException {
 
-	}
+        List<CategoryEntity> bundle = super.readAll();
+        for (CategoryEntity entity : bundle) {
+            entity.setAvailable(countAdvertisements(entity));
+        }
+        return bundle;
 
-	/**
-	 * @see <a * href=
-	 *      "http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html"
-	 *      >Extending * the NetBeans Tutorial JSF-JPA-Hibernate Application,
-	 *      Part 3 - * Enabling JMX Monitoring on Hibernate v3 and Ehcache 1.3.0
-	 *      on * SimpleJpaHibernateApp< /a>
-	 */
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public int countAdvertisements(CategoryEntity category) {
-		Query query = manager
-				.createQuery(
-						"select COUNT(a) from AdvertisementEntity a WHERE a.category = :cat")
-				.setParameter("cat", category);
-		try {
-			return ((Long) query.getSingleResult()).intValue();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
+    }
 
-		}
-	}
+    /**
+     * @see <a * href=
+     *      "http://weblogs.java.net/blog/maxpoon/archive/2007/06/extending_the_n_3.html"
+     *      >Extending * the NetBeans Tutorial JSF-JPA-Hibernate Application,
+     *      Part 3 - * Enabling JMX Monitoring on Hibernate v3 and Ehcache 1.3.0
+     *      on * SimpleJpaHibernateApp< /a>
+     */
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public int countAdvertisements(CategoryEntity category) {
+
+        Query query = manager.createQuery("select COUNT(a) from AdvertisementEntity a WHERE a.category = :cat").setParameter("cat", category);
+        try {
+            return ((Long) query.getSingleResult()).intValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+
+        }
+    }
 }

@@ -25,13 +25,9 @@ package net.java.dev.cejug.classifieds.service.interceptor;
 
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import javax.xml.ws.WebServiceException;
-
 import net.java.dev.cejug.classifieds.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.entity.facade.TimeKeeperFacadeLocal;
 
@@ -41,53 +37,32 @@ import net.java.dev.cejug.classifieds.entity.facade.TimeKeeperFacadeLocal;
  */
 public class TimerInterceptor {
 
-	@EJB
-	private transient TimeKeeperFacadeLocal timeKeeperFacade;
+    @EJB
+    private transient TimeKeeperFacadeLocal timeKeeperFacade;
 
-	/**
-	 * the global log manager, used to al low third party services to override
-	 * the defult logger.
-	 */
-	private static final Logger logger;
+    /*
+     * Intercepter method within the bean (the bean is the aspect)
+     */
+    @AroundInvoke
+    public Object timerLog(final InvocationContext ctx) throws Exception {
 
-	static {
-		logger = Logger.getLogger(TimerInterceptor.class.getName(), "i18n/log");
-	}
+        // TODO: include timezone from config file...
+        TimeZone timezone;
+        timezone = TimeZone.getDefault();
+        Calendar start = Calendar.getInstance(timezone);
 
-	/*
-	 * Intercepter method within the bean (the bean is the aspect)
-	 */
-	@AroundInvoke
-	public Object timerLog(final InvocationContext ctx) {
-		// TODO: include timezone from config file...
-		TimeZone timezone;
-		timezone = TimeZone.getDefault();
-		Calendar start;
-		start = Calendar.getInstance(timezone);
-		Exception error = null;
-		Object response = null;
-		try {
-			response = ctx.proceed();
-		} catch (Exception error2) {
-			error = error2;
-			logger.severe("PPPPPPP" + error.getMessage());
-		}
+        Object response = null;
+        response = ctx.proceed();
 
-		OperationTimestampEntity stamp;
-		stamp = new OperationTimestampEntity();
-		stamp.setOperationName(ctx.getMethod().getName());
-		stamp.setDate(start);
-		stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis()
-				- start.getTimeInMillis());
-		stamp.setStatus(true);
-		stamp.setClientId("TODO: get client ID");
-		if (error == null) {
-			timeKeeperFacade.create(stamp);
-			return response;
-		} else {
-			stamp.setStatus(false);
-			stamp.setFault(error.getMessage());
-			throw new WebServiceException(error);
-		}
-	}
+        OperationTimestampEntity stamp;
+        stamp = new OperationTimestampEntity();
+        stamp.setOperationName(ctx.getMethod().getName());
+        stamp.setDate(start);
+        stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis() - start.getTimeInMillis());
+        stamp.setStatus(true);
+        stamp.setClientId("TODO: get client ID");
+        timeKeeperFacade.create(stamp);
+
+        return response;
+    }
 }
