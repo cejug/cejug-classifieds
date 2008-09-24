@@ -9,4 +9,8 @@
 				code.</description>
 		</property>
 	</jsp-config>
+	<security-role-mapping>
+		<role-name>authorized</role-name>
+		<group-name>authorized</group-name>
+	</security-role-mapping>
 </sun-web-app>
