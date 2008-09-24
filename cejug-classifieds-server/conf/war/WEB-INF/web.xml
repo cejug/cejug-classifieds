@@ -36,12 +36,12 @@
 		</listener-class>
 	</listener>
     <!-- LOGIN CONFIGURATION-->
-	<login-config>
+	<!-- login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>SecureWebFileRealm</realm-name>
 		<form-login-config>
 			<form-login-page>/pages/logon.jsp</form-login-page>
 			<form-error-page>/pages/logonError.jsp</form-error-page>
 		</form-login-config>
-	</login-config>
+	</login-config-->
 </web-app>
