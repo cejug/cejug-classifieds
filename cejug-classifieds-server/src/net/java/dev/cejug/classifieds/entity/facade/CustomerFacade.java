@@ -73,6 +73,7 @@ public class CustomerFacade extends CRUDEntityFacade<CustomerEntity> implements
 			customer.setLogin(login);
 			// customer.setQuotas(new ArrayList<QuotaEntity>());
 			manager.persist(customer);
+			manager.flush();
 			return customer;
 		}
 	}
