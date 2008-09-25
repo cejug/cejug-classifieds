@@ -30,19 +30,18 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
 
-import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
-import net.java.dev.cejug.classifieds.business.interfaces.CustomerAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CustomerFacadeLocal;
-import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
+import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * TODO: to comment.
@@ -51,8 +50,7 @@ import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class AdvertisementOperations extends AbstractCrudImpl<AdvertisementEntity, Advertisement> implements
-AdvertisementOperationsLocal {
+public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 	/**
 	 * Persistence façade of Advertisement entities.
@@ -60,14 +58,8 @@ AdvertisementOperationsLocal {
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
 
-        @EJB
-        private transient CustomerFacadeLocal customerFacade;
-
-        @EJB
-	private transient AdvertisementAdapterLocal adapter;
-        
-        @EJB
-        CustomerAdapterLocal customerAdapter;
+	@EJB
+	private transient AdvertisementAdapterLocal advAdapter;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -86,7 +78,7 @@ AdvertisementOperationsLocal {
 			AdvertisementCollection collection = new AdvertisementCollection();
 			List<AdvertisementEntity> entities = advFacade.readAll();
 			for (AdvertisementEntity entity : entities) {
-				collection.getAdvertisement().add(adapter.toSoap(entity));
+				collection.getAdvertisement().add(advAdapter.toSoap(entity));
 			}
 			return collection;
 		} catch (Exception e) {
@@ -97,23 +89,58 @@ AdvertisementOperationsLocal {
 
 	public Advertisement publishOperation(final Advertisement advertisement,
 			final PublishingHeader header) {
+
+		// TODO: to implement the real code.
 		try {
-		        CustomerEntity customer = customerFacade.findOrCreate(header.getCustomerDomainId(), header.getCustomerLogin());
-			advertisement.setCustomer(customerAdapter.toSoap(customer));
-			return super.create(advertisement);
+			// TODO: re-think a factory to reuse adapters...
+			/*
+			 * // loading customer Map<String, String> params = new
+			 * HashMap<String, String>(); params.clear(); params.put("d",
+			 * header.getCustomerDomain()); params.put("l",
+			 * header.getCustomerLogin());
+			 */
+			Customer customer = new Customer();
+			customer.setLogin(header.getCustomerLogin());
+			customer.setLogin(header.getCustomerLogin());
+			customer.setDomainId(header.getCustomerDomainId());
+			advertisement.setCustomer(customer);
+			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
+			advFacade.create(entity);
+			return advAdapter.toSoap(entity);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
+
 	}
 
-        @Override
-        protected EntityFacade<AdvertisementEntity> getFacade() {
-                return advFacade;
-        }
+	@Override
+	public Advertisement create(Advertisement type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        @Override
-        protected SoapOrmAdapter<Advertisement, AdvertisementEntity> getAdapter() {
-                return adapter;
-        }
+	@Override
+	public ServiceStatus delete(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Advertisement read(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> readBundleOperation(BundleRequest bundleRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceStatus update(Advertisement type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
