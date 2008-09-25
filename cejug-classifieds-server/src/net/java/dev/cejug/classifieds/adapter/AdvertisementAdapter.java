@@ -34,6 +34,7 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLo
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.AdvertisementKeywordEntity;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
+import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CustomerFacadeLocal;
@@ -73,8 +74,10 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 			throws IllegalStateException, IllegalArgumentException {
 		AdvertisementEntity entity = new AdvertisementEntity();
 		entity.setCategory(categoryFacade.read(soap.getCategoryId()));
-		entity.setCustomer(customerFacade.findOrCreate(soap.getCustomer()
-				.getDomainId(), soap.getCustomer().getLogin()));
+		long domainId = soap.getCustomer().getDomainId();
+		String customerLogin = soap.getCustomer().getLogin();
+		CustomerEntity customer = customerFacade.findOrCreate(domainId, customerLogin); 
+		entity.setCustomer(customer);
 		Period period = soap.getPublishingPeriod();
 		entity.setFinish(period.getFinish());
 		entity.setStart(period.getStart());
