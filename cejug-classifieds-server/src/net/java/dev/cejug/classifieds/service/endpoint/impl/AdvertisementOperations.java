@@ -34,7 +34,6 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLo
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
-import net.java.dev.cejug.classifieds.entity.facade.CustomerFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
@@ -93,14 +92,7 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 		// TODO: to implement the real code.
 		try {
 			// TODO: re-think a factory to reuse adapters...
-			/*
-			 * // loading customer Map<String, String> params = new
-			 * HashMap<String, String>(); params.clear(); params.put("d",
-			 * header.getCustomerDomain()); params.put("l",
-			 * header.getCustomerLogin());
-			 */
 			Customer customer = new Customer();
-			customer.setLogin(header.getCustomerLogin());
 			customer.setLogin(header.getCustomerLogin());
 			customer.setDomainId(header.getCustomerDomainId());
 			advertisement.setCustomer(customer);
