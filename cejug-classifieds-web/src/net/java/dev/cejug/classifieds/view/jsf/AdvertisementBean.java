@@ -93,7 +93,7 @@ public class AdvertisementBean {
 
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
-			advertisement.setCategoryId(1);
+			advertisement.setCategoryId(3);
 			Locale locale = new net.java.dev.cejug_classifieds.metadata.business.Locale();
 			locale.setLanguage("pt");
 			locale.setCountry("BR");
