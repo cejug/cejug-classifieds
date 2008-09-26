@@ -62,8 +62,10 @@ public class RssFeed extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		SyndicationFilter filter = new SyndicationFilter();
 		String categoryId = request.getParameter("category");
-		if (categoryId != null) {
-			filter.setCategoryId(Integer.valueOf(categoryId));
+		try {
+		  filter.setCategoryId(Integer.valueOf(categoryId));
+		} catch (NumberFormatException badNumberString) {
+		  filter.setCategoryId(0);
 		}
 		Rss rss = business.loadRssOperation(filter);
 
@@ -90,7 +92,6 @@ public class RssFeed extends HttpServlet {
 			// );
 			marshaller.marshal(rss, out);
 		} catch (Exception ee) {
-			ee.printStackTrace(out);
 			out.print("<error>" + ee.getMessage() + "</error>");
 		}
 	}
