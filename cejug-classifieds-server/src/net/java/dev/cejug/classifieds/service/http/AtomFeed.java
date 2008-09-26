@@ -50,13 +50,16 @@ import org.w3._2005.atom.Feed;
  * @version $Rev: 636 $ ($Date: 2008-09-08 18:25:25 +0200 (Mo, 08 Sep 2008) $)
  */
 public class AtomFeed extends HttpServlet {
-
 	/** <code>serialVersionUID = {@value}</code>. */
 	private final static long serialVersionUID = -6026937020915831338L;
 
+	/**
+	 * Business service local interface.
+	 */
 	@EJB
 	private transient ClassifiedsBusinessLocal business;
 
+	/** {@inheritDoc} */
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -95,6 +98,7 @@ public class AtomFeed extends HttpServlet {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
