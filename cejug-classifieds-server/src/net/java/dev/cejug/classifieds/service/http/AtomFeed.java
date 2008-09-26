@@ -45,6 +45,9 @@ import org.w3._2005.atom.Feed;
  * on the wire, without the need of soap envelopes. READ-ONLY operations are
  * suitable for REST protocol (this is experimental, eventually we will replace
  * this servlet by a jersey code).
+ * 
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date$)
  */
 public class AtomFeed extends HttpServlet {
 
