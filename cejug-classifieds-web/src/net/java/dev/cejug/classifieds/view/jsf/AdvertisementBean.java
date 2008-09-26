@@ -74,7 +74,7 @@ public class AdvertisementBean {
 
 			Customer customer = new Customer();
 			customer.setLogin("fgaucho");
-			customer.setDomainId(1);
+			customer.setDomainId(2);
 			advertisement.setCustomer(customer);
 			advertisement.setTypeId(1);
 
