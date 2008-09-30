@@ -46,8 +46,6 @@ public class ExceptionInterceptor {
             if (methodName.startsWith("delete") && (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
                 throw new ObjectInUseException("Could not delete because object is referenced by another entity.", pe);
             }
-        } catch (Exception exception) {
-            throw exception;
         }
 
         return result;
