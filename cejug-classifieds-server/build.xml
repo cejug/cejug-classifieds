@@ -7,6 +7,17 @@
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 
+    <property name="doc.doctitle" value="&lt;h1&gt;Cejug-Classifieds Server&lt;/h1&gt;" />
+    <property name="doc.bottom" value='&lt;i&gt;&lt;small&gt;This library is free software; you can redistribute
+    it and/or modify it under the terms of the &lt;b&gt;
+        &lt;a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" class="extiw" title="w:GNU Lesser General Public License"&gt;GNU
+    Lesser General Public License&lt;/a&gt;
+    &lt;/b&gt; as published by the &lt;a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" class="extiw" title="w:Free Software Foundation"&gt;Free Software
+    Foundation&lt;/a&gt;; either version 2.1 of the License, or (at your option)
+    any later version. This library is distributed in the hope that it
+    will be useful, but WITHOUT ANY WARRANTY; without even the implied
+    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/small&gt;&lt;/i&gt;' />
+
 	<path id="project.classpath">
 		<fileset dir="${env.AS_HOME}/lib/">
 			<include name="javaee.jar" />
@@ -326,20 +337,22 @@
 		<antcall target="findbugs" />
 	</target>
 
-    <property name="doc.windowtitle" value="Cejug-Classifieds Server" />
-    <property name="doc.doctitle" value="&lt;h1&gt;Cejug-Classifieds Server&lt;/h1&gt;" />
-    <property name="doc.bottom" value='&lt;i&gt;&lt;small&gt;This library is free software; you can redistribute
-    it and/or modify it under the terms of the &lt;b&gt;
-        &lt;a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" class="extiw" title="w:GNU Lesser General Public License"&gt;GNU
-    Lesser General Public License&lt;/a&gt;
-    &lt;/b&gt; as published by the &lt;a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" class="extiw" title="w:Free Software Foundation"&gt;Free Software
-    Foundation&lt;/a&gt;; either version 2.1 of the License, or (at your option)
-    any later version. This library is distributed in the hope that it
-    will be useful, but WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/small&gt;&lt;/i&gt;' />
-    <property name="doc.j2se" value="http://java.sun.com/javase/6/docs/api/" />
-    <property name="doc.j2ee" value="http://java.sun.com/javaee/5/docs/api/" />
-
+	<path id="javadoc.classpath">
+		<fileset dir="${env.AS_HOME}/lib/">
+			<include name="javaee.jar" />
+			<include name="appserv-ws.jar" />
+		</fileset>
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+            <fileset dir="${basedir}/generated">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${basedir}/src">
+                <include name="**/*.java" />
+            </fileset>
+	</path>
+	    
     <target name="javadoc">
         <javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
             <link href="${doc.j2se}" />
@@ -351,6 +364,35 @@
             <fileset dir="${basedir}/src">
                 <include name="**/*.java" />
             </fileset>
+        </javadoc>
+    </target>
+    
+    <target name="javadoc.with.uml">
+        <javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
+            <link href="${doc.j2se}" />
+            <link href="${doc.j2ee}" />
+            <tag name="todo" scope="all" description="To do:" />
+            <fileset dir="${basedir}/generated">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${basedir}/src">
+                <include name="**/*.java" />
+            </fileset>
+            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${basedir}/lib/ext/umlgraph/UMLGraph.jar">
+                    <param name="-inferrel"/>
+                    <param name="-inferdep"/>
+                	<param name="-useimports"/>                    
+                	<param name="-inferdepvis" value="public"/>                    
+                    <param name="-hide" value="java.*"/>
+                    <param name="-collpackages" value="java.util.*"/>
+                    <param name="-qualify"/>
+                    <param name="-postfixpackage"/>
+                    <param name="-nodefontsize" value="9"/>
+                    <param name="-nodefontpackagesize" value="7"/>
+                    <param name="-link" value="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/"/>
+                    <param name="-link" value="${doc.j2se}"/>
+                	<param name="-link" value="${doc.j2ee}"/>
+            </doclet>
         </javadoc>
     </target>
 </project>
