@@ -332,7 +332,7 @@
 	<!-- continuous integration task -->
 	<target name="hudson">
 		<antcall target="deploy.and.test" />
-		<antcall target="javadoc" />
+		<antcall target="javadoc.with.uml" />
 		<antcall target="pmd" />
 		<antcall target="findbugs" />
 	</target>
@@ -378,7 +378,7 @@
             <fileset dir="${basedir}/src">
                 <include name="**/*.java" />
             </fileset>
-            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${basedir}/lib/ext/umlgraph/UMLGraph.jar">
+            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${basedir}/lib/ext/umlgraph/UmlGraph.jar">
                     <param name="-inferrel"/>
                     <param name="-inferdep"/>
                 	<param name="-useimports"/>                    
