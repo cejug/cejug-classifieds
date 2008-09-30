@@ -41,13 +41,13 @@ public class ExceptionInterceptor {
 
         try {
             result = context.proceed();
-        } catch (Exception exception) {
+        } catch (PersistenceException pe) {
             String methodName = context.getMethod().getName();
-            if (methodName.startsWith("delete") && (exception instanceof PersistenceException)) {
-                if (exception.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-                    throw new ObjectInUseException("Could not delete because object is referenced by another entity.", exception);
-                }
+            if (methodName.startsWith("delete") && (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
+                throw new ObjectInUseException("Could not delete because object is referenced by another entity.", pe);
             }
+        } catch (Exception exception) {
+            throw exception;
         }
 
         return result;

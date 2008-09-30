@@ -18,6 +18,7 @@ public class ObjectInUseException extends Exception {
      */
     public ObjectInUseException() {
 
+        super();
     }
 
     /**
