@@ -33,7 +33,7 @@ import javax.persistence.Transient;
 import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
 
 /**
- * TODO: to commnent.
+ * Shared fields by JPA entities. All entity has a field called ID.
  * 
  * @author $Author$
  * @version $Rev: $ ($Date$)
