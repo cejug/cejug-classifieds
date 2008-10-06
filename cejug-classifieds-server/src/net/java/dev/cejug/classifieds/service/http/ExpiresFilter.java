@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  * of the next possible deployment time, to support browser caching.
  * 
  * @author Chris Webster
- * @see <a href='http://blogs.sun.com/cwebster/entry/caching_static_resources_in_glassfish'>Cachin
- *      g static resources in glassfish</a>
+ * @see <a href='http://blogs.sun.com/cwebster/entry/caching_static_resources_in_glassfish'>Cachi
+ *      n g static resources in glassfish</a>
  */
 public class ExpiresFilter implements Filter {
 
-	private FilterConfig filterConfig;
-	private String expires;
-	private long nextDeploymentTime;
+	private transient FilterConfig filterConfig;
+	private transient final String expires;
+	private transient long nextDeploymentTime;
 
 	public ExpiresFilter() {
 		// expires = nextDeploymentTime();
@@ -59,8 +59,8 @@ public class ExpiresFilter implements Filter {
 	 * sdf.format(c.getTime()); }
 	 */
 
-	private void addCacheHeaders(ServletRequest request,
-			ServletResponse response) throws IOException, ServletException {
+	private void addCacheHeaders(ServletResponse response) throws IOException,
+			ServletException {
 
 		HttpServletResponse sr = (HttpServletResponse) response;
 		sr.setHeader("Expires", expires);
@@ -91,7 +91,7 @@ public class ExpiresFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 
-		addCacheHeaders(request, response);
+		addCacheHeaders(response);
 		chain.doFilter(request, response);
 	}
 
@@ -117,6 +117,7 @@ public class ExpiresFilter implements Filter {
 	 * 
 	 */
 	public void destroy() {
+
 	}
 
 	/**
@@ -137,9 +138,8 @@ public class ExpiresFilter implements Filter {
 		}
 		StringBuffer sb = new StringBuffer("ExpiresFilter(");
 		sb.append(getFilterConfig());
-		sb.append(")");
+		sb.append(')');
 		return (sb.toString());
 
 	}
-
 }
