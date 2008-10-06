@@ -82,14 +82,14 @@ public class AdvertisementBean {
 			DatatypeFactory factory = DatatypeFactory.newInstance();
 			Calendar today = GregorianCalendar.getInstance();
 			Period period = new Period();
-			period.setStart(factory
-					.newXMLGregorianCalendar((GregorianCalendar) today));
+		//	period.setStart(factory
+			//		.newXMLGregorianCalendar((GregorianCalendar) today));
 
 			Calendar fiveDaysLater = GregorianCalendar.getInstance();
 			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			period
-					.setFinish(factory
-							.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
+		//	period
+			//		.setFinish(factory
+				//			.newXMLGregorianCalendar((GregorianCalendar) fiveDaysLater));
 
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
