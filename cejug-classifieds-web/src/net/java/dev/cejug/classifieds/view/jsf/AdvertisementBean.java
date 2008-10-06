@@ -74,7 +74,7 @@ public class AdvertisementBean {
 
 			Customer customer = new Customer();
 			customer.setLogin("fgaucho");
-			customer.setDomainId(2);
+			customer.setDomainId(3);
 			advertisement.setCustomer(customer);
 			advertisement.setTypeId(1);
 
@@ -101,7 +101,7 @@ public class AdvertisementBean {
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(2);
+			header.setCustomerDomainId(3);
 			header.setCustomerLogin("fgaucho");
 
 			CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
