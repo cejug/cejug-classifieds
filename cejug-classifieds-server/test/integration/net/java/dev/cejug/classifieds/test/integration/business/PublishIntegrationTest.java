@@ -63,6 +63,8 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			category = admin.createCategory();
 			System.out.println("Category ID " + category.getEntityId());
 			adv = business.createAdvertisement(domain, type, category);
+			System.out.println(adv.getAvatarImageOrUrl().getImage().getValue()
+					.toString());
 			Assert.assertTrue(adv.getEntityId() != 0);
 		} catch (Exception ee) {
 			ee.printStackTrace();
