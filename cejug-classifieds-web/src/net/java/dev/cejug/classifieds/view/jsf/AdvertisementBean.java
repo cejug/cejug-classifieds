@@ -36,7 +36,6 @@ import net.java.dev.cejug.classifieds.model.service.AdvertisementService;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
@@ -94,10 +93,7 @@ public class AdvertisementBean {
 			// Advertisement contents
 			advertisement.setPublishingPeriod(period);
 			advertisement.setCategoryId(3);
-			Locale locale = new net.java.dev.cejug_classifieds.metadata.business.Locale();
-			locale.setLanguage("pt");
-			locale.setCountry("BR");
-			advertisement.setLocale(locale);
+			advertisement.setLocale("pt_BR");
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
