@@ -97,8 +97,8 @@
 						<xsd:element name="brand" type="xsd:string" />
 						<xsd:element name="timezone" type="xsd:string"
 							default="Fortaleza/Ceara" />
-						<xsd:element ref="common:AdvCategory"
-							minOccurs="1" maxOccurs="unbounded" />
+						<xsd:element ref="common:AdvCategory" minOccurs="1"
+							maxOccurs="unbounded" />
 					</xsd:sequence>
 				</xsd:extension>
 			</xsd:complexContent>
@@ -231,4 +231,15 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
+	<xsd:simpleType name="localeType">
+		<xsd:annotation>
+			<xsd:documentation>
+			The localeType defines valid locale defined 
+			by ISO-639-1 and ISO-3166.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?" />
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
