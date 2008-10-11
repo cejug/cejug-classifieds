@@ -25,9 +25,11 @@ package net.java.dev.cejug.classifieds.service.interceptor;
 
 import java.util.Calendar;
 import java.util.TimeZone;
+
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+
 import net.java.dev.cejug.classifieds.entity.OperationTimestampEntity;
 import net.java.dev.cejug.classifieds.entity.facade.TimeKeeperFacadeLocal;
 
@@ -37,32 +39,33 @@ import net.java.dev.cejug.classifieds.entity.facade.TimeKeeperFacadeLocal;
  */
 public class TimerInterceptor {
 
-    @EJB
-    private transient TimeKeeperFacadeLocal timeKeeperFacade;
+	@EJB
+	private transient TimeKeeperFacadeLocal timeKeeperFacade;
 
-    /*
-     * Intercepter method within the bean (the bean is the aspect)
-     */
-    @AroundInvoke
-    public Object timerLog(final InvocationContext ctx) throws Exception {
+	/*
+	 * Intercepter method within the bean (the bean is the aspect)
+	 */
+	@AroundInvoke
+	public Object timerLog(final InvocationContext ctx) throws Exception {
 
-        // TODO: include timezone from config file...
-        TimeZone timezone;
-        timezone = TimeZone.getDefault();
-        Calendar start = Calendar.getInstance(timezone);
+		// TODO: include timezone from config file...
+		TimeZone timezone;
+		timezone = TimeZone.getDefault();
+		Calendar start = Calendar.getInstance(timezone);
 
-        Object response = null;
-        response = ctx.proceed();
+		Object response = null;
+		response = ctx.proceed();
 
-        OperationTimestampEntity stamp;
-        stamp = new OperationTimestampEntity();
-        stamp.setOperationName(ctx.getMethod().getName());
-        stamp.setDate(start);
-        stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis() - start.getTimeInMillis());
-        stamp.setStatus(true);
-        stamp.setClientId("TODO: get client ID");
-        timeKeeperFacade.create(stamp);
+		OperationTimestampEntity stamp;
+		stamp = new OperationTimestampEntity();
+		stamp.setOperationName(ctx.getMethod().getName());
+		stamp.setDate(start);
+		stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis()
+				- start.getTimeInMillis());
+		stamp.setStatus(true);
+		stamp.setClientId("TODO: get client ID");
+		timeKeeperFacade.create(stamp);
 
-        return response;
-    }
+		return response;
+	}
 }

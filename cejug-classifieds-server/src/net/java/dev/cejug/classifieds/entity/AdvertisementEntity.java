@@ -37,6 +37,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -51,7 +52,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
  */
 @Entity
 @Table(name = "ADVERTISEMENT")
-@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId")
+@NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId"))
 public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	public static final class QUERIES {
 		/**
@@ -110,6 +111,24 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private AdvertisementStatus state = AdvertisementStatus.ONLINE;
+
+	@JoinColumn(referencedColumnName = "ID", name = "ATTACHMENT", nullable = true)
+	private AttachmentEntity avatar;
+
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "ID", nullable = true) private AttachmentEntity
+	 * attachment;
+	 */
+
+	public AttachmentEntity getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(AttachmentEntity avatar) {
+		this.avatar = avatar;
+	}
 
 	public String getTitle() {
 

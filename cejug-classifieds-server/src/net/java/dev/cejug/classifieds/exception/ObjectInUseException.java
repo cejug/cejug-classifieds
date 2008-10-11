@@ -8,48 +8,51 @@ package net.java.dev.cejug.classifieds.exception;
  */
 public class ObjectInUseException extends Exception {
 
-    /**
-     * ObjectInUseException.java.
-     */
-    private static final long serialVersionUID = -4523245787125785648L;
+	/**
+	 * ObjectInUseException.java.
+	 */
+	private static final long serialVersionUID = -4523245787125785648L;
 
-    /**
-     * Constructor.
-     */
-    public ObjectInUseException() {
+	/**
+	 * Constructor.
+	 */
+	public ObjectInUseException() {
 
-        super();
-    }
+		super();
+	}
 
-    /**
-     * Constructor.
-     * @param message
-     */
-    public ObjectInUseException(String message) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param message
+	 */
+	public ObjectInUseException(String message) {
 
-        super(message);
+		super(message);
 
-    }
+	}
 
-    /**
-     * Constructor.
-     * @param cause
-     */
-    public ObjectInUseException(Throwable cause) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param cause
+	 */
+	public ObjectInUseException(Throwable cause) {
 
-        super(cause);
+		super(cause);
 
-    }
+	}
 
-    /**
-     * Constructor.
-     * @param message
-     * @param cause
-     */
-    public ObjectInUseException(String message, Throwable cause) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param message
+	 * @param cause
+	 */
+	public ObjectInUseException(String message, Throwable cause) {
 
-        super(message, cause);
+		super(message, cause);
 
-    }
+	}
 
 }

@@ -117,7 +117,8 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			feedAttributes.add(factory.createFeedId(id));
 
 			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade.readByCategory(filter.getCategoryId());
+			List<AdvertisementEntity> result = advFacade.readByCategory(filter
+					.getCategoryId());
 
 			for (AdvertisementEntity adv : result) {
 				EntryType entry = factory.createEntryType();

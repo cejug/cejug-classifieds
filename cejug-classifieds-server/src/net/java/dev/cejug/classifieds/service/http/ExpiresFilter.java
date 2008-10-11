@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.service.http;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import javax.servlet.Filter;
@@ -18,11 +19,15 @@ import javax.servlet.http.HttpServletResponse;
  * of the next possible deployment time, to support browser caching.
  * 
  * @author Chris Webster
- * @see <a href='http://blogs.sun.com/cwebster/entry/caching_static_resources_in_glassfish'>Cachi
- *      n g static resources in glassfish</a>
+ * @see <a href=
+ *      'http://blogs.sun.com/cwebster/entry/caching_static_resources_in_glassfi
+ *      s h ' > C a c h i n g static resources in glassfish</a>
  */
 public class ExpiresFilter implements Filter {
 
+	private static final String MAX_AGE = "max-age={1};public;must-revalidate;";
+	private static final String CACHE_CONTROL = "Cache-Control";
+	private static final String EXPIRES_HEADER = "Expires";
 	private transient FilterConfig filterConfig;
 	private transient final String expires;
 	private transient long nextDeploymentTime;
@@ -63,14 +68,14 @@ public class ExpiresFilter implements Filter {
 			ServletException {
 
 		HttpServletResponse sr = (HttpServletResponse) response;
-		sr.setHeader("Expires", expires);
+		sr.setHeader(EXPIRES_HEADER, expires);
 
 		long now = (new Date()).getTime();
 
 		long expireTime = nextDeploymentTime - now;
 		expireTime %= 1000;
-		sr.setHeader("Cache-Control", "max-age=" + Long.toString(expireTime)
-				+ ";public;must-revalidate;");
+		sr.setHeader(CACHE_CONTROL, MessageFormat.format(MAX_AGE, Long
+				.toString(expireTime)));
 
 	}
 
@@ -112,12 +117,7 @@ public class ExpiresFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
-	/**
-	 * Destroy method for this filter
-	 * 
-	 */
 	public void destroy() {
-
 	}
 
 	/**

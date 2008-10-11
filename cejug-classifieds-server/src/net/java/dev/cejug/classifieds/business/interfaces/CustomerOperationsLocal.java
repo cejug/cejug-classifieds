@@ -32,7 +32,6 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
  * @version $Rev: 636 $ ($Date: 2008-09-08 18:25:25 +0200 (Mo, 08 Sep 2008) $)
  */
 @Local
-public interface CustomerOperationsLocal extends
-		CRUDLocal<Customer> {
-  Customer findOrCreate(long domainId, String login);
+public interface CustomerOperationsLocal extends CRUDLocal<Customer> {
+	Customer findOrCreate(long domainId, String login);
 }

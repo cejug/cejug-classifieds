@@ -35,7 +35,7 @@ import net.java.dev.cejug.classifieds.entity.facade.ServiceLifeCycleFacadeLocal;
 
 /**
  * A Servlet to return the service life cycle information through HTTP request.
- *  
+ * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */

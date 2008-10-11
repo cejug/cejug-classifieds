@@ -63,9 +63,9 @@ public class RssFeed extends HttpServlet {
 		SyndicationFilter filter = new SyndicationFilter();
 		String categoryId = request.getParameter("category");
 		try {
-		  filter.setCategoryId(Integer.valueOf(categoryId));
+			filter.setCategoryId(Integer.valueOf(categoryId));
 		} catch (NumberFormatException badNumberString) {
-		  filter.setCategoryId(0);
+			filter.setCategoryId(0);
 		}
 		Rss rss = business.loadRssOperation(filter);
 

@@ -48,6 +48,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
+	// @Basic(fetch = FetchType.LAZY)
 	@Lob
 	@Column(name = "BYTES", nullable = true)
 	private byte[] content;

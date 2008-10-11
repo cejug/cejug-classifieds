@@ -76,7 +76,8 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		entity.setCategory(categoryFacade.read(soap.getCategoryId()));
 		long domainId = soap.getCustomer().getDomainId();
 		String customerLogin = soap.getCustomer().getLogin();
-		CustomerEntity customer = customerFacade.findOrCreate(domainId, customerLogin); 
+		CustomerEntity customer = customerFacade.findOrCreate(domainId,
+				customerLogin);
 		entity.setCustomer(customer);
 		Period period = soap.getPublishingPeriod();
 		entity.setFinish(period.getFinish());

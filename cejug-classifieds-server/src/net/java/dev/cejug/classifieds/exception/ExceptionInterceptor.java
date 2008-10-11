@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.exception;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.PersistenceException;
@@ -34,20 +35,24 @@ import javax.persistence.PersistenceException;
  */
 public class ExceptionInterceptor {
 
-    @AroundInvoke
-    public Object exceptionInterceptor(InvocationContext context) throws Exception {
+	@AroundInvoke
+	public Object exceptionInterceptor(InvocationContext context)
+			throws Exception {
 
-        Object result = null;
+		Object result = null;
 
-        try {
-            result = context.proceed();
-        } catch (PersistenceException pe) {
-            String methodName = context.getMethod().getName();
-            if (methodName.startsWith("delete") && (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
-                throw new ObjectInUseException("Could not delete because object is referenced by another entity.", pe);
-            }
-        }
+		try {
+			result = context.proceed();
+		} catch (PersistenceException pe) {
+			String methodName = context.getMethod().getName();
+			if (methodName.startsWith("delete")
+					&& (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
+				throw new ObjectInUseException(
+						"Could not delete because object is referenced by another entity.",
+						pe);
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 }
