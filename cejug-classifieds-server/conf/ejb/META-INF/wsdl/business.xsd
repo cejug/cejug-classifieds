@@ -33,8 +33,7 @@
 					<xsd:element name="keywords" type="xsd:string" />
 					<xsd:element name="locale" type="common:localeType" />
 					<xsd:element ref="attachments:AvatarImageOrUrl" />
-					<xsd:element name="Uri" type="attachments:ResourceLink"
-						nillable="true" />
+					<xsd:element name="Uri" type="attachments:ResourceLink" />
 					<xsd:element ref="attachments:AttachmentOrUrl" minOccurs="0"
 						maxOccurs="unbounded" />	
 				</xsd:sequence>

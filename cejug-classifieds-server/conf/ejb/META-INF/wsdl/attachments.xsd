@@ -32,7 +32,7 @@
 			</xsd:restriction>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="AvatarImageOrUrl" nillable="true">
+	<xsd:element name="AvatarImageOrUrl">
 		<xsd:complexType>
 			<xsd:choice>
 				<xsd:element type="att:AtavarImage" name="image" />
