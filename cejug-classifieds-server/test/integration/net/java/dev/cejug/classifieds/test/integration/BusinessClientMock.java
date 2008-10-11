@@ -1,5 +1,8 @@
 package net.java.dev.cejug.classifieds.test.integration;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
@@ -7,9 +10,9 @@ import java.util.Random;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.Locale;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.business.AbstractAdvertisement.Avatar;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
@@ -54,6 +57,12 @@ public class BusinessClientMock {
 		Calendar today = GregorianCalendar.getInstance();
 		Period period = new Period();
 		period.setStart(today);
+		
+		Avatar avatar = new Avatar();
+		URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
+		Image image = Toolkit.getDefaultToolkit().createImage(imgUrl);
+		avatar.setAttachmentImage(image);
+		advertisement.setAvatar(avatar);
 
 		Calendar fiveDaysLater = GregorianCalendar.getInstance();
 		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
@@ -69,10 +78,7 @@ public class BusinessClientMock {
 		strGen.setMaxLength(250);
 		advertisement.setText(strGen.generate().toString());
 		advertisement.setCategoryId(category.getEntityId());
-		Locale locale = new Locale();
-		locale.setLanguage("pt");
-		locale.setCountry("BR");
-		advertisement.setLocale(locale);
+		advertisement.setLocale("pt_BR");
 
 		strGen.setAllowSpaces(false);
 		strGen.setMaxLength(20);
