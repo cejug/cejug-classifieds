@@ -16,19 +16,42 @@
 		definition will accept:
 		http://www.w3schools.com/media/media_mimeref.asp
 	-->
-	<xsd:element name="AttachmentImage"
-		xmime:expectedContentTypes="image/jpeg;q=1.0,image/png" type="xsd:base64Binary" />
-	<xsd:element name="AttachmentFlash"
-		xmime:expectedContentTypes="application/x-shockwave-flash" type="xsd:base64Binary" />
-	<xsd:element name="AttachmentMp3"
-		xmime:expectedContentTypes="audio/mpeg" type="xsd:base64Binary" />
-	<xsd:element name="Attachment">
+	<xsd:complexType name="AtavarImage"
+		xmime:expectedContentTypes="image/jpeg;q=1.0, image/png">
+		<xsd:simpleContent>
+			<xsd:restriction base="xmime:base64Binary">
+				<xsd:attribute ref="xmime:contentType" use="required" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="AttachmentMedia"
+		xmime:expectedContentTypes="image/jpeg,image/png,application/x-shockwave-flash,audio/mpeg">
+		<xsd:simpleContent>
+			<xsd:restriction base="xmime:base64Binary">
+				<xsd:attribute ref="xmime:contentType" use="required" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="AvatarImageOrUrl" nillable="true">
 		<xsd:complexType>
 			<xsd:choice>
-				<xsd:element ref="att:AttachmentImage" />
-				<xsd:element ref="att:AttachmentFlash" />
-				<xsd:element ref="att:AttachmentMp3" />
+				<xsd:element type="att:AtavarImage" name="image" />
+				<xsd:element type="att:ResourceLink" name="url" />
 			</xsd:choice>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:attribute name="description" type="xsd:string"
+				use="optional" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AttachmentOrUrl">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element type="att:AttachmentMedia" name="attachment" />
+				<xsd:element type="att:ResourceLink" name="url" />
+			</xsd:choice>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:attribute name="description" type="xsd:string"
+				use="optional" />
 		</xsd:complexType>
 	</xsd:element>
 	<!--

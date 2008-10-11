@@ -1,6 +1,11 @@
 package net.java.dev.cejug.classifieds.test.integration;
 
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
@@ -11,10 +16,12 @@ import javax.imageio.ImageIO;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
+import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
+import net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.business.AbstractAdvertisement.Avatar;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
@@ -60,13 +67,19 @@ public class BusinessClientMock {
 		Period period = new Period();
 		period.setStart(today);
 
-		Avatar avatar = new Avatar();
-		URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
-
 		try {
+			AvatarImageOrUrl avatar = new AvatarImageOrUrl();
+			URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
 			Image image = ImageIO.read(imgUrl);
-			avatar.setAttachmentImage(image);
-			advertisement.setAvatar(avatar);
+			ObjectFactory attachmentFactory = new ObjectFactory();
+			AtavarImage avimage = attachmentFactory.createAtavarImage();
+			avimage.setValue(imageToByteArray(image));
+			avimage.setContentType("image/png");
+			avatar.setImage(avimage);
+			avatar.setName("car.png");
+			avatar.setDescription("test of avatar...");
+			avatar.setUrl(null);
+			advertisement.setAvatarImageOrUrl(avatar);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,5 +113,32 @@ public class BusinessClientMock {
 
 		Advertisement adv = service.publishOperation(advertisement, header);
 		return adv;
+	}
+
+	/**
+	 * @see http://forums.sun.com/thread.jspa?messageID=9470374
+	 * @param image
+	 * @return
+	 * @throws IOException
+	 */
+	public byte[] imageToByteArray(Image image) {
+		MediaTracker tracker = new MediaTracker(new Container());
+		tracker.addImage(image, 0);
+		try {
+			tracker.waitForAll();
+		} catch (InterruptedException e) {
+		}
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),
+				image.getHeight(null), 1);
+		Graphics gc = bufferedImage.createGraphics();
+		gc.drawImage(image, 0, 0, null);
+
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImage, "jpeg", bos);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return bos.toByteArray();
 	}
 }

@@ -112,7 +112,7 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	@Enumerated(EnumType.STRING)
 	private AdvertisementStatus state = AdvertisementStatus.ONLINE;
 
-	@JoinColumn(referencedColumnName = "ID", name = "ATTACHMENT", nullable = true)
+	@JoinColumn(referencedColumnName = "ID", name = "AVATAR", nullable = true)
 	private AttachmentEntity avatar;
 
 	/*

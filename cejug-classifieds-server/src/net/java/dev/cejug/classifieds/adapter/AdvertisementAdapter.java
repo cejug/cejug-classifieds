@@ -23,21 +23,34 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.adapter;
 
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.imageio.ImageIO;
 
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.AdvertisementKeywordEntity;
+import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
 import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementTypeFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.AttachmentFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug.classifieds.entity.facade.CustomerFacadeLocal;
+import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
+import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
+import net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 
@@ -69,7 +82,17 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	@EJB
 	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-	/** {@inheritDoc} */
+	/**
+	 * The persistence facade for Attachment entities.
+	 */
+	@EJB
+	private transient AttachmentFacadeLocal attachmentFacade;
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IOException
+	 */
 	public AdvertisementEntity toEntity(Advertisement soap)
 			throws IllegalStateException, IllegalArgumentException {
 		AdvertisementEntity entity = new AdvertisementEntity();
@@ -83,6 +106,16 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		entity.setFinish(period.getFinish());
 		entity.setStart(period.getStart());
 		entity.setId(soap.getEntityId());
+
+		AttachmentEntity attachment = new AttachmentEntity();
+		AvatarImageOrUrl avatar = soap.getAvatarImageOrUrl();
+		attachment.setName(avatar.getName());
+		attachment.setDescription(avatar.getDescription());
+		attachment.setContent(avatar.getImage().getValue());
+		attachment.setContentType(avatar.getImage().getContentType());
+		attachment.setReference(avatar.getUrl());
+		attachmentFacade.create(attachment);
+		entity.setAvatar(attachment);
 		// TODO: split the string representation
 		entity.setKeywords(splitKeywords(soap.getKeywords()));
 		switch (soap.getStatus()) {
@@ -125,6 +158,23 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		adv.setSummary(entity.getSummary());
 		adv.setText(entity.getText());
 		adv.setTypeId(entity.getType().getId());
+
+		ObjectFactory attachmentsFactory = new ObjectFactory();
+
+		AttachmentEntity attachment = entity.getAvatar();
+
+		AvatarImageOrUrl avatar = attachmentsFactory.createAvatarImageOrUrl();
+
+		// Avatar
+		avatar.setDescription(attachment.getDescription());
+		avatar.setName(attachment.getName());
+		avatar.setUrl(attachment.getReference());
+		AtavarImage avtimg = attachmentsFactory.createAtavarImage();
+		avtimg.setValue(attachment.getContent());
+		avtimg.setContentType(attachment.getContentType());
+		avatar.setImage(avtimg);
+		adv.setAvatarImageOrUrl(avatar);
+
 		return adv;
 	}
 
@@ -163,4 +213,30 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		return collection;
 	}
 
+	/**
+	 * @see http://forums.sun.com/thread.jspa?messageID=9470374
+	 * @param image
+	 * @return
+	 * @throws IOException
+	 */
+	public byte[] imageToByteArray(Image image) {
+		MediaTracker tracker = new MediaTracker(new Container());
+		tracker.addImage(image, 0);
+		try {
+			tracker.waitForAll();
+		} catch (InterruptedException e) {
+		}
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),
+				image.getHeight(null), 1);
+		Graphics gc = bufferedImage.createGraphics();
+		gc.drawImage(image, 0, 0, null);
+
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImage, "jpeg", bos);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return bos.toByteArray();
+	}
 }

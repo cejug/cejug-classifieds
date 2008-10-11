@@ -48,6 +48,17 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
+	@Column(name = "CONTENT_TYPE", nullable = false)
+	private String contentType;
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
 	// @Basic(fetch = FetchType.LAZY)
 	@Lob
 	@Column(name = "BYTES", nullable = true)

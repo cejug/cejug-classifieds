@@ -32,18 +32,11 @@
 					<xsd:element name="headline" type="xsd:string" />
 					<xsd:element name="keywords" type="xsd:string" />
 					<xsd:element name="locale" type="common:localeType" />
-					<xsd:element name="avatar" nillable="true">
-						<xsd:complexType>
-							<xsd:choice>
-								<xsd:element ref="attachments:AttachmentImage" />
-								<xsd:element name="AvatarURL" type="attachments:ResourceLink" />
-							</xsd:choice>
-						</xsd:complexType>
-					</xsd:element>
+					<xsd:element ref="attachments:AvatarImageOrUrl" />
 					<xsd:element name="Uri" type="attachments:ResourceLink"
 						nillable="true" />
-					<xsd:element ref="attachments:Attachment"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="attachments:AttachmentOrUrl" minOccurs="0"
+						maxOccurs="unbounded" />	
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

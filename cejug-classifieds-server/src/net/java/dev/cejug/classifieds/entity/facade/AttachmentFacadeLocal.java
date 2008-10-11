@@ -21,42 +21,18 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.adapter;
+package net.java.dev.cejug.classifieds.entity.facade;
 
-import java.io.IOException;
+import javax.ejb.Local;
+
+import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
 
 /**
- * SOAP &lt;-&gt; ORM mapping interface. The model of persistence layer is
- * different from the model used on the service contract. Due to that, it is
- * necessary a transformation layer, the one that should implement this
- * interface.
- * 
- * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 578 $ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
+ * @see EntityFacade
  */
-public interface SoapOrmAdapter<SoapType, EntityType> {
-
-	/**
-	 * Copies the attribute values from an Entity to an object that can be
-	 * serialized in SOAP messages.
-	 * 
-	 * @param type
-	 *            the JPA entity.
-	 * @return a soap object containing the values of the entity.
-	 */
-	SoapType toSoap(EntityType type) throws IllegalStateException,
-			IllegalArgumentException;
-
-	/**
-	 * Copies the attribute values from an object that can be serialized in SOAP
-	 * messages into an Entity object.
-	 * 
-	 * @param type
-	 *            a soap object containing the values of the entity.
-	 * @return the JPA entity.
-	 * @throws IOException
-	 */
-	EntityType toEntity(SoapType type) throws IllegalStateException,
-			IllegalArgumentException;
+@Local
+public interface AttachmentFacadeLocal extends
+		EntityFacade<AttachmentEntity> {
 }
