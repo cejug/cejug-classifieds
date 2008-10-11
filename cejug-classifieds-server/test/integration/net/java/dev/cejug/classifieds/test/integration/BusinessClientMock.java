@@ -1,11 +1,13 @@
 package net.java.dev.cejug.classifieds.test.integration;
 
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
@@ -57,12 +59,18 @@ public class BusinessClientMock {
 		Calendar today = GregorianCalendar.getInstance();
 		Period period = new Period();
 		period.setStart(today);
-		
+
 		Avatar avatar = new Avatar();
 		URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
-		Image image = Toolkit.getDefaultToolkit().createImage(imgUrl);
-		avatar.setAttachmentImage(image);
-		advertisement.setAvatar(avatar);
+
+		try {
+			Image image = ImageIO.read(imgUrl);
+			avatar.setAttachmentImage(image);
+			advertisement.setAvatar(avatar);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Calendar fiveDaysLater = GregorianCalendar.getInstance();
 		fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
