@@ -217,9 +217,9 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 * @see <a
 	 *      href='http://forums.sun.com/thread.jspa?messageID=9470374'>Converting
 	 *      a java.awt.Image to byte array. </a>
-	 * @param image
-	 * @return
-	 * @throws IOException
+	 * @param image an image.
+	 * @return the image bytes.
+	 * @throws IOException I/O general exception.
 	 */
 	public byte[] imageToByteArray(Image image) {
 		MediaTracker tracker = new MediaTracker(new Container());
