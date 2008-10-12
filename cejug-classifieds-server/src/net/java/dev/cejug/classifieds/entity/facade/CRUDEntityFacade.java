@@ -21,9 +21,9 @@ import net.java.dev.cejug.classifieds.entity.AbstractEntity;
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
- * @see <a *
- *      href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">
- *      Create, * read, update and delete (CRUD)< /a>
+ * @see <a
+ *      href='http://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>Create
+ *      , read, update and delete (CRUD)</a>
  */
 @Stateless
 public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
