@@ -34,7 +34,7 @@ import javax.persistence.TemporalType;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 /**
- * An attchment can be an image, a MP3 sound or a Flash animation. Please check
+ * A resource can be an image, a MP3 sound or a Flash animation. Please check
  * the classifieds contract about the supported media types.
  * 
  * @author $Author: felipegaucho $
