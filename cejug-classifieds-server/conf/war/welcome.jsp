@@ -46,7 +46,7 @@
 	</tr>
 </table>
 <hr />
-<p><a href='./rss' class='rssbutton'>RSS</a> <a href='./atom'
-	class='atombutton'>ATOM</a></p>
+<p><a href='./rss' class='feedbutton rss'>RSS</a> <a href='./atom'
+	class='feedbutton atom'>ATOM</a></p>
 </body>
 </html>
