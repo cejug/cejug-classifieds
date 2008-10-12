@@ -38,6 +38,7 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.Feed;
 import org.w3._2005.atom.GeneratorType;
+import org.w3._2005.atom.IconType;
 import org.w3._2005.atom.IdType;
 import org.w3._2005.atom.LinkType;
 import org.w3._2005.atom.LogoType;
@@ -135,6 +136,13 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 				entrySummary.getContent().add(adv.getSummary());
 				entryAttributes.add(factory
 						.createEntryTypeSummary(entrySummary));
+
+				byte[] avatar = adv.getAvatar().getContent();
+				if (avatar != null && avatar.length > 0) {
+					IconType icon = factory.createIconType();
+					icon.setValue(new String(adv.getAvatar().getContent()));
+					entryAttributes.add(factory.createFeedIcon(icon));
+				}
 
 				LinkType link = factory.createLinkType();
 				link.setHref("/atom?todo=path_to_advs");
