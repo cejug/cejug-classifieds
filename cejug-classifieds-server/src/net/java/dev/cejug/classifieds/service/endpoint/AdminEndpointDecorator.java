@@ -105,6 +105,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	private final static Logger logger = Logger.getLogger(
 			AdminEndpointDecorator.class.getName(), "i18n/log");
 
+	@Override
 	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
 		try {
 			return checkMonitorImpl.checkMonitorOperation(monitor);
@@ -114,6 +115,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus addQuotaOperation(final AddQuotaInfo addQuotaRequest) {
 		/*
 		 * TODO: review completely this code.
@@ -150,11 +152,13 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		return null;
 	}
 
+	@Override
 	public ServiceStatus cancelQuotaOperation(final CancelQuotaInfo request) {
 		// TODO Auto-generated method stub
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public AdvertisementType createAdvertisementTypeOperation(
 			final CreateAdvertisementTypeParam newAdvType) {
 		try {
@@ -165,6 +169,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public AdvertisementCategory createCategoryOperation(
 			final CreateCategoryParam param) {
 		try {
@@ -175,6 +180,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public Domain createDomainOperation(final CreateDomainParam param) {
 		try {
 			System.out
@@ -188,6 +194,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	}
 
+	@Override
 	public ServiceStatus deleteCategoryOperation(
 			final DeleteCategoryParam obsoleteCategory) {
 		try {
@@ -198,11 +205,13 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus deleteDomainOperation(
 			final DeleteDomainParam obsoleteDomain) {
 		return crudDomain.delete(obsoleteDomain.getPrimaryKey());
 	}
 
+	@Override
 	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
 			final BundleRequest bundleRequest) {
 		try {
@@ -217,6 +226,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public DomainCollection readDomainBundleOperation(
 			BundleRequest bundleRequest) {
 		try {
@@ -231,6 +241,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus updateAdvertisementTypeOperation(
 			final UpdateAdvertisementTypeParam partialAdvType) {
 		try {
@@ -242,6 +253,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
 		try {
 			return crudCategory.update(param.getAdvCategory());
@@ -251,6 +263,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus updateDomainOperation(
 			final UpdateDomainParam partialDomain) {
 		try {
@@ -262,6 +275,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus deleteAdvertisementTypeOperation(final long id) {
 		try {
 			return crudAdvType.delete(id);
@@ -272,30 +286,35 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		}
 	}
 
+	@Override
 	public ServiceStatus createCustomerOperation(
 			final CreateCustomerParam newCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public ServiceStatus deleteCustomerOperation(
 			final DeleteCustomerParam obsoleteCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public CustomerCollection readCustomerBundleOperation(
 			final ReadCustomerBundleParam getCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public ServiceStatus updateCustomerOperation(
 			final UpdateCustomerParam partialCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public CategoryCollection readCategoryBundleOperation(
 			BundleRequest bundleRequest) {
 		CategoryCollection collection = new CategoryCollection();
