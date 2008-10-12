@@ -7,6 +7,7 @@
 <%@page
 	import="net.java.dev.cejug_classifieds.metadata.admin.AlivePeriod"%><html>
 <head>
+<link rel='stylesheet' type='text/css' href='basic.css' />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Cejug Classifieds</title>
 </head>
@@ -44,6 +45,8 @@
 		</td>
 	</tr>
 </table>
-
+<hr />
+<p><a href='./rss' class='rssbutton'>RSS</a> <a href='./atom'
+	class='atombutton'>ATOM</a></p>
 </body>
 </html>

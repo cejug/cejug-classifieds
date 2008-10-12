@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+.webfeed {
+	float:left;
+}
+
+
+.rssbutton {
+	color: black;
+	text-decoration: none;
+	font-size: 90%;
+	font-weight: bold;
+	font-variant: small-caps;
+	padding-right: 2px;
+	padding-left:14px;
+	background-image: url('img/rss.png');
+	background-position:left;
+	background-repeat: no-repeat;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: black;
+}
+
+.atombutton {
+	color: black;
+	text-decoration: none;
+	font-size: 90%;
+	font-weight: bold;
+	font-variant: small-caps;
+	padding-right: 2px;
+	padding-left:14px;
+	background-image: url('img/atom.png');
+	background-position:left;
+	background-repeat: no-repeat;
+	border-style: dotted;
+	border-width: 1px;
+	border-color: black;
+}
