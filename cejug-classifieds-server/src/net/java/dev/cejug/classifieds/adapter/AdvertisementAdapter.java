@@ -214,7 +214,9 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	}
 
 	/**
-	 * @see http://forums.sun.com/thread.jspa?messageID=9470374
+	 * @see <a
+	 *      href='http://forums.sun.com/thread.jspa?messageID=9470374'>Converting
+	 *      a java.awt.Image to byte array. </a>
 	 * @param image
 	 * @return
 	 * @throws IOException
