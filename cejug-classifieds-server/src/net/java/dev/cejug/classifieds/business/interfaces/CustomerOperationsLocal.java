@@ -33,5 +33,14 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
  */
 @Local
 public interface CustomerOperationsLocal extends CRUDLocal<Customer> {
+	/**
+	 * Search by an existing customer by login and domain ID. If it exists, load
+	 * and return its data, otherwise create and return a new one.
+	 * 
+	 * @param domainId
+	 *            the domain of the customer (web site).
+	 * @param login
+	 *            the customer login.
+	 */
 	Customer findOrCreate(long domainId, String login);
 }
