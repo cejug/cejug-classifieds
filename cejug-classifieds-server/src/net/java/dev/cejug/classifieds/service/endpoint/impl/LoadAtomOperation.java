@@ -38,7 +38,6 @@ import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.Feed;
 import org.w3._2005.atom.GeneratorType;
-import org.w3._2005.atom.IconType;
 import org.w3._2005.atom.IdType;
 import org.w3._2005.atom.LinkType;
 import org.w3._2005.atom.LogoType;
