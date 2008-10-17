@@ -33,6 +33,5 @@ import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
  * @see EntityFacade
  */
 @Local
-public interface AttachmentFacadeLocal extends
-		EntityFacade<AttachmentEntity> {
+public interface AttachmentFacadeLocal extends EntityFacade<AttachmentEntity> {
 }

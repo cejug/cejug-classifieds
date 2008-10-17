@@ -136,12 +136,13 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 				entryAttributes.add(factory
 						.createEntryTypeSummary(entrySummary));
 
-				/*byte[] avatar = adv.getAvatar().getContent();
-				if (avatar != null && avatar.length > 0) {
-					IconType icon = factory.createIconType();
-					icon.setValue(new String(adv.getAvatar().getContent()));
-					entryAttributes.add(factory.createFeedIcon(icon));
-				}*/
+				/*
+				 * byte[] avatar = adv.getAvatar().getContent(); if (avatar !=
+				 * null && avatar.length > 0) { IconType icon =
+				 * factory.createIconType(); icon.setValue(new
+				 * String(adv.getAvatar().getContent()));
+				 * entryAttributes.add(factory.createFeedIcon(icon)); }
+				 */
 
 				LinkType link = factory.createLinkType();
 				link.setHref("/atom?todo=path_to_advs");

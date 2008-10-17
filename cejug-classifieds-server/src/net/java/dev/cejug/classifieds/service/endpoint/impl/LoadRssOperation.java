@@ -219,7 +219,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 						RssItem item = new RssItem();
 						List<Object> itemAttributes = item
 								.getTitleOrDescriptionOrLink();
-						
+
 						itemAttributes
 								.add(factory
 										.createRssItemAuthor("dev@cejug-classifieds.dev.java.net ("

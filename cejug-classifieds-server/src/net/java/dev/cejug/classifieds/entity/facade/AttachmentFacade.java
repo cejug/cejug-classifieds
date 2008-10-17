@@ -33,7 +33,6 @@ import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
  * @see CRUDEntityFacade
  */
 @Stateless
-public class AttachmentFacade extends
-		CRUDEntityFacade<AttachmentEntity> implements
-		AttachmentFacadeLocal {
+public class AttachmentFacade extends CRUDEntityFacade<AttachmentEntity>
+		implements AttachmentFacadeLocal {
 }
