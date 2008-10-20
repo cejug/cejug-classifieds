@@ -2,12 +2,10 @@
 <project name="cejug-classifieds-web" default="default" basedir=".">
 	<description>Builds, tests, and runs the project cejug-classifieds-web.</description>
 	<import file="nbproject/build-impl.xml" />
+	<import file="quality.xml"/>
+	
 	<property file="build.properties" />
 	<property environment="env" />
-	<property name="jaxws.lib.home" value="${env.JAXWS_HOME}/lib" />
-	<property name="project.lib" value="${basedir}/dev-lib" />
-	<property name="build.home" value="${basedir}/WebContent/WEB-INF/" />
-	<property name="build.classes.home" value="${build.home}/classes" />
 
 	<path id="project.classpath">
 		<pathelement location="${java.home}/../lib/tools.jar" />
@@ -27,6 +25,7 @@
 	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
 		<classpath refid="project.classpath" />
 	</taskdef>
+
 
 	<target name="clean">
 		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
@@ -112,5 +111,4 @@
             <classpath refid="project.classpath" />
         </javac>
     </target>
-
 </project>
