@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<!DOCTYPE dbmonster-schema PUBLIC "-//kernelpanic.pl//DBMonster Database Schema DTD 1.1//EN" "http://dbmonster.kernelpanic.pl/dtd/dbmonster-schema-1.1.dtd">
+<dbmonster-schema>
+  <name>Change me!</name>
+  <table name="DOMAIN_CATEGORY" rows="100">
+    <column name="DOMAIN_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="DOMAIN"/>
+      </generator>
+    </column>
+    <column name="CATEGORY_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="CATEGORY"/>
+      </generator>
+    </column>
+  </table>
+  <table name="CUSTOMER" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="LOGIN" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="DOMAIN" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="DOMAIN"/>
+      </generator>
+    </column>
+  </table>
+  <table name="CATEGORY" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="DESCRIPTION" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="NAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="PARENT_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="40"/>
+        <property name="tableName" value="CATEGORY"/>
+      </generator>
+    </column>
+  </table>
+  <table name="RESPONSE_TIME" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="RESPONSETIME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="long"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+    <column name="STATUS" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="short"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+    <column name="DATE" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DateTimeGenerator">
+        <property name="endDate" value="1970-01-17 12:24:13.127 +0100"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="timestamp"/>
+        <property name="startDate" value="1970-01-01 01:00:00.0 +0100"/>
+      </generator>
+    </column>
+    <column name="CLIENTID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="OPERATIONNAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="FAULT" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="10"/>
+      </generator>
+    </column>
+  </table>
+  <table name="KEYWORD" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="NAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+  </table>
+  <table name="ADVERTISEMENT_KEYWORD" rows="100">
+    <column name="ADVERTISEMENT_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="ADVERTISEMENT"/>
+      </generator>
+    </column>
+    <column name="KEYWORD_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="KEYWORD"/>
+      </generator>
+    </column>
+  </table>
+  <table name="QUOTA" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="AMOUNT" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="integer"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+    <column name="CUSTOMER_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="CUSTOMER"/>
+      </generator>
+    </column>
+    <column name="DOMAIN_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="DOMAIN"/>
+      </generator>
+    </column>
+    <column name="ADVERTISEMENT_TYPE_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="ADVERTISEMENT_TYPE"/>
+      </generator>
+    </column>
+  </table>
+  <table name="LIFE_CYCLE" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="NAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="START" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DateTimeGenerator">
+        <property name="endDate" value="1970-01-17 12:24:13.127 +0100"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="timestamp"/>
+        <property name="startDate" value="1970-01-01 01:00:00.0 +0100"/>
+      </generator>
+    </column>
+    <column name="FINISH" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DateTimeGenerator">
+        <property name="endDate" value="1970-01-17 12:24:13.127 +0100"/>
+        <property name="nulls" value="10"/>
+        <property name="returnedType" value="timestamp"/>
+        <property name="startDate" value="1970-01-01 01:00:00.0 +0100"/>
+      </generator>
+    </column>
+  </table>
+  <table name="ADVERTISEMENT_TYPE" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="DESCRIPTION" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="TEXT_LENGTH" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="long"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+    <column name="NAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="MAX_ATTACHMENT_SIZE" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="long"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+  </table>
+  <table name="ADVERTISEMENT" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="FINISH" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DateTimeGenerator">
+        <property name="endDate" value="1970-01-17 12:24:13.127 +0100"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="timestamp"/>
+        <property name="startDate" value="1970-01-01 01:00:00.0 +0100"/>
+      </generator>
+    </column>
+    <column name="STATE" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DictionaryGenerator">
+        <property name="dictFile" value="advState.zip"/>
+      </generator>
+    </column>
+    <column name="SUMMARY" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="TITLE" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="START" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.DateTimeGenerator">
+        <property name="endDate" value="1970-01-17 12:24:13.127 +0100"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="timestamp"/>
+        <property name="startDate" value="1970-01-01 01:00:00.0 +0100"/>
+      </generator>
+    </column>
+    <column name="TEXT" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="CATEGORY" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="CATEGORY"/>
+      </generator>
+    </column>
+    <column name="ADVERTISEMENT_TYPE_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="ADVERTISEMENT_TYPE"/>
+      </generator>
+    </column>
+    <column name="CUSTOMER_ID" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.ForeignKeyGenerator">
+        <property name="columnName" value="ID"/>
+        <property name="fastMode" value="false"/>
+        <property name="nulls" value="0"/>
+        <property name="tableName" value="CUSTOMER"/>
+      </generator>
+    </column>
+  </table>
+  <table name="DOMAIN" rows="100">
+    <key databaseDefault="true">
+      <generator type="pl.kernelpanic.dbmonster.generator.MaxKeyGenerator">
+        <property name="columnName" value="ID"/>
+      </generator>
+    </key>
+    <column name="SHARED_COTA" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.NumberGenerator">
+        <property name="maxValue" value="127"/>
+        <property name="minValue" value="0"/>
+        <property name="nulls" value="0"/>
+        <property name="returnedType" value="short"/>
+        <property name="scale" value="0"/>
+      </generator>
+    </column>
+    <column name="BRAND" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+    <column name="NAME" databaseDefault="false">
+      <generator type="pl.kernelpanic.dbmonster.generator.StringGenerator">
+        <property name="allowSpaces" value="true"/>
+        <property name="excludeChars" value=""/>
+        <property name="maxLength" value="255"/>
+        <property name="minLength" value="0"/>
+        <property name="nulls" value="0"/>
+      </generator>
+    </column>
+  </table>
+</dbmonster-schema>
