@@ -111,4 +111,11 @@
             <classpath refid="project.classpath" />
         </javac>
     </target>
+	
+	<!-- continuous integration task -->
+	<target name="hudson">
+		<antcall target="generate-stubs" />
+		<antcall target="pmd" />
+		<antcall target="findbugs" />
+	</target>
 </project>
