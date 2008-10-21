@@ -34,10 +34,9 @@ import javax.persistence.PersistenceException;
  * @version $Rev: 627 $ ($Date: 2008-09-22 20:14:57 +0200 (seg, 22 set 2008) $)
  */
 public class ExceptionInterceptor {
-
-	@AroundInvoke
+  @AroundInvoke
 	public Object exceptionInterceptor(InvocationContext context)
-			throws Exception {
+			throws Exception { // NOPMD
 
 		Object result = null;
 

@@ -1,6 +1,7 @@
 package net.java.dev.cejug.classifieds.service.http;
 
 import java.io.IOException;
+import java.lang.annotation.Inherited;
 import java.text.MessageFormat;
 import java.util.Date;
 
@@ -117,6 +118,7 @@ public class ExpiresFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	@Override
 	public void destroy() {
 	}
 
