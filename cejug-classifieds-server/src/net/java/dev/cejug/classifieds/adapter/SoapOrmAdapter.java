@@ -23,8 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.adapter;
 
-import java.io.IOException;
-
 /**
  * SOAP &lt;-&gt; ORM mapping interface. The model of persistence layer is
  * different from the model used on the service contract. Due to that, it is
@@ -55,7 +53,9 @@ public interface SoapOrmAdapter<SoapType, EntityType> {
 	 * @param type
 	 *            a soap object containing the values of the entity.
 	 * @return the JPA entity.
-	 * @throws IOException
+	 * @throws IllegalArgumentException when one of the objects do not match
+	 * the expected type.
+	 * @throws IllegalStateException property copying failure.
 	 */
 	EntityType toEntity(SoapType type) throws IllegalStateException,
 			IllegalArgumentException;
