@@ -129,8 +129,6 @@
 		<delete dir="${generated.dir}" />
 	</target>
 
-
-
 	<!-- Package the persistence entities -->
 	<target name="pack-ejb-entities">
 		<jar jarfile="${build.ear.home}/lib/${ant.project.name}-entities.jar">
