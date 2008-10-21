@@ -331,6 +331,7 @@
 
 	<!-- continuous integration task -->
 	<target name="hudson">
+	    <antcall target="validate.xml.documents" />
 		<antcall target="deploy.and.test" />
 		<antcall target="javadoc.with.uml" />
 		<antcall target="pmd" />

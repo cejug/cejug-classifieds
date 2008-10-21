@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xsd:schema targetNamespace="http://www.w3.org/2005/Atom"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
 	elementFormDefault="qualified" attributeFormDefault="unqualified"
-	xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">

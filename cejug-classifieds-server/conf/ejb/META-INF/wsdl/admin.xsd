@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:admin="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:mime="http://www.w3.org/2005/05/xmlmim" xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
