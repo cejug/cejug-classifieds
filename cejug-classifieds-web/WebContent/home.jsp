@@ -11,12 +11,11 @@
 					to="#{pageFlowScope.output}" />
 			</tr:commandButton>
 		</tr:form>
+		<!-- Loading data from server .... -->
+		<tr:table value="#{adsService.categories}" var="cat">
+			<tr:column headerText="Categories">
+				<h:outputText value="#{cat.name} (#{cat.available})" />
+			</tr:column>
+		</tr:table>
 	</tr:document>
-
-	<!-- How to load data from server ???? -->
-	<tr:table var="cat" value="#{server}">
-		<tr:column headerText="How?">
-			<h:outputText value="#{cat.adsService.categories}" />
-		</tr:column>
-	</tr:table>
 </f:view>

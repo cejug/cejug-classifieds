@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
@@ -9,9 +9,31 @@
 	</application>
 
 	<managed-bean>
-		<managed-bean-name>server</managed-bean-name>
+		<description>
+			This bean is responsible to provide information for the view
+			(jsp).
+		</description>
+		<managed-bean-name>adsBean</managed-bean-name>
 		<managed-bean-class>
 			net.java.dev.cejug.classifieds.view.jsf.AdvertisementBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<description>
+				The relationship with the service layer
+			</description>
+			<property-name>adsService</property-name>
+			<value>#{adsService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<description>
+			This bean perform the business operations for
+			advertisements. Because it doesn't maintain any client
+			specific state, its scope is define as 'application'.
+		</description>
+		<managed-bean-name>adsService</managed-bean-name>
+		<managed-bean-class>
+			net.java.dev.cejug.classifieds.model.service.wsimpl.AdvertisementServiceWSImpl</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 </faces-config>
