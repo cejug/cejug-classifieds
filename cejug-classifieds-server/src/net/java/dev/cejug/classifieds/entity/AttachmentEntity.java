@@ -30,6 +30,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import net.java.dev.cejug.utils.config.Obvious;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 /**
@@ -67,34 +68,42 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	@Column(name = "URL", nullable = true)
 	private String reference;
 
+	@Obvious
 	public String getName() {
 		return name;
 	}
 
+	@Obvious
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Obvious
 	public String getDescription() {
 		return description;
 	}
 
+	@Obvious
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	@Obvious
 	public byte[] getContent() {
 		return Arrays.copyOf(content, content.length);
 	}
 
+	@Obvious
 	public void setContent(byte[] content) {
 		this.content = Arrays.copyOf(content, content.length);
 	}
 
+	@Obvious
 	public String getReference() {
 		return reference;
 	}
 
+	@Obvious
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
