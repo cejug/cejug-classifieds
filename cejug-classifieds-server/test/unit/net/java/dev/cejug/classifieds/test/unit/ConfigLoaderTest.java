@@ -1,13 +1,15 @@
 package net.java.dev.cejug.classifieds.test.unit;
 
-import static org.junit.Assert.fail;
 import junit.framework.Assert;
+
 import net.java.dev.cejug.classifieds.config.ConfigLoader;
 import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.fail;
 
 /**
  * TODO: to comment.
