@@ -18,7 +18,7 @@
                 <h:outputText value="#{cat.name} (#{cat.available})" />
               </h:commandLink>
 			</tr:column>
-            <tr:column headerText="test.2">
+            <tr:column headerText="test.combo">
               <h:selectOneMenu id="categories" value="l"
                                styleClass="selectOneMenu" required="true" >
                   <f:selectItem itemValue="#{cat.entityId}" itemLabel="#{cat.name}" />
