@@ -14,7 +14,9 @@
 		<!-- Loading data from server .... -->
 		<tr:table value="#{adsService.categories}" var="cat">
 			<tr:column headerText="Categories">
-				<h:outputText value="#{cat.name} (#{cat.available})" />
+              <h:commandLink action="#{buildingHandler.select}" immediate="false" value="#{cat.id}">
+                <h:outputText value="#{cat.name} (#{cat.available})" />
+              </h:commandLink>
 			</tr:column>
 		</tr:table>
 	</tr:document>
