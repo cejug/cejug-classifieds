@@ -137,11 +137,7 @@
 	</context-param>
 	
 	
-	<!-- JBoss EL configuration. -->
-	<context-param>
-		<param-name>com.sun.faces.expressionFactory</param-name>
-		<param-value>org.jboss.el.ExpressionFactoryImpl</param-value>
-	</context-param>
+	
 	
 	<!-- Spring Configuration. -->
 		<context-param>

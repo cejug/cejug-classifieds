@@ -23,13 +23,16 @@
 				<ul class="ads">
 				  <tr:iterator id="itAds" value="#{advertisementBean.advertisements}" var="adv">
 					<li class="item">
-						<h3><tr:commandLink id="cmdShowDetail" partialSubmit="true" action="#{advertisementBean.setSelectedAd(adv)}" text="#{adv.text}"></tr:commandLink></h3>
+						<h3>
+						<tr:commandLink id="cmdShowDetail" partialSubmit="true" text="#{adv.text}">
+						   <tr:setActionListener from="#{adv}" to="#{advertisementBean.selectedAd}"/>
+						</tr:commandLink></h3>
 						<p>#{adv.summary}</p>
 					</li>
 					</tr:iterator>					
 				</ul>
 				<tr:outputText 
-				   rendered="#{advertisementBean.advertisements eq null or advertisementBean.advertisements.size() eq 0}" 
+				   rendered="#{advertisementBean.advertisements[0] eq null}" 
 				   value="Your search doesn't return any advertisement">
 			    </tr:outputText>
 			
