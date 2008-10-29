@@ -2,18 +2,21 @@
 <project basedir="." default="audit" name="cejug-classifieds-server">
 	<property file="build.properties" />
 	<property environment="env" />
-	<property name="project.lib" value="${basedir}/dev-lib" />
+	<property name="dev.lib" value="${basedir}/dev-lib" />
 	<property name="build.ear.home" value="${build.home}/ear" />
 	<property name="build.classes.home" value="${build.home}/classes" />
 	<property name="domain" value="domain1" />
 
 	<path id="project.classpath">
-		<pathelement location="${java.home}/../lib/tools.jar" />
+		<!--pathelement location="${java.home}/../lib/tools.jar" /-->
 		<fileset dir="${env.AS_HOME}/lib/">
 			<include name="javaee.jar" />
 			<include name="appserv-ws.jar" />
 		</fileset>
 		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${dev.lib}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -26,7 +29,7 @@
 	</taskdef>
 
 	<target name="findbugs">
-		<findbugs home="${project.lib}/findbugs" output="xml:withMessages" outputFile="${reports.home}/findbugs/findbugs.xml" failOnError="true" effort="max">
+		<findbugs home="${dev.lib}/findbugs" output="xml:withMessages" outputFile="${reports.home}/findbugs/findbugs.xml" failOnError="true" effort="max">
 			<auxClasspath refid="project.classpath" />
 			<sourcePath path="${basedir}/src" />
 			<class location="${build.classes.home}" />
@@ -70,7 +73,7 @@
 
 	<path id="tests.classpath">
 		<pathelement location="${build.classes.home}" />
-		<fileset dir="${project.lib}">
+		<fileset dir="${dev.lib}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -89,7 +92,7 @@
 	<target name="pmd">
 		<!-- where the report will be generated -->
 		<mkdir dir="${reports.home}/pmd" />
-		<pmd rulesetfiles="${project.lib}/pmd/pmd-rules.xml" shortFilenames="true">
+		<pmd rulesetfiles="${dev.lib}/pmd/pmd-rules.xml" shortFilenames="true">
 			<formatter type="html" toFile="${reports.home}/pmd/pmd_report.html" />
 			<formatter type="xml" toFile="${reports.home}/pmd/pmd.xml" />
 			<fileset dir="${basedir}/src">
@@ -120,7 +123,7 @@
 
 	<!-- dbmonster classpath -->
 	<path id="dbmonster.classpath">
-		<fileset dir="${project.lib}/dbmonster">
+		<fileset dir="${dev.lib}/dbmonster">
 			<include name="*.jar" />
 		</fileset>
 		<!-- JDBC driver -->
@@ -132,7 +135,7 @@
 	<!-- Generates random test data using DBMonster (http://dbmonster.kernelpanic.pl/) -->
 	<target name="gendb">
 		<taskdef name="dbmonster" classname="pl.kernelpanic.dbmonster.ant.DBMonsterTask" classpathref="dbmonster.classpath" />
-		<dbmonster config="${project.lib}/dbmonster/dbmonster.properties" verbose="true" schema="${project.lib}/dbmonster/classifieds.xml">
+		<dbmonster config="${dev.lib}/dbmonster/dbmonster.properties" verbose="true" schema="${dev.lib}/dbmonster/classifieds.xml">
 		</dbmonster>
 	</target>
 
@@ -151,7 +154,7 @@
 				<include name="**/*.java" />
 			</fileset>
 		</cpd>
-		<xslt in="${reports.home}/cpd.xml" style="${project.lib}/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
+		<xslt in="${reports.home}/cpd.xml" style="${dev.lib}/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
 		<!--delete file="${reports.home}/cpd/cpd.xml" /-->
 	</target>
 

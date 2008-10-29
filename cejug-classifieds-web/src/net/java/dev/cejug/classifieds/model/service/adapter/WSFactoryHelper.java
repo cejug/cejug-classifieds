@@ -3,8 +3,6 @@ package net.java.dev.cejug.classifieds.model.service.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3._2005.atom.Feed;
-
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.business.Rss;
@@ -22,6 +20,8 @@ import net.java.dev.cejug_classifieds.metadata.common.ReadCustomerBundleParam;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 
+import org.w3._2005.atom.Feed;
+
 /**
  * This is a helper class to abstract the construction of {@link CejugClassifiedsBusiness} WS implementation. 
  * @author Tarso Bessa
@@ -35,12 +35,15 @@ public class WSFactoryHelper {
 	 * @return
 	 */
 	public static CejugClassifiedsBusiness getWebService() {
-		//return new CejugClassifiedsServiceBusiness()
-			//	.getCejugClassifiedsBusiness();
-		return new FakeCejugClassifiedsBusiness();
+	      // TODO: the problem seems the classpath, and not the service interface.
+	      // Don't forgett to turn on the server side (database, server and run
+	      // the ant task of the server module..)
+		return new CejugClassifiedsServiceBusiness().getCejugClassifiedsBusiness();
+		// return new FakeCejugClassifiedsBusiness();
 	}
 	
 	/**
+	 * TODO: convert it to a mock class, it may be usefull for local tests...
 	 * just a fake
 	 * @author Tarso Bessa
 	 *
