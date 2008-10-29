@@ -119,4 +119,47 @@
 		<param-name>facelets.SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	
+	<!-- Special Debug Output for Development -->
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	  
+  <!-- Optional JSF-RI Parameters to Help Debug -->
+	<context-param>
+		<param-name>com.sun.faces.validateXml</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.sun.faces.verifyObjects</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	
+	<!-- JBoss EL configuration. -->
+	<context-param>
+		<param-name>com.sun.faces.expressionFactory</param-name>
+		<param-value>org.jboss.el.ExpressionFactoryImpl</param-value>
+	</context-param>
+	
+	<!-- Spring Configuration. -->
+		<context-param>
+		<description> Locations of the Spring xml files. The wildcard * can be
+	used to load multiple files based on an expression.
+	Example.: /WEB-INF/appContext*.xml loads every xml starting with appContext in WEB-INF folder</description>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/appContext*.xml</param-value>
+	</context-param>
+	<listener>
+		<description>Listener responsible for starting the container</description>
+		<listener-class> org.springframework.web.context.ContextLoaderListener 
+		</listener-class>
+	</listener>
+	
+	<listener>
+		<description>Listener responsible to integrate Spring Container with 'request' and 'session' scopes</description>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
 </web-app>
