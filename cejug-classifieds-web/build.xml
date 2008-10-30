@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="cejug-classifieds-web" default="default" basedir=".">
+<project name="cejug-classifieds-web" default="generate-stubs" basedir=".">
 	<description>Builds, tests, and runs the project cejug-classifieds-web.</description>
 	<import file="nbproject/build-impl.xml" />
 	<import file="quality.xml"/>
