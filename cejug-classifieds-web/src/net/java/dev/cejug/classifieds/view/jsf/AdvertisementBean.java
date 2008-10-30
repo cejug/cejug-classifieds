@@ -32,6 +32,7 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -52,26 +53,16 @@ public class AdvertisementBean {
 	 */
 	private static final String ADS_LIST = "ADS_LIST";
 
-	private WSFactoryHelper adsService = new WSFactoryHelper();
-
-	public void setAdsService(WSFactoryHelper adsService) {
-		this.adsService = adsService;
-	}
-
-	public WSFactoryHelper getAdsService() {
-		return adsService;
-	}
-
 	/**
 	 * The category name used for searching advertisements.
 	 */
-	private String categoryName = "TTTTTTTTTTTT";
+	private String categoryName;
 
 	/**
 	 * The contract used to comunicate with the server. The implementation is
 	 * injected by Spring Container.
 	 */
-	@Resource
+	@Autowired
 	private CejugClassifiedsBusiness classifiedsBusiness;
 
 	private Advertisement selectedAd;
@@ -92,7 +83,7 @@ public class AdvertisementBean {
 	 * @param name
 	 *            category name for searching
 	 */
-	public void searchByCategory(int categoryId) {
+	public void searchByCategory() {
 
 		AdvertisementCollectionFilter acf = new AdvertisementCollectionFilter();
 		acf.setCategory(categoryName);
