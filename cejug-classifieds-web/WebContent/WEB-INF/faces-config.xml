@@ -8,4 +8,33 @@
 		<default-render-kit-id>org.apache.myfaces.trinidad.core</default-render-kit-id>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
+	<managed-bean>
+		<description>
+			This bean is responsible to provide information for the view
+			(jsp).
+		</description>
+		<managed-bean-name>adsBean</managed-bean-name>
+		<managed-bean-class>
+			net.java.dev.cejug.classifieds.view.jsf.AdvertisementBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<description>
+				The relationship with the service layer
+			</description>
+			<property-name>adsService</property-name>
+			<value>#{adsService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<description>
+			This bean perform the business operations for
+			advertisements. Because it doesn't maintain any client
+			specific state, its scope is define as 'application'.
+		</description>
+		<managed-bean-name>adsService</managed-bean-name>
+		<managed-bean-class>
+			net.java.dev.cejug.classifieds.model.service.adapter.WSFactoryHelper
+		</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
 </faces-config>

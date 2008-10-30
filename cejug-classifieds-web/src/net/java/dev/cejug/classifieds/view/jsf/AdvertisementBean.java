@@ -27,6 +27,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.java.dev.cejug.classifieds.model.service.adapter.WSFactoryHelper;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
@@ -51,16 +52,26 @@ public class AdvertisementBean {
 	 */
 	private static final String ADS_LIST = "ADS_LIST";
 
+	private WSFactoryHelper adsService = new WSFactoryHelper();
+
+	public void setAdsService(WSFactoryHelper adsService) {
+		this.adsService = adsService;
+	}
+
+	public WSFactoryHelper getAdsService() {
+		return adsService;
+	}
+
 	/**
 	 * The category name used for searching advertisements.
 	 */
-	private String categoryName;
+	private String categoryName = "TTTTTTTTTTTT";
 
 	/**
 	 * The contract used to comunicate with the server. The implementation is
 	 * injected by Spring Container.
 	 */
-	@Resource	
+	@Resource
 	private CejugClassifiedsBusiness classifiedsBusiness;
 
 	private Advertisement selectedAd;
@@ -81,8 +92,8 @@ public class AdvertisementBean {
 	 * @param name
 	 *            category name for searching
 	 */
-	public void searchByCategory() {
-	
+	public void searchByCategory(int categoryId) {
+
 		AdvertisementCollectionFilter acf = new AdvertisementCollectionFilter();
 		acf.setCategory(categoryName);
 		/*
@@ -92,7 +103,7 @@ public class AdvertisementBean {
 		RequestContextUtils
 				.put(ADS_LIST, classifiedsBusiness.loadAdvertisementOperation(
 						new AdvertisementCollectionFilter()).getAdvertisement());
-		
+
 	}
 
 	public String getCategoryName() {
@@ -102,7 +113,7 @@ public class AdvertisementBean {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
+
 	public Advertisement getSelectedAd() {
 		return selectedAd;
 	}
@@ -110,6 +121,5 @@ public class AdvertisementBean {
 	public void setSelectedAd(Advertisement selectedAd) {
 		this.selectedAd = selectedAd;
 	}
-	
 
 }
