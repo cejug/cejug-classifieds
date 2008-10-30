@@ -7,4 +7,7 @@
     
 	<bean id="classifiedsBusiness" class="net.java.dev.cejug.classifieds.model.service.adapter.WSFactoryHelper"
 	    factory-method="getWebService"></bean>
+	<!--  
+	  <bean id="classifiedsBusiness" class="net.java.dev.cejug.classifieds.model.service.adapter.FakeCejugClassifiedsBusiness"></bean>
+	  -->
 </beans>
