@@ -24,7 +24,6 @@
 package net.java.dev.cejug.classifieds.test.integration.business;
 
 import junit.framework.Assert;
-
 import net.java.dev.cejug.classifieds.test.integration.AbstractServiceTestCase;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;

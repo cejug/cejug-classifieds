@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="deploy" name="cejug-classifieds-server">
 	<property file="build.properties" />
+	<import file="quality.xml" />
 	<property environment="env" />
-	<property name="project.lib" value="${basedir}/lib" />
-	<property name="build.ear.home" value="${build.home}/ear" />
-	<property name="build.classes.home" value="${build.home}/classes" />
-	<property name="domain" value="domain1" />
-
-    <property name="doc.doctitle" value="&lt;h1&gt;Cejug-Classifieds Server&lt;/h1&gt;" />
-    <property name="doc.bottom" value='&lt;i&gt;&lt;small&gt;This library is free software; you can redistribute
-    it and/or modify it under the terms of the &lt;b&gt;
-        &lt;a href="http://www.gnu.org/licenses/lgpl-3.0.txt" class="extiw" title="w:GNU Lesser General Public License"&gt;GNU
-    Lesser General Public License&lt;/a&gt;
-    &lt;/b&gt; as published by the &lt;a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" class="extiw" title="w:Free Software Foundation"&gt;Free Software
-    Foundation&lt;/a&gt;; either version 3.0 of the License, or (at your option)
-    any later version. This library is distributed in the hope that it
-    will be useful, but WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/small&gt;&lt;/i&gt;' />
 
 	<path id="project.classpath">
 		<fileset dir="${env.AS_HOME}/lib/">
@@ -34,20 +20,6 @@
 	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport" description="https://jax-ws.dev.java.net/jax-ws-ea3/docs/wsimport.html">
 		<classpath refid="project.classpath" />
 	</taskdef>
-	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" description="http://findbugs.sourceforge.net/manual/anttask.html">
-		<classpath refid="project.classpath" />
-	</taskdef>
-	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" description="http://pmd.sourceforge.net/ant-task.html">
-		<classpath refid="project.classpath" />
-	</taskdef>
-
-	<target name="findbugs">
-		<findbugs home="${project.lib}/ext/findbugs" output="xml:withMessages" outputFile="${reports.home}/findbugs/findbugs.xml" failOnError="true" effort="max">
-			<auxClasspath refid="project.classpath" />
-			<sourcePath path="${basedir}/src" />
-			<class location="${basedir}/build/classes" />
-		</findbugs>
-	</target>
 
 	<target name="clean">
 		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
@@ -228,7 +200,7 @@
 
 
 	<!-- it deploys the application and wait a few seconds before to start the tests -->
-	<target name="deploy.and.test">
+	<target name="deploy.and.test" description="compile, deplox and test the Java EE 5 Web-Service.">
 		<condition property="serveronline">
 			<and>
 				<http url="http://localhost:8080" />
@@ -239,7 +211,7 @@
 
 		<antcall target="deploy" />
 		<echo message="Waiting the deployment of the EAR." level="info" />
-		<sleep milliseconds="2000" />
+		<sleep milliseconds="3000" />
 		<waitfor maxwait="5000" maxwaitunit="millisecond" checkevery="250">
 			<http url="${service.admin.wsdllocation}" />
 		</waitfor>
@@ -255,39 +227,6 @@
 			<formatter type="xml" />
 			<jvmarg value="-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=${log}" />
 		</junit>
-	</target>
-
-	<!-- Verify source code with PMD -->
-	<target name="pmd">
-		<!-- where the report will be generated -->
-		<mkdir dir="${reports.home}/pmd" />
-		<pmd rulesetfiles="${project.lib}/ext/pmd/pmd-rules.xml" shortFilenames="true">
-			<formatter type="html" toFile="${reports.home}/pmd/pmd_report.html" />
-			<formatter type="xml" toFile="${reports.home}/pmd/pmd.xml" />
-			<fileset dir="${basedir}/src">
-				<include name="**/*.java" />
-			</fileset>
-			<fileset dir="${basedir}/generated">
-				<include name="**/*.java" />
-			</fileset>
-		</pmd>
-	</target>
-
-	<target name="validate.xml.documents">
-		<xmlvalidate failonerror="yes" lenient="no" warn="yes">
-			<fileset dir="${contract.folder}" includes="**/**" />
-			<attribute name="http://apache.org/xml/features/nonvalidating/load-dtd-grammar" value="false" />
-			<attribute name="http://apache.org/xml/features/validation/dynamic" value="true" />
-			<attribute name="http://xml.org/sax/features/validation" value="true" />
-			<attribute name="http://apache.org/xml/features/validation/schema" value="true" />
-			<attribute name="http://apache.org/xml/features/validation/schema-full-checking" value="true" />
-			<attribute name="http://apache.org/xml/features/allow-java-encodings" value="true" />
-		</xmlvalidate>
-
-		<!-- http://xerces.apache.org/xerces-j/features.html -->
-		<!--schemavalidate failonerror="yes" lenient="no" warn="yes" disabledtd="true" fullchecking="false">
-            <fileset dir="${contract.folder}" includes="**/**"/>
-        </schemavalidate-->
 	</target>
 
 	<!-- dbmonster classpath -->
@@ -308,90 +247,13 @@
 		</dbmonster>
 	</target>
 
-	<target name="cpd">
-		<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
-			<classpath refid="project.classpath" />
-		</taskdef>
-		<mkdir dir="${reports.home}/cpd" />
-
-		<cpd minimumTokenCount="20" format="xml" outputFile="${reports.home}/cpd.xml" encoding="UTF-8">
-			<fileset dir="${basedir}/src">
-				<include name="**/*.java" />
-			</fileset>
-			<!-- I don't think that it makes sense to check generated code -->
-			<fileset dir="${basedir}/generated">
-				<include name="**/*.java" />
-			</fileset>
-		</cpd>
-		<xslt in="${reports.home}/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
-		<!--delete file="${reports.home}/cpd/cpd.xml" /-->
-	</target>
-
 	<!-- continuous integration task -->
 	<target name="hudson">
-	    <antcall target="validate.xml.documents" />
 		<antcall target="deploy.and.test" />
+		<antcall target="validate.xml.documents" />
 		<antcall target="javadoc.with.uml" />
 		<antcall target="pmd" />
+		<antcall target="cpd" />
 		<antcall target="findbugs" />
 	</target>
-
-	<path id="javadoc.classpath">
-		<fileset dir="${env.AS_HOME}/lib/">
-			<include name="javaee.jar" />
-			<include name="appserv-ws.jar" />
-		</fileset>
-		<fileset dir="${project.lib}">
-			<include name="**/*.jar" />
-		</fileset>
-            <fileset dir="${basedir}/generated">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${basedir}/src">
-                <include name="**/*.java" />
-            </fileset>
-	</path>
-	    
-    <target name="javadoc">
-        <javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
-            <link href="${doc.j2se}" />
-            <link href="${doc.j2ee}" />
-            <tag name="todo" scope="all" description="To do:" />
-            <fileset dir="${basedir}/generated">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${basedir}/src">
-                <include name="**/*.java" />
-            </fileset>
-        </javadoc>
-    </target>
-    
-    <target name="javadoc.with.uml">
-        <javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
-            <link href="${doc.j2se}" />
-            <link href="${doc.j2ee}" />
-            <tag name="todo" scope="all" description="To do:" />
-            <fileset dir="${basedir}/generated">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${basedir}/src">
-                <include name="**/*.java" />
-            </fileset>
-            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${basedir}/lib/ext/umlgraph/UmlGraph.jar">
-                    <param name="-inferrel"/>
-                    <param name="-inferdep"/>
-                	<param name="-useimports"/>                    
-                	<param name="-inferdepvis" value="public"/>                    
-                    <param name="-hide" value="java.*"/>
-                    <param name="-collpackages" value="java.util.*"/>
-                    <param name="-qualify"/>
-                    <param name="-postfixpackage"/>
-                    <param name="-nodefontsize" value="9"/>
-                    <param name="-nodefontpackagesize" value="7"/>
-                    <param name="-link" value="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/"/>
-                    <param name="-link" value="${doc.j2se}"/>
-                	<param name="-link" value="${doc.j2ee}"/>
-            </doclet>
-        </javadoc>
-    </target>
 </project>

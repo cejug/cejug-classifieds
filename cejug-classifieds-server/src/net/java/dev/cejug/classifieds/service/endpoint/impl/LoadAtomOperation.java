@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -32,9 +33,12 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
+import org.w3._2005.atom.ContentType;
+import org.w3._2005.atom.DateTimeType;
 import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.Feed;
 import org.w3._2005.atom.GeneratorType;
@@ -94,6 +98,17 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			title.getContent().add("Cejug Classifieds ATOM");
 			feedAttributes.add(factory.createFeedTitle(title));
 
+			ContentType content = factory.createContentType();
+			content.setSrc("http://cejug-classifieds.dev.java.net/");
+			content.setType("text/html");
+			feedAttributes.add(factory.createEntryTypeContent(content));
+
+			IdType id = factory.createIdType();
+			id.setValue("cejug-classifieds hard code test. TODO: real data...");
+			feedAttributes.add(factory.createEntryTypeId(id));
+
+			content.getOtherAttributes();
+
 			TextType subtitle = factory.createTextType();
 			subtitle.setType("text");
 			subtitle.getContent().add("Cejug Classifieds ATOM SUBTITLE (TODO)");
@@ -112,27 +127,42 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			feedAttributes.add(factory.createFeedGenerator(generator));
 			feedAttributes.add(factory.createFeedContributor(author));
 
-			IdType id = factory.createIdType();
-			id.setValue("urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6");
-			feedAttributes.add(factory.createFeedId(id));
-
 			// TODO: converter filter in a map of parameters...
 			List<AdvertisementEntity> result = advFacade.readByCategory(filter
 					.getCategoryId());
 
 			for (AdvertisementEntity adv : result) {
+				AttachmentEntity avatar = adv.getAvatar();
+
+				if (avatar != null) {
+					byte[] img = avatar.getContent();
+					if (img != null && img.length > 0) {
+
+					}
+				}
 				EntryType entry = factory.createEntryType();
 				List<Object> entryAttributes = entry
 						.getAuthorOrCategoryOrContent();
 
+				IdType entryId = factory.createIdType();
+				entryId.setValue("ADV" + adv.getId());
+				entryAttributes.add(factory.createEntryTypeId(entryId));
+
+				DateTimeType dt = factory.createDateTimeType();
+				dt.setValue(Calendar.getInstance());
+				entryAttributes.add(factory.createEntryTypeUpdated(dt));
+				entryAttributes.add(factory.createEntryTypePublished(dt));
+
 				TextType entryTitle = factory.createTextType();
-				entryTitle.setType("text");
+				entryTitle.setType("text/html");
+
 				entryTitle.getContent().add(adv.getTitle());
 				entryAttributes.add(factory.createEntryTypeTitle(entryTitle));
 
 				TextType entrySummary = factory.createTextType();
 				entrySummary.setType("text");
-				entrySummary.getContent().add(adv.getSummary());
+				entrySummary.getContent()
+						.add(adv.getSummary());
 				entryAttributes.add(factory
 						.createEntryTypeSummary(entrySummary));
 
@@ -143,7 +173,6 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 				 * String(adv.getAvatar().getContent()));
 				 * entryAttributes.add(factory.createFeedIcon(icon)); }
 				 */
-
 				LinkType link = factory.createLinkType();
 				link.setHref("/atom?todo=path_to_advs");
 				// TODO: get from advertisement or domain or category
