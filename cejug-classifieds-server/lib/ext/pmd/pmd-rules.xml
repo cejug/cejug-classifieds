@@ -1,64 +1,66 @@
 <?xml version="1.0"?>
 <ruleset name="customruleset">
 
-  <description>
-  PMD Rules
+	<description>
+		PMD Rules
   </description>
 
-<!-- rule names in http://pmd.sourceforge.net/rules/index.html -->
+	<!-- rule names in http://pmd.sourceforge.net/rules/index.html -->
 
-  <rule ref="rulesets/basic.xml"/>
-  <rule ref="rulesets/braces.xml"/>
-  <rule ref="rulesets/clone.xml"/>
-  <rule ref="rulesets/codesize.xml">
-    <exclude name="ExcessiveClassLength"/>
-    <exclude name="ExcessiveMethodLength"/>
-    <exclude name="ExcessivePublicCount"/>
-    <exclude name="TooManyMethods"/>
-    <exclude name="TooManyFields"/>
-  </rule>
-  <rule ref="rulesets/controversial.xml">
-    <exclude name="UnnecessaryConstructorRule"/>
-    <exclude name="AtLeastOneConstructor"/>
-    <exclude name="UnnecessaryConstructor"/>
-    <exclude name="UnnecessaryParentheses"/>    
-    <!-- exclude name="NullAssignment"/-->
-    <exclude name="DataflowAnomalyAnalysis"/>
-    <exclude name="OnlyOneReturn"/>
-    <exclude name="UnusedModifier"/>
-    <exclude name="DontImportSunRule"/>
-    <exclude name="SuspiciousOctalEscapeRule"/>
-    <exclude name="UnnecessaryParentheses"/>
-  </rule>
-  <rule ref="rulesets/coupling.xml">
-    <exclude name="ExcessiveImports"/>
-  </rule>
-  <rule ref="rulesets/design.xml">
-    <!-- exclude name="UseSingletonRule"/ -->
-    <exclude name="SwitchStmtsShouldHaveDefault"/>
-    <exclude name="ConstructorCallsOverridableMethodRule"/>
-    <exclude name="AccessorClassGenerationRule"/>
-    <exclude name="FinalFieldCouldBeStatic"/>
-    <exclude name="BooleanInstantiation"/>
-    <exclude name="NonStaticInitializer"/>
-    <!-- exclude name="ConfusingTernary"/ -->
-    <exclude name="UncommentedEmptyConstructor"/>
-    <exclude name="AbstractClassWithoutAbstractMethod"/>
-  </rule>
-  <rule ref="rulesets/finalizers.xml"/>
-  <rule ref="rulesets/imports.xml"/>
-  <rule ref="rulesets/j2ee.xml"/>
-  <rule ref="rulesets/javabeans.xml"/>
-  <rule ref="rulesets/naming.xml">
-    <exclude name="ShortVariable"/>
-    <exclude name="LongVariable"/>
-    <exclude name="ShortMethodNameRule"/>
-    <exclude name="VariableNamingConventionsRule"/>
-  </rule>
-  <rule ref="rulesets/imports.xml"/>
-  <rule ref="rulesets/strictexception.xml"/>
-  <rule ref="rulesets/strings.xml">
-    <exclude name="AvoidDuplicateLiterals"/>
-  </rule>
-  <rule ref="rulesets/unusedcode.xml"/>
+	<rule ref="rulesets/basic.xml" />
+	<rule ref="rulesets/braces.xml" />
+	<rule ref="rulesets/clone.xml" />
+	<rule ref="rulesets/codesize.xml">
+		<exclude name="ExcessiveClassLength" />
+		<exclude name="ExcessiveMethodLength" />
+		<exclude name="ExcessivePublicCount" />
+		<exclude name="TooManyMethods" />
+		<exclude name="TooManyFields" />
+	</rule>
+	<rule ref="rulesets/controversial.xml">
+		<exclude name="UnnecessaryConstructorRule" />
+		<exclude name="AtLeastOneConstructor" />
+		<exclude name="UnnecessaryConstructor" />
+		<exclude name="UnnecessaryParentheses" />
+		<!-- exclude name="NullAssignment"/-->
+		<exclude name="DataflowAnomalyAnalysis" />
+		<exclude name="OnlyOneReturn" />
+		<exclude name="UnusedModifier" />
+		<exclude name="DontImportSunRule" />
+		<exclude name="SuspiciousOctalEscapeRule" />
+		<exclude name="UnnecessaryParentheses" />
+	</rule>
+	<rule ref="rulesets/coupling.xml">
+		<exclude name="ExcessiveImports" />
+	</rule>
+	<rule ref="rulesets/design.xml">
+		<!-- exclude name="UseSingletonRule"/ -->
+		<exclude name="SwitchStmtsShouldHaveDefault" />
+		<exclude name="ConstructorCallsOverridableMethodRule" />
+		<exclude name="AccessorClassGenerationRule" />
+		<exclude name="FinalFieldCouldBeStatic" />
+		<exclude name="BooleanInstantiation" />
+		<exclude name="NonStaticInitializer" />
+		<!-- exclude name="ConfusingTernary"/ -->
+		<exclude name="UncommentedEmptyConstructor" />
+		<exclude name="AbstractClassWithoutAbstractMethod" />
+	</rule>
+	<rule ref="rulesets/finalizers.xml" />
+	<rule ref="rulesets/imports.xml" />
+	<rule ref="rulesets/j2ee.xml">
+		<exclude name="DoNotUseThreads" />
+	</rule>
+	<rule ref="rulesets/javabeans.xml" />
+	<rule ref="rulesets/naming.xml">
+		<exclude name="ShortVariable" />
+		<exclude name="LongVariable" />
+		<exclude name="ShortMethodNameRule" />
+		<exclude name="VariableNamingConventionsRule" />
+	</rule>
+	<rule ref="rulesets/imports.xml" />
+	<rule ref="rulesets/strictexception.xml" />
+	<rule ref="rulesets/strings.xml">
+		<exclude name="AvoidDuplicateLiterals" />
+	</rule>
+	<rule ref="rulesets/unusedcode.xml" />
 </ruleset>

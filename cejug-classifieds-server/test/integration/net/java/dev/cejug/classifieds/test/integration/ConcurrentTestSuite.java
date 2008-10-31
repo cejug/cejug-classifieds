@@ -13,7 +13,7 @@ import org.junit.runners.model.InitializationError;
 
 public class ConcurrentTestSuite {
 	private transient static final DefaultJUnitNotifier notifier = new DefaultJUnitNotifier();
-	private transient static final int concurrencyFactor = 10;
+	private transient static final int CONCURRENCY_FACTOR = 10;
 
 	@Test
 	public void admin() {
@@ -39,11 +39,11 @@ public class ConcurrentTestSuite {
 		try {
 			Class<?>[] testSuite = annos.value();
 			Thread[] processes = new Thread[testSuite.length
-					* concurrencyFactor];
+					* CONCURRENCY_FACTOR];
 
 			for (int i = 0; i < testSuite.length; i++) {
-				for (int j = 0; j < concurrencyFactor; j++) {
-					processes[i * concurrencyFactor + j] = new Thread(
+				for (int j = 0; j < CONCURRENCY_FACTOR; j++) {
+					processes[i * CONCURRENCY_FACTOR + j] = new Thread(
 							new JUnitRunnable(testSuite[i], notifier));
 					notifier.incrementThreadsCounter();
 				}

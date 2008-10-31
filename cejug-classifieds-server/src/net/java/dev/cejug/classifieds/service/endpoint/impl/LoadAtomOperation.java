@@ -33,7 +33,6 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
-import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
@@ -132,14 +131,13 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 					.getCategoryId());
 
 			for (AdvertisementEntity adv : result) {
-				AttachmentEntity avatar = adv.getAvatar();
-
-				if (avatar != null) {
-					byte[] img = avatar.getContent();
-					if (img != null && img.length > 0) {
-
-					}
-				}
+				/*
+				 * AttachmentEntity avatar = adv.getAvatar();
+				 * 
+				 * 
+				 * if (avatar != null) { byte[] img = avatar.getContent(); if
+				 * (img != null && img.length > 0) { } }
+				 */
 				EntryType entry = factory.createEntryType();
 				List<Object> entryAttributes = entry
 						.getAuthorOrCategoryOrContent();
@@ -161,8 +159,7 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 
 				TextType entrySummary = factory.createTextType();
 				entrySummary.setType("text");
-				entrySummary.getContent()
-						.add(adv.getSummary());
+				entrySummary.getContent().add(adv.getSummary());
 				entryAttributes.add(factory
 						.createEntryTypeSummary(entrySummary));
 

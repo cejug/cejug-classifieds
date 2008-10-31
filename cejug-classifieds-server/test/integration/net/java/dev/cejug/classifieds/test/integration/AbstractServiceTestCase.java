@@ -27,23 +27,29 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsServiceAdmin;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 
 /**
- * 
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public abstract class AbstractServiceTestCase {
+	private static final Object sync = new Object();
+	private transient CejugClassifiedsServiceAdmin adminService = null;
+	private transient CejugClassifiedsServiceBusiness businessService = null;
 
-	private static CejugClassifiedsServiceAdmin adminService = null;
-	private static CejugClassifiedsServiceBusiness businessService = null;
+	public final CejugClassifiedsServiceBusiness getBusinessService() {
+		synchronized (sync) {
 
-	public synchronized static final CejugClassifiedsServiceBusiness getBusinessService() {
-		if (businessService == null) {
-			businessService = new CejugClassifiedsServiceBusiness();
+			if (businessService == null) {
+				businessService = new CejugClassifiedsServiceBusiness();
+			}
 		}
 		return businessService;
 	}
 
-	public synchronized static final CejugClassifiedsServiceAdmin getAdminService() {
-		if (adminService == null) {
-			adminService = new CejugClassifiedsServiceAdmin();
+	public final CejugClassifiedsServiceAdmin getAdminService() {
+		synchronized (sync) {
+			if (adminService == null) {
+				adminService = new CejugClassifiedsServiceAdmin();
+			}
 		}
 		return adminService;
 	}

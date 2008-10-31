@@ -53,9 +53,10 @@ public interface SoapOrmAdapter<SoapType, EntityType> {
 	 * @param type
 	 *            a soap object containing the values of the entity.
 	 * @return the JPA entity.
-	 * @throws IllegalArgumentException when one of the objects do not match
-	 * the expected type.
-	 * @throws IllegalStateException property copying failure.
+	 * @throws IllegalArgumentException
+	 *             when one of the objects do not match the expected type.
+	 * @throws IllegalStateException
+	 *             property copying failure.
 	 */
 	EntityType toEntity(SoapType type) throws IllegalStateException,
 			IllegalArgumentException;

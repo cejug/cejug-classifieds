@@ -16,13 +16,19 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
+/**
+ * REVIEW: review (it is only a test)
+ * 
+ * @author fgaucho
+ * 
+ */
 public class AdminClientMock {
-	private Random random = new Random();
-	private CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin()
+	private transient final Random RANDOM = new Random();
+	private transient final CejugClassifiedsAdmin ADMIN = new CejugClassifiedsServiceAdmin()
 			.getCejugClassifiedsAdmin();
 
 	public CejugClassifiedsAdmin getAdmin() {
-		return admin;
+		return ADMIN;
 	}
 
 	public ServiceStatus deleteDomain(Domain domain) {
@@ -30,22 +36,20 @@ public class AdminClientMock {
 		// remove or inactive the test advertisement
 		DeleteDomainParam deleteParam = new DeleteDomainParam();
 		deleteParam.setPrimaryKey(domain.getEntityId());
-		ServiceStatus deleteStatus = admin.deleteDomainOperation(deleteParam);
-		return deleteStatus;
+		return ADMIN.deleteDomainOperation(deleteParam);
 	}
 
 	public Domain createDomain() {
 		// CREATE
-		// TODO: review (it is only a test)
 		Domain domain = new Domain();
-		String name = "test." + random.nextInt() + "." + random.nextInt();
+		String name = "test." + RANDOM.nextInt() + "." + RANDOM.nextInt();
 		domain.setUri(name);
 		domain.setBrand("Functional Domain");
 		domain.setSharedQuota(false);
 		domain.setTimezone(TimeZone.getDefault().getDisplayName());
 		CreateDomainParam createParam = new CreateDomainParam();
 		createParam.setDomain(domain);
-		domain = admin.createDomainOperation(createParam);
+		domain = ADMIN.createDomainOperation(createParam);
 		return domain;
 	}
 
@@ -57,26 +61,26 @@ public class AdminClientMock {
 		type.setMaxTextLength(250);
 		CreateAdvertisementTypeParam advParam = new CreateAdvertisementTypeParam();
 		advParam.setAdvertisementType(type);
-		return admin.createAdvertisementTypeOperation(advParam);
+		return ADMIN.createAdvertisementTypeOperation(advParam);
 	}
 
 	public AdvertisementCategory createCategory() {
 		AdvertisementCategory category = new AdvertisementCategory();
 		category
-				.setName("cat.name" + random.nextInt() + "." + random.nextInt());
+				.setName("cat.name" + RANDOM.nextInt() + "." + RANDOM.nextInt());
 		category
 				.setDescription("Description "
 						+ System.currentTimeMillis()
 						+ " - this category was created just for testing, feel free to delete it");
 		CreateCategoryParam catParam = new CreateCategoryParam();
 		catParam.setAdvCategory(category);
-		return admin.createCategoryOperation(catParam);
+		return ADMIN.createCategoryOperation(catParam);
 	}
 
 	public void tryToDeleteAdvType(AdvertisementType type) {
 		if (type != null) {
 			try {
-				admin.deleteAdvertisementTypeOperation(type.getEntityId());
+				ADMIN.deleteAdvertisementTypeOperation(type.getEntityId());
 			} catch (Exception error) {
 				System.out.println("Impossible to delete AdvertisementType #"
 						+ type.getEntityId());
@@ -90,7 +94,7 @@ public class AdminClientMock {
 			try {
 				DeleteDomainParam param = new DeleteDomainParam();
 				param.setPrimaryKey(domain.getEntityId());
-				admin.deleteDomainOperation(param);
+				ADMIN.deleteDomainOperation(param);
 			} catch (Exception error) {
 				System.out.println("Impossible to delete Domain #"
 						+ domain.getEntityId());
@@ -104,7 +108,7 @@ public class AdminClientMock {
 			try {
 				DeleteCategoryParam param = new DeleteCategoryParam();
 				param.setPrimaryKey(category.getEntityId());
-				admin.deleteCategoryOperation(param);
+				ADMIN.deleteCategoryOperation(param);
 			} catch (Exception error) {
 				System.out.println("Impossible to delete Category #"
 						+ category.getEntityId());
@@ -116,7 +120,7 @@ public class AdminClientMock {
 	public void tryToDeleteAdvertisement(Advertisement adv) {
 		if (adv != null) {
 			try {
-				admin.deleteAdvertisementTypeOperation(adv.getEntityId());
+				ADMIN.deleteAdvertisementTypeOperation(adv.getEntityId());
 			} catch (Exception error) {
 				System.out.println("Impossible to delete Advertisement #"
 						+ adv.getEntityId());

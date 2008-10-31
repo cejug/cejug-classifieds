@@ -34,7 +34,7 @@ import pl.kernelpanic.dbmonster.DictionaryManager;
 import pl.kernelpanic.dbmonster.generator.StringGenerator;
 
 public class BusinessClientMock {
-	private transient CejugClassifiedsBusiness service = new CejugClassifiedsServiceBusiness()
+	private transient final CejugClassifiedsBusiness SERVICE = new CejugClassifiedsServiceBusiness()
 			.getCejugClassifiedsBusiness();
 	private transient final StringGenerator strGen = new StringGenerator();
 
@@ -105,8 +105,7 @@ public class BusinessClientMock {
 		header.setCustomerDomainId(domain.getEntityId());
 		header.setCustomerLogin("fgaucho");
 
-		Advertisement adv = service.publishOperation(advertisement, header);
-		return adv;
+		return SERVICE.publishOperation(advertisement, header);
 	}
 
 	/**

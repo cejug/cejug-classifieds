@@ -9,7 +9,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses( { LoadAtomIntegrationTest.class,
 		LoadRssIntegrationTest.class, PublishIntegrationTest.class,
 		ReportSpamIntegrationTest.class })
-public class BusinessTestSuite {
+public final class BusinessTestSuite {
+	private BusinessTestSuite() {
+	}
+
 	public static void main(String[] args) {
 		System.out.println(Rss.class.getPackage().getName());
 	}
