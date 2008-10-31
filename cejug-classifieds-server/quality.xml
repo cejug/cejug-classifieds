@@ -125,19 +125,15 @@
 		</taskdef>
 		<mkdir dir="${reports.home}/cpd" />
 
-		<cpd minimumTokenCount="20" format="xml" outputFile="${reports.home}/cpd.xml" encoding="UTF-8">
+		<cpd minimumTokenCount="20" format="xml" outputFile="${reports.home}/cpd/cpd.xml" encoding="UTF-8">
 			<fileset dir="${basedir}/src">
 				<include name="**/*.java" />
 			</fileset>
-			<!-- I don't think that it makes sense to check generated code -->
-			<!--fileset dir="${basedir}/generated">
-				<include name="**/*.java" />
-			</fileset-->
 		</cpd>
-		<xslt in="${reports.home}/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
+		<xslt in="${reports.home}/cpd/cpd.xml" style="${project.lib}/ext/pmd/cpdhtml.xslt" out="${reports.home}/cpd/cpd.html" />
 		<!--delete file="${reports.home}/cpd/cpd.xml" /-->
 	</target>
-
+	
 	<target name="javadoc.with.uml" description="generate javadoc with embedded UML diagrams (http://www.umlgraph.org/).">
 		<javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
 			<link href="${doc.j2se}" />
