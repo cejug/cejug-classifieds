@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skins xmlns="http://myfaces.apache.org/trinidad/skin">
+	<skin>
+		<id>classifieds.default</id>
+		<family>classifieds.default</family>
+		<!--
+			if you want this skin to be for a pda, use
+			org.apache.myfaces.trinidad.pda as the render-kit-id
+		-->
+		<render-kit-id>org.apache.myfaces.trinidad.desktop
+		</render-kit-id>
+		<style-sheet-name>skins/default/main.css
+		</style-sheet-name>
+		<!--
+			we are extending the default, simple skin, so no need for this
+			<extends>xyz</extends>
+		-->
+		<!--
+			no need for this in our bigfont skin <bundle-name>
+			org.apache.myfaces.trinidaddemo.resource.SkinBundle </bundle-name>
+		-->
+	</skin>
+</skins>
