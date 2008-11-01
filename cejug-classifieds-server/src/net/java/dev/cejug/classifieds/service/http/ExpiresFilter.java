@@ -30,7 +30,7 @@ public class ExpiresFilter implements Filter {
 	private static final String EXPIRES_HEADER = "Expires";
 	private transient FilterConfig filterConfig;
 	private transient final String expires;
-	private transient long nextDeploymentTime;
+	private transient long nextDeployment;
 
 	public ExpiresFilter() {
 		// expires = nextDeploymentTime();
@@ -64,18 +64,15 @@ public class ExpiresFilter implements Filter {
 	 * sdf.format(c.getTime()); }
 	 */
 
-	private void addCacheHeaders(ServletResponse response) throws IOException,
-			ServletException {
+	private void addCacheHeaders(final ServletResponse response)
+			throws IOException, ServletException {
 
-		HttpServletResponse sr = (HttpServletResponse) response;
-		sr.setHeader(EXPIRES_HEADER, expires);
+		((HttpServletResponse) response).setHeader(EXPIRES_HEADER, expires);
 
-		long now = (new Date()).getTime();
-
-		long expireTime = nextDeploymentTime - now;
+		long expireTime = nextDeployment - new Date().getTime();
 		expireTime %= 1000;
-		sr.setHeader(CACHE_CONTROL, MessageFormat.format(MAX_AGE, Long
-				.toString(expireTime)));
+		((HttpServletResponse) response).setHeader(CACHE_CONTROL, MessageFormat
+				.format(MAX_AGE, Long.toString(expireTime)));
 
 	}
 
@@ -93,8 +90,9 @@ public class ExpiresFilter implements Filter {
 	 * @exception ServletException
 	 *                if a servlet error occurs
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(final ServletRequest request,
+			final ServletResponse response, final FilterChain chain)
+			throws IOException, ServletException {
 
 		addCacheHeaders(response);
 		chain.doFilter(request, response);
@@ -113,19 +111,20 @@ public class ExpiresFilter implements Filter {
 	 * @param filterConfig
 	 *            The filter configuration object
 	 */
-	private void setFilterConfig(FilterConfig filterConfig) {
+	private void setFilterConfig(final FilterConfig filterConfig) {
 		this.filterConfig = filterConfig;
 	}
 
 	@Override
 	public void destroy() {
+		// nothing to cleanup
 	}
 
 	/**
 	 * Init method for this filter
 	 * 
 	 */
-	public void init(FilterConfig filterConfig) {
+	public void init(final FilterConfig filterConfig) {
 		setFilterConfig(filterConfig);
 	}
 
@@ -134,13 +133,12 @@ public class ExpiresFilter implements Filter {
 	 */
 	@Override
 	public String toString() {
-		if (getFilterConfig() == null) {
-			return ("ExpiresFilter()");
+		StringBuffer buffer = new StringBuffer("ExpiresFilter(");
+		if (getFilterConfig() != null) {
+			buffer.append(getFilterConfig());
 		}
-		StringBuffer sb = new StringBuffer("ExpiresFilter(");
-		sb.append(getFilterConfig());
-		sb.append(')');
-		return (sb.toString());
+		buffer.append(')');
+		return buffer.toString();
 
 	}
 }
