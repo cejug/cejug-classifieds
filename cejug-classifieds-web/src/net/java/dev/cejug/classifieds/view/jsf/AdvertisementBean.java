@@ -25,9 +25,6 @@ package net.java.dev.cejug.classifieds.view.jsf;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import net.java.dev.cejug.classifieds.model.service.adapter.WSFactoryHelper;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;

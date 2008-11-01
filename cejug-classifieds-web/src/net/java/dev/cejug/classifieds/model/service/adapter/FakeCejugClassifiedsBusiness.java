@@ -22,18 +22,16 @@ import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 import org.w3._2005.atom.Feed;
 
 /**
- * TODO: convert it to a mock class, it may be usefull for local tests...
- * just a fake
+ * TODO: convert it to a mock class, it may be usefull for local tests... just a
+ * fake
  * 
  * @author Tarso Bessa
  * 
  */
-public class FakeCejugClassifiedsBusiness implements
-		CejugClassifiedsBusiness {
+public class FakeCejugClassifiedsBusiness implements CejugClassifiedsBusiness {
 
 	@Override
-	public ServiceStatus createCustomerOperation(
-			CreateCustomerParam newCustomer) {
+	public ServiceStatus createCustomerOperation(CreateCustomerParam newCustomer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
