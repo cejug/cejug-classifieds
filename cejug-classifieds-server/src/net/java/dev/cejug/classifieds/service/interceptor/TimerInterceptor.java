@@ -46,22 +46,26 @@ public class TimerInterceptor {
 	 * Intercepter method within the bean (the bean is the aspect)
 	 */
 	@AroundInvoke
-	public Object timerLog(final InvocationContext ctx) throws Exception {
+	public Object timerLog(final InvocationContext ctx)
+			throws TimeKeeperException {
 
 		// TODO: include timezone from config file...
-		TimeZone timezone;
-		timezone = TimeZone.getDefault();
-		Calendar start = Calendar.getInstance(timezone);
+		Calendar start = Calendar.getInstance(TimeZone.getDefault());
 
-		Object response = null;
-		response = ctx.proceed();
+		Object response;
+		try {
+			response = ctx.proceed();
+		} catch (Exception e) {
+			throw new TimeKeeperException(e);
+		}
 
 		OperationTimestampEntity stamp;
 		stamp = new OperationTimestampEntity();
 		stamp.setOperationName(ctx.getMethod().getName());
 		stamp.setDate(start);
-		stamp.setResponseTime(Calendar.getInstance(timezone).getTimeInMillis()
-				- start.getTimeInMillis());
+		stamp
+				.setResponseTime(start.getTimeInMillis()
+						- start.getTimeInMillis());
 		stamp.setStatus(true);
 		stamp.setClientId("TODO: get client ID");
 		timeKeeperFacade.create(stamp);
