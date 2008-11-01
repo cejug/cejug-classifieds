@@ -87,7 +87,7 @@ public class AdvertisementTypeEntity extends AbstractEntity<AdvertisementType>
 	}
 
 	public int compareTo(final AdvertisementTypeEntity other) {
-		return Long.valueOf(getId() - other.getId()).intValue();
+		return (int)(getId() - other.getId());
 	}
 
 	public boolean equals(final Object obj) {
@@ -97,6 +97,6 @@ public class AdvertisementTypeEntity extends AbstractEntity<AdvertisementType>
 	}
 
 	public int hashCode() {
-		return Long.valueOf(getId()).intValue();
+		return (int)(getId());
 	}
 }

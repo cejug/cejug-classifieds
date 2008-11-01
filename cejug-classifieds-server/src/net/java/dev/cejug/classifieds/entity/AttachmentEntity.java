@@ -56,7 +56,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 		return contentType;
 	}
 
-	public void setContentType(String contentType) {
+	public void setContentType(final String contentType) {
 		this.contentType = contentType;
 	}
 
@@ -74,7 +74,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	}
 
 	@Obvious
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -84,7 +84,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	}
 
 	@Obvious
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -94,7 +94,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	}
 
 	@Obvious
-	public void setContent(byte[] content) {
+	public void setContent(final byte[] content) {
 		this.content = Arrays.copyOf(content, content.length);
 	}
 
@@ -104,7 +104,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	}
 
 	@Obvious
-	public void setReference(String reference) {
+	public void setReference(final String reference) {
 		this.reference = reference;
 	}
 }

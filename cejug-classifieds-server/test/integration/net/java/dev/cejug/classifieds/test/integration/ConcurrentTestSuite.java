@@ -35,31 +35,36 @@ public class ConcurrentTestSuite {
 		}
 	}
 
-	private synchronized List<Failure> runAll(Suite.SuiteClasses annos) {
+	/** Synchronization flag. */
+	private static final Object lock = new Object();
+
+	private List<Failure> runAll(Suite.SuiteClasses annos) {
+
 		try {
-			Class<?>[] testSuite = annos.value();
-			Thread[] processes = new Thread[testSuite.length
-					* CONCURRENCY_FACTOR];
+			synchronized (lock) {
+				Class<?>[] testSuite = annos.value();
+				Thread[] processes = new Thread[testSuite.length
+						* CONCURRENCY_FACTOR];
 
-			for (int i = 0; i < testSuite.length; i++) {
-				for (int j = 0; j < CONCURRENCY_FACTOR; j++) {
-					processes[i * CONCURRENCY_FACTOR + j] = new Thread(
-							new JUnitRunnable(testSuite[i], notifier));
-					notifier.incrementThreadsCounter();
+				for (int i = 0; i < testSuite.length; i++) {
+					for (int j = 0; j < CONCURRENCY_FACTOR; j++) {
+						processes[i * CONCURRENCY_FACTOR + j] = new Thread(
+								new JUnitRunnable(testSuite[i], notifier));
+						notifier.incrementThreadsCounter();
+					}
 				}
-			}
 
-			for (Thread t : processes) {
-				t.start();
-			}
+				for (Thread t : processes) {
+					t.start();
+				}
 
-			// TODO: include a decent timer here instead of this blatant
-			// counter.
-			while (notifier.getThreadCounter() > 0) {
-				Thread.yield();
+				// TODO: include a decent timer here instead of this blatant
+				// counter.
+				while (notifier.getThreadCounter() > 0) {
+					Thread.yield();
+				}
+				return notifier.getFailures();
 			}
-
-			return notifier.getFailures();
 		} catch (InitializationError e) {
 			return null;
 		}
