@@ -53,5 +53,4 @@ public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
 				.valueOf(categoryId));
 		return doQuery(query);
 	}
-
 }

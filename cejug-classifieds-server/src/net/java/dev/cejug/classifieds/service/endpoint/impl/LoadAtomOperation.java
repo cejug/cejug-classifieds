@@ -33,10 +33,11 @@ import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.LoadAtomOperationLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
+import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.CategoryFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
 
-import org.w3._2005.atom.ContentType;
 import org.w3._2005.atom.DateTimeType;
 import org.w3._2005.atom.EntryType;
 import org.w3._2005.atom.Feed;
@@ -62,6 +63,9 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 	 */
 	@EJB
 	private transient AdvertisementFacadeLocal advFacade;
+
+	@EJB
+	private transient CategoryFacadeLocal catFacade;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -90,33 +94,9 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			uri.setValue("https://cejug-classifieds.dev.java.net/");
 			authorAttributes.add(factory.createPersonTypeUri(uri));
 			feedAttributes.add(factory.createFeedAuthor(author));
-
 			// Title
 			TextType title = factory.createTextType();
 			title.setType("text");
-			title.getContent().add("Cejug Classifieds ATOM");
-			feedAttributes.add(factory.createFeedTitle(title));
-
-			ContentType content = factory.createContentType();
-			content.setSrc("http://cejug-classifieds.dev.java.net/");
-			content.setType("text/html");
-			feedAttributes.add(factory.createEntryTypeContent(content));
-
-			IdType id = factory.createIdType();
-			id.setValue("cejug-classifieds hard code test. TODO: real data...");
-			feedAttributes.add(factory.createEntryTypeId(id));
-
-			content.getOtherAttributes();
-
-			TextType subtitle = factory.createTextType();
-			subtitle.setType("text");
-			subtitle.getContent().add("Cejug Classifieds ATOM SUBTITLE (TODO)");
-			feedAttributes.add(factory.createFeedSubtitle(subtitle));
-
-			LogoType logo = factory.createLogoType();
-			logo
-					.setValue("https://cejug-classifieds.dev.java.net/images/logo.jpg");
-			feedAttributes.add(factory.createFeedLogo(logo));
 
 			// Generator
 			GeneratorType generator = factory.createGeneratorType();
@@ -125,61 +105,105 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 			generator.setVersion("$Revision$");
 			feedAttributes.add(factory.createFeedGenerator(generator));
 			feedAttributes.add(factory.createFeedContributor(author));
-
-			// TODO: converter filter in a map of parameters...
-			List<AdvertisementEntity> result = advFacade.readByCategory(filter
-					.getCategoryId());
-
-			for (AdvertisementEntity adv : result) {
-				/*
-				 * AttachmentEntity avatar = adv.getAvatar();
-				 * 
-				 * 
-				 * if (avatar != null) { byte[] img = avatar.getContent(); if
-				 * (img != null && img.length > 0) { } }
-				 */
-				EntryType entry = factory.createEntryType();
-				List<Object> entryAttributes = entry
-						.getAuthorOrCategoryOrContent();
-
-				IdType entryId = factory.createIdType();
-				entryId.setValue("ADV" + adv.getId());
-				entryAttributes.add(factory.createEntryTypeId(entryId));
-
-				DateTimeType dt = factory.createDateTimeType();
-				dt.setValue(Calendar.getInstance());
-				entryAttributes.add(factory.createEntryTypeUpdated(dt));
-				entryAttributes.add(factory.createEntryTypePublished(dt));
-
-				TextType entryTitle = factory.createTextType();
-				entryTitle.setType("text/html");
-
-				entryTitle.getContent().add(adv.getTitle());
-				entryAttributes.add(factory.createEntryTypeTitle(entryTitle));
-
-				TextType entrySummary = factory.createTextType();
-				entrySummary.setType("text");
-				entrySummary.getContent().add(adv.getSummary());
-				entryAttributes.add(factory
-						.createEntryTypeSummary(entrySummary));
-
-				/*
-				 * byte[] avatar = adv.getAvatar().getContent(); if (avatar !=
-				 * null && avatar.length > 0) { IconType icon =
-				 * factory.createIconType(); icon.setValue(new
-				 * String(adv.getAvatar().getContent()));
-				 * entryAttributes.add(factory.createFeedIcon(icon)); }
-				 */
-				LinkType link = factory.createLinkType();
-				link.setHref("/atom?todo=path_to_advs");
-				// TODO: get from advertisement or domain or category
-				link.setHreflang("en");
-				link.setTitle(adv.getTitle());
-				link.setType("text");
-				entryAttributes.add(factory.createEntryTypeLink(link));
-
+			LogoType logo = factory.createLogoType();
+			logo
+					.setValue("https://cejug-classifieds.dev.java.net/images/logo.jpg");
+			feedAttributes.add(factory.createFeedLogo(logo));
+			CategoryEntity category = catFacade.read(filter.getCategoryId());
+			IdType id = factory.createIdType();
+			id.setValue("cejug-classifieds hard code test. TODO: real data...");
+			feedAttributes.add(factory.createEntryTypeId(id));
+			if (category == null) {
+				long categoryId = filter.getCategoryId();
+				if (categoryId < 1) {
+					title.getContent().add("Missed category identifier.");
+				} else {
+					title.getContent().add(
+							"Category #" + categoryId + " does not exist.");
+				}
+				feedAttributes.add(factory.createFeedTitle(title));
+				TextType subtitle = factory.createTextType();
+				subtitle.setType("text");
+				subtitle
+						.getContent()
+						.add(
+								"Please check the category id or read our documentation.");
+				feedAttributes.add(factory.createFeedSubtitle(subtitle));
 				atomFeed.getAuthorOrCategoryOrContributor().add(
-						factory.createFeedEntry(entry));
+						factory.createFeedEntry(factory.createEntryType()));
+			} else {
+				title.getContent().add(category.getName());
+				feedAttributes.add(factory.createFeedTitle(title));
+
+				TextType subtitle = factory.createTextType();
+				subtitle.setType("text");
+
+				subtitle.getContent().add(category.getDescription());
+				feedAttributes.add(factory.createFeedSubtitle(subtitle));
+
+				// TODO: converter filter in a map of parameters...
+				List<AdvertisementEntity> result = advFacade
+						.readByCategory(filter.getCategoryId());
+
+				for (AdvertisementEntity adv : result) {
+					/*
+					 * AttachmentEntity avatar = adv.getAvatar();
+					 * 
+					 * 
+					 * if (avatar != null) { byte[] img = avatar.getContent();
+					 * if (img != null && img.length > 0) { } }
+					 */
+					EntryType entry = factory.createEntryType();
+					List<Object> entryAttributes = entry
+							.getAuthorOrCategoryOrContent();
+
+					IdType entryId = factory.createIdType();
+					entryId.setValue("ADV" + adv.getId());
+					entryAttributes.add(factory.createEntryTypeId(entryId));
+
+					DateTimeType dt = factory.createDateTimeType();
+					dt.setValue(Calendar.getInstance());
+					entryAttributes.add(factory.createEntryTypeUpdated(dt));
+					entryAttributes.add(factory.createEntryTypePublished(dt));
+
+					TextType entryTitle = factory.createTextType();
+					entryTitle.setType("html");
+					entryTitle.getContent().add(adv.getTitle());
+					entryAttributes.add(factory
+							.createEntryTypeTitle(entryTitle));
+
+					TextType entrySummary = factory.createTextType();
+					entrySummary.setType("html");
+					entrySummary
+							.getContent()
+							.add(
+									"<p><a href='http://ap.google.com/article/ALeqM5iidrMKZwVNDDlEtkssY6t1xxhg9QD94169T80'><img src='"
+											+ adv.getAvatar().getReference()
+											+ "' alt='racebaitfail' style='float:left;'></a>"
+											+ adv.getSummary() + "</p>");
+
+					entryAttributes.add(factory
+							.createEntryTypeSummary(entrySummary));
+					/*
+					 * byte[] avatar = adv.getAvatar().getContent(); if (avatar
+					 * != null && avatar.length > 0) { IconType icon =
+					 * factory.createIconType(); icon.setValue(new
+					 * String(adv.getAvatar().getContent()));
+					 * entryAttributes.add(factory.createFeedIcon(icon)); }
+					 */
+					LinkType link = factory.createLinkType();
+					link
+							.setHref("http://www.freeke.org/ffg/currentevents/national/racebaitfail.html");
+					link.setRel("alternate");
+					// TODO: get from advertisement or domain or category
+					link.setHreflang("en");
+					link.setTitle(adv.getTitle());
+					link.setType("text");
+					entryAttributes.add(factory.createEntryTypeLink(link));
+
+					atomFeed.getAuthorOrCategoryOrContributor().add(
+							factory.createFeedEntry(entry));
+				}
 			}
 			return atomFeed;
 		} catch (Exception e) {

@@ -60,20 +60,25 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 
 			domain = admin.createDomain();
 			type = admin.createAdvType();
-			category = admin.createCategory();
-			System.out.println("Category ID " + category.getEntityId());
-			adv = business.createAdvertisement(domain, type, category);
+			category = admin.getAnyCategory();
+			System.out.println("Publishing on Category #"
+					+ category.getEntityId());
+			adv = business.createAdvertisement(domain, type, category, true);
+			Assert.assertTrue(adv.getEntityId() != 0);
+			adv = business.createAdvertisement(domain, type, category, false);
 			Assert.assertTrue(adv.getEntityId() != 0);
 		} catch (Exception ee) {
 			ee.printStackTrace();
 			Assert.fail(ee.getMessage());
-		} finally {
-			// TODO: to decide if
-			admin.tryToDeleteAdvertisement(adv);
-			admin.tryToDeleteAdvType(type);
-			admin.tryToDeleteCategory(category);
-			admin.tryToDeleteDomain(domain);
 		}
+		/*
+		 * finally { // TODO: to decide if
+		 * 
+		 * admin.tryToDeleteAdvertisement(adv); admin.tryToDeleteAdvType(type);
+		 * admin.tryToDeleteCategory(category); admin.tryToDeleteDomain(domain);
+		 * 
+		 * }
+		 */
 	}
 
 }

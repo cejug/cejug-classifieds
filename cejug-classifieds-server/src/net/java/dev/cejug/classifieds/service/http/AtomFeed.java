@@ -66,7 +66,13 @@ public class AtomFeed extends HttpServlet {
 		SyndicationFilter filter = new SyndicationFilter();
 		String categoryId = request.getParameter("category");
 		if (categoryId != null) {
-			filter.setCategoryId(Integer.valueOf(categoryId));
+			try {
+				filter.setCategoryId(Integer.valueOf(categoryId));
+			} catch (NumberFormatException error) {
+				// Any value below zero generate an empty Atom feed with
+				// instructions.
+				filter.setCategoryId(0);
+			}
 		}
 		Feed atom = business.loadAtomOperation(filter);
 

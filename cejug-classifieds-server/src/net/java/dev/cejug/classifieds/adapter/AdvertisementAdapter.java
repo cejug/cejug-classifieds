@@ -111,7 +111,6 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		AvatarImageOrUrl avatar = soap.getAvatarImageOrUrl();
 		attachment.setName(avatar.getName());
 		attachment.setDescription(avatar.getDescription());
-		attachment.setContent(avatar.getImage().getValue());
 		attachment.setContentType(avatar.getImage().getContentType());
 		attachment.setReference(avatar.getUrl());
 		attachmentFacade.create(attachment);
@@ -170,7 +169,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		avatar.setName(attachment.getName());
 		avatar.setUrl(attachment.getReference());
 		AtavarImage avtimg = attachmentsFactory.createAtavarImage();
-		avtimg.setValue(attachment.getContent());
+		// avtimg.setValue(attachment.getContent()); // there is no more BLOBs..
 		avtimg.setContentType(attachment.getContentType());
 		avatar.setImage(avtimg);
 		adv.setAvatarImageOrUrl(avatar);

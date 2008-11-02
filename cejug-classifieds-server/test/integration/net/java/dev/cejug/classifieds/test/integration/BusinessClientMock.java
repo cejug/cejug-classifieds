@@ -53,7 +53,8 @@ public class BusinessClientMock {
 	}
 
 	public Advertisement createAdvertisement(Domain domain,
-			AdvertisementType advType, AdvertisementCategory category) {
+			AdvertisementType advType, AdvertisementCategory category,
+			boolean serializeAvatar) {
 		Advertisement advertisement = new Advertisement();
 		Customer customer = new Customer();
 		customer.setLogin("fgaucho");
@@ -70,13 +71,18 @@ public class BusinessClientMock {
 		// URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
 		// Image image = ImageIO.read(imgUrl);
 		ObjectFactory attachmentFactory = new ObjectFactory();
+
 		AtavarImage avimage = attachmentFactory.createAtavarImage();
-		avimage.setValue(getCarPngImage());
 		avimage.setContentType("image/png");
 		avatar.setImage(avimage);
-		avatar.setName("car.png");
+		avatar.setName("car.jpg");
 		avatar.setDescription("test of avatar...");
-		avatar.setUrl(null);
+		if (serializeAvatar) {
+			avimage.setValue(getCarPngImage());
+		} else {
+			avatar
+					.setUrl("http://upload.wikimedia.org/wikipedia/commons/e/e7/Avatar_ItsMine.png");
+		}
 		advertisement.setAvatarImageOrUrl(avatar);
 
 		Calendar fiveDaysLater = GregorianCalendar.getInstance();

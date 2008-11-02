@@ -23,6 +23,9 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.endpoint.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,6 +37,8 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLo
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.exception.RepositoryAccessException;
+import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
@@ -69,7 +74,6 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 	public AdvertisementCollection loadAdvertisementOperation(
 			final AdvertisementCollectionFilter filter) {
-
 		// TODO: load advertisements from timetable.... filtering with periods,
 		// etc..
 
@@ -96,6 +100,14 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			customer.setLogin(header.getCustomerLogin());
 			customer.setDomainId(header.getCustomerDomainId());
 			advertisement.setCustomer(customer);
+
+			// Copy resources to the content repository - the file system.
+			try {
+				copyResourcesToRepository(advertisement);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			advFacade.create(entity);
 			return advAdapter.toSoap(entity);
@@ -104,6 +116,66 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			throw new WebServiceException(e);
 		}
 
+	}
+
+	/**
+	 * A customer can submit a resource URL or a resource content, more common
+	 * in case of images (PNG/JPG). In this case, the server first store the
+	 * image contents in the file system and refer its location in the database.
+	 * This method receives an Avatar object, check it size and store it
+	 * contents in the file system.
+	 * 
+	 * @param advertisement
+	 *            the advertisement containing attachments.
+	 * @return the resource address.
+	 * @throws RepositoryAccessException
+	 *             problems accessing the content repository.
+	 */
+	private String copyResourcesToRepository(Advertisement advertisement)
+			throws RepositoryAccessException {
+		AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
+		if (avatar.getUrl() == null && avatar.getImage() != null) {
+			Customer customer = advertisement.getCustomer();
+
+			String path = "/home/fgaucho/dev/glassfish/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/"
+					+ customer.getDomainId() + "/" + customer.getEntityId();
+			String file = path + "/" + avatar.getName();
+			File pathF = new File(path);
+			File fileF = new File(file);
+
+			try {
+				if (pathF.mkdirs() && fileF.createNewFile()) {
+					FileOutputStream out;
+					out = new FileOutputStream(file);
+					out.write(avatar.getImage().getValue());
+					out.close();
+					avatar
+							.setUrl("http://fgaucho.dyndns.org:8080/cejug-classifieds-server/resource/"
+									+ customer.getDomainId()
+									+ "/"
+									+ customer.getEntityId()
+									+ "/"
+									+ avatar.getName());
+				} else {
+					throw new RepositoryAccessException(
+							"error trying tocreate the resource path '" + file
+									+ "'");
+				}
+			} catch (IOException e) {
+				logger.severe(e.getMessage());
+				throw new RepositoryAccessException(e);
+			}
+		}
+
+		/*
+		 * TODO: copy the attachments to the content repository.
+		 * List<AttachmentOrUrl> attachments =
+		 * advertisement.getAttachmentOrUrl(); for (AttachmentOrUrl attachment :
+		 * attachments) {
+		 * 
+		 * }
+		 */
+		return null;
 	}
 
 	@Override
