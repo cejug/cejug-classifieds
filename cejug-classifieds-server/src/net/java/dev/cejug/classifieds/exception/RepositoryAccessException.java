@@ -25,7 +25,5 @@ public class RepositoryAccessException extends RuntimeException {
 	/** just call the super constructor. */
 	public RepositoryAccessException(String string) {
 		super(string);
-		// TODO Auto-generated constructor stub
 	}
-
 }
