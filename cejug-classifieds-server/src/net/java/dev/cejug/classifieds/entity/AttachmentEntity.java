@@ -23,11 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.entity;
 
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import net.java.dev.cejug.utils.config.Obvious;
@@ -60,11 +57,13 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 		this.contentType = contentType;
 	}
 
-	// @Basic(fetch = FetchType.LAZY)
-	@Lob
-	@Column(name = "BYTES", nullable = true)
-	private byte[] content;
-
+	/*
+	 * @Basic(fetch = FetchType.LAZY)
+	 * 
+	 * @Lob
+	 * 
+	 * @Column(name = "BYTES", nullable = true) private byte[] content;
+	 */
 	@Column(name = "URL", nullable = true)
 	private String reference;
 
@@ -86,16 +85,6 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	@Obvious
 	public void setDescription(final String description) {
 		this.description = description;
-	}
-
-	@Obvious
-	public byte[] getContent() {
-		return Arrays.copyOf(content, content.length);
-	}
-
-	@Obvious
-	public void setContent(final byte[] content) {
-		this.content = Arrays.copyOf(content, content.length);
 	}
 
 	@Obvious
