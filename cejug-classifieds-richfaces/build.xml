@@ -29,7 +29,7 @@
 	<target name="clean">
 		<delete dir="${build.classes.home}" includeEmptyDirs="true" />
 		<delete dir="${build.ear.home}" includeEmptyDirs="true" />
-		<delete dir="${generated.dir}" includeEmptyDirs="true" />
+		<!--delete dir="${generated.dir}" includeEmptyDirs="true" /-->
 	</target>
 
 	<!--
