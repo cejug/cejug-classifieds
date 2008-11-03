@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.view.jsf;
+package net.java.dev.cejug.classifieds.richfaces.view;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
