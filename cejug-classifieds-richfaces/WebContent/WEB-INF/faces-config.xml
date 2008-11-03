@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
 	<application>
-		<message-bundle>net.java.dev.cejug.classifieds.resources.messages</message-bundle>
+		<message-bundle>messages</message-bundle>
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>pt_BR</supported-locale>
