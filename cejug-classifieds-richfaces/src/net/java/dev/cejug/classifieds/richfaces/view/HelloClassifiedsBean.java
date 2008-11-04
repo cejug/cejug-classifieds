@@ -44,14 +44,10 @@ public class HelloClassifiedsBean implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private SelectItem selectedCategory;
+	private String selectedCategory = "";
 
-	public SelectItem getSelectedCategory() {
+	public String getSelectedCategory() {
 		return selectedCategory;
-	}
-
-	public void setSelectedCategory(SelectItem selectedCategory) {
-		this.selectedCategory = selectedCategory;
 	}
 
 	public String getHello() {
@@ -75,7 +71,7 @@ public class HelloClassifiedsBean implements ValueChangeListener {
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-		selectedCategory = (SelectItem) ae.getNewValue();
+		selectedCategory = "WOW";// ((SelectItem) ae.getNewValue());
 	}
 
 }
