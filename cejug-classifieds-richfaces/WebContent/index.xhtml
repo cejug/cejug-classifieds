@@ -12,7 +12,7 @@
 			<h:outputText value="#{helloClassifiedsBean.hello}" />
 			<h:selectOneMenu id="categories"
 				value="#{helloClassifiedsBean.selectedCategory}" onchange="submit()">
-				<f:valueChangeListener type="net.java.dev.cejug.classifieds.richfaces.view.HelloClassifiedsBean" />
+				<f:valueChangeListener type="net.java.dev.cejug.classifieds.richfaces.view.HelloClassifiedsBean" onchange="submit()"/>
 				<f:selectItems value="#{helloClassifiedsBean.categories}" />
 			</h:selectOneMenu>
 			<h:outputText value="Selected: #{helloClassifiedsBean.selectedCategory} &lt;&lt;&lt;&lt;&lt; :)" />
