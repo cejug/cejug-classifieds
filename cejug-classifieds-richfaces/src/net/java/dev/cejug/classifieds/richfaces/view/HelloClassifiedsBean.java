@@ -72,8 +72,10 @@ public class HelloClassifiedsBean implements ValueChangeListener {
 		return list;
 	}
 
+	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
 		selectedCategory = (SelectItem) ae.getNewValue();
 	}
+
 }
