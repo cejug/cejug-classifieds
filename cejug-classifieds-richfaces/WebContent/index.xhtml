@@ -14,14 +14,14 @@
 			<a:form>
 			<a:region >
 				<h:selectOneMenu id="categories" converter="advertisementCategoryConverter" 
-					value="#{helloClassifiedsBean.selectedCategory}" >
+					value="#{helloClassifiedsBean.selectedCategory}" onchange="submit()">
 					<f:selectItems value="#{helloClassifiedsBean.categories}"  />
 				 <a:support event="onchange" reRender="selecionado"></a:support>	
-				
+					<f:valueChangeListener type="net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy" />				
 				</h:selectOneMenu>
+				<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory} &lt;&lt;&lt;&lt;&lt; :)" />
 			</a:region>
 			</a:form>
-			<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
 		</rich:panel>
 	</ui:define>
 </ui:composition>
