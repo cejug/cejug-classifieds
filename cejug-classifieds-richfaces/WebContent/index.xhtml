@@ -19,7 +19,7 @@
 				 <a:support event="onchange" reRender="selecionado"></a:support>	
 					<f:valueChangeListener type="net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy" />				
 				</h:selectOneMenu>
-				<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
+				<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; #{helloClassifiedsBean.size}" />
 			</a:region>
 			</a:form>
 		</rich:panel>

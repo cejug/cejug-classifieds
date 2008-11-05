@@ -38,7 +38,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	}
 	
 	
-	public List<Advertisement> getAdvertisements() {
+	public List<Advertisement> getAdvertisements(String id) {
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
 		filter.setCategory("3"); // TODO: use the selected category here....
 		return service.loadAdvertisementOperation(filter).getAdvertisement();	}
@@ -78,11 +78,25 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		}
 		return list;
 	}
+	
+	private String size;
+	
+	
+	
+	public String getSize() {
+		return this.size==null?"":this.size;
+	}
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
 
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-		System.out.println();
+		setSize(Integer.toString(getAdvertisements(Long.toString(((AdvertisementCategoryWrapper)ae.getNewValue()).getId())).size()));
 		//selectedCategory = (SelectItem) ae.getNewValue();
 	}
 }
