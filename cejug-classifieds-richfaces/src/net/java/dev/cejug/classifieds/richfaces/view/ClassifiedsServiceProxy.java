@@ -18,9 +18,9 @@ import org.springframework.stereotype.Controller;
 
 @Controller(value = "helloClassifiedsBean")
 @Scope("request")
-public class HelloClassifiedsBean implements ValueChangeListener {
+public class ClassifiedsServiceProxy implements ValueChangeListener {
 
-	public HelloClassifiedsBean() {
+	public ClassifiedsServiceProxy() {
 		service = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 		reloadCategories();
