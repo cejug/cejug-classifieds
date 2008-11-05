@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -10,16 +11,19 @@
 	<ui:define name="body">
 		<rich:panel header="Classifieds with Richfaces">
 			<h:outputText value="#{helloClassifiedsBean.hello}" />
-			<h:form>
-				<h:selectOneMenu id="categories" immediate="true"
-					value="#{helloClassifiedsBean.selectedCategory}" onchange="submit()">
-					<f:valueChangeListener
-						type="net.java.dev.cejug.classifieds.richfaces.view.HelloClassifiedsBean" />
-					<f:selectItems value="#{helloClassifiedsBean.categories}" />
+			<a:form>
+			<a:region >
+				<h:selectOneMenu id="categories" converter="advertisementCategoryConverter"
+					value="#{helloClassifiedsBean.selectedCategory}">
+					<f:selectItems value="#{helloClassifiedsBean.categories}"  />
+				<a:support event="onchange" reRender="selecionado"></a:support>	
+					
 				</h:selectOneMenu>
-			</h:form>
-			<h:outputText
-				value="#{helloClassifiedsBean.selectedCategory}" />
+			</a:region>
+			
+			<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
+			
+			</a:form>
 		</rich:panel>
 	</ui:define>
 </ui:composition>
