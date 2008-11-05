@@ -21,8 +21,9 @@
 			org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
-	<converter>  
-    <converter-id>advertisementCategoryConverter</converter-id>  
-    <converter-class>net.java.dev.cejug.classifieds.richfaces.view.AdvertisementCategoryConverter</converter-class>  
-</converter> 
+	<converter>
+		<converter-id>advertisementCategoryConverter</converter-id>
+		<converter-class>
+			net.java.dev.cejug.classifieds.richfaces.view.AdvertisementCategoryConverter</converter-class>
+	</converter>
 </faces-config>

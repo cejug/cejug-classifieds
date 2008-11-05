@@ -10,6 +10,9 @@ import javax.faces.model.SelectItem;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 
@@ -33,6 +36,12 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	public List<AdvertisementCategory> getRegisteredCategories() {
 		return registeredCategories;
 	}
+	
+	
+	public List<Advertisement> getAdvertisements() {
+		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
+		filter.setCategory("3"); // TODO: use the selected category here....
+		return service.loadAdvertisementOperation(filter).getAdvertisement();	}
 
 	/**
 	 * 
@@ -44,13 +53,13 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private String selectedCategory;
+	private AdvertisementCategory selectedCategory;
 
-	public String getSelectedCategory() {
+	public AdvertisementCategory getSelectedCategory() {
 		return selectedCategory;
 	}
 
-	public void setSelectedCategory(String selectedCategory) {
+	public void setSelectedCategory(AdvertisementCategory selectedCategory) {
 		this.selectedCategory = selectedCategory;
 	}
 
@@ -64,7 +73,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		registeredCategories = reloadCategories();
 		if (registeredCategories != null) {
 			for (AdvertisementCategory cat : registeredCategories) {
-				list.add(new SelectItem(cat.getName(), cat.getName()));
+				list.add(new SelectItem(cat, cat.getName()));
 			}
 		}
 		return list;
@@ -73,7 +82,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
+		System.out.println();
 		//selectedCategory = (SelectItem) ae.getNewValue();
 	}
-	
 }

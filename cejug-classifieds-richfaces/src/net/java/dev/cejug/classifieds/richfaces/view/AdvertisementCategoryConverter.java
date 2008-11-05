@@ -11,7 +11,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 public class AdvertisementCategoryConverter implements Converter, Serializable {
 
 	@Override
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
+	public AdvertisementCategory getAsObject(FacesContext arg0, UIComponent arg1, String value) {
 		try {
 			String [] values = value.split(":");
  			AdvertisementCategory ac = new AdvertisementCategory();

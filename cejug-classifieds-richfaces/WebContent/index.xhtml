@@ -13,17 +13,15 @@
 			<h:outputText value="#{helloClassifiedsBean.hello}" />
 			<a:form>
 			<a:region >
-				<h:selectOneMenu id="categories"
-					value="#{helloClassifiedsBean.selectedCategory}">
+				<h:selectOneMenu id="categories" valueChangeListener="#{helloClassifiedsBean.processValueChange}"
+					value="#{helloClassifiedsBean.selectedCategory}" onchange="submit()">
 					<f:selectItems value="#{helloClassifiedsBean.categories}"  />
-				<a:support event="onchange" reRender="selecionado"></a:support>	
-					
+				<!-- a:support event="onchange" reRender="selecionado"></a:support-->	
+				<f:converter converterId="advertisementCategoryConverter"/>					
 				</h:selectOneMenu>
 			</a:region>
-			
-			<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory} &lt;&lt;&lt;&lt;&lt; :)" />
-			
 			</a:form>
+			<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
 		</rich:panel>
 	</ui:define>
 </ui:composition>
