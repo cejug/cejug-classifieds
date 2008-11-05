@@ -44,25 +44,27 @@ public class HelloClassifiedsBean implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private String selectedCategory = "55";
+	private AdvertisementCategory selectedCategory = new AdvertisementCategory();
 
-	public String getSelectedCategory() {
+	public AdvertisementCategory getSelectedCategory() {
 		return selectedCategory;
+	}
+
+	public void setSelectedCategory(AdvertisementCategory selectedCategory) {
+		this.selectedCategory = selectedCategory;
 	}
 
 	public String getHello() {
 		return "Hello Classifieds Richfaces :D";
 	}
-
+ 
 	public List<SelectItem> getCategories() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
 		// TODO: this should be cached somehow..
 		registeredCategories = reloadCategories();
 		if (registeredCategories != null) {
 			for (AdvertisementCategory cat : registeredCategories) {
-				SelectItem item1 = new SelectItem(cat);
-				item1.setLabel(cat.getName());
-				list.add(item1);
+				list.add(new SelectItem(cat, cat.getName()));
 			}
 		}
 		return list;
@@ -71,7 +73,7 @@ public class HelloClassifiedsBean implements ValueChangeListener {
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-		selectedCategory = "it finally works";// ((SelectItem) ae.getNewValue());
+		//selectedCategory = (SelectItem) ae.getNewValue();
 	}
-
+	
 }
