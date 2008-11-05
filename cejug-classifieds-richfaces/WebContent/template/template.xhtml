@@ -21,13 +21,62 @@ body {
 <f:view>
 	<f:loadBundle
 		basename="messages" var="msg" />
-	<rich:panel>
-		<div align="center">
-			<h:graphicImage value="/images/logo002.gif" />
-		</div>
-	</rich:panel>
-	<rich:spacer height="5px;"></rich:spacer>
-	<ui:insert name="body">Default Body</ui:insert>
+	<table style="width: 100%; height: 100%" border="0" cellpadding="0"
+	cellspacing="0">
+	<tr>
+		<td>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="9%"><img
+						src="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo_r1_c1.jpg"
+						width="104" height="95" /></td>
+				<td width="2%" background="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo_r1_c2.jpg">&nbsp;</td>
+				<td width="58%" background="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo_r1_c2.jpg"><img src="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo2_r1_c3.jpg" width="308" height="95" /></td>
+				<td width="29%" valign="middle"
+					background="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo_r1_c2.jpg">
+				<table width="100%" border="0">
+					<tr>
+						<td width="45%">
+						<div align="right" class="style2">Login:</div>
+						</td>
+						<td width="55%"><h:inputText value="" /></td>
+					</tr>
+					<tr>
+						<td>
+						<div align="right" class="style2">Password:</div>
+						</td>
+						<td><h:inputText value="" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><img src="#{facesContext.externalContext.requestContextPath}/images/enter.jpg" width="46" height="17" /></td>
+					</tr>
+				</table>
+				</td>
+				<td width="1%"><img src="#{facesContext.externalContext.requestContextPath}/images/classifieds-logo_r1_c4.jpg"
+					width="14" height="95" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="400px;" valign="top" ><ui:insert name="body">Default Body</ui:insert></td>
+	</tr>
+	<tr>
+		<td>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="1%"><img src="#{facesContext.externalContext.requestContextPath}/images/classifieds-bottom_r1_c1.jpg"
+					width="13" height="35" /></td>
+				<td width="98%" background="#{facesContext.externalContext.requestContextPath}/images/classifieds-bottom_r1_c2.jpg">&nbsp;</td>
+				<td width="1%"><img src="#{facesContext.externalContext.requestContextPath}/images/classifieds-bottom_r1_c5.jpg"
+					width="14" height="35" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
 </f:view>
 </body>
 
