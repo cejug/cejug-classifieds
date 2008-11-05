@@ -11,17 +11,21 @@
 	<ui:define name="body">
 		<rich:panel header="Classifieds with Richfaces">
 			<h:outputText value="#{helloClassifiedsBean.hello}" />
-			<a:form>
-			<a:region >
-				<h:selectOneMenu id="categories" converter="advertisementCategoryConverter" 
-					value="#{helloClassifiedsBean.selectedCategory}" onchange="submit()">
-					<f:selectItems value="#{helloClassifiedsBean.categories}"  />
-				 <a:support event="onchange" reRender="selecionado"></a:support>	
-					<f:valueChangeListener type="net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy" />				
-				</h:selectOneMenu>
-				<h:outputText id="selecionado" value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; #{helloClassifiedsBean.size}" />
+			<a:region>
+				<a:form>
+					<h:selectOneMenu id="categories"
+						converter="advertisementCategoryConverter"
+						value="#{helloClassifiedsBean.selectedCategory}"
+						onchange="submit()">
+						<f:selectItems value="#{helloClassifiedsBean.categories}" />
+						<a:support event="onchange" reRender="selecionado"></a:support>
+						<f:valueChangeListener
+							type="net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy" />
+					</h:selectOneMenu>
+				</a:form>
+				<h:outputText id="selecionado"
+					value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; #{helloClassifiedsBean.size}" />
 			</a:region>
-			</a:form>
 		</rich:panel>
 	</ui:define>
 </ui:composition>

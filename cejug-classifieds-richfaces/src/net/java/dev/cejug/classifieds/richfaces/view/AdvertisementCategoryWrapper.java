@@ -2,23 +2,21 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.io.Serializable;
 
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
+public class AdvertisementCategoryWrapper implements Serializable {
 
-public class AdvertisementCategoryWrapper implements Serializable{
-	
 	private Long id;
-	
+
 	private String name;
 
-	public AdvertisementCategoryWrapper(){
-		
+	public AdvertisementCategoryWrapper() {
+
 	}
-	
-	public AdvertisementCategoryWrapper(Long id, String name){
+
+	public AdvertisementCategoryWrapper(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -59,8 +57,5 @@ public class AdvertisementCategoryWrapper implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

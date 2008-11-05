@@ -11,7 +11,6 @@ import javax.faces.model.SelectItem;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
@@ -36,12 +35,12 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	public List<AdvertisementCategory> getRegisteredCategories() {
 		return registeredCategories;
 	}
-	
-	
+
 	public List<Advertisement> getAdvertisements(String id) {
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
 		filter.setCategory("3"); // TODO: use the selected category here....
-		return service.loadAdvertisementOperation(filter).getAdvertisement();	}
+		return service.loadAdvertisementOperation(filter).getAdvertisement();
+	}
 
 	/**
 	 * 
@@ -59,44 +58,44 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		return selectedCategory;
 	}
 
-	public void setSelectedCategory(AdvertisementCategoryWrapper selectedCategory) {
+	public void setSelectedCategory(
+			AdvertisementCategoryWrapper selectedCategory) {
 		this.selectedCategory = selectedCategory;
 	}
 
 	public String getHello() {
 		return "Hello Classifieds Richfaces :D";
 	}
- 
+
 	public List<SelectItem> getCategories() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
 		// TODO: this should be cached somehow..
 		registeredCategories = reloadCategories();
 		if (registeredCategories != null) {
 			for (AdvertisementCategory cat : registeredCategories) {
-				list.add(new SelectItem(new AdvertisementCategoryWrapper(cat.getEntityId(), cat.getName()), cat.getName()));
+				list.add(new SelectItem(new AdvertisementCategoryWrapper(cat
+						.getEntityId(), cat.getName()), cat.getName()));
 			}
 		}
 		return list;
 	}
-	
-	private String size;
-	
-	
-	
-	public String getSize() {
-		return this.size==null?"":this.size;
-	}
 
+	private String size;
+
+	public String getSize() {
+		return this.size == null ? "" : this.size;
+	}
 
 	public void setSize(String size) {
 		this.size = size;
 	}
 
-
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-		setSize(Integer.toString(getAdvertisements(Long.toString(((AdvertisementCategoryWrapper)ae.getNewValue()).getId())).size()));
-		//selectedCategory = (SelectItem) ae.getNewValue();
+		setSize(Integer.toString(getAdvertisements(
+				Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
+						.getId())).size()));
+		// selectedCategory = (SelectItem) ae.getNewValue();
 	}
 }
