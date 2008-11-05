@@ -44,13 +44,13 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private AdvertisementCategory selectedCategory = new AdvertisementCategory();
+	private String selectedCategory;
 
-	public AdvertisementCategory getSelectedCategory() {
+	public String getSelectedCategory() {
 		return selectedCategory;
 	}
 
-	public void setSelectedCategory(AdvertisementCategory selectedCategory) {
+	public void setSelectedCategory(String selectedCategory) {
 		this.selectedCategory = selectedCategory;
 	}
 
@@ -64,7 +64,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		registeredCategories = reloadCategories();
 		if (registeredCategories != null) {
 			for (AdvertisementCategory cat : registeredCategories) {
-				list.add(new SelectItem(cat, cat.getName()));
+				list.add(new SelectItem(cat.getName(), cat.getName()));
 			}
 		}
 		return list;

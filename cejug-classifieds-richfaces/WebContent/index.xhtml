@@ -13,7 +13,7 @@
 			<h:outputText value="#{helloClassifiedsBean.hello}" />
 			<a:form>
 			<a:region >
-				<h:selectOneMenu id="categories" converter="advertisementCategoryConverter"
+				<h:selectOneMenu id="categories"
 					value="#{helloClassifiedsBean.selectedCategory}">
 					<f:selectItems value="#{helloClassifiedsBean.categories}"  />
 				<a:support event="onchange" reRender="selecionado"></a:support>	
