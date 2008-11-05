@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="cejug-classifieds-web" default="generate-stubs" basedir=".">
 	<description>Builds, tests, and runs the project cejug-classifieds-web.</description>
-	<import file="quality.xml"/>
-	
+	<import file="quality.xml" />
+
 	<property file="build.properties" />
 	<property environment="env" />
 
@@ -96,22 +96,23 @@
 	</target>
 
 	<target name="generate-stubs" depends="setup">
-        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
-            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-        	<xjcarg value="-nv" />
-        </wsimport>
-        <wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
-            <produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
-        </wsimport>
-        <javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**,resources/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
-            <classpath refid="project.classpath" />
-        </javac>
-    </target>
-	
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
+			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+			<xjcarg value="-nv" />
+		</wsimport>
+		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
+			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
+		</wsimport>
+		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**,resources/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
 	<!-- continuous integration task -->
 	<target name="hudson">
 		<antcall target="generate-stubs" />
 		<antcall target="pmd" />
 		<antcall target="findbugs" />
+		<antcall target="javadoc.with.uml" />		
 	</target>
 </project>

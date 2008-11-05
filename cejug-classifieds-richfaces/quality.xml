@@ -147,29 +147,32 @@
 		<antcall target="findbugs" />
 	</target>
 
-	<!-- the glorious bug :( -->
-	<target name="javadoc">
-		<javadoc defaultexcludes="yes" destdir="${basedir}/docs/javadoc" author="true" version="true" windowtitle="Cejug-Classifieds Server" encoding="UTF-8" source="1.6">
-			<packageset dir="${basedir}/src" defaultexcludes="yes">
-				<include name="**/**" />
-			</packageset>
-			<packageset dir="${basedir}/generated" defaultexcludes="yes">
-				<include name="**/**" />
-			</packageset>
-			<doctitle>
-				<![CDATA[<h1>Cejug-Classifieds Server</h1>]]></doctitle>
-		<bottom>
-			<![CDATA[<i>
-			<small>This library is free software; you can redistribute
-		    it and/or modify it under the terms of the <b>
-					<a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License" class="extiw" title="w:GNU Lesser General Public License">GNU
-		    Lesser General Public License</a>
-				</b> as published by the <a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" class="extiw" title="w:Free Software Foundation">Free Software
-		    Foundation</a>; either version 2.1 of the License, or (at your option)
-		    any later version. This library is distributed in the hope that it
-		    will be useful, but WITHOUT ANY WARRANTY; without even the implied
-		    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</small>
-		</i>]]></bottom>
-</javadoc>
-</target>
+	<target name="javadoc.with.uml" description="generate javadoc with embedded UML diagrams (http://www.umlgraph.org/).">
+		<javadoc destdir="${basedir}/docs/javadoc" useexternalfile="true" packagenames="${doc.packages}" classpathref="project.classpath" windowtitle="${doc.windowtitle}" doctitle="${doc.doctitle}" author="true" version="true" use="true" splitindex="true" bottom="${doc.bottom}" encoding="UTF-8" source="1.6">
+			<link href="${doc.j2se}" />
+			<link href="${doc.j2ee}" />
+			<tag name="todo" scope="all" description="To do:" />
+			<fileset dir="${basedir}/generated">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</fileset>
+			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${dev.lib}/umlgraph/UmlGraph.jar">
+				<param name="-inferrel" />
+				<param name="-inferdep" />
+				<param name="-useimports" />
+				<param name="-inferdepvis" value="public" />
+				<param name="-hide" value="java.*" />
+				<param name="-collpackages" value="java.util.*" />
+				<param name="-qualify" />
+				<param name="-postfixpackage" />
+				<param name="-nodefontsize" value="9" />
+				<param name="-nodefontpackagesize" value="7" />
+				<param name="-link" value="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/" />
+				<param name="-link" value="${doc.j2se}" />
+				<param name="-link" value="${doc.j2ee}" />
+			</doclet>
+		</javadoc>
+	</target>
 </project>
