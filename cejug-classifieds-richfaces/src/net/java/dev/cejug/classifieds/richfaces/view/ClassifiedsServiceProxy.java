@@ -35,12 +35,21 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	public List<AdvertisementCategory> getRegisteredCategories() {
 		return registeredCategories;
 	}
-
-	public List<Advertisement> getAdvertisements(String id) {
+	
+	
+	public List<Advertisement> getAdvertisements() {
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
-		filter.setCategory("3"); // TODO: use the selected category here....
-		return service.loadAdvertisementOperation(filter).getAdvertisement();
-	}
+		
+		if(getSelectedCategory() != null && getSelectedCategory().getId() !=null){
+			// To take the selectedCategory just do this: getSelectedCategory().getId().toString()
+			// We can set a default value for the advertisements show when the user access the first time
+			// so this 'if' will be unnecessary :)
+			//filter.setCategory(getSelectedCategory().getId().toString());
+		}
+		
+		filter.setCategory("3"); 
+		
+		return service.loadAdvertisementOperation(filter).getAdvertisement();	}
 
 	/**
 	 * 
@@ -52,7 +61,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private AdvertisementCategoryWrapper selectedCategory;
+	private AdvertisementCategoryWrapper selectedCategory = new AdvertisementCategoryWrapper();
 
 	public AdvertisementCategoryWrapper getSelectedCategory() {
 		return selectedCategory;
@@ -93,9 +102,9 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-		setSize(Integer.toString(getAdvertisements(
-				Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
-						.getId())).size()));
+//		setSize(Integer.toString(getAdvertisements(
+//				Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
+//						.getId())).size()));
 		// selectedCategory = (SelectItem) ae.getNewValue();
 	}
 }
