@@ -9,25 +9,55 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-		<rich:panel header="Classifieds with Richfaces">
-			<h:outputText value="#{helloClassifiedsBean.hello}" />
-			<a:region>
-				<a:form>
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/style.css" />
+		<link class='component' rel='stylesheet' type='text/css'
+			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces' />
+		<link class='component' rel='stylesheet' type='text/css'
+			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces'
+			media='rich-extended-skinning' />
+		<link class='component' rel='stylesheet' type='text/css'
+			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAcss/panel.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces' />
+
+
+		<h:panelGrid columns="2">
+			<a:form>
+				<a:region>
 					<h:selectOneMenu id="categories"
 						converter="advertisementCategoryConverter"
-						value="#{helloClassifiedsBean.selectedCategory}"
-						onchange="submit()">
+						value="#{helloClassifiedsBean.selectedCategory}">
 						<f:selectItems value="#{helloClassifiedsBean.categories}" />
 						<a:support event="onchange" reRender="selecionado"></a:support>
-						<f:valueChangeListener
-							type="net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy" />
 					</h:selectOneMenu>
-				</a:form>
-				<h:outputText id="selecionado"
-					value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; #{helloClassifiedsBean.size}" />
-			</a:region>
-		</rich:panel>
+				</a:region>
+			</a:form>
+			<h:outputText id="selecionado"
+				value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
+		</h:panelGrid>
+
+		<rich:spacer style="height:8px;" />
+
+		<div class="fullscreen dr-pnl dr-pnl">
+			<div class='adtitle'>
+				<div id="j_id13_header" class="dr-pnl-h rich-panel-header">Advertisements</div>
+			</div>
+			<div class="midCenterPane">
+				<div class='offers'>
+					<a:repeat value="#{helloClassifiedsBean.advertisements}" var="ad">
+						<!-- I just show the text value to put the other values -->
+						<!-- ad.valueYouWant  -->
+						<div class='simple thinborder ad.oneColumn spacerright'>
+							<div class='adtitle'>
+								<a href='./test'>Desenvolvedor Jr.Java/FLEX </a>
+								<label>(85) 999 1969</label>
+							</div>
+							<label><h:outputText value="#{ad.text}" /></label>
+						</div>
+					</a:repeat>
+				</div>
+			</div>
+		</div>
+		<rich:spacer style="height:8px;" />
 	</ui:define>
 </ui:composition>
-
 </html>
