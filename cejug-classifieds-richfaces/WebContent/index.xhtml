@@ -35,31 +35,31 @@
 				value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
 		</h:panelGrid>
 
-		<rich:spacer style="height:8px;" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{helloClassifiedsBean.selectedCategory.name}"></h:outputText>
+			</f:facet>
+			<h:form>
+				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}" var="car"
+					columns="4" elements="12">
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="#{car.headline} "></h:outputText>
+						</f:facet>
+						<h:panelGrid columns="2">
+							<h:graphicImage value="#{car.avatarImageOrUrl.url}"/>
+							<h:outputText value="Price:" styleClass="summary"></h:outputText>
+							<h:outputText value="#{car.text}" />
+						</h:panelGrid>
+					</rich:panel>
+					<f:facet name="footer">
+						<rich:datascroller></rich:datascroller>
+					</f:facet>
+				</rich:dataGrid>
+			</h:form>
+		</rich:panel>
 
-		<div class="fullscreen dr-pnl dr-pnl">
-			<div class='adtitle'>
-				<div id="j_id13_header" class="dr-pnl-h rich-panel-header">Advertisements</div>
-			</div>
-			<div class="midCenterPane">
-				<div class='offers'>
-					<a:repeat value="#{helloClassifiedsBean.advertisements}" var="ad">
-						<!-- I just show the text value to put the other values -->
-						<!-- ad.valueYouWant  -->
-						<div class='simple thinborder ad.oneColumn spacerright'>
-							<div class='adtitle'>
-								<a href='./test'>Desenvolvedor Jr.Java/FLEX </a>
-								<label>(85) 999 1969</label>
-							</div>
-							<label><h:outputText value="#{ad.text}" /></label>
-						</div>
-					</a:repeat>
-				</div>
-			</div>
-		</div>
-		<rich:spacer style="height:8px;" />
 	</ui:define>
 </ui:composition>
-<!-- test -->
 <!-- test -->
 </html>
