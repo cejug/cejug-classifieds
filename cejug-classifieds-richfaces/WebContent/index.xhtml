@@ -9,17 +9,7 @@
 
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
-		<link rel="stylesheet" type="text/css"
-			href="#{facesContext.externalContext.requestContextPath}/css/style.css" />
-		<link class='component' rel='stylesheet' type='text/css'
-			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces' />
-		<link class='component' rel='stylesheet' type='text/css'
-			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces'
-			media='rich-extended-skinning' />
-		<link class='component' rel='stylesheet' type='text/css'
-			href='/cejug-classifieds-richfaces/a4j/s/3_2_2.GAcss/panel.xcss/DATB/eAELXT5DOhSIAQ!sA18_.faces' />
-
-
+		
 		<h:panelGrid columns="2">
 			<a:form>
 				<a:region>
@@ -27,17 +17,15 @@
 						converter="advertisementCategoryConverter"
 						value="#{helloClassifiedsBean.selectedCategory}">
 						<f:selectItems value="#{helloClassifiedsBean.categories}" />
-						<a:support event="onchange" reRender="selecionado"></a:support>
+						<a:support event="onchange" reRender="categoryName"></a:support>
 					</h:selectOneMenu>
 				</a:region>
-			</a:form>
-			<h:outputText id="selecionado"
-				value="Selected: #{helloClassifiedsBean.selectedCategory.name} &lt;&lt;&lt;&lt;&lt; :)" />
+			</a:form>			
 		</h:panelGrid>
 
 		<rich:panel>
 			<f:facet name="header">
-				<h:outputText value="#{helloClassifiedsBean.selectedCategory.name}"></h:outputText>
+				<h:outputText id="categoryName" value="#{helloClassifiedsBean.selectedCategory.name}"></h:outputText>
 			</f:facet>
 			<h:form>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}" var="car"
