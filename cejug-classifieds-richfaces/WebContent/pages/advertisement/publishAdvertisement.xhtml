@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="body">
+		<rich:spacer height="4"></rich:spacer>
+		<a:form>
+			<rich:toolBar height="10" itemSeparator="line">
+				<rich:toolBarGroup>
+					<h:commandButton value="New" id="newBtn" immediate="true"></h:commandButton>
+				</rich:toolBarGroup>
+				<rich:toolBarGroup>
+					<a:commandButton value="Save" id="saveBtn"></a:commandButton>
+				</rich:toolBarGroup>
+
+				<rich:toolBarGroup>
+					<h:commandButton onclick="return confirm('delete ?')"
+						value="Delete" id="deleteBtn"></h:commandButton>
+				</rich:toolBarGroup>
+
+				<rich:toolBarGroup>
+					<h:commandButton id="searchBtn" immediate="true" value="Search"></h:commandButton>
+				</rich:toolBarGroup>
+
+			</rich:toolBar>
+
+
+
+			<rich:panel header="Publish Advertisement">
+				<h:panelGrid columns="1">
+					<h:outputText value="headline" />
+					<h:inputText value="#{publishAdvertisementBean.advertisement.headline}" style="width:230px;" />
+					<h:outputText value="keywords" style="width:230px;" />
+					<h:inputText value="#{publishAdvertisementBean.advertisement.keywords}" />
+					<h:outputText value="locale" />
+					<h:inputText value="#{publishAdvertisementBean.advertisement.locale}" />
+					<h:outputText value="summary" />
+					<h:inputTextarea value="#{publishAdvertisementBean.advertisement.summary}" />
+					<h:outputText value="text" />
+					<h:inputTextarea value="#{publishAdvertisementBean.advertisement.text}" />
+				</h:panelGrid>
+				<rich:panel header="Avatar">
+					<h:panelGrid columns="1">
+						<a:region>
+								<h:selectOneRadio value="#{publishAdvertisementBean.avatarImageOrUrl}"
+								size="1">
+								<f:selectItems value="#{publishAdvertisementBean.avatarTypes}" />
+								<a:support event="onchange"	reRender="avatarType" />
+							</h:selectOneRadio>
+						</a:region>
+					</h:panelGrid>
+					<h:panelGrid columns="1" id="avatarType">
+						<h:panelGrid columns="1" rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
+							<h:outputText value="url" />
+							<h:inputText value="" />
+							<h:outputText value="name" />
+							<h:inputText value="" />
+							<h:outputText value="description" />
+							<h:inputText value="" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" rendered="#{publishAdvertisementBean.avatarImageOrUrl =='I'}">
+							<h:outputText value="image upload" />
+							<h:inputText value="" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</rich:panel>
+			</rich:panel>
+		</a:form>
+	</ui:define>
+</ui:composition>
+</html>
