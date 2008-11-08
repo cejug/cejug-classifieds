@@ -96,11 +96,12 @@
 	</target>
 
 	<target name="generate-stubs" depends="setup">
-		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
+		<!--wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.admin.wsdl}" wsdllocation="${service.admin.wsdl}">
 			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
 			<xjcarg value="-nv" />
-		</wsimport>
+		</wsimport-->
 		<wsimport debug="true" verbose="${verbose}" keep="true" extension="false" destdir="${generated.dir}" wsdl="${service.business.wsdl}" wsdllocation="${service.business.wsdl}">
+			<binding dir="${basedir}" includes="customization.xml" />
 			<produces dir="${generated.dir}" includes="${generated.dir}/**/*.java" />
 		</wsimport>
 		<javac fork="true" srcdir="${basedir}" destdir="${build.classes.home}" includes="${generated.dir}/**/**,src/**/**,resources/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
@@ -113,6 +114,6 @@
 		<antcall target="generate-stubs" />
 		<antcall target="pmd" />
 		<antcall target="findbugs" />
-		<antcall target="javadoc.with.uml" />		
+		<antcall target="javadoc.with.uml" />
 	</target>
 </project>
