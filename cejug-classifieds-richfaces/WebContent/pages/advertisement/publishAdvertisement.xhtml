@@ -10,53 +10,69 @@
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body">
 		<rich:spacer height="4"></rich:spacer>
+		<style>
+.top {
+	vertical-align: top;
+}
+
+.info {
+	height: 202px;
+	overflow: auto;
+}
+</style>
 		<a:form>
+			<a:keepAlive beanName="publishAdvertisementBean" />
+
 			<rich:toolBar height="10" itemSeparator="line">
 				<rich:toolBarGroup>
-					<h:commandButton value="New" id="newBtn" immediate="true"></h:commandButton>
+					<h:commandLink style="border:none;">
+						<h:graphicImage value="/images/publish.jpg" style="border:none;" />
+					</h:commandLink>
 				</rich:toolBarGroup>
-				<rich:toolBarGroup>
-					<a:commandButton value="Save" id="saveBtn"></a:commandButton>
-				</rich:toolBarGroup>
-
-				<rich:toolBarGroup>
-					<h:commandButton onclick="return confirm('delete ?')"
-						value="Delete" id="deleteBtn"></h:commandButton>
-				</rich:toolBarGroup>
-
-				<rich:toolBarGroup>
-					<h:commandButton id="searchBtn" immediate="true" value="Search"></h:commandButton>
-				</rich:toolBarGroup>
-
 			</rich:toolBar>
 
-
-
-			<rich:panel header="Publish Advertisement">
+			<rich:panel header="#{msg['publishadv.publish']}">
 				<h:panelGrid columns="1">
-					<h:outputText value="headline" />
-					<h:inputText value="#{publishAdvertisementBean.advertisement.headline}" style="width:230px;" />
-					<h:outputText value="keywords" style="width:230px;" />
-					<h:inputText value="#{publishAdvertisementBean.advertisement.keywords}" />
-					<h:outputText value="locale" />
-					<h:inputText value="#{publishAdvertisementBean.advertisement.locale}" />
-					<h:outputText value="summary" />
-					<h:inputTextarea value="#{publishAdvertisementBean.advertisement.summary}" />
-					<h:outputText value="text" />
-					<h:inputTextarea value="#{publishAdvertisementBean.advertisement.text}" />
+					<h:outputText value="#{msg['publishadv.headline']}" />
+					<h:inputText
+						value="#{publishAdvertisementBean.advertisement.headline}"
+						style="width:230px;" />
+
+					<h:outputText value="#{msg['publishadv.keywords']}"
+						style="width:230px;" />
+					<h:inputText
+						value="#{publishAdvertisementBean.advertisement.keywords}" />
+
+					<h:outputText value="#{msg['publishadv.locale']}" />
+					<h:selectOneListbox
+						value="#{publishAdvertisementBean.advertisement.locale}" size="1">
+						<f:selectItems value="#{publishAdvertisementBean.locales}" />
+					</h:selectOneListbox>
+
+					<h:outputText value="#{msg['publishadv.summary']}" />
+					<h:inputTextarea
+						value="#{publishAdvertisementBean.advertisement.summary}"
+						cols="55" rows="4" />
+
+					<h:outputText value="#{msg['publishadv.text']}" />
+					<h:inputTextarea
+						value="#{publishAdvertisementBean.advertisement.text}" cols="55"
+						rows="4" />
 				</h:panelGrid>
-				<rich:panel header="Avatar">
+
+				<rich:panel header="#{msg['publishadv.avatar']}">
 					<h:panelGrid columns="1">
 						<a:region>
-								<h:selectOneRadio value="#{publishAdvertisementBean.avatarImageOrUrl}"
-								size="1">
+							<h:selectOneRadio
+								value="#{publishAdvertisementBean.avatarImageOrUrl}" size="1">
 								<f:selectItems value="#{publishAdvertisementBean.avatarTypes}" />
-								<a:support event="onchange"	reRender="avatarType" />
+								<a:support event="onclick" reRender="avatarType" />
 							</h:selectOneRadio>
 						</a:region>
 					</h:panelGrid>
 					<h:panelGrid columns="1" id="avatarType">
-						<h:panelGrid columns="1" rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
+						<h:panelGrid columns="1"
+							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
 							<h:outputText value="url" />
 							<h:inputText value="" />
 							<h:outputText value="name" />
@@ -64,9 +80,50 @@
 							<h:outputText value="description" />
 							<h:inputText value="" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" rendered="#{publishAdvertisementBean.avatarImageOrUrl =='I'}">
-							<h:outputText value="image upload" />
-							<h:inputText value="" />
+
+						<h:panelGrid columns="2" columnClasses="top,top"
+							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='I'}">
+							<rich:fileUpload
+								fileUploadListener="#{publishAdvertisementBean.listener}"
+								maxFilesQuantity="#{publishAdvertisementBean.uploadsAvailable}"
+								reRender="table" id="upload"
+								immediateUpload="#{publishAdvertisementBean.autoUpload}"
+								acceptedTypes="jpg, gif, png, bmp"
+								allowFlash="#{publishAdvertisementBean.useFlash}"
+								listHeight="60px">
+								<a:support event="onuploadcomplete" reRender="info" />
+							</rich:fileUpload>
+							<h:panelGroup id="info">
+								<rich:panel bodyClass="info">
+									<f:facet name="header">
+										<h:outputText value="Uploaded Files Info" />
+									</f:facet>
+									<h:outputText value="No files currently uploaded"
+										rendered="#{publishAdvertisementBean.size==0}" />
+									<rich:dataGrid columns="1"
+										value="#{publishAdvertisementBean.files}" var="file"
+										rowKeyVar="row">
+										<rich:panel bodyClass="rich-laguna-panel-no-header">
+											<h:panelGrid columns="1">
+												<a:mediaOutput element="img" mimeType="#{file.contentType}"
+													createContent="#{publishAdvertisementBean.paint}"
+													value="#{row}" style="width:100px; height:100px;"
+													cacheable="false">
+													<f:param value="#{publishAdvertisementBean.timeStamp}"
+														name="time" />
+												</a:mediaOutput>
+
+											</h:panelGrid>
+										</rich:panel>
+									</rich:dataGrid>
+								</rich:panel>
+								<rich:spacer height="3" />
+								<br />
+								<a:commandButton
+									action="#{publishAdvertisementBean.clearUploadData}"
+									reRender="info, upload" value="Clear Uploaded Data"
+									rendered="#{publishAdvertisementBean.size>0}" />
+							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGrid>
 				</rich:panel>
