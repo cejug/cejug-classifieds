@@ -8,6 +8,11 @@ import javax.faces.convert.Converter;
 
 public class AdvertisementCategoryConverter implements Converter, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public AdvertisementCategoryWrapper getAsObject(FacesContext arg0,
 			UIComponent arg1, String value) {

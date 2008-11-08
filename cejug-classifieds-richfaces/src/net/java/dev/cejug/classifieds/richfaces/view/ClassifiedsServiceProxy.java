@@ -23,40 +23,41 @@ import org.springframework.stereotype.Controller;
 public class ClassifiedsServiceProxy implements ValueChangeListener {
 
 	public ClassifiedsServiceProxy() {
-		service = new CejugClassifiedsServiceBusiness()
+		SERVICE = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
 		reloadCategories();
 	}
 
-	private CejugClassifiedsBusiness service = null;
+	private transient final CejugClassifiedsBusiness SERVICE;
 
-	private List<AdvertisementCategory> registeredCategories;
+	private transient List<AdvertisementCategory> registeredCategories;
 
 	public List<AdvertisementCategory> getRegisteredCategories() {
 		return registeredCategories;
 	}
-	
-	
+
 	public List<Advertisement> getAdvertisements() {
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
-		
-		if(getSelectedCategory() != null && getSelectedCategory().getId() !=null){
-			// To take the selectedCategory just do this: getSelectedCategory().getId().toString()
-			// We can set a default value for the advertisements show when the user access the first time
-			// so this 'if' will be unnecessary :)
-			//filter.setCategory(getSelectedCategory().getId().toString());
-		}
-		
-		filter.setCategory("3"); 
-		
-		return service.loadAdvertisementOperation(filter).getAdvertisement();	}
+		/*
+		 * if (getSelectedCategory() != null && getSelectedCategory().getId() !=
+		 * null) { // To take the selectedCategory just do this: //
+		 * getSelectedCategory().getId().toString() // We can set a default
+		 * value for the advertisements show when the // user access the first
+		 * time // so this 'if' will be unnecessary :) //
+		 * filter.setCategory(getSelectedCategory().getId().toString()); }
+		 */
+
+		filter.setCategory("3");
+
+		return SERVICE.loadAdvertisementOperation(filter).getAdvertisement();
+	}
 
 	/**
 	 * 
 	 * @return
 	 */
 	private List<AdvertisementCategory> reloadCategories() {
-		registeredCategories = service.readCategoryBundleOperation(
+		registeredCategories = SERVICE.readCategoryBundleOperation(
 				new BundleRequest()).getAdvCategory();
 		return registeredCategories;
 	}
@@ -102,9 +103,9 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 	@Override
 	public void processValueChange(ValueChangeEvent ae)
 			throws AbortProcessingException {
-//		setSize(Integer.toString(getAdvertisements(
-//				Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
-//						.getId())).size()));
+		// setSize(Integer.toString(getAdvertisements(
+		// Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
+		// .getId())).size()));
 		// selectedCategory = (SelectItem) ae.getNewValue();
 	}
 }
