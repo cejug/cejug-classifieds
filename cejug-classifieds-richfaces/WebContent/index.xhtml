@@ -6,43 +6,42 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-
 <ui:composition template="/template/template.xhtml">
-	<ui:define name="body">
-		
-		<h:panelGrid columns="2">
-			<a:form>
-				<a:region>
-					<h:selectOneMenu id="categories"
-						converter="advertisementCategoryConverter"
-						value="#{helloClassifiedsBean.selectedCategory}">
-						<f:selectItems value="#{helloClassifiedsBean.categories}" />
-						<a:support event="onchange" reRender="categoryName"></a:support>
-					</h:selectOneMenu>
-				</a:region>
-			</a:form>			
-		</h:panelGrid>
-
+	<ui:define name="body" styleClass="advertisementPane">
 		<rich:panel>
 			<f:facet name="header">
-				<h:outputText id="categoryName" value="#{helloClassifiedsBean.selectedCategory.name}"></h:outputText>
+				<h:panelGrid columns="2">
+					<h:outputText value="Category: "></h:outputText>
+					<a:form>
+						<a:region>
+							<h:selectOneMenu id="categories"
+								converter="advertisementCategoryConverter"
+								value="#{helloClassifiedsBean.selectedCategory}">
+								<f:selectItems value="#{helloClassifiedsBean.categories}" />
+								<a:support event="onchange" reRender="categoryName"></a:support>
+							</h:selectOneMenu>
+						</a:region>
+					</a:form>
+				</h:panelGrid>
 			</f:facet>
 			<h:form>
-				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}" var="car"
-					columns="4" elements="12">
+				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
+					var="car" columns="4" elements="12">
+					<div style="align:top;">
 					<rich:panel>
 						<f:facet name="header">
 							<h:outputText value="#{car.headline} "></h:outputText>
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:graphicImage value="#{car.avatarImageOrUrl.url}"/>
-							<h:outputText value="Price:" styleClass="summary"></h:outputText>
+							<h:graphicImage value="#{car.avatarImageOrUrl.url}" />
+							<!-- h:outputText value="Price:" styleClass="summary"></h:outputText-->
 							<h:outputText value="#{car.text}" />
 						</h:panelGrid>
 					</rich:panel>
 					<f:facet name="footer">
 						<rich:datascroller></rich:datascroller>
 					</f:facet>
+					</div>
 				</rich:dataGrid>
 			</h:form>
 		</rich:panel>
