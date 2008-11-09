@@ -62,34 +62,38 @@ public class PublishAdvertisementBean {
 	}
 
 	/* File Upload */
-	private ArrayList<AtavarImage> files = new ArrayList<AtavarImage>();
+	private List<AtavarImage> files = new ArrayList<AtavarImage>();
 	private int uploadsAvailable = 1;
 	private boolean autoUpload = true;
 	private boolean useFlash = false;
 
 	public int getSize() {
-		if (getFiles().size() > 0) {
-			return getFiles().size();
-		} else {
-			return 0;
+		return getFiles().size();
+	}
+
+	public void paint(OutputStream stream, Object object) throws IOException {
+		synchronized (object) {
+			stream.write(getFiles().get((Integer) object).getValue());
 		}
+
 	}
 
-	public synchronized void paint(OutputStream stream, Object object)
-			throws IOException {
-		stream.write(getFiles().get((Integer) object).getValue());
-	}
-
-	public synchronized void listener(UploadEvent event) throws Exception {
-		UploadItem item = event.getUploadItem();
-
-		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
-		getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
-		getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
-				item.getData());
-
-		files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
-		setUploadsAvailable(getUploadsAvailable() - 1);
+	public void listener(UploadEvent event) {
+		synchronized (event) {
+			UploadItem item = event.getUploadItem();
+			try{
+				getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+				getAdvertisement().getAvatarImageOrUrl()
+						.setImage(new AtavarImage());
+				getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
+						item.getData());
+	
+				files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
+				setUploadsAvailable(getUploadsAvailable() - 1);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String clearUploadData() {
@@ -102,11 +106,11 @@ public class PublishAdvertisementBean {
 		return System.currentTimeMillis();
 	}
 
-	public ArrayList<AtavarImage> getFiles() {
+	public List<AtavarImage> getFiles() {
 		return files;
 	}
 
-	public void setFiles(ArrayList<AtavarImage> files) {
+	public void setFiles(List<AtavarImage> files) {
 		this.files = files;
 	}
 
