@@ -3,9 +3,6 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
 import javax.faces.model.SelectItem;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
@@ -20,7 +17,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller(value = "helloClassifiedsBean")
 @Scope("request")
-public class ClassifiedsServiceProxy implements ValueChangeListener {
+public class ClassifiedsServiceProxy  {
 
 	public ClassifiedsServiceProxy() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
@@ -47,7 +44,7 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		 * filter.setCategory(getSelectedCategory().getId().toString()); }
 		 */
 
-		filter.setCategory("3");
+		filter.setCategory(getSelectedCategory().getId().toString());
 
 		return SERVICE.loadAdvertisementOperation(filter).getAdvertisement();
 	}
@@ -62,7 +59,8 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 		return registeredCategories;
 	}
 
-	private AdvertisementCategoryWrapper selectedCategory = new AdvertisementCategoryWrapper();
+	//Set default category
+	private AdvertisementCategoryWrapper selectedCategory = new AdvertisementCategoryWrapper(3L);
 
 	public AdvertisementCategoryWrapper getSelectedCategory() {
 		return selectedCategory;
@@ -98,14 +96,5 @@ public class ClassifiedsServiceProxy implements ValueChangeListener {
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	@Override
-	public void processValueChange(ValueChangeEvent ae)
-			throws AbortProcessingException {
-		// setSize(Integer.toString(getAdvertisements(
-		// Long.toString(((AdvertisementCategoryWrapper) ae.getNewValue())
-		// .getId())).size()));
-		// selectedCategory = (SelectItem) ae.getNewValue();
 	}
 }

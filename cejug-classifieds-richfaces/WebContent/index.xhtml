@@ -8,25 +8,25 @@
 	xmlns:rich="http://richfaces.org/rich">
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body" styleClass="advertisementPane">
+		<a:form>
 		<rich:panel>
 			<f:facet name="header">
 				<h:panelGrid columns="2">
 					<h:outputText value="Category: "></h:outputText>
-					<a:form>
+					
 						<a:region>
 							<h:selectOneMenu id="categories"
 								converter="advertisementCategoryConverter"
 								value="#{helloClassifiedsBean.selectedCategory}">
 								<f:selectItems value="#{helloClassifiedsBean.categories}" />
-								<a:support event="onchange" reRender="categoryName"></a:support>
+								<a:support event="onchange" reRender="categoryPanel"></a:support>
 							</h:selectOneMenu>
 						</a:region>
-					</a:form>
+				
 				</h:panelGrid>
 			</f:facet>
-			<h:form>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
-					var="car" columns="4" elements="12">
+					var="car" columns="4" elements="12" id="categoryPanel">
 					<div style="align:top;">
 					<rich:panel>
 						<f:facet name="header">
@@ -43,9 +43,8 @@
 					</f:facet>
 					</div>
 				</rich:dataGrid>
-			</h:form>
 		</rich:panel>
-
+	</a:form>
 	</ui:define>
 </ui:composition>
 <!-- test -->
