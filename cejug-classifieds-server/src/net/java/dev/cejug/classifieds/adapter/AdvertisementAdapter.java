@@ -175,11 +175,6 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 			avatar.setDescription(attachment.getDescription());
 			avatar.setName(attachment.getName());
 			avatar.setUrl(attachment.getReference());
-			// AtavarImage avtimg = attachmentsFactory.createAtavarImage();
-			// avtimg.setValue(attachment.getContent()); // there is no more
-			// BLOBs..
-			// avtimg.setContentType(attachment.getContentType());
-			// avatar.setImage(avtimg);
 			adv.setAvatarImageOrUrl(avatar);
 		}
 
