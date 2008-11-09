@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
 import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
@@ -21,10 +22,18 @@ import org.springframework.stereotype.Controller;
 @Controller(value = "publishAdvertisementBean")
 @Scope("session")
 public class PublishAdvertisementBean {
+//	private transient final CejugClassifiedsBusiness SERVICE;
+	
 	private Advertisement advertisement = new Advertisement();
 
 	private String avatarImageOrUrl = "I";
 
+	public PublishAdvertisementBean(){
+//		SERVICE = new CejugClassifiedsServiceBusiness()
+//		.getCejugClassifiedsBusiness();
+
+	}
+	
 	public Advertisement getAdvertisement() {
 		return advertisement;
 	}
@@ -59,6 +68,21 @@ public class PublishAdvertisementBean {
 		}
 
 		return locales;
+	}
+	
+	public void publish(){
+		PublishingHeader header = new PublishingHeader();
+		header.setCustomerDomainId(3L);
+		header.setCustomerLogin("3");
+		
+		try{
+			System.out.println("Publishing....");
+			System.out.println(getAdvertisement().getText());
+		//	SERVICE.publishOperation(advertisement, header);
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/* File Upload */
