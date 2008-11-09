@@ -38,6 +38,7 @@ import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperation
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
 import net.java.dev.cejug.classifieds.exception.RepositoryAccessException;
+import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
 import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
@@ -100,16 +101,30 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 			customer.setLogin(header.getCustomerLogin());
 			customer.setDomainId(header.getCustomerDomainId());
 			advertisement.setCustomer(customer);
-
-			// Copy resources to the content repository - the file system.
-			try {
-				copyResourcesToRepository(advertisement);
-			} catch (Exception e) {
-				e.printStackTrace();
+			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
+			AtavarImage img = null;
+			if (avatar.getUrl() == null) {
+				img = avatar.getImage();
+				AtavarImage temp = new AtavarImage();
+				temp.setContentType(img.getContentType());
+				temp.setValue(null);
+				avatar.setImage(temp);
 			}
+			/*
+			 * Copy resources to the content repository - the file system. try {
+			 * copyResourcesToRepository(advertisement); } catch (Exception e) {
+			 * e.printStackTrace(); }
+			 */
 
 			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			advFacade.create(entity);
+			if (img != null) {
+				String reference = copyResourcesToRepository(avatar.getName(),
+						img.getValue(), entity.getId(), header
+								.getCustomerDomainId());
+				entity.getAvatar().setReference(reference);
+				advFacade.update(entity);
+			}
 			return advAdapter.toSoap(entity);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
@@ -125,21 +140,25 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 	 * This method receives an Avatar object, check it size and store it
 	 * contents in the file system.
 	 * 
+	 * @param l
+	 * 
 	 * @param advertisement
 	 *            the advertisement containing attachments.
 	 * @return the resource address.
 	 * @throws RepositoryAccessException
 	 *             problems accessing the content repository.
 	 */
-	private String copyResourcesToRepository(Advertisement advertisement)
-			throws RepositoryAccessException {
-		AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-		if (avatar.getUrl() == null && avatar.getImage() != null) {
-			Customer customer = advertisement.getCustomer();
-
+	private String copyResourcesToRepository(String name, byte[] contents,
+			long customerId, long domainId) throws RepositoryAccessException {
+		if (contents == null || contents.length < 1) {
+			return null;
+		} else if (customerId < 1 || domainId < 1) {
+			throw new RepositoryAccessException("Unaccepted ID (customer id:"
+					+ customerId + ", domain: " + domainId);
+		} else {
 			String path = "/home/fgaucho/dev/glassfish/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/"
-					+ customer.getDomainId() + "/" + customer.getEntityId();
-			String file = path + "/" + avatar.getName();
+					+ domainId + "/" + customerId;
+			String file = path + "/" + name;
 			File pathF = new File(path);
 			File fileF = new File(file);
 
@@ -147,15 +166,13 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 				if (pathF.mkdirs() && fileF.createNewFile()) {
 					FileOutputStream out;
 					out = new FileOutputStream(file);
-					out.write(avatar.getImage().getValue());
+					out.write(contents);
 					out.close();
-					avatar
-							.setUrl("http://fgaucho.dyndns.org:8080/cejug-classifieds-server/resource/"
-									+ customer.getDomainId()
-									+ "/"
-									+ customer.getEntityId()
-									+ "/"
-									+ avatar.getName());
+					String resourcePath = "http://fgaucho.dyndns.org:8080/cejug-classifieds-server/resource/"
+							+ domainId + "/" + customerId + "/" + name;
+					logger.info("resource created: " + resourcePath);
+					return resourcePath;
+
 				} else {
 					throw new RepositoryAccessException(
 							"error trying tocreate the resource path '" + file
@@ -166,16 +183,6 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 				throw new RepositoryAccessException(e);
 			}
 		}
-
-		/*
-		 * TODO: copy the attachments to the content repository.
-		 * List<AttachmentOrUrl> attachments =
-		 * advertisement.getAttachmentOrUrl(); for (AttachmentOrUrl attachment :
-		 * attachments) {
-		 * 
-		 * }
-		 */
-		return null;
 	}
 
 	@Override

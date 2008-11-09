@@ -109,12 +109,19 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 
 		AttachmentEntity attachment = new AttachmentEntity();
 		AvatarImageOrUrl avatar = soap.getAvatarImageOrUrl();
-		attachment.setName(avatar.getName());
-		attachment.setDescription(avatar.getDescription());
-		attachment.setContentType(avatar.getImage().getContentType());
-		attachment.setReference(avatar.getUrl());
-		attachmentFacade.create(attachment);
-		entity.setAvatar(attachment);
+		if (avatar != null) {
+			// avatar is optional.
+			attachment.setName(avatar.getName());
+			attachment.setDescription(avatar.getDescription());
+			AtavarImage img = avatar.getImage();
+			if (img != null) {
+				attachment.setContentType(img.getContentType());
+			}
+			attachment.setContentType(avatar.getImage().getContentType());
+			attachment.setReference(avatar.getUrl());
+			attachmentFacade.create(attachment);
+			entity.setAvatar(attachment);
+		}
 		// TODO: split the string representation
 		entity.setKeywords(splitKeywords(soap.getKeywords()));
 		switch (soap.getStatus()) {
@@ -163,16 +170,18 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		AttachmentEntity attachment = entity.getAvatar();
 
 		AvatarImageOrUrl avatar = attachmentsFactory.createAvatarImageOrUrl();
-
-		// Avatar
-		avatar.setDescription(attachment.getDescription());
-		avatar.setName(attachment.getName());
-		avatar.setUrl(attachment.getReference());
-		AtavarImage avtimg = attachmentsFactory.createAtavarImage();
-		// avtimg.setValue(attachment.getContent()); // there is no more BLOBs..
-		avtimg.setContentType(attachment.getContentType());
-		avatar.setImage(avtimg);
-		adv.setAvatarImageOrUrl(avatar);
+		if (avatar != null) {
+			// Avatar is optional.
+			avatar.setDescription(attachment.getDescription());
+			avatar.setName(attachment.getName());
+			avatar.setUrl(attachment.getReference());
+			// AtavarImage avtimg = attachmentsFactory.createAtavarImage();
+			// avtimg.setValue(attachment.getContent()); // there is no more
+			// BLOBs..
+			// avtimg.setContentType(attachment.getContentType());
+			// avatar.setImage(avtimg);
+			adv.setAvatarImageOrUrl(avatar);
+		}
 
 		return adv;
 	}
