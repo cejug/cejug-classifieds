@@ -4,225 +4,231 @@ Created on : Oct 7, 2008, 10:47:54 AM
 Author     : fgaucho
 Description:
 Purpose of the stylesheet follows.
-*/
-
-/* 
+*/ /* 
 TODO customize this sample style
 Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
-
 .featureBorder {
-  border:solid;
-  border-width:1px;
-  border-color:black;
+	border: solid;
+	border-width: 1px;
+	border-color: black;
 }
 
 .fullscreen {
-  height:100%;
-  font-family:Cortoba,Tahoma,Verdana,Arial,Helvetica,sans-serif;
-  font-size:13px;
-  padding: 1px 1px 0px 1px;
+	height: 100%;
+	font-family: Cortoba, Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding: 1px 1px 0px 1px;
 }
 
 .topPane {
-  width:100%;
-  height:90px;
-  float:left;
-  border:solid;
-  border-width:1px;
-  border-color:black;
+	width: 100%;
+	height: auto;
+	display: block;
+	float : left;
+	border: solid;
+	border-width: 1px;
+	border-color: black;
+	float: left;
 }
 
 .topLeftPane {
-  float:left;
-  width:10%;
-  height:100%;
+	float: left;
+	width: auto;
+	height: 100%;
+}
+
+.generalPadding {
+	padding: 6px;
 }
 
 .topRightPane {
-  float:right;
-  width:20%;
-  height:100%;
+	float: right;
+	width: auto;
+	height: 100%;
 }
 
 .topCenterPane {
-  float:inherit;
-  min-height:100%;
-  width:70%;
-  display: table-cell;
-  vertical-align:middle;
-  margin:auto;
+	float: left;
+	display:table-row;
+	min-height: 100%;
+	width: auto;
+	vertical-align: middle;
+	margin: auto;
+	text-align: top;
 }
 
 .midCenterPane {
-  float:left;
-  width:100%;
-  height:90%;
+	float: left;
+	width: 100%;
+	height: 90%;
 }
-
 
 .logo {
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-
-.leftPane{
-  float:inherit;
-  min-width:10%;
-  max-width:15%;
-  height:100%;
-  padding: 1px 1px 1px 1px;
+.leftPane {
+	float: inherit;
+	min-width: 10%;
+	max-width: 15%;
+	height: 100%;
+	padding: 1px 1px 1px 1px;
 }
 
 .fontHeader {
-  font-size:150%;
-  font-weight:bold;
-  text-align:center;
-  color:#9AB4FF;
+	font-size: 200%;
+	font-weight: bold;
+	font-family: monaco,cursive;
+	text-align: center;
+	color: black;
 }
 
-.loginrow{
-  width:100%;
-  margin:2px;
+.loginrow {
+	width: 100%;
+	margin: 2px;
 }
 
-.loginlabel{
-  float:left;
-  width:30%;
-  height:auto;
+.loginlabel {
+	float: left;
+	width: 30%;
+	height: auto;
 }
 
 .loginlabel a {
-  text-decoration:none;
+	text-decoration: none;
 }
 
-.loginfield{
-  float:right;
-  max-width:70%;
-  height:auto;
-  margin-top:1px;
+.loginfield {
+	float: right;
+	max-width: 70%;
+	height: auto;
+	margin-top: 1px;
 }
 
 .submit {
-  float:right; 
+	float: right;
+	max-width: 70%;
+	height: auto;
+	margin-top: 1px;
 }
 
 .categories {
-
+	
 }
+
 .categories.item {
+	
 }
-
 
 .title {
-  font-family:serif;
-  font-variant: small-caps;
+	font-family: serif;
+	font-variant: small-caps;
 }
 
 .searchpane {
-  float:left;
-  width:100%;
-  height:5%;
-  padding-top:5px;
+	float: left;
+	width: 100%;
+	height: 5%;
+	padding-top: 5px;
 }
 
 .searchfield {
-  float:inherit;
-  width:30%;
+	float: inherit;
+	width: 30%;
 }
 
 .thinborder {
-  border:#C4C0B9;
-  border-width:1px;
-  border-style:solid;
+	border: #C4C0B9;
+	border-width: 1px;
+	border-style: solid;
 }
 
 .spacerright {
-  margin-right:6px;
+	margin-right: 6px;
 }
 
 .searchcombo {
-  float:inherit;
-  background:inherit;
+	float: inherit;
+	background: inherit;
 }
 
 .searchsubmit {
-  float:inherit;  
+	float: inherit;
 }
 
 .offers {
-  float:left;
+	float: left;
 }
 
 .simple {
-  float:left;
-  width:30%;	
-  max-height:5%;
-  color:blue;
-  padding-top:3px;
-  padding-bottom:3px;
-  padding-left:6px;
-  padding-right:6px;
-  text-align:justify;
-  margin-top: 5px;
+	float: left;
+	width: 30%;
+	max-height: 5%;
+	color: blue;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
+	text-align: justify;
+	margin-top: 5px;
 }
 
 .simple a {
-  float:left;
-  color:blue;
-  text-decoration:none;
-  max-width:60%;
+	float: left;
+	color: blue;
+	text-decoration: none;
+	max-width: 60%;
 }
 
 .simple label {
-  color:black;
-  float:left;
-  width:100%;
+	color: black;
+	float: left;
+	width: 100%;
 }
 
 .ad.oneColumn {
-  float:left;
-  min-width:15%;
-  max-width:30%;
+	float: left;
+	min-width: 15%;
+	max-width: 30%;
 }
 
 .ad.twoColumn {
-  float:inherit;
-  min-width:30%;
-  max-width:60%;
+	float: inherit;
+	min-width: 30%;
+	max-width: 60%;
 }
 
 .ad.oneRow {
-  width:10%;
+	width: 10%;
 }
 
 .ad.twoRow {
-  max-width:20%;
+	max-width: 20%;
 }
 
 .contact {
-  vertical-align:middle;
+	vertical-align: middle;
 }
 
 .adtitle {
-  width:100%;
-  float:left;
+	width: 100%;
+	float: left;
 }
 
 .adtitle a {
-  max-width:70%;
+	max-width: 70%;
 }
 
 .adtitle label {
-  float:right;
-  text-align:right;
-  background-image:url('img/phone.png');
-  background-position:left;
-  background-repeat:no-repeat;
-  text-indent:25px;
-  max-width:25%;
-  vertical-align:middle;
+	float: right;
+	text-align: right;
+	background-image: url('img/phone.png');
+	background-position: left;
+	background-repeat: no-repeat;
+	text-indent: 25px;
+	max-width: 25%;
+	vertical-align: middle;
 }
-

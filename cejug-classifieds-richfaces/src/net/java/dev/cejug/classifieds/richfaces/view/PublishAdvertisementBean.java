@@ -60,51 +60,52 @@ public class PublishAdvertisementBean {
 
 		return locales;
 	}
-	
+
 	/* File Upload */
 	private ArrayList<AtavarImage> files = new ArrayList<AtavarImage>();
 	private int uploadsAvailable = 1;
 	private boolean autoUpload = true;
 	private boolean useFlash = false;
+
 	public int getSize() {
-		if (getFiles().size()>0){
+		if (getFiles().size() > 0) {
 			return getFiles().size();
-		}else 
-		{
+		} else {
 			return 0;
 		}
 	}
 
-	
-	public synchronized void paint(OutputStream stream, Object object) throws IOException {
-		stream.write(getFiles().get((Integer)object).getValue());
+	public synchronized void paint(OutputStream stream, Object object)
+			throws IOException {
+		stream.write(getFiles().get((Integer) object).getValue());
 	}
-	public synchronized void listener(UploadEvent event) throws Exception{
-	    UploadItem item = event.getUploadItem();
-	    
-	    advertisement.setAvatarImageOrUrl(new AvatarImageOrUrl());
-	    advertisement.getAvatarImageOrUrl().setImage(new AtavarImage());
-	    advertisement.getAvatarImageOrUrl().getImage().setValue(item.getData());
-	    
-	    files.add(advertisement.getAvatarImageOrUrl().getImage());
-	    uploadsAvailable--;
+
+	public synchronized void listener(UploadEvent event) throws Exception {
+		UploadItem item = event.getUploadItem();
+
+		advertisement.setAvatarImageOrUrl(new AvatarImageOrUrl());
+		advertisement.getAvatarImageOrUrl().setImage(new AtavarImage());
+		advertisement.getAvatarImageOrUrl().getImage().setValue(item.getData());
+
+		files.add(advertisement.getAvatarImageOrUrl().getImage());
+		uploadsAvailable--;
 	}
-	
+
 	public String clearUploadData() {
 		files.clear();
 		setUploadsAvailable(5);
 		return null;
 	}
-	
-	public long getTimeStamp(){
+
+	public long getTimeStamp() {
 		return System.currentTimeMillis();
 	}
-	
+
 	public ArrayList<AtavarImage> getFiles() {
 		return files;
 	}
 
-	public void setFiles(ArrayList<AtavarImage> files) { 
+	public void setFiles(ArrayList<AtavarImage> files) {
 		this.files = files;
 	}
 
