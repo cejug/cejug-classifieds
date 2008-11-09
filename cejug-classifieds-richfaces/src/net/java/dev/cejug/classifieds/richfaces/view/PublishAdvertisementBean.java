@@ -83,12 +83,13 @@ public class PublishAdvertisementBean {
 	public synchronized void listener(UploadEvent event) throws Exception {
 		UploadItem item = event.getUploadItem();
 
-		advertisement.setAvatarImageOrUrl(new AvatarImageOrUrl());
-		advertisement.getAvatarImageOrUrl().setImage(new AtavarImage());
-		advertisement.getAvatarImageOrUrl().getImage().setValue(item.getData());
+		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+		getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
+		getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
+				item.getData());
 
-		files.add(advertisement.getAvatarImageOrUrl().getImage());
-		uploadsAvailable--;
+		files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
+		setUploadsAvailable(getUploadsAvailable() - 1);
 	}
 
 	public String clearUploadData() {
