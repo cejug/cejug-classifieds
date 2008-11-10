@@ -21,7 +21,7 @@ public class AdvertisementCategoryWrapper implements Serializable {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public AdvertisementCategoryWrapper(Long id) {
 		this.id = id;
 	}

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller(value = "helloClassifiedsBean")
 @Scope("request")
-public class ClassifiedsServiceProxy  {
+public class ClassifiedsServiceProxy {
 
 	public ClassifiedsServiceProxy() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
@@ -59,8 +59,9 @@ public class ClassifiedsServiceProxy  {
 		return registeredCategories;
 	}
 
-	//Set default category
-	private AdvertisementCategoryWrapper selectedCategory = new AdvertisementCategoryWrapper(3L);
+	// Set default category
+	private AdvertisementCategoryWrapper selectedCategory = new AdvertisementCategoryWrapper(
+			3L);
 
 	public AdvertisementCategoryWrapper getSelectedCategory() {
 		return selectedCategory;
