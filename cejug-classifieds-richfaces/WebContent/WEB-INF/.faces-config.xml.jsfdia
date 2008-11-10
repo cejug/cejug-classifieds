@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM
+  NAME="rules:#WebContent#pages#advertisement#publishAdvertisement.xhtml"
+  PATH="/WebContent/pages/advertisement/publishAdvertisement.xhtml"
+  SHAPE="196,166,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="publishAdvertisement::#pages#advertisement#publishAdvertisement.xhtml"
+    NAME="output" PATH="/pages/advertisement/publishAdvertisement.xhtml"
+    TARGET="rules:#pages#advertisement#publishAdvertisement.xhtml"
+    TITLE="publishAdvertisement" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#pages#advertisement#publishAdvertisement.xhtml"
+  PATH="/pages/advertisement/publishAdvertisement.xhtml"
+  SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

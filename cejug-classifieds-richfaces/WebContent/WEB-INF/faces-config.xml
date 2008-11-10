@@ -1,28 +1,32 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-
-	<application>
-		<message-bundle>messages</message-bundle>
-		<locale-config>
-			<default-locale>en</default-locale>
-			<supported-locale>pt_BR</supported-locale>
-			<supported-locale>bg</supported-locale>
-			<supported-locale>de</supported-locale>
-			<supported-locale>fr</supported-locale>
-			<supported-locale>tr</supported-locale>
-		</locale-config>
-		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
-		<variable-resolver>
-			org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
-		<variable-resolver>
-			org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
-		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-	</application>
-	<converter>
-		<converter-id>advertisementCategoryConverter</converter-id>
-		<converter-class>
-			net.java.dev.cejug.classifieds.richfaces.view.AdvertisementCategoryConverter</converter-class>
-	</converter>
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+ <converter>
+  <converter-id>advertisementCategoryConverter</converter-id>
+  <converter-class>net.java.dev.cejug.classifieds.richfaces.view.AdvertisementCategoryConverter</converter-class>
+ </converter>
+ <navigation-rule>
+  <from-view-id>/index.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>publishAdvertisement</from-outcome>
+   <to-view-id>/pages/advertisement/publishAdvertisement.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <application>
+  <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+  <message-bundle>messages</message-bundle>
+  <locale-config>
+   <default-locale>en</default-locale>
+   <supported-locale>pt_BR</supported-locale>
+   <supported-locale>bg</supported-locale>
+   <supported-locale>de</supported-locale>
+   <supported-locale>fr</supported-locale>
+   <supported-locale>tr</supported-locale>
+  </locale-config>
+  <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+  <variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+ </application>
 </faces-config>

@@ -11,7 +11,7 @@
 		<a:form>
 		<rich:panel>
 			<f:facet name="header">
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="3">
 					<h:outputText value="Category: "></h:outputText>
 					
 						<a:region>
@@ -22,7 +22,7 @@
 								<a:support event="onchange" reRender="categoryPanel"></a:support>
 							</h:selectOneMenu>
 						</a:region>
-				
+					<a:commandLink action="publishAdvertisement"  value="Publish Advertisement" />
 				</h:panelGrid>
 			</f:facet>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
