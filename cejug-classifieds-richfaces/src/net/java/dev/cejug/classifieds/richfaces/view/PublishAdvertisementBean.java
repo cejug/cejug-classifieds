@@ -31,7 +31,7 @@ public class PublishAdvertisementBean {
 	public PublishAdvertisementBean(){
 //		SERVICE = new CejugClassifiedsServiceBusiness()
 //		.getCejugClassifiedsBusiness();
-
+		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
 	}
 	
 	public Advertisement getAdvertisement() {
@@ -161,5 +161,5 @@ public class PublishAdvertisementBean {
 	public void setUseFlash(boolean useFlash) {
 		this.useFlash = useFlash;
 	}
-
+	
 }

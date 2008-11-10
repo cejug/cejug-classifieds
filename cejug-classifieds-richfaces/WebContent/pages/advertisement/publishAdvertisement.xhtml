@@ -25,42 +25,46 @@
 
 			<rich:toolBar height="10" itemSeparator="line">
 				<rich:toolBarGroup>
-					<h:commandLink style="border:none;" action="#{publishAdvertisementBean.publish}">
+					<h:commandLink style="border:none;"
+						action="#{publishAdvertisementBean.publish}">
 						<h:graphicImage value="/images/publish.jpg" style="border:none;" />
 					</h:commandLink>
 				</rich:toolBarGroup>
 			</rich:toolBar>
 
-			<rich:panel header="#{msg['publishadv.publish']}">
-				<h:panelGrid columns="1">
-					<h:outputText value="#{msg['publishadv.headline']}" />
-					<h:inputText
-						value="#{publishAdvertisementBean.advertisement.headline}"
-						style="width:230px;" />
+			<rich:tabPanel switchType="ajax">
+				<rich:tab label="Advertisement">
+					<a:support event="ontableave" reRender="panelPreview"></a:support>
+					<h:panelGrid columns="1">
+						<h:outputText value="#{msg['publishadv.headline']}" />
+						<h:inputText
+							value="#{publishAdvertisementBean.advertisement.headline}"
+							style="width:230px;" />
 
-					<h:outputText value="#{msg['publishadv.keywords']}"
-						style="width:230px;" />
-					<h:inputText
-						value="#{publishAdvertisementBean.advertisement.keywords}" />
+						<h:outputText value="#{msg['publishadv.keywords']}"
+							style="width:230px;" />
+						<h:inputText
+							value="#{publishAdvertisementBean.advertisement.keywords}" />
 
-					<h:outputText value="#{msg['publishadv.locale']}" />
-					<h:selectOneListbox
-						value="#{publishAdvertisementBean.advertisement.locale}" size="1">
-						<f:selectItems value="#{publishAdvertisementBean.locales}" />
-					</h:selectOneListbox>
+						<h:outputText value="#{msg['publishadv.locale']}" />
+						<h:selectOneListbox
+							value="#{publishAdvertisementBean.advertisement.locale}" size="1">
+							<f:selectItems value="#{publishAdvertisementBean.locales}" />
+						</h:selectOneListbox>
 
-					<h:outputText value="#{msg['publishadv.summary']}" />
-					<h:inputTextarea
-						value="#{publishAdvertisementBean.advertisement.summary}"
-						cols="55" rows="4" />
+						<h:outputText value="#{msg['publishadv.summary']}" />
+						<h:inputTextarea
+							value="#{publishAdvertisementBean.advertisement.summary}"
+							cols="55" rows="4" />
 
-					<h:outputText value="#{msg['publishadv.text']}" />
-					<h:inputTextarea
-						value="#{publishAdvertisementBean.advertisement.text}" cols="55"
-						rows="4" />
-				</h:panelGrid>
-
-				<rich:panel header="#{msg['publishadv.avatar']}">
+						<h:outputText value="#{msg['publishadv.text']}" />
+						<h:inputTextarea
+							value="#{publishAdvertisementBean.advertisement.text}" cols="55"
+							rows="4" />
+					</h:panelGrid>
+				</rich:tab>
+				<rich:tab label="Avatar">
+					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
 						<a:region>
 							<h:selectOneRadio
@@ -74,11 +78,14 @@
 						<h:panelGrid columns="1"
 							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
 							<h:outputText value="url" />
-							<h:inputText value="" />
+							<h:inputText
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" />
 							<h:outputText value="name" />
-							<h:inputText value="" />
+							<h:inputText
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.name}" />
 							<h:outputText value="description" />
-							<h:inputText value="" />
+							<h:inputText
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}" />
 						</h:panelGrid>
 
 						<h:panelGrid columns="2" columnClasses="top,top"
@@ -126,8 +133,22 @@
 							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGrid>
-				</rich:panel>
-			</rich:panel>
+				</rich:tab>
+				<rich:tab label="Preview">
+					<rich:panel id="panelPreview">
+						<f:facet name="header">
+							<h:outputText
+								value="#{publishAdvertisementBean.advertisement.headline} "></h:outputText>
+						</f:facet>
+						<h:panelGrid columns="2">
+							<h:graphicImage
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" />
+							<h:outputText
+								value="#{publishAdvertisementBean.advertisement.text}" />
+						</h:panelGrid>
+					</rich:panel>
+				</rich:tab>
+			</rich:tabPanel>
 		</a:form>
 	</ui:define>
 </ui:composition>
