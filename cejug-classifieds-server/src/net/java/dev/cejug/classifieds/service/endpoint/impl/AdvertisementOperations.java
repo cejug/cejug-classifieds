@@ -80,7 +80,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 
 		try {
 			AdvertisementCollection collection = new AdvertisementCollection();
-			List<AdvertisementEntity> entities = advFacade.readByCategory(Long.parseLong(filter.getCategory()));
+			List<AdvertisementEntity> entities = advFacade.readByCategory(Long
+					.parseLong(filter.getCategory()));
 			for (AdvertisementEntity entity : entities) {
 				collection.getAdvertisement().add(advAdapter.toSoap(entity));
 			}
