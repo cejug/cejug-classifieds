@@ -7,11 +7,23 @@ import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
@@ -27,6 +39,7 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
 import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 import org.junit.Assert;
+import org.w3._2005.atom.Feed;
 
 import pl.kernelpanic.dbmonster.DBMonster;
 import pl.kernelpanic.dbmonster.DBMonsterContext;
@@ -50,6 +63,34 @@ public class BusinessClientMock {
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
+	}
+
+	public List<Advertisement> loadFromAtomFeed(Domain domain,
+			AdvertisementType advType, AdvertisementCategory category,
+			String feedUrl) {
+		try {
+			List<Advertisement> response = new ArrayList<Advertisement>();
+			Feed feed = readRemoteAtomTest(feedUrl);
+			return response;
+		} catch (Exception error) {
+			Assert.fail(error.getMessage());
+			return null;
+		}
+	}
+
+	public Feed readRemoteAtomTest(String url) throws JAXBException,
+			IOException, XMLStreamException, FactoryConfigurationError {
+		JAXBContext jaxbContext = JAXBContext.newInstance(Feed.class
+				.getPackage().getName(), Thread.currentThread()
+				.getContextClassLoader());
+		Unmarshaller marshaller = jaxbContext.createUnmarshaller();
+		URL remoteUrl = new URL(url);
+		InputStream stream = remoteUrl.openConnection().getInputStream();
+		XMLStreamReader reader = XMLInputFactory.newInstance()
+				.createXMLStreamReader(stream);
+		JAXBElement<Feed> feedElement = marshaller
+				.unmarshal(reader, Feed.class);
+		return feedElement.getValue();
 	}
 
 	public Advertisement createAdvertisement(Domain domain,

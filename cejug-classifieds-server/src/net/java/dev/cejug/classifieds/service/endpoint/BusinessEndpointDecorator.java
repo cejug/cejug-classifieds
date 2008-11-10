@@ -25,6 +25,8 @@ package net.java.dev.cejug.classifieds.service.endpoint;
 
 import generated.Rss;
 
+import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
@@ -32,6 +34,7 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsBusinessRemote;
@@ -43,6 +46,7 @@ import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
@@ -68,6 +72,11 @@ import org.w3._2005.atom.Feed;
 public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 		ClassifiedsBusinessRemote {
 	/**
+	 * BusinessEndpointDecorator logger.
+	 */
+	private final static Logger logger = Logger.getLogger(
+			BusinessEndpointDecorator.class.getName(), "i18n/log");
+	/**
 	 * Used by not yet implemented operations: {@value} .
 	 */
 	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
@@ -80,6 +89,9 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 
 	@EJB
 	private transient AdvertisementOperationsLocal crudAdvertisement;
+
+	@EJB
+	private transient AdvertisementTypeOperationsLocal crudAdvType;
 
 	@EJB
 	private transient CategoryOperationsLocal crudCategory;
@@ -118,6 +130,9 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 		return crudAdvertisement.loadAdvertisementOperation(filter);
 	}
 
+	/**
+	 * 
+	 */
 	public CategoryCollection readCategoryBundleOperation(
 			final BundleRequest bundleRequest) {
 		CategoryCollection collection = new CategoryCollection();
@@ -153,5 +168,19 @@ public class BusinessEndpointDecorator implements ClassifiedsBusinessLocal,
 			final UpdateCustomerParam partialCustomer) {
 		// TODO
 		throw new WebServiceException(NOT_IMPLEMENTED);
+	}
+
+	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			BundleRequest bundleRequest) {
+		try {
+			AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
+			collection.getAdvertisementType().addAll(
+					crudAdvType.readBundleOperation(bundleRequest));
+			return collection;
+
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+			throw new WebServiceException(e);
+		}
 	}
 }
