@@ -22,8 +22,9 @@
 								<a:support event="onchange" reRender="categoryPanel"></a:support>
 							</h:selectOneMenu>
 						</a:region>
-					<a:commandLink action="publishAdvertisement"  value="Publish Advertisement" />
+					<a:commandLink rendered="#{securityBean.customer}" action="publishAdvertisement"  value="Publish Advertisement" />
 				</h:panelGrid>
+				
 			</f:facet>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
 					var="car" columns="4" elements="12" id="categoryPanel">

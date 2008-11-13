@@ -23,7 +23,13 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
-import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.faces.context.FacesContext;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 /**
  * TODO: to comment.
@@ -31,74 +37,49 @@ import java.io.Serializable;
  * @author $Author: felipegaucho $
  * @version $Rev$ ($Date: 2008-09-08 18:25:25 +0200 (Mon, 08 Sep 2008) $)
  */
-public class AdvertisementCategoryWrapper implements Serializable {
+@Controller(value = "securityBean")
+@Scope("request")
+public class SecurityBean {
+	private String login;
+	private String password;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private Long id;
-
-	private String name;
-
-	public AdvertisementCategoryWrapper() {
-
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public AdvertisementCategoryWrapper(Long id, String name) {
-		this.id = id;
-		this.name = name;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public AdvertisementCategoryWrapper(Long id) {
-		this.id = id;
+	public boolean isCustomer() {
+		javax.faces.context.ExternalContext context = FacesContext
+				.getCurrentInstance().getExternalContext();
+		// return true;
+		return context.isUserInRole("admin")
+				|| context.isUserInRole("superuser");
 	}
 
-	public Long getId() {
-		return id;
+	// here comes the customer login methods .......
+	public void login() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
+			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-	public String getName() {
-		return name;
-	}
+	private String hashPassword(String password)
+			throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.reset();
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public int hashCode() {
-		int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
+		byte[] bytes = md.digest(password.getBytes());
+		StringBuilder sb = new StringBuilder(2 * bytes.length);
+		for (int i = 0; i < bytes.length; i++) {
+			int low = (int) (bytes[i] & 0x0f);
+			int high = (int) ((bytes[i] & 0xf0) >> 4);
+			sb.append(HEXADECIMAL[high]);
+			sb.append(HEXADECIMAL[low]);
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		AdvertisementCategoryWrapper other = (AdvertisementCategoryWrapper) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		return true;
+		return sb.toString();
 	}
 
 }

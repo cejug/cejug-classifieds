@@ -10,7 +10,8 @@
 	href="#{facesContext.externalContext.requestContextPath}/images/favicon.ico"
 	type="image/x-icon" />
 <title>Cejug Classifieds</title>
-<link rel='stylesheet' type='text/css' href='#{facesContext.externalContext.requestContextPath}/css/style.css' />
+<link rel='stylesheet' type='text/css'
+	href='#{facesContext.externalContext.requestContextPath}/css/style.css' />
 </head>
 
 <body>
@@ -19,21 +20,14 @@
 	<div class='fullscreen'>
 	<div class='topPane'>
 	<div class='topLeftPane generalPadding'><img
-		src='#{facesContext.externalContext.requestContextPath}/images/logo001.gif' class='logo' /></div>
+		src='#{facesContext.externalContext.requestContextPath}/images/logo001.gif'
+		class='logo' /></div>
 	<div class='topCenterPane fontHeader'><label>Cejug-Classifieds</label>
 	</div>
-	<div class='topRightPane generalPadding'>
-	<div class='loginrow'><label class='loginlabel' id='login.label'>Login</label>
-	<input type='text' class='loginfield' name='login' /></div>
-	<div class='loginrow'><label class='loginlabel'>Password</label>
-	<input type='password' class='loginfield' name='passsword' /></div>
-	<div class='loginrow'>
-	<div class='loginlabel'><a href='/register' class='register'>Help</a></div>
-	<input type='submit' class='submit' value='Enter' /></div>
+	<div class='topRightPane generalPadding'><ui:insert name="login">Login</ui:insert>
 	</div>
 	</div>
-	<div class='midCenterPane'>
-	<ui:insert name="body">Default Body</ui:insert>
+	<div class='midCenterPane'><ui:insert name="body">Default Body</ui:insert>
 	</div>
 	</div>
 </f:view>

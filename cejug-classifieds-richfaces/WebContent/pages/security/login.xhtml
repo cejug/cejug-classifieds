@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="login" styleClass="loginForm">
+		<a:form>
+			</rich:panel>
+			<h:panelGrid columns="1">
+				<h:outputText value="#{msg['login.username']}" />
+				<h:inputText
+					value="#{securityBean.login}"
+					style="width:230px;" />
+
+				<h:outputText value="#{msg['login.password']}"
+					style="width:230px;" />
+				<h:inputText
+					value="#{securityBean.password}" />
+			</h:panelGrid>
+		</a:form>
+	</ui:define>
+</ui:composition>
+<!-- test -->
+<!--
+            THE OLD LOGIN FORM (IT WAS JUST DESIGN...) 
+			<div class='loginrow'><label class='loginlabel'
+				id='login.label'>Login</label> <input type='text' class='loginfield'
+				name='login' /></div>
+			<div class='loginrow'><label class='loginlabel'>Password</label>
+			<input type='password' class='loginfield' name='passsword' /></div>
+			<div class='loginrow'>
+			<div class='loginlabel'><a href='/register' class='register'>Help</a></div>
+			<input type='submit' class='submit' value='Enter' /></div>
+-->
+
+</html>
