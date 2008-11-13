@@ -28,8 +28,8 @@ import java.io.Serializable;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-09-08 18:25:25 +0200 (Mon, 08 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class AdvertisementCategoryWrapper implements Serializable {
 
