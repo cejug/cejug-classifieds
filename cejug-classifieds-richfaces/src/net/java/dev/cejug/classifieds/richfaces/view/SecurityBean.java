@@ -41,6 +41,15 @@ import org.springframework.stereotype.Controller;
 @Scope("request")
 public class SecurityBean {
 	private String login;
+
+	public String getLogin() {
+		return login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	private String password;
 
 	public void setLogin(String login) {
@@ -60,7 +69,14 @@ public class SecurityBean {
 	}
 
 	// here comes the customer login methods .......
-	public void login() {
+	public void doLogin() {
+		try {
+			hashPassword(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',

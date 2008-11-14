@@ -15,6 +15,7 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 }
 
 .fullscreen {
+	float: none;
 	height: 100%;
 	font-family: Cortoba, Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size: 13px;
@@ -24,38 +25,71 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 .topPane {
 	width: 100%;
 	height: auto;
-	display: block;
-	float : left;
+	display: inline-table;
+	clear: both;
 	border: solid;
 	border-width: 1px;
 	border-color: black;
-	float: left;
+	float: none;
 }
 
 .topLeftPane {
+	height: 100%;
 	float: left;
 	width: auto;
+	display: block;
+}
+
+.topRightPane {
 	height: 100%;
+	float: left;
+	width: auto;
+	display: block;
+}
+
+.topCenterPane {
+	display: block;
+	height: 100%;
+	vertical-align: middle;
+	margin: auto;
+	text-align: top;
+	float: left;
+	width: auto;
+}
+
+.topCenterPane p {
+	font-family: inherit;
+	font-style: italic;
+	color:silver;
+}
+
+.topLeftPane:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.topCenterPane:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.topRightPane:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+img {
+	float: left;
 }
 
 .generalPadding {
 	padding: 6px;
-}
-
-.topRightPane {
-	float: right;
-	width: auto;
-	height: 100%;
-}
-
-.topCenterPane {
-	float: left;
-	display:table-row;
-	min-height: 100%;
-	width: auto;
-	vertical-align: middle;
-	margin: auto;
-	text-align: top;
 }
 
 .midCenterPane {
@@ -83,7 +117,7 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 .fontHeader {
 	font-size: 200%;
 	font-weight: bold;
-	font-family: monaco,cursive;
+	font-family: monaco, cursive;
 	text-align: center;
 	color: black;
 }
