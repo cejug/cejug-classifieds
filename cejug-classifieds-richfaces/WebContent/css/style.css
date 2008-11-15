@@ -325,7 +325,6 @@ img {
 }
 
 .rich-panel {
-	border: none;
 	border: solid;
 	border-width: 1px;
 	border-color: #FDD017;
@@ -365,6 +364,30 @@ img {
 	background: transparent;
 }
 
+.rich-table-footercell {
+	background: transparent;
+}
+
+.rich-dtascroller-table {
+	background: transparent;
+	border: solid;
+	border-width: 1px;
+	border-color: #FDD017;
+}
+
+.rich-datascr-button {
+	background: transparent;
+	color: #FDD017;
+}
+
+.dr-table-footercell {
+	background: black;
+}
+
+.rich-datascr {
+	background: transparent;
+}
+
 /* browser hacks */
 td {
 	background: transparent;
@@ -379,6 +402,8 @@ select {
 	border: solid;
 	border-width: 1px;
 	border-color: #FDD017;
-	font: bolder 120%;
-	color: #FDD017;
+	font-family: monaco, sans-serif, palatino Linotype, Tahoma, Verdana,
+		Cortoba, Tahoma, Helvetica, Arial;
+	color: white;
+	font-weight: bolder;
 }

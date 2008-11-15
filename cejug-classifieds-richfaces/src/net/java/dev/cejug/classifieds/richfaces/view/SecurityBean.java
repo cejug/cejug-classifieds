@@ -26,8 +26,6 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.faces.context.FacesContext;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -61,8 +59,7 @@ public class SecurityBean {
 	}
 
 	public boolean isCustomer() {
-		javax.faces.context.ExternalContext context = FacesContext
-				.getCurrentInstance().getExternalContext();
+		// javax.faces.context.ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		return true;
 		// return context.isUserInRole("admin") ||
 		// context.isUserInRole("superuser");
