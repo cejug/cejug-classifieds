@@ -23,9 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -67,15 +64,17 @@ public class SecurityBean {
 
 	// here comes the customer login methods .......
 	public void doLogin() {
+		/*
 		try {
 			hashPassword(password);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 
 	}
-
+/*
 	private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
@@ -94,5 +93,5 @@ public class SecurityBean {
 		}
 		return sb.toString();
 	}
-
+*/
 }
