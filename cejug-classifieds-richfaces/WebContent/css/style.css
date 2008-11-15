@@ -11,56 +11,54 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 .featureBorder {
 	border: solid;
 	border-width: 1px;
-	border-color: black;
+	border-color: silver;
 }
 
 .fullscreen {
 	float: none;
 	height: 100%;
-	font-family: Cortoba, Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-family: monaco, sans-serif, palatino Linotype, Tahoma, Verdana,
+		Cortoba, Tahoma, Helvetica, Arial;
 	font-size: 13px;
-	padding: 1px 1px 0px 1px;
+	background: black;
 }
 
 .topPane {
 	width: 100%;
-	height: auto;
-	display: inline-table;
-	clear: both;
+	height: 100px;
+	display: block;
 	border: solid;
 	border-width: 1px;
-	border-color: black;
+	border-color: silver;
 	float: none;
+	background: transparent;
 }
 
 .topLeftPane {
-	height: 100%;
+	height: auto;
 	float: left;
 	width: auto;
 	display: block;
 }
 
 .topRightPane {
-	height: 100%;
-	float: left;
+	height: auto;
+	float: right;
 	width: auto;
 	display: block;
 }
 
 .topCenterPane {
-	display: block;
-	height: 100%;
-	vertical-align: middle;
-	margin: auto;
-	text-align: top;
+	height: 100px;
+	text-align: justify;
 	float: left;
-	width: auto;
+	vertical-align: top;
 }
 
 .topCenterPane p {
 	font-family: inherit;
 	font-style: italic;
-	color:silver;
+	color: silver;
 }
 
 .topLeftPane:after {
@@ -95,7 +93,7 @@ img {
 .midCenterPane {
 	float: left;
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	border: 1px;
 	border-style: solid;
 }
@@ -119,7 +117,13 @@ img {
 	font-weight: bold;
 	font-family: monaco, cursive;
 	text-align: center;
-	color: black;
+	color: #FDD017;
+}
+
+.loginPane {
+	height: 100%;
+	background: #FDD017;
+	min-width: 150px;
 }
 
 .loginrow {
@@ -129,8 +133,9 @@ img {
 
 .loginlabel {
 	float: left;
-	width: 30%;
+	width: auto;
 	height: auto;
+	margin-right: 3px;
 }
 
 .loginlabel a {
@@ -139,14 +144,19 @@ img {
 
 .loginfield {
 	float: right;
-	max-width: 70%;
+	width: auto;
 	height: auto;
 	margin-top: 1px;
 }
 
+.help {
+	float: left;
+	text-decoration: none;
+}
+
 .submit {
+	vertical-align: top;
 	float: right;
-	max-width: 70%;
 	height: auto;
 	margin-top: 1px;
 }
@@ -177,7 +187,7 @@ img {
 }
 
 .thinborder {
-	border: #C4C0B9;
+	border: silver;
 	border-width: 1px;
 	border-style: solid;
 }
@@ -267,4 +277,108 @@ img {
 	text-indent: 25px;
 	max-width: 25%;
 	vertical-align: middle;
+}
+
+.clear {
+	clear: both;
+}
+
+.topCenterPane h1,.ombre,.ombre2 {
+	/* first place the container H1 to correctly place the SPAN later */
+	top: +2px; /* title is offcentered */
+	color: white;
+	position: relative;
+	min-width: 350px;
+	font: bold 200%;
+	padding-top: 0px;
+	text-align: left;
+}
+
+.ombre {
+	position: absolute; /* SPAN is placed over the title */
+	color: white;
+}
+
+.ombre2 {
+	position: absolute; /* SPAN is placed oner the title */
+	top: -0.3px; /* SPAN is offcentered */
+	color: #FDD017;
+}
+
+/* richfaces hacks */
+.rich-panel-header {
+	background: black;
+	color: #FDD017;
+	font: bolder;
+	border: solid;
+	border-width: 1px;
+	border-color: #FDD017;
+}
+
+.rich-panel-body {
+	background: black;
+	color: white;
+	border: solid;
+	border-width: 1px;
+	border-color: #FDD017;
+	height: 100%;
+}
+
+.rich-panel {
+	border: none;
+	border: solid;
+	border-width: 1px;
+	border-color: #FDD017;
+}
+
+.dr-table-cell {
+	background: black;
+	vertical-align: top;
+}
+
+.rich-table-row {
+	width: 100%;
+}
+
+.rich-tabpanel-content {
+	background: transparent;
+	color: #FDD017;
+	font: bolder;
+}
+
+.rich-tab-active {
+	background: #FDD017;
+	border: solid;
+	border-width: 1px;
+	border-color: silver;
+}
+
+.rich-toolbar {
+	background: transparent;
+}
+
+.rich-toolbar-item {
+	background: transparent;
+}
+
+.dr-toolbar-int {
+	background: transparent;
+}
+
+/* browser hacks */
+td {
+	background: transparent;
+}
+
+body {
+	background: black;
+}
+
+select {
+	background: black;
+	border: solid;
+	border-width: 1px;
+	border-color: #FDD017;
+	font: bolder 120%;
+	color: #FDD017;
 }

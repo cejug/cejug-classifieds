@@ -63,9 +63,9 @@ public class SecurityBean {
 	public boolean isCustomer() {
 		javax.faces.context.ExternalContext context = FacesContext
 				.getCurrentInstance().getExternalContext();
-		// return true;
-		return context.isUserInRole("admin")
-				|| context.isUserInRole("superuser");
+		return true;
+		// return context.isUserInRole("admin") ||
+		// context.isUserInRole("superuser");
 	}
 
 	// here comes the customer login methods .......
