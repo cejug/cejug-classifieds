@@ -305,7 +305,7 @@ img {
 	color: #FDD017;
 }
 
-/* richfaces hacks */
+/* uncomment this for the dark side :)
 .rich-panel-header {
 	background: black;
 	color: #FDD017;
@@ -388,7 +388,7 @@ img {
 	background: transparent;
 }
 
-/* browser hacks */
+
 td {
 	background: transparent;
 }
@@ -407,3 +407,4 @@ select {
 	color: white;
 	font-weight: bolder;
 }
+*/
