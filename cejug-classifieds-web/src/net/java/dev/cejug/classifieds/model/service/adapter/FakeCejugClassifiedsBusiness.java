@@ -3,6 +3,8 @@ package net.java.dev.cejug.classifieds.model.service.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.ws.WebServiceException;
+
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.Rss;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
@@ -10,6 +12,7 @@ import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.business.SyndicationFilter;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.CategoryCollection;
 import net.java.dev.cejug_classifieds.metadata.common.CreateCustomerParam;
@@ -103,6 +106,13 @@ public class FakeCejugClassifiedsBusiness implements CejugClassifiedsBusiness {
 			UpdateCustomerParam partialCustomer) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
+			BundleRequest advTypeBundleRequest) {
+		// TODO Auto-generated method stub
+		throw new WebServiceException("NOT_IMPLEMENTED");
 	}
 
 }
