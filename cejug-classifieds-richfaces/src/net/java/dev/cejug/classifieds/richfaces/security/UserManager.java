@@ -120,10 +120,10 @@ public class UserManager {
 		UserManager manager = null;
 		manager = new UserManager();
 		try {
-			manager.createUser("hendrix", "teste", "1");
-			manager.createUser("tosh", "teste", "1");
-			manager.createUser("ozzy", "teste", "1");
-			manager.createUser("marley", "teste", "1");
+			manager.createUser("hendrix", "teste", "customer");
+			manager.createUser("tosh", "teste", "customer");
+			manager.createUser("ozzy", "teste", "customer");
+			manager.createUser("marley", "teste", "admin");
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
