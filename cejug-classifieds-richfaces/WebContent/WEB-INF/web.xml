@@ -58,6 +58,20 @@
 			<role-name>developer</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<!-- security-constraint>
+		<display-name>Restrict XHTML Documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<url-pattern>/pages/advertisement/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>
+				Only Let 'developer's access XHTML pages
+			</description>
+			<role-name>customer</role-name>
+		</auth-constraint>
+	</security-constraint-->
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

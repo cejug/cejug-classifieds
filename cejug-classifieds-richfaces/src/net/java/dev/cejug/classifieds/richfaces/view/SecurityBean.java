@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
+import java.security.Principal;
+
 import javax.faces.context.FacesContext;
 
 import org.springframework.context.annotation.Scope;
@@ -60,6 +62,7 @@ public class SecurityBean {
 	public boolean isCustomer() {
 		javax.faces.context.ExternalContext context = FacesContext
 				.getCurrentInstance().getExternalContext();
+		Principal p = context.getUserPrincipal();
 		return context.isUserInRole("customer")
 				|| context.isUserInRole("admin");
 	}
