@@ -32,7 +32,8 @@ import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 /**
- * TODO: to comment.
+ * Adaptation interface between Customer objects representing Soap elements and
+ * the CustomerEntity used to persist the domain data in the database.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
