@@ -61,8 +61,10 @@ public class UserManager {
 		return sb.toString();
 	}
 
+	/** Test database, should be reviewed/replaced. */
 	private static final String strUrl = "jdbc:derby://localhost:1527/sun-appserv-samples;user=app;password=adminadmin";
 
+	/** Insert a new user/password in the authentication table. */
 	public void createUser(String login, String password, String group)
 			throws ClassNotFoundException, SQLException,
 			NoSuchAlgorithmException {
