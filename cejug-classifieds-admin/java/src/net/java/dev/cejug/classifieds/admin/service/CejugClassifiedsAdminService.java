@@ -24,14 +24,27 @@ import net.java.dev.cejug.classifieds.server.contract.UpdateCategoryParam;
 import net.java.dev.cejug.classifieds.server.contract.UpdateDomainParam;
 
 /**
- * @author rodrigo
+ * @author $Author: rodrigolopes $
+ * @version $Rev$ ($Date$)
  */
 public class CejugClassifiedsAdminService {
 
     /*
-     * =================================================================================
+     * ==========================================================================
+     * SECURITY
+     * ==================================================================
+     */
+    public boolean executeLogin(String username, String password) {
+
+        StringBuilder inverted = new StringBuilder(password);
+
+        return ((username != null) && (username.length() > 4) && (username.equals(inverted.reverse().toString())));
+    }
+
+    /*
+     * ==========================================================================
      * CATEGORY
-     * ==================================================================================
+     * ==================================================================
      */
     /**
      * Get all advertisement categories.
@@ -78,9 +91,9 @@ public class CejugClassifiedsAdminService {
     }
 
     /*
-     * =================================================================================
+     * ==========================================================================
      * ADVERTISEMENT TYPE
-     * ==================================================================================
+     * ========================================================
      */
     /**
      * Get all advertisement types.
@@ -127,9 +140,9 @@ public class CejugClassifiedsAdminService {
     }
 
     /*
-     * =================================================================================
+     * ==========================================================================
      * DOMAIN
-     * ==================================================================================
+     * ====================================================================
      */
     /**
      * Get all domains.
