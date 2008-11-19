@@ -38,6 +38,7 @@ import java.sql.SQLException;
  * 
  */
 public class UserManager {
+	private static final String SHOW_ALL = "select login from usertable";
 	private static final String DRIVER = "org.apache.derby.jdbc.ClientDriver";
 	private static final String CREATE_USER = "insert into usertable values(?, ?)";
 	private static final String CREATE_GROUP = "insert into grouptable values(?, ?)";
@@ -69,23 +70,31 @@ public class UserManager {
 			throws ClassNotFoundException, SQLException,
 			NoSuchAlgorithmException {
 		Connection conn = null;
+		PreparedStatement userStmt = null;
+		PreparedStatement groupStmt = null;
 		try {
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(strUrl);
 
-			PreparedStatement userStmt = conn.prepareStatement(CREATE_USER);
+			userStmt = conn.prepareStatement(CREATE_USER);
 			userStmt.setString(1, login);
 			String hPassword = hashPassword(password);
 			userStmt.setString(2, hPassword);
 			userStmt.executeUpdate();
 			userStmt.close();
 
-			PreparedStatement groupStmt = conn.prepareStatement(CREATE_GROUP);
+			groupStmt = conn.prepareStatement(CREATE_GROUP);
 			groupStmt.setString(1, login);
 			groupStmt.setString(2, group);
 			groupStmt.executeUpdate();
 			groupStmt.close();
 		} finally {
+			if (userStmt != null) {
+				userStmt.close();
+			}
+			if (groupStmt != null) {
+				groupStmt.close();
+			}
 			if (conn != null) {
 				conn.close();
 			}
@@ -95,25 +104,25 @@ public class UserManager {
 	public void showAll() throws SQLException {
 		Connection conn = null;
 		ResultSet set = null;
+		PreparedStatement userStmt = null;
 		try {
 			conn = DriverManager.getConnection(strUrl);
-
-			PreparedStatement userStmt = conn
-					.prepareStatement("select login from usertable");
+			userStmt = conn.prepareStatement(SHOW_ALL);
 			set = userStmt.executeQuery();
 			while (set.next()) {
 				System.out.println(set.getString("login"));
 			}
-			userStmt.close();
 		} finally {
-			if (conn != null) {
-				conn.close();
-			}
 			if (set != null) {
 				set.close();
 			}
+			if (userStmt != null) {
+				userStmt.close();				
+			}
+			if (conn != null) {
+				conn.close();
+			}
 		}
-
 	}
 
 	public static void main(String args[]) {

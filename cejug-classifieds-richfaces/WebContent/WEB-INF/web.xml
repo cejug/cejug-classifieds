@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>cejug-classifieds-wen-richfaces</display-name>
+	<display-name>cejug-classifieds-richfaces</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -45,33 +45,6 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>
-	<security-constraint>
-		<display-name>Restrict XHTML Documents</display-name>
-		<web-resource-collection>
-			<web-resource-name>XHTML</web-resource-name>
-			<url-pattern>*.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<description>
-				Only Let 'developer's access XHTML pages
-			</description>
-			<role-name>developer</role-name>
-		</auth-constraint>
-	</security-constraint>
-	<!-- security-constraint>
-		<display-name>Restrict XHTML Documents</display-name>
-		<web-resource-collection>
-			<web-resource-name>XHTML</web-resource-name>
-			<url-pattern>/pages/advertisement/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<description>
-				Only Let 'developer's access XHTML pages
-			</description>
-			<role-name>customer</role-name>
-		</auth-constraint>
-	</security-constraint-->
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -111,10 +84,54 @@
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 
+	<security-constraint>
+		<display-name>Restrict XHTML documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<description />
+			<url-pattern>*.xhtml</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>With no roles defined, no access granted</description>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<display-name>Restrict advertisement pages to customers</display-name>
+		<web-resource-collection>
+			<web-resource-name>CustomerPages</web-resource-name>
+			<description />
+			<url-pattern>/pages/advertisement/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>PUT</http-method>
+			<http-method>OPTIONS</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>Only Let customers access to advertisment pages</description>
+			<role-name>customer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>cejug-classifieds</realm-name>
+
+		<form-login-config>
+			<form-login-page>/pages/security/login.faces</form-login-page>
+			<form-error-page>/pages/security/error.faces</form-error-page>
+		</form-login-config>
 	</login-config>
+
 	<security-role>
 		<description />
 		<role-name>customer</role-name>
@@ -124,4 +141,9 @@
 		<role-name>admin</role-name>
 	</security-role>
 
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.xhtml</url-pattern>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>

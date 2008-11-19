@@ -6,56 +6,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-
-	<form method="POST" action="j_security_check">
-	<table class="loginPane">
-		<tr class="loginrow">
-			<th><label class="loginlabel">#{msg['login.username']}</label></th>
-			<td><input class="loginfield" type="text" name="j_username" /></td>
-		</tr>
-		<tr class="loginrow">
-			<th><label class="loginlabel">Password:</label></th>
-			<td><input class="loginfield" type="password" name="j_password" /></td>
-		</tr>
-		<tr class="loginrow">
-			<td colspan="2"><input type="submit" value="Log In" /></td>
-		</tr>
-	</table>
-	</form>
-
-<!-- a:form id="loginPane" styleClass="loginPane" action="j_security_check"
-	method="POST">
-	<h:panelGrid columns="1">
-		<a:region styleClass='loginrow'>
-			<h:outputText value="#{msg['login.username']}"
-				styleClass="loginlabel" />
-			<h:inputText id="j_username" styleClass="loginfield" />
-		</a:region>
-		<a:region styleClass='loginrow'>
-			<h:outputText value="#{msg['login.password']}"
-				styleClass="loginlabel" />
-			<h:inputSecret id="j_password" styleClass="loginfield" />
-		</a:region>
-		<a:region styleClass='loginrow'>
-			<a:commandLink action="loginHelp" value="#{msg['login.help']}"
-				styleClass="help" />
-			<a:commandButton reRender="loginPane" styleClass="submit"
-				value="#{msg['login.submit']}" />
-		</a:region>
-	</h:panelGrid>
-</a:form-->
-
-
-<!-- test -->
-<!--
-            THE OLD LOGIN FORM (IT WAS JUST DESIGN...) 
-			<div class='loginrow'><label class='loginlabel'
-				id='login.label'>Login</label> <input type='text' class='loginfield'
-				name='login' /></div>
-			<div class='loginrow'><label class='loginlabel'>Password</label>
-			<input type='password' class='loginfield' name='passsword' /></div>
-			<div class='loginrow'>
-			<div class='loginlabel'><a href='/register' class='register'>Help</a></div>
-			<input type='submit' class='submit' value='Enter' /></div>
--->
+<!-- ui:composition template="../../template/template.xhtml">
+	<ui:define name="login" styleClass="advertisementPane"-->
+		<f:verbatim>
+			<form method="POST" action="j_security_check">
+			<table class="loginPane">
+				<tr class="loginrow">
+					<th><label class="loginlabel">Username:</label></th>
+					<td><input class="loginfield" type="text" name="j_username" /></td>
+				</tr>
+				<tr class="loginrow">
+					<th><label class="loginlabel">Password:</label></th>
+					<td><input class="loginfield" type="password"
+						name="j_password" /></td>
+				</tr>
+				<tr class="loginrow">
+					<td colspan="2"><input type="submit" value="Log In" /></td>
+					<!-- td align="left"><input class="submit" type="reset" /></td-->
+				</tr>
+			</table>
+			</form>
+		</f:verbatim>
+	<!-- /ui:define>
+</ui:composition-->
 </html>

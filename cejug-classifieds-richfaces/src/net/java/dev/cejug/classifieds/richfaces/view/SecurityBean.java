@@ -23,10 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
-import java.security.Principal;
-
-import javax.faces.context.FacesContext;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -59,34 +55,10 @@ public class SecurityBean {
 		this.password = password;
 	}
 
-	public boolean isCustomer() {
-		javax.faces.context.ExternalContext context = FacesContext
-				.getCurrentInstance().getExternalContext();
-		Principal p = context.getUserPrincipal();
-		return context.isUserInRole("customer")
-				|| context.isUserInRole("admin");
-	}
-
-	// here comes the customer login methods .......
-	public void doLogin() {
-		/*
-		 * try { hashPassword(password); } catch (NoSuchAlgorithmException e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
-
-	}
 	/*
-	 * private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
-	 * '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-	 * 
-	 * private String hashPassword(String password) throws
-	 * NoSuchAlgorithmException { MessageDigest md =
-	 * MessageDigest.getInstance("MD5"); md.reset();
-	 * 
-	 * byte[] bytes = md.digest(password.getBytes()); StringBuilder sb = new
-	 * StringBuilder(2 bytes.length); for (int i = 0; i < bytes.length; i++) {
-	 * int low = (int) (bytes[i] & 0x0f); int high = (int) ((bytes[i] & 0xf0) >>
-	 * 4); sb.append(HEXADECIMAL[high]); sb.append(HEXADECIMAL[low]); } return
-	 * sb.toString(); }
+	 * public boolean isCustomer() { javax.faces.context.ExternalContext context
+	 * = FacesContext .getCurrentInstance().getExternalContext(); if(true)
+	 * return true; return context.isUserInRole("customer") ||
+	 * context.isUserInRole("admin"); }
 	 */
 }
