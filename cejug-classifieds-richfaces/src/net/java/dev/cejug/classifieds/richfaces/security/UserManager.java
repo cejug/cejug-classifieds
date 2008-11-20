@@ -117,7 +117,7 @@ public class UserManager {
 				set.close();
 			}
 			if (userStmt != null) {
-				userStmt.close();				
+				userStmt.close();
 			}
 			if (conn != null) {
 				conn.close();

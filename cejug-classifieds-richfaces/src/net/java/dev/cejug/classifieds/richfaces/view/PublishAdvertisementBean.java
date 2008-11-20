@@ -38,7 +38,6 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
 import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
-import net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
@@ -168,24 +167,28 @@ public class PublishAdvertisementBean {
 			advertisement.setCustomer(customer);
 			advertisement.setTypeId(type.getEntityId());
 
-			AvatarImageOrUrl avatar = new AvatarImageOrUrl();
+			// TODO: include a text field in the publish page (auto-detect??)
+			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
+			if (avatar != null && avatar.getImage() != null) {
+				avatar.getImage().setContentType("image/png");
+			}
+
+			// AvatarImageOrUrl avatar = new AvatarImageOrUrl();
 			// URL imgUrl =
 			// getClass().getClassLoader().getResource("img/car.png");
 			// Image image = ImageIO.read(imgUrl);
-			ObjectFactory attachmentFactory = new ObjectFactory();
+			// ObjectFactory attachmentFactory = new ObjectFactory();
 
-			AtavarImage avimage = attachmentFactory.createAtavarImage();
-			avimage.setContentType("image/png");
-			avatar.setImage(avimage);
-			avatar.setName("car.jpg");
-			avatar.setDescription("PUBLISH BEAN");
-			avatar
-					.setUrl("http://upload.wikimedia.org/wikipedia/commons/e/e7/Avatar_ItsMine.png");
-			advertisement.setAvatarImageOrUrl(avatar);
+			/*
+			 * AtavarImage avimage = attachmentFactory.createAtavarImage();
+			 * avimage.setContentType("image/png"); avatar.setImage(avimage);
+			 * avatar.setName("car.jpg"); avatar.setDescription("PUBLISH BEAN");
+			 * avatar.setUrl(
+			 * "http://upload.wikimedia.org/wikipedia/commons/e/e7/Avatar_ItsMine.png"
+			 * ); advertisement.setAvatarImageOrUrl(avatar);
+			 */
 
-			advertisement
-					.setText("from PublishAdvertisementBean .. just a test..........");
-
+			// advertisement.setText("from PublishAdvertisementBean .. just a test..........");
 			// Publishing period
 			Calendar today = GregorianCalendar.getInstance();
 			Period period = new Period();

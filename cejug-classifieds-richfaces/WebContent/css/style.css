@@ -14,7 +14,12 @@ Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 	border-color: silver;
 }
 
-.fullscreen {
+.advPane {
+	float: none;
+	width:100%;
+}
+	
+.old {
 	float: none;
 	height: 100%;
 	font-family: monaco, sans-serif, palatino Linotype, Tahoma, Verdana,
@@ -114,10 +119,9 @@ img {
 
 .fontHeader {
 	font-size: 200%;
-	font-weight: bold;
+	font-weight: bolder;
 	font-family: monaco, cursive;
 	text-align: center;
-	color: #FDD017;
 }
 
 .loginPane {

@@ -9,11 +9,10 @@
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="body" styleClass="advertisementPane">
 		<a:form>
-		<rich:panel>
-			<f:facet name="header">
-				<h:panelGrid columns="3">
-					<h:outputText value="Category: "></h:outputText>
-					
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGrid columns="3">
+						<h:outputText value="Category: "></h:outputText>
 						<a:region>
 							<h:selectOneMenu id="categories"
 								converter="advertisementCategoryConverter"
@@ -22,30 +21,34 @@
 								<a:support event="onchange" reRender="categoryPanel"></a:support>
 							</h:selectOneMenu>
 						</a:region>
-					<a:commandLink action="publishAdvertisement"  value="Publish Advertisement" />
-				</h:panelGrid>
-				
-			</f:facet>
+						<a:commandLink action="publishAdvertisement"
+							value="Publish Advertisement" />
+					</h:panelGrid>
+
+				</f:facet>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
-					var="car" columns="4" elements="12" id="categoryPanel" styleClass="advPane">
-					<div style="align:top;">
-					<rich:panel>
+					var="adv" columns="4" elements="12" id="categoryPanel"
+					styleClass="advPane">
+					<div style="align: top;"><rich:panel>
 						<f:facet name="header">
-							<h:outputText value="#{car.headline} "></h:outputText>
+							<h:outputText value="#{adv.headline} "></h:outputText>
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:graphicImage value="#{car.avatarImageOrUrl.url}" />
-							<!-- h:outputText value="Price:" styleClass="summary"></h:outputText-->
-							<h:outputText value="#{car.text}" />
+							<h:graphicImage width="80" height="60"
+								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
+							<h:panelGrid rows="2">
+								<h:outputText value="#{adv.summary}" style="float:none;" />
+								<h:outputText value="author:" style="float:none;font-weight:bolder;" />
+								<h:outputText value="#{adv.customer}" style="float:left;" />
+							</h:panelGrid>
 						</h:panelGrid>
-					</rich:panel>
-					<f:facet name="footer">
+						<h:outputText value="#{adv.text}" />
+					</rich:panel> <f:facet name="footer">
 						<rich:datascroller></rich:datascroller>
-					</f:facet>
-					</div>
+					</f:facet></div>
 				</rich:dataGrid>
-		</rich:panel>
-	</a:form>
+			</rich:panel>
+		</a:form>
 	</ui:define>
 </ui:composition>
 <!-- test -->
