@@ -126,6 +126,8 @@ public class AdvertisementOperations implements AdvertisementOperationsLocal {
 				entity.getAvatar().setReference(reference);
 				advFacade.update(entity);
 			}
+			logger.finest("Advertisement #" + entity.getId() + " published ("
+					+ entity.getTitle() + ")");
 			return advAdapter.toSoap(entity);
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
