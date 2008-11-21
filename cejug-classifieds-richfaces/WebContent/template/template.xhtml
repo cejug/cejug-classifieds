@@ -10,28 +10,16 @@
 	href="#{facesContext.externalContext.requestContextPath}/images/favicon.ico"
 	type="image/x-icon" />
 <title>Cejug Classifieds</title>
-<link rel='stylesheet' type='text/css' href='#{facesContext.externalContext.requestContextPath}/css/style.css' />
+<link rel='stylesheet' type='text/css'
+	href='#{facesContext.externalContext.requestContextPath}/css/style.css' />
 </head>
 
 <body>
 <f:view>
 	<f:loadBundle basename="messages" var="msg" />
 	<div class='fullscreen'>
-	<div class='topPane'>
-	<div class='topLeftPane generalPadding'><img
-		src='#{facesContext.externalContext.requestContextPath}/images/logo001.gif'
-		class='logo' /></div>
-	<div class='topCenterPane'>
-	<h1><span class="ombre">Cejug-Classifieds</span><span
-		class="ombre2">Cejug-Classifieds</span></h1>
-
-	<!-- label class="fontHeader">Cejug-Classifieds</label--> <!-- p>This page is an online demo of the Cejug-Classifieds project.
-	The content of the advertisements of this page is not real, most part
-	of them generated automatically. If you want to know more about the
-	project, please <a href='http://cejug-classifieds.dev.java.net/'>click
-	here</a>.</p--></div>
-	<!-- div class='topRightPane generalPadding'><ui:include
-		src='/pages/security/login.xhtml'>Login</ui:include></div--></div>
+	<div class='topPane'><ui:insert name="pageheader">Default Header</ui:insert>
+	</div>
 	<div class='midCenterPane'><ui:insert name="body">Default Body</ui:insert>
 	</div>
 	</div>

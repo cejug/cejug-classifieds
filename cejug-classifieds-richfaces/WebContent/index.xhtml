@@ -7,6 +7,12 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 <ui:composition template="/template/template.xhtml">
+	<ui:define name="pageheader">
+		<h:panelGrid columns="2">
+			<h:graphicImage width="80" height="60" value="/images/logo001.gif" styleClass="logo"/>
+			<h:outputText value="Cejug-Classifieds" styleClass="ombre"></h:outputText>
+		</h:panelGrid>
+	</ui:define>
 	<ui:define name="body" styleClass="advertisementPane">
 		<a:form>
 			<rich:panel>
@@ -38,7 +44,8 @@
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
 							<h:panelGrid rows="2">
 								<h:outputText value="#{adv.summary}" style="float:none;" />
-								<h:outputText value="author:" style="float:none;font-weight:bolder;" />
+								<h:outputText value="author:"
+									style="float:none;font-weight:bolder;" />
 								<h:outputText value="#{adv.customer}" style="float:left;" />
 							</h:panelGrid>
 						</h:panelGrid>
