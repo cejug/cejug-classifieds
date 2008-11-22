@@ -338,6 +338,7 @@ img {
 	opacity: .95;
 	filter: alpha(opacity = 95);
         border:none;
+        vertical-align:top;
 }
 /*
 .rich-panel-body {
