@@ -8,12 +8,15 @@
 	xmlns:rich="http://richfaces.org/rich">
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
-		<h:panelGrid columns="2">
-			<h:graphicImage width="80" height="60" value="/images/logo001.gif" styleClass="logo"/>
-			<h:outputText value="Cejug-Classifieds" styleClass="ombre"></h:outputText>
-		</h:panelGrid>
+		<rich:panel>
+			<h:panelGrid columns="2">
+				<h:graphicImage width="80" height="60" value="/images/logo001.gif"
+					styleClass="logo" />
+				<h:outputText value="Cejug-Classifieds" styleClass="ombre"></h:outputText>
+			</h:panelGrid>
+		</rich:panel>
 	</ui:define>
-	<ui:define name="body" styleClass="advertisementPane">
+	<ui:define name="body">
 		<a:form>
 			<rich:panel>
 				<f:facet name="header">
