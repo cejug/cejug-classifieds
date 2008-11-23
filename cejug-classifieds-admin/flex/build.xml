@@ -125,8 +125,8 @@
         </java>
     </target>
 
-    <property name="asdocExec" location="${flex.home}\bin\asdoc.exe" />
-    <property name="docsPath" location="${basedir}/../docs" />
+    <property name="asdocExec" location="${flex.home}/bin/asdoc" />
+    <property name="docsPath" location="${basedir}/docs/javadoc" />
     <target name="asdoc">
         <delete dir="${docsPath}" includeEmptyDirs="true"/>
         <mkdir dir="${docsPath}" />
