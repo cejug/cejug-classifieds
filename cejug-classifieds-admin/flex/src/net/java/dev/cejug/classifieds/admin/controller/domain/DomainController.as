@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.admin.view.domain
+package net.java.dev.cejug.classifieds.admin.controller.domain
 {
     import mx.collections.ArrayCollection;
     import mx.collections.ListCollectionView;
@@ -11,7 +11,8 @@ package net.java.dev.cejug.classifieds.admin.view.domain
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import net.java.dev.cejug.classifieds.admin.AdminService;
-    import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
+    import net.java.dev.cejug.classifieds.admin.view.domain.domain;
+    import net.java.dev.cejug.classifieds.admin.util.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
     import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;

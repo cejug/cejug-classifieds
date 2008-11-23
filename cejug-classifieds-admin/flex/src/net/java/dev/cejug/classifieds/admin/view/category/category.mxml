@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel title="Category" horizontalAlign="center" verticalGap="0" paddingTop="8" paddingBottom="8" 
     xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
-    xmlns:category="net.java.dev.cejug.classifieds.admin.view.category.*"
+    xmlns:category="net.java.dev.cejug.classifieds.admin.controller.category.*"
     creationComplete="categoryService.init(event)">
 
-    <category:Category id="categoryService" />
+    <category:CategoryController id="categoryService" />
     <mx:VBox width="100%" height="100%" id="vbCategory">
         <mx:Panel id="pCategory" title="Categories" width="100%" height="100%">
             <mx:DataGrid id="dgCategories" dataProvider="{categoryService.categoryDataProvider}" width="100%" height="100%" allowMultipleSelection="false">

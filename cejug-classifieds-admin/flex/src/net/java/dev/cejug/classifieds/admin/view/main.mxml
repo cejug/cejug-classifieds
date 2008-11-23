@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
-	xmlns:view="net.java.dev.cejug.classifieds.admin.view.*" 
+	xmlns:controller="net.java.dev.cejug.classifieds.admin.controller.*" 
 	xmlns:category="net.java.dev.cejug.classifieds.admin.view.category.*"
 	xmlns:advtype="net.java.dev.cejug.classifieds.admin.view.advtype.*"
 	xmlns:domain="net.java.dev.cejug.classifieds.admin.view.domain.*"
 	creationComplete="mainService.init(event)" >
     <!-- Define the menu data. -->
-    <view:Main id="mainService" />
+    <controller:MainController id="mainService" />
     <mx:MenuBar labelField="@label"  
         dataProvider="{mainService.menuBarCollection}"
         itemClick="mainService.itemClickHandler(event);" width="100%"/>

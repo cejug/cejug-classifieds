@@ -1,8 +1,9 @@
-package net.java.dev.cejug.classifieds.admin.view.login
+package net.java.dev.cejug.classifieds.admin.controller.login
 {
-	import net.java.dev.cejug.classifieds.admin.view.Admin;
+	import net.java.dev.cejug.classifieds.admin.controller.AdminController;
+	import net.java.dev.cejug.classifieds.admin.view.login.login;
 	import net.java.dev.cejug.classifieds.admin.AdminService;
-	import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
+	import net.java.dev.cejug.classifieds.admin.util.MessageUtils;
 	import mx.events.FlexEvent;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,12 +11,12 @@ package net.java.dev.cejug.classifieds.admin.view.login
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.events.FaultEvent;
 
-	public class Login extends EventDispatcher
+	public class LoginController extends EventDispatcher
 	{
 		private var loginReference:login;
         private var adminService:RemoteObject;
 
-        public function Login() {
+        public function LoginController() {
             adminService = new AdminService().getRemoteObject();
             adminService.executeLogin.addEventListener("result", loginResult);
             adminService.addEventListener("fault", onRemoteFault);
@@ -32,8 +33,8 @@ package net.java.dev.cejug.classifieds.admin.view.login
             loginReference.username.text = "";
             loginReference.passwd.text = "";
             if (ok) {
-                Admin.adminReference.currentState = "main";
-                Admin.loginInfoVisible = true;
+                AdminController.adminReference.currentState = "main";
+                AdminController.loginInfoVisible = true;
             } else {
                 MessageUtils.showError("Ivalid login");
             }

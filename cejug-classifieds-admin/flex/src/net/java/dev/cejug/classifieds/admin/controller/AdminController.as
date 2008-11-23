@@ -1,16 +1,16 @@
-package net.java.dev.cejug.classifieds.admin.view
+package net.java.dev.cejug.classifieds.admin.controller
 {
 	import net.java.dev.cejug.classifieds.admin.view.admin;
 	import mx.events.FlexEvent;
 
-	public class Admin
+	public class AdminController
 	{
 		public static var adminReference:admin;
 		
         [Bindable]
         public static var loginInfoVisible:Boolean = false;
 
-		public function Admin()
+		public function AdminController()
 		{
 		}
         public function init(event:FlexEvent):void{

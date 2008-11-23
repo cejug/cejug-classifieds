@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.admin.view.advtype
+package net.java.dev.cejug.classifieds.admin.controller.advtype
 {
     import mx.collections.ArrayCollection;
     import mx.controls.Alert;
@@ -9,7 +9,8 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import net.java.dev.cejug.classifieds.admin.AdminService;
-    import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
+    import net.java.dev.cejug.classifieds.admin.view.advtype.advtype;
+    import net.java.dev.cejug.classifieds.admin.util.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
     import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CreateAdvertisementTypeParam;
@@ -17,7 +18,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateAdvertisementTypeParam;
     
-    public class AdvType
+    public class AdvTypeController
     {
         private var advtypeReference:advtype;
         private var adminService:RemoteObject;
@@ -31,7 +32,7 @@ package net.java.dev.cejug.classifieds.admin.view.advtype
 
         private var serviceStatus:ServiceStatus;
 
-        public function AdvType()
+        public function AdvTypeController()
         {
             adminService = new AdminService().getRemoteObject();
             adminService.readAdvertisementTypeBundleOperation.addEventListener("result", getAllAdvTypesResult);

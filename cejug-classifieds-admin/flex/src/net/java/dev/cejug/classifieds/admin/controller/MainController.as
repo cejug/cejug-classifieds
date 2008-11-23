@@ -1,12 +1,13 @@
-package net.java.dev.cejug.classifieds.admin.view
+package net.java.dev.cejug.classifieds.admin.controller
 {
     import mx.collections.*;
     import mx.controls.Alert;
     import mx.events.FlexEvent;
     import mx.events.MenuEvent;
+    import net.java.dev.cejug.classifieds.admin.view.main;
 
 
-	public class Main
+	public class MainController
 	{
 		private var mainReference:main;
 
@@ -27,7 +28,7 @@ package net.java.dev.cejug.classifieds.admin.view
             </menuitem>
             </>;
 
-        public function Main() {
+        public function MainController() {
             
         }
 

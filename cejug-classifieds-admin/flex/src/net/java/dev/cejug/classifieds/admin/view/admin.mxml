@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
 	xmlns:login="net.java.dev.cejug.classifieds.admin.view.login.*"
-	xmlns:view="net.java.dev.cejug.classifieds.admin.view.*" currentState="login"
+	xmlns:view="net.java.dev.cejug.classifieds.admin.view.*"
+	xmlns:controller="net.java.dev.cejug.classifieds.admin.controller.*" currentState="login"
 	creationComplete="adminService.init(event)" >
 	
-	<view:Admin id="adminService" />
+	<controller:AdminController id="adminService" />
 	<mx:states>
 		<mx:State name="login">
     		<mx:AddChild position="lastChild">
@@ -22,6 +23,6 @@
         <mx:Image source="@Embed(source='../../../../../../../../web/images/logo_small.gif')"  verticalAlign="bottom" height="40"/>
         <mx:Label text="Cejug Classifieds Admin" fontSize="18" fontWeight="bold" color="#f0f0f0"/>
         <mx:Spacer width="100%"/>
-        <mx:Button label="Logout" click="{adminService.logout()}" visible="{Admin.loginInfoVisible}"/>
+        <mx:Button label="Logout" click="{adminService.logout()}" visible="{AdminController.loginInfoVisible}"/>
     </mx:ApplicationControlBar>
 </mx:Application>

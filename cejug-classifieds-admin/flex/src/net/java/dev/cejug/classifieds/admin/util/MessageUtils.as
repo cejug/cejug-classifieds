@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.admin.view.message
+package net.java.dev.cejug.classifieds.admin.util
 {
     import mx.controls.Alert;
     

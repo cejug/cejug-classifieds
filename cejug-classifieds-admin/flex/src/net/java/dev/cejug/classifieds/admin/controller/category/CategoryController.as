@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.admin.view.category
+package net.java.dev.cejug.classifieds.admin.controller.category
 {
     import mx.collections.ArrayCollection;
     import mx.collections.ListCollectionView;
@@ -10,7 +10,8 @@ package net.java.dev.cejug.classifieds.admin.view.category
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import net.java.dev.cejug.classifieds.admin.AdminService;
-    import net.java.dev.cejug.classifieds.admin.view.message.MessageUtils;
+    import net.java.dev.cejug.classifieds.admin.view.category.category;
+    import net.java.dev.cejug.classifieds.admin.util.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
     import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
@@ -19,7 +20,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     import net.java.dev.cejug.classifieds.server.contract.UpdateCategoryParam;
     
-	public class Category
+	public class CategoryController
 	{
 	    private var categoryReference:category;
         private var adminService:RemoteObject;
@@ -38,7 +39,7 @@ package net.java.dev.cejug.classifieds.admin.view.category
         
         private var serviceStatus:ServiceStatus;
 
-		public function Category()
+		public function CategoryController()
 		{
 			adminService = new AdminService().getRemoteObject();
 			adminService.readCategoryBundleOperation.addEventListener("result", getAllCategoriesResult);

@@ -124,4 +124,21 @@
             <arg line="-debug=${flex.debug} -use-network=true -link-report=${build.dir}/admin.xml" />
         </java>
     </target>
+
+    <property name="asdocExec" location="${flex.home}\bin\asdoc.exe" />
+    <property name="docsPath" location="${basedir}/../docs" />
+    <target name="asdoc">
+        <delete dir="${docsPath}" includeEmptyDirs="true"/>
+        <mkdir dir="${docsPath}" />
+
+        <exec executable="${asdocExec}" failonerror="true">
+            <arg line="-source-path '${proj.src.flex}'" />
+            <arg line="-doc-classes net.java.dev.cejug.classifieds.admin.view.admin" />
+            <arg line="-output '${docsPath}' " />
+            <arg line="-footer '${doc.bottom}' " />
+            <arg line="-main-title '${doc.doctitle}'" />
+            <arg line="-window-title '${doc.doctitle}'" />
+        </exec>
+    </target>
+
 </project>
