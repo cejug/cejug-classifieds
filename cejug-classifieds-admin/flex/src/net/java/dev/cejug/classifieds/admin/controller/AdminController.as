@@ -24,6 +24,7 @@ package net.java.dev.cejug.classifieds.admin.controller
 		
 		/**
 		 * Class initialization triggered when the screen is loaded.
+		 * @param event Flex event triggered by screen loading.
 		 */
         public function init(event:FlexEvent):void{
             adminReference = event.target as admin;
