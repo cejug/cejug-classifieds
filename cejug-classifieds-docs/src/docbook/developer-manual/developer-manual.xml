@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
+<!ENTITY % isopub SYSTEM "iso-pub.ent"> 
+
+<!ENTITY preface SYSTEM "preface.xml"> 
+<!ENTITY glossary SYSTEM "glossary.xml">
+
+<!--
+<!ENTITY chapter-example SYSTEM "chapter-example.xml">
+-->
+
+<!ENTITY chapter-introduction SYSTEM "chapter-introduction.xml">
+<!ENTITY chapter-installation SYSTEM "chapter-installation.xml">
+<!ENTITY chapter-source-organization SYSTEM "chapter-source-organization.xml">
+<!ENTITY chapter-development-process SYSTEM "chapter-development-process.xml">
+
+
+<!ENTITY appendix-about-manual SYSTEM "appendix-about-manual.xml"> 
+
+%isopub; 
+]>
+<book>
+    <title>Cejug Classifieds Manual</title>
+    <subtitle>
+	For cejug-classifieds project developers.
+    </subtitle>
+    <bookinfo>
+        <authorgroup>
+            <author>
+                <firstname>Felipe</firstname>
+                <surname>Gaúcho</surname>
+            </author>
+            <author>
+                <firstname>Felix</firstname>
+                <surname>Batchassi</surname>
+            </author>
+        </authorgroup>
+        <copyright>
+            <year>2008</year>
+            <holder>Cejug-Classifieds</holder>
+        </copyright>
+        <releaseinfo>v1.0</releaseinfo>
+        <productname>cejug-classifieds</productname>
+    </bookinfo>
+
+	&preface;
+    &chapter-introduction;
+    &chapter-installation;
+    &chapter-source-organization;
+    &chapter-development-process;
+
+    &appendix-about-manual;
+	&glossary;
+</book>
+
+
+
+
+
+
+

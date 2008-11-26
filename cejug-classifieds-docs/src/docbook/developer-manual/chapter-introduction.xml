@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="chapter-introduction">
+    <title>Introduction</title>
+    <section id="introduction">
+        <title>Introduction to this Manual</title>
+        <para>
+			Developer manual contains information about accessing the
+            latest source code for Cejug-Classifieds project and process of
+            modifying, committing and building the project.
+        </para>
+        
+    </section>
+</chapter>

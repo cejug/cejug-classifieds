@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="chapter-installation">
+    <title>Setting the environment</title>
+    <section id="installation">
+        <title>Getting out the sources</title>
+        <para>
+			The Cejug Classifieds project is hosted on java.net at the location
+            https://cejug-classifieds.dev.java.net/
+        </para>
+        <para>
+            The source code can be checked out through any Subversion client.
+            The generic command will be
+            <programlisting>svn checkout https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk cejug-classifieds --username username
+            </programlisting>
+        </para>
+    </section>
+</chapter>
