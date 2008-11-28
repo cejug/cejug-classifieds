@@ -64,6 +64,7 @@ public class PublishAdvertisementBean {
 
 	private Advertisement advertisement = new Advertisement();
 
+	//TODO Enum or constant?
 	private String avatarImageOrUrl = "I";
 
 	public PublishAdvertisementBean() {
