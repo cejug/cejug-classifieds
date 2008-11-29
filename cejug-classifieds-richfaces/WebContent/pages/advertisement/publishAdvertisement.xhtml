@@ -8,6 +8,15 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="/template/template.xhtml">
+	<ui:define name="pageheader">
+		<rich:panel>
+			<h:panelGrid columns="2">
+				<h:graphicImage width="80" height="60" value="/images/logo001.gif"
+					styleClass="logo" />
+				<h:outputText value="Cejug-Classifieds" styleClass="ombre"></h:outputText>
+			</h:panelGrid>
+		</rich:panel>
+	</ui:define>
 	<ui:define name="body">
 		<rich:spacer height="4"></rich:spacer>
 		<style>
@@ -47,10 +56,8 @@
 							value="#{publishAdvertisementBean.advertisement.keywords}" />
 
 						<h:outputText value="#{msg['publishadv.locale']}" />
-						<h:selectOneListbox
-							value="#{publishAdvertisementBean.advertisement.locale}" size="1">
-							<f:selectItems value="#{publishAdvertisementBean.locales}" />
-						</h:selectOneListbox>
+						<h:inputText
+							value="#{publishAdvertisementBean.advertisement.locale}" />
 
 						<h:outputText value="#{msg['publishadv.summary']}" />
 						<h:inputTextarea
@@ -77,15 +84,18 @@
 					<h:panelGrid columns="1" id="avatarType">
 						<h:panelGrid columns="1"
 							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
-							<h:outputText value="url" />
+							<h:outputText value="#{msg['publishadv.url']}" />
 							<h:inputText
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" />
-							<h:outputText value="name" />
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" 
+								style="width:230px;" />
+							<h:outputText value="#{msg['publishadv.name']}" />
 							<h:inputText
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.name}" />
-							<h:outputText value="description" />
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.name}"
+								style="width:230px;" />
+							<h:outputText value="#{msg['publishadv.description']}" />
 							<h:inputText
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}" />
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}" 
+								style="width:230px;" />
 						</h:panelGrid>
 
 						<h:panelGrid columns="2" columnClasses="top,top"
@@ -142,7 +152,17 @@
 						</f:facet>
 						<h:panelGrid columns="2">
 							<h:graphicImage
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" />
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}"
+								style="width:100px; height:100px;"
+								rendered="#{publishAdvertisementBean.avatarImageOrUrl == 'U'}" />
+
+							<a:mediaOutput element="img" mimeType="#{file.contentType}"
+								createContent="#{publishAdvertisementBean.paint}" value="0"
+								style="width:100px; height:100px;" cacheable="false"
+								rendered="#{publishAdvertisementBean.avatarImageOrUrl == 'I' and 
+								not empty publishAdvertisementBean.advertisement.avatarImageOrUrl.image.value}">
+							</a:mediaOutput>
+
 							<h:outputText
 								value="#{publishAdvertisementBean.advertisement.text}" />
 						</h:panelGrid>

@@ -25,12 +25,10 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.faces.model.SelectItem;
 
@@ -64,8 +62,7 @@ public class PublishAdvertisementBean {
 
 	private Advertisement advertisement = new Advertisement();
 
-	//TODO Enum or constant?
-	private String avatarImageOrUrl = "I";
+	private String avatarImageOrUrl = AvatarType.IMAGE.getType();
 
 	public PublishAdvertisementBean() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
@@ -122,22 +119,12 @@ public class PublishAdvertisementBean {
 
 	public List<SelectItem> getAvatarTypes() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
-		list.add(new SelectItem("I", "Image"));
-		list.add(new SelectItem("U", "Url"));
-		return list;
-	}
 
-	public List<SelectItem> getLocales() {
-		List<SelectItem> locales = new ArrayList<SelectItem>();
-
-		Locale list[] = SimpleDateFormat.getAvailableLocales();
-
-		for (int i = 0; i < list.length; i++) {
-			locales.add(new SelectItem(list[i].toString(), list[i]
-					.getDisplayName(Locale.US)));
+		for (AvatarType item : AvatarType.values()) {
+			list.add(new SelectItem(item.getType(), item.toString()));
 		}
 
-		return locales;
+		return list;
 	}
 
 	public void publish() {
@@ -227,7 +214,12 @@ public class PublishAdvertisementBean {
 
 	public void paint(OutputStream stream, Object object) throws IOException {
 		synchronized (object) {
-			stream.write(getFiles().get((Integer) object).getValue());
+			if (object instanceof String){
+				stream.write(getFiles()
+						.get(Integer.parseInt(object.toString())).getValue());
+			}else{
+				stream.write(getFiles().get((Integer) object).getValue());
+			}
 		}
 
 	}
