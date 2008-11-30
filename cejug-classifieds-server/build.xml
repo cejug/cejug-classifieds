@@ -211,8 +211,8 @@
 
 		<antcall target="deploy" />
 		<echo message="Waiting the deployment of the EAR." level="info" />
-		<sleep milliseconds="3000" />
-		<waitfor maxwait="5000" maxwaitunit="millisecond" checkevery="250">
+		<sleep milliseconds="5000" />
+		<waitfor maxwait="50000" maxwaitunit="millisecond" checkevery="250">
 			<http url="${service.admin.wsdllocation}" />
 		</waitfor>
 		<echo message="The service is online, let's test it ... " level="info" />
