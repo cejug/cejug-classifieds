@@ -1,0 +1,34 @@
+body {
+	background-image: url(../images/templateNew/background.gif);
+	background-repeat: repeat;
+	margin: 0px;
+    margin-bottom:10px;
+    padding-top:6px;
+	font-size: small;
+	font-family: arial, sans-serif;
+}
+.topPane {
+	margin-bottom:6px;
+	height:100%;
+}
+#headerbar{
+	background-image: url(../images/templateNew/bar.jpg);
+	background-repeat: repeat-x;
+	height: auto;
+	padding:12px;
+	color:#FFFFFF;
+}
+
+a.publishLink:link, a.publishLink:hover, a.publishLink:visited, a.publishLink:active{
+	color:#FFFFFF;
+}
+
+.midCenterPane {
+	margin-left:auto;
+	margin-right:auto;
+	width: 99%;
+	height: 100%;
+}
+.dr-table-cell, .dr-table{
+	border:none;
+}
