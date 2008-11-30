@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon"
+	href="#{facesContext.externalContext.requestContextPath}/images/favicon.ico"
+	type="image/x-icon" />
+<title>Cejug Classifieds</title>
+<link rel='stylesheet' type='text/css'
+	href='#{facesContext.externalContext.requestContextPath}/css/styleNew.css' />
+</head>
+
+<body>
+<f:view>
+	<f:loadBundle basename="messages" var="msg" />
+	<div class='fullscreen'>
+		<div class='topPane'>
+			<ui:insert name="pageheader">
+				<div>
+					<h:graphicImage value="/images/templateNew/header.png"
+						styleClass="logo" />
+				</div>
+				<a:form id="headerForm">
+					<div id="headerbar">
+						<h:outputText value="Category: "/>
+						<a:region>
+							<h:selectOneMenu id="categories"
+								converter="advertisementCategoryConverter"
+								value="#{helloClassifiedsBean.selectedCategory}">
+								<f:selectItems value="#{categoryBean.categories}" />
+								<a:support event="onchange" reRender="categoryPanel"></a:support>
+							</h:selectOneMenu>
+						</a:region>
+						<h:outputText value=" | " />
+						<a:commandLink	action="publishAdvertisement" value="Publish Advertisement"
+							styleClass="publishLink" />
+					</div>
+				</a:form>
+			</ui:insert>
+		</div>
+		<div class='midCenterPane'>
+			<ui:insert name="body">Default Body</ui:insert>
+		</div>
+	</div>
+</f:view>
+</body>
+</html>
