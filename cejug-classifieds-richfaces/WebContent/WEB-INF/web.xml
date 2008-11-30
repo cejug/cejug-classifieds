@@ -61,7 +61,7 @@
 	</context-param>
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>wine</param-value>
+		<param-value>DEFAULT</param-value>
 	</context-param>
 	<filter>
 		<display-name>RichFaces Filter</display-name>
