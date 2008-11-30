@@ -25,6 +25,8 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -238,6 +240,18 @@ public class PublishAdvertisementBean {
 			header.setCustomerDomainId(domainId);
 			header.setCustomerLogin("arisson");
 
+			if(avatarImageOrUrl.equals(AvatarType.URL.getType())){
+				try{
+					URL url = new URL(getAdvertisement().getAvatarImageOrUrl().getUrl());
+					URLConnection cn = url.openConnection();
+					getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
+					getAdvertisement().getAvatarImageOrUrl().getImage().setContentType(cn.getContentType());
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 			SERVICE.publishOperation(advertisement, header);
 
 		} catch (Exception e) {
