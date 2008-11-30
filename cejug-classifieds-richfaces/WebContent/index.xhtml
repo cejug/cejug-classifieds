@@ -6,45 +6,22 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-<ui:composition template="/template/template.xhtml">
-	<ui:define name="pageheader">
-		<rich:panel>
-			<h:panelGrid columns="2">
-				<h:graphicImage width="80" height="60" value="/images/logo001.gif"
-					styleClass="logo" />
-				<h:outputText value="Cejug-Classifieds" styleClass="ombre"></h:outputText>
-			</h:panelGrid>
-		</rich:panel>
-	</ui:define>
+<ui:composition template="/template/templateNew.xhtml">
+
 	<ui:define name="body">
 		<a:form>
 			<rich:panel>
-				<f:facet name="header">
-					<h:panelGrid columns="3">
-						<h:outputText value="Category: "></h:outputText>
-						<a:region>
-							<h:selectOneMenu id="categories"
-								converter="advertisementCategoryConverter"
-								value="#{helloClassifiedsBean.selectedCategory}">
-								<f:selectItems value="#{categoryBean.categories}" />
-								<a:support event="onchange" reRender="categoryPanel"></a:support>
-							</h:selectOneMenu>
-						</a:region>
-						<a:commandLink action="publishAdvertisement"
-							value="Publish Advertisement" />
-					</h:panelGrid>
-				</f:facet>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
 					var="adv" columns="4" elements="12" id="categoryPanel"
-					styleClass="advPane">
+					styleClass="advPane" border="0">
 					<div style="align: top;"><rich:panel>
 						<f:facet name="header">
 							<h:outputText value="#{adv.headline} " />
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:graphicImage width="80" height="60" 
+							<h:graphicImage width="80" height="60"
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
-							
+
 							<h:panelGrid rows="2">
 								<h:outputText value="#{adv.summary}" style="float:none;" />
 								<h:outputText value="author:"
@@ -53,11 +30,13 @@
 							</h:panelGrid>
 						</h:panelGrid>
 						<h:outputText value="#{adv.text}" />
-					</rich:panel> <f:facet name="footer">
-						<rich:datascroller></rich:datascroller>
-					</f:facet></div>
+					</rich:panel></div>
 				</rich:dataGrid>
+
+				<rich:datascroller for="categoryPanel"></rich:datascroller>
+
 			</rich:panel>
+			
 		</a:form>
 	</ui:define>
 </ui:composition>
