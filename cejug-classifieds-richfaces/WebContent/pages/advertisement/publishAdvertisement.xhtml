@@ -28,8 +28,12 @@
 	height: 202px;
 	overflow: auto;
 }
+
+.rich-calendar-button {
+	float: none;
+}
 </style>
-		<a:form>
+		<a:form id="publishForm">
 			<a:keepAlive beanName="publishAdvertisementBean" />
 
 			<rich:toolBar height="10" itemSeparator="line">
@@ -42,9 +46,34 @@
 			</rich:toolBar>
 
 			<rich:tabPanel switchType="ajax">
-				<rich:tab label="Advertisement">
+				<rich:tab label="#{msg['publishadv.tab.advertisement']}">
 					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
+						<h:outputText value="#{msg['publishadv.category']}" />
+						<h:selectOneMenu id="categories"
+							converter="advertisementCategoryConverter"
+							value="#{publishAdvertisementBean.selectedCategory}">
+							<f:selectItems value="#{categoryBean.categories}" />
+						</h:selectOneMenu>
+
+						<h:panelGrid columns="2">
+							<h:outputText value="#{msg['publishadv.date.start']}" />
+
+							<h:outputText value="#{msg['publishadv.date.finish']}" />
+
+							<rich:calendar
+								value="#{publishAdvertisementBean.start}"
+								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
+								cellWidth="24px" cellHeight="22px" style="width:200px"
+								id="start" />
+
+							<rich:calendar
+								value="#{publishAdvertisementBean.finish}"
+								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
+								cellWidth="24px" cellHeight="22px" style="width:200px"
+								id="finish" />
+						</h:panelGrid>
+
 						<h:outputText value="#{msg['publishadv.headline']}" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.headline}"
@@ -68,9 +97,10 @@
 						<h:inputTextarea
 							value="#{publishAdvertisementBean.advertisement.text}" cols="55"
 							rows="4" />
+
 					</h:panelGrid>
 				</rich:tab>
-				<rich:tab label="Avatar">
+				<rich:tab label="#{msg['publishadv.tab.avatar']}">
 					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
 						<a:region>
@@ -86,7 +116,7 @@
 							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='U'}">
 							<h:outputText value="#{msg['publishadv.url']}" />
 							<h:inputText
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}" 
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}"
 								style="width:230px;" />
 							<h:outputText value="#{msg['publishadv.name']}" />
 							<h:inputText
@@ -94,7 +124,7 @@
 								style="width:230px;" />
 							<h:outputText value="#{msg['publishadv.description']}" />
 							<h:inputText
-								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}" 
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}"
 								style="width:230px;" />
 						</h:panelGrid>
 
@@ -144,7 +174,7 @@
 						</h:panelGrid>
 					</h:panelGrid>
 				</rich:tab>
-				<rich:tab label="Preview">
+				<rich:tab label="#{msg['publishadv.tab.preview']}">
 					<rich:panel id="panelPreview">
 						<f:facet name="header">
 							<h:outputText

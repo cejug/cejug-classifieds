@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -39,7 +40,6 @@ import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
@@ -63,6 +63,38 @@ public class PublishAdvertisementBean {
 	private Advertisement advertisement = new Advertisement();
 
 	private String avatarImageOrUrl = AvatarType.IMAGE.getType();
+	
+	private Date start;
+	private Date finish;
+	
+	
+	// findBug and PMD warning me to do this with get and set for Date !
+	// stranger or correct ?
+	public Date getStart() {		
+		if (start == null){
+			return null;
+		}else{ 
+			return new Date(start.getTime());
+		}
+	}
+
+	public void setStart(Date start) {
+		Date date = new Date(start.getTime());
+		this.start = date;
+	}
+
+	public Date getFinish() {
+		if(finish == null){
+			return null;
+		}else{ 
+			return new Date(finish.getTime());
+		}
+	}
+
+	public void setFinish(Date finish) {
+		Date date = new Date(finish.getTime());
+		this.finish = date;
+	}
 
 	public PublishAdvertisementBean() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
@@ -94,6 +126,17 @@ public class PublishAdvertisementBean {
 
 	public void setAdvType(SelectItem advType) {
 		this.advType = advType;
+	}
+
+	private AdvertisementCategoryWrapper selectedCategory;
+
+	public AdvertisementCategoryWrapper getSelectedCategory() {
+		return selectedCategory;
+	}
+
+	public void setSelectedCategory(
+			AdvertisementCategoryWrapper selectedCategory) {
+		this.selectedCategory = selectedCategory;
 	}
 
 	/**
@@ -141,11 +184,10 @@ public class PublishAdvertisementBean {
 			// the
 			// page where the user is publishing.. (that combo on the from
 			// page...)
-			List<AdvertisementCategory> registeredCategories = SERVICE
-					.readCategoryBundleOperation(new BundleRequest())
-					.getAdvCategory();
-			advertisement.setCategoryId(registeredCategories.get(0)
-					.getEntityId());
+			// List<AdvertisementCategory> registeredCategories = SERVICE
+			// .readCategoryBundleOperation(new BundleRequest())
+			// .getAdvCategory();
+			advertisement.setCategoryId(getSelectedCategory().getId());
 
 			AdvertisementType type = availableTypes.get(0);
 
@@ -156,10 +198,10 @@ public class PublishAdvertisementBean {
 			advertisement.setTypeId(type.getEntityId());
 
 			// TODO: include a text field in the publish page (auto-detect??)
-			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-			if (avatar != null && avatar.getImage() != null) {
-				avatar.getImage().setContentType("image/png");
-			}
+			// AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
+			// if (avatar != null && avatar.getImage() != null) {
+			// avatar.getImage().setContentType("image/png");
+			// }
 
 			// AvatarImageOrUrl avatar = new AvatarImageOrUrl();
 			// URL imgUrl =
@@ -176,19 +218,20 @@ public class PublishAdvertisementBean {
 			 * ); advertisement.setAvatarImageOrUrl(avatar);
 			 */
 
-			// advertisement.setText("from PublishAdvertisementBean .. just a test..........");
 			// Publishing period
-			Calendar today = GregorianCalendar.getInstance();
+			Calendar startDate = GregorianCalendar.getInstance();
+			startDate.setTime(getStart());
+			
+			Calendar finishDate = GregorianCalendar.getInstance();
+			finishDate.setTime(getFinish());
+			
 			Period period = new Period();
-			period.setStart(today);
-			Calendar fiveDaysLater = GregorianCalendar.getInstance();
-			fiveDaysLater.roll(Calendar.DAY_OF_YEAR, 5);
-			period.setFinish(fiveDaysLater);
-			// Advertisement contents
+			period.setStart(startDate);
+			period.setFinish(finishDate);
 			advertisement.setPublishingPeriod(period);
 
 			// keywords
-			advertisement.setKeywords("Java,book,jsf");
+			// advertisement.setKeywords("Java,book,jsf");
 			advertisement.setStatus(1);
 
 			PublishingHeader header = new PublishingHeader();
@@ -214,10 +257,10 @@ public class PublishAdvertisementBean {
 
 	public void paint(OutputStream stream, Object object) throws IOException {
 		synchronized (object) {
-			if (object instanceof String){
+			if (object instanceof String) {
 				stream.write(getFiles()
 						.get(Integer.parseInt(object.toString())).getValue());
-			}else{
+			} else {
 				stream.write(getFiles().get((Integer) object).getValue());
 			}
 		}
@@ -233,6 +276,15 @@ public class PublishAdvertisementBean {
 						new AtavarImage());
 				getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
 						item.getData());
+				
+				//TODO: I thing need change this for run fine in LINUX SO.
+				String fileName = item.getFileName();
+				fileName = fileName.substring(fileName.lastIndexOf('\\')+1);
+				
+				getAdvertisement().getAvatarImageOrUrl().setName(fileName);
+				getAdvertisement().getAvatarImageOrUrl().setDescription(fileName);
+				getAdvertisement().getAvatarImageOrUrl().getImage()
+						.setContentType(item.getContentType());
 
 				files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
 				setUploadsAvailable(getUploadsAvailable() - 1);
