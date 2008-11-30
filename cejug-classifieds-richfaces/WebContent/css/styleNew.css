@@ -29,6 +29,14 @@ a.publishLink:link, a.publishLink:hover, a.publishLink:visited, a.publishLink:ac
 	width: 99%;
 	height: 100%;
 }
+#searchPane{
+	position: absolute;
+	left: 600px;
+	top: 104px;
+}
 .dr-table-cell, .dr-table{
 	border:none;
+}
+.dr-table-cell{
+  vertical-align:top;
 }
