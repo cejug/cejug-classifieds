@@ -27,7 +27,6 @@ package net.java.dev.cejug.classifieds.entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,213 +41,216 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
 /**
  * @author $Author:felipegaucho $
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
- * 
  */
 @Entity
 @Table(name = "ADVERTISEMENT")
-@NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId"))
+@NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId ORDER BY adv.start DESC"))
 public class AdvertisementEntity extends AbstractEntity<Advertisement> {
-	public static final class QUERIES {
-		/**
-		 * Parameters:
-		 * <ul>
-		 * <li><code>CustomerEntity.PARAM_CATEGORY_ID</code>: the ID of the
-		 * category</li>
-		 * </ul>
-		 */
-		public static final String SELECT_BY_CATEGORY = "selectByCategory";
-		/** {@value} */
-		public static final String PARAM_CATEGORY_ID = "catId";
-	}
 
-	/**
-	 * This assumes a scheduled process (quartz?) that will update the status of
-	 * the advertisements.
-	 */
-	public enum AdvertisementStatus {
-		ONLINE, ARCHIVE, CANCELED
-	}
+    public static final class QUERIES {
 
-	@Column(name = "TITLE", nullable = false)
-	private String title;
+        /**
+         * Parameters:
+         * <ul>
+         * <li><code>CustomerEntity.PARAM_CATEGORY_ID</code>: the ID of the
+         * category</li>
+         * </ul>
+         */
+        public static final String SELECT_BY_CATEGORY = "selectByCategory";
 
-	@Column(name = "SUMMARY", nullable = false)
-	private String summary;
+        /** {@value} */
+        public static final String PARAM_CATEGORY_ID = "catId";
+    }
 
-	@Column(name = "TEXT", nullable = false)
-	private String text;
+    /**
+     * This assumes a scheduled process (quartz?) that will update the status of
+     * the advertisements.
+     */
+    public enum AdvertisementStatus {
+        ONLINE, ARCHIVE, CANCELED
+    }
 
-	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
-	@ManyToOne
-	private CustomerEntity customer;
+    @Column(name = "TITLE", nullable = false)
+    private String title;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
-	private Collection<AdvertisementKeywordEntity> keywords;
+    @Column(name = "SUMMARY", nullable = false)
+    private String summary;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
-	private AdvertisementTypeEntity type;
+    @Column(name = "TEXT", nullable = false)
+    private String text;
 
-	@ManyToOne
-	@JoinColumn(name = "CATEGORY")
-	private CategoryEntity category;
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @ManyToOne
+    private CustomerEntity customer;
 
-	@Column(name = "START", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar start;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
+    private Collection<AdvertisementKeywordEntity> keywords;
 
-	@Column(name = "FINISH", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar finish;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
+    private AdvertisementTypeEntity type;
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private AdvertisementStatus state = AdvertisementStatus.ONLINE;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY")
+    private CategoryEntity category;
 
-	@JoinColumn(referencedColumnName = "ID", name = "AVATAR", nullable = true)
-	private AttachmentEntity avatar;
+    @Column(name = "START", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar start;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "ID", nullable = true) private AttachmentEntity
-	 * attachment;
-	 */
+    @Column(name = "FINISH", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar finish;
 
-	public AttachmentEntity getAvatar() {
-		return avatar;
-	}
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AdvertisementStatus state = AdvertisementStatus.ONLINE;
 
-	public void setAvatar(AttachmentEntity avatar) {
-		this.avatar = avatar;
-	}
+    @JoinColumn(referencedColumnName = "ID", name = "AVATAR", nullable = true)
+    private AttachmentEntity avatar;
 
-	public String getTitle() {
+    /*
+     * @ManyToOne
+     * 
+     * @JoinColumn(name = "ID", nullable = true) private AttachmentEntity
+     * attachment;
+     */
 
-		return title;
-	}
+    public AttachmentEntity getAvatar() {
 
-	public void setTitle(final String title) {
+        return avatar;
+    }
 
-		this.title = title;
-	}
+    public void setAvatar(AttachmentEntity avatar) {
 
-	public String getSummary() {
+        this.avatar = avatar;
+    }
 
-		return summary;
-	}
+    public String getTitle() {
 
-	public void setSummary(final String summary) {
+        return title;
+    }
 
-		this.summary = summary;
-	}
+    public void setTitle(final String title) {
 
-	public String getText() {
+        this.title = title;
+    }
 
-		return text;
-	}
+    public String getSummary() {
 
-	public void setText(final String text) {
+        return summary;
+    }
 
-		this.text = text;
-	}
+    public void setSummary(final String summary) {
 
-	public CustomerEntity getCustomer() {
+        this.summary = summary;
+    }
 
-		return customer;
-	}
+    public String getText() {
 
-	public void setCustomer(final CustomerEntity customer) {
+        return text;
+    }
 
-		this.customer = customer;
-	}
+    public void setText(final String text) {
 
-	public Collection<AdvertisementKeywordEntity> getKeywords() {
+        this.text = text;
+    }
 
-		return keywords;
-	}
+    public CustomerEntity getCustomer() {
 
-	public void setKeywords(
-			final Collection<AdvertisementKeywordEntity> keywords) {
+        return customer;
+    }
 
-		this.keywords = keywords;
-	}
+    public void setCustomer(final CustomerEntity customer) {
 
-	public void addKeyword(final String keyword) {
+        this.customer = customer;
+    }
 
-		AdvertisementKeywordEntity advKeyword;
-		advKeyword = new AdvertisementKeywordEntity();
-		advKeyword.setName(keyword);
-		addKeyword(advKeyword);
-	}
+    public Collection<AdvertisementKeywordEntity> getKeywords() {
 
-	public void addKeyword(final AdvertisementKeywordEntity keyword) {
+        return keywords;
+    }
 
-		if (this.keywords == null) {
-			this.keywords = new ArrayList<AdvertisementKeywordEntity>();
-		}
-		keywords.add(keyword);
-	}
+    public void setKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
 
-	/**
-	 * @return the type
-	 */
-	public AdvertisementTypeEntity getType() {
+        this.keywords = keywords;
+    }
 
-		return type;
-	}
+    public void addKeyword(final String keyword) {
 
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(final AdvertisementTypeEntity type) {
+        AdvertisementKeywordEntity advKeyword;
+        advKeyword = new AdvertisementKeywordEntity();
+        advKeyword.setName(keyword);
+        addKeyword(advKeyword);
+    }
 
-		this.type = type;
-	}
+    public void addKeyword(final AdvertisementKeywordEntity keyword) {
 
-	public Calendar getStart() {
+        if (this.keywords == null) {
+            this.keywords = new ArrayList<AdvertisementKeywordEntity>();
+        }
+        keywords.add(keyword);
+    }
 
-		return start;
-	}
+    /**
+     * @return the type
+     */
+    public AdvertisementTypeEntity getType() {
 
-	public void setStart(final Calendar start) {
+        return type;
+    }
 
-		this.start = start;
-	}
+    /**
+     * @param type the type to set
+     */
+    public void setType(final AdvertisementTypeEntity type) {
 
-	public Calendar getFinish() {
+        this.type = type;
+    }
 
-		return finish;
-	}
+    public Calendar getStart() {
 
-	public void setFinish(final Calendar finish) {
+        return start;
+    }
 
-		this.finish = finish;
-	}
+    public void setStart(final Calendar start) {
 
-	public AdvertisementStatus getState() {
+        this.start = start;
+    }
 
-		return state;
-	}
+    public Calendar getFinish() {
 
-	public void setState(final AdvertisementStatus state) {
+        return finish;
+    }
 
-		this.state = state;
-	}
+    public void setFinish(final Calendar finish) {
 
-	public CategoryEntity getCategory() {
-		return category;
-	}
+        this.finish = finish;
+    }
 
-	public void setCategory(final CategoryEntity category) {
-		this.category = category;
-	}
+    public AdvertisementStatus getState() {
+
+        return state;
+    }
+
+    public void setState(final AdvertisementStatus state) {
+
+        this.state = state;
+    }
+
+    public CategoryEntity getCategory() {
+
+        return category;
+    }
+
+    public void setCategory(final CategoryEntity category) {
+
+        this.category = category;
+    }
 }
