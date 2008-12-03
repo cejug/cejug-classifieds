@@ -32,6 +32,8 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
+import com.sun.net.httpserver.Filter;
+
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
@@ -343,6 +345,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	public AdvertisementRefBundle readAdvertisementReferencesOperation() {
 		AdvertisementRefBundle bundle = new AdvertisementRefBundle();
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
+		filter.setCategory("3");
 		AdvertisementCollection collection = crudAdvertisement
 				.loadAdvertisementOperation(filter);
 		List<AdvertisementRef> adRefs = bundle.getAdvertisementRef();
