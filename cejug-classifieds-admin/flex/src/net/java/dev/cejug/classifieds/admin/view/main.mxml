@@ -4,6 +4,7 @@
 	xmlns:category="net.java.dev.cejug.classifieds.admin.view.category.*"
 	xmlns:advtype="net.java.dev.cejug.classifieds.admin.view.advtype.*"
 	xmlns:domain="net.java.dev.cejug.classifieds.admin.view.domain.*"
+	xmlns:advertisement="net.java.dev.cejug.classifieds.admin.view.advertisement.*"
 	creationComplete="mainService.init(event)" >
     <!-- Define the menu data. -->
     <controller:MainController id="mainService" />
@@ -24,6 +25,11 @@
         <mx:State name="domain">
             <mx:AddChild position="lastChild">
                 <domain:domain id="domainScreen" y="30" width="100%" height="100%" />
+            </mx:AddChild>
+        </mx:State>
+        <mx:State name="advertisement">
+            <mx:AddChild position="lastChild">
+                <advertisement:advertisement id="advScreen" y="30" width="100%" height="100%" />
             </mx:AddChild>
         </mx:State>
         <mx:State name="monitor">

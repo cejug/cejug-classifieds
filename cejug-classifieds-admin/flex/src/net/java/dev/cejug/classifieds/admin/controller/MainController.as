@@ -29,6 +29,7 @@ package net.java.dev.cejug.classifieds.admin.controller
                 <menuitem label="Category" state="category" />
             </menuitem>
             <menuitem label="Management">
+                <menuitem label="Delete Advertisements" state="advertisement" />
                 <menuitem label="Check Monitor" state="monitor" />
             </menuitem>
             </>;
