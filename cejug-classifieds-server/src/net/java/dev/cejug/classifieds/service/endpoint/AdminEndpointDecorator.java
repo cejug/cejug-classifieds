@@ -349,7 +349,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 		for (Advertisement ad : collection.getAdvertisement()) {
 			AdvertisementRef ref = new AdvertisementRef();
 			ref.setHeadline(ad.getHeadline());
-			ref.setPrimaryKey(new Long(ad.getEntityId()));
+			ref.setPrimaryKey(Long.valueOf(ad.getEntityId()));
 			ref.setStatus(ad.getStatus());
 			adRefs.add(ref);
 
