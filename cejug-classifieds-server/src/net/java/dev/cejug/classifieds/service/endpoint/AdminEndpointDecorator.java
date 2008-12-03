@@ -32,6 +32,7 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
+import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CheckMonitorOperationLocal;
@@ -40,6 +41,7 @@ import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminRemote
 import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
+import net.java.dev.cejug_classifieds.metadata.admin.AdvertisementRef;
 import net.java.dev.cejug_classifieds.metadata.admin.AdvertisementRefBundle;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
@@ -52,6 +54,9 @@ import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementTypeCollection;
@@ -98,6 +103,9 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	@EJB
 	private transient DomainOperationsLocal crudDomain;
+
+	@EJB
+	private transient AdvertisementOperationsLocal crudAdvertisement;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -327,11 +335,25 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	@Override
 	public ServiceStatus updateAdvertisementStatusOperation(
 			AdvertisementRefBundle advertisement) {
+		
 		throw new WebServiceException("Not yet implemented");
 	}
 
 	@Override
 	public AdvertisementRefBundle readAdvertisementReferencesOperation() {
-		throw new WebServiceException("Not yet implemented");
+		AdvertisementRefBundle bundle = new AdvertisementRefBundle();
+		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
+		AdvertisementCollection collection = crudAdvertisement
+				.loadAdvertisementOperation(filter);
+		List<AdvertisementRef> adRefs = bundle.getAdvertisementRef();
+		for (Advertisement ad : collection.getAdvertisement()) {
+			AdvertisementRef ref = new AdvertisementRef();
+			ref.setHeadline(ad.getHeadline());
+			ref.setPrimaryKey(new Long(ad.getEntityId()));
+			ref.setStatus(ad.getStatus());
+			adRefs.add(ref);
+
+		}
+		return bundle;
 	}
 }
