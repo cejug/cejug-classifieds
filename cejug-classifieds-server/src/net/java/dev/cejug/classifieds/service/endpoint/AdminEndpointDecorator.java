@@ -40,7 +40,6 @@ import net.java.dev.cejug.classifieds.business.interfaces.ClassifiedsAdminRemote
 import net.java.dev.cejug.classifieds.business.interfaces.DomainOperationsLocal;
 import net.java.dev.cejug.classifieds.service.interceptor.TimerInterceptor;
 import net.java.dev.cejug_classifieds.metadata.admin.AddQuotaInfo;
-import net.java.dev.cejug_classifieds.metadata.admin.AdvertisementRef;
 import net.java.dev.cejug_classifieds.metadata.admin.AdvertisementRefBundle;
 import net.java.dev.cejug_classifieds.metadata.admin.CancelQuotaInfo;
 import net.java.dev.cejug_classifieds.metadata.admin.CreateAdvertisementTypeParam;
@@ -327,7 +326,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 	@Override
 	public ServiceStatus updateAdvertisementStatusOperation(
-			AdvertisementRef advertisement) {
+			AdvertisementRefBundle advertisement) {
 		throw new WebServiceException("Not yet implemented");
 	}
 

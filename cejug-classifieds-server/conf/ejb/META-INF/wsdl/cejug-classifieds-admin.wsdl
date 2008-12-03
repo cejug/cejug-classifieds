@@ -113,7 +113,7 @@
 			<wsdl:documentation>
 				TODO: Add quota documentation
 			</wsdl:documentation>
-			<wsdl:input message="admin:AdvertisementStatus" />
+			<wsdl:input message="admin:AdvertisementReferenceBundle" />
 			<wsdl:output name="UpdateAdvertisementStatusResponse"
 				message="common-wsdl:OperationExecutionStatus" />
 			<wsdl:fault name="UpdateAdvertisementStatusException"
