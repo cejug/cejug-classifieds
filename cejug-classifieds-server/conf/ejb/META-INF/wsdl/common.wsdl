@@ -21,7 +21,6 @@
 		</xsd:schema>
 	</wsdl:types>
 
-
 	<!-- CATEGORY BUNDLE -->
 	<wsdl:message name="ReadCategoryBundle">
 		<wsdl:part element="common:CategoryBundleRequest" name="category.bundle.request" />

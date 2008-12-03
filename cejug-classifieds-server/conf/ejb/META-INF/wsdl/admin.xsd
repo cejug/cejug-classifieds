@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsd:schema
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
 	targetNamespace="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:admin="http://cejug-classifieds.dev.java.net/metadata/admin"
 	xmlns:mime="http://www.w3.org/2005/05/xmlmim" xmlns:rss20="http://blogs.law.harvard.edu/RSS20.xsd"
 	xmlns:atom10="http://www.w3.org/2005/Atom" xmlns:common="http://cejug-classifieds.dev.java.net/metadata/common"
-	elementFormDefault="qualified" 
-    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	elementFormDefault="qualified" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
 	<xsd:import namespace="http://cejug-classifieds.dev.java.net/metadata/common"
@@ -16,16 +14,41 @@
 	<xsd:annotation>
 		<xsd:documentation>
 			The Admin Meta-data of CEJUG-Classifieds.
-	</xsd:documentation>
+		</xsd:documentation>
 		<xsd:appinfo>
-    	<jaxb:globalBindings>
-    		<xjc:serializable uid="-6908316602239211070" />
-                <jaxb:javaType name="java.util.Calendar"
-			xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
-			printMethod="javax.xml.bind.DatatypeConverter.printDate" />
-    	</jaxb:globalBindings>
-	</xsd:appinfo>
+			<jaxb:globalBindings>
+				<xjc:serializable uid="-6908316602239211070" />
+				<jaxb:javaType name="java.util.Calendar" xmlType="xsd:dateTime"
+					parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+					printMethod="javax.xml.bind.DatatypeConverter.printDate" />
+			</jaxb:globalBindings>
+		</xsd:appinfo>
 	</xsd:annotation>
+
+	<xsd:element name="AdvertisementRef">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="common:AbstractMessageElement">
+					<xsd:sequence>
+						<xsd:element name="headline" type="xsd:string"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element ref="common:PrimaryKey" minOccurs="0"
+							maxOccurs="1" />
+						<xsd:element name="status" type="xsd:int" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AdvertisementRefBundle">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="admin:AdvertisementRef" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
 	<xsd:element name="MonitorQuery">
 		<xsd:complexType>
 			<xsd:sequence>
