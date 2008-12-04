@@ -49,6 +49,16 @@ public class CejugClassifiedsAdminService {
         return bundle.getAdvertisementRef();
     }
 
+    /**
+     * Update advertisement status.
+     * @param advertisement Advertisement bundle.
+     */
+    public ServiceStatus updateAdvertisementStatusOperation(AdvertisementRefBundle advertisement) {
+
+        CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+        return admin.updateAdvertisementStatusOperation(advertisement);
+    }
+
     /*
      * ==========================================================================
      * SECURITY
