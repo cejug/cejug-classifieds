@@ -28,15 +28,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceException;
-
+import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.facade.AdvertisementFacadeLocal;
+import net.java.dev.cejug.classifieds.entity.facade.EntityFacade;
 import net.java.dev.cejug.classifieds.exception.RepositoryAccessException;
 import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
 import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
@@ -44,177 +44,142 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollection;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
-import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 /**
  * TODO: to comment.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Stateless
-public class AdvertisementOperations implements AdvertisementOperationsLocal {
+public class AdvertisementOperations extends AbstractCrudImpl<AdvertisementEntity, Advertisement> implements AdvertisementOperationsLocal {
 
-	/**
-	 * Persistence façade of Advertisement entities.
-	 */
-	@EJB
-	private transient AdvertisementFacadeLocal advFacade;
+    /**
+     * Persistence façade of Advertisement entities.
+     */
+    @EJB
+    private transient AdvertisementFacadeLocal advFacade;
 
-	@EJB
-	private transient AdvertisementAdapterLocal advAdapter;
+    @EJB
+    private transient AdvertisementAdapterLocal advAdapter;
 
-	/**
-	 * the global log manager, used to allow third party services to override
-	 * the default logger.
-	 */
-	private static final Logger logger = Logger.getLogger(
-			AdvertisementOperations.class.getName(), "i18n/log");
+    /**
+     * the global log manager, used to allow third party services to override
+     * the default logger.
+     */
+    private static final Logger logger = Logger.getLogger(AdvertisementOperations.class.getName(), "i18n/log");
 
-	public AdvertisementCollection loadAdvertisementOperation(
-			final AdvertisementCollectionFilter filter) {
-		// TODO: load advertisements from timetable.... filtering with periods,
-		// etc..
+    @Override
+    protected SoapOrmAdapter<Advertisement, AdvertisementEntity> getAdapter() {
 
-		try {
-			AdvertisementCollection collection = new AdvertisementCollection();
-			List<AdvertisementEntity> entities = advFacade.readByCategory(Long
-					.parseLong(filter.getCategory()));
-			for (AdvertisementEntity entity : entities) {
-				collection.getAdvertisement().add(advAdapter.toSoap(entity));
-			}
-			return collection;
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        return advAdapter;
+    }
 
-	public Advertisement publishOperation(final Advertisement advertisement,
-			final PublishingHeader header) {
+    @Override
+    protected EntityFacade<AdvertisementEntity> getFacade() {
 
-		// TODO: to implement the real code.
-		try {
-			// TODO: re-think a factory to reuse adapters...
-			Customer customer = new Customer();
-			customer.setLogin(header.getCustomerLogin());
-			customer.setDomainId(header.getCustomerDomainId());
-			advertisement.setCustomer(customer);
-			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-			AtavarImage img = null;
-			if (avatar.getUrl() == null) {
-				img = avatar.getImage();
-				AtavarImage temp = new AtavarImage();
-				temp.setContentType(img.getContentType());
-				temp.setValue(null);
-				avatar.setImage(temp);
-			}
-			/*
-			 * Copy resources to the content repository - the file system. try {
-			 * copyResourcesToRepository(advertisement); } catch (Exception e) {
-			 * e.printStackTrace(); }
-			 */
+        return advFacade;
+    }
 
-			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
-			advFacade.create(entity);
-			if (img != null) {
-				String reference = copyResourcesToRepository(avatar.getName(),
-						img.getValue(), entity.getId(), header
-								.getCustomerDomainId());
-				entity.getAvatar().setReference(reference);
-				advFacade.update(entity);
-			}
-			logger.finest("Advertisement #" + entity.getId() + " published ("
-					+ entity.getTitle() + ")");
-			return advAdapter.toSoap(entity);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
+    public AdvertisementCollection loadAdvertisementOperation(final AdvertisementCollectionFilter filter) {
 
-	}
+        // TODO: load advertisements from timetable.... filtering with periods,
+        // etc..
 
-	/**
-	 * A customer can submit a resource URL or a resource content, more common
-	 * in case of images (PNG/JPG). In this case, the server first store the
-	 * image contents in the file system and refer its location in the database.
-	 * This method receives an Avatar object, check it size and store it
-	 * contents in the file system.
-	 * 
-	 * @param l
-	 * 
-	 * @param advertisement
-	 *            the advertisement containing attachments.
-	 * @return the resource address.
-	 * @throws RepositoryAccessException
-	 *             problems accessing the content repository.
-	 */
-	private String copyResourcesToRepository(String name, byte[] contents,
-			long customerId, long domainId) throws RepositoryAccessException {
-		if (contents == null || contents.length < 1) {
-			return null;
-		} else if (customerId < 1 || domainId < 1) {
-			throw new RepositoryAccessException("Unaccepted ID (customer id:"
-					+ customerId + ", domain: " + domainId);
-		} else {
-			String path = "/home/fgaucho/dev/glassfish/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/"
-					+ domainId + "/" + customerId;
-			String file = path + "/" + name;
-			File pathF = new File(path);
-			File fileF = new File(file);
+        try {
+            AdvertisementCollection collection = new AdvertisementCollection();
+            List<AdvertisementEntity> entities = advFacade.readByCategory(Long.parseLong(filter.getCategory()));
+            for (AdvertisementEntity entity : entities) {
+                collection.getAdvertisement().add(advAdapter.toSoap(entity));
+            }
+            return collection;
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-			try {
-				if (pathF.mkdirs() && fileF.createNewFile()) {
-					FileOutputStream out;
-					out = new FileOutputStream(file);
-					out.write(contents);
-					out.close();
-					String resourcePath = "http://fgaucho.dyndns.org:8080/cejug-classifieds-server/resource/"
-							+ domainId + "/" + customerId + "/" + name;
-					logger.info("resource created: " + resourcePath);
-					return resourcePath;
+    public Advertisement publishOperation(final Advertisement advertisement, final PublishingHeader header) {
 
-				} else {
-					throw new RepositoryAccessException(
-							"error trying tocreate the resource path '" + file
-									+ "'");
-				}
-			} catch (IOException e) {
-				logger.severe(e.getMessage());
-				throw new RepositoryAccessException(e);
-			}
-		}
-	}
+        // TODO: to implement the real code.
+        try {
+            // TODO: re-think a factory to reuse adapters...
+            Customer customer = new Customer();
+            customer.setLogin(header.getCustomerLogin());
+            customer.setDomainId(header.getCustomerDomainId());
+            advertisement.setCustomer(customer);
+            AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
+            AtavarImage img = null;
+            if (avatar.getUrl() == null) {
+                img = avatar.getImage();
+                AtavarImage temp = new AtavarImage();
+                temp.setContentType(img.getContentType());
+                temp.setValue(null);
+                avatar.setImage(temp);
+            }
+            /*
+             * Copy resources to the content repository - the file system. try {
+             * copyResourcesToRepository(advertisement); } catch (Exception e) {
+             * e.printStackTrace(); }
+             */
 
-	@Override
-	public Advertisement create(Advertisement type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            AdvertisementEntity entity = advAdapter.toEntity(advertisement);
+            advFacade.create(entity);
+            if (img != null) {
+                String reference = copyResourcesToRepository(avatar.getName(), img.getValue(), entity.getId(), header.getCustomerDomainId());
+                entity.getAvatar().setReference(reference);
+                advFacade.update(entity);
+            }
+            logger.finest("Advertisement #" + entity.getId() + " published (" + entity.getTitle() + ")");
+            return advAdapter.toSoap(entity);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
 
-	@Override
-	public ServiceStatus delete(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public Advertisement read(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * A customer can submit a resource URL or a resource content, more common
+     * in case of images (PNG/JPG). In this case, the server first store the
+     * image contents in the file system and refer its location in the database.
+     * This method receives an Avatar object, check it size and store it
+     * contents in the file system.
+     * @param l
+     * @param advertisement the advertisement containing attachments.
+     * @return the resource address.
+     * @throws RepositoryAccessException problems accessing the content
+     *             repository.
+     */
+    private String copyResourcesToRepository(String name, byte[] contents, long customerId, long domainId) throws RepositoryAccessException {
 
-	@Override
-	public List<Advertisement> readBundleOperation(BundleRequest bundleRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        if (contents == null || contents.length < 1) {
+            return null;
+        } else if (customerId < 1 || domainId < 1) {
+            throw new RepositoryAccessException("Unaccepted ID (customer id:" + customerId + ", domain: " + domainId);
+        } else {
+            String path = "/home/fgaucho/dev/glassfish/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/" + domainId + "/" + customerId;
+            String file = path + "/" + name;
+            File pathF = new File(path);
+            File fileF = new File(file);
 
-	@Override
-	public ServiceStatus update(Advertisement type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            try {
+                if (pathF.mkdirs() && fileF.createNewFile()) {
+                    FileOutputStream out;
+                    out = new FileOutputStream(file);
+                    out.write(contents);
+                    out.close();
+                    String resourcePath = "http://fgaucho.dyndns.org:8080/cejug-classifieds-server/resource/" + domainId + "/" + customerId + "/" + name;
+                    logger.info("resource created: " + resourcePath);
+                    return resourcePath;
+
+                } else {
+                    throw new RepositoryAccessException("error trying tocreate the resource path '" + file + "'");
+                }
+            } catch (IOException e) {
+                logger.severe(e.getMessage());
+                throw new RepositoryAccessException(e);
+            }
+        }
+    }
 }

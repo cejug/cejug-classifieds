@@ -25,13 +25,11 @@ package net.java.dev.cejug.classifieds.service.endpoint;
 
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
-
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
@@ -77,7 +75,6 @@ import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
  * Administrative web-service while keeps logging, response time tracing and
  * other surrounding features. No busines code should be placed here, you find
  * all implementations in the package <code>.impl</code>.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  * @see <a * href=
@@ -88,274 +85,286 @@ import net.java.dev.cejug_classifieds.metadata.common.UpdateCustomerParam;
 @Interceptors(TimerInterceptor.class)
 @Stateless
 @WebService(endpointInterface = "net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin", serviceName = "CejugClassifiedsServiceAdmin", portName = "CejugClassifiedsAdmin", targetNamespace = "http://cejug-classifieds.dev.java.net/admin")
-public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
-		ClassifiedsAdminLocal {
+public class AdminEndpointDecorator implements ClassifiedsAdminRemote, ClassifiedsAdminLocal {
 
-	private static final String NOT_IMPLEMENTED = "operation not yet implemented";
+    private static final String NOT_IMPLEMENTED = "operation not yet implemented";
 
-	@EJB
-	private transient CheckMonitorOperationLocal checkMonitorImpl;
+    @EJB
+    private transient CheckMonitorOperationLocal checkMonitorImpl;
 
-	@EJB
-	private transient CategoryOperationsLocal crudCategory;
+    @EJB
+    private transient CategoryOperationsLocal crudCategory;
 
-	@EJB
-	private transient AdvertisementTypeOperationsLocal crudAdvType;
+    @EJB
+    private transient AdvertisementTypeOperationsLocal crudAdvType;
 
-	@EJB
-	private transient DomainOperationsLocal crudDomain;
+    @EJB
+    private transient DomainOperationsLocal crudDomain;
 
-	@EJB
-	private transient AdvertisementOperationsLocal crudAdvertisement;
+    @EJB
+    private transient AdvertisementOperationsLocal crudAdvertisement;
 
-	/**
-	 * the global log manager, used to allow third party services to override
-	 * the default logger.
-	 */
-	private final static Logger logger = Logger.getLogger(
-			AdminEndpointDecorator.class.getName(), "i18n/log");
+    /**
+     * the global log manager, used to allow third party services to override
+     * the default logger.
+     */
+    private final static Logger logger = Logger.getLogger(AdminEndpointDecorator.class.getName(), "i18n/log");
 
-	@Override
-	public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
-		try {
-			return checkMonitorImpl.checkMonitorOperation(monitor);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public MonitorResponse checkMonitorOperation(final MonitorQuery monitor) {
 
-	@Override
-	public ServiceStatus addQuotaOperation(final AddQuotaInfo addQuotaRequest) {
-		/*
-		 * TODO: review completely this code.
-		 * 
-		 * ServiceStatus status = new ServiceStatus(); try { Quota
-		 * requestedQuota = addQuotaRequest.getQuota(); CustomerEntity customer
-		 * = customerFacade.findOrCreate( requestedQuota.getDomainId(),
-		 * requestedQuota .getCustomerLogin()); // Collection<QuotaEntity>
-		 * customerQuotas = customer.getQuotas(); Collection<QuotaEntity>
-		 * customerQuotas = new ArrayList<QuotaEntity>();
-		 * 
-		 * CrudImpl<AdvertisementTypeEntity, AdvertisementType> crud = new
-		 * CrudImpl<AdvertisementTypeEntity, AdvertisementType>( new
-		 * AdvertisementTypeAdapter(), new AdvertisementTypeFacade());
-		 * AdvertisementTypeEntity type = crud.read(requestedQuota
-		 * .getAdvertisementTypeId());
-		 * 
-		 * boolean newQuota = true; for (Iterator<QuotaEntity> iterator =
-		 * customerQuotas.iterator(); iterator .hasNext();) { QuotaEntity entity
-		 * = iterator.next(); if (entity.getType().equals(type)) {
-		 * entity.setAmount(entity.getAvailable() + 1); newQuota = false; } } if
-		 * (newQuota) { QuotaEntity quota = new QuotaEntity();
-		 * quota.setAdvertisementTypeId(type.getId()); quota.setAmount(1);
-		 * quota.setCustomerLogin(customer.getLogin());
-		 * quota.setDomainId(customer.getDomainId()); customerQuotas.add(quota);
-		 * } customerFacade.update(customer); status.setStatusCode(200); status
-		 * .setDescription("1 {0} quota added to customer {1} of domain {2}");
-		 * logger.finest(
-		 * "TODO: fix logging... 1 {0} quota added to customer {1} of domain {2}"
-		 * ); } catch (Exception e) { logger.severe(e.getMessage());
-		 * status.setStatusCode(500); status.setDescription(e.getMessage()); }
-		 * return status;
-		 */
-		return null;
-	}
+        try {
+            return checkMonitorImpl.checkMonitorOperation(monitor);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public ServiceStatus cancelQuotaOperation(final CancelQuotaInfo request) {
-		// TODO Auto-generated method stub
-		throw new WebServiceException(NOT_IMPLEMENTED);
-	}
+    @Override
+    public ServiceStatus addQuotaOperation(final AddQuotaInfo addQuotaRequest) {
 
-	@Override
-	public AdvertisementType createAdvertisementTypeOperation(
-			final CreateAdvertisementTypeParam newAdvType) {
-		try {
-			return crudAdvType.create(newAdvType.getAdvertisementType());
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        /*
+         * TODO: review completely this code.
+         * 
+         * ServiceStatus status = new ServiceStatus(); try { Quota
+         * requestedQuota = addQuotaRequest.getQuota(); CustomerEntity customer
+         * = customerFacade.findOrCreate( requestedQuota.getDomainId(),
+         * requestedQuota .getCustomerLogin()); // Collection<QuotaEntity>
+         * customerQuotas = customer.getQuotas(); Collection<QuotaEntity>
+         * customerQuotas = new ArrayList<QuotaEntity>();
+         * 
+         * CrudImpl<AdvertisementTypeEntity, AdvertisementType> crud = new
+         * CrudImpl<AdvertisementTypeEntity, AdvertisementType>( new
+         * AdvertisementTypeAdapter(), new AdvertisementTypeFacade());
+         * AdvertisementTypeEntity type = crud.read(requestedQuota
+         * .getAdvertisementTypeId());
+         * 
+         * boolean newQuota = true; for (Iterator<QuotaEntity> iterator =
+         * customerQuotas.iterator(); iterator .hasNext();) { QuotaEntity entity
+         * = iterator.next(); if (entity.getType().equals(type)) {
+         * entity.setAmount(entity.getAvailable() + 1); newQuota = false; } } if
+         * (newQuota) { QuotaEntity quota = new QuotaEntity();
+         * quota.setAdvertisementTypeId(type.getId()); quota.setAmount(1);
+         * quota.setCustomerLogin(customer.getLogin());
+         * quota.setDomainId(customer.getDomainId()); customerQuotas.add(quota);
+         * } customerFacade.update(customer); status.setStatusCode(200); status
+         * .setDescription("1 {0} quota added to customer {1} of domain {2}");
+         * logger.finest(
+         * "TODO: fix logging... 1 {0} quota added to customer {1} of domain {2}"
+         * ); } catch (Exception e) { logger.severe(e.getMessage());
+         * status.setStatusCode(500); status.setDescription(e.getMessage()); }
+         * return status;
+         */
+        return null;
+    }
 
-	@Override
-	public AdvertisementCategory createCategoryOperation(
-			final CreateCategoryParam param) {
-		try {
-			return crudCategory.create(param.getAdvCategory());
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public ServiceStatus cancelQuotaOperation(final CancelQuotaInfo request) {
 
-	@Override
-	public Domain createDomainOperation(final CreateDomainParam param) {
-		try {
-			System.out
-					.println("crudDomaincrudDomaincrudDomaincrudDomaincrudDomain-> "
-							+ crudDomain);
-			return crudDomain.create(param.getDomain());
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
+        // TODO Auto-generated method stub
+        throw new WebServiceException(NOT_IMPLEMENTED);
+    }
 
-	}
+    @Override
+    public AdvertisementType createAdvertisementTypeOperation(final CreateAdvertisementTypeParam newAdvType) {
 
-	@Override
-	public ServiceStatus deleteCategoryOperation(
-			final DeleteCategoryParam obsoleteCategory) {
-		try {
-			return crudCategory.delete(obsoleteCategory.getPrimaryKey());
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        try {
+            return crudAdvType.create(newAdvType.getAdvertisementType());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public ServiceStatus deleteDomainOperation(
-			final DeleteDomainParam obsoleteDomain) {
-		return crudDomain.delete(obsoleteDomain.getPrimaryKey());
-	}
+    @Override
+    public AdvertisementCategory createCategoryOperation(final CreateCategoryParam param) {
 
-	@Override
-	public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(
-			final BundleRequest bundleRequest) {
-		try {
-			AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
-			collection.getAdvertisementType().addAll(
-					crudAdvType.readBundleOperation(bundleRequest));
-			return collection;
+        try {
+            return crudCategory.create(param.getAdvCategory());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public Domain createDomainOperation(final CreateDomainParam param) {
 
-	@Override
-	public DomainCollection readDomainBundleOperation(
-			BundleRequest bundleRequest) {
-		try {
-			DomainCollection collection = new DomainCollection();
-			List<Domain> src = crudDomain.readBundleOperation(bundleRequest);
-			List<Domain> dest = collection.getDomain();
-			dest.addAll(src);
-			return collection;
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        try {
+            System.out.println("crudDomaincrudDomaincrudDomaincrudDomaincrudDomain-> " + crudDomain);
+            return crudDomain.create(param.getDomain());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
 
-	@Override
-	public ServiceStatus updateAdvertisementTypeOperation(
-			final UpdateAdvertisementTypeParam partialAdvType) {
-		try {
-			return crudAdvType.update(partialAdvType.getAdvertisementType());
+    }
 
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public ServiceStatus deleteCategoryOperation(final DeleteCategoryParam obsoleteCategory) {
 
-	@Override
-	public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
-		try {
-			return crudCategory.update(param.getAdvCategory());
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+        try {
+            return crudCategory.delete(obsoleteCategory.getPrimaryKey());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public ServiceStatus updateDomainOperation(
-			final UpdateDomainParam partialDomain) {
-		try {
-			Domain domain = partialDomain.getDomain();
-			return crudDomain.update(domain);
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public ServiceStatus deleteDomainOperation(final DeleteDomainParam obsoleteDomain) {
 
-	@Override
-	public ServiceStatus deleteAdvertisementTypeOperation(final long id) {
-		try {
-			return crudAdvType.delete(id);
+        return crudDomain.delete(obsoleteDomain.getPrimaryKey());
+    }
 
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			throw new WebServiceException(e);
-		}
-	}
+    @Override
+    public AdvertisementTypeCollection readAdvertisementTypeBundleOperation(final BundleRequest bundleRequest) {
 
-	@Override
-	public ServiceStatus createCustomerOperation(
-			final CreateCustomerParam newCustomer) {
-		// TODO
-		throw new WebServiceException(NOT_IMPLEMENTED);
-	}
+        try {
+            AdvertisementTypeCollection collection = new AdvertisementTypeCollection();
+            collection.getAdvertisementType().addAll(crudAdvType.readBundleOperation(bundleRequest));
+            return collection;
 
-	@Override
-	public ServiceStatus deleteCustomerOperation(
-			final DeleteCustomerParam obsoleteCustomer) {
-		// TODO
-		throw new WebServiceException(NOT_IMPLEMENTED);
-	}
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public CustomerCollection readCustomerBundleOperation(
-			final ReadCustomerBundleParam getCustomer) {
-		// TODO
-		throw new WebServiceException(NOT_IMPLEMENTED);
-	}
+    @Override
+    public DomainCollection readDomainBundleOperation(BundleRequest bundleRequest) {
 
-	@Override
-	public ServiceStatus updateCustomerOperation(
-			final UpdateCustomerParam partialCustomer) {
-		// TODO
-		throw new WebServiceException(NOT_IMPLEMENTED);
-	}
+        try {
+            DomainCollection collection = new DomainCollection();
+            List<Domain> src = crudDomain.readBundleOperation(bundleRequest);
+            List<Domain> dest = collection.getDomain();
+            dest.addAll(src);
+            return collection;
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-	@Override
-	public CategoryCollection readCategoryBundleOperation(
-			BundleRequest bundleRequest) {
-		CategoryCollection collection = new CategoryCollection();
-		collection.getAdvCategory().addAll(
-				crudCategory.readBundleOperation(bundleRequest));
-		return collection;
-	}
+    @Override
+    public ServiceStatus updateAdvertisementTypeOperation(final UpdateAdvertisementTypeParam partialAdvType) {
 
-	@Override
-	public ServiceStatus updateAdvertisementStatusOperation(
-			AdvertisementRefBundle advertisement) {
-		
-		throw new WebServiceException("Not yet implemented");
-	}
+        try {
+            return crudAdvType.update(partialAdvType.getAdvertisementType());
 
-	@Override
-	public AdvertisementRefBundle readAdvertisementReferencesOperation(ReadAdvertisementReferencesParam categoryId) {
-		AdvertisementRefBundle bundle = new AdvertisementRefBundle();
-		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
-		filter.setCategory(Long.toString(categoryId.getPrimaryKey()));
-		AdvertisementCollection collection = crudAdvertisement
-				.loadAdvertisementOperation(filter);
-		List<AdvertisementRef> adRefs = bundle.getAdvertisementRef();
-		for (Advertisement ad : collection.getAdvertisement()) {
-			AdvertisementRef ref = new AdvertisementRef();
-			ref.setHeadline(ad.getHeadline());
-			ref.setPrimaryKey(Long.valueOf(ad.getEntityId()));
-			ref.setStatus(ad.getStatus());
-			adRefs.add(ref);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
 
-		}
-		return bundle;
-	}
+    @Override
+    public ServiceStatus updateCategoryOperation(final UpdateCategoryParam param) {
+
+        try {
+            return crudCategory.update(param.getAdvCategory());
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public ServiceStatus updateDomainOperation(final UpdateDomainParam partialDomain) {
+
+        try {
+            Domain domain = partialDomain.getDomain();
+            return crudDomain.update(domain);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public ServiceStatus deleteAdvertisementTypeOperation(final long id) {
+
+        try {
+            return crudAdvType.delete(id);
+
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public ServiceStatus createCustomerOperation(final CreateCustomerParam newCustomer) {
+
+        // TODO
+        throw new WebServiceException(NOT_IMPLEMENTED);
+    }
+
+    @Override
+    public ServiceStatus deleteCustomerOperation(final DeleteCustomerParam obsoleteCustomer) {
+
+        // TODO
+        throw new WebServiceException(NOT_IMPLEMENTED);
+    }
+
+    @Override
+    public CustomerCollection readCustomerBundleOperation(final ReadCustomerBundleParam getCustomer) {
+
+        // TODO
+        throw new WebServiceException(NOT_IMPLEMENTED);
+    }
+
+    @Override
+    public ServiceStatus updateCustomerOperation(final UpdateCustomerParam partialCustomer) {
+
+        // TODO
+        throw new WebServiceException(NOT_IMPLEMENTED);
+    }
+
+    @Override
+    public CategoryCollection readCategoryBundleOperation(BundleRequest bundleRequest) {
+
+        CategoryCollection collection = new CategoryCollection();
+        collection.getAdvCategory().addAll(crudCategory.readBundleOperation(bundleRequest));
+        return collection;
+    }
+
+    @Override
+    public ServiceStatus updateAdvertisementStatusOperation(AdvertisementRefBundle bundle) {
+
+        try {
+            List<AdvertisementRef> list = bundle.getAdvertisementRef();
+            for (AdvertisementRef advertisementRef : list) {
+                Advertisement advertisement = crudAdvertisement.read(advertisementRef.getPrimaryKey());
+                advertisement.setStatus(1); // ARCHIVE
+                crudAdvertisement.update(advertisement);
+            }
+            ServiceStatus status = new ServiceStatus();
+            status.setStatusCode(200);
+            return status;
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            throw new WebServiceException(e);
+        }
+    }
+
+    @Override
+    public AdvertisementRefBundle readAdvertisementReferencesOperation(ReadAdvertisementReferencesParam categoryId) {
+
+        AdvertisementRefBundle bundle = new AdvertisementRefBundle();
+        AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
+        filter.setCategory(Long.toString(categoryId.getPrimaryKey()));
+        AdvertisementCollection collection = crudAdvertisement.loadAdvertisementOperation(filter);
+        List<AdvertisementRef> adRefs = bundle.getAdvertisementRef();
+        for (Advertisement ad : collection.getAdvertisement()) {
+            AdvertisementRef ref = new AdvertisementRef();
+            ref.setHeadline(ad.getHeadline());
+            ref.setPrimaryKey(Long.valueOf(ad.getEntityId()));
+            ref.setStatus(ad.getStatus());
+            adRefs.add(ref);
+
+        }
+        return bundle;
+    }
 }
