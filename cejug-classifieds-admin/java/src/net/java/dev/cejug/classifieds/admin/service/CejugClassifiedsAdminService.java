@@ -5,6 +5,8 @@ package net.java.dev.cejug.classifieds.admin.service;
 
 import java.util.List;
 import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
+import net.java.dev.cejug.classifieds.server.contract.AdvertisementRef;
+import net.java.dev.cejug.classifieds.server.contract.AdvertisementRefBundle;
 import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
 import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
 import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
@@ -18,6 +20,7 @@ import net.java.dev.cejug.classifieds.server.contract.DeleteCategoryParam;
 import net.java.dev.cejug.classifieds.server.contract.DeleteDomainParam;
 import net.java.dev.cejug.classifieds.server.contract.Domain;
 import net.java.dev.cejug.classifieds.server.contract.DomainCollection;
+import net.java.dev.cejug.classifieds.server.contract.ReadAdvertisementReferencesParam;
 import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
 import net.java.dev.cejug.classifieds.server.contract.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug.classifieds.server.contract.UpdateCategoryParam;
@@ -28,6 +31,23 @@ import net.java.dev.cejug.classifieds.server.contract.UpdateDomainParam;
  * @version $Rev$ ($Date$)
  */
 public class CejugClassifiedsAdminService {
+
+    /*
+     * ==========================================================================
+     * ADVERTISEMENT
+     * ====================================================================
+     */
+    /**
+     * Searches the advertisements.
+     * @param param Parameter (categoryId) to search the advertisements
+     * @return List of AdvertisementRef
+     */
+    public List<AdvertisementRef> readAdvertisementReferencesOperation(ReadAdvertisementReferencesParam param) {
+
+        CejugClassifiedsAdmin admin = new CejugClassifiedsServiceAdmin().getCejugClassifiedsAdmin();
+        AdvertisementRefBundle bundle = admin.readAdvertisementReferencesOperation(param);
+        return bundle.getAdvertisementRef();
+    }
 
     /*
      * ==========================================================================
