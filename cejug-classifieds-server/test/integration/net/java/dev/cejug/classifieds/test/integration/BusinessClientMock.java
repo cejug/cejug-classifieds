@@ -65,6 +65,7 @@ public class BusinessClientMock {
 		}
 	}
 
+	/*
 	public List<Advertisement> loadFromAtomFeed(Domain domain,
 			AdvertisementType advType, AdvertisementCategory category,
 			String feedUrl) {
@@ -77,6 +78,7 @@ public class BusinessClientMock {
 			return null;
 		}
 	}
+	*/
 
 	public Feed readRemoteAtomTest(String url) throws JAXBException,
 			IOException, XMLStreamException, FactoryConfigurationError {

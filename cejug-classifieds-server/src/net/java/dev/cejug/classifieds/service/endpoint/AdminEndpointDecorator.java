@@ -32,8 +32,6 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceException;
 
-import com.sun.net.httpserver.Filter;
-
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementTypeOperationsLocal;
 import net.java.dev.cejug.classifieds.business.interfaces.CategoryOperationsLocal;
@@ -53,6 +51,7 @@ import net.java.dev.cejug_classifieds.metadata.admin.DeleteCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.DeleteDomainParam;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
+import net.java.dev.cejug_classifieds.metadata.admin.ReadAdvertisementReferencesParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateAdvertisementTypeParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateCategoryParam;
 import net.java.dev.cejug_classifieds.metadata.admin.UpdateDomainParam;
@@ -342,10 +341,10 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 	}
 
 	@Override
-	public AdvertisementRefBundle readAdvertisementReferencesOperation() {
+	public AdvertisementRefBundle readAdvertisementReferencesOperation(ReadAdvertisementReferencesParam categoryId) {
 		AdvertisementRefBundle bundle = new AdvertisementRefBundle();
 		AdvertisementCollectionFilter filter = new AdvertisementCollectionFilter();
-		filter.setCategory("3");
+		filter.setCategory(Long.toString(categoryId.getPrimaryKey()));
 		AdvertisementCollection collection = crudAdvertisement
 				.loadAdvertisementOperation(filter);
 		List<AdvertisementRef> adRefs = bundle.getAdvertisementRef();

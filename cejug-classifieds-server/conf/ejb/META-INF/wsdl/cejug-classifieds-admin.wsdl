@@ -56,7 +56,9 @@
 		<wsdl:part element="metadata:AdvertisementRefBundle" name="bundle" />
 	</wsdl:message>
 
-	<wsdl:message name="ReadAdvertisementList" />
+	<wsdl:message name="ReadAdvertisementList">
+		<wsdl:part element="metadata:ReadAdvertisementReferencesParam" name="category.id" />
+	</wsdl:message>
 
 	<!-- DOMAIN CRUD MESSAGES -->
 	<wsdl:message name="CreateDomainMsg">
