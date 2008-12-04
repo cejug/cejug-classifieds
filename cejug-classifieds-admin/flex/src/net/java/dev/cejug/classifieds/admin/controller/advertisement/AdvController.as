@@ -14,8 +14,9 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
     import net.java.dev.cejug.classifieds.admin.util.MessageUtils;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
-    import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
+    import net.java.dev.cejug.classifieds.server.contract.AdvertisementRef;
     import net.java.dev.cejug.classifieds.server.contract.ReadAdvertisementReferencesParam;
+    import net.java.dev.cejug.classifieds.server.contract.AdvertisementRefBundle;
     import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     
@@ -25,14 +26,11 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
         private var adminService:RemoteObject;
 
         [Bindable]
-        public var advTypeEntity:AdvertisementType;
-
-        [Bindable]
         [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory")]
         public var categoryDataProvider:ListCollectionView = new ArrayCollection();
 
         [Bindable]
-        [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementType")]
+        [ArrayElementType("net.java.dev.cejug.classifieds.server.contract.AdvertisementRef")]
         public var advertisementDataProvider:ArrayCollection = new ArrayCollection();
 
         private var serviceStatus:ServiceStatus;
@@ -42,6 +40,7 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
             adminService = new AdminService().getRemoteObject();
             adminService.readCategoryBundleOperation.addEventListener("result", getAllCategoriesResult);
             adminService.readAdvertisementReferencesOperation.addEventListener("result", searchAdvertisementsResult);
+            adminService.updateAdvertisementStatusOperation.addEventListener("result", updateAdvertisementsResult);
             adminService.addEventListener("fault", onRemoteFault);
         }
 
@@ -110,6 +109,16 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
                 var advs:Array = advReference.dgAdvertisement.selectedIndices;
     
                 if (advs.length >= 0) {
+                    var bundle:AdvertisementRefBundle = new AdvertisementRefBundle();
+                    bundle.advertisementRef = new ArrayCollection();
+                    var ref:AdvertisementRef;
+                    for (var i:int = 1; i < advs.length; i++) {
+                        ref = new AdvertisementRef();
+                        ref.primaryKey = advs[i];
+                        bundle.advertisementRef.addItem(ref);
+                    }
+                    
+                    adminService.updateAdvertisementStatusOperation(bundle);
                 }
             }
         }
@@ -134,7 +143,16 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
          * Handles the result of searching advertisements.
          */
         private function searchAdvertisementsResult(event:ResultEvent):void {
-            advertisementDataProvider = event.result as ArrayCollection; 
+            advertisementDataProvider = event.result as ArrayCollection;
+            if (advertisementDataProvider == null || advertisementDataProvider.length == 0) {
+                MessageUtils.showError("No advertisements found.");
+            }
+        }
+
+        /**
+         * Handles the result of updating advertisements. 
+         */
+        private function updateAdvertisementsResult(event:ResultEvent):void {
         }
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
