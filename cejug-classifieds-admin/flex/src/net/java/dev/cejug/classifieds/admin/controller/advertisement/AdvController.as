@@ -113,8 +113,8 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
                     bundle.advertisementRef = new ArrayCollection();
                     var ref:AdvertisementRef;
                     for (var i:int = 1; i < advs.length; i++) {
-                        ref = new AdvertisementRef();
-                        ref.primaryKey = advs[i];
+                        
+                        ref = advertisementDataProvider.getItemAt(advs[i]) as AdvertisementRef;
                         bundle.advertisementRef.addItem(ref);
                     }
                     
