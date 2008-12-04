@@ -8,7 +8,7 @@
     <mx:VBox width="100%" height="100%" id="vbAdvertisement">
         <mx:Panel id="pAdvertisement" title="Advertisements" width="100%" height="100%">
             <mx:ControlBar>
-                <mx:FormItem label="Category"><mx:ComboBox id="fCategory" labelField="Category" dataProvider="{advService.categoryDataProvider}"></mx:ComboBox></mx:FormItem>
+                <mx:FormItem label="Category"><mx:ComboBox id="fCategory" labelField="name" dataProvider="{advService.categoryDataProvider}"></mx:ComboBox></mx:FormItem>
                 <mx:Button label="Search"  click="advService.searchAdvertisements()" />
             </mx:ControlBar>
             <mx:DataGrid id="dgAdvertisement" dataProvider="{advService.advertisementDataProvider}" width="100%" height="100%" allowMultipleSelection="true">

@@ -15,6 +15,7 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementCategory;
     import net.java.dev.cejug.classifieds.server.contract.CategoryCollection;
     import net.java.dev.cejug.classifieds.server.contract.AdvertisementType;
+    import net.java.dev.cejug.classifieds.server.contract.ReadAdvertisementReferencesParam;
     import net.java.dev.cejug.classifieds.server.contract.BundleRequest;
     import net.java.dev.cejug.classifieds.server.contract.ServiceStatus;
     
@@ -87,6 +88,7 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
                 categoryDataProvider = new ArrayCollection();
                 categoryDataProvider.addItem(item);
             }
+            advReference.fCategory.selectedIndex = 0;
         }
 
         /**
@@ -116,8 +118,16 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
          * Searches the advertisements.
          */
         public function searchAdvertisements():void {
-            // TODO: search filtering by categories
-            adminService.readAdvertisementReferencesOperation();
+            var index:int = advReference.fCategory.selectedIndex;
+            var selectedCategory:AdvertisementCategory = null; 
+            var param:ReadAdvertisementReferencesParam = new ReadAdvertisementReferencesParam();
+            if (index > 0) {
+                selectedCategory = categoryDataProvider.getItemAt(index) as AdvertisementCategory;
+                param.primaryKey = selectedCategory.entityId;
+                adminService.readAdvertisementReferencesOperation(param);
+            } else {
+                MessageUtils.showError("Select one category.");
+            }
         }
         
         /**
