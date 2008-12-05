@@ -19,4 +19,13 @@
   NAME="rules:#pages#advertisement#publishAdvertisement.xhtml"
   PATH="/pages/advertisement/publishAdvertisement.xhtml"
   SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="207,374,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="home::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#WebContent#index.xhtml"
+  PATH="/WebContent/index.xhtml" SHAPE="360,368,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
 </PROCESS>

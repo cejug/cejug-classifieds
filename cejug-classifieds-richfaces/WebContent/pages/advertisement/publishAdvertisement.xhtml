@@ -8,8 +8,23 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="/template/template.xhtml">
+	<ui:define name="pageheader">
+		<div><h:graphicImage value="/images/templateNew/header.png"
+			styleClass="logo" /></div>
+		<div id="headerbar">
+		<a:form id="headerForm">
+			<a:commandLink action="home"
+				value="Home" styleClass="publishLink" />
+		</a:form>
+		
+			
+		<div id="searchPane"><h:inputText value=""
+			styleClass="inputSearch" /> <a:commandButton
+			image="/images/templateNew/go.png" /></div>
+		</div>
+	</ui:define>
 	<ui:define name="body">
-		<rich:spacer height="4"></rich:spacer>
+		
 		<style>
 .top {
 	vertical-align: top;
@@ -24,20 +39,23 @@
 	float: none;
 }
 </style>
-		<a:form id="publishForm">
+		<a:form id="publishForm" ajaxSubmit="true">
 			<a:keepAlive beanName="publishAdvertisementBean" />
-
+			
+			<rich:messages layout="list" id="messages" styleClass="message"
+        errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
+			
 			<rich:toolBar height="10" itemSeparator="line">
 				<rich:toolBarGroup>
-					<h:commandLink style="border:none;"
-						action="#{publishAdvertisementBean.publish}">
+					<a:commandLink style="border:none;"
+						action="#{publishAdvertisementBean.publish}" reRender="publishForm, tabPanel">
 						<h:graphicImage value="/images/publish.jpg" style="border:none;" />
-					</h:commandLink>
+					</a:commandLink>
 				</rich:toolBarGroup>
 			</rich:toolBar>
 
-			<rich:tabPanel switchType="ajax">
-				<rich:tab label="#{msg['publishadv.tab.advertisement']}">
+			<rich:tabPanel switchType="ajax" id="tabPanel" selectedTab="#{publishAdvertisementBean.selectedTab}">
+				<rich:tab label="#{msg['publishadv.tab.advertisement']}" name="tab1" id="tab1">
 					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
 						<h:outputText value="#{msg['publishadv.category']}" />
@@ -53,22 +71,22 @@
 							<h:outputText value="#{msg['publishadv.date.finish']}" />
 
 							<rich:calendar
-								value="#{publishAdvertisementBean.start}"
+								value="#{publishAdvertisementBean.startDate}" label="#{msg['publishadv.date.start']}"
 								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-								cellWidth="24px" cellHeight="22px" style="width:200px"
+								cellWidth="24px" cellHeight="22px" style="width:200px" required="true"
 								id="start" />
 
 							<rich:calendar
-								value="#{publishAdvertisementBean.finish}"
+								value="#{publishAdvertisementBean.finishDate}" label="#{msg['publishadv.date.finish']}"
 								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-								cellWidth="24px" cellHeight="22px" style="width:200px"
+								cellWidth="24px" cellHeight="22px" style="width:200px" required="true"
 								id="finish" />
 						</h:panelGrid>
 
 						<h:outputText value="#{msg['publishadv.headline']}" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.headline}"
-							style="width:230px;" />
+							style="width:230px;" required="true" label="Headline"/>
 
 						<h:outputText value="#{msg['publishadv.keywords']}"
 							style="width:230px;" />

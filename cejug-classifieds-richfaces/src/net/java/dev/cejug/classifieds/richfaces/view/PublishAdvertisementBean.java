@@ -33,6 +33,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
@@ -65,39 +68,51 @@ public class PublishAdvertisementBean {
 	private Advertisement advertisement = new Advertisement();
 
 	private String avatarImageOrUrl = AvatarType.IMAGE.getType();
+	private String selectedTab;
 	
 	private Date start;
 	private Date finish;
 	
+	protected Date getStart() {
+		return start;
+	}
+
+	protected void setStart(Date start) {
+		this.start = start;
+	}
+
+	protected Date getFinish() {
+		return finish;
+	}
+
+	protected void setFinish(Date finish) {
+		this.finish = finish;
+	}
 	
-	// findBug and PMD warning me to do this with get and set for Date !
-	// stranger or correct ?
-	public Date getStart() {		
-		if (start == null){
-			return null;
-		}else{ 
-			return new Date(start.getTime());
-		}
+	public Date getStartDate(){
+		return this.getStart();
 	}
 
-	public void setStart(Date start) {
-		Date date = new Date(start.getTime());
-		this.start = date;
+	public void setStartDate(Date date){
+		this.setStart(date);
+	}
+	
+	public Date getFinishDate(){
+		return this.getFinish();
 	}
 
-	public Date getFinish() {
-		if(finish == null){
-			return null;
-		}else{ 
-			return new Date(finish.getTime());
-		}
+	public void setFinishDate(Date date){
+		this.setFinish(date);
+	}
+	
+	public String getSelectedTab() {
+		return selectedTab;
 	}
 
-	public void setFinish(Date finish) {
-		Date date = new Date(finish.getTime());
-		this.finish = date;
+	public void setSelectedTab(String selectedTab) {
+		this.selectedTab = selectedTab;
 	}
-
+	
 	public PublishAdvertisementBean() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
@@ -173,7 +188,7 @@ public class PublishAdvertisementBean {
 	}
 
 	public void publish() {
-		try {
+		
 			long domainId = 2L;
 
 			// TODO: remove this list from here as soon we learn how to
@@ -251,12 +266,34 @@ public class PublishAdvertisementBean {
 				}
 			}
 			
-			
+		try {
 			SERVICE.publishOperation(advertisement, header);
-
+			clearPublishData();
+			addMessage("Publish with success!", FacesMessage.SEVERITY_INFO, null);
 		} catch (Exception e) {
 			e.printStackTrace();
+			addMessage("Ops, something wrong happened :(  ", FacesMessage.SEVERITY_ERROR, null);
 		}
+	}
+	
+	private void clearPublishData() {
+		setAdvertisement(new Advertisement());
+		setStartDate(null);
+		setFinishDate(null);
+		setSelectedTab("tab1");
+		clearUploadData();
+	}
+	
+	public static void addMessage(String messageText, Severity typeMessage,
+			String messageException) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		StringBuffer summary = new StringBuffer();
+		summary.append(messageText);
+		if (messageException != null) {
+			summary.append(messageException);
+		}
+		FacesMessage message = new FacesMessage(typeMessage, summary.toString(), null);
+		context.addMessage(null, message);
 	}
 
 	/* File Upload */
