@@ -43,7 +43,7 @@ public class UserManager {
 	private static final String CREATE_USER = "insert into usertable values(?, ?)";
 	private static final String CREATE_GROUP = "insert into grouptable values(?, ?)";
 
-	private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
+	public static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
 	private static String hashPassword(String password)
@@ -113,15 +113,29 @@ public class UserManager {
 				System.out.println(set.getString("login"));
 			}
 		} finally {
-			if (set != null) {
-				set.close();
+			// connection cleanup
+			try {
+				if (set != null) {
+					set.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			if (userStmt != null) {
-				userStmt.close();
+			try {
+				if (userStmt != null) {
+					userStmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			if (conn != null) {
-				conn.close();
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
+
 		}
 	}
 
