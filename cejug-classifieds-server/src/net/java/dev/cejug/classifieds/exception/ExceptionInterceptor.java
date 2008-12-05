@@ -36,7 +36,7 @@ import javax.persistence.PersistenceException;
 public class ExceptionInterceptor {
 	@AroundInvoke
 	public Object exceptionInterceptor(InvocationContext context)
-			throws Exception { // NOPMD
+			throws Exception { 
 
 		Object result = null;
 
