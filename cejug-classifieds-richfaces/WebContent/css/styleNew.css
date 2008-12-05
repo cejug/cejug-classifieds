@@ -64,3 +64,38 @@ a.publishLink:link, a.publishLink:hover, a.publishLink:visited, a.publishLink:ac
 .dr-table-cell{
   vertical-align:top;
 }
+
+.advPane {
+	float: none;
+	width: 100%;
+}
+
+.message {
+	padding: 5px;
+	list-style: none;
+	border: 0;
+	background: none;
+	padding: 0;
+	color: #000000;
+	margin: 5px 0 8px 0;
+	font-size: 12px;
+}
+
+.message dt {
+	background: no-repeat left center;
+	padding-top: 1px;
+	padding-left: 20px;
+	margin-left: 3px;
+}
+
+.message dt.infomsg {
+	background-image: url(../images/templateNew/msginfo.png);
+}
+
+.message dt.errormsg {
+	background-image: url(../images/templateNew/msgerror.png);
+}
+
+.message dt.warnmsg {
+	background-image: url(../images/templateNew/msgwarn.png);
+}
