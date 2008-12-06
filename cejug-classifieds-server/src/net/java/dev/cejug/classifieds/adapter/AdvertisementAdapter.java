@@ -113,7 +113,6 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
             if (img != null) {
                 attachment.setContentType(img.getContentType());
             }
-            attachment.setContentType(avatar.getImage().getContentType());
             attachment.setReference(avatar.getUrl());
             attachmentFacade.create(attachment);
             entity.setAvatar(attachment);
@@ -156,7 +155,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
         period.setStart(entity.getStart());
         period.setFinish(entity.getFinish());
         adv.setPublishingPeriod(period);
-        // TODO: adv.setStatus(entity.getState());
+
         adv.setSummary(entity.getSummary());
         adv.setText(entity.getText());
         adv.setTypeId(entity.getType().getId());
@@ -171,6 +170,9 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
             avatar.setDescription(attachment.getDescription());
             avatar.setName(attachment.getName());
             avatar.setUrl(attachment.getReference());
+            AtavarImage image = new AtavarImage();
+            image.setContentType(attachment.getContentType());
+            avatar.setImage(image);
             adv.setAvatarImageOrUrl(avatar);
         }
 
