@@ -97,7 +97,7 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
             var advs:Array = advReference.dgAdvertisement.selectedIndices;
 
             if (advs.length >= 0) {
-                MessageUtils.showQuestion("Delete selected advertisements ?", deleteAdvertisements);
+                MessageUtils.showQuestion("Archive selected advertisements ?", deleteAdvertisements);
             }
         }
 
@@ -112,7 +112,7 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
                     var bundle:AdvertisementRefBundle = new AdvertisementRefBundle();
                     bundle.advertisementRef = new ArrayCollection();
                     var ref:AdvertisementRef;
-                    for (var i:int = 1; i < advs.length; i++) {
+                    for (var i:int = 0; i < advs.length; i++) {
                         
                         ref = advertisementDataProvider.getItemAt(advs[i]) as AdvertisementRef;
                         bundle.advertisementRef.addItem(ref);
@@ -153,6 +153,10 @@ package net.java.dev.cejug.classifieds.admin.controller.advertisement
          * Handles the result of updating advertisements. 
          */
         private function updateAdvertisementsResult(event:ResultEvent):void {
+            var serviceStatus:ServiceStatus = event.result as ServiceStatus;
+            if (serviceStatus.statusCode == 200) {
+                MessageUtils.showInfo("Advertisements archived");
+            } 
         }
 
         private function handleServiceStatus(serviceStatus:ServiceStatus):void {
