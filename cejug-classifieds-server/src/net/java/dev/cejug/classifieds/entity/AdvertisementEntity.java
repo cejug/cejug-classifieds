@@ -49,7 +49,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
  */
 @Entity
 @Table(name = "ADVERTISEMENT")
-@NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId and adv.state <> 'ARCHIVE' ORDER BY adv.start DESC"))
+@NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId and adv.state <> :state ORDER BY adv.start DESC"))
 public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 
     public static final class QUERIES {
@@ -65,6 +65,9 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 
         /** {@value} */
         public static final String PARAM_CATEGORY_ID = "catId";
+
+        /** {@value} */
+        public static final String PARAM_STATE = "state";
     }
 
     /**
