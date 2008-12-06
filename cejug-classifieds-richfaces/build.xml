@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="cejug-classifieds-web" default="generate-stubs" basedir=".">
+<project name="cejug-classifieds-richfaces" default="generate-stubs" basedir=".">
 	<description>Builds, tests, and runs the project cejug-classifieds-web.</description>
 	<import file="quality.xml" />
 
@@ -109,8 +109,31 @@
 		</javac>
 	</target>
 
+	<target name="create-war" depends="generate-stubs">
+		<mkdir dir="${war.home}"/>
+		<war warfile="${war.home}/${ant.project.name}.war" webxml="${build.home}/web.xml">
+			<webinf dir="${build.home}" includes="**/**" />
+			<zipfileset dir="${basedir}/WebContent/" includes="**/**" excludes="**/WEB-INF/**/**" />
+			<zipfileset dir="resources" prefix="WEB-INF/classes" />
+			<classes dir="${build.classes.home}" includes="**/**" />
+		</war>
+	</target>
+
+	<target name="deploy" depends="create-war">
+		<copy file="${war.home}/${ant.project.name}.war" todir="${env.AS_HOME}/domains/${domain}/autodeploy" />
+	</target>
+
 	<!-- continuous integration task -->
 	<target name="hudson">
+		<antcall target="generate-stubs" />
+		<antcall target="pmd" />
+		<antcall target="findbugs" />
+		<antcall target="javadoc.with.uml" />
+		<antcall target="deploy" />		
+	</target>
+	
+	<!-- continuous integration task -->
+	<target name="hudson2">
 		<antcall target="generate-stubs" />
 		<antcall target="pmd" />
 		<antcall target="findbugs" />
