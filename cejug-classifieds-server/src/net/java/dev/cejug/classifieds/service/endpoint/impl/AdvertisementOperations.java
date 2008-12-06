@@ -158,9 +158,11 @@ public class AdvertisementOperations extends AbstractCrudImpl<AdvertisementEntit
         } else if (customerId < 1 || domainId < 1) {
             throw new RepositoryAccessException("Unaccepted ID (customer id:" + customerId + ", domain: " + domainId);
         } else {
-            String path = "/home/fgaucho/dev/glassfish/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/" + domainId + "/" + customerId;
+            String glassfishHome = System.getenv("AS_HOME");
+            String path = glassfishHome + "/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/" + domainId + '/' + customerId;
+
             String file = path + "/" + name;
-            File pathF = new File(path);
+            File pathF = new File(path.toString());
             File fileF = new File(file);
 
             try {
