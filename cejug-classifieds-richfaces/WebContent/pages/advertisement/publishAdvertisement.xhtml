@@ -126,20 +126,20 @@
 							<h:outputText value="#{msg['publishadv.url']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}"
-								style="width:230px;" />
+								style="width:230px;" required="true" label="Url"/>
 							<h:outputText value="#{msg['publishadv.name']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.name}"
-								style="width:230px;" />
+								style="width:230px;" required="true" label="Name"/>
 							<h:outputText value="#{msg['publishadv.description']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}"
-								style="width:230px;" />
+								style="width:230px;" required="true" label="Description"/>
 						</h:panelGrid>
 
 						<h:panelGrid columns="2" columnClasses="top,top"
 							rendered="#{publishAdvertisementBean.avatarImageOrUrl =='I'}">
-							<rich:fileUpload
+							<rich:fileUpload 
 								fileUploadListener="#{publishAdvertisementBean.listener}"
 								maxFilesQuantity="#{publishAdvertisementBean.uploadsAvailable}"
 								reRender="table" id="upload"
@@ -147,8 +147,9 @@
 								acceptedTypes="jpg, gif, png, bmp"
 								allowFlash="#{publishAdvertisementBean.useFlash}"
 								listHeight="60px">
-								<a:support event="onuploadcomplete" reRender="info" />
+								<a:support event="onuploadcomplete" reRender="info, imgupload" />
 							</rich:fileUpload>
+							
 							<h:panelGroup id="info">
 								<rich:panel bodyClass="info">
 									<f:facet name="header">
@@ -180,6 +181,7 @@
 									reRender="info, upload" value="Clear Uploaded Data"
 									rendered="#{publishAdvertisementBean.size>0}" />
 							</h:panelGroup>
+							<h:column></h:column>
 						</h:panelGrid>
 					</h:panelGrid>
 				</rich:tab>

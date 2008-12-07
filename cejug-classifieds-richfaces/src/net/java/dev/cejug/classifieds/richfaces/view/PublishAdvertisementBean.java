@@ -68,11 +68,13 @@ public class PublishAdvertisementBean {
 	private Advertisement advertisement = new Advertisement();
 
 	private String avatarImageOrUrl = AvatarType.IMAGE.getType();
+
 	private String selectedTab;
-	
+
 	private Date start;
+
 	private Date finish;
-	
+
 	protected Date getStart() {
 		return start;
 	}
@@ -88,23 +90,23 @@ public class PublishAdvertisementBean {
 	protected void setFinish(Date finish) {
 		this.finish = finish;
 	}
-	
-	public Date getStartDate(){
+
+	public Date getStartDate() {
 		return this.getStart();
 	}
 
-	public void setStartDate(Date date){
+	public void setStartDate(Date date) {
 		this.setStart(date);
 	}
-	
-	public Date getFinishDate(){
+
+	public Date getFinishDate() {
 		return this.getFinish();
 	}
 
-	public void setFinishDate(Date date){
+	public void setFinishDate(Date date) {
 		this.setFinish(date);
 	}
-	
+
 	public String getSelectedTab() {
 		return selectedTab;
 	}
@@ -112,7 +114,7 @@ public class PublishAdvertisementBean {
 	public void setSelectedTab(String selectedTab) {
 		this.selectedTab = selectedTab;
 	}
-	
+
 	public PublishAdvertisementBean() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
@@ -188,102 +190,93 @@ public class PublishAdvertisementBean {
 	}
 
 	public void publish() {
+
+		long domainId = 2L;
+
+		// TODO: remove this list from here as soon we learn how to
+		// show combo boxes with custom objects in JSF :)
+		List<AdvertisementType> availableTypes = SERVICE
+				.readAdvertisementTypeBundleOperation(new BundleRequest())
+				.getAdvertisementType();
+
+		advertisement.setCategoryId(getSelectedCategory().getId());
+
+		AdvertisementType type = availableTypes.get(0);
+
+		Customer customer = new Customer();
+		customer.setLogin("arisson");
+		customer.setDomainId(domainId);
+		advertisement.setCustomer(customer);
+		advertisement.setTypeId(type.getEntityId());
+
+		// Publishing period
+		Calendar startDate = GregorianCalendar.getInstance();
+		startDate.setTime(getStart());
+
+		Calendar finishDate = GregorianCalendar.getInstance();
+		finishDate.setTime(getFinish());
+
+		Period period = new Period();
+		period.setStart(startDate);
+		period.setFinish(finishDate);
+		advertisement.setPublishingPeriod(period);
+
+		//status
+		advertisement.setStatus(1);
+
+		PublishingHeader header = new PublishingHeader();
+		header.setCustomerDomainId(domainId);
+		header.setCustomerLogin("arisson");
 		
-			long domainId = 2L;
-
-			// TODO: remove this list from here as soon we learn how to
-			// show combo boxes with custom objects in JSF :)
-			List<AdvertisementType> availableTypes = SERVICE
-					.readAdvertisementTypeBundleOperation(new BundleRequest())
-					.getAdvertisementType();
-
-			// TODO: remove this list from here-.. the category should come from
-			// the
-			// page where the user is publishing.. (that combo on the from
-			// page...)
-			// List<AdvertisementCategory> registeredCategories = SERVICE
-			// .readCategoryBundleOperation(new BundleRequest())
-			// .getAdvCategory();
-			advertisement.setCategoryId(getSelectedCategory().getId());
-
-			AdvertisementType type = availableTypes.get(0);
-
-			Customer customer = new Customer();
-			customer.setLogin("arisson");
-			customer.setDomainId(domainId);
-			advertisement.setCustomer(customer);
-			advertisement.setTypeId(type.getEntityId());
-
-			// TODO: include a text field in the publish page (auto-detect??)
-			// AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-			// if (avatar != null && avatar.getImage() != null) {
-			// avatar.getImage().setContentType("image/png");
-			// }
-
-			// AvatarImageOrUrl avatar = new AvatarImageOrUrl();
-			// URL imgUrl =
-			// getClass().getClassLoader().getResource("img/car.png");
-			// Image image = ImageIO.read(imgUrl);
-			// ObjectFactory attachmentFactory = new ObjectFactory();
-
-			/*
-			 * AtavarImage avimage = attachmentFactory.createAtavarImage();
-			 * avimage.setContentType("image/png"); avatar.setImage(avimage);
-			 * avatar.setName("car.jpg"); avatar.setDescription("PUBLISH BEAN");
-			 * avatar.setUrl(
-			 * "http://upload.wikimedia.org/wikipedia/commons/e/e7/Avatar_ItsMine.png"
-			 * ); advertisement.setAvatarImageOrUrl(avatar);
-			 */
-
-			// Publishing period
-			Calendar startDate = GregorianCalendar.getInstance();
-			startDate.setTime(getStart());
-			
-			Calendar finishDate = GregorianCalendar.getInstance();
-			finishDate.setTime(getFinish());
-			
-			Period period = new Period();
-			period.setStart(startDate);
-			period.setFinish(finishDate);
-			advertisement.setPublishingPeriod(period);
-
-			// keywords
-			// advertisement.setKeywords("Java,book,jsf");
-			advertisement.setStatus(1);
-
-			PublishingHeader header = new PublishingHeader();
-			header.setCustomerDomainId(domainId);
-			header.setCustomerLogin("arisson");
-
-			if(avatarImageOrUrl.equals(AvatarType.URL.getType())){
-				try{
-					URL url = new URL(getAdvertisement().getAvatarImageOrUrl().getUrl());
-					URLConnection cn = url.openConnection();
-					getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
-					getAdvertisement().getAvatarImageOrUrl().getImage().setContentType(cn.getContentType());
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
+		// TODO : refactory this :)
+		if(avatarImageOrUrl.equals(AvatarType.IMAGE.getType())){
+			if(getAdvertisement().getAvatarImageOrUrl() == null
+					|| getAdvertisement().getAvatarImageOrUrl().getImage() == null
+					|| getAdvertisement().getAvatarImageOrUrl().getImage().getValue() == null){
+				
+				addMessage("Image: value is required.", FacesMessage.SEVERITY_ERROR,
+						null);
+				return;
+			}			
+		}else if (avatarImageOrUrl.equals(AvatarType.URL.getType())) {
+			try {
+				// Get the content type if image is url type.
+				URL url = new URL(getAdvertisement().getAvatarImageOrUrl()
+						.getUrl());
+				URLConnection cn = url.openConnection();
+				getAdvertisement().getAvatarImageOrUrl().setImage(
+						new AtavarImage());
+				getAdvertisement().getAvatarImageOrUrl().getImage()
+						.setContentType(cn.getContentType());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			
+		}
+		
+		
 		try {
 			SERVICE.publishOperation(advertisement, header);
 			clearPublishData();
-			addMessage("Publish with success!", FacesMessage.SEVERITY_INFO, null);
+			addMessage("Publish with success!", FacesMessage.SEVERITY_INFO,
+					null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			addMessage("Ops, something wrong happened :(  ", FacesMessage.SEVERITY_ERROR, null);
+			addMessage("Ops, something wrong happened :(  ",
+					FacesMessage.SEVERITY_ERROR, null);
 		}
 	}
-	
+
+
 	private void clearPublishData() {
 		setAdvertisement(new Advertisement());
 		setStartDate(null);
 		setFinishDate(null);
+		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
 		setSelectedTab("tab1");
+		setAvatarImageOrUrl(AvatarType.IMAGE.getType());
 		clearUploadData();
 	}
-	
+
 	public static void addMessage(String messageText, Severity typeMessage,
 			String messageException) {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -292,7 +285,8 @@ public class PublishAdvertisementBean {
 		if (messageException != null) {
 			summary.append(messageException);
 		}
-		FacesMessage message = new FacesMessage(typeMessage, summary.toString(), null);
+		FacesMessage message = new FacesMessage(typeMessage,
+				summary.toString(), null);
 		context.addMessage(null, message);
 	}
 
@@ -327,13 +321,14 @@ public class PublishAdvertisementBean {
 						new AtavarImage());
 				getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
 						item.getData());
-				
-				//TODO: I thing need change this for run fine in LINUX SO.
+
+				// TODO: I thing need change this for run fine in LINUX SO.
 				String fileName = item.getFileName();
-				fileName = fileName.substring(fileName.lastIndexOf('\\')+1);
-				
+				fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
+
 				getAdvertisement().getAvatarImageOrUrl().setName(fileName);
-				getAdvertisement().getAvatarImageOrUrl().setDescription(fileName);
+				getAdvertisement().getAvatarImageOrUrl().setDescription(
+						fileName);
 				getAdvertisement().getAvatarImageOrUrl().getImage()
 						.setContentType(item.getContentType());
 
@@ -347,7 +342,7 @@ public class PublishAdvertisementBean {
 
 	public String clearUploadData() {
 		files.clear();
-		setUploadsAvailable(5);
+		setUploadsAvailable(1);
 		return null;
 	}
 
