@@ -30,7 +30,8 @@ import net.java.dev.cejug.classifieds.entity.CategoryEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 
 /**
- * TODO: to comment.
+ * Adaptation interface between Category objects representing Soap elements and
+ * the CategoryEntity used to persist the domain data in the database.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)

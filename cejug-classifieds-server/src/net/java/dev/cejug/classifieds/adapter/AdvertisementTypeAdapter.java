@@ -30,7 +30,8 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
- * TODO: to comment.
+ * Adaptation interface between Advertisement Type objects representing Soap elements and
+ * the AdvertisementTypeEntity used to persist the domain data in the database.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)

@@ -29,6 +29,12 @@ import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.entity.AdvertisementTypeEntity;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
+/**
+ * EJB Local interface to the Advertisement Type stateless adapter.
+ * 
+ * @author $Author$
+ * @version $Rev$ ($Date$)
+ */
 @Local
 public interface AdvertisementTypeAdapterLocal extends
 		SoapOrmAdapter<AdvertisementType, AdvertisementTypeEntity> {

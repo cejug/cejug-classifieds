@@ -53,201 +53,215 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 
 /**
- * TODO: to comment.
+ * Adaptation interface between Advertisement objects representing Soap elements and
+ * the AdvertismementEntity used to persist the domain data in the database.
+ * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Stateless
 public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 
-    private static final String KEYWORDS_SEPARATOR = ";";
+	private static final String KEYWORDS_SEPARATOR = ";";
 
-    /**
-     * The persistence facade for Category entities.
-     */
-    @EJB
-    private transient CategoryFacadeLocal categoryFacade;
+	/**
+	 * The persistence facade for Category entities.
+	 */
+	@EJB
+	private transient CategoryFacadeLocal categoryFacade;
 
-    /**
-     * The persistence facade for Customer entities.
-     */
-    @EJB
-    private transient CustomerFacadeLocal customerFacade;
+	/**
+	 * The persistence facade for Customer entities.
+	 */
+	@EJB
+	private transient CustomerFacadeLocal customerFacade;
 
-    /**
-     * The persistence facade for Advertisement Type entities.
-     */
-    @EJB
-    private transient AdvertisementTypeFacadeLocal advTypeFacade;
+	/**
+	 * The persistence facade for Advertisement Type entities.
+	 */
+	@EJB
+	private transient AdvertisementTypeFacadeLocal advTypeFacade;
 
-    /**
-     * The persistence facade for Attachment entities.
-     */
-    @EJB
-    private transient AttachmentFacadeLocal attachmentFacade;
+	/**
+	 * The persistence facade for Attachment entities.
+	 */
+	@EJB
+	private transient AttachmentFacadeLocal attachmentFacade;
 
-    /**
-     * {@inheritDoc}
-     * @throws IOException
-     */
-    public AdvertisementEntity toEntity(Advertisement soap) throws IllegalStateException, IllegalArgumentException {
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IOException
+	 */
+	public AdvertisementEntity toEntity(Advertisement soap)
+			throws IllegalStateException, IllegalArgumentException {
 
-        AdvertisementEntity entity = new AdvertisementEntity();
-        entity.setCategory(categoryFacade.read(soap.getCategoryId()));
-        long domainId = soap.getCustomer().getDomainId();
-        String customerLogin = soap.getCustomer().getLogin();
-        CustomerEntity customer = customerFacade.findOrCreate(domainId, customerLogin);
-        entity.setCustomer(customer);
-        Period period = soap.getPublishingPeriod();
-        entity.setFinish(period.getFinish());
-        entity.setStart(period.getStart());
-        entity.setId(soap.getEntityId());
+		AdvertisementEntity entity = new AdvertisementEntity();
+		entity.setCategory(categoryFacade.read(soap.getCategoryId()));
+		long domainId = soap.getCustomer().getDomainId();
+		String customerLogin = soap.getCustomer().getLogin();
+		CustomerEntity customer = customerFacade.findOrCreate(domainId,
+				customerLogin);
+		entity.setCustomer(customer);
+		Period period = soap.getPublishingPeriod();
+		entity.setFinish(period.getFinish());
+		entity.setStart(period.getStart());
+		entity.setId(soap.getEntityId());
 
-        AttachmentEntity attachment = new AttachmentEntity();
-        AvatarImageOrUrl avatar = soap.getAvatarImageOrUrl();
-        if (avatar != null) {
-            // avatar is optional.
-            attachment.setName(avatar.getName());
-            attachment.setDescription(avatar.getDescription());
-            AtavarImage img = avatar.getImage();
-            if (img != null) {
-                attachment.setContentType(img.getContentType());
-            }
-            attachment.setReference(avatar.getUrl());
-            attachmentFacade.create(attachment);
-            entity.setAvatar(attachment);
-        }
-        // TODO: split the string representation
-        entity.setKeywords(splitKeywords(soap.getKeywords()));
-        switch (soap.getStatus()) {
-        case 1:
-            entity.setState(AdvertisementEntity.AdvertisementStatus.ARCHIVE);
-            break;
-        case 2:
-            entity.setState(AdvertisementEntity.AdvertisementStatus.CANCELED);
-            break;
-        case 3:
-            entity.setState(AdvertisementEntity.AdvertisementStatus.ONLINE);
-            break;
-        }
-        entity.setSummary(soap.getSummary());
-        entity.setText(soap.getText());
-        entity.setTitle(soap.getHeadline());
-        entity.setType(advTypeFacade.read(soap.getTypeId()));
-        return entity;
-    }
+		AttachmentEntity attachment = new AttachmentEntity();
+		AvatarImageOrUrl avatar = soap.getAvatarImageOrUrl();
+		if (avatar != null) {
+			// avatar is optional.
+			attachment.setName(avatar.getName());
+			attachment.setDescription(avatar.getDescription());
+			AtavarImage img = avatar.getImage();
+			if (img != null) {
+				attachment.setContentType(img.getContentType());
+			}
+			attachment.setReference(avatar.getUrl());
+			attachmentFacade.create(attachment);
+			entity.setAvatar(attachment);
+		}
+		// TODO: split the string representation
+		entity.setKeywords(splitKeywords(soap.getKeywords()));
+		switch (soap.getStatus()) {
+		case 1:
+			entity.setState(AdvertisementEntity.AdvertisementStatus.ARCHIVE);
+			break;
+		case 2:
+			entity.setState(AdvertisementEntity.AdvertisementStatus.CANCELED);
+			break;
+		case 3:
+			entity.setState(AdvertisementEntity.AdvertisementStatus.ONLINE);
+			break;
+		}
+		entity.setSummary(soap.getSummary());
+		entity.setText(soap.getText());
+		entity.setTitle(soap.getHeadline());
+		entity.setType(advTypeFacade.read(soap.getTypeId()));
+		return entity;
+	}
 
-    /** {@inheritDoc} */
-    public Advertisement toSoap(AdvertisementEntity entity) throws IllegalStateException, IllegalArgumentException {
+	/** {@inheritDoc} */
+	public Advertisement toSoap(AdvertisementEntity entity)
+			throws IllegalStateException, IllegalArgumentException {
 
-        Advertisement adv = new Advertisement();
-        CategoryEntity category = entity.getCategory();
-        if (category != null) {
-            adv.setCategoryId(category.getId());
-        }
-        CustomerAdapter adapter = new CustomerAdapter();
-        adv.setCustomer(adapter.toSoap(entity.getCustomer()));
-        adv.setEntityId(entity.getId());
-        adv.setHeadline(entity.getTitle());
-        adv.setKeywords(mergeKeywords(entity.getKeywords()));
-        // TODO: adv.setLocale(entity.get)
-        Period period = new Period();
-        period.setStart(entity.getStart());
-        period.setFinish(entity.getFinish());
-        adv.setPublishingPeriod(period);
+		Advertisement adv = new Advertisement();
+		CategoryEntity category = entity.getCategory();
+		if (category != null) {
+			adv.setCategoryId(category.getId());
+		}
+		CustomerAdapter adapter = new CustomerAdapter();
+		adv.setCustomer(adapter.toSoap(entity.getCustomer()));
+		adv.setEntityId(entity.getId());
+		adv.setHeadline(entity.getTitle());
+		adv.setKeywords(mergeKeywords(entity.getKeywords()));
+		// TODO: adv.setLocale(entity.get)
+		Period period = new Period();
+		period.setStart(entity.getStart());
+		period.setFinish(entity.getFinish());
+		adv.setPublishingPeriod(period);
 
-        adv.setSummary(entity.getSummary());
-        adv.setText(entity.getText());
-        adv.setTypeId(entity.getType().getId());
+		adv.setSummary(entity.getSummary());
+		adv.setText(entity.getText());
+		adv.setTypeId(entity.getType().getId());
 
-        ObjectFactory attachmentsFactory = new ObjectFactory();
+		ObjectFactory attachmentsFactory = new ObjectFactory();
 
-        AttachmentEntity attachment = entity.getAvatar();
+		AttachmentEntity attachment = entity.getAvatar();
 
-        AvatarImageOrUrl avatar = attachmentsFactory.createAvatarImageOrUrl();
-        if (avatar != null) {
-            // Avatar is optional.
-            avatar.setDescription(attachment.getDescription());
-            avatar.setName(attachment.getName());
-            avatar.setUrl(attachment.getReference());
-            AtavarImage image = new AtavarImage();
-            image.setContentType(attachment.getContentType());
-            avatar.setImage(image);
-            adv.setAvatarImageOrUrl(avatar);
-        }
+		AvatarImageOrUrl avatar = attachmentsFactory.createAvatarImageOrUrl();
+		if (avatar != null) {
+			// Avatar is optional.
+			avatar.setDescription(attachment.getDescription());
+			avatar.setName(attachment.getName());
+			avatar.setUrl(attachment.getReference());
+			AtavarImage image = new AtavarImage();
+			image.setContentType(attachment.getContentType());
+			avatar.setImage(image);
+			adv.setAvatarImageOrUrl(avatar);
+		}
 
-        switch (entity.getState()) {
-        case ARCHIVE:
-            adv.setStatus(1);
-            break;
-        case CANCELED:
-            adv.setStatus(2);
-            break;
-        case ONLINE:
-            adv.setStatus(3);
-            break;
-        }
-        return adv;
-    }
+		switch (entity.getState()) {
+		case ARCHIVE:
+			adv.setStatus(1);
+			break;
+		case CANCELED:
+			adv.setStatus(2);
+			break;
+		case ONLINE:
+			adv.setStatus(3);
+			break;
+		}
+		return adv;
+	}
 
-    /**
-     * Concatenates a collection of keywords in a single String formed by comma
-     * separated tokens.
-     * @param keywords the collection of
-     * @return a single String formed by comma separated tokens.
-     */
-    private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {
+	/**
+	 * Concatenates a collection of keywords in a single String formed by comma
+	 * separated tokens.
+	 * 
+	 * @param keywords
+	 *            the collection of
+	 * @return a single String formed by comma separated tokens.
+	 */
+	private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {
 
-        StringBuffer keyword = new StringBuffer();
-        for (AdvertisementKeywordEntity key : keywords) {
-            keyword.append(key);
-            keyword.append(KEYWORDS_SEPARATOR);
-        }
-        return keyword.toString();
-    }
+		StringBuffer keyword = new StringBuffer();
+		for (AdvertisementKeywordEntity key : keywords) {
+			keyword.append(key);
+			keyword.append(KEYWORDS_SEPARATOR);
+		}
+		return keyword.toString();
+	}
 
-    /**
-     * Splits a String formed by comma separated tokens in a collection of
-     * advertisement keyword entities.
-     * @param keywords the comma separated keyword.
-     * @return the collection of entities.
-     */
-    private Collection<AdvertisementKeywordEntity> splitKeywords(String keywords) {
+	/**
+	 * Splits a String formed by comma separated tokens in a collection of
+	 * advertisement keyword entities.
+	 * 
+	 * @param keywords
+	 *            the comma separated keyword.
+	 * @return the collection of entities.
+	 */
+	private Collection<AdvertisementKeywordEntity> splitKeywords(String keywords) {
 
-        Collection<AdvertisementKeywordEntity> collection = new ArrayList<AdvertisementKeywordEntity>();
-        StringTokenizer tokenizer = new StringTokenizer(keywords, ";,", false);
-        while (tokenizer.hasMoreTokens()) {
-            collection.add(new AdvertisementKeywordEntity(tokenizer.nextToken()));
-        }
-        return collection;
-    }
+		Collection<AdvertisementKeywordEntity> collection = new ArrayList<AdvertisementKeywordEntity>();
+		StringTokenizer tokenizer = new StringTokenizer(keywords, ";,", false);
+		while (tokenizer.hasMoreTokens()) {
+			collection
+					.add(new AdvertisementKeywordEntity(tokenizer.nextToken()));
+		}
+		return collection;
+	}
 
-    /**
-     * @see <a
-     *      href='http://forums.sun.com/thread.jspa?messageID=9470374'>Convertin
-     *      g a java.awt.Image to byte array. </a>
-     * @param image an image.
-     * @return the image bytes.
-     * @throws IOException I/O general exception.
-     */
-    public byte[] imageToByteArray(Image image) {
+	/**
+	 * @see <a
+	 *      href='http://forums.sun.com/thread.jspa?messageID=9470374'>Convertin
+	 *      g a java.awt.Image to byte array. </a>
+	 * @param image
+	 *            an image.
+	 * @return the image bytes.
+	 * @throws IOException
+	 *             I/O general exception.
+	 */
+	public byte[] imageToByteArray(Image image) {
 
-        MediaTracker tracker = new MediaTracker(new Container());
-        tracker.addImage(image, 0);
-        try {
-            tracker.waitForAll();
-        } catch (InterruptedException e) {
-        }
-        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), 1);
-        Graphics gc = bufferedImage.createGraphics();
-        gc.drawImage(image, 0, 0, null);
+		MediaTracker tracker = new MediaTracker(new Container());
+		tracker.addImage(image, 0);
+		try {
+			tracker.waitForAll();
+		} catch (InterruptedException e) {
+		}
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),
+				image.getHeight(null), 1);
+		Graphics gc = bufferedImage.createGraphics();
+		gc.drawImage(image, 0, 0, null);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bufferedImage, "jpeg", bos);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
-        }
-        return bos.toByteArray();
-    }
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImage, "jpeg", bos);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+		return bos.toByteArray();
+	}
 }

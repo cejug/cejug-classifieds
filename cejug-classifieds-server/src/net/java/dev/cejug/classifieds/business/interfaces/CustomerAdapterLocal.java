@@ -29,6 +29,12 @@ import net.java.dev.cejug.classifieds.adapter.SoapOrmAdapter;
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
+/**
+ * EJB Local interface to the Customer stateless adapter.
+ * 
+ * @author $Author$
+ * @version $Rev$ ($Date$)
+ */
 @Local
 public interface CustomerAdapterLocal extends
 		SoapOrmAdapter<Customer, CustomerEntity> {

@@ -31,7 +31,7 @@ import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionF
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 
 /**
- * TODO: to comment.
+ * Local interface to the Advertisement Operations stateless EJB.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)

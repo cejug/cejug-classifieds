@@ -28,8 +28,9 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 
 /**
+ * 
  * @author $Author$
- * @version $Rev: $ ($Date$)
+ * @version $Rev$ ($Date$)
  */
 @Local
 public interface AdvertisementTypeOperationsLocal extends

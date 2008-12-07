@@ -30,7 +30,7 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
 /**
- * TODO: to comment.
+ * EJB Local interface to the Advertisement stateless adapter.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
