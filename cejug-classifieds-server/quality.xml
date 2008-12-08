@@ -80,6 +80,7 @@
 			</fileset>
 			<fileset dir="${basedir}/generated">
 				<include name="**/*.java" />
+			    <exclude name="*/**/ExceptionInterceptor.java" />
 			</fileset>
 		</pmd>
 	</target>
