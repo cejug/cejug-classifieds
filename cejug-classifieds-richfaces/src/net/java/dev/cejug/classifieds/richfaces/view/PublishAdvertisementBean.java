@@ -32,12 +32,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
@@ -48,7 +46,6 @@ import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
 import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
-
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 import org.springframework.context.annotation.Scope;
@@ -56,330 +53,345 @@ import org.springframework.stereotype.Controller;
 
 /**
  * TODO: to comment.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Controller(value = "publishAdvertisementBean")
 @Scope("session")
 public class PublishAdvertisementBean {
-	private transient final CejugClassifiedsBusiness SERVICE;
 
-	private Advertisement advertisement = new Advertisement();
+    private transient final CejugClassifiedsBusiness SERVICE;
 
-	private String avatarImageOrUrl = AvatarType.IMAGE.getType();
+    private Advertisement advertisement = new Advertisement();
 
-	private String selectedTab;
+    private String avatarImageOrUrl = AvatarType.IMAGE.getType();
 
-	private Date start;
+    private String selectedTab;
 
-	private Date finish;
+    private Date start;
 
-	protected Date getStart() {
-		return start;
-	}
+    private Date finish;
 
-	protected void setStart(Date start) {
-		this.start = start;
-	}
+    protected Date getStart() {
 
-	protected Date getFinish() {
-		return finish;
-	}
+        return start;
+    }
 
-	protected void setFinish(Date finish) {
-		this.finish = finish;
-	}
+    protected void setStart(Date start) {
 
-	public Date getStartDate() {
-		return this.getStart();
-	}
+        this.start = start;
+    }
 
-	public void setStartDate(Date date) {
-		this.setStart(date);
-	}
+    protected Date getFinish() {
 
-	public Date getFinishDate() {
-		return this.getFinish();
-	}
+        return finish;
+    }
 
-	public void setFinishDate(Date date) {
-		this.setFinish(date);
-	}
+    protected void setFinish(Date finish) {
 
-	public String getSelectedTab() {
-		return selectedTab;
-	}
+        this.finish = finish;
+    }
 
-	public void setSelectedTab(String selectedTab) {
-		this.selectedTab = selectedTab;
-	}
+    public Date getStartDate() {
 
-	public PublishAdvertisementBean() {
-		SERVICE = new CejugClassifiedsServiceBusiness()
-				.getCejugClassifiedsBusiness();
-		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
-	}
+        return this.getStart();
+    }
 
-	public Advertisement getAdvertisement() {
-		return advertisement;
-	}
+    public void setStartDate(Date date) {
 
-	public void setAdvertisement(Advertisement advertisement) {
-		this.advertisement = advertisement;
-	}
+        this.setStart(date);
+    }
 
-	public String getAvatarImageOrUrl() {
-		return avatarImageOrUrl;
-	}
+    public Date getFinishDate() {
 
-	public void setAvatarImageOrUrl(String avatarImageOrUrl) {
-		this.avatarImageOrUrl = avatarImageOrUrl;
-	}
+        return this.getFinish();
+    }
 
-	private SelectItem advType = null;
+    public void setFinishDate(Date date) {
 
-	public SelectItem getAdvType() {
-		return advType;
-	}
+        this.setFinish(date);
+    }
 
-	public void setAdvType(SelectItem advType) {
-		this.advType = advType;
-	}
+    public String getSelectedTab() {
 
-	private AdvertisementCategoryWrapper selectedCategory;
+        return selectedTab;
+    }
 
-	public AdvertisementCategoryWrapper getSelectedCategory() {
-		return selectedCategory;
-	}
+    public void setSelectedTab(String selectedTab) {
 
-	public void setSelectedCategory(
-			AdvertisementCategoryWrapper selectedCategory) {
-		this.selectedCategory = selectedCategory;
-	}
+        this.selectedTab = selectedTab;
+    }
 
-	/**
-	 * The list of the types of advertisements (simple, html, with image, etc..)
-	 * 
-	 * @return a list of select items containing the advertisement types.
-	 */
-	public List<SelectItem> getAdvertisementTypes() {
-		// The highlander combo raised from hell again :)
-		// TODO: to use a cache instead of loading every time...
-		List<AdvertisementType> availableTypes = SERVICE
-				.readAdvertisementTypeBundleOperation(new BundleRequest())
-				.getAdvertisementType();
-		List<SelectItem> list = new ArrayList<SelectItem>(availableTypes.size());
-		for (AdvertisementType type : availableTypes) {
-			list.add(new SelectItem(type, type.getName()));
-		}
-		if (!list.isEmpty()) {
-			advType = list.get(0);
-		}
-		return list;
-	}
+    public PublishAdvertisementBean() {
 
-	public List<SelectItem> getAvatarTypes() {
-		List<SelectItem> list = new ArrayList<SelectItem>();
+        SERVICE = new CejugClassifiedsServiceBusiness().getCejugClassifiedsBusiness();
+        getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+    }
 
-		for (AvatarType item : AvatarType.values()) {
-			list.add(new SelectItem(item.getType(), item.toString()));
-		}
+    public Advertisement getAdvertisement() {
 
-		return list;
-	}
+        return advertisement;
+    }
 
-	public void publish() {
+    public void setAdvertisement(Advertisement advertisement) {
 
-		long domainId = 2L;
+        this.advertisement = advertisement;
+    }
 
-		// TODO: remove this list from here as soon we learn how to
-		// show combo boxes with custom objects in JSF :)
-		List<AdvertisementType> availableTypes = SERVICE
-				.readAdvertisementTypeBundleOperation(new BundleRequest())
-				.getAdvertisementType();
+    public String getAvatarImageOrUrl() {
 
-		advertisement.setCategoryId(getSelectedCategory().getId());
+        return avatarImageOrUrl;
+    }
 
-		AdvertisementType type = availableTypes.get(0);
+    public void setAvatarImageOrUrl(String avatarImageOrUrl) {
 
-		Customer customer = new Customer();
-		customer.setLogin("arisson");
-		customer.setDomainId(domainId);
-		advertisement.setCustomer(customer);
-		advertisement.setTypeId(type.getEntityId());
+        this.avatarImageOrUrl = avatarImageOrUrl;
+    }
 
-		// Publishing period
-		Calendar startDate = GregorianCalendar.getInstance();
-		startDate.setTime(getStart());
+    private SelectItem advType = null;
 
-		Calendar finishDate = GregorianCalendar.getInstance();
-		finishDate.setTime(getFinish());
+    public SelectItem getAdvType() {
 
-		Period period = new Period();
-		period.setStart(startDate);
-		period.setFinish(finishDate);
-		advertisement.setPublishingPeriod(period);
+        return advType;
+    }
 
-		//status
-		advertisement.setStatus(1);
+    public void setAdvType(SelectItem advType) {
 
-		PublishingHeader header = new PublishingHeader();
-		header.setCustomerDomainId(domainId);
-		header.setCustomerLogin("arisson");
-		
-		// TODO : refactory this :)
-		if(avatarImageOrUrl.equals(AvatarType.IMAGE.getType())){
-			if(getAdvertisement().getAvatarImageOrUrl() == null
-					|| getAdvertisement().getAvatarImageOrUrl().getImage() == null
-					|| getAdvertisement().getAvatarImageOrUrl().getImage().getValue() == null){
-				
-				addMessage("Image: value is required.", FacesMessage.SEVERITY_ERROR,
-						null);
-				return;
-			}			
-		}else if (avatarImageOrUrl.equals(AvatarType.URL.getType())) {
-			try {
-				// Get the content type if image is url type.
-				URL url = new URL(getAdvertisement().getAvatarImageOrUrl()
-						.getUrl());
-				URLConnection cn = url.openConnection();
-				getAdvertisement().getAvatarImageOrUrl().setImage(
-						new AtavarImage());
-				getAdvertisement().getAvatarImageOrUrl().getImage()
-						.setContentType(cn.getContentType());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
-		try {
-			SERVICE.publishOperation(advertisement, header);
-			clearPublishData();
-			addMessage("Publish with success!", FacesMessage.SEVERITY_INFO,
-					null);
-		} catch (Exception e) {
-			e.printStackTrace();
-			addMessage("Ops, something wrong happened :(  ",
-					FacesMessage.SEVERITY_ERROR, null);
-		}
-	}
+        this.advType = advType;
+    }
 
+    private AdvertisementCategoryWrapper selectedCategory;
 
-	private void clearPublishData() {
-		setAdvertisement(new Advertisement());
-		setStartDate(null);
-		setFinishDate(null);
-		getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
-		setSelectedTab("tab1");
-		setAvatarImageOrUrl(AvatarType.IMAGE.getType());
-		clearUploadData();
-	}
+    public AdvertisementCategoryWrapper getSelectedCategory() {
 
-	public static void addMessage(String messageText, Severity typeMessage,
-			String messageException) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		StringBuffer summary = new StringBuffer();
-		summary.append(messageText);
-		if (messageException != null) {
-			summary.append(messageException);
-		}
-		FacesMessage message = new FacesMessage(typeMessage,
-				summary.toString(), null);
-		context.addMessage(null, message);
-	}
+        return selectedCategory;
+    }
 
-	/* File Upload */
-	private List<AtavarImage> files = new ArrayList<AtavarImage>();
-	private int uploadsAvailable = 1;
-	private boolean autoUpload = true;
-	private boolean useFlash = false;
+    public void setSelectedCategory(AdvertisementCategoryWrapper selectedCategory) {
 
-	public int getSize() {
-		return getFiles().size();
-	}
+        this.selectedCategory = selectedCategory;
+    }
 
-	public void paint(OutputStream stream, Object object) throws IOException {
-		synchronized (object) {
-			if (object instanceof String) {
-				stream.write(getFiles()
-						.get(Integer.parseInt(object.toString())).getValue());
-			} else {
-				stream.write(getFiles().get((Integer) object).getValue());
-			}
-		}
+    /**
+     * The list of the types of advertisements (simple, html, with image, etc..)
+     * @return a list of select items containing the advertisement types.
+     */
+    public List<SelectItem> getAdvertisementTypes() {
 
-	}
+        // The highlander combo raised from hell again :)
+        // TODO: to use a cache instead of loading every time...
+        List<AdvertisementType> availableTypes = SERVICE.readAdvertisementTypeBundleOperation(new BundleRequest()).getAdvertisementType();
+        List<SelectItem> list = new ArrayList<SelectItem>(availableTypes.size());
+        for (AdvertisementType type : availableTypes) {
+            list.add(new SelectItem(type, type.getName()));
+        }
+        if (!list.isEmpty()) {
+            advType = list.get(0);
+        }
+        return list;
+    }
 
-	public void listener(UploadEvent event) {
-		synchronized (event) {
-			UploadItem item = event.getUploadItem();
-			try {
-				getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
-				getAdvertisement().getAvatarImageOrUrl().setImage(
-						new AtavarImage());
-				getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
-						item.getData());
+    public List<SelectItem> getAvatarTypes() {
 
-				// TODO: I thing need change this for run fine in LINUX SO.
-				String fileName = item.getFileName();
-				fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
+        List<SelectItem> list = new ArrayList<SelectItem>();
 
-				getAdvertisement().getAvatarImageOrUrl().setName(fileName);
-				getAdvertisement().getAvatarImageOrUrl().setDescription(
-						fileName);
-				getAdvertisement().getAvatarImageOrUrl().getImage()
-						.setContentType(item.getContentType());
+        for (AvatarType item : AvatarType.values()) {
+            list.add(new SelectItem(item.getType(), item.toString()));
+        }
 
-				files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
-				setUploadsAvailable(getUploadsAvailable() - 1);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        return list;
+    }
 
-	public String clearUploadData() {
-		files.clear();
-		setUploadsAvailable(1);
-		return null;
-	}
+    public void publish() {
 
-	public long getTimeStamp() {
-		return System.currentTimeMillis();
-	}
+        long domainId = 2L;
 
-	public List<AtavarImage> getFiles() {
-		return files;
-	}
+        // TODO: remove this list from here as soon we learn how to
+        // show combo boxes with custom objects in JSF :)
+        List<AdvertisementType> availableTypes = SERVICE.readAdvertisementTypeBundleOperation(new BundleRequest()).getAdvertisementType();
 
-	public void setFiles(List<AtavarImage> files) {
-		this.files = files;
-	}
+        advertisement.setCategoryId(getSelectedCategory().getId());
 
-	public int getUploadsAvailable() {
-		return uploadsAvailable;
-	}
+        AdvertisementType type = availableTypes.get(0);
 
-	public void setUploadsAvailable(int uploadsAvailable) {
-		this.uploadsAvailable = uploadsAvailable;
-	}
+        Customer customer = new Customer();
+        customer.setLogin("arisson"); // TODO: get logged user
+        customer.setDomainId(domainId); // TODO Get domain from user
+        advertisement.setCustomer(customer);
+        advertisement.setTypeId(type.getEntityId());
 
-	public boolean isAutoUpload() {
-		return autoUpload;
-	}
+        // Publishing period
+        Calendar startDate = GregorianCalendar.getInstance();
+        startDate.setTime(getStart());
 
-	public void setAutoUpload(boolean autoUpload) {
-		this.autoUpload = autoUpload;
-	}
+        Calendar finishDate = GregorianCalendar.getInstance();
+        finishDate.setTime(getFinish());
 
-	public boolean isUseFlash() {
-		return useFlash;
-	}
+        Period period = new Period();
+        period.setStart(startDate);
+        period.setFinish(finishDate);
+        advertisement.setPublishingPeriod(period);
 
-	public void setUseFlash(boolean useFlash) {
-		this.useFlash = useFlash;
-	}
+        // status
+        advertisement.setStatus(3); // ONLINE
+
+        PublishingHeader header = new PublishingHeader();
+        header.setCustomerDomainId(domainId);
+        header.setCustomerLogin("arisson");
+
+        // TODO : refactory this :)
+        if (avatarImageOrUrl.equals(AvatarType.IMAGE.getType())) {
+            if (getAdvertisement().getAvatarImageOrUrl() == null || getAdvertisement().getAvatarImageOrUrl().getImage() == null || getAdvertisement().getAvatarImageOrUrl().getImage().getValue() == null) {
+
+                addMessage("Image: value is required.", FacesMessage.SEVERITY_ERROR, null);
+                return;
+            }
+        } else if (avatarImageOrUrl.equals(AvatarType.URL.getType())) {
+            try {
+                // Get the content type if image is url type.
+                URL url = new URL(getAdvertisement().getAvatarImageOrUrl().getUrl());
+                URLConnection cn = url.openConnection();
+                getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
+                getAdvertisement().getAvatarImageOrUrl().getImage().setContentType(cn.getContentType());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            SERVICE.publishOperation(advertisement, header);
+            clearPublishData();
+            addMessage("Publish with success!", FacesMessage.SEVERITY_INFO, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            addMessage("Ops, something wrong happened :(  ", FacesMessage.SEVERITY_ERROR, null);
+        }
+    }
+
+    private void clearPublishData() {
+
+        setAdvertisement(new Advertisement());
+        setStartDate(null);
+        setFinishDate(null);
+        getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+        setSelectedTab("tab1");
+        setAvatarImageOrUrl(AvatarType.IMAGE.getType());
+        clearUploadData();
+    }
+
+    public static void addMessage(String messageText, Severity typeMessage, String messageException) {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        StringBuffer summary = new StringBuffer();
+        summary.append(messageText);
+        if (messageException != null) {
+            summary.append(messageException);
+        }
+        FacesMessage message = new FacesMessage(typeMessage, summary.toString(), null);
+        context.addMessage(null, message);
+    }
+
+    /* File Upload */
+    private List<AtavarImage> files = new ArrayList<AtavarImage>();
+
+    private int uploadsAvailable = 1;
+
+    private boolean autoUpload = true;
+
+    private boolean useFlash = false;
+
+    public int getSize() {
+
+        return getFiles().size();
+    }
+
+    public void paint(OutputStream stream, Object object) throws IOException {
+
+        synchronized (object) {
+            if (object instanceof String) {
+                stream.write(getFiles().get(Integer.parseInt(object.toString())).getValue());
+            } else {
+                stream.write(getFiles().get((Integer) object).getValue());
+            }
+        }
+
+    }
+
+    public void listener(UploadEvent event) {
+
+        synchronized (event) {
+            UploadItem item = event.getUploadItem();
+            try {
+                getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+                getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
+                getAdvertisement().getAvatarImageOrUrl().getImage().setValue(item.getData());
+
+                // TODO: I thing need change this for run fine in LINUX SO.
+                String fileName = item.getFileName();
+                fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
+
+                getAdvertisement().getAvatarImageOrUrl().setName(fileName);
+                getAdvertisement().getAvatarImageOrUrl().setDescription(fileName);
+                getAdvertisement().getAvatarImageOrUrl().getImage().setContentType(item.getContentType());
+
+                files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
+                setUploadsAvailable(getUploadsAvailable() - 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String clearUploadData() {
+
+        files.clear();
+        setUploadsAvailable(1);
+        return null;
+    }
+
+    public long getTimeStamp() {
+
+        return System.currentTimeMillis();
+    }
+
+    public List<AtavarImage> getFiles() {
+
+        return files;
+    }
+
+    public void setFiles(List<AtavarImage> files) {
+
+        this.files = files;
+    }
+
+    public int getUploadsAvailable() {
+
+        return uploadsAvailable;
+    }
+
+    public void setUploadsAvailable(int uploadsAvailable) {
+
+        this.uploadsAvailable = uploadsAvailable;
+    }
+
+    public boolean isAutoUpload() {
+
+        return autoUpload;
+    }
+
+    public void setAutoUpload(boolean autoUpload) {
+
+        this.autoUpload = autoUpload;
+    }
+
+    public boolean isUseFlash() {
+
+        return useFlash;
+    }
+
+    public void setUseFlash(boolean useFlash) {
+
+        this.useFlash = useFlash;
+    }
 
 }
