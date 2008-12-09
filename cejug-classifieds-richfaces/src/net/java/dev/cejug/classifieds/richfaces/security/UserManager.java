@@ -16,8 +16,8 @@ import java.sql.SQLException;
  * connect 'jdbc:derby://localhost:1527/sun-appserv-samples';
  * 
  * create table usertable(login varchar(10) not null, password varchar(32) not null, primary key(login));
- * create table grouptable(userid varchar(10) not null, groupid varchar(20) not null, primary key(userid));
- * alter table grouptable add constraint FK_USERID foreign key(userid) references usertable(login);
+ * create table grouptable(login varchar(10) not null, groupid varchar(20) not null, primary key(login));
+ * alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
  * 
  * ij&gt; describe usertable;
  * COLUMN_NAME         |TYPE_NAME|DEC&amp;|NUM&amp;|COLUM&amp;|COLUMN_DEF|CHAR_OCTE&amp;|IS_NULL&amp;
@@ -63,7 +63,7 @@ public class UserManager {
 	}
 
 	/** Test database, should be reviewed/replaced. */
-	private static final String strUrl = "jdbc:derby://localhost:1527/sun-appserv-samples;user=app;password=adminadmin";
+	private static final String strUrl = "jdbc:derby://localhost:1527/sun-appserv-samples;user=app;password=app";
 
 	/** Insert a new user/password in the authentication table. */
 	public void createUser(String login, String password, String group)
