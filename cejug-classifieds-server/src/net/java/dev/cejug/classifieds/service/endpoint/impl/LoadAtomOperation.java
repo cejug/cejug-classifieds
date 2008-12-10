@@ -177,9 +177,9 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 					entrySummary
 							.getContent()
 							.add(
-									"<p><a href='http://ap.google.com/article/ALeqM5iidrMKZwVNDDlEtkssY6t1xxhg9QD94169T80'><img src='"
+									"<p><a href='http://devoxx.com/display/JV08/Home'><img src='"
 											+ adv.getAvatar().getReference()
-											+ "' alt='racebaitfail' style='float:left;'></a>"
+											+ "' alt='devoxx.com' style='float:left;'></a>"
 											+ adv.getSummary() + "</p>");
 
 					entryAttributes.add(factory
@@ -193,7 +193,7 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 					 */
 					LinkType link = factory.createLinkType();
 					link
-							.setHref("http://www.freeke.org/ffg/currentevents/national/racebaitfail.html");
+							.setHref("http://devoxx.com/display/JV08/Home");
 					link.setRel("alternate");
 					// TODO: get from advertisement or domain or category
 					link.setHreflang("en");
