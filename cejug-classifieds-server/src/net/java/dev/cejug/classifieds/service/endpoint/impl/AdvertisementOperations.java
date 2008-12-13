@@ -162,7 +162,7 @@ public class AdvertisementOperations extends AbstractCrudImpl<AdvertisementEntit
             String path = glassfishHome + "/domains/domain1/applications/j2ee-apps/cejug-classifieds-server/cejug-classifieds-server_war/resource/" + domainId + '/' + customerId;
 
             String file = path + "/" + name;
-            File pathF = new File(path.toString());
+            File pathF = new File(path);
             File fileF = new File(file);
 
             try {
