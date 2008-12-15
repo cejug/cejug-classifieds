@@ -23,42 +23,55 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
+import java.security.Principal;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 /**
  * TODO: to comment.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Controller(value = "securityBean")
 @Scope("request")
 public class SecurityBean {
-	private String login;
 
-	public String getLogin() {
-		return login;
-	}
+    private String login;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getLogin() {
 
-	private String password;
+        return login;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public String getPassword() {
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+        return password;
+    }
 
-	/*
-	 * public boolean isCustomer() { javax.faces.context.ExternalContext context
-	 * = FacesContext .getCurrentInstance().getExternalContext(); if(true)
-	 * return true; return context.isUserInRole("customer") ||
-	 * context.isUserInRole("admin"); }
-	 */
+    private String password;
+
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+
+        this.password = password;
+    }
+
+    public static Principal getUserFromContext() {
+
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        return context.getUserPrincipal();
+    }
+
+    /*
+     * public boolean isCustomer() { javax.faces.context.ExternalContext context
+     * = FacesContext .getCurrentInstance().getExternalContext(); if(true)
+     * return true; return context.isUserInRole("customer") ||
+     * context.isUserInRole("admin"); }
+     */
 }

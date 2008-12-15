@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -214,8 +215,13 @@ public class PublishAdvertisementBean {
 
         AdvertisementType type = availableTypes.get(0);
 
+        Principal user = SecurityBean.getUserFromContext();
         Customer customer = new Customer();
-        customer.setLogin("arisson"); // TODO: get logged user
+        if (user != null) {
+            customer.setLogin(user.getName());
+        } else {
+            customer.setLogin("unknown");
+        }
         customer.setDomainId(domainId); // TODO Get domain from user
         advertisement.setCustomer(customer);
         advertisement.setTypeId(type.getEntityId());
