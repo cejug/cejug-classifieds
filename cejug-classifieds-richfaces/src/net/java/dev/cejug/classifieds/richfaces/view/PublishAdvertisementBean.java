@@ -243,7 +243,7 @@ public class PublishAdvertisementBean {
 
         PublishingHeader header = new PublishingHeader();
         header.setCustomerDomainId(domainId);
-        header.setCustomerLogin("arisson");
+        header.setCustomerLogin(username);
 
         // TODO : refactory this :)
         if (avatarImageOrUrl.equals(AvatarType.IMAGE.getType())) {
