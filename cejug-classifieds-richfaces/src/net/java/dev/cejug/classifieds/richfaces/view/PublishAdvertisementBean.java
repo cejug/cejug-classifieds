@@ -216,12 +216,12 @@ public class PublishAdvertisementBean {
         AdvertisementType type = availableTypes.get(0);
 
         Principal user = SecurityBean.getUserFromContext();
+        String username = "unknown";
         Customer customer = new Customer();
         if (user != null) {
-            customer.setLogin(user.getName());
-        } else {
-            customer.setLogin("unknown");
+            username = user.getName();
         }
+        customer.setLogin(username);
         customer.setDomainId(domainId); // TODO Get domain from user
         advertisement.setCustomer(customer);
         advertisement.setTypeId(type.getEntityId());
