@@ -25,6 +25,8 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.Principal;
@@ -65,7 +67,7 @@ public class PublishAdvertisementBean {
 
     private Advertisement advertisement = new Advertisement();
 
-    private String avatarImageOrUrl = AvatarType.IMAGE.getType();
+    private String avatarType = AvatarType.IMAGE.getType();
 
     private String selectedTab;
 
@@ -139,14 +141,14 @@ public class PublishAdvertisementBean {
         this.advertisement = advertisement;
     }
 
-    public String getAvatarImageOrUrl() {
+    public String getAvatarType() {
 
-        return avatarImageOrUrl;
+        return avatarType;
     }
 
-    public void setAvatarImageOrUrl(String avatarImageOrUrl) {
+    public void setAvatarType(String avatarImageOrUrl) {
 
-        this.avatarImageOrUrl = avatarImageOrUrl;
+        this.avatarType = avatarImageOrUrl;
     }
 
     private SelectItem advType = null;
@@ -246,31 +248,33 @@ public class PublishAdvertisementBean {
         header.setCustomerLogin(username);
 
         // TODO : refactory this :)
-        if (avatarImageOrUrl.equals(AvatarType.IMAGE.getType())) {
-            if (getAdvertisement().getAvatarImageOrUrl() == null || getAdvertisement().getAvatarImageOrUrl().getImage() == null || getAdvertisement().getAvatarImageOrUrl().getImage().getValue() == null) {
+        AvatarImageOrUrl avatarImageOrUrl = getAdvertisement().getAvatarImageOrUrl();
 
-                addMessage("Image: value is required.", FacesMessage.SEVERITY_ERROR, null);
+        if (avatarType.equals(AvatarType.IMAGE.getType())) {
+            if (avatarImageOrUrl == null || avatarImageOrUrl.getImage() == null || avatarImageOrUrl.getImage().getValue() == null) {
+
+                addMessage("Image: value is required.", FacesMessage.SEVERITY_ERROR);
                 return;
             }
-        } else if (avatarImageOrUrl.equals(AvatarType.URL.getType())) {
+        } else if (avatarType.equals(AvatarType.URL.getType())) {
             try {
                 // Get the content type if image is url type.
-                URL url = new URL(getAdvertisement().getAvatarImageOrUrl().getUrl());
+                URL url = new URL(avatarImageOrUrl.getUrl());
                 URLConnection cn = url.openConnection();
-                getAdvertisement().getAvatarImageOrUrl().setImage(new AtavarImage());
-                getAdvertisement().getAvatarImageOrUrl().getImage().setContentType(cn.getContentType());
+                avatarImageOrUrl.setImage(new AtavarImage());
+                avatarImageOrUrl.getImage().setContentType(cn.getContentType());
             } catch (Exception e) {
-                e.printStackTrace();
+                addMessage("Error:" + e.getMessage(), FacesMessage.SEVERITY_ERROR, e);
+                return;
             }
         }
 
         try {
             SERVICE.publishOperation(advertisement, header);
             clearPublishData();
-            addMessage("Publish with success!", FacesMessage.SEVERITY_INFO, null);
+            addMessage("Publish with success!", FacesMessage.SEVERITY_INFO);
         } catch (Exception e) {
-            e.printStackTrace();
-            addMessage("Ops, something wrong happened :(  ", FacesMessage.SEVERITY_ERROR, null);
+            addMessage("Error:" + e.getMessage(), FacesMessage.SEVERITY_ERROR, e);
         }
     }
 
@@ -281,20 +285,32 @@ public class PublishAdvertisementBean {
         setFinishDate(null);
         getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
         setSelectedTab("tab1");
-        setAvatarImageOrUrl(AvatarType.IMAGE.getType());
+        setAvatarType(AvatarType.IMAGE.getType());
         clearUploadData();
     }
 
-    public static void addMessage(String messageText, Severity typeMessage, String messageException) {
+    public static void addMessage(String messageText, Severity typeMessage) {
+
+        addMessage(messageText, typeMessage, null);
+    }
+
+    public static void addMessage(String messageText, Severity typeMessage, Exception exception) {
 
         FacesContext context = FacesContext.getCurrentInstance();
         StringBuffer summary = new StringBuffer();
         summary.append(messageText);
-        if (messageException != null) {
-            summary.append(messageException);
+        if (exception != null) {
+            summary.append(getStackTrace(exception));
         }
         FacesMessage message = new FacesMessage(typeMessage, summary.toString(), null);
         context.addMessage(null, message);
+    }
+
+    private static String getStackTrace(Exception exception) {
+
+        StringWriter sw = new StringWriter();
+        exception.printStackTrace(new PrintWriter(sw));
+        return sw.toString();
     }
 
     /* File Upload */
