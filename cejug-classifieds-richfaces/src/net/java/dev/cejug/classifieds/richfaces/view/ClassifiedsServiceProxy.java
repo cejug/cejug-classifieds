@@ -30,17 +30,12 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 /**
  * TODO: to comment.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-@Controller(value = "helloClassifiedsBean")
-@Scope("request")
 public class ClassifiedsServiceProxy {
 	private transient final CejugClassifiedsBusiness SERVICE;
 

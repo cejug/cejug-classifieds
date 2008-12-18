@@ -24,18 +24,15 @@
 package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.security.Principal;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 
 /**
  * TODO: to comment.
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-@Controller(value = "securityBean")
-@Scope("request")
 public class SecurityBean {
 
     private String login;

@@ -6,6 +6,26 @@
   <converter-id>advertisementCategoryConverter</converter-id>
   <converter-class>net.java.dev.cejug.classifieds.richfaces.view.AdvertisementCategoryConverter</converter-class>
  </converter>
+ <managed-bean>
+  <managed-bean-name>helloClassifiedsBean</managed-bean-name>
+  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.ClassifiedsServiceProxy</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>publishAdvertisementBean</managed-bean-name>
+  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.PublishAdvertisementBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>securityBean</managed-bean-name>
+  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.SecurityBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>categoryBean</managed-bean-name>
+  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.Category</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>/index.xhtml</from-view-id>
   <navigation-case>
@@ -33,8 +53,5 @@
    <supported-locale>fr</supported-locale>
    <supported-locale>tr</supported-locale>
   </locale-config>
-  <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
-  <variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
-  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
  </application>
 </faces-config>
