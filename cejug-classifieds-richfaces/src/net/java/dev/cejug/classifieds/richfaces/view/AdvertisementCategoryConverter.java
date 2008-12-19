@@ -38,7 +38,7 @@ import javax.faces.convert.Converter;
 public class AdvertisementCategoryConverter implements Converter, Serializable {
 
 	/**
-	 * 
+	 * Default serial version.
 	 */
 	private static final long serialVersionUID = 1L;
 
