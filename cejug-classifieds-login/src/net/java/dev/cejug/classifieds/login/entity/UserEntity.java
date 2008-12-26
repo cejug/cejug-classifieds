@@ -32,8 +32,8 @@ import javax.persistence.Table;
  * An user of the GUI. This table is also used by the container to the
  * authentication.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "USERTABLE")

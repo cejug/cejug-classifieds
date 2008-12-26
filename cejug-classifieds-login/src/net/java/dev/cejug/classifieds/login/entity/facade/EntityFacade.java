@@ -11,8 +11,8 @@ import javax.persistence.TransactionRequiredException;
 import net.java.dev.cejug.classifieds.login.entity.AbstractEntity;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 665 $ ($Date: 2008-09-15 12:09:38 +0200 (Mon, 15 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * 
  * @see CRUDEntityFacade
  * @see <a href=

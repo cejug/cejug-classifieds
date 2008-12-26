@@ -32,8 +32,8 @@ import javax.persistence.Table;
 /**
  * The group are used to map users to their permissions.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 578 $ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "GROUPTABLE")
