@@ -21,41 +21,40 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity;
+package net.java.dev.cejug.classifieds.login.interceptor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
+import javax.persistence.PersistenceException;
 
 /**
- * Shared fields by JPA entities. All entity has a field called ID.
- * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: rodrigolopes $
+ * @version $Rev: 627 $ ($Date: 2008-09-22 20:14:57 +0200 (seg, 22 set 2008) $)
  */
-@MappedSuperclass
-public abstract class AbstractIdentifiableEntity {
-	@Transient
-	private final static long serialVersionUID = -6026937020915831338L;
+public class ExceptionInterceptor {
 
-	/**
-	 * All entities has an ID.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private long id;
+	@AroundInvoke
+	public Object exceptionInterceptor(InvocationContext context)
+			throws Exception {
 
-	// @Obvious
-	public long getId() {
-		return id;
-	}
+		Object result = null;
 
-	// @Obvious
-	public void setId(long id) {
-		this.id = id;
+		try {
+			result = context.proceed();
+		} catch (PersistenceException pe) {
+			String methodName = context.getMethod().getName();
+			if (methodName.startsWith("delete")
+					&& (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
+				throw new LoginException(
+						"Could not delete because object is referenced by another entity.",
+						pe);
+			} else {
+				throw new LoginException("Unknown login problem", pe);
+			}
+		}
+
+		return result;
 	}
 }
