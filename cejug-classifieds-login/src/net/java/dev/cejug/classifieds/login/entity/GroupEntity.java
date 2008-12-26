@@ -28,7 +28,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 /**
  * The group are used to map users to their permissions.
@@ -37,24 +36,16 @@ import javax.persistence.UniqueConstraint;
  * @version $Rev: 578 $ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
  */
 @Entity
-@Table(name = "GROUPTABLE", uniqueConstraints = { @UniqueConstraint(columnNames = { "GROUPID" }) })
+@Table(name = "GROUPTABLE")
 public class GroupEntity {
 	@Id
-	@JoinColumn(referencedColumnName="login")
-	private UserEntity login;
+	@JoinColumn(table = "USERTABLE", referencedColumnName = "LOGIN")
+	private String login;
 
-	public UserEntity getLogin() {
-		return login;
-	}
-
-	public void setLogin(UserEntity login) {
-		this.login = login;
-	}
-
-	@Column(name = "GROUPID")
+	@Column(name = "GROUPID", nullable = false)
 	private String groupId;
 
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", nullable = true)
 	private String description;
 
 	public String getGroupId() {
@@ -73,4 +64,11 @@ public class GroupEntity {
 		this.description = description;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 }

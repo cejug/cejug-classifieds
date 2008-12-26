@@ -24,12 +24,9 @@
 package net.java.dev.cejug.classifieds.login.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 /**
  * An user of the GUI. This table is also used by the container to the
@@ -39,29 +36,18 @@ import javax.persistence.UniqueConstraint;
  * @version $Rev$ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
  */
 @Entity
-@Table(name = "USERTABLE", uniqueConstraints = { @UniqueConstraint(columnNames = { "LOGIN" }) })
+@Table(name = "USERTABLE")
 public class UserEntity extends AbstractEntity {
 	@Id
 	private String login;
 
-	@Column(name = "PASSWORD", nullable = false)
-	private String domain;
+	@Column(nullable = false)
+	private String password;
 
-	@ManyToOne
-	private GroupEntity group;
-
-	public GroupEntity getGroup() {
-		return group;
-	}
-
-	public void setGroup(GroupEntity group) {
-		this.group = group;
-	}
-
-	@Column(name = "EMAIL", nullable = false)
+	@Column(name = "EMAIL", nullable = true)
 	private String email;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "NAME", nullable = true)
 	private String name;
 
 	public String getLogin() {
@@ -73,11 +59,11 @@ public class UserEntity extends AbstractEntity {
 	}
 
 	public String getDomain() {
-		return domain;
+		return password;
 	}
 
 	public void setDomain(String domain) {
-		this.domain = domain;
+		this.password = domain;
 	}
 
 	public String getEmail() {

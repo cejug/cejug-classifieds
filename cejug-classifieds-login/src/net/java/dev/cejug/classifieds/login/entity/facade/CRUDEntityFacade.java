@@ -45,7 +45,7 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	/**
 	 * The entity manager is injected by the container JEE 5+.
 	 */
-	@PersistenceContext(name="classifieds-login")
+	@PersistenceContext(name = "classifieds-login")
 	protected transient EntityManager manager;
 
 	/**
