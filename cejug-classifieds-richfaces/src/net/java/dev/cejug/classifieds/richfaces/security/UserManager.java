@@ -40,8 +40,8 @@ import java.sql.SQLException;
 public class UserManager {
 	private static final String SHOW_ALL = "select login from usertable";
 	private static final String DRIVER = "org.apache.derby.jdbc.ClientDriver";
-	private static final String CREATE_USER = "insert into usertable values(?, ?)";
-	private static final String CREATE_GROUP = "insert into grouptable values(?, ?)";
+	private static final String CREATE_USER = "insert into usertable values(?, ?, ?, ?)";
+	private static final String CREATE_GROUP = "insert into grouptable values(?, ?, ?)";
 
 	private static final char[] HEXADECIMAL = { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
@@ -80,12 +80,15 @@ public class UserManager {
 			userStmt.setString(1, login);
 			String hPassword = hashPassword(password);
 			userStmt.setString(2, hPassword);
+			userStmt.setString(3, null);
+			userStmt.setString(4, null);
 			userStmt.executeUpdate();
 			userStmt.close();
 
 			groupStmt = conn.prepareStatement(CREATE_GROUP);
 			groupStmt.setString(1, login);
 			groupStmt.setString(2, group);
+			groupStmt.setString(3, null);
 			groupStmt.executeUpdate();
 			groupStmt.close();
 		} finally {
@@ -153,6 +156,7 @@ public class UserManager {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("* I guess the users already exist");
 		}
 		try {
