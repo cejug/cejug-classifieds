@@ -32,6 +32,7 @@ import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.AbstractEntity;
+import net.java.dev.cejug.classifieds.login.entity.facade.impl.CRUDEntityFacade;
 
 /**
  * @author $Author$

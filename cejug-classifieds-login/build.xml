@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="deploy" name="cejug-classifieds-login">
+	<property file="build.properties" />
+	<property environment="env" />
+
+	<path id="project.classpath">
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="setup">
+		<delete dir="${build.home.classes}" includeEmptyDirs="true" />
+		<delete dir="${build.home.release}" includeEmptyDirs="true" />
+		<mkdir dir="${build.home.classes}" />
+		<mkdir dir="${build.home.release}" />
+	</target>
+
+	<target name="create-war">
+		<war warfile="${build.ear.home}/${ant.project.name}.war" webxml="${basedir}/conf/war/WEB-INF/web.xml">
+			<webinf dir="${basedir}/conf/war/WEB-INF" includes="**/**" />
+			<zipfileset dir="${basedir}/conf/war/" includes="**/**" excludes="**/WEB-INF/**/**" />
+			<classes dir="${build.classes.home}" includes="${war.package}/**/**" />
+		</war>
+	</target>
+
+	<target name="compile" depends="setup">
+		<javac fork="true" srcdir="${basedir}" destdir="${build.home.classes}" includes="src/**/**" debug="${compile.debug}" debuglevel="lines,vars,source">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- Package the persistence entities -->
+	<target name="create-ejb-module" depends="compile">
+		<jar jarfile="${build.home.release}/${ant.project.name}-ejb.jar">
+			<manifest>
+				<!-- Who is building this jar? -->
+				<attribute name="Built-By" value="${user.name}" />
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="Cejug-Classifieds" />
+				<attribute name="Implementation-Title" value="Login EJB-Module" />
+				<attribute name="Implementation-Version" value="SNAPSHOT" />
+			</manifest>
+
+			<fileset dir="${build.home.classes}" casesensitive="yes">
+				<include name="**/**" />
+				<exclude name="test/**" />
+			</fileset>
+			<metainf dir="${ejb.module}/META-INF">
+				<include name="**/**" />
+			</metainf>
+		</jar>
+	</target>
+
+	<target name="help">
+		<echo message="server:             Builds the service endpoint EJB-Module" />
+		<echo message="deploy:             Deploy the EAR file to the Glassfish autodeploy folder" />
+		<echo message="run.tests:   Runs the run.tests against the delpoyied service" />
+		<echo message="" />
+
+		<echo message=" >> ATTENTION >>    ${AS_HOME} should be well configured (your system points to" />
+		<echo message=" >> ATTENTION >>    in your system, AS_HOME = ${AS_HOME}" />
+		<echo message=" >> ATTENTION >>    Be sure to have GLASSFISH properly installed" />
+		<echo message=" >> ATTENTION >>    GLASSFISH:  https://glassfish.dev.java.net/" />
+		<echo message="" />
+		<echo message="Thanks for testing Cejug-Classifieds. Any feedback? dev@cejug-classifieds.dev.java.net" />
+	</target>
+
+	<target name="deploy" depends="create-ejb-module">
+		<copy file="${build.home.release}/${ant.project.name}-ejb.jar" todir="${env.AS_HOME}/domains/${as.domain}/autodeploy" />
+	</target>
+</project>

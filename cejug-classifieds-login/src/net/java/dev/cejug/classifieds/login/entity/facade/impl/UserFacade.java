@@ -21,12 +21,13 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity.facade;
+package net.java.dev.cejug.classifieds.login.entity.facade.impl;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
+import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
 
 /**
