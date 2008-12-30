@@ -23,54 +23,82 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  * An user of the GUI. This table is also used by the container to the
  * authentication.
- * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "USERTABLE")
 public class UserEntity extends AbstractEntity {
-	@Id
-	private String login;
 
-	@Column(nullable = false)
-	private String password;
+    @Id
+    private String login;
 
-	@Column(name = "EMAIL", nullable = true)
-	private String email;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(name = "NAME", nullable = true)
-	private String name;
+    @Column(name = "EMAIL", nullable = true)
+    private String email;
 
-	public String getLogin() {
-		return login;
-	}
+    @Column(name = "NAME", nullable = true)
+    private String name;
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    @OneToMany
+    @JoinTable(name = "GROUPTABLE", joinColumns = @JoinColumn(name = "LOGIN", referencedColumnName = "LOGIN"))
+    private Collection<GroupEntity> groups;
 
-	public String getDomain() {
-		return password;
-	}
+    public String getLogin() {
 
-	public void setDomain(String domain) {
-		this.password = domain;
-	}
+        return login;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setLogin(String login) {
 
-	public String getName() {
-		return name;
-	}
+        this.login = login;
+    }
+
+    public String getDomain() {
+
+        return password;
+    }
+
+    public void setDomain(String domain) {
+
+        this.password = domain;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public Collection<GroupEntity> getGroups() {
+
+        if (groups == null) {
+            groups = new ArrayList<GroupEntity>();
+        }
+        return groups;
+    }
+
+    public void setGroups(Collection<GroupEntity> groups) {
+
+        this.groups = groups;
+    }
 }
