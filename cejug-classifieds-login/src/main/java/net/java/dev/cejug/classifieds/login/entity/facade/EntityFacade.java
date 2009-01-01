@@ -35,8 +35,8 @@ import net.java.dev.cejug.classifieds.login.entity.AbstractEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.impl.CRUDEntityFacade;
 
 /**
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 1017 $ ($Date: 2008-12-30 19:32:40 +0100 (Tue, 30 Dec 2008) $)
  * 
  * @see CRUDEntityFacade
  * @see <a href=

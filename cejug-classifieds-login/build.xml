@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="deploy" name="cejug-classifieds-login">
 	<property file="build.properties" />
+	<import file="quality.xml" />
 	<property environment="env" />
 
 	<path id="project.classpath">
@@ -68,5 +69,15 @@
 
 	<target name="deploy" depends="create-ejb-module">
 		<copy file="${build.home.release}/${ant.project.name}-ejb.jar" todir="${env.AS_HOME}/domains/${as.domain}/autodeploy" />
+	</target>
+
+	<!-- continuous integration task -->
+	<target name="hudson">
+		<antcall target="deploy.and.test" />
+		<antcall target="validate.xml.documents" />
+		<antcall target="javadoc.with.uml" />
+		<antcall target="pmd" />
+		<antcall target="cpd" />
+		<antcall target="findbugs" />
 	</target>
 </project>

@@ -28,8 +28,8 @@ import javax.persistence.MappedSuperclass;
 /**
  * Shared fields by JPA entities. All entity has a field called ID.
  * 
- * @author $Author$
- * @version $Rev$ ($Date$)
+ * @author $Author: felipegaucho $
+ * @version $Rev: 1014 $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
