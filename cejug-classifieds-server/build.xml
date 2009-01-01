@@ -256,4 +256,13 @@
 		<antcall target="cpd" />
 		<antcall target="findbugs" />
 	</target>
+	
+	<!-- continuous integration task -->
+	<target name="hudson2">
+		<antcall target="validate.xml.documents" />
+		<antcall target="javadoc.with.uml" />
+		<antcall target="pmd" />
+		<antcall target="cpd" />
+		<antcall target="findbugs" />
+	</target>
 </project>

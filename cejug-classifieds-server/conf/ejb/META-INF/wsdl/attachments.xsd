@@ -40,6 +40,7 @@
 			<xsd:choice>
 				<xsd:element type="att:AtavarImage" name="image" />
 				<xsd:element type="att:ResourceLink" name="url" />
+				<xsd:element type="xsd:string" name="gravatar.email" />
 			</xsd:choice>
 			<xsd:attribute name="name" type="xsd:string" use="required" />
 			<xsd:attribute name="description" type="xsd:string"
