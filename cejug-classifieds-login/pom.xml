@@ -13,32 +13,11 @@
 	<name>cejug-classifieds-login</name>
 	<version>1.0</version>
 	<url>http://maven.apache.org</url>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.5</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<directory>${basedir}/target</directory>
 		<finalName>${artifactId}-${date}</finalName>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>5</version>
-		</dependency>
-	</dependencies>
 	<scm>
 		<connection>
 			scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk
