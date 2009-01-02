@@ -19,13 +19,23 @@
   NAME="rules:#pages#advertisement#publishAdvertisement.xhtml"
   PATH="/pages/advertisement/publishAdvertisement.xhtml"
   SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="207,374,0,0" model-entity="JSFProcessGroup">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="192,376,53,58" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="home::#index.xhtml" NAME="output"
     PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="starRating::#pages#starRating#starRating.xhtml" NAME="output1"
+    PATH="/pages/starRating/starRating.xhtml"
+    TARGET="rules:#pages#starRating#starRating.xhtml" TITLE="starRating" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#WebContent#index.xhtml"
   PATH="/WebContent/index.xhtml" SHAPE="360,368,50,25"
   model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM
+  NAME="rules:#WebContent#pages#starRating#starRating.xhtml"
+  PATH="/WebContent/pages/starRating/starRating.xhtml"
+  SHAPE="360,496,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#starRating#starRating.xhtml"
+  PATH="/pages/starRating/starRating.xhtml" SHAPE="256,625,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

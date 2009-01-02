@@ -30,11 +30,21 @@
 		</div>
 	</ui:define>
 	<ui:define name="body">
-		<a:form>
+		
+			<style type="text/css">
+#star ul.star { LIST-STYLE: none; MARGIN: 0; PADDING: 0; WIDTH: 85px; HEIGHT: 20px; LEFT: 10px; TOP: -5px; POSITION: relative; FLOAT: left; BACKGROUND: url('images/stars.gif') repeat-x; CURSOR: pointer; }
+#star li { PADDING: 0; MARGIN: 0; FLOAT: left; DISPLAY: block; WIDTH: 85px; HEIGHT: 20px; TEXT-DECORATION: none; text-indent: -9000px; Z-INDEX: 20; POSITION: absolute; PADDING: 0; }
+#star li.curr { BACKGROUND: url('images/stars.gif') left 25px; FONT-SIZE: 1px; }
+#star div.user { LEFT: 15px; POSITION: relative; FLOAT: left; FONT-SIZE: 13px; FONT-FAMILY: Arial; COLOR: #888; }
+</style>
+			
+		
+		<a:form id="form">
+		<a:loadScript src="resource:///js/starRating.js" />
 			<rich:panel>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
 					var="adv" columns="3" elements="12" id="categoryPanel"
-					styleClass="advPane" border="0">
+					styleClass="advPane" border="0"  >
 					<div style="align: top;"><rich:panel>
 						<f:facet name="header">
 							<h:outputText value="#{adv.headline} " />
@@ -43,11 +53,18 @@
 							<h:graphicImage width="80" height="60"
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
 
-							<h:panelGrid rows="2">
+							<h:panelGrid rows="3">
 								<h:outputText value="#{adv.summary}" style="float:none;" />
 								<h:outputText value="author:"
 									style="float:none;font-weight:bolder;" />
 								<h:outputText value="#{adv.customer.login}" style="float:left;" />
+								<div id="star">
+								 <ul id="star#{adv.entityId}" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!">
+								  <li id="starCur#{adv.entityId}" class="curr" title="0" style="width: 1px;"></li>
+								 </ul>
+								 <div style="color: rgb(136, 136, 136);" id="starUser#{adv.entityId}" class="user">0%</div>
+ 									<br style="clear: both;"/>
+								</div>
 							</h:panelGrid>
 						</h:panelGrid>
 						<h:outputText value="#{adv.text}" />
