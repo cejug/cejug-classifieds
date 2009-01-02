@@ -17,6 +17,7 @@
 		<defaultGoal>package</defaultGoal>
 		<directory>${basedir}/target</directory>
 		<finalName>${artifactId}-${date}</finalName>
+		<sourceDirectory>src/main</sourceDirectory>
 		<!-- pluginManagement>
 			<plugins>
 				<plugin>
