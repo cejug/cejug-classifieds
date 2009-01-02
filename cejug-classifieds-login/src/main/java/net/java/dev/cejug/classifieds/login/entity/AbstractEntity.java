@@ -33,4 +33,5 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
+	int j;
 }
