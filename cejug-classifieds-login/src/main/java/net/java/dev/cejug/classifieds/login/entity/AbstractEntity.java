@@ -33,6 +33,4 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
-	// TODO: remove this crap test line...
-	int findbugs_fake_mistake;
 }
