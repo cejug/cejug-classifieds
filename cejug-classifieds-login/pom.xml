@@ -98,7 +98,7 @@
 				<configuration>
 					<xmlOutput>true</xmlOutput>
 					<!-- xmlOutputDirectory></xmlOutputDirectory-->
-					<threshold>High</threshold>
+					<threshold>Low</threshold>
 					<effort>Max</effort>
 					<!--
 						excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
