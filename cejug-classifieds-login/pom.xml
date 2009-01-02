@@ -17,7 +17,7 @@
 		<defaultGoal>package</defaultGoal>
 		<directory>${basedir}/target</directory>
 		<finalName>${artifactId}-${date}</finalName>
-		<pluginManagement>
+		<!-- pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -30,7 +30,7 @@
 					<version>1.2</version>
 				</plugin>
 			</plugins>
-		</pluginManagement>
+		</pluginManagement-->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -135,6 +135,7 @@
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>1</minimumTokens>
 					<targetJdk>1.6</targetJdk>
+					<excludes/>					
 				</configuration>
 			</plugin>
 		</plugins>
