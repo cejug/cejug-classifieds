@@ -27,7 +27,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.0-SNAPSHOT</version>
+					<version>1.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -100,16 +100,21 @@
 					<!-- xmlOutputDirectory></xmlOutputDirectory-->
 					<threshold>High</threshold>
 					<effort>Max</effort>
-					<!-- excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-					<includeFilterFile>findbugs-include.xml</includeFilterFile>
-					<visitors>FindDeadLocalStores,UnreadFields</visitors>
-					<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-					<onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-					<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList-->
+					<!--
+						excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+						<includeFilterFile>findbugs-include.xml</includeFilterFile>
+						<visitors>FindDeadLocalStores,UnreadFields</visitors>
+						<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+						<onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+						<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList
+					-->
 					<debug>true</debug>
 					<relaxed>false</relaxed>
 					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<!-- findbugsXmlOutputDirectory>directory location of findbugs legact xml format report</findbugsXmlOutputDirectory-->
+					<!--
+						findbugsXmlOutputDirectory>directory location of findbugs legact
+						xml format report</findbugsXmlOutputDirectory
+					-->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -117,7 +122,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<linkXref>true</linkXref>
+					<linkXref>false</linkXref>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
 					<targetJdk>1.6</targetJdk>
