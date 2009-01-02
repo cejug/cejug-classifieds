@@ -50,6 +50,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>java.net-m2-repository</id>
+			<url>java-net:/maven2-repository/trunk/www/repository/
+			</url>
+		</repository>
+	</distributionManagement>
 	<repositories>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
