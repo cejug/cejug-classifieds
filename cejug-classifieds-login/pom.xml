@@ -13,6 +13,9 @@
 	<name>cejug-classifieds-login</name>
 	<version>1.0</version>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<compileSource>1.6</compileSource>
+	</properties>
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<directory>${basedir}/target</directory>
