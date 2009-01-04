@@ -163,4 +163,16 @@
 			</doclet>
 		</javadoc>
 	</target>
+	
+	<path id="i18n.checker.classpath">
+		<fileset dir="${project.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<dirset dir="${build.classes.home}">
+			<include name="**/**" />
+		</dirset>
+	</path>
+	<taskdef name="i18nChecker" classname="net.java.dev.footprint.ant.i18n.I18NChecker">
+		<classpath refid="i18n.checker.classpath" />
+	</taskdef>
 </project>

@@ -249,6 +249,7 @@
 
 	<!-- continuous integration task -->
 	<target name="hudson">
+		<antcall target="checki18n" />
 		<antcall target="deploy.and.test" />
 		<antcall target="validate.xml.documents" />
 		<antcall target="javadoc.with.uml" />
@@ -256,13 +257,12 @@
 		<antcall target="cpd" />
 		<antcall target="findbugs" />
 	</target>
-	
-	<!-- continuous integration task -->
-	<target name="hudson2">
-		<antcall target="validate.xml.documents" />
-		<antcall target="javadoc.with.uml" />
-		<antcall target="pmd" />
-		<antcall target="cpd" />
-		<antcall target="findbugs" />
+
+	<target name="checki18n">
+		<i18nChecker enumfolder="build/classes" enumpackage="net.java.dev.cejug.classifieds.server.generated.i18n" severity="HIGH">
+			<ResourceBundleFileSet dir="${i18n.basedir}">
+				<include name="**/i18n/*.properties" />
+			</ResourceBundleFileSet>
+		</i18nChecker>
 	</target>
 </project>
