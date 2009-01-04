@@ -119,7 +119,7 @@ public class AdvertisementOperations extends
 			customer.setDomainId(header.getCustomerDomainId());
 			advertisement.setCustomer(customer);
 			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-			AtavarImage img = null;
+			// AtavarImage img = null;
 
 			/*
 			 * if (avatar.getGravatarEmail() != null) { avatar
