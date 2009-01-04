@@ -145,6 +145,7 @@ public class AdvertisementOperations extends
 					hashGravatarEmail("tusharvjoshi@gmail.com"),
 					hashGravatarEmail("fgaucho@gmail.com"),
 					hashGravatarEmail("arissonleal@gmail.com"),
+					hashGravatarEmail("roliveiralopes@gmail.com"),					
 					"eed0e8d62f562daf038f182de7f1fd42",
 					"7acb05d25c22cbc0942a5e3de59392bb",
 					"df126b735a54ed95b4f4cc346b786843",
