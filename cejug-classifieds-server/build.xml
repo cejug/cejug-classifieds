@@ -85,6 +85,11 @@
 		</xjc>
 		<javac srcdir="${basedir}" destdir="${build.classes.home}" includes="${jaxb.config.dir}/**/**" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
 
+		<copy todir="${build.classes.home}">
+			<fileset dir="${i18n.basedir}" />
+		</copy>
+
+
 		<!--jar destfile="lib/footprint-config.jar" basedir="${generated.dir}" />
 		<delete dir="${generated.dir}" /-->
 	</target>
