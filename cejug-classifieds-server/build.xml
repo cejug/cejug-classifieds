@@ -249,8 +249,8 @@
 
 	<!-- continuous integration task -->
 	<target name="hudson">
-		<antcall target="checki18n" />
 		<antcall target="deploy.and.test" />
+		<antcall target="checki18n" />
 		<antcall target="validate.xml.documents" />
 		<antcall target="javadoc.with.uml" />
 		<antcall target="pmd" />
