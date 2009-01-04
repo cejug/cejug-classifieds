@@ -167,13 +167,14 @@ public class AdvertisementOperations extends
 
 			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			advFacade.create(entity);
+			/*
 			if (img != null) {
 				String reference = copyResourcesToRepository(avatar.getName(),
 						img.getValue(), entity.getId(), header
 								.getCustomerDomainId());
 				entity.getAvatar().setReference(reference);
 				advFacade.update(entity);
-			}
+			}*/
 			logger.finest("Advertisement #" + entity.getId() + " published ("
 					+ entity.getTitle() + ")");
 			return advAdapter.toSoap(entity);
