@@ -178,11 +178,10 @@ public class AdvertisementOperations extends
 			logger.finest("Advertisement #" + entity.getId() + " published ("
 					+ entity.getTitle() + ")");
 			return advAdapter.toSoap(entity);
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException e) {
 			logger.severe(e.getMessage());
 			throw new WebServiceException(e);
 		}
-
 	}
 
 	/**
