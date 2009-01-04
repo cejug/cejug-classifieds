@@ -264,7 +264,7 @@
 	</target>
 
 	<target name="checki18n">
-		<i18nChecker enumfolder="build/classes" enumpackage="net.java.dev.cejug.classifieds.server.generated.i18n" severity="LOW">
+		<i18nChecker enumfolder="build/classes" enumpackage="net.java.dev.cejug.classifieds.server.generated.i18n" severity="HIGH">
 			<ResourceBundleFileSet dir="${i18n.basedir}">
 				<include name="**/i18n/*.properties" />
 			</ResourceBundleFileSet>
