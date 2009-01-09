@@ -40,16 +40,16 @@
 			
 		
 		<a:form id="form">
-		<a:loadScript src="resource:///js/starRating.js" />
+		<a:loadScript src="/js/starRating.js" />
 			<rich:panel>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
 					var="adv" columns="3" elements="12" id="categoryPanel"
 					styleClass="advPane" border="0"  >
-					<div style="align: top;"><rich:panel>
+					<div style="align: top;"><rich:panel style="width:98%;">
 						<f:facet name="header">
 							<h:outputText value="#{adv.headline} " />
 						</f:facet>
-						<h:panelGrid columns="2">
+						<h:panelGrid columns="2" style="width:100%;" columnClasses="advCol1,advCol2">
 							<h:graphicImage width="80" height="60"
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
 
@@ -72,8 +72,6 @@
 						<rich:datascroller></rich:datascroller>
 					</f:facet></div>
 				</rich:dataGrid>
-				<!-- This never works: -->
-				<!-- rich:datascroller for="categoryPanel"></rich:datascroller -->
 			</rich:panel>
 		</a:form>
 	</ui:define>

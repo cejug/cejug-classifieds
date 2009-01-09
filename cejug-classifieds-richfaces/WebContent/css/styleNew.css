@@ -99,3 +99,11 @@ a.publishLink:link, a.publishLink:hover, a.publishLink:visited, a.publishLink:ac
 .message dt.warnmsg {
 	background-image: url(../images/templateNew/msgwarn.png);
 }
+
+.advCol1{
+	width: 80px;
+}
+
+.advCol2{
+	width: 170px;
+}
