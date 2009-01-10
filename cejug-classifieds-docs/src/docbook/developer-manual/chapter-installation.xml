@@ -101,157 +101,29 @@ export CLASSPATH=.:$JAVA_HOME/jre/lib]]>
 			Ubuntu
 			8.10 or higher.
 		</para>
-		<orderedlist numeration="lowerroman">
-			<listitem>
-				<para>First of all, please request the Observer role in the
-					project: by sending an email to
-					https://cejug-classifieds.dev.java.net/</para>
-			</listitem>
-			<listitem>
-				<para>Join the mailing list at https://cejug-
-					classifieds.dev.java.net/servlets/ProjectMailingListList</para>
-			</listitem>
-			<listitem>
-				<para>Obtain and install Java at http://java.sun.com (Find
-					instructions on how to install java
-					at
-					http://java.sun.com/javase/6/webnotes/install)</para>
-			</listitem>
-			<listitem>
-				<para>Install Glassfish and configure the environment
-					variables (Use the following link for
-					download:
-					https://glassfish.dev.java.net)
-					The instructions for installing
-					glassfish can be found at
-					http://www.installationwiki.org/Installing_GlassFish
-					You will need
-					to have ANT installed. Usually Glassfish comes with ANT
-					included,
-					but in
-					the case you need to install it use the following link:
-					http://ant.apache.org</para>
-			</listitem>
-			<listitem>
-				<para>Install Subversion
-					Read more about subversion at
-					https://cejug-
-					classifieds.dev.java.net/servlets/ProjectSource
-					For
-					Subversion command-line client, you can dowload the subversion at
-					http://www.collab.net/downloads/subversion
-					For TortoiseSVN, you can
-					download the suversion at
-					http://tortoisesvn.net/downloads</para>
-			</listitem>
-			<listitem>
-				<para></para>
-			</listitem>
-			<listitem>
-				<para></para>
-			</listitem>
-		</orderedlist>
+
+
+		<programlisting>
+			<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+				href="https://cejug-classifieds.dev.java.net/files/documents/8128/122758/glassfish"
+				parse="text" />
+		</programlisting>
 
 		<para>
-			TODO: continue docbook.........
-			Extract the code from svn using
-			the following steps
-			1) open a DOS console
-			2)Change directory to where
-			you want to extract the code to.
-			Type the following commands:
-			*asadmin
-			start-database
-			*asadmin start-domain domain1
-			*svn checkout
-			https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk/cejug-
-			classifieds-server
-			*username: Please use your java.net user name
-			*password: Please use your java.net password
-			CONFIGURING THE
-			ENVIRONMENT VARIABLES
-			ON WINDOWS PLATFORM
-			JAVA_HOME: Java installed
-			directory
-			AS_HOME : Glassfish installed directory
-			DERBY_HOME: The
-			JavaDB embedded in Glassfish (it is in the
-			AS_HOME/javadb)
-			PATH:
-			$PATH:$AS_HOME/bin:$DERBY_HOME/bin:
-			$JAVA_HOME/bin
-			ON LINUX PLATFORM
-			export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.06
-			export
-			AS_HOME=/home/fgaucho/dev/glassfish
-			export DERBY_HOME=$AS_HOME/javadb
-			export PATH=$PATH:$AS_HOME/bin:$DERBY_HOME/bin:$JAVA_HOME/bin
-			NOTE:
-			After you installed everything, extracted the code from svn, and
-			configured your
-			environment variables, you can check your Glassfish
-			installation:
-			open a shell console and type:
-			asadmin start-database
-			asadmin start-domain domain1
-			Open a browser and type the following
-			url:
-			http://localhost:8080/cejug-classifieds-server
-			If you see a
-			welcome page then your evironment is well installed.
-			USING ECLIPSE AS
-			AN IDE
-			Download eclipse from http://www.eclipse.org/ (Eclipse Ganymede
-			is the
-			recommended
-			version for the glassfish plugins)
-			To download
-			Ganymede go to: http://www.eclipse.org/ganymede/
-			After installing
-			eclipse install the glassfish plugins.
-			To install the glassfish
-			plugins into eclipse go to the following link:
-			http://blogs.sun.com/
-			arungupta/entry/glassfish_on_eclipse_ganymede
-			After this install open
-			a command consol and type the following commands
-			*asadmin
-			start-database
-			*asadmin start-domain domain1
-			Then come back into
-			eclipse and
-			* right click on the glassfish server to luch it. Wait til
-			it starts
-			Open a browser and type the following url:
-			http://localhost:8080/cejug-classifieds-server
-			If you see a welcome
-			page then your evironment is well installed.
-		</para>
-		<para>
-			The source code can be checked out through any Subversion client.
-			The
-			generic command will be
-			<programlisting>svn checkout
-				https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk
-				cejug-classifieds --username username
-            </programlisting>
-		</para>
-	</section>
-	<section id="installation">
-		<title>Getting out the sources</title>
-		<para>
-			The Cejug Classifieds project is hosted on java.net at the
-			location
-			https://cejug-classifieds.dev.java.net/
-        </para>
-		<para>
-			The source code can be checked out through any Subversion client.
-			The
-			generic command will be
-			<programlisting>svn checkout
-				https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk
-				cejug-classifieds --username username
-            </programlisting>
+			Use these commands to install it:
+			<programlisting>
+<![CDATA[
+sudo cp glassfish /etc/init.d/
+sudo chown root:root /etc/init.d/glassfish
+sudo chmod 755 /etc/init.d/glassfish
+sudo update-rc.d glassfish defaults 99
+]]></programlisting>
+			After that, you don't need to be logged in in order to have it
+			running.
+			But remember, booting will take longer from now on. But it's
+			in the
+			background, you can log in while it's starting up.
 		</para>
 	</section>
 </chapter>
+

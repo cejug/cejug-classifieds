@@ -1,45 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd" [
+<!ENTITY % xinclude SYSTEM "../../shared/xinclude.mod">
+%xinclude;
 <!ENTITY % isopub SYSTEM "iso-pub.ent"> 
-
 <!ENTITY preface SYSTEM "preface.xml"> 
 <!ENTITY glossary SYSTEM "glossary.xml">
 
-<!--
-<!ENTITY chapter-example SYSTEM "chapter-example.xml">
--->
-
 <!ENTITY chapter-introduction SYSTEM "chapter-introduction.xml">
+<!ENTITY legalnotice SYSTEM "../../../shared/legalnotice.xml">
 <!ENTITY chapter-installation SYSTEM "chapter-installation.xml">
 <!ENTITY chapter-source-organization SYSTEM "chapter-source-organization.xml">
 <!ENTITY chapter-development-process SYSTEM "chapter-development-process.xml">
 <!ENTITY appendix-about-manual SYSTEM "appendix-about-manual.xml"> 
+<!ENTITY revhistory SYSTEM "revhistory.xml">
 
 %isopub; 
 ]>
-<book>
-	<title>Cejug Classifieds Manual</title>
-	<subtitle>
-		For cejug-classifieds project developers.
-    </subtitle>
+<book id="cejug.classifieds.book" lang="en_US">
 	<bookinfo>
+		<title>Cejug Classifieds Project</title>
+		<subtitle>Developers handbook</subtitle>
+		<releaseinfo role="SVN">Version: $Id$</releaseinfo>
 		<authorgroup>
+			<corpauthor>Cejug-Classifieds Project</corpauthor>
 			<author>
+				<firstname>For cejug-classifieds project developers.</firstname>
+				<surname>Team</surname>
+				<affiliation>
+					<address><email>dev@cejug-classifieds.dev.java.net</email>
+        </address>
+				</affiliation>
+			</author>
+			<editor>
 				<firstname>Felipe</firstname>
 				<surname>Gaúcho</surname>
-			</author>
-			<author>
-				<firstname>Felix</firstname>
-				<surname>Batchassi</surname>
-			</author>
+			</editor>
 		</authorgroup>
-		<copyright>
-			<year>2008</year>
-			<holder>Cejug-Classifieds</holder>
-		</copyright>
-		<releaseinfo>v1.0</releaseinfo>
-		<productname>cejug-classifieds</productname>
+		<!-- &legalnotice;-->
+		<pubdate>$Date$</pubdate>
+		<abstract>
+			<para>
+				When we think about educational institutions, one of most
+				traditional
+				ways of measuring understanding is the use of questions,
+				organized
+				in
+				assignments and tests. Teachers around the world share
+				the challenge
+				of creating a good set of questions about their
+				subjects and also
+				that of updating this database periodically to
+				avoid repetitive or
+				obsolete questionnaires--a demanding and
+				time-consuming task. 
+    </para>
+			<para>
+				On the other hand, students are supposed to use a question
+				collection
+				in
+				order to improve their skills or, at least, to prove
+				they have learned
+				the subject at hand. Observation of the behavior of
+				teachers facing
+				this
+				challenge suggests us the need of a tool to
+				facilitate their work. At
+				first sight, the design of such a tool may
+				seem vague and complicated,
+				but teachers with classroom experience
+				share a strong feeling about
+				the
+				requirements of such a tool.
+				Combining these viewpoints with some
+				software-engineering concepts
+				can be a nice guide for the
+				development of
+				Quaestio, the
+				question-management module of the Schoolbus Project.
+    </para>
+		</abstract>
+		&revhistory;
 	</bookinfo>
 
 	&preface;
@@ -50,10 +91,3 @@
     &appendix-about-manual;
 	&glossary;
 </book>
-
-
-
-
-
-
-
