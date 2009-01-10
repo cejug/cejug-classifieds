@@ -32,6 +32,11 @@
 					<ulink url="http://www.graphviz.org/">Graphviz</ulink>
 				</para>
 			</listitem>
+			<listitem>
+				<para>
+					<ulink url="http://velocity.apache.org/docbook/">Velocity Docbook Framework</ulink>
+				</para>
+			</listitem>
 		</orderedlist>
 		<note>
 			<title>IDE tips</title>
@@ -57,17 +62,18 @@
 			<title>Environment variables</title>
 			<para>
 				An important detail on your environment setup is about the
-				environment variables.
-				<programlisting>svn checkout
-					export AS_HOME=/home/fgaucho/dev/glassfish
-					export JAVAEE_HOME=$AS_HOME
-					export DERBY_HOME=$AS_HOME/javadb
-					export PATH=$PATH:$AS_HOME/bin:$DERBY_HOME/bin:$JAVA_HOME/bin:$JRUBY_HOME/bin:$GRAILS_HOME/bin
-					export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.10
-					export FLEX_HOME=/home/fgaucho/dev/flex/sdks/3.0.0
-					export DBF_HOME=/home/fgaucho/dev/DocBook-Framework-1.0
-					export CLASSPATH=.:$JAVA_HOME/jre/lib
-            </programlisting>
+				environment variables. Below you find an example of environment
+				variables configuration.
+				<programlisting>
+<![CDATA[export AS_HOME=/home/$USER/dev/glassfish
+export JAVAEE_HOME=$AS_HOME
+export DERBY_HOME=$AS_HOME/javadb
+export PATH=$PATH:$AS_HOME/bin:$DERBY_HOME/bin:$JAVA_HOME/bin:$JRUBY_HOME/bin:$GRAILS_HOME/bin
+export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.10
+export FLEX_HOME=/home/$USER/dev/flex/sdks/3.0.0
+export DBF_HOME=/home/$USER/dev/DocBook-Framework-1.0
+export CLASSPATH=.:$JAVA_HOME/jre/lib]]>
+				</programlisting>
 			</para>
 		</section>
 	</section>
