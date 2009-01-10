@@ -33,6 +33,27 @@
 				</para>
 			</listitem>
 		</orderedlist>
+		<note>
+			<title>IDE tips</title>
+			<para>
+				The project build process is based on Maven 2, but you can
+				adopt an
+				IDE to facilitate your work. If you adopt
+				<ulink url="http://www.eclipse.org/">Eclipse</ulink>
+				, for
+				example, you can also install its Maven plugin, that will
+				provide
+				you
+				a more safe development environment. For
+				<ulink url="http://www.netbeans.org/">Netbeans</ulink>
+				or
+				<ulink url="http://www.jetbrains.com/idea/">Idea</ulink>
+				users,
+				maven is integrated by default.
+
+				your
+			</para>
+		</note>
 	</section>
 
 	<section id="sources">
