@@ -9,12 +9,12 @@
 			</listitem>
 			<listitem>
 				<para>
-					<link linkend='https://glassfish.dev.java.net/' endterm="Glassfish V2" />
+					<ulink url="https://glassfish.dev.java.net/">Glassfish V2</ulink>
 				</para>
 			</listitem>
 			<listitem>
 				<para>
-					<link linkend='http://maven.apache.org/' endterm="Maven 2" />
+					<ulink url="http://maven.apache.org/">Maven 2</ulink>
 				</para>
 			</listitem>
 		</orderedlist>
