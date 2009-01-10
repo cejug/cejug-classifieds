@@ -2,11 +2,11 @@
 <chapter id="chapter-installation">
 	<title>Development environment</title>
 	<section id="requirements">
+		<title>Configuration</title>
 		<section>
-			<title>Setup</title>
+			<title>Required software</title>
 			<para>Download and install the software of the below list
-				according the instructions to your operational system.
-		</para>
+				according the instructions to your operational system.</para>
 			<orderedlist numeration="lowerroman">
 				<listitem>
 					<para>
@@ -85,9 +85,22 @@ export CLASSPATH=.:$JAVA_HOME/jre/lib]]>
 	</section>
 
 
-	<section id="sources">
-		<title>Getting out the sources</title>
-		<para>TODO: to format using DocBook tags</para>
+	<section id="ubuntu">
+		<title>Shell scripts for Linux users</title>
+		<para>
+			The project configuration requires some repetitive tasks like
+			to
+			startup the Java EE container and to startup the database on every
+			development session. In order to reduce the time consuming of these
+			repetitive tasks, you can automatize them through
+			<ulink url="http://www.freeos.com/guides/lsst/">Shell Scripts</ulink>
+			. In this section you find a set of scripts to run in your Linux
+			based operational system. These scripts were tested on
+			<ulink url="http://www.ubuntu.com/">Ubuntu</ulink>
+			and it should work on every Linux distribution compatible with
+			Ubuntu
+			8.10 or higher.
+		</para>
 		<orderedlist numeration="lowerroman">
 			<listitem>
 				<para>First of all, please request the Observer role in the
