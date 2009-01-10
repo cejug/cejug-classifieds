@@ -2,62 +2,64 @@
 <chapter id="chapter-installation">
 	<title>Development environment</title>
 	<section id="requirements">
-		<title>Setup</title>
-		<para>Download and install the software of the below list
-			according the instructions to your operational system.
+		<section>
+			<title>Setup</title>
+			<para>Download and install the software of the below list
+				according the instructions to your operational system.
 		</para>
-		<orderedlist numeration="lowerroman">
-			<listitem>
+			<orderedlist numeration="lowerroman">
+				<listitem>
+					<para>
+						<ulink url="http://java.sun.com/javase/downloads/?intcmp=1281">JDK 6 (or higher)</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="https://glassfish.dev.java.net/">Glassfish V2</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://maven.apache.org/">Maven 2</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<ulink
+							url="http://labs.adobe.com/technologies/flex/flexbuilder_linux/">Flex Builder</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://www.graphviz.org/">Graphviz</ulink>
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<ulink url="http://velocity.apache.org/docbook/">Velocity Docbook Framework</ulink>
+					</para>
+				</listitem>
+			</orderedlist>
+			<note>
+				<title>IDE tips</title>
 				<para>
-					<ulink url="http://java.sun.com/javase/downloads/?intcmp=1281">JDK 6 (or higher)</ulink>
+					The project build process is based on Maven 2, but you can
+					adopt an
+					IDE to facilitate your work. If you adopt
+					<ulink url="http://www.eclipse.org/">Eclipse</ulink>
+					, for
+					example, you can also install its Maven plugin, that will
+					provide
+					you
+					a more safe development environment. For
+					<ulink url="http://www.netbeans.org/">Netbeans</ulink>
+					or
+					<ulink url="http://www.jetbrains.com/idea/">Idea</ulink>
+					users,
+					maven is integrated by default.
 				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="https://glassfish.dev.java.net/">Glassfish V2</ulink>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://maven.apache.org/">Maven 2</ulink>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://labs.adobe.com/technologies/flex/flexbuilder_linux/">Flex Builder</ulink>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://www.graphviz.org/">Graphviz</ulink>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<ulink url="http://velocity.apache.org/docbook/">Velocity Docbook Framework</ulink>
-				</para>
-			</listitem>
-		</orderedlist>
-		<note>
-			<title>IDE tips</title>
-			<para>
-				The project build process is based on Maven 2, but you can
-				adopt an
-				IDE to facilitate your work. If you adopt
-				<ulink url="http://www.eclipse.org/">Eclipse</ulink>
-				, for
-				example, you can also install its Maven plugin, that will
-				provide
-				you
-				a more safe development environment. For
-				<ulink url="http://www.netbeans.org/">Netbeans</ulink>
-				or
-				<ulink url="http://www.jetbrains.com/idea/">Idea</ulink>
-				users,
-				maven is integrated by default.
-			</para>
-		</note>
-
+			</note>
+		</section>
 		<section>
 			<title>Environment variables</title>
 			<para>
@@ -75,6 +77,10 @@ export DBF_HOME=/home/$USER/dev/DocBook-Framework-1.0
 export CLASSPATH=.:$JAVA_HOME/jre/lib]]>
 				</programlisting>
 			</para>
+		</section>
+		<section>
+			<title>Testing the configuration</title>
+			<para>todo...</para>
 		</section>
 	</section>
 
