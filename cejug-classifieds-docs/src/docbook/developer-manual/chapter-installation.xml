@@ -102,13 +102,72 @@ export CLASSPATH=.:$JAVA_HOME/jre/lib]]>
 			8.10 or higher.
 		</para>
 
-
 		<programlisting>
-			<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+			<!--
+				xi:include
 				href="https://cejug-classifieds.dev.java.net/files/documents/8128/122758/glassfish"
-				parse="text" />
-		</programlisting>
+				parse="text" /
+			-->
+<![CDATA[
+#! /bin/sh
+# chkconfig: 2345 99 01
+# description: GlassFish is a Java Application Server.
 
+# Basic support for the Linux Standard Base Specification 1.0.0 (to be used by
+# insserv for example)
+### BEGIN INIT INFO
+# Provides: Glassfish
+# Required-Start:
+# Required-Stop: 
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: Manages the services needed to run Glassfish
+### END INIT INFO
+
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export AS_HOME=/home/$USER/dev/glassfish
+export JAVAEE_HOME=$AS_HOME
+export DERBY_HOME=$AS_HOME/javadb
+export PATH=$PATH:$AS_HOME/bin:$DERBY_HOME/bin:$JAVA_HOME/bin
+export FLEX_HOME=/home/$USER/dev/flex/sdks/3.0.0
+export DBF_HOME=/home/$USER/dev/DocBook-Framework-1.0
+GLASSFISH_HOME=/home/$USER/dev/glassfish
+
+glassfish_stop() {
+  su $USER -c "$GLASSFISH_HOME/bin/asadmin stop-domain domain1"
+}
+
+glassfish_start() {
+  su $USER -c "$GLASSFISH_HOME/bin/asadmin start-domain domain1"
+}
+
+db_start() {
+  su $USER -c "$GLASSFISH_HOME/bin/asadmin start-database"
+}
+
+db_stop() {
+  su $USER -c "$GLASSFISH_HOME/bin/asadmin stop-database"
+}
+
+case "$1" in
+  start)
+    db_start
+    glassfish_start
+    ;;
+  stop)
+    glassfish_stop
+    db_stop
+    ;;
+  restart)
+    glassfish_stop
+    glassfish_start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+]]>
+		</programlisting>
 		<para>
 			Use these commands to install it:
 			<programlisting>

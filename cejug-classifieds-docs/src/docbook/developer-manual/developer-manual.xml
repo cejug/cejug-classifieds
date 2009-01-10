@@ -21,63 +21,30 @@
 	<bookinfo>
 		<title>Cejug Classifieds Project</title>
 		<subtitle>Developers handbook</subtitle>
-		<releaseinfo role="SVN">Version: $Id$</releaseinfo>
+		<releaseinfo role="SVN">$Id: developer-manual.xml 1089
+			2009-01-10 13:43:30Z felipegaucho $</releaseinfo>
+		<pubdate>$Date$
+		</pubdate>
 		<authorgroup>
 			<corpauthor>Cejug-Classifieds Project</corpauthor>
 			<author>
-				<firstname>For cejug-classifieds project developers.</firstname>
+				<firstname>Cejug-Classifieds</firstname>
 				<surname>Team</surname>
 				<affiliation>
 					<address><email>dev@cejug-classifieds.dev.java.net</email>
         </address>
 				</affiliation>
 			</author>
-			<editor>
-				<firstname>Felipe</firstname>
-				<surname>Gaúcho</surname>
-			</editor>
+			<!--
+				editor> <firstname>Felipe</firstname> <surname>Gaúcho</surname>
+				</editor
+			-->
 		</authorgroup>
 		<!-- &legalnotice;-->
-		<pubdate>$Date$</pubdate>
 		<abstract>
 			<para>
-				When we think about educational institutions, one of most
-				traditional
-				ways of measuring understanding is the use of questions,
-				organized
-				in
-				assignments and tests. Teachers around the world share
-				the challenge
-				of creating a good set of questions about their
-				subjects and also
-				that of updating this database periodically to
-				avoid repetitive or
-				obsolete questionnaires--a demanding and
-				time-consuming task. 
-    </para>
-			<para>
-				On the other hand, students are supposed to use a question
-				collection
-				in
-				order to improve their skills or, at least, to prove
-				they have learned
-				the subject at hand. Observation of the behavior of
-				teachers facing
-				this
-				challenge suggests us the need of a tool to
-				facilitate their work. At
-				first sight, the design of such a tool may
-				seem vague and complicated,
-				but teachers with classroom experience
-				share a strong feeling about
-				the
-				requirements of such a tool.
-				Combining these viewpoints with some
-				software-engineering concepts
-				can be a nice guide for the
-				development of
-				Quaestio, the
-				question-management module of the Schoolbus Project.
+				TODO: brief introduction to the project, welcome and the target
+				audience of this document...
     </para>
 		</abstract>
 		&revhistory;
