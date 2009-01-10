@@ -19,7 +19,7 @@
  under the License.
 -->
 
-<project name="footprint-docbook" default="all" basedir=".">
+<project name="footprint-docbook" default="hudson" basedir=".">
 	<import file="quality.xml" />
 	
 	<!-- Load our properties -->
