@@ -8,7 +8,9 @@
 		</para>
 		<orderedlist numeration="lowerroman">
 			<listitem>
-				<ulink url="http://java.sun.com/javase/downloads/?intcmp=1281">JDK 6 (or higher)</ulink>
+				<para>
+					<ulink url="http://java.sun.com/javase/downloads/?intcmp=1281">JDK 6 (or higher)</ulink>
+				</para>
 			</listitem>
 			<listitem>
 				<para>
@@ -30,7 +32,6 @@
 					<ulink url="http://www.graphviz.org/">Graphviz</ulink>
 				</para>
 			</listitem>
-
 		</orderedlist>
 	</section>
 
