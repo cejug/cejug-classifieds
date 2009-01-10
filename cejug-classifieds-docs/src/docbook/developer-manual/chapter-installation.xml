@@ -8,7 +8,7 @@
 		</para>
 		<orderedlist numeration="lowerroman">
 			<listitem>
-				<para>JDK 6 or higher</para>
+				<ulink url="http://java.sun.com/javase/downloads/?intcmp=1281">JDK 6 (or higher)</ulink>
 			</listitem>
 			<listitem>
 				<para>
@@ -20,6 +20,17 @@
 					<ulink url="http://maven.apache.org/">Maven 2</ulink>
 				</para>
 			</listitem>
+			<listitem>
+				<para>
+					<ulink url="http://labs.adobe.com/technologies/flex/flexbuilder_linux/">Flex Builder</ulink>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<ulink url="http://www.graphviz.org/">Graphviz</ulink>
+				</para>
+			</listitem>
+
 		</orderedlist>
 	</section>
 

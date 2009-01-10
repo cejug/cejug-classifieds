@@ -39,8 +39,9 @@
 		</ant>
 	</target>
 
-	<target name="hudson" depends="clean,all">
+	<target name="hudson" depends="clean">
 		<antcall target="validate.xml.documents" />
+		<antcall target="all" />
 	</target>
 
 	<!-- ======================================================================== -->
