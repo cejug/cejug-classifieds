@@ -2,7 +2,10 @@
 <chapter id="chapter-installation">
 	<title>Development environment</title>
 	<section id="requirements">
-		<title>System requirements</title>
+		<title>Setup</title>
+		<para>Download and install the software of the below list
+			according the instructions to your operational system.
+		</para>
 		<orderedlist numeration="lowerroman">
 			<listitem>
 				<para>JDK 6 or higher</para>
@@ -20,10 +23,6 @@
 		</orderedlist>
 	</section>
 
-	<section id="environment">
-		<title>Setup</title>
-		<para>The following instructions are for Linux envi</para>
-	</section>
 	<section id="sources">
 		<title>Getting out the sources</title>
 		<para>TODO: to format using DocBook tags</para>
