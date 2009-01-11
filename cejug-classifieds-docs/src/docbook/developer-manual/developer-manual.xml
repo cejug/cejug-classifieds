@@ -9,6 +9,7 @@
 <!ENTITY glossary SYSTEM "glossary.xml">
 <!ENTITY business SYSTEM "business.xml">
 <!ENTITY bibliography SYSTEM "bibliography.xml">
+<!ENTITY legalnotice SYSTEM "legalnotice.xml">
 
 <!ENTITY architecture SYSTEM "architecture.xml">
 <!ENTITY legalnotice SYSTEM "../../../shared/legalnotice.xml">
@@ -22,7 +23,6 @@
 ]>
 <book id="cejug.classifieds.book" lang="en_US">
 	&bookinfo;
-	&preface;
 	<part id="part.overview">
 		<title>Project Overview</title>
 		&business;
