@@ -6,10 +6,9 @@
 	<pubdate>$Date: 2009-01-10 14:57:09 +0100 (Sat, 10 Jan 2009) $
 	</pubdate>
 	<authorgroup>
-		<corpauthor>Cejug-Classifieds Project</corpauthor>
+		<corpauthor>Cejug-Classifieds Team</corpauthor>
 		<author>
-			<firstname>Cejug-Classifieds</firstname>
-			<surname>Team</surname>
+			<firstname>https://cejug-classifieds.dev.java.net</firstname>
 			<affiliation>
 				<address>
 					<email>dev@cejug-classifieds.dev.java.net</email>
@@ -22,10 +21,10 @@
 		-->
 	</authorgroup>
 	<!-- &legalnotice;-->
-	<abstract>
+	<!-- abstract>
 		<para>
 			TODO: brief introduction to the project, welcome and the target
 			audience of this document...
     </para>
-	</abstract>
+	</abstract-->
 </bookinfo>

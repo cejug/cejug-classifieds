@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="business">
+	<title>Business scenario</title>
+	<section id="business.roles">
+		<title>Entities</title>
+		<para></para>
+		<section id="roles.customer">
+			<title>Customer</title>
+			<para></para>
+		</section>
+		<section id="roles.domain.owner">
+			<title>Domain owner</title>
+			<para></para>
+		</section>
+		<section id="roles.admin">
+			<title>System administrator</title>
+			<para></para>
+		</section>
+		<section id="roles.moderator">
+			<title>Moderators</title>
+			<para></para>
+		</section>
+	</section>
+	<section id="user.histories">
+		<title>User histories</title>
+		<para></para>
+		<section id="uh.publish">
+			<title>Publish advertisement</title>
+			<para></para>
+		</section>
+		<section id="uh.read">
+			<title>Read advertisement</title>
+			<para></para>
+		</section>
+		<section id="uh.spam">
+			<title>Report SPAM</title>
+			<para></para>
+		</section>
+		<section id="uh.ratings">
+			<title>Publisher Ratings</title>
+			<para></para>
+		</section>
+	</section>
+</chapter>

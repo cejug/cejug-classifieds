@@ -7,6 +7,7 @@
 <!ENTITY preface SYSTEM "preface.xml"> 
 <!ENTITY bookinfo SYSTEM "book-info.xml">
 <!ENTITY glossary SYSTEM "glossary.xml">
+<!ENTITY business SYSTEM "business.xml">
 <!ENTITY bibliography SYSTEM "bibliography.xml">
 
 <!ENTITY architecture SYSTEM "architecture.xml">
@@ -23,7 +24,8 @@
 	&bookinfo;
 	&preface;
 	<part id="part.overview">
-		<title>Cejug-Classifieds overview</title>
+		<title>Project Overview</title>
+		&business;
 		&architecture;
 	</part>
 
