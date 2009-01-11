@@ -5,9 +5,11 @@
 %xinclude;
 <!ENTITY % isopub SYSTEM "iso-pub.ent"> 
 <!ENTITY preface SYSTEM "preface.xml"> 
+<!ENTITY bookinfo SYSTEM "book-info.xml">
 <!ENTITY glossary SYSTEM "glossary.xml">
+<!ENTITY bibliography SYSTEM "bibliography.xml">
 
-<!ENTITY chapter-introduction SYSTEM "chapter-introduction.xml">
+<!ENTITY architecture SYSTEM "architecture.xml">
 <!ENTITY legalnotice SYSTEM "../../../shared/legalnotice.xml">
 <!ENTITY chapter-installation SYSTEM "chapter-installation.xml">
 <!ENTITY chapter-source-organization SYSTEM "chapter-source-organization.xml">
@@ -18,43 +20,23 @@
 %isopub; 
 ]>
 <book id="cejug.classifieds.book" lang="en_US">
-	<bookinfo>
-		<title>Cejug Classifieds Project</title>
-		<subtitle>Developers handbook</subtitle>
-		<releaseinfo role="SVN">$Id: developer-manual.xml 1089
-			2009-01-10 13:43:30Z felipegaucho $</releaseinfo>
-		<pubdate>$Date$
-		</pubdate>
-		<authorgroup>
-			<corpauthor>Cejug-Classifieds Project</corpauthor>
-			<author>
-				<firstname>Cejug-Classifieds</firstname>
-				<surname>Team</surname>
-				<affiliation>
-					<address><email>dev@cejug-classifieds.dev.java.net</email>
-        </address>
-				</affiliation>
-			</author>
-			<!--
-				editor> <firstname>Felipe</firstname> <surname>Gaúcho</surname>
-				</editor
-			-->
-		</authorgroup>
-		<!-- &legalnotice;-->
-		<abstract>
-			<para>
-				TODO: brief introduction to the project, welcome and the target
-				audience of this document...
-    </para>
-		</abstract>
-		&revhistory;
-	</bookinfo>
-
+	&bookinfo;
 	&preface;
-    &chapter-introduction;
+	<part id="part.overview">
+		<title>Cejug-Classifieds overview</title>
+		&architecture;
+	</part>
+
+	<part id="editing">
+		<title>Developers handbook</title>
     &chapter-installation;
     &chapter-source-organization;
-    &chapter-development-process;
+	</part>
+
+	<part id="appendixes">
+		<title>Appendixes</title>
     &appendix-about-manual;
 	&glossary;
+	&bibliography;
+	</part>
 </book>
