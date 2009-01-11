@@ -2,8 +2,7 @@
 <bookinfo>
 	<title>Cejug Classifieds Project</title>
 	<subtitle>Developers handbook</subtitle>
-	<releaseinfo role="SVN">$Id: developer-manual.xml 1089
-		2009-01-10 13:43:30Z felipegaucho $
+	<releaseinfo role="SVN">$Id: developer-manual.xml 1089 2009-01-10 13:43:30Z felipegaucho $
 	</releaseinfo>
 	<authorgroup>
 		<corpauthor>Cejug-Classifieds Team</corpauthor>
