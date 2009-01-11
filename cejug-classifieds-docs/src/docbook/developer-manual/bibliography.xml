@@ -137,7 +137,7 @@
 				</ulink>
 			</releaseinfo>
 		</biblioentry>
-		<biblioentry id="bib.glassfish">
+		<biblioentry id="bib.maven">
 			<abbrev>MAVEN</abbrev>
 			<title>
 				Maven 2 user documentation 
