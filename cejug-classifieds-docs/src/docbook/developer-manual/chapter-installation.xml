@@ -60,7 +60,7 @@
 				</para>
 			</note>
 		</section>
-		<section>
+		<section id="environment.vars">
 			<title>Environment variables</title>
 			<para>
 				An important detail on your environment setup is about the

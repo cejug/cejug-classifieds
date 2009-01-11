@@ -137,5 +137,15 @@
 				</ulink>
 			</releaseinfo>
 		</biblioentry>
+		<biblioentry id="bib.glassfish">
+			<abbrev>MAVEN</abbrev>
+			<title>
+				Maven 2 user documentation 
+			</title>
+			<releaseinfo>
+				<ulink url="http://maven.apache.org/users/index.html">http://maven.apache.org/users/index.html
+				</ulink>
+			</releaseinfo>
+		</biblioentry>
 	</bibliodiv>
 </bibliography>

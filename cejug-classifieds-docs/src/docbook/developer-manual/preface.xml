@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<preface>
+<preface id="foreword">
 	<title>Foreword</title>
 	<para>Cejug-Classifieds uses 100% open source software, no paid tools or libraries are required or promoted by our project.</para>
 	<para>Developer manual contains information about accessing the	latest source code for Cejug-Classifieds project and process of
