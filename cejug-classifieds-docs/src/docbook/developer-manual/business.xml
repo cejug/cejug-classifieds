@@ -1,24 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter id="business">
 	<title>Business scenario</title>
+	<section id="business.model">
+		<title>Business Model</title>
+		<para>The business model of cejug-classifieds is composed by
+			three
+			stake-holders: a backend system, a frontend GUI and the customers. By
+			definition a customer never interacts directly with the backend
+			system.
+		</para>
+		<orderedlist>
+			<listitem>
+				<para>
+					Customer : The person who uses the frontend.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Domain owner : The frontend administrator.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					System administrator : the backend administrator.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Moderator : administrator helpers, people that can do a
+					limited number of administrative operations, like report spam.
+				</para>
+			</listitem>
+		</orderedlist>
+	</section>
 	<section id="business.roles">
-		<title>Entities</title>
+		<title>Business Roles</title>
 		<para></para>
 		<section id="roles.customer">
 			<title>Customer</title>
-			<para></para>
+			<para>
+				The person who uses the frontend (
+				<emphasis>cejug-classifieds-richfaces
+				</emphasis>
+				).
+			</para>
 		</section>
 		<section id="roles.domain.owner">
 			<title>Domain owner</title>
-			<para></para>
+			<para>
+				The frontend administrator.
+			</para>
 		</section>
 		<section id="roles.admin">
 			<title>System administrator</title>
-			<para></para>
+			<para>The backend administrator.</para>
 		</section>
 		<section id="roles.moderator">
 			<title>Moderators</title>
-			<para></para>
+			<para>Administrator helpers, people that can do a
+				limited number of administrative operations, like report spam.
+			</para>
 		</section>
 	</section>
 	<section id="user.histories">
