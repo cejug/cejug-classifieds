@@ -10,8 +10,8 @@
 		<orderedlist>
 			<listitem>
 				<para>
-					Customer : The person who uses the frontend. By
-					definition a customer never interacts directly with the backend
+					Customer : The person who uses the frontend. A customer never
+					interacts directly with the backend
 					system.
 				</para>
 			</listitem>
