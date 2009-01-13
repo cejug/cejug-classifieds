@@ -5,14 +5,14 @@
 		<title>Business Model</title>
 		<para>The business model of cejug-classifieds is composed by
 			three
-			stake-holders: a backend system, a frontend GUI and the customers. By
-			definition a customer never interacts directly with the backend
-			system.
+			stake-holders: a backend system, a frontend GUI and the customers.
 		</para>
 		<orderedlist>
 			<listitem>
 				<para>
-					Customer : The person who uses the frontend.
+					Customer : The person who uses the frontend. By
+					definition a customer never interacts directly with the backend
+					system.
 				</para>
 			</listitem>
 			<listitem>
