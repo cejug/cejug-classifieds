@@ -32,6 +32,19 @@
 				</para>
 			</listitem>
 		</orderedlist>
+		<section id="business.affiliation">
+			<title>The affiliation procedure of Cejug-Classifieds</title>
+			<para>
+				The basic flow of business in Cejug-Classifieds is based the
+				<ulink url="http://en.wikipedia.org/wiki/Affiliation">affiliation</ulink>
+				of one or more clients to the cejug-classifieds-server.
+				This
+				procedure allow the same content to be shared, enhacing the
+				potential of consume of advertisements. The basic rules of the
+				<emphasis>Cejug Classifieds affiliation procedure is lited
+					below:</emphasis>
+			</para>
+		</section>
 	</section>
 	<section id="business.roles">
 		<title>Business Roles</title>
