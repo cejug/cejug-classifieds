@@ -147,5 +147,18 @@
 				</ulink>
 			</releaseinfo>
 		</biblioentry>
+		<biblioentry id="bib.maven">
+			<abbrev>AFFILIATION</abbrev>
+			<title>
+				Making Money From Mashups (blog) 
+			</title>
+			<releaseinfo>
+				<ulink
+					url="http://blog.programmableweb.com/2007/01/18/making-money-from-mashups/">
+					http://blog.programmableweb.com/2007/01/18/making-money-from-mashups/
+				</ulink>
+			</releaseinfo>
+		</biblioentry>
+
 	</bibliodiv>
 </bibliography>
