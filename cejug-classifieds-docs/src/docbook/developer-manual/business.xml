@@ -7,7 +7,7 @@
 			three
 			stake-holders: a backend system, a frontend GUI and the customers.
 		</para>
-		<orderedlist>
+		<itemizedlist>
 			<listitem>
 				<para>
 					Customer : The person who uses the frontend. A customer never
@@ -31,12 +31,15 @@
 					limited number of administrative operations, like report spam.
 				</para>
 			</listitem>
-		</orderedlist>
+		</itemizedlist>
 		<section id="business.affiliation">
 			<title>The affiliation procedure of Cejug-Classifieds</title>
 			<para>
 				The cash-flow of Cejug-Classifieds is based on a procedure of
-				affiliation of one or more clients to the cejug-classifieds-server.
+				affiliation of one or more clients to the cejug-classifieds-server
+				(see
+				<biblioref linkend="bib.affiliation" />
+				).
 				This
 				procedure allow the same content to be shared, enhacing the
 				potential of consume of advertisements. The basic rules of the
