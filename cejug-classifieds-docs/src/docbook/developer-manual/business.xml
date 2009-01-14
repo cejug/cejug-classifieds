@@ -56,10 +56,7 @@
 		<section id="roles.customer">
 			<title>Customer</title>
 			<para>
-				The person who uses the frontend (
-				<emphasis>cejug-classifieds-richfaces
-				</emphasis>
-				).
+				The person who uses the frontend.
 			</para>
 		</section>
 		<section id="roles.domain.owner">
