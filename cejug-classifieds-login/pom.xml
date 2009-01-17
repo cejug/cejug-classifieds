@@ -16,10 +16,6 @@
 	<url>http://maven.apache.org</url>
 	<build>
 		<defaultGoal>package</defaultGoal>
-		<!--
-			directory>${basedir}/target</directory>
-			<sourceDirectory>${basedir}/src/main/java </sourceDirectory
-		-->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
