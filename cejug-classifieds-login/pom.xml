@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0" xmlns:xsi="http://www.w3.org/2001/XML-Schema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>cejug-classifieds</artifactId>
 		<groupId>net.java.dev.cejug.classifieds
@@ -15,10 +16,10 @@
 	<url>http://maven.apache.org</url>
 	<build>
 		<defaultGoal>package</defaultGoal>
-		<directory>${basedir}/target</directory>
-		<!-- finalName>${artifactId}</finalName-->
-		<sourceDirectory>${basedir}/src/main/java
-		</sourceDirectory>
+		<!--
+			directory>${basedir}/target</directory>
+			<sourceDirectory>${basedir}/src/main/java </sourceDirectory
+		-->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
