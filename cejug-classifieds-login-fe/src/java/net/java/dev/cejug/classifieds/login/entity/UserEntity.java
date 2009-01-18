@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity;
+package net.java.dev.cejug.classifieds.login.entity.UserEntity;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -37,8 +37,8 @@ import javax.persistence.Table;
  * An user of the GUI. This table is also used by the container to the
  * authentication.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 1014 $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "USERTABLE")

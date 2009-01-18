@@ -33,10 +33,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
+ *
+ * grails generate-controller
+ * grails generate-views
+ * grails war
+ * cp cejug-classifieds-login-fe-0.1.war /home/fgaucho/dev/glassfish/domains/domain1/autodeploy/.
  * The group are used to map users to their permissions.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: 1014 $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
+ * @author $Author$
+ * @version $Rev:$ ($Date$)
  */
 @Entity
 @Table(name = "GROUPTABLE")
