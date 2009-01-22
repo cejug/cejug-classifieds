@@ -38,7 +38,7 @@ import java.sql.SQLException;
  * 
  */
 public class UserManager {
-	private static final String SHOW_ALL = "select login from usertable";
+	private static final String SHOW_ALL = "select id from usertable";
 	private static final String DRIVER = "org.apache.derby.jdbc.ClientDriver";
 	private static final String CREATE_USER = "insert into usertable values(?, ?, ?, ?)";
 	private static final String CREATE_GROUP = "insert into grouptable values(?, ?, ?)";
@@ -79,16 +79,16 @@ public class UserManager {
 			userStmt = conn.prepareStatement(CREATE_USER);
 			userStmt.setString(1, login);
 			String hPassword = hashPassword(password);
-			userStmt.setString(2, hPassword);
-			userStmt.setString(3, null);
-			userStmt.setString(4, null);
+			userStmt.setString(2, "fgaucho@gmail.com");
+			userStmt.setString(3, "Felipe Gaúcho");
+			userStmt.setString(4, hPassword);
 			userStmt.executeUpdate();
 			userStmt.close();
 
 			groupStmt = conn.prepareStatement(CREATE_GROUP);
 			groupStmt.setString(1, login);
-			groupStmt.setString(2, group);
-			groupStmt.setString(3, null);
+			groupStmt.setString(2, "test group: " + group);
+			groupStmt.setString(3, group);
 			groupStmt.executeUpdate();
 			groupStmt.close();
 		} finally {
@@ -113,7 +113,7 @@ public class UserManager {
 			userStmt = conn.prepareStatement(SHOW_ALL);
 			set = userStmt.executeQuery();
 			while (set.next()) {
-				System.out.println(set.getString("login"));
+				System.out.println(set.getString("id"));
 			}
 		} finally {
 			// connection cleanup

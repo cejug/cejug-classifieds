@@ -11,20 +11,18 @@
 	<ui:define name="pageheader">
 		<div><h:graphicImage value="/images/templateNew/header.png"
 			styleClass="logo" /></div>
-		<div id="headerbar">
-		<a:form id="headerForm">
-			<a:commandLink action="home"
-				value="Home" styleClass="publishLink" />
+		<div id="headerbar"><a:form id="headerForm">
+			<a:commandLink action="home" value="Home" styleClass="publishLink" />
 		</a:form>
-		
-			
+
+
 		<div id="searchPane"><h:inputText value=""
 			styleClass="inputSearch" /> <a:commandButton
 			image="/images/templateNew/go.png" /></div>
 		</div>
 	</ui:define>
 	<ui:define name="body">
-		
+
 		<style>
 .top {
 	vertical-align: top;
@@ -41,21 +39,24 @@
 </style>
 		<a:form id="publishForm" ajaxSubmit="true">
 			<a:keepAlive beanName="publishAdvertisementBean" />
-			
+
 			<rich:messages layout="list" id="messages" styleClass="message"
-        errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
-			
+				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
+
 			<rich:toolBar height="10" itemSeparator="line">
 				<rich:toolBarGroup>
 					<a:commandLink style="border:none;"
-						action="#{publishAdvertisementBean.publish}" reRender="publishForm, tabPanel">
+						action="#{publishAdvertisementBean.publish}"
+						reRender="publishForm, tabPanel">
 						<h:graphicImage value="/images/publish.jpg" style="border:none;" />
 					</a:commandLink>
 				</rich:toolBarGroup>
 			</rich:toolBar>
 
-			<rich:tabPanel switchType="ajax" id="tabPanel" selectedTab="#{publishAdvertisementBean.selectedTab}">
-				<rich:tab label="#{msg['publishadv.tab.advertisement']}" name="tab1" id="tab1">
+			<rich:tabPanel switchType="ajax" id="tabPanel"
+				selectedTab="#{publishAdvertisementBean.selectedTab}">
+				<rich:tab label="#{msg['publishadv.tab.advertisement']}" name="tab1"
+					id="tab1">
 					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
 						<h:outputText value="#{msg['publishadv.category']}" />
@@ -70,23 +71,23 @@
 
 							<h:outputText value="#{msg['publishadv.date.finish']}" />
 
-							<rich:calendar
-								value="#{publishAdvertisementBean.startDate}" label="#{msg['publishadv.date.start']}"
-								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-								cellWidth="24px" cellHeight="22px" style="width:200px" required="true"
-								id="start" />
+							<rich:calendar value="#{publishAdvertisementBean.startDate}"
+								label="#{msg['publishadv.date.start']}" popup="true"
+								datePattern="dd/MM/yyyy" showApplyButton="false"
+								cellWidth="24px" cellHeight="22px" style="width:200px"
+								required="true" id="start" />
 
-							<rich:calendar
-								value="#{publishAdvertisementBean.finishDate}" label="#{msg['publishadv.date.finish']}"
-								popup="true" datePattern="dd/MM/yyyy" showApplyButton="false"
-								cellWidth="24px" cellHeight="22px" style="width:200px" required="true"
-								id="finish" />
+							<rich:calendar value="#{publishAdvertisementBean.finishDate}"
+								label="#{msg['publishadv.date.finish']}" popup="true"
+								datePattern="dd/MM/yyyy" showApplyButton="false"
+								cellWidth="24px" cellHeight="22px" style="width:200px"
+								required="true" id="finish" />
 						</h:panelGrid>
 
 						<h:outputText value="#{msg['publishadv.headline']}" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.headline}"
-							style="width:230px;" required="true" label="Headline"/>
+							style="width:230px;" required="true" label="Headline" />
 
 						<h:outputText value="#{msg['publishadv.keywords']}"
 							style="width:230px;" />
@@ -113,8 +114,8 @@
 					<a:support event="ontableave" reRender="panelPreview"></a:support>
 					<h:panelGrid columns="1">
 						<a:region>
-							<h:selectOneRadio
-								value="#{publishAdvertisementBean.avatarType}" size="1">
+							<h:selectOneRadio value="#{publishAdvertisementBean.avatarType}"
+								size="1">
 								<f:selectItems value="#{publishAdvertisementBean.avatarTypes}" />
 								<a:support event="onclick" reRender="avatarType" />
 							</h:selectOneRadio>
@@ -122,24 +123,42 @@
 					</h:panelGrid>
 					<h:panelGrid columns="1" id="avatarType">
 						<h:panelGrid columns="1"
+							rendered="#{publishAdvertisementBean.avatarType =='G'}">
+							<h:outputText
+								value="#{msg['publishadv.email.address']} ???@???.com" />
+							<span style="font: 10px arial; color: red;">Not fully
+							implemented. This feature depends on the login module (under
+							progress). For now, you can type any email in the below text
+							field - and this email will be used to retrieve the gravatar. In
+							the near future, this email will be automatically retrieved from
+							the customers table in the database. Other image providers can be
+							included as option and Gravatar will be a combo box then... If
+							you are a developer from Cejug-Classifieds, hands on :) be
+							welcome to design and implement it...</span>
+							<h:inputText
+								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.gravatarEmail}"
+								style="width:230px;" required="true" label="Email" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="1"
 							rendered="#{publishAdvertisementBean.avatarType =='U'}">
 							<h:outputText value="#{msg['publishadv.url']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.url}"
-								style="width:230px;" required="true" label="Url"/>
+								style="width:230px;" required="true" label="Url" />
 							<h:outputText value="#{msg['publishadv.name']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.name}"
-								style="width:230px;" required="true" label="Name"/>
+								style="width:230px;" required="true" label="Name" />
 							<h:outputText value="#{msg['publishadv.description']}" />
 							<h:inputText
 								value="#{publishAdvertisementBean.advertisement.avatarImageOrUrl.description}"
-								style="width:230px;" required="true" label="Description"/>
+								style="width:230px;" required="true" label="Description" />
 						</h:panelGrid>
 
 						<h:panelGrid columns="2" columnClasses="top,top"
 							rendered="#{publishAdvertisementBean.avatarType =='I'}">
-							<rich:fileUpload 
+							<rich:fileUpload
 								fileUploadListener="#{publishAdvertisementBean.listener}"
 								maxFilesQuantity="#{publishAdvertisementBean.uploadsAvailable}"
 								reRender="table" id="upload"
@@ -149,7 +168,7 @@
 								listHeight="60px">
 								<a:support event="onuploadcomplete" reRender="info, imgupload" />
 							</rich:fileUpload>
-							
+
 							<h:panelGroup id="info">
 								<rich:panel bodyClass="info">
 									<f:facet name="header">

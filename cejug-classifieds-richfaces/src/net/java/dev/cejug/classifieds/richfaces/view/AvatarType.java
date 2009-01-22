@@ -1,7 +1,7 @@
 package net.java.dev.cejug.classifieds.richfaces.view;
 
 public enum AvatarType {
-    IMAGE("I"), URL("U");
+    IMAGE("I"), URL("U"), GRAVATAR("G");
 
     private String type;
 

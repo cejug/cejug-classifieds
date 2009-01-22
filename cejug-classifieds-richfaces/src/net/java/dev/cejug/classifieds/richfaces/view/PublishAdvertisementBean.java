@@ -69,8 +69,8 @@ public class PublishAdvertisementBean {
     private String avatarType = AvatarType.IMAGE.getType();
 
     private String selectedTab;
-
-    private Date start;
+    
+	private Date start;
 
     private Date finish;
 
