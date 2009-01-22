@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity.UserEntity;
+package net.java.dev.cejug.classifieds.login.entity;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -129,5 +129,23 @@ public class UserEntity implements Serializable {
 			sb.append(HEXADECIMAL[low]);
 		}
 		return sb.toString();
+	}
+
+	public String getMixed() {
+		String mixed = null;
+		int index = email.indexOf("@"); 
+		if(index == -1) {
+			mixed = "";
+			index = 0;
+		} else {
+			String mailuser = email.substring(0, index);
+
+			if(mailuser.length()>5) {
+				mixed = mailuser.substring(0, 2);
+			} else if(mailuser.length()>2) {
+				mixed = mailuser.substring(0, 1);
+			}
+		}
+		return mixed + "..." + email.substring(index);
 	}
 }

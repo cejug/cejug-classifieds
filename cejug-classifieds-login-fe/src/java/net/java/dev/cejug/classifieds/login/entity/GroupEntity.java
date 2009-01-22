@@ -41,7 +41,7 @@ import javax.persistence.Table;
  * The group are used to map users to their permissions.
  * 
  * @author $Author$
- * @version $Rev:$ ($Date$)
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "GROUPTABLE")
