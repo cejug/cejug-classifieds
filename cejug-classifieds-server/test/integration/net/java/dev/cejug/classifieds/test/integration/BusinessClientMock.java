@@ -108,7 +108,7 @@ public class BusinessClientMock {
 		period.setStart(today);
 
 		AvatarImageOrUrl avatar = new AvatarImageOrUrl();
-		URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
+		// URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
 		// Image image = ImageIO.read(imgUrl);
 		ObjectFactory attachmentFactory = new ObjectFactory();
 
