@@ -30,45 +30,47 @@ import javax.faces.context.FacesContext;
 
 /**
  * TODO: to comment.
+ * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
 public class SecurityBean {
 
-    private String login;
+	private String login;
 
-    public String getLogin() {
+	public String getLogin() {
 
-        return login;
-    }
+		return login;
+	}
 
-    public String getPassword() {
+	public String getPassword() {
 
-        return password;
-    }
+		return password;
+	}
 
-    private String password;
+	private String password;
 
-    public void setLogin(String login) {
+	public void setLogin(String login) {
 
-        this.login = login;
-    }
+		this.login = login;
+	}
 
-    public void setPassword(String password) {
+	public void setPassword(String password) {
 
-        this.password = password;
-    }
+		this.password = password;
+	}
 
-    public static Principal getUserFromContext() {
+	public static Principal getUserFromContext() {
 
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        return context.getUserPrincipal();
-    }
+		ExternalContext context = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		return context.getUserPrincipal();
+	}
 
-    /*
-     * public boolean isCustomer() { javax.faces.context.ExternalContext context
-     * = FacesContext .getCurrentInstance().getExternalContext(); if(true)
-     * return true; return context.isUserInRole("customer") ||
-     * context.isUserInRole("admin"); }
-     */
+	/*
+	 * public boolean isCustomer() { javax.faces.context.ExternalContext context
+	 * = FacesContext .getCurrentInstance().getExternalContext(); if(true)
+	 * return true; return context.isUserInRole("customer") ||
+	 * context.isUserInRole("admin"); }
+	 */
 }

@@ -5,7 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich"
+	>
+<!-- xmlns:ui="http://java.sun.com/blueprints/ui/14" -->
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
 		<div><h:graphicImage value="/images/templateNew/header.png"
@@ -50,11 +52,11 @@
 							<h:outputText value="#{adv.headline} " />
 						</f:facet>
 						<h:panelGrid columns="2" style="width:100%;" columnClasses="advCol1,advCol2">
-							<h:graphicImage width="80" height="60"
+							<h:graphicImage width="60" height="60"
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
 
 							<h:panelGrid rows="3">
-								<h:outputText value="#{adv.summary}" style="float:none;" />
+								<h:outputText value="#{adv.summary}" style="float:left;" />
 								<h:outputText value="author:"
 									style="float:none;font-weight:bolder;" />
 								<h:outputText value="#{adv.customer.login}" style="float:left;" />
@@ -65,6 +67,11 @@
 								 <div style="color: rgb(136, 136, 136);" id="starUser#{adv.entityId}" class="user">0%</div>
  									<br style="clear: both;"/>
 								</div>
+								<!--div>
+								<ui:rating id="rating" maxGrade="5" includeNotInterested="true" includeClear="true" 
+   hoverTexts="#{RatingBean.ratingText}" notInterestedHoverText="Not Interested" 
+   clearHoverText="Clear Rating" grade="#{RatingBean.grade}"/></div-->
+								
 							</h:panelGrid>
 						</h:panelGrid>
 						<h:outputText value="#{adv.text}" />

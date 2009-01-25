@@ -73,7 +73,5 @@ public class ClassifiedsServiceProxy {
 			AdvertisementCategoryWrapper selectedCategory) {
 		this.selectedCategory = selectedCategory;
 	}
-	
-	
 
 }

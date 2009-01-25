@@ -34,7 +34,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
 
 public class Category {
-	
+
 	public Category() {
 		SERVICE = new CejugClassifiedsServiceBusiness()
 				.getCejugClassifiedsBusiness();
@@ -42,15 +42,15 @@ public class Category {
 	}
 
 	private transient final CejugClassifiedsBusiness SERVICE;
-	
+
 	private transient List<AdvertisementCategory> registeredCategories;
-	
+
 	private List<AdvertisementCategory> reloadCategories() {
 		registeredCategories = SERVICE.readCategoryBundleOperation(
 				new BundleRequest()).getAdvCategory();
 		return registeredCategories;
 	}
-	
+
 	public List<SelectItem> getCategories() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
 		// TODO: this should be cached somehow..

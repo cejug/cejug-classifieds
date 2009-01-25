@@ -1,29 +1,29 @@
 package net.java.dev.cejug.classifieds.richfaces.view;
 
 public enum AvatarType {
-    IMAGE("I"), URL("U"), GRAVATAR("G");
+	IMAGE("I"), URL("U"), GRAVATAR("G");
 
-    private String type;
+	private String type;
 
-    AvatarType(String type) {
+	AvatarType(String type) {
 
-        this.type = type;
-    }
+		this.type = type;
+	}
 
-    public String getType() {
+	public String getType() {
 
-        return type;
-    }
+		return type;
+	}
 
-    public static AvatarType getAvatarType(String type) {
+	public static AvatarType getAvatarType(String type) {
 
-        for (AvatarType avatarType : AvatarType.values()) {
-            if (avatarType.getType().equals(type)) {
-                return avatarType;
-            }
-        }
+		for (AvatarType avatarType : AvatarType.values()) {
+			if (avatarType.getType().equals(type)) {
+				return avatarType;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 }
