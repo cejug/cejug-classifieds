@@ -17,9 +17,11 @@ public class ConcurrentTestSuite {
 
 	@Test
 	public void admin() {
+
 		Suite.SuiteClasses annos = AdminTestSuite.class
 				.getAnnotation(Suite.SuiteClasses.class);
 		List<Failure> failures = runAll(annos);
+
 		if (!failures.isEmpty()) {
 			Assert.fail(failures.get(0).getTrace());
 		}
@@ -29,9 +31,11 @@ public class ConcurrentTestSuite {
 	public void business() {
 		Suite.SuiteClasses annos = BusinessTestSuite.class
 				.getAnnotation(Suite.SuiteClasses.class);
-		List<Failure> failures = runAll(annos);
-		if (!failures.isEmpty()) {
-			Assert.fail(failures.get(0).getTrace());
+		for (int fi = 0; fi < 1000000; fi++) {
+			List<Failure> failures = runAll(annos);
+			if (!failures.isEmpty()) {
+				Assert.fail(failures.get(0).getTrace());
+			}
 		}
 	}
 

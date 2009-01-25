@@ -192,8 +192,7 @@ public class LoadAtomOperation implements LoadAtomOperationLocal {
 					 * entryAttributes.add(factory.createFeedIcon(icon)); }
 					 */
 					LinkType link = factory.createLinkType();
-					link
-							.setHref("http://devoxx.com/display/JV08/Home");
+					link.setHref("http://devoxx.com/display/JV08/Home");
 					link.setRel("alternate");
 					// TODO: get from advertisement or domain or category
 					link.setHreflang("en");

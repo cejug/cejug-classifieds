@@ -43,7 +43,7 @@ public class AttachmentEntity extends AbstractEntity<AdvertisementCategory> {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "DESCRIPTION", nullable = false)
+	@Column(name = "DESCRIPTION", nullable = true)
 	private String description;
 
 	@Column(name = "CONTENT_TYPE", nullable = false)

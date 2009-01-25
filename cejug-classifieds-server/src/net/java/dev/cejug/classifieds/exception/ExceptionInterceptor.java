@@ -34,22 +34,26 @@ import javax.persistence.PersistenceException;
  */
 public class ExceptionInterceptor {
 
-    @AroundInvoke
-    public Object exceptionInterceptor(InvocationContext context) throws Exception {
+	@AroundInvoke
+	public Object exceptionInterceptor(InvocationContext context)
+			throws Exception {
 
-        Object result = null;
+		Object result = null;
 
-        try {
-            result = context.proceed();
-        } catch (PersistenceException pe) {
-            String methodName = context.getMethod().getName();
-            if (methodName.startsWith("delete") && (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
-                throw new ObjectInUseException("Could not delete because object is referenced by another entity.", pe);
-            } else {
-                throw pe;
-            }
-        }
+		try {
+			result = context.proceed();
+		} catch (PersistenceException pe) {
+			String methodName = context.getMethod().getName();
+			if (methodName.startsWith("delete")
+					&& (pe.getCause().getCause() instanceof SQLIntegrityConstraintViolationException)) {
+				throw new ObjectInUseException(
+						"Could not delete because object is referenced by another entity.",
+						pe);
+			} else {
+				throw pe;
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 }

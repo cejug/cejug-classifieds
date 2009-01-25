@@ -60,7 +60,6 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
 public class AdvertisementOperations extends
 		AbstractCrudImpl<AdvertisementEntity, Advertisement> implements
 		AdvertisementOperationsLocal {
-
 	/**
 	 * Persistence façade of Advertisement entities.
 	 */
@@ -119,63 +118,37 @@ public class AdvertisementOperations extends
 			customer.setDomainId(header.getCustomerDomainId());
 			advertisement.setCustomer(customer);
 			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
-			// AtavarImage img = null;
+			AtavarImage img = avatar.getImage();
 
-			/*
-			 * if (avatar.getGravatarEmail() != null) { avatar
-			 * .setUrl("http://www.gravatar.com/avatar/" +
-			 * hashGravatarEmail(avatar.getGravatarEmail()) + ".jpg"); } else if
-			 * (avatar.getUrl() != null) { img = avatar.getImage(); AtavarImage
-			 * temp = new AtavarImage();
-			 * temp.setContentType(img.getContentType()); temp.setValue(null);
-			 * avatar.setImage(temp); }
-			 */
-			String[] fakeAvatar = { "767fc9c115a1b989744c755db47feb60",
-					"5915fd742d0c26f6a584f9d21f991b9c",
-					"f4510afa5a1ceb6ae7c058c25051aed9",
-					"84987b436214f52ec0b04cd1f8a73c3c",
-					"bb29d699b5cba218c313b61aa82249da",
-					"b0b357b291ac72bc7da81b4d74430fe6",
-					"d212b7b6c54f0ccb2c848d23440b33ba",
-					"1a33e7a69df4f675fcd799edca088ac2",
-					"992df4737c71df3189eed335a98fa0c0",
-					"a558f2098da8edf67d9a673739d18aff",
-					"8379aabc84ecee06f48d8ca48e09eef4",
-					"4d346581a3340e32cf93703c9ce46bd4",
-					hashGravatarEmail("tusharvjoshi@gmail.com"),
-					hashGravatarEmail("fgaucho@gmail.com"),
-					hashGravatarEmail("arissonleal@gmail.com"),
-					hashGravatarEmail("roliveiralopes@gmail.com"),					
-					"eed0e8d62f562daf038f182de7f1fd42",
-					"7acb05d25c22cbc0942a5e3de59392bb",
-					"df126b735a54ed95b4f4cc346b786843",
-					"aac7e0386facd070f6d4b817c257a958",
-					"c19b763b0577beb2e0032812e18e567d",
-					"06005cd2700c136d09e71838645d36ff" };
-
-			avatar
-					.setUrl("http://www.gravatar.com/avatar/"
-							// +
-							// hashGravatarEmail((Math.random()>.5?"tusharvjoshi@gmail.com":"fgaucho@gmail.com"))
-							+ fakeAvatar[(int) (Math.random()
-									* fakeAvatar.length - 0.0000000000001d)]
-							+ ".jpg");
-			/*
-			 * Copy resources to the content repository - the file system. try {
-			 * copyResourcesToRepository(advertisement); } catch (Exception e) {
-			 * e.printStackTrace(); }
-			 */
+			if (avatar.getGravatarEmail() != null) {
+				avatar
+						.setUrl("http://www.gravatar.com/avatar/"
+								+ hashGravatarEmail(avatar.getGravatarEmail())
+								+ ".jpg");
+				// img = new AtavarImage();
+				AtavarImage temp = new AtavarImage();
+				temp.setContentType("image/jpg");
+				avatar.setImage(temp);
+				String tmp = avatar.getUrl();
+				avatar.setName(tmp.substring(tmp.lastIndexOf('/') + 1));
+			} else if (avatar.getUrl() != null) {
+				AtavarImage temp = new AtavarImage();
+				temp.setContentType(img.getContentType());
+				avatar.setImage(temp);
+				avatar.setName("img" + System.currentTimeMillis());
+			}
 
 			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
 			advFacade.create(entity);
-			/*
-			if (img != null) {
+			if (img != null && img.getValue() != null
+					&& img.getValue().length > 0) {
 				String reference = copyResourcesToRepository(avatar.getName(),
 						img.getValue(), entity.getId(), header
 								.getCustomerDomainId());
 				entity.getAvatar().setReference(reference);
 				advFacade.update(entity);
-			}*/
+			}
+
 			logger.finest("Advertisement #" + entity.getId() + " published ("
 					+ entity.getTitle() + ")");
 			return advAdapter.toSoap(entity);

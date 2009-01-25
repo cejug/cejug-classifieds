@@ -53,8 +53,8 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 
 /**
- * Adaptation interface between Advertisement objects representing Soap elements and
- * the AdvertismementEntity used to persist the domain data in the database.
+ * Adaptation interface between Advertisement objects representing Soap elements
+ * and the AdvertismementEntity used to persist the domain data in the database.
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)

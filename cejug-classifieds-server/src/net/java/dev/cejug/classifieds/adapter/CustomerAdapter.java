@@ -54,6 +54,7 @@ public class CustomerAdapter implements CustomerAdapterLocal {
 		// entity.setQuotas(type.getEntityId());
 		return entity;
 	}
+
 	/** {@inheritDoc} */
 	public Customer toSoap(CustomerEntity entity) throws IllegalStateException,
 			IllegalArgumentException {

@@ -34,18 +34,25 @@ import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
  * @see CRUDEntityFacade
  */
 @Stateless
-public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity> implements AdvertisementFacadeLocal {
+public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
+		implements AdvertisementFacadeLocal {
 
-    /**
-     * Read all advertisements of a category.
-     * @param categoryId The ID of the advertisements' category.
-     * @return a list of advertisements of a certain category.
-     */
-    public List<AdvertisementEntity> readByCategory(final long categoryId) throws IllegalStateException, IllegalArgumentException {
+	/**
+	 * Read all advertisements of a category.
+	 * 
+	 * @param categoryId
+	 *            The ID of the advertisements' category.
+	 * @return a list of advertisements of a certain category.
+	 */
+	public List<AdvertisementEntity> readByCategory(final long categoryId)
+			throws IllegalStateException, IllegalArgumentException {
 
-        Query query = manager.createNamedQuery(AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY);
-        query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID, Long.valueOf(categoryId));
-        query.setParameter(AdvertisementEntity.QUERIES.PARAM_STATE, AdvertisementEntity.AdvertisementStatus.ARCHIVE);
-        return doQuery(query);
-    }
+		Query query = manager
+				.createNamedQuery(AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY);
+		query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID, Long
+				.valueOf(categoryId));
+		query.setParameter(AdvertisementEntity.QUERIES.PARAM_STATE,
+				AdvertisementEntity.AdvertisementStatus.ARCHIVE);
+		return doQuery(query);
+	}
 }

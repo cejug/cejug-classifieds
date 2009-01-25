@@ -61,7 +61,9 @@ public class AdminClientMock {
 		if (categories.getAdvCategory().isEmpty()) {
 			return createCategory();
 		} else {
-			return categories.getAdvCategory().get(0);
+			int pos = (int) Math.abs((Math.random()
+					* categories.getAdvCategory().size() - 0.000000001));
+			return categories.getAdvCategory().get(pos);
 		}
 	}
 

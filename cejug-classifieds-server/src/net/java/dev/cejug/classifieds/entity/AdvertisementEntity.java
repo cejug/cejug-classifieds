@@ -52,208 +52,210 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 @NamedQueries(@NamedQuery(name = AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY, query = "SELECT adv FROM AdvertisementEntity adv WHERE adv.category.id= :catId and adv.state <> :state ORDER BY adv.start DESC"))
 public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 
-    public static final class QUERIES {
+	public static final class QUERIES {
 
-        /**
-         * Parameters:
-         * <ul>
-         * <li><code>CustomerEntity.PARAM_CATEGORY_ID</code>: the ID of the
-         * category</li>
-         * </ul>
-         */
-        public static final String SELECT_BY_CATEGORY = "selectByCategory";
+		/**
+		 * Parameters:
+		 * <ul>
+		 * <li><code>CustomerEntity.PARAM_CATEGORY_ID</code>: the ID of the
+		 * category</li>
+		 * </ul>
+		 */
+		public static final String SELECT_BY_CATEGORY = "selectByCategory";
 
-        /** {@value} */
-        public static final String PARAM_CATEGORY_ID = "catId";
+		/** {@value} */
+		public static final String PARAM_CATEGORY_ID = "catId";
 
-        /** {@value} */
-        public static final String PARAM_STATE = "state";
-    }
+		/** {@value} */
+		public static final String PARAM_STATE = "state";
+	}
 
-    /**
-     * This assumes a scheduled process (quartz?) that will update the status of
-     * the advertisements.
-     */
-    public enum AdvertisementStatus {
-        ONLINE, ARCHIVE, CANCELED
-    }
+	/**
+	 * This assumes a scheduled process (quartz?) that will update the status of
+	 * the advertisements.
+	 */
+	public enum AdvertisementStatus {
+		ONLINE, ARCHIVE, CANCELED
+	}
 
-    @Column(name = "TITLE", nullable = false)
-    private String title;
+	@Column(name = "TITLE", nullable = false)
+	private String title;
 
-    @Column(name = "SUMMARY", nullable = false)
-    private String summary;
+	@Column(name = "SUMMARY", nullable = false)
+	private String summary;
 
-    @Column(name = "TEXT", nullable = false)
-    private String text;
+	@Column(name = "TEXT", nullable = false)
+	private String text;
 
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
-    @ManyToOne
-    private CustomerEntity customer;
+	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
+	@ManyToOne
+	private CustomerEntity customer;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
-    private Collection<AdvertisementKeywordEntity> keywords;
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "ADVERTISEMENT_KEYWORD", joinColumns = @JoinColumn(name = "ADVERTISEMENT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "KEYWORD_ID", referencedColumnName = "ID"))
+	private Collection<AdvertisementKeywordEntity> keywords;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
-    private AdvertisementTypeEntity type;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADVERTISEMENT_TYPE_ID")
+	private AdvertisementTypeEntity type;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY")
-    private CategoryEntity category;
+	@ManyToOne
+	@JoinColumn(name = "CATEGORY")
+	private CategoryEntity category;
 
-    @Column(name = "START", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar start;
+	@Column(name = "START", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar start;
 
-    @Column(name = "FINISH", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar finish;
+	@Column(name = "FINISH", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar finish;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AdvertisementStatus state = AdvertisementStatus.ONLINE;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private AdvertisementStatus state = AdvertisementStatus.ONLINE;
 
-    @JoinColumn(referencedColumnName = "ID", name = "AVATAR", nullable = true)
-    private AttachmentEntity avatar;
+	@JoinColumn(referencedColumnName = "ID", name = "AVATAR", nullable = true)
+	private AttachmentEntity avatar;
 
-    /*
-     * @ManyToOne
-     * 
-     * @JoinColumn(name = "ID", nullable = true) private AttachmentEntity
-     * attachment;
-     */
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "ID", nullable = true) private AttachmentEntity
+	 * attachment;
+	 */
 
-    public AttachmentEntity getAvatar() {
+	public AttachmentEntity getAvatar() {
 
-        return avatar;
-    }
+		return avatar;
+	}
 
-    public void setAvatar(AttachmentEntity avatar) {
+	public void setAvatar(AttachmentEntity avatar) {
 
-        this.avatar = avatar;
-    }
+		this.avatar = avatar;
+	}
 
-    public String getTitle() {
+	public String getTitle() {
 
-        return title;
-    }
+		return title;
+	}
 
-    public void setTitle(final String title) {
+	public void setTitle(final String title) {
 
-        this.title = title;
-    }
+		this.title = title;
+	}
 
-    public String getSummary() {
+	public String getSummary() {
 
-        return summary;
-    }
+		return summary;
+	}
 
-    public void setSummary(final String summary) {
+	public void setSummary(final String summary) {
 
-        this.summary = summary;
-    }
+		this.summary = summary;
+	}
 
-    public String getText() {
+	public String getText() {
 
-        return text;
-    }
+		return text;
+	}
 
-    public void setText(final String text) {
+	public void setText(final String text) {
 
-        this.text = text;
-    }
+		this.text = text;
+	}
 
-    public CustomerEntity getCustomer() {
+	public CustomerEntity getCustomer() {
 
-        return customer;
-    }
+		return customer;
+	}
 
-    public void setCustomer(final CustomerEntity customer) {
+	public void setCustomer(final CustomerEntity customer) {
 
-        this.customer = customer;
-    }
+		this.customer = customer;
+	}
 
-    public Collection<AdvertisementKeywordEntity> getKeywords() {
+	public Collection<AdvertisementKeywordEntity> getKeywords() {
 
-        return keywords;
-    }
+		return keywords;
+	}
 
-    public void setKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
+	public void setKeywords(
+			final Collection<AdvertisementKeywordEntity> keywords) {
 
-        this.keywords = keywords;
-    }
+		this.keywords = keywords;
+	}
 
-    public void addKeyword(final String keyword) {
+	public void addKeyword(final String keyword) {
 
-        AdvertisementKeywordEntity advKeyword;
-        advKeyword = new AdvertisementKeywordEntity();
-        advKeyword.setName(keyword);
-        addKeyword(advKeyword);
-    }
+		AdvertisementKeywordEntity advKeyword;
+		advKeyword = new AdvertisementKeywordEntity();
+		advKeyword.setName(keyword);
+		addKeyword(advKeyword);
+	}
 
-    public void addKeyword(final AdvertisementKeywordEntity keyword) {
+	public void addKeyword(final AdvertisementKeywordEntity keyword) {
 
-        if (this.keywords == null) {
-            this.keywords = new ArrayList<AdvertisementKeywordEntity>();
-        }
-        keywords.add(keyword);
-    }
+		if (this.keywords == null) {
+			this.keywords = new ArrayList<AdvertisementKeywordEntity>();
+		}
+		keywords.add(keyword);
+	}
 
-    /**
-     * @return the type
-     */
-    public AdvertisementTypeEntity getType() {
+	/**
+	 * @return the type
+	 */
+	public AdvertisementTypeEntity getType() {
 
-        return type;
-    }
+		return type;
+	}
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(final AdvertisementTypeEntity type) {
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(final AdvertisementTypeEntity type) {
 
-        this.type = type;
-    }
+		this.type = type;
+	}
 
-    public Calendar getStart() {
+	public Calendar getStart() {
 
-        return start;
-    }
+		return start;
+	}
 
-    public void setStart(final Calendar start) {
+	public void setStart(final Calendar start) {
 
-        this.start = start;
-    }
+		this.start = start;
+	}
 
-    public Calendar getFinish() {
+	public Calendar getFinish() {
 
-        return finish;
-    }
+		return finish;
+	}
 
-    public void setFinish(final Calendar finish) {
+	public void setFinish(final Calendar finish) {
 
-        this.finish = finish;
-    }
+		this.finish = finish;
+	}
 
-    public AdvertisementStatus getState() {
+	public AdvertisementStatus getState() {
 
-        return state;
-    }
+		return state;
+	}
 
-    public void setState(final AdvertisementStatus state) {
+	public void setState(final AdvertisementStatus state) {
 
-        this.state = state;
-    }
+		this.state = state;
+	}
 
-    public CategoryEntity getCategory() {
+	public CategoryEntity getCategory() {
 
-        return category;
-    }
+		return category;
+	}
 
-    public void setCategory(final CategoryEntity category) {
+	public void setCategory(final CategoryEntity category) {
 
-        this.category = category;
-    }
+		this.category = category;
+	}
 }
