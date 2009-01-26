@@ -29,8 +29,8 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.PersistenceException;
 
 /**
- * @author $Author: rodrigolopes $
- * @version $Rev: 627 $ ($Date: 2008-09-22 20:14:57 +0200 (seg, 22 set 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 public class ExceptionInterceptor {
 

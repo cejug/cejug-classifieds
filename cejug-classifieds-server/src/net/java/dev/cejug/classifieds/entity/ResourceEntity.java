@@ -37,8 +37,8 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
  * A resource can be an image, a MP3 sound or a Flash animation. Please check
  * the classifieds contract about the supported media types.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Entity
 @Table(name = "RESOURCE")

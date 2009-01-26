@@ -1,5 +1,5 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- Copyright (C) 2008 CEJUG - Ceará Java Users Group
+ Copyright (C) 2009 CEJUG - Ceará Java Users Group
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -41,8 +41,8 @@ import javax.mail.internet.MimeMessage;
  * customer resource (like account activation notification). It depends on a
  * Mail API resource provided by the Java EE container.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2009-01-25 18:45:55 +0100 (Sun, 25 Jan 2009) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic") }, mappedName = "AccountChangesTopic")
 public class ClassifiedsMailerBean implements MessageListener {

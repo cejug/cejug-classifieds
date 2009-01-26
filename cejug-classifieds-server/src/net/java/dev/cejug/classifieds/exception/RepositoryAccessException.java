@@ -7,8 +7,8 @@ import java.io.IOException;
  * default a File System). This exception is thrown in case of problems trying
  * to access the repository.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-09-08 18:25:25 +0200 (Mon, 08 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * 
  */
 public class RepositoryAccessException extends RuntimeException {

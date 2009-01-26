@@ -46,7 +46,7 @@ import org.w3._2005.atom.Feed;
  * suitable for REST protocol (this is experimental, eventually we will replace
  * this servlet by a jersey code).
  * 
- * @author $Author: felipegaucho $
+ * @author $Author$
  * @version $Rev$ ($LastChangedDate$)
  */
 public class AtomFeed extends HttpServlet {

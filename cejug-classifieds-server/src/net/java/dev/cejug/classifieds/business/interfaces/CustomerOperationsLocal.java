@@ -28,8 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug_classifieds.metadata.common.Customer;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 636 $ ($Date: 2008-09-08 18:25:25 +0200 (Mo, 08 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Local
 public interface CustomerOperationsLocal extends CRUDLocal<Customer> {

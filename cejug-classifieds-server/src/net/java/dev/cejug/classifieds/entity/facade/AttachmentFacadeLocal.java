@@ -28,8 +28,8 @@ import javax.ejb.Local;
 import net.java.dev.cejug.classifieds.entity.AttachmentEntity;
 
 /**
- * @author $Author: felipegaucho $
- * @version $Rev: 578 $ ($Date: 2008-09-03 19:58:27 +0200 (Wed, 03 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  * @see EntityFacade
  */
 @Local

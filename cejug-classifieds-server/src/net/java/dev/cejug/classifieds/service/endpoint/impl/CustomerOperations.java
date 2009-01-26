@@ -37,8 +37,8 @@ import net.java.dev.cejug_classifieds.metadata.common.Customer;
 /**
  * TODO: to comment.
  * 
- * @author $Author: felipegaucho $
- * @version $Rev: $ ($Date: 2008-09-25 21:03:18 +0200 (Thu, 25 Sep 2008) $)
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
 @Stateless
 public class CustomerOperations extends

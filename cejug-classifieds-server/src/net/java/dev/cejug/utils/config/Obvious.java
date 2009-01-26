@@ -10,7 +10,7 @@
  * with the terms and conditions stipulated in the agreement/contract
  * under which the program(s) have been supplied.
  *
- * @(#) $Id: codetemplates.xml,v 1.5 2004/06/29 12:49:49 hagger Exp $
+ * @(#) $Id$
  */
 package net.java.dev.cejug.utils.config;
 
