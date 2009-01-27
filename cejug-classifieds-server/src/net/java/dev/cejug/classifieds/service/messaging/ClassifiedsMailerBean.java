@@ -89,9 +89,8 @@ public class ClassifiedsMailerBean implements MessageListener {
 				msg.setSubject(subject);
 				msg.setSentDate(new java.util.Date());
 				msg.setContent(content, "text/html");
-				System.out.println("MDB: Sending Message...");
 				Transport.send(msg);
-				logger.finest("MDB: Message Sent");
+				logger.finest("MDB: Message Sent to " + to);
 			} else {
 				throw new ClassCastException("expected " + MapMessage.class
 						+ " but received " + message.getClass());
