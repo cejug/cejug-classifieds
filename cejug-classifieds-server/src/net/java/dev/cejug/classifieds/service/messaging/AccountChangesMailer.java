@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.messaging;
 
+import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
@@ -47,6 +49,13 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 
 	@Resource(mappedName = "AccountChangesTopic")
 	private Topic statusTopic;
+	
+	/**
+	 * Mailer bean logger.
+	 */
+	private final static Logger logger = Logger.getLogger(
+			AccountChangesMailer.class.getName(), "i18n/log");
+
 
 	public String sendAccountChangesSummary() {
 		String from = "cejug.classifieds@gmail.com";
@@ -56,28 +65,25 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 				+ " call EJB3 Application with order id # " + "1234567890";
 
 		try {
-			System.out.println("Before status TopicCF connection");
+			logger.finest("Sending notification about account changes");
 			Connection connection = statusMessageTopicCF.createConnection();
-			System.out.println("Created connection");
+			logger.finest("Connection established with client ID = " + connection.getClientID());
 			connection.start();
-			System.out.println("statted connection");
-			System.out.println("Starting Topic Session");
 			Session topicSession = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
 
 			MessageProducer publisher = topicSession
 					.createProducer(statusTopic);
-			System.out.println("created producer");
+			logger.finest("Producer created for topic " + statusTopic.getTopicName());
 			MapMessage message = topicSession.createMapMessage();
 			message.setStringProperty("from", from);
 			message.setStringProperty("to", to);
 			message.setStringProperty("subject", "Status of your wine order");
 			message.setStringProperty("content", content);
-			System.out.println("before send");
 			publisher.send(message);
-			System.out.println("after send");
+			logger.finest("message sent.");
 		} catch (JMSException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());
 		}
 
 		return "Created a MapMessage and sent it to StatusTopic";

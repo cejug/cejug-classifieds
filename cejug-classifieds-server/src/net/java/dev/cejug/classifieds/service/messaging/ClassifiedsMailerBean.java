@@ -59,8 +59,7 @@ public class ClassifiedsMailerBean implements MessageListener {
 	private Session javaMailSession;
 
 	/**
-	 * the global log manager, used to allow third party services to override
-	 * the default logger.
+	 * Mailer bean logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
 			ClassifiedsMailerBean.class.getName(), "i18n/log");
@@ -92,7 +91,7 @@ public class ClassifiedsMailerBean implements MessageListener {
 				Transport.send(msg);
 				logger.finest("MDB: Message Sent");
 			} else {
-				logger.severe("Invalid message ");
+				logger.severe("Invalid message (" + message.getClass() + ")");
 			}
 		} catch (Exception ex) {
 			logger.severe("Invalid message ");
