@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.messaging;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -52,8 +53,9 @@ public class ClassifiedsMailerBean implements MessageListener {
 	 * 
 	 * @see <a href='http://docs.sun.com/app/docs/doc/820-4335/ablkr?a=view'>
 	 *      Glassfish instructions about Configuring JavaMail Resources</a>
-	 * @see <a href='http://www.liferay.com/web/guest/community/wiki/-/wiki/Main/Configuring+gmail+smtp+server+with+Lif
-	 *      e r a y ' > configuring GMail required properties (an example)</a>
+	 * @see <a href='http://www.liferay.com/web/guest/community/wiki/-/wiki/Main/Configuring+gmail+smtp+server+with+L
+	 *      i f e r a y ' > configuring GMail required properties (an
+	 *      example)</a>
 	 */
 	@Resource(name = "mail/classifieds")
 	private Session javaMailSession;
@@ -91,10 +93,11 @@ public class ClassifiedsMailerBean implements MessageListener {
 				Transport.send(msg);
 				logger.finest("MDB: Message Sent");
 			} else {
-				logger.severe("Invalid message (" + message.getClass() + ")");
+				throw new ClassCastException("expected " + MapMessage.class
+						+ " but received " + message.getClass());
 			}
 		} catch (Exception ex) {
-			logger.severe("Invalid message ");
+			logger.log(Level.SEVERE, "Unable to process message", ex);
 		}
 	}
 }
