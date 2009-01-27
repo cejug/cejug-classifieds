@@ -88,7 +88,7 @@
 			<para></para>
 		</section>
 		<section id="uh.spam">
-			<title>Report SPAM</title>
+			<title>Report SPAM (asynchronous)</title>
 			<para>Customer perspective</para>
 			<orderedlist>
 				<listitem>
