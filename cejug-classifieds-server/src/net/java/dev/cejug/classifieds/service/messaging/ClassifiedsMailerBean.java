@@ -61,7 +61,8 @@ public class ClassifiedsMailerBean implements MessageListener {
 	private Session javaMailSession;
 
 	/**
-	 * Mailer bean logger.
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
 			ClassifiedsMailerBean.class.getName(), "i18n/log");
@@ -77,6 +78,7 @@ public class ClassifiedsMailerBean implements MessageListener {
 	public void onMessage(Message message) {
 		try {
 			if (message instanceof MapMessage) {
+				logger.info("JavaMail Session: " + javaMailSession);
 				MapMessage orderMessage = (MapMessage) message;
 				String from = orderMessage.getStringProperty("from");
 				String to = orderMessage.getStringProperty("to");
@@ -90,13 +92,12 @@ public class ClassifiedsMailerBean implements MessageListener {
 				msg.setSentDate(new java.util.Date());
 				msg.setContent(content, "text/html");
 				Transport.send(msg);
-				logger.finest("MDB: Message Sent to " + to);
+				logger.info("MDB: Message Sent");
 			} else {
-				throw new ClassCastException("expected " + MapMessage.class
-						+ " but received " + message.getClass());
+				logger.warning("Invalid message " + message.getClass());
 			}
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Unable to process message", ex);
+			logger.log(Level.SEVERE, "onMessage error", ex);
 		}
 	}
 }
