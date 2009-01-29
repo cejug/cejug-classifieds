@@ -15,7 +15,9 @@
 			<archive>https://cejug-classifieds.dev.java.net/servlets/SummarizeList?listName=dev</archive>
 		</mailingList>
 	</mailingLists>
-
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<pluginManagement>
 			<plugins>
