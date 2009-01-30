@@ -32,6 +32,7 @@ import javax.ejb.MessageDriven;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -45,7 +46,7 @@ import javax.mail.internet.MimeMessage;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic") }, mappedName = "AccountChangesTopic")
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") }, mappedName = "RegistrationQueue")
 public class ClassifiedsMailerBean implements MessageListener {
 	/**
 	 * JavaMail resource is injected by the container and have everything we
@@ -53,9 +54,6 @@ public class ClassifiedsMailerBean implements MessageListener {
 	 * 
 	 * @see <a href='http://docs.sun.com/app/docs/doc/820-4335/ablkr?a=view'>
 	 *      Glassfish instructions about Configuring JavaMail Resources</a>
-	 * @see <a href='http://www.liferay.com/web/guest/community/wiki/-/wiki/Main/Configuring+gmail+smtp+server+with+L
-	 *      i f e r a y ' > configuring GMail required properties (an
-	 *      example)</a>
 	 */
 	@Resource(name = "mail/classifieds")
 	private Session javaMailSession;
@@ -78,26 +76,39 @@ public class ClassifiedsMailerBean implements MessageListener {
 	public void onMessage(Message message) {
 		try {
 			if (message instanceof MapMessage) {
-				logger.info("JavaMail Session: " + javaMailSession);
-				MapMessage orderMessage = (MapMessage) message;
-				String from = orderMessage.getStringProperty("from");
-				String to = orderMessage.getStringProperty("to");
-				String subject = orderMessage.getStringProperty("subject");
-				String content = orderMessage.getStringProperty("content");
-				javax.mail.Message msg = new MimeMessage(javaMailSession);
-				msg.setFrom(new InternetAddress(from));
-				InternetAddress[] address = { new InternetAddress(to) };
-				msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
-				msg.setSubject(subject);
-				msg.setSentDate(new java.util.Date());
-				msg.setContent(content, "text/html");
-				Transport.send(msg);
-				logger.info("MDB: Message Sent");
+				System.out.println(javaMailSession.getProperties());
+		        MapMessage orderMessage = (MapMessage)message;
+		        String from = orderMessage.getStringProperty("from");
+		        String to = orderMessage.getStringProperty("to");
+		        String subject = orderMessage.getStringProperty("subject");
+		        String content = orderMessage.getStringProperty("content");
+		        javax.mail.Message msg = new MimeMessage(javaMailSession);
+		        msg.setFrom(new InternetAddress(from));
+		        InternetAddress[] address = { new InternetAddress(to) };
+		        msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
+		        msg.setSubject(subject);
+		        msg.setSentDate(new java.util.Date());
+		        msg.setContent(content, "text/html");
+		        Transport.send(msg);
+				logger.info("MDB: EMAIL tent to " + to);
 			} else {
 				logger.warning("Invalid message " + message.getClass());
 			}
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			logger.log(Level.SEVERE, "onMessage error", ex);
+		}
+	}
+	
+	/**
+	 * SimpleAuthenticator is used to do simple authentication when the SMTP
+	 * server requires it.
+	 */
+	public class SMTPAuthenticator extends javax.mail.Authenticator {
+		public PasswordAuthentication getPasswordAuthentication() {
+			String username = "cejug.classifieds@gmail.com";
+			String password = "@d0r0cl@ss1f13ds";
+			return new PasswordAuthentication(username, password);
 		}
 	}
 }
