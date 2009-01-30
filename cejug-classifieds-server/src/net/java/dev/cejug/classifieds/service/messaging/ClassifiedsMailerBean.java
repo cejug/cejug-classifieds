@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.service.messaging;
 
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +33,7 @@ import javax.ejb.MessageDriven;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -57,6 +59,12 @@ public class ClassifiedsMailerBean implements MessageListener {
 	 */
 	@Resource(name = "mail/classifieds")
 	private Session javaMailSession;
+	
+
+	/** TOTALLY WRONG - but somehow I couldn't make GMail to work on Glassfish..... */
+	private String pipedUsername;
+	private String pipedPassword;
+
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -77,19 +85,33 @@ public class ClassifiedsMailerBean implements MessageListener {
 		try {
 			if (message instanceof MapMessage) {
 				System.out.println(javaMailSession.getProperties());
-		        MapMessage orderMessage = (MapMessage)message;
-		        String from = orderMessage.getStringProperty("from");
-		        String to = orderMessage.getStringProperty("to");
-		        String subject = orderMessage.getStringProperty("subject");
-		        String content = orderMessage.getStringProperty("content");
-		        javax.mail.Message msg = new MimeMessage(javaMailSession);
-		        msg.setFrom(new InternetAddress(from));
-		        InternetAddress[] address = { new InternetAddress(to) };
-		        msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
-		        msg.setSubject(subject);
-		        msg.setSentDate(new java.util.Date());
-		        msg.setContent(content, "text/html");
-		        Transport.send(msg);
+				MapMessage orderMessage = (MapMessage) message;
+				String from = orderMessage.getStringProperty("from");
+				String to = orderMessage.getStringProperty("to");
+				String subject = orderMessage.getStringProperty("subject");
+				String content = orderMessage.getStringProperty("content");
+
+				Properties sessionProps = javaMailSession.getProperties();
+				pipedUsername = sessionProps.getProperty("mail.user");
+				pipedPassword = sessionProps.getProperty("mail.smtp.password");
+				
+				
+				
+				javax.mail.Message msg = new MimeMessage(Session
+						.getDefaultInstance(sessionProps, new Authenticator() {
+							public PasswordAuthentication getPasswordAuthentication() {
+								return new PasswordAuthentication(
+										pipedUsername, pipedPassword);
+							}
+						}));
+				// javax.mail.Message msg = new MimeMessage(javaMailSession);
+				msg.setFrom(new InternetAddress(from));
+				InternetAddress[] address = { new InternetAddress(to) };
+				msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
+				msg.setSubject(subject);
+				msg.setSentDate(new java.util.Date());
+				msg.setContent(content, "text/html");
+				Transport.send(msg);
 				logger.info("MDB: EMAIL tent to " + to);
 			} else {
 				logger.warning("Invalid message " + message.getClass());
@@ -97,18 +119,6 @@ public class ClassifiedsMailerBean implements MessageListener {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.log(Level.SEVERE, "onMessage error", ex);
-		}
-	}
-	
-	/**
-	 * SimpleAuthenticator is used to do simple authentication when the SMTP
-	 * server requires it.
-	 */
-	public class SMTPAuthenticator extends javax.mail.Authenticator {
-		public PasswordAuthentication getPasswordAuthentication() {
-			String username = "cejug.classifieds@gmail.com";
-			String password = "@d0r0cl@ss1f13ds";
-			return new PasswordAuthentication(username, password);
 		}
 	}
 }
