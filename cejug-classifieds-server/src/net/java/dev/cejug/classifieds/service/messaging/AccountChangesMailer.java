@@ -31,8 +31,8 @@ import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
-import javax.jms.Topic;
 import javax.jms.TopicConnectionFactory;
 
 /**
@@ -47,8 +47,8 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 	@Resource(mappedName = "AccountChangesTopicConnectionFactory")
 	private TopicConnectionFactory statusMessageTopicCF;
 
-	@Resource(mappedName = "AccountChangesTopic")
-	private Topic statusTopic;
+	@Resource(mappedName = "RegistrationQueue")
+	private Queue registrationQueue;
 	
 	/**
 	 * Mailer bean logger.
@@ -73,8 +73,8 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 					Session.AUTO_ACKNOWLEDGE);
 
 			MessageProducer publisher = topicSession
-					.createProducer(statusTopic);
-			logger.finest("Producer created for topic " + statusTopic.getTopicName());
+					.createProducer(registrationQueue);
+			logger.finest("Producer created for topic " + registrationQueue.getQueueName());
 			MapMessage message = topicSession.createMapMessage();
 			message.setStringProperty("from", from);
 			message.setStringProperty("to", to);
