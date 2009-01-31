@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.service.messaging;
+package net.java.dev.cejug.classifieds.mom;
 
 import java.util.logging.Logger;
 

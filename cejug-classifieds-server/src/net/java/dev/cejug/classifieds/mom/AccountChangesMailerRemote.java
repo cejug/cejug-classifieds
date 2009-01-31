@@ -1,4 +1,4 @@
-package net.java.dev.cejug.classifieds.service.messaging;
+package net.java.dev.cejug.classifieds.mom;
 
 import java.rmi.RemoteException;
 
