@@ -58,13 +58,20 @@ public class ClassifiedsMailerBean implements MessageListener {
 	 *      Glassfish instructions about Configuring JavaMail Resources</a>
 	 */
 	@Resource(name = "mail/classifieds")
-	private Session javaMailSession;
-	
+	private transient Session javaMailSession;
 
-	/** TOTALLY WRONG - but somehow I couldn't make GMail to work on Glassfish..... */
-	private String pipedUsername;
-	private String pipedPassword;
-
+	/**
+	 * TOTALLY WRONG - but somehow I couldn't make GMail to work on
+	 * Glassfish..... it copies the username from the JavaMail Session to a
+	 * class variable in order to create an authenticator. The authenticator
+	 * itself is not supposed to be used, the container should handle that...
+	 * 
+	 */
+	private transient String pipedUsername;
+	/**
+	 * 
+	 */
+	private transient String pipedPassword;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -94,9 +101,7 @@ public class ClassifiedsMailerBean implements MessageListener {
 				Properties sessionProps = javaMailSession.getProperties();
 				pipedUsername = sessionProps.getProperty("mail.user");
 				pipedPassword = sessionProps.getProperty("mail.smtp.password");
-				
-				
-				
+
 				javax.mail.Message msg = new MimeMessage(Session
 						.getDefaultInstance(sessionProps, new Authenticator() {
 							public PasswordAuthentication getPasswordAuthentication() {

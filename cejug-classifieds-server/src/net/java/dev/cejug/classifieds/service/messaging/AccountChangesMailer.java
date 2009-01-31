@@ -45,17 +45,16 @@ import javax.jms.TopicConnectionFactory;
 public class AccountChangesMailer implements AccountChangesMailerLocal {
 
 	@Resource(mappedName = "AccountChangesTopicConnectionFactory")
-	private TopicConnectionFactory statusMessageTopicCF;
+	private transient TopicConnectionFactory statusMessageTopicCF;
 
 	@Resource(mappedName = "RegistrationQueue")
-	private Queue registrationQueue;
-	
+	private transient Queue registrationQueue;
+
 	/**
 	 * Mailer bean logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
 			AccountChangesMailer.class.getName(), "i18n/log");
-
 
 	public String sendAccountChangesSummary() {
 		String from = "cejug.classifieds@gmail.com";
@@ -64,26 +63,36 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 				+ "If you have questions"
 				+ " call EJB3 Application with order id # " + "1234567890";
 
+		Connection connection = null;
 		try {
 			logger.finest("Sending notification about account changes");
-			Connection connection = statusMessageTopicCF.createConnection();
-			logger.finest("Connection established with client ID = " + connection.getClientID());
+			connection = statusMessageTopicCF.createConnection();
+			logger.finest("Connection established with client ID = "
+					+ connection.getClientID());
 			connection.start();
 			Session topicSession = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
 
 			MessageProducer publisher = topicSession
 					.createProducer(registrationQueue);
-			logger.finest("Producer created for topic " + registrationQueue.getQueueName());
+			logger.finest("Producer created for topic "
+					+ registrationQueue.getQueueName());
 			MapMessage message = topicSession.createMapMessage();
 			message.setStringProperty("from", from);
 			message.setStringProperty("to", to);
 			message.setStringProperty("subject", "Status of your wine order");
 			message.setStringProperty("content", content);
 			publisher.send(message);
+
 			logger.finest("message sent.");
 		} catch (JMSException e) {
 			logger.severe(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (JMSException e) {
+				logger.severe(e.getMessage());
+			}
 		}
 
 		return "Created a MapMessage and sent it to StatusTopic";
