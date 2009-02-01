@@ -172,10 +172,12 @@ img {
 	width: auto;
 	height: auto;
 	margin-right: 3px;
+	text-align: right;
 }
 
 .loginlabel a {
 	text-decoration: none;
+	text-align: right;
 }
 
 .loginfield {
@@ -183,6 +185,7 @@ img {
 	width: auto;
 	height: auto;
 	margin-top: 1px;
+	text-align: right;
 }
 
 .help {

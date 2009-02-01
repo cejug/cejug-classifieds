@@ -6,68 +6,70 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-<!-- ui:composition template="../../template/template.xhtml">
-	<ui:define name="login" styleClass="advertisementPane"-->
-<f:verbatim>
-	<div style="background: #4E8975;">
-	<h3>LOGIN</h3>
-	<form method="post" action="j_security_check">
-	<table class="loginPane" bgcolor="#95B9C7">
-		<tr class="loginrow">
-			<th><label class="loginlabel">Username:</label></th>
-			<td><input class="loginfield" type="text" name="j_username" /></td>
-		</tr>
-		<tr class="loginrow">
-			<th><label class="loginlabel">Password:</label></th>
-			<td><input class="loginfield" type="password" name="j_password" /></td>
-		</tr>
-		<tr class="loginrow">
-			<td colspan="2"><input type="submit" value="Log In" /></td>
-			<!-- td align="left"><input class="submit" type="reset" /></td-->
-		</tr>
-	</table>
-	</form>
-	</div>
-	<hr />
-	<div style="background: #AFC7C7;">
-	<h3>OR REGISTER</h3>
-	<form method="post" action="register">
-	<table class="loginPane" bgcolor="#95B9C7">
-		<tr class="loginrow">
-			<th><label class="loginlabel">Your name:</label></th>
-			<td><input class="loginfield" type="text" name="real_name" /></td>
-		</tr>
-		<tr class="loginrow">
-			<th><label class="loginlabel">Username:</label></th>
-			<td><input class="loginfield" type="text" name="username" /></td>
-		</tr>
-		<tr class="loginrow">
-			<th><label class="loginlabel">Email:</label></th>
-			<td><input class="loginfield" type="text" name="email" /></td>
-		</tr>
-		<tr class="loginrow">
-			<th><label class="loginlabel">Password:</label></th>
-			<td><input class="loginfield" type="password" name="password" /></td>
-		</tr>
-		<tr class="loginrow">
-			<td colspan="2"><input type="submit" value="Register" /></td>
-			<!-- td align="left"><input class="submit" type="reset" /></td-->
-		</tr>
+<ui:composition template="../../template/template.xhtml">
+	<ui:define name="pageheader">
+		<div><h:graphicImage value="/images/templateNew/header.png"
+			styleClass="logo" /></div>
+		<div id="headerbar"><a:form id="headerForm">
+			<a:commandLink action="home" value="Home" styleClass="publishLink" />
+		</a:form></div>
+	</ui:define>
 
-	</table>
-	</form>
-	</div>
-</f:verbatim>
-<f:view>
-	<hr />
-	<div style="alignment: center;"><small><h:outputText
-		value="CEJUG-CLASSIFIEDS-LABS: This is a test login/registration page. Login is handled by the Java EE Container while the
+	<ui:define name="body" styleClass="advertisementPane">
+		<f:verbatim>
+			<form method="post" action="j_security_check">
+			<table class="loginPane">
+				<tr class="loginrow">
+					<th><label class="loginlabel">Username:</label></th>
+					<td><input class="loginfield" type="text" name="j_username" /></td>
+				</tr>
+				<tr class="loginrow">
+					<th><label class="loginlabel">Password:</label></th>
+					<td><input class="loginfield" type="password"
+						name="j_password" /></td>
+				</tr>
+				<tr class="loginrow">
+					<td colspan="2"><input type="submit" value="Log In" /></td>
+					<!-- td align="left"><input class="submit" type="reset" /></td-->
+				</tr>
+			</table>
+			</form>
+		</f:verbatim>
+
+		<hr />
+		<div style="background: #AFC7C7;">
+		<h3>OR REGISTER</h3>
+		<a:form id="publishForm" ajaxSubmit="false">
+			<a:keepAlive beanName="registrationBean" />
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msg['login.realname']}" />
+				<h:inputText value="#{registrationBean.name}" style="width:230px;"
+					required="true" label="Headline" />
+				<h:outputText value="#{msg['login.email']}" />
+				<h:inputText value="#{registrationBean.email}" style="width:230px;"
+					required="true" label="Headline" />
+
+				<h:outputText value="#{msg['login.username']}" />
+				<h:inputText value="#{registrationBean.login}" style="width:230px;"
+					required="true" label="Headline" />
+
+				<h:outputText value="#{msg['login.password']}" />
+				<h:inputText value="#{registrationBean.password}"
+					style="width:230px;" required="true" label="Headline" />
+			</h:panelGrid>
+			<h:commandButton action="#{registrationBean.register}"
+				value="REGISTER" />
+		</a:form></div>
+		<f:view>
+			<hr />
+			<div style="alignment: center;"><small><h:outputText
+				value="CEJUG-CLASSIFIEDS-LABS: This is a test login/registration page. Login is handled by the Java EE Container while the
 		 Registration just pushes a registration message in a Registration javax.jms.Queue  - the message 
 		 is later consumed by a Message Driven Bean encharged in to create a new customer record in the dabatase
 		 and redirect the message to the Notification Queue for further customer email notification. After
 		 getting stable, this code should be integrated in the frontpage as a simple login/registration
 		block. i18n and css enhacements are expected in the production version." /></small></div>
-</f:view>
-<!-- /ui:define>
-</ui:composition-->
+		</f:view>
+	</ui:define>
+</ui:composition>
 </html>
