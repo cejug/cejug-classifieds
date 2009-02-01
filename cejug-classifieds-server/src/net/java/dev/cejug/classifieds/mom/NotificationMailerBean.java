@@ -24,19 +24,21 @@
 package net.java.dev.cejug.classifieds.mom;
 
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.mail.Authenticator;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -95,9 +97,11 @@ public class NotificationMailerBean implements MessageListener {
 			if (message instanceof MapMessage) {
 				MapMessage registration = (MapMessage) message;
 				String from = "cejug.classifieds@gmail.com";
-				String to = registration
-						.getStringProperty(RegistrationConstants.EMAIL.value());
-				// TODO: all this message details should be outside this class, passed as parameters......
+				String to;
+				to = registration.getStringProperty(RegistrationConstants.EMAIL
+						.value());
+				// TODO: all this message details should be outside this class,
+				// passed as parameters......
 				String subject = "Cejug-Classifieds registration confirmation";
 				String content = "Welcome to Cejug-Classifieds, \n\n"
 						+ "in order to confirm you requested a registration in our classifieds"
@@ -146,9 +150,12 @@ public class NotificationMailerBean implements MessageListener {
 			} else {
 				logger.warning("Invalid message " + message.getClass());
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			logger.log(Level.SEVERE, "onMessage error", ex);
+		} catch (JMSException e) {
+			logger.severe("Invalid message " + e.getClass());
+		} catch (AddressException e) {
+			logger.severe("Invalid message " + e.getClass());
+		} catch (MessagingException e) {
+			logger.severe("Invalid message " + e.getClass());
 		}
 	}
 }
