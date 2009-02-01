@@ -33,7 +33,6 @@ import javax.xml.ws.WebServiceException;
 import net.java.dev.cejug.classifieds.business.interfaces.CheckMonitorOperationLocal;
 import net.java.dev.cejug.classifieds.entity.ServiceLifeCycleEntity;
 import net.java.dev.cejug.classifieds.entity.facade.ServiceLifeCycleFacadeLocal;
-import net.java.dev.cejug.classifieds.mom.AccountChangesMailerLocal;
 import net.java.dev.cejug_classifieds.metadata.admin.AlivePeriod;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
@@ -49,9 +48,6 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 
 	@EJB
 	private transient ServiceLifeCycleFacadeLocal lifeCycleFacade;
-	
-	@EJB
-	private transient AccountChangesMailerLocal adv;
 
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -79,7 +75,6 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 				periods.add(period);
 			}
 			logger.finest(periods.size() + "periods returned successfully");
-			adv.sendAccountChangesSummary();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.severe(e.getMessage());
@@ -87,4 +82,33 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 		}
 		return response;
 	}
+
+	/*
+	@Resource(mappedName = "RegistrationQueueConnectionFactory")
+	private transient TopicConnectionFactory registrationQueueConnectionFactory;
+
+	@Resource(mappedName = "RegistrationQueue")
+	private transient Queue registrationQueue;
+
+	private void notifyRegistration() {
+		Connection connection = null;
+		try {
+			logger.finest("Sending notification about account changes");
+			connection = registrationQueueConnectionFactory.createConnection();
+			Session topicSession = connection.createSession(false,
+					Session.AUTO_ACKNOWLEDGE);
+			MessageProducer publisher = topicSession
+					.createProducer(registrationQueue);
+			publisher.send(topicSession.createMapMessage());
+		} catch (JMSException e) {
+			logger.severe(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (JMSException e) {
+				logger.severe(e.getMessage());
+			}
+		}
+	}
+	*/
 }

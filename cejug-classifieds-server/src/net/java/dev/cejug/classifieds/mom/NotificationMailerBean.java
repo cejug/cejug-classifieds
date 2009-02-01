@@ -40,6 +40,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import net.java.dev.cejug_classifieds.metadata.common.RegistrationConstants;
+
 /**
  * The goal of this bean is to send emails with the status of an operation or a
  * customer resource (like account activation notification). It depends on a
@@ -48,8 +50,8 @@ import javax.mail.internet.MimeMessage;
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") }, mappedName = "RegistrationQueue")
-public class ClassifiedsMailerBean implements MessageListener {
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") }, mappedName = "NotificationQueue")
+public class NotificationMailerBean implements MessageListener {
 	/**
 	 * JavaMail resource is injected by the container and have everything we
 	 * need to send/receive emails.
@@ -78,7 +80,7 @@ public class ClassifiedsMailerBean implements MessageListener {
 	 * the default logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
-			ClassifiedsMailerBean.class.getName(), "i18n/log");
+			NotificationMailerBean.class.getName(), "i18n/log");
 
 	/**
 	 * Each time a Topic arrives in the Notification queue, this listener will
@@ -91,31 +93,54 @@ public class ClassifiedsMailerBean implements MessageListener {
 	public void onMessage(Message message) {
 		try {
 			if (message instanceof MapMessage) {
-				System.out.println(javaMailSession.getProperties());
-				MapMessage orderMessage = (MapMessage) message;
-				String from = orderMessage.getStringProperty("from");
-				String to = orderMessage.getStringProperty("to");
-				String subject = orderMessage.getStringProperty("subject");
-				String content = orderMessage.getStringProperty("content");
+				MapMessage registration = (MapMessage) message;
+				String from = "cejug.classifieds@gmail.com";
+				String to = registration
+						.getStringProperty(RegistrationConstants.EMAIL.value());
+				// TODO: all this message details should be outside this class, passed as parameters......
+				String subject = "Cejug-Classifieds registration confirmation";
+				String content = "Welcome to Cejug-Classifieds, \n\n"
+						+ "in order to confirm you requested a registration in our classifieds"
+						+ "system, please click on the link below:\n\nhttp://link.to.be.sent...\n\n"
+						+ "WARNING: this is an incomplete feature of Cejug-Classifieds. IT IS INVALID for the moment.. just a test..\n\n"
+						+ "the data you typed in the registration form was:\n"
+						+ "\nname: "
+						+ registration
+								.getStringProperty(RegistrationConstants.NAME
+										.value())
+						+ "\nemail: "
+						+ registration
+								.getStringProperty(RegistrationConstants.EMAIL
+										.value())
+						+ "\nlogin: "
+						+ registration
+								.getStringProperty(RegistrationConstants.LOGIN
+										.value())
+						+ "\tpassword: "
+						+ registration
+								.getStringProperty(RegistrationConstants.PASSWORD
+										.value())
+						+ "\n\nBe welcome to visit our project and help us to code all pending features (like the registration form). Questions? please send to\n\n\tdev@cejug-classifieds.dev.java.net";
 
 				Properties sessionProps = javaMailSession.getProperties();
 				pipedUsername = sessionProps.getProperty("mail.user");
 				pipedPassword = sessionProps.getProperty("mail.smtp.password");
 
-				javax.mail.Message msg = new MimeMessage(Session
-						.getDefaultInstance(sessionProps, new Authenticator() {
+				Session session = Session.getDefaultInstance(sessionProps,
+						new Authenticator() {
 							public PasswordAuthentication getPasswordAuthentication() {
 								return new PasswordAuthentication(
 										pipedUsername, pipedPassword);
 							}
-						}));
+						});
+				javax.mail.Message msg = new MimeMessage(session);
 				// javax.mail.Message msg = new MimeMessage(javaMailSession);
 				msg.setFrom(new InternetAddress(from));
 				InternetAddress[] address = { new InternetAddress(to) };
 				msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
 				msg.setSubject(subject);
 				msg.setSentDate(new java.util.Date());
-				msg.setContent(content, "text/html");
+				msg.setContent(content, "text/plain");
 				Transport.send(msg);
 				logger.info("MDB: EMAIL tent to " + to);
 			} else {

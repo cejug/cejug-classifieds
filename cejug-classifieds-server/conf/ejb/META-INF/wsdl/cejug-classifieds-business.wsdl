@@ -3,7 +3,7 @@
 	targetNamespace="http://cejug-classifieds.dev.java.net/business"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:business="http://cejug-classifieds.dev.java.net/business"
-	xmlns:rss20="http://www.codeplex.com/rss2schema" xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
+	xmlns:metadata="http://cejug-classifieds.dev.java.net/metadata/business"
 	xmlns:atom10="http://www.w3.org/2005/Atom" xmlns:common-wsdl="http://cejug-classifieds.dev.java.net/common">
 	<wsdl:import namespace="http://cejug-classifieds.dev.java.net/common"
 		location="common.wsdl" />
@@ -273,7 +273,7 @@
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
 			<soap:address
-				location="http://localhost:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator" />
+				location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

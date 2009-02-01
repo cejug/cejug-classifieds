@@ -572,7 +572,7 @@
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsAdmin" binding="admin:CejugClassifiedsAdminBinding">
 			<soap:address
-				location="http://localhost:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator" />
+				location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

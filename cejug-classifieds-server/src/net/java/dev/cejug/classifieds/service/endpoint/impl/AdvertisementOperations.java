@@ -120,27 +120,25 @@ public class AdvertisementOperations extends
 			AvatarImageOrUrl avatar = advertisement.getAvatarImageOrUrl();
 			AtavarImage img = avatar.getImage();
 
-			if (avatar.getGravatarEmail() != null) {
+			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
+			advFacade.create(entity);
+
+			if (null != avatar.getGravatarEmail()) {
 				avatar
 						.setUrl("http://www.gravatar.com/avatar/"
 								+ hashGravatarEmail(avatar.getGravatarEmail())
 								+ ".jpg");
-				// img = new AtavarImage();
 				AtavarImage temp = new AtavarImage();
 				temp.setContentType("image/jpg");
 				avatar.setImage(temp);
 				String tmp = avatar.getUrl();
 				avatar.setName(tmp.substring(tmp.lastIndexOf('/') + 1));
-			} else if (avatar.getUrl() != null) {
+			} else if (null != avatar.getUrl()) {
 				AtavarImage temp = new AtavarImage();
 				temp.setContentType(img.getContentType());
 				avatar.setImage(temp);
 				avatar.setName("img" + System.currentTimeMillis());
-			}
-
-			AdvertisementEntity entity = advAdapter.toEntity(advertisement);
-			advFacade.create(entity);
-			if (img != null && img.getValue() != null
+			} else if (img != null && img.getValue() != null
 					&& img.getValue().length > 0) {
 				String reference = copyResourcesToRepository(avatar.getName(),
 						img.getValue(), entity.getId(), header

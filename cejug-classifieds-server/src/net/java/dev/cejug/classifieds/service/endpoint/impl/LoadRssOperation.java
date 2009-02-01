@@ -130,7 +130,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 					.createRssChannelCopyright("2008 @ CEJUG Classifieds"));
 			channelAttributes
 					.add(factory
-							.createRssChannelLink("http://localhost:8080/cejug-classifieds-server/rss"));
+							.createRssChannelLink("http://fgaucho.dyndns.org:8080/cejug-classifieds-server/rss"));
 			channelAttributes
 					.add(factory
 							.createRssChannelDocs("http://www.codeplex.com/rss2schema"));
@@ -233,7 +233,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 								.getSummary()));
 						itemAttributes
 								.add(factory
-										.createRssItemLink("http://localhost:8080/cejug-classifieds-server/rss?adv=23"));
+										.createRssItemLink("http://fgaucho.dyndns.org:8080/cejug-classifieds-server/rss?adv=23"));
 
 						itemAttributes
 								.add(factory
@@ -246,7 +246,7 @@ public class LoadRssOperation implements LoadRssOperationLocal {
 						Guid guid = new Guid();
 						guid.setIsPermaLink(Boolean.FALSE);
 						guid
-								.setValue("http://localhost:8080/cejug-classifieds-server/rss#"
+								.setValue("http://fgaucho.dyndns.org:8080/cejug-classifieds-server/rss#"
 										+ adv.getId());
 						itemAttributes.add(factory.createRssItemGuid(guid));
 						channel.getItem().add(item);

@@ -23,50 +23,80 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.mom;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.ejb.Stateless;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
 import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TopicConnectionFactory;
 
 /**
- * TODO: review, document and implement the final code.
+ * Registration steps, triggered by a message in the registration queue:
+ * <ol>
+ * <li>receives a message containing the registration request data from the
+ * RegistrationQueue.</li>
+ * <li>Creates a new customer record in the database, with group or status
+ * <em>pending</em>.</li>
+ * <li>Pushes a new message with the confirmation request to the
+ * NotificationQueue</li>
+ * </ol>
  * 
  * @author $Author$
  * @version $Rev$ ($Date$)
  */
-@Stateless
-public class AccountChangesMailer implements AccountChangesMailerLocal {
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") }, mappedName = "RegistrationQueue")
+public class RegistrationMessageBean implements MessageListener {
 
-	@Resource(mappedName = "AccountChangesTopicConnectionFactory")
-	private transient TopicConnectionFactory statusMessageTopicCF;
+	@Resource(mappedName = "NotificationQueueConnectionFactory")
+	private transient TopicConnectionFactory notificationQueueConnectionFactory;
 
-	@Resource(mappedName = "RegistrationQueue")
-	private transient Queue registrationQueue;
+	@Resource(mappedName = "NotificationQueue")
+	private transient Queue notificationQueue;
 
 	/**
 	 * Mailer bean logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
-			AccountChangesMailer.class.getName(), "i18n/log");
+			RegistrationMessageBean.class.getName(), "i18n/log");
 
-	public String sendAccountChangesSummary() {
-		String from = "cejug.classifieds@gmail.com";
-		String to = "fgaucho@gmail.com";
-		String content = "Your order has been processed "
-				+ "If you have questions"
-				+ " call EJB3 Application with order id # " + "1234567890";
+	@Override
+	public void onMessage(Message registration) {
+		try {
 
+			if (registration instanceof MapMessage) {
+
+				// createNewCustomer();
+				notifyCustomer(registration);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			logger.log(Level.SEVERE, "onMessage error", ex);
+		}
+	}
+
+	/**
+	 * Send an email to the new customer, asking him to confirm the
+	 * registration.
+	 * 
+	 * @param registration
+	 *            the original message containing the customer information.
+	 * @throws JMSException
+	 *             a general messaging exception.
+	 */
+	private void notifyCustomer(Message registration) throws JMSException {
 		Connection connection = null;
 		try {
 			logger.finest("Sending notification about account changes");
-			connection = statusMessageTopicCF.createConnection();
+			connection = notificationQueueConnectionFactory.createConnection();
 			logger.finest("Connection established with client ID = "
 					+ connection.getClientID());
 			connection.start();
@@ -74,15 +104,10 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 					Session.AUTO_ACKNOWLEDGE);
 
 			MessageProducer publisher = topicSession
-					.createProducer(registrationQueue);
+					.createProducer(notificationQueue);
 			logger.finest("Producer created for topic "
-					+ registrationQueue.getQueueName());
-			MapMessage message = topicSession.createMapMessage();
-			message.setStringProperty("from", from);
-			message.setStringProperty("to", to);
-			message.setStringProperty("subject", "Status of your wine order");
-			message.setStringProperty("content", content);
-			publisher.send(message);
+					+ notificationQueue.getQueueName());
+			publisher.send(registration);
 
 			logger.finest("message sent.");
 		} catch (JMSException e) {
@@ -94,7 +119,5 @@ public class AccountChangesMailer implements AccountChangesMailerLocal {
 				logger.severe(e.getMessage());
 			}
 		}
-
-		return "Created a MapMessage and sent it to StatusTopic";
 	}
 }

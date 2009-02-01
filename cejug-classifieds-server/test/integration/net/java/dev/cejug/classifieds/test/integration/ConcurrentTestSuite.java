@@ -31,7 +31,7 @@ public class ConcurrentTestSuite {
 	public void business() {
 		Suite.SuiteClasses annos = BusinessTestSuite.class
 				.getAnnotation(Suite.SuiteClasses.class);
-		for (int fi = 0; fi < 1000000; fi++) {
+		for (int fi = 0; fi < 12; fi++) {
 			List<Failure> failures = runAll(annos);
 			if (!failures.isEmpty()) {
 				Assert.fail(failures.get(0).getTrace());
