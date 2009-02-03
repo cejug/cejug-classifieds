@@ -20,11 +20,10 @@
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<plugins>
-			<plugin>
+			<!-- plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<!-- UML Graph -->
 					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
 					<docletArtifacts>
 						<docletArtifact>
@@ -51,7 +50,7 @@
 						-link ${doc.j2ee}
 					</additionalparam>
 				</configuration>
-			</plugin>
+			</plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
