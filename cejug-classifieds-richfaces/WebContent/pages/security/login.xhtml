@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
 <ui:composition template="../../template/template.xhtml">
 	<ui:define name="pageheader">
 		<div><h:graphicImage value="/images/templateNew/header.png"
@@ -43,20 +44,22 @@
 			<a:keepAlive beanName="registrationBean" />
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['login.realname']}" />
-				<h:inputText value="#{registrationBean.name}" style="width:230px;"
+				<h:inputText value="#{registrationBean.name}" style="width:235px;"
 					required="true" label="Headline" />
 				<h:outputText value="#{msg['login.email']}" />
-				<h:inputText value="#{registrationBean.email}" style="width:230px;"
+				<h:inputText value="#{registrationBean.email}" style="width:235px;"
 					required="true" label="Headline" />
 
 				<h:outputText value="#{msg['login.username']}" />
-				<h:inputText value="#{registrationBean.login}" style="width:230px;"
+				<h:inputText value="#{registrationBean.login}" style="width:235px;"
 					required="true" label="Headline" />
 
 				<h:outputText value="#{msg['login.password']}" />
 				<h:inputText value="#{registrationBean.password}"
-					style="width:230px;" required="true" label="Headline" />
+					style="width:235px;" required="true" label="Headline" />
 			</h:panelGrid>
+			<div style="background: #AFC7C7;"><p:captcha
+				publicKey="6Lfa8gQAAAAAABkjCe-2sanpicOA3Gxk2sirA6CA" /></div>
 			<h:commandButton action="#{registrationBean.register}"
 				value="REGISTER" />
 		</a:form></div>

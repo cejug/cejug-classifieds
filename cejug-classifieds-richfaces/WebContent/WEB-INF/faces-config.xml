@@ -58,7 +58,7 @@
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>register</from-outcome>
+			<from-action>#{registrationBean.register}</from-action>
 			<to-view-id>/pages/security/registrationResult.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>

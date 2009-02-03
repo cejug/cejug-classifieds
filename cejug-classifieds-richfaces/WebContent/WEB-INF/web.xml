@@ -13,6 +13,10 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<context-param>
+		<param-name>org.primefaces.ui.component.captcha.PRIVATE_KEY</param-name>
+		<param-value>6Lfa8gQAAAAAACPD2di4BdsJh0a4wdnBxHg7o0jX</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
@@ -35,7 +39,7 @@
 	<context-param>
 		<param-name>com.sun.faces.enableViewStateIdRendering</param-name>
 		<param-value>true</param-value>
-	</context-param>	
+	</context-param>
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
 		<param-value>DEFAULT</param-value>
@@ -60,7 +64,7 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
-	
+
 	<security-constraint>
 		<display-name>Restrict XHTML documents</display-name>
 		<web-resource-collection>
