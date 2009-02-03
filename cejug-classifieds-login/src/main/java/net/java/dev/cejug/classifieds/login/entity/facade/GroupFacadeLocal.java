@@ -21,54 +21,19 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity;
+package net.java.dev.cejug.classifieds.login.entity.facade;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.ejb.Local;
+
+import net.java.dev.cejug.classifieds.login.entity.GroupEntity;
 
 /**
- * The group are used to map users to their permissions.
+ * The persistence facade for Category entities.
  * 
  * @author $Author: felipegaucho $
- * @version $Rev: 1014 $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
+ * @version $Rev$ ($Date: 2008-09-08 18:17:47 +0200 (Mon, 08 Sep 2008) $)
+ * @see EntityFacade
  */
-@Entity
-@Table(name = "GROUPTABLE")
-public class GroupEntity extends AbstractEntity {
-	@Id
-	@JoinColumn(table = "USERTABLE", referencedColumnName = "LOGIN")
-	private String login;
-
-	@Column(name = "GROUPID", nullable = false)
-	private String groupId;
-
-	@Column(name = "DESCRIPTION", nullable = true)
-	private String description;
-
-	public String getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
+@Local
+public interface GroupFacadeLocal extends EntityFacade<GroupEntity> {
 }

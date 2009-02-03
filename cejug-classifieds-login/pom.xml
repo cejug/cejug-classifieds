@@ -20,37 +20,6 @@
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<plugins>
-			<!-- plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-					<docletArtifacts>
-						<docletArtifact>
-							<groupId>org.umlgraph</groupId>
-							<artifactId>doclet</artifactId>
-							<version>5.1</version>
-						</docletArtifact>
-					</docletArtifacts>
-					<additionalparam>
-						-inferrel
-						-inferdep
-						-useimports
-						-inferdepvis public
-						-hide java.*
-						-collpackages java.util.*
-						-qualify
-						-postfixpackage
-						-nodefontsize 9
-						-nodefontpackagesize 7
-						-link
-						http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/
-						-link
-						${doc.j2se}
-						-link ${doc.j2ee}
-					</additionalparam>
-				</configuration>
-			</plugin-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

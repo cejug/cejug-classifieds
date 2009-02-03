@@ -56,7 +56,7 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 * the default logger.
 	 */
 	private final static Logger logger = Logger.getLogger(
-			CRUDEntityFacade.class.getName(), "i18n/log");
+			CRUDEntityFacade.class.getName());
 
 	private transient final Class<T> entityClass;
 
