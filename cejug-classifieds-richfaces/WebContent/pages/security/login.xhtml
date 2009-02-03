@@ -55,11 +55,11 @@
 					required="true" label="Headline" />
 
 				<h:outputText value="#{msg['login.password']}" />
-				<h:inputText value="#{registrationBean.password}"
+				<h:inputSecret value="#{registrationBean.password}"
 					style="width:235px;" required="true" label="Headline" />
 					
 				<h:outputText value="#{msg['login.password.check']}" />
-				<h:inputText value="#{registrationBean.password}"
+				<h:inputSecret value="#{registrationBean.password}"
 					style="width:235px;" required="true" label="Headline" />
 			</h:panelGrid>
 			<div style="background: #AFC7C7;"><p:captcha
