@@ -38,4 +38,20 @@
   SHAPE="360,496,50,25" model-entity="JSFProcessGroup" persistent="true"/>
  <PROCESS-ITEM NAME="rules:#pages#starRating#starRating.xhtml"
   PATH="/pages/starRating/starRating.xhtml" SHAPE="256,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#security#registrationResults.xhtml"
+  PATH="/pages/security/registrationResults.xhtml" SHAPE="280,696,50,25"
+  model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pages#security#registrationResult.xhtml"
+  PATH="/pages/security/registrationResult.xhtml" SHAPE="240,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#security#login.xhtml"
+  PATH="/pages/security/login.xhtml" SHAPE="32,833,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#security#login.xhtml:0" NAME="item"
+   PATH="/pages/security/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{registrationBean.register}:#pages#security#registrationResult.xhtml"
+    NAME="output" PATH="/pages/security/registrationResult.xhtml"
+    TARGET="rules:#pages#security#registrationResult.xhtml"
+    TITLE="#{registrationBean.register}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
