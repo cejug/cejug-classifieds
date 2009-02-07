@@ -53,7 +53,6 @@ import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 
 	public static final class QUERIES {
-
 		/**
 		 * Parameters:
 		 * <ul>

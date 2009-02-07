@@ -82,33 +82,4 @@ public class CheckMonitorOperation implements CheckMonitorOperationLocal {
 		}
 		return response;
 	}
-
-	/*
-	@Resource(mappedName = "RegistrationQueueConnectionFactory")
-	private transient TopicConnectionFactory registrationQueueConnectionFactory;
-
-	@Resource(mappedName = "RegistrationQueue")
-	private transient Queue registrationQueue;
-
-	private void notifyRegistration() {
-		Connection connection = null;
-		try {
-			logger.finest("Sending notification about account changes");
-			connection = registrationQueueConnectionFactory.createConnection();
-			Session topicSession = connection.createSession(false,
-					Session.AUTO_ACKNOWLEDGE);
-			MessageProducer publisher = topicSession
-					.createProducer(registrationQueue);
-			publisher.send(topicSession.createMapMessage());
-		} catch (JMSException e) {
-			logger.severe(e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (JMSException e) {
-				logger.severe(e.getMessage());
-			}
-		}
-	}
-	*/
 }

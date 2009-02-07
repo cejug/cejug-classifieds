@@ -238,13 +238,6 @@
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
-	<xsd:element name="CejugClassifiedsConstants">
-		<xsd:complexType>
-			<xsd:sequence minOccurs="1" maxOccurs="1">
-				<xsd:element name="registration" type="common:registration.constants" />
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
 	<xsd:simpleType name="localeType">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -255,14 +248,6 @@
 		</xsd:annotation>
 		<xsd:restriction base="xsd:string">
 			<xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?" />
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:simpleType name="registration.constants">
-		<xsd:restriction base='xsd:string'>
-			<xsd:enumeration value="name" />
-			<xsd:enumeration value="email" />
-			<xsd:enumeration value="login" />
-			<xsd:enumeration value="password" />
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>
