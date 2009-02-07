@@ -21,22 +21,36 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity.facade.impl;
+package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
-import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
+import javax.ejb.Remote;
 
-import net.java.dev.cejug.classifieds.login.entity.GroupEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.GroupFacadeLocal;
-import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
+import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
 
 /**
+ * The persistence facade for Category entities.
+ * 
  * @author $Author: felipegaucho $
- * @version $Rev$ ($Date: 2008-10-11 13:37:15 +0200 (Sat, 11 Oct 2008) $)
- * @see CRUDEntityFacade
+ * @version $Rev$ ($Date: 2008-09-08 18:17:47 +0200 (Mon, 08 Sep 2008) $)
+ * @see EntityFacade
  */
-@Stateless
-@Interceptors(ExceptionInterceptor.class)
-public class GroupFacade extends CRUDEntityFacade<GroupEntity> implements
-		GroupFacadeLocal {
+@Remote
+public interface UserFacadeRemote {
+	/**
+	 * Check if an <em>email address</em> can be registered in the database.
+	 * 
+	 * @param email
+	 *            the email of a customer.
+	 * @return if the email is available, false otherwise.
+	 */
+	public boolean isEmailAvailable(final String email);
+
+	/**
+	 * Check if an <em>user name</em> can be registered in the database.
+	 * 
+	 * @param login
+	 *            the login of a customer.
+	 * @return true if the login is available, false otherwise.
+	 */
+	public boolean isLoginAvailable(final String login);
 }

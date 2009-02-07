@@ -23,9 +23,13 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity;
 
+import java.util.Enumeration;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -37,7 +41,46 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USERTABLE")
-public class UserEntity extends AbstractEntity {
+@NamedQueries( {
+		@NamedQuery(name = UserEntity.SQL.FIND_BY_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email"),
+		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN, query = "SELECT user FROM UserEntity user WHERE user.login= :login"),
+		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email OR user.login= :login") })
+public class UserEntity extends AbstractEntity<UserEntity> {
+	/** Constants used in named query and its parameters. */
+	public static final class SQL {
+		/**
+		 * Searches for an user by his email. Parameters:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_EMAIL</code>: the email of a customer</li>
+		 * </ul>
+		 */
+		public static final String FIND_BY_EMAIL = "findByEmail";
+		/**
+		 * Searches for an user by his login. Parameter:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_LOGIN</code>: the login of a customer</li>
+		 * </ul>
+		 */
+		public static final String FIND_BY_LOGIN = "findByLogin";
+		/**
+		 * Searches for an user by his email or by his login. Parameters:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_LOGIN</code>: the login of a customer</li>
+		 * <li><code>UserEntity.SQL.PARAM_EMAIL</code>: the email of a customer</li>
+		 * </ul>
+		 */
+		public static final String FIND_BY_LOGIN_OR_EMAIL = "findByLoginOrEmail";
+		/** The user's login. */
+		public static final String PARAM_LOGIN = "login";
+		/** The user's email. */
+		public static final String PARAM_EMAIL = "email";
+
+		/** THIS IS UNDER EVALUATION */
+		public static enum ALLOWED_QUERIES {
+			FIND_BY_EMAIL, FIND_BY_LOGIN, FIND_BY_LOGIN_OR_EMAIL
+		};
+	}
+
 	@Id
 	private String login;
 
@@ -88,5 +131,10 @@ public class UserEntity extends AbstractEntity {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	protected Enumeration<UserEntity> getAllowedQueries() {
+		return null;
 	}
 }

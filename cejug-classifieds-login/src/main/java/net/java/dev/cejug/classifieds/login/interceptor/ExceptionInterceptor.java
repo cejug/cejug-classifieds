@@ -24,6 +24,8 @@
 package net.java.dev.cejug.classifieds.login.interceptor;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
@@ -34,6 +36,12 @@ import javax.persistence.PersistenceException;
  * @version $Rev: 627 $ ($Date: 2008-09-22 20:14:57 +0200 (seg, 22 set 2008) $)
  */
 public class ExceptionInterceptor {
+	/**
+	 * the global log manager, used to allow third party services to override
+	 * the default logger.
+	 */
+	private final static Logger logger = Logger
+			.getLogger(ExceptionInterceptor.class.getName());
 
 	@AroundInvoke
 	public Object exceptionInterceptor(InvocationContext context)
@@ -51,7 +59,9 @@ public class ExceptionInterceptor {
 						"Could not delete because object is referenced by another entity.",
 						pe);
 			} else {
-				throw new LoginException("Unknown login problem", pe);
+				logger.log(Level.SEVERE, "ExceptionInterceptor: "
+						+ pe.getMessage());
+				// throw new LoginException("Unknown login problem", pe);
 			}
 		}
 

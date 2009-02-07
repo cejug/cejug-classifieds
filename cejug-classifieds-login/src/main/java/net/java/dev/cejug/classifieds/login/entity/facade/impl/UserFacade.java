@@ -23,11 +23,16 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity.facade.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
+import javax.persistence.NoResultException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
 
 /**
@@ -38,5 +43,29 @@ import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
 @Stateless
 @Interceptors(ExceptionInterceptor.class)
 public class UserFacade extends CRUDEntityFacade<UserEntity> implements
-		UserFacadeLocal {
+		UserFacadeLocal, UserFacadeRemote {
+
+	@Override
+	public boolean isEmailAvailable(String email) {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
+		try {
+			findByCriteria(UserEntity.SQL.FIND_BY_EMAIL, parameters);
+			return false; // NOT AVAILABLE
+		} catch (NoResultException none) {
+			return true; // AVAILABLE
+		}
+	}
+
+	@Override
+	public boolean isLoginAvailable(String login) {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put(UserEntity.SQL.PARAM_LOGIN, login);
+		try {
+			findByCriteria(UserEntity.SQL.FIND_BY_LOGIN, parameters);
+			return false; // NOT AVAILABLE
+		} catch (NoResultException none) {
+			return true; // AVAILABLE
+		}
+	}
 }

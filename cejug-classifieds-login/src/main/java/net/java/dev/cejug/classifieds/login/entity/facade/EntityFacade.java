@@ -25,8 +25,10 @@ package net.java.dev.cejug.classifieds.login.entity.facade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
@@ -44,6 +46,23 @@ import net.java.dev.cejug.classifieds.login.entity.facade.impl.CRUDEntityFacade;
  *      Wikipedia.</a>
  */
 public interface EntityFacade<T extends AbstractEntity> {
+	/**
+	 * Allow local interfaces to do queries in the database.
+	 * 
+	 * @param criteria
+	 *            a map between column names and its expected values. In order
+	 *            to avoid <a href=
+	 *            'http://www.owasp.org/index.php/Preventing_SQL_Injection_in_Ja
+	 *            v a ' > S Q l injection</a>, the implementation should of this
+	 *            method should apply <em>SQL escaped</em> before to submit the
+	 *            query.
+	 * @param queryName
+	 *            the name of the query.
+	 * @return the entity that matches the search criteria. If there is no
+	 *         matches, a NoResultException is thrown.
+	 */
+	T findByCriteria(final String queryName, final Map<String, ?> criteria)
+			throws NoResultException;
 
 	/**
 	 * <strong>C</strong><font color='gray'>RUD</font> operation - inserts a new

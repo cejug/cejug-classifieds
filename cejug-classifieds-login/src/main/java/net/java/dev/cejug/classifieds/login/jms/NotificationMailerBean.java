@@ -23,6 +23,7 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.jms;
 
+import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -38,9 +39,10 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 
 /**
  * The goal of this bean is to send emails with the status of an operation or a
@@ -83,7 +85,7 @@ public class NotificationMailerBean implements MessageListener {
 			.getLogger(NotificationMailerBean.class.getName());
 
 	/**
-	 * Each time a Topic arrives in the Notification queue, this listener will
+	 * Each time a message arrives in the Notification queue, this listener will
 	 * send an email to the addressee. The prime purpose of this bean is to
 	 * notify new customer about the link they should click in order to activate
 	 * their accounts, but in the future it can be expanded for other uses.
@@ -95,34 +97,19 @@ public class NotificationMailerBean implements MessageListener {
 			if (message instanceof MapMessage) {
 				MapMessage registration = (MapMessage) message;
 				String from = "cejug.classifieds@gmail.com";
-				String to;
-				to = registration.getStringProperty(RegistrationConstants.EMAIL
-						.value());
+				String to = registration
+						.getStringProperty(RegistrationConstants.EMAIL.value());
 				// TODO: all this message details should be outside this class,
 				// passed as parameters......
-				String subject = "Cejug-Classifieds registration confirmation";
-				String content = "Welcome to Cejug-Classifieds, \n\n"
-						+ "in order to confirm you requested a registration in our classifieds"
-						+ "system, please click on the link below:\n\nhttp://link.to.be.sent...\n\n"
-						+ "WARNING: this is an incomplete feature of Cejug-Classifieds. IT IS INVALID for the moment.. just a test..\n\n"
-						+ "the data you typed in the registration form was:\n"
-						+ "\nname: "
-						+ registration
-								.getStringProperty(RegistrationConstants.NAME
-										.value())
-						+ "\nemail: "
-						+ registration
-								.getStringProperty(RegistrationConstants.EMAIL
-										.value())
-						+ "\nlogin: "
-						+ registration
-								.getStringProperty(RegistrationConstants.LOGIN
-										.value())
-						+ "\tpassword: "
-						+ registration
-								.getStringProperty(RegistrationConstants.PASSWORD
-										.value())
-						+ "\n\nBe welcome to visit our project and help us to code all pending features (like the registration form). Questions? please send to\n\n\tdev@cejug-classifieds.dev.java.net";
+				String subject = registration
+						.getStringProperty(RegistrationConstants.REGISTRATION_SUBJECT
+								.value());
+				String content = MessageFormat
+						.format(
+								registration
+										.getStringProperty(RegistrationConstants.REGISTRATION_MSG
+												.value()), "",
+								"http://LINK LINK LINK");
 
 				Properties sessionProps = javaMailSession.getProperties();
 				pipedUsername = sessionProps.getProperty("mail.user");
@@ -144,16 +131,18 @@ public class NotificationMailerBean implements MessageListener {
 				msg.setSentDate(new java.util.Date());
 				msg.setContent(content, "text/plain");
 				Transport.send(msg);
-				logger.info("MDB: EMAIL tent to " + to);
+				logger.info("MDB: notification email sent to " + to);
 			} else {
 				logger.warning("Invalid message " + message.getClass());
 			}
 		} catch (JMSException e) {
-			logger.severe("Invalid message " + e.getClass());
-		} catch (AddressException e) {
-			logger.severe("Invalid message " + e.getClass());
+			e.printStackTrace();
 		} catch (MessagingException e) {
-			logger.severe("Invalid message " + e.getClass());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			logger.severe("NotificationMailerBean.onMessage Invalid message "
+					+ message.getClass());
 		}
 	}
 }

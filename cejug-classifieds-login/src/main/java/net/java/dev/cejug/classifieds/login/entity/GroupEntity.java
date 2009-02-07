@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity;
 
+import java.util.Enumeration;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -37,7 +39,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "GROUPTABLE")
-public class GroupEntity extends AbstractEntity {
+public class GroupEntity extends AbstractEntity<GroupEntity> {
 	@Id
 	@JoinColumn(table = "USERTABLE", referencedColumnName = "LOGIN")
 	private String login;
@@ -70,5 +72,11 @@ public class GroupEntity extends AbstractEntity {
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	@Override
+	protected Enumeration<GroupEntity> getAllowedQueries() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

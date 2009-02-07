@@ -25,6 +25,8 @@ package net.java.dev.cejug.classifieds.login.jms;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,19 +35,22 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.Connection;
+import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
+import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
-import javax.jms.TopicConnectionFactory;
+import javax.persistence.NoResultException;
 
 import net.java.dev.cejug.classifieds.login.entity.GroupEntity;
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.GroupFacadeLocal;
 import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 
 /**
  * Registration steps, triggered by a message in the registration queue:
@@ -65,7 +70,7 @@ import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
 public class RegistrationMessageBean implements MessageListener {
 
 	@Resource(mappedName = "NotificationQueueConnectionFactory")
-	private transient TopicConnectionFactory notificationQueueConnectionFactory;
+	private transient QueueConnectionFactory notificationQueueConnectionFactory;
 
 	@Resource(mappedName = "NotificationQueue")
 	private transient Queue notificationQueue;
@@ -79,30 +84,82 @@ public class RegistrationMessageBean implements MessageListener {
 	 * Mailer bean logger.
 	 */
 	private final static Logger logger = Logger
-			.getLogger(RegistrationMessageBean.class.getName());
+			.getLogger("RegistrationMessageBean");
 
 	@Override
 	public void onMessage(Message registration) {
 		try {
 			if (registration instanceof MapMessage) {
-				createNewCustomer(registration);
-				addUserToCustomerGroup(registration);
-				notifyCustomer(registration);
+				String login = registration
+						.getStringProperty(RegistrationConstants.LOGIN.value());
+				String email = registration
+						.getStringProperty(RegistrationConstants.EMAIL.value());
+				if (loginAndUsernameAvailable(login, email)) {
+					createNewCustomer(registration);
+					addUserToCustomerGroup(registration);
+					notifyCustomer(registration);
+				} else {
+					logger
+							.log(
+									Level.SEVERE,
+									"A registration message came with an already existant email("
+											+ email
+											+ ") or login("
+											+ login
+											+ "). "
+											+ "This may indicates that a client software is not checking this constraint properly. The message will be ignored.");
+				}
+			} else {
+				logger.log(Level.SEVERE,
+						"CONFIGURATION ERROR -> a MapMessage  was expected but I received a "
+								+ registration.getJMSType()
+								+ " instead. The message will be ignored.");
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			logger.log(Level.SEVERE, "onMessage error", ex);
+			logger
+					.log(
+							Level.SEVERE,
+							"Error trying to process a message. The message will be redelivered due to this reason: "
+									+ ex.getMessage());
+		}
+	}
+
+	/**
+	 * Check if the username and the email are available for registration.
+	 * 
+	 * @param registration
+	 *            the registration message.
+	 * @return true if the login and email are both available.
+	 * @throws JMSException
+	 *             a message problem (missed parameters or incorrect message).
+	 */
+	private boolean loginAndUsernameAvailable(String login, String email)
+			throws JMSException {
+		final Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put(UserEntity.SQL.PARAM_LOGIN, login);
+		criteria.put(UserEntity.SQL.PARAM_EMAIL, email);
+		try {
+
+			UserEntity entity = userFacade.findByCriteria(
+					UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, criteria);
+			return null == entity;
+		} catch (NoResultException none) {
+			return true;
 		}
 	}
 
 	private void addUserToCustomerGroup(Message registration)
 			throws JMSException {
-		GroupEntity customersGroup = new GroupEntity();
-		customersGroup.setGroupId("customer");
-		customersGroup.setDescription("new customer");
-		customersGroup.setLogin(registration
-				.getStringProperty(RegistrationConstants.LOGIN.value()));
-		groupFacade.create(customersGroup);
+		try {
+			GroupEntity customersGroup = new GroupEntity();
+			customersGroup.setGroupId("customer");
+			customersGroup.setDescription("new customer");
+			customersGroup.setLogin(registration
+					.getStringProperty(RegistrationConstants.LOGIN.value()));
+			groupFacade.create(customersGroup);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
+		}
 	}
 
 	private UserEntity createNewCustomer(Message registration)
@@ -139,29 +196,40 @@ public class RegistrationMessageBean implements MessageListener {
 	 */
 	private void notifyCustomer(Message registration) throws JMSException {
 		Connection connection = null;
+		Session queueSession = null;
 		try {
-			logger.finest("Sending notification about account changes");
+			// logger.finest("Sending notification about account changes");
 			connection = notificationQueueConnectionFactory.createConnection();
-			logger.finest("Connection established with client ID = "
-					+ connection.getClientID());
+			// logger.finest("Connection established with client ID = " +
+			// connection.getClientID());
 			connection.start();
-			Session topicSession = connection.createSession(false,
+			queueSession = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
-
-			MessageProducer publisher = topicSession
+			MessageProducer publisher = queueSession
 					.createProducer(notificationQueue);
-			logger.finest("Producer created for topic "
-					+ notificationQueue.getQueueName());
+			publisher.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			publisher.send(registration);
+			logger.finest("notification message dispatched (addressee "
+					+ registration
+							.getStringProperty(RegistrationConstants.EMAIL
+									.value()));
 
-			logger.finest("message sent.");
 		} catch (JMSException e) {
 			logger.severe(e.getMessage());
 		} finally {
-			try {
-				connection.close();
-			} catch (JMSException e) {
-				logger.severe(e.getMessage());
+			if (queueSession != null) {
+				try {
+					queueSession.close();
+				} catch (JMSException e) {
+					logger.severe(e.getMessage());
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (JMSException e) {
+					logger.severe(e.getMessage());
+				}
 			}
 		}
 	}

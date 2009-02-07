@@ -26,11 +26,13 @@ package net.java.dev.cejug.classifieds.login.entity.facade.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -55,8 +57,8 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	 * the global log manager, used to allow third party services to override
 	 * the default logger.
 	 */
-	private final static Logger logger = Logger.getLogger(
-			CRUDEntityFacade.class.getName());
+	private final static Logger logger = Logger
+			.getLogger(CRUDEntityFacade.class.getName());
 
 	private transient final Class<T> entityClass;
 
@@ -78,8 +80,12 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	public void create(final T entity) throws EntityExistsException,
 			IllegalStateException, IllegalArgumentException,
 			TransactionRequiredException {
-		manager.persist(entity);
-		manager.flush();
+		try {
+			manager.persist(entity);
+			manager.flush();
+		} catch (Exception e) {
+			logger.severe("error-> " + e.getMessage());
+		}
 	}
 
 	/**
@@ -141,5 +147,15 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 			response = new ArrayList<T>();
 		}
 		return response;
+	}
+
+	@SuppressWarnings("unchecked")
+	public T findByCriteria(final String query, final Map<String, ?> parameters)
+			throws NoResultException {
+		Query namedQuery = manager.createNamedQuery(query);
+		for (String key : parameters.keySet()) {
+			namedQuery.setParameter(key, parameters.get(key));
+		}
+		return (T) namedQuery.getSingleResult();
 	}
 }

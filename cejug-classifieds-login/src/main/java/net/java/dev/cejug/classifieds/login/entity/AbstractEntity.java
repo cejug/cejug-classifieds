@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity;
 
+import java.util.Enumeration;
+
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -32,5 +34,6 @@ import javax.persistence.MappedSuperclass;
  * @version $Rev: 1014 $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
  */
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity<T> {
+	protected abstract Enumeration<T> getAllowedQueries();
 }
