@@ -5,8 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	>
+	xmlns:rich="http://richfaces.org/rich">
 <!-- xmlns:ui="http://java.sun.com/blueprints/ui/14" -->
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
@@ -32,26 +31,64 @@
 		</div>
 	</ui:define>
 	<ui:define name="body">
-		
-			<style type="text/css">
-#star ul.star { LIST-STYLE: none; MARGIN: 0; PADDING: 0; WIDTH: 85px; HEIGHT: 20px; LEFT: 10px; TOP: -5px; POSITION: relative; FLOAT: left; BACKGROUND: url('images/stars.gif') repeat-x; CURSOR: pointer; }
-#star li { PADDING: 0; MARGIN: 0; FLOAT: left; DISPLAY: block; WIDTH: 85px; HEIGHT: 20px; TEXT-DECORATION: none; text-indent: -9000px; Z-INDEX: 20; POSITION: absolute; PADDING: 0; }
-#star li.curr { BACKGROUND: url('images/stars.gif') left 25px; FONT-SIZE: 1px; }
-#star div.user { LEFT: 15px; POSITION: relative; FLOAT: left; FONT-SIZE: 13px; FONT-FAMILY: Arial; COLOR: #888; }
+
+		<style type="text/css">
+#star ul.star {
+	LIST-STYLE: none;
+	MARGIN: 0;
+	PADDING: 0;
+	WIDTH: 85px;
+	HEIGHT: 20px;
+	LEFT: 10px;
+	TOP: -5px;
+	POSITION: relative;
+	FLOAT: left;
+	BACKGROUND: url('images/stars.gif') repeat-x;
+	CURSOR: pointer;
+}
+
+#star li {
+	PADDING: 0;
+	MARGIN: 0;
+	FLOAT: left;
+	DISPLAY: block;
+	WIDTH: 85px;
+	HEIGHT: 20px;
+	TEXT-DECORATION: none;
+	text-indent: -9000px;
+	Z-INDEX: 20;
+	POSITION: absolute;
+	PADDING: 0;
+}
+
+#star li.curr {
+	BACKGROUND: url('images/stars.gif') left 25px;
+	FONT-SIZE: 1px;
+}
+
+#star div.user {
+	LEFT: 15px;
+	POSITION: relative;
+	FLOAT: left;
+	FONT-SIZE: 13px;
+	FONT-FAMILY: Arial;
+	COLOR: #888;
+}
 </style>
-			
-		
+
+
 		<a:form id="form">
-		<a:loadScript src="/js/starRating.js" />
+			<a:loadScript src="/js/starRating.js" />
 			<rich:panel>
 				<rich:dataGrid value="#{helloClassifiedsBean.advertisements}"
 					var="adv" columns="3" elements="12" id="categoryPanel"
-					styleClass="advPane" border="0"  >
+					styleClass="advPane" border="0">
 					<div style="align: top;"><rich:panel style="width:98%;">
 						<f:facet name="header">
 							<h:outputText value="#{adv.headline} " />
 						</f:facet>
-						<h:panelGrid columns="2" style="width:100%;" columnClasses="advCol1,advCol2">
+						<h:panelGrid columns="2" style="width:100%;"
+							columnClasses="advCol1,advCol2">
 							<h:graphicImage width="60" height="60"
 								value="#{adv.avatarImageOrUrl.url}" style="float:left;" />
 
@@ -61,17 +98,21 @@
 									style="float:none;font-weight:bolder;" />
 								<h:outputText value="#{adv.customer.login}" style="float:left;" />
 								<div id="star">
-								 <ul id="star#{adv.entityId}" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!">
-								  <li id="starCur#{adv.entityId}" class="curr" title="0" style="width: 1px;"></li>
-								 </ul>
-								 <div style="color: rgb(136, 136, 136);" id="starUser#{adv.entityId}" class="user">0%</div>
- 									<br style="clear: both;"/>
+								<ul id="star#{adv.entityId}" class="star"
+									onmousedown="star.update(event,this)"
+									onmousemove="star.mouse(event,this)" title="Rate This!">
+									<li id="starCur#{adv.entityId}" class="curr" title="0"
+										style="width: 1px;"></li>
+								</ul>
+								<div style="color: rgb(136, 136, 136);"
+									id="starUser#{adv.entityId}" class="user">0%</div>
+								<br style="clear: both;" />
 								</div>
 								<!--div>
 								<ui:rating id="rating" maxGrade="5" includeNotInterested="true" includeClear="true" 
    hoverTexts="#{RatingBean.ratingText}" notInterestedHoverText="Not Interested" 
    clearHoverText="Clear Rating" grade="#{RatingBean.grade}"/></div-->
-								
+
 							</h:panelGrid>
 						</h:panelGrid>
 						<h:outputText value="#{adv.text}" />
@@ -81,6 +122,18 @@
 				</rich:dataGrid>
 			</rich:panel>
 		</a:form>
+	</ui:define>
+	<ui:define name="adsense">
+		<div style="padding-left:9px;width:100%;background:transparent;"><script type="text/javascript"><!--
+google_ad_client = "pub-7692178578516455";
+/* 728x15, created 2/4/09 */
+google_ad_slot = "6475491895";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script> <script type="text/javascript"
+			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
 	</ui:define>
 </ui:composition>
 </html>

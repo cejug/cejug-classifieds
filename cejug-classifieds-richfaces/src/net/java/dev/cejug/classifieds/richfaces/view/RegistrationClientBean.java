@@ -23,18 +23,22 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.jms.Connection;
+import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
+import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
-import javax.jms.TopicConnectionFactory;
 
-import net.java.dev.cejug_classifieds.metadata.common.RegistrationConstants;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 
 /**
  * POJO of the registration form in the GUI.
@@ -42,16 +46,22 @@ import net.java.dev.cejug_classifieds.metadata.common.RegistrationConstants;
  * @author $Author: felipegaucho $
  * @version $Rev$ ($Date: 2009-01-25 18:45:55 +0100 (Sun, 25 Jan 2009) $)
  */
-public class RegistrationBean {
+public class RegistrationClientBean {
+
+	/**
+	 * TODO: how to get the browser Locale to use in custom messages ??
+	 */
+	private ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale
+			.getDefault());
 
 	/**
 	 * default logger.
 	 */
 	private static final Logger logger = Logger
-			.getLogger(RegistrationBean.class.getName());
+			.getLogger(RegistrationClientBean.class.getName());
 
 	@Resource(mappedName = "RegistrationQueueConnectionFactory")
-	private transient TopicConnectionFactory registrationQueueConnectionFactory;
+	private transient QueueConnectionFactory registrationQueueConnectionFactory;
 
 	@Resource(mappedName = "RegistrationQueue")
 	private transient Queue registrationQueue;
@@ -120,13 +130,15 @@ public class RegistrationBean {
 		// TODO: validation of the data, and checking if the user already
 		// exists, etc...
 		Connection connection = null;
+		Session registrationSession = null;
 		try {
 			connection = registrationQueueConnectionFactory.createConnection();
-			Session topicSession = connection.createSession(false,
+			registrationSession = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
-			MessageProducer publisher = topicSession
+			MessageProducer publisher = registrationSession
 					.createProducer(registrationQueue);
-			MapMessage registrationRequest = topicSession.createMapMessage();
+			MapMessage registrationRequest = registrationSession
+					.createMapMessage();
 
 			registrationRequest.setStringProperty(RegistrationConstants.LOGIN
 					.value(), login);
@@ -136,17 +148,36 @@ public class RegistrationBean {
 					.value(), name);
 			registrationRequest.setStringProperty(RegistrationConstants.EMAIL
 					.value(), email);
+			registrationRequest.setStringProperty(
+					RegistrationConstants.REGISTRATION_MSG.value(),
+					MessageFormat.format(i18n
+							.getString(RegistrationConstants.REGISTRATION_MSG
+									.value()), name));
+			registrationRequest.setStringProperty(
+					RegistrationConstants.REGISTRATION_SUBJECT.value(),
+					i18n.getString(RegistrationConstants.REGISTRATION_SUBJECT
+							.value()));
+			publisher.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			publisher.send(registrationRequest);
 			logger.finest("Registration request message sent by the customer: "
 					+ name);
 			// done, now it is time to say friendly words to the customer :)
-		} catch (JMSException e) {
+		} catch (Exception e) {
 			logger.severe(e.getMessage());
 		} finally {
-			try {
-				connection.close();
-			} catch (JMSException e) {
-				logger.severe(e.getMessage());
+			if (registrationSession != null) {
+				try {
+					registrationSession.close();
+				} catch (JMSException e) {
+					logger.severe(e.getMessage());
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (JMSException e) {
+					logger.severe(e.getMessage());
+				}
 			}
 		}
 	}

@@ -18,7 +18,7 @@ body {
 	background-repeat: repeat-x;
 	height: 50px;
 	color:#FFFFFF;
-	float:none;
+	float:left;
 	width:100%;
 	display:block;
 	clear:both;

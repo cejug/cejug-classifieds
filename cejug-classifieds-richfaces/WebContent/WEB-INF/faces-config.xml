@@ -18,7 +18,7 @@
  </managed-bean>
  <managed-bean>
   <managed-bean-name>registrationBean</managed-bean-name>
-  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.RegistrationBean</managed-bean-class>
+  <managed-bean-class>net.java.dev.cejug.classifieds.richfaces.view.RegistrationClientBean</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
  <managed-bean>
