@@ -80,10 +80,10 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	@Column(name = "TITLE", nullable = false)
 	private String title;
 
-	@Column(name = "SUMMARY", nullable = false)
+	@Column(name = "SUMMARY", nullable = false, length=500)
 	private String summary;
 
-	@Column(name = "TEXT", nullable = false)
+	@Column(name = "TEXT", nullable = false, length=5000)
 	private String text;
 
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)
