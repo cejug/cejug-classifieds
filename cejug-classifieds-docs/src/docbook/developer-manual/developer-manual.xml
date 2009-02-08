@@ -13,7 +13,9 @@
 
 <!ENTITY architecture SYSTEM "architecture.xml">
 <!ENTITY legalnotice SYSTEM "../../../shared/legalnotice.xml">
-<!ENTITY chapter-installation SYSTEM "chapter-installation.xml">
+<!ENTITY chapter-dev-setup SYSTEM "chapter-dev-setup.xml">
+<!ENTITY chapter-deployment-dev SYSTEM "chapter-deployment-dev.xml">
+<!ENTITY chapter-deployment-prod SYSTEM "chapter-deployment-prod.xml">
 <!ENTITY chapter-source-organization SYSTEM "chapter-source-organization.xml">
 <!ENTITY chapter-development-process SYSTEM "chapter-development-process.xml">
 <!ENTITY appendix-about-manual SYSTEM "appendix-about-manual.xml"> 
@@ -29,10 +31,16 @@
 		&architecture;
 	</part>
 
-	<part id="editing">
+	<part id="setup">
 		<title>Developers handbook</title>
-    &chapter-installation;
+    &chapter-dev-setup;
     &chapter-source-organization;
+	</part>
+
+	<part id="installing">
+		<title>Deployment</title>
+    &chapter-deployment-dev;
+    &chapter-deployment-prod;
 	</part>
 
 	<part id="appendixes">

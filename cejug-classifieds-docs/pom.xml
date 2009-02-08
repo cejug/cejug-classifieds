@@ -38,5 +38,10 @@
 			<artifactId>maven-sdocbook-plugin</artifactId>
 			<version>1.4.1</version>
 		</dependency>
+		<!--
+			mvn install:install-file -DgroupId=jimi -DartifactId=jimi
+			-Dversion=1.0 -Dpackaging=jar
+			-Dfile=/Desktop/maven-sdocbook-plugin-1.4.1.jar
+		-->
 	</dependencies>
 </project>
