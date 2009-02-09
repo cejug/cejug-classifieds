@@ -71,7 +71,7 @@
 	</l:i18n>
 
 	<xsl:template name="user.footer.content">
-		<p>
+		<div>
 			<script type="text/javascript">
 				<!--
 					google_ad_client = "pub-7692178578516455"; /* 728x15, created
@@ -82,7 +82,7 @@
 			<script type="text/javascript"
 				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 			</script>
-		</p>
+		</div>
 		<!-- xsl:apply-templates select="//copyright[1]" mode="titlepage.mode" /-->
 	</xsl:template>
 </xsl:stylesheet>
