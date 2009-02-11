@@ -126,7 +126,7 @@ public class RegistrationClientBean {
 	 * will receive the confirmation and other instructions by email.</li>
 	 * </ol>
 	 */
-	public void register() {
+	public String register() {
 		// TODO: validation of the data, and checking if the user already
 		// exists, etc...
 		Connection connection = null;
@@ -180,5 +180,6 @@ public class RegistrationClientBean {
 				}
 			}
 		}
+		return "register";
 	}
 }
