@@ -48,11 +48,11 @@
   <PROCESS-ITEM ID="rules:#pages#security#login.xhtml:0" NAME="item"
    PATH="/pages/security/login.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID=":#{registrationBean.register}:#pages#security#registrationResults.xhtml"
+    ID="register:#{registrationBean.register}:#pages#security#registrationResults.xhtml"
     NAME="output" PATH="/pages/security/registrationResults.xhtml"
     SHAPE="-1,16"
     TARGET="rules:#pages#security#registrationResults.xhtml"
-    TITLE="#{registrationBean.register}:[any]" model-entity="JSFProcessItemOutput"/>
+    TITLE="#{registrationBean.register}:register" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>
