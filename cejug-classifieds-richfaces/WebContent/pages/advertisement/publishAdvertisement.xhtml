@@ -39,7 +39,8 @@
 </style>
 		<a:form id="publishForm" ajaxSubmit="true">
 			<a:keepAlive beanName="publishAdvertisementBean" />
-
+			<a:loadScript src="/js/classifieds.js" />
+			
 			<rich:messages layout="list" id="messages" styleClass="message"
 				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
 
@@ -101,12 +102,18 @@
 						<h:outputText value="#{msg['publishadv.summary']}" />
 						<h:inputTextarea
 							value="#{publishAdvertisementBean.advertisement.summary}"
+							onkeypress="return blockKey(this, event, 500)"
+							onkeydown="return ismaxlength(this,500)"
+							onkeyup="return ismaxlength(this,500)"
 							cols="55" rows="4" />
 
 						<h:outputText value="#{msg['publishadv.text']}" />
 						<h:inputTextarea
-							value="#{publishAdvertisementBean.advertisement.text}" cols="55"
-							rows="4" />
+							value="#{publishAdvertisementBean.advertisement.text}" 
+							onkeypress="return blockKey(this, event, 500)"
+							onkeydown="return ismaxlength(this,500)"
+							onkeyup="return ismaxlength(this,500)"
+							cols="55" rows="4" />
 
 					</h:panelGrid>
 				</rich:tab>
