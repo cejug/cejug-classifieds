@@ -226,10 +226,10 @@ public class PublishAdvertisementBean {
 
 		Principal user = SecurityBean.getUserFromContext();
 		String username = null;
-		if (user != null) {
-			username = user.getName();
-		} else {
+		if (user == null) {
 			username = "unknown";
+		} else {
+			username = user.getName();
 		}
 		
 		Customer customer = new Customer();
@@ -336,9 +336,9 @@ public class PublishAdvertisementBean {
 
 	private static String getStackTrace(Exception exception) {
 
-		StringWriter sw = new StringWriter();
-		exception.printStackTrace(new PrintWriter(sw));
-		return sw.toString();
+		StringWriter writer = new StringWriter();
+		exception.printStackTrace(new PrintWriter(writer));
+		return writer.toString();
 	}
 
 	/* File Upload */
