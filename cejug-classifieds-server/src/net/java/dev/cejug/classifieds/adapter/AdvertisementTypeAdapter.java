@@ -41,7 +41,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
 public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 
 	/** {@inheritDoc} */
-	public AdvertisementTypeEntity toEntity(AdvertisementType type)
+	public AdvertisementTypeEntity toEntity(final AdvertisementType type)
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementTypeEntity advTypeEntity = new AdvertisementTypeEntity();
@@ -54,7 +54,7 @@ public class AdvertisementTypeAdapter implements AdvertisementTypeAdapterLocal {
 	}
 
 	/** {@inheritDoc} */
-	public AdvertisementType toSoap(AdvertisementTypeEntity advTypeEntity)
+	public AdvertisementType toSoap(final AdvertisementTypeEntity advTypeEntity)
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementType advType = new AdvertisementType();
