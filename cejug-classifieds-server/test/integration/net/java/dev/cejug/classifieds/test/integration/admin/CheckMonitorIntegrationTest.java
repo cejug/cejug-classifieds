@@ -28,7 +28,9 @@ import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorQuery;
 import net.java.dev.cejug_classifieds.metadata.admin.MonitorResponse;
 
+import org.junit.Assert;
 import org.junit.Test;
+import  static org.junit.Assert.assertNotNull;;
 
 /**
  * Test the diploma validation operation.
@@ -49,6 +51,6 @@ public class CheckMonitorIntegrationTest extends AbstractServiceTestCase {
 		query.setResponseTimeLength(30);
 		query.setQuery("");
 		MonitorResponse response = service.checkMonitorOperation(query);
-		assert response.getServiceName() != null;
+		assertNotNull(response.getServiceName() );
 	}
 }
