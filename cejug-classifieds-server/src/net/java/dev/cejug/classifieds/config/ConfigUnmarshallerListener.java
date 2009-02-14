@@ -23,7 +23,6 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.config;
 
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.xml.bind.Unmarshaller.Listener;
@@ -41,28 +40,8 @@ public class ConfigUnmarshallerListener extends Listener {
 	/**
 	 * The Unmarshaller logger.
 	 */
-	private transient final Logger logger;
-
-	/**
-	 * Classifieds-Server config marshalling listener.
-	 * 
-	 * @param logger
-	 *            the logger used to register the listener processing.
-	 */
-	public ConfigUnmarshallerListener(final Logger logger) {
-		super();
-		// TODO: reimplement the config unmarshaller.
-		this.logger = logger;
-	}
-
-	/**
-	 * The Default constructor calls the constructor with an instance of the
-	 * java.util.logging.Logger.
-	 */
-	public ConfigUnmarshallerListener() {
-		this(LogManager.getLogManager().getLogger(
-				ConfigUnmarshallerListener.class.getName()));
-	}
+	private final static Logger logger = Logger.getLogger(
+			ConfigUnmarshallerListener.class.getName());
 
 	@Override
 	public void afterUnmarshal(final Object target, final Object parent) {
