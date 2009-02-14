@@ -55,7 +55,7 @@ public interface CRUDLocal<T extends AbstractMessageElement> {
 	/**
 	 * TODO: to comment.
 	 */
-	T read(long id);
+	T read(final long id);
 
 	/**
 	 * TODO: to comment.
