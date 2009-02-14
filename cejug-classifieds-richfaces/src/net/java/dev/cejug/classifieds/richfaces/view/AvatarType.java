@@ -18,8 +18,9 @@ public enum AvatarType {
 	public static AvatarType getAvatarType(final String type) {
 		AvatarType avType = null;
 		for (AvatarType avatarType : AvatarType.values()) {
-			if (avatarType.getType().equals(avType)) {
+			if (avatarType.getType().equals(type)) {
 				avType = avatarType;
+				break;
 			}
 		}
 
