@@ -51,7 +51,7 @@ public class RegistrationClientBean {
 	/**
 	 * TODO: how to get the browser Locale to use in custom messages ??
 	 */
-	private ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale
+	private static final ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale
 			.getDefault());
 
 	/**
@@ -61,7 +61,7 @@ public class RegistrationClientBean {
 			.getLogger(RegistrationClientBean.class.getName());
 
 	@Resource(mappedName = "RegistrationQueueConnectionFactory")
-	private transient QueueConnectionFactory registrationQueueConnectionFactory;
+	private transient QueueConnectionFactory registrationConnectionFactory;
 
 	@Resource(mappedName = "RegistrationQueue")
 	private transient Queue registrationQueue;
@@ -82,7 +82,7 @@ public class RegistrationClientBean {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -90,7 +90,7 @@ public class RegistrationClientBean {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -104,12 +104,12 @@ public class RegistrationClientBean {
 		return password;
 	}
 
-	public void setLogin(String login) {
+	public void setLogin(final String login) {
 
 		this.login = login;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 
 		this.password = password;
 	}
@@ -132,7 +132,7 @@ public class RegistrationClientBean {
 		Connection connection = null;
 		Session registrationSession = null;
 		try {
-			connection = registrationQueueConnectionFactory.createConnection();
+			connection = registrationConnectionFactory.createConnection();
 			registrationSession = connection.createSession(false,
 					Session.AUTO_ACKNOWLEDGE);
 			MessageProducer publisher = registrationSession
