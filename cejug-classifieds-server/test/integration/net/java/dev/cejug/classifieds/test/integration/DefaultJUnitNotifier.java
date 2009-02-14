@@ -24,12 +24,12 @@ public class DefaultJUnitNotifier extends RunNotifier {
 	}
 
 	@Override
-	public void fireTestFailure(Failure failure) {
+	public void fireTestFailure(final Failure failure) {
 		failures.add(failure);
 	}
 
 	@Override
-	public void fireTestFinished(Description description) {
+	public void fireTestFinished(final Description description) {
 		threadCounter--;
 	}
 }
