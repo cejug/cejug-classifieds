@@ -43,14 +43,14 @@ public class AdvertisementCategoryConverter implements Converter, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public AdvertisementCategoryWrapper getAsObject(FacesContext arg0,
-			UIComponent arg1, String value) {
+	public AdvertisementCategoryWrapper getAsObject(final FacesContext arg0,
+			final UIComponent arg1, final String value) {
 		try {
 			String[] values = value.split(":");
-			AdvertisementCategoryWrapper ac = new AdvertisementCategoryWrapper();
-			ac.setId(Long.parseLong(values[0]));
-			ac.setName(values[1]);
-			return ac;
+			AdvertisementCategoryWrapper categoryWrapper = new AdvertisementCategoryWrapper();
+			categoryWrapper.setId(Long.parseLong(values[0]));
+			categoryWrapper.setName(values[1]);
+			return categoryWrapper;
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			return null;
@@ -59,12 +59,13 @@ public class AdvertisementCategoryConverter implements Converter, Serializable {
 	}
 
 	@Override
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
+	public String getAsString(final FacesContext arg0, final UIComponent arg1, final Object value) {
+		String response = null;
 		if (value instanceof AdvertisementCategoryWrapper) {
-			AdvertisementCategoryWrapper ac = (AdvertisementCategoryWrapper) value;
-			return ac.getId() + ":" + ac.getName();
+			AdvertisementCategoryWrapper wrapper = (AdvertisementCategoryWrapper) value;
+			response = wrapper.getId() + ":" + wrapper.getName();
 		}
-		return null;
+		return response;
 	}
 
 }
