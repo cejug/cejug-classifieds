@@ -36,7 +36,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AbstractMessageElement;
  * Shared fields by JPA entities. All entity has a field called ID.
  * 
  * @author $Author$
- * @version $Rev: $ ($Date$)
+ * @version $Rev$ ($Date$)
  */
 @MappedSuperclass
 public abstract class AbstractEntity<T extends AbstractMessageElement> {
@@ -57,7 +57,7 @@ public abstract class AbstractEntity<T extends AbstractMessageElement> {
 	}
 
 	// @Obvious
-	public void setId(long id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 }
