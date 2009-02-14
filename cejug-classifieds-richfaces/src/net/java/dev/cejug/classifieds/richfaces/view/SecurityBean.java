@@ -50,18 +50,17 @@ public class SecurityBean {
 
 	private String password;
 
-	public void setLogin(String login) {
+	public void setLogin(final String login) {
 
 		this.login = login;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 
 		this.password = password;
 	}
 
 	public static Principal getUserFromContext() {
-
 		ExternalContext context = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		return context.getUserPrincipal();
