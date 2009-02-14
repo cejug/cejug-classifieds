@@ -5,7 +5,7 @@ public enum AvatarType {
 
 	private String type;
 
-	AvatarType(String type) {
+	AvatarType(final String type) {
 
 		this.type = type;
 	}
@@ -15,15 +15,15 @@ public enum AvatarType {
 		return type;
 	}
 
-	public static AvatarType getAvatarType(String type) {
-
+	public static AvatarType getAvatarType(final String type) {
+		AvatarType avType = null;
 		for (AvatarType avatarType : AvatarType.values()) {
-			if (avatarType.getType().equals(type)) {
-				return avatarType;
+			if (avatarType.getType().equals(avType)) {
+				avType = avatarType;
 			}
 		}
 
-		return null;
+		return avType;
 	}
 
 }
