@@ -45,7 +45,7 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 public class DomainAdapter implements DomainAdapterLocal {
 
 	/** {@inheritDoc} */
-	public DomainEntity toEntity(Domain domain) throws IllegalStateException,
+	public DomainEntity toEntity(final Domain domain) throws IllegalStateException,
 			IllegalArgumentException {
 		DomainEntity domainEntity = new DomainEntity();
 		domainEntity.setDomainName(domain.getUri());
@@ -66,7 +66,7 @@ public class DomainAdapter implements DomainAdapterLocal {
 	}
 
 	/** {@inheritDoc} */
-	public Domain toSoap(DomainEntity domainEntity)
+	public Domain toSoap(final DomainEntity domainEntity)
 			throws IllegalStateException, IllegalArgumentException {
 		Domain domain = new Domain();
 		domain.setEntityId(domainEntity.getId());
