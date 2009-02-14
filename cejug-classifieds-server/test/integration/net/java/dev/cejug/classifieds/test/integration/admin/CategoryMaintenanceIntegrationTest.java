@@ -43,6 +43,8 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 import org.junit.Assert;
 import org.junit.Test;
 
+import  static org.junit.Assert.fail;
+
 /**
  * Test the category maintenance CRUD operations through the following steps:
  * <ul>
@@ -143,7 +145,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 			Assert.assertEquals(deleteStatus.getStatusCode(), 200);
 
 		} catch (Exception n) {
-			Assert.fail(n.getMessage());
+			fail(n.getMessage());
 		}
 	}
 
@@ -163,7 +165,7 @@ public class CategoryMaintenanceIntegrationTest extends AbstractServiceTestCase 
 					.lookup(ClassifiedsAdminRemote.class.getCanonicalName());
 			crudCategory(adminSessionBean);
 		} catch (NamingException n) {
-			Assert.fail(n.getMessage());
+			fail(n.getMessage());
 		}
 	}
 
