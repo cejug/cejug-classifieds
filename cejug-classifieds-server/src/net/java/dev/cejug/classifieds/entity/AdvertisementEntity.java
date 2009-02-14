@@ -74,7 +74,7 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	 * the advertisements.
 	 */
 	public enum AdvertisementStatus {
-		ONLINE, ARCHIVE, CANCELED
+		ONLINE, ARCHIVE, CANCELED, PENDING
 	}
 
 	@Column(name = "TITLE", nullable = false)
@@ -129,7 +129,7 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 		return avatar;
 	}
 
-	public void setAvatar(AttachmentEntity avatar) {
+	public void setAvatar(final AttachmentEntity avatar) {
 
 		this.avatar = avatar;
 	}
