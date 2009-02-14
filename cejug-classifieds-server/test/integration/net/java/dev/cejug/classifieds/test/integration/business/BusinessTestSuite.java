@@ -1,7 +1,5 @@
 package net.java.dev.cejug.classifieds.test.integration.business;
 
-import generated.Rss;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -11,9 +9,5 @@ import org.junit.runners.Suite;
 		ReportSpamIntegrationTest.class })
 public final class BusinessTestSuite {
 	private BusinessTestSuite() {
-	}
-
-	public static void main(String[] args) {
-		System.out.println(Rss.class.getPackage().getName());
 	}
 }
