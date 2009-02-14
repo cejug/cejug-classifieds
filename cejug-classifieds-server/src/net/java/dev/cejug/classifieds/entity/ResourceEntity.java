@@ -66,7 +66,7 @@ public class ResourceEntity extends AbstractEntity<AdvertisementCategory> {
 		return updated;
 	}
 
-	public void setUpdated(Calendar updated) {
+	public void setUpdated(final Calendar updated) {
 		this.updated = updated;
 	}
 
@@ -82,7 +82,7 @@ public class ResourceEntity extends AbstractEntity<AdvertisementCategory> {
 		return length;
 	}
 
-	public void setLength(String length) {
+	public void setLength(final String length) {
 		this.length = length;
 	}
 
@@ -90,7 +90,7 @@ public class ResourceEntity extends AbstractEntity<AdvertisementCategory> {
 		return contentType;
 	}
 
-	public void setContentType(String contentType) {
+	public void setContentType(final String contentType) {
 		this.contentType = contentType;
 	}
 
@@ -98,7 +98,7 @@ public class ResourceEntity extends AbstractEntity<AdvertisementCategory> {
 		return url;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.url = name;
 	}
 
@@ -106,7 +106,7 @@ public class ResourceEntity extends AbstractEntity<AdvertisementCategory> {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 }
