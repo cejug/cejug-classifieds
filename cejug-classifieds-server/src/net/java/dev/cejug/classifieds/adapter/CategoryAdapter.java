@@ -40,7 +40,7 @@ import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
 public class CategoryAdapter implements CategoryAdapterLocal {
 
 	/** {@inheritDoc} */
-	public CategoryEntity toEntity(AdvertisementCategory advCategory)
+	public CategoryEntity toEntity(final AdvertisementCategory advCategory)
 			throws IllegalStateException, IllegalArgumentException {
 
 		CategoryEntity entity = new CategoryEntity();
@@ -56,7 +56,7 @@ public class CategoryAdapter implements CategoryAdapterLocal {
 	}
 
 	/** {@inheritDoc} */
-	public AdvertisementCategory toSoap(CategoryEntity entity)
+	public AdvertisementCategory toSoap(final CategoryEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementCategory soapCategory = new AdvertisementCategory();
