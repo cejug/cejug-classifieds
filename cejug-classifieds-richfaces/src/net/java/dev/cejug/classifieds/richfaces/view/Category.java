@@ -43,20 +43,20 @@ public class Category {
 
 	private transient final CejugClassifiedsBusiness SERVICE;
 
-	private transient List<AdvertisementCategory> registeredCategories;
+	private transient List<AdvertisementCategory> categories;
 
 	private List<AdvertisementCategory> reloadCategories() {
-		registeredCategories = SERVICE.readCategoryBundleOperation(
+		categories = SERVICE.readCategoryBundleOperation(
 				new BundleRequest()).getAdvCategory();
-		return registeredCategories;
+		return categories;
 	}
 
 	public List<SelectItem> getCategories() {
 		List<SelectItem> list = new ArrayList<SelectItem>();
 		// TODO: this should be cached somehow..
-		registeredCategories = reloadCategories();
-		if (registeredCategories != null) {
-			for (AdvertisementCategory cat : registeredCategories) {
+		categories = reloadCategories();
+		if (categories != null) {
+			for (AdvertisementCategory cat : categories) {
 				list.add(new SelectItem(new AdvertisementCategoryWrapper(cat
 						.getEntityId(), cat.getName()), cat.getName()));
 			}
