@@ -62,7 +62,7 @@ import net.java.dev.cejug_classifieds.metadata.business.Period;
 @Stateless
 public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 
-	private static final String KEYWORDS_SEPARATOR = ";";
+	private static final String SEPARATOR = ";";
 
 	/**
 	 * The persistence facade for Category entities.
@@ -93,7 +93,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 * 
 	 * @throws IOException
 	 */
-	public AdvertisementEntity toEntity(Advertisement soap)
+	public AdvertisementEntity toEntity(final Advertisement soap)
 			throws IllegalStateException, IllegalArgumentException {
 
 		AdvertisementEntity entity = new AdvertisementEntity();
@@ -134,6 +134,8 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		case 3:
 			entity.setState(AdvertisementEntity.AdvertisementStatus.ONLINE);
 			break;
+		default:
+			entity.setState(AdvertisementEntity.AdvertisementStatus.PENDING);
 		}
 		entity.setSummary(soap.getSummary());
 		entity.setText(soap.getText());
@@ -143,7 +145,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	}
 
 	/** {@inheritDoc} */
-	public Advertisement toSoap(AdvertisementEntity entity)
+	public Advertisement toSoap(final AdvertisementEntity entity)
 			throws IllegalStateException, IllegalArgumentException {
 
 		Advertisement adv = new Advertisement();
@@ -192,6 +194,8 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 		case ONLINE:
 			adv.setStatus(3);
 			break;
+		default:
+			throw new IllegalStateException("Advertisement has status PENDING");
 		}
 		return adv;
 	}
@@ -204,12 +208,12 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 *            the collection of
 	 * @return a single String formed by comma separated tokens.
 	 */
-	private String mergeKeywords(Collection<AdvertisementKeywordEntity> keywords) {
+	private String mergeKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
 
 		StringBuffer keyword = new StringBuffer();
 		for (AdvertisementKeywordEntity key : keywords) {
 			keyword.append(key);
-			keyword.append(KEYWORDS_SEPARATOR);
+			keyword.append(SEPARATOR);
 		}
 		return keyword.toString();
 	}
@@ -222,7 +226,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 *            the comma separated keyword.
 	 * @return the collection of entities.
 	 */
-	private Collection<AdvertisementKeywordEntity> splitKeywords(String keywords) {
+	private Collection<AdvertisementKeywordEntity> splitKeywords(final String keywords) {
 
 		Collection<AdvertisementKeywordEntity> collection = new ArrayList<AdvertisementKeywordEntity>();
 		StringTokenizer tokenizer = new StringTokenizer(keywords, ";,", false);
@@ -243,7 +247,7 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 * @throws IOException
 	 *             I/O general exception.
 	 */
-	public byte[] imageToByteArray(Image image) {
+	public byte[] imageToByteArray(final Image image) {
 
 		MediaTracker tracker = new MediaTracker(new Container());
 		tracker.addImage(image, 0);
