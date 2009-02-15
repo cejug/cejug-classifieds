@@ -6,12 +6,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.ProduceMime;
 import javax.ws.rs.QueryParam;
 
-import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 
 @Path("confirm")
 public class RegistrationConfirmation {
-	// @EJB
-	// private transient UserFacadeLocal userFacade;
+	@EJB
+	private transient UserFacadeRemote userFacade;
 
 	@GET
 	@ProduceMime("text/html")
@@ -24,6 +24,7 @@ public class RegistrationConfirmation {
 	public String newCustomer(@QueryParam("login") String login,
 			@QueryParam("key") String key) {
 		return "<ul><li>login: <strong>" + login
-				+ "</strong></li><li>key: <strong>" + key + "</strong></ul>";
+				+ "</strong></li><li>key: <strong>" + key
+				+ "</strong></ul><li>" + userFacade + "</li>";
 	}
 }

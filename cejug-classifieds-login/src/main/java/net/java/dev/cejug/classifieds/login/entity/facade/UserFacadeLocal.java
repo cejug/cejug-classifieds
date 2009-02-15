@@ -26,6 +26,7 @@ package net.java.dev.cejug.classifieds.login.entity.facade;
 import javax.ejb.Local;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 
 /**
  * The persistence facade for Category entities.
@@ -35,5 +36,5 @@ import net.java.dev.cejug.classifieds.login.entity.UserEntity;
  * @see EntityFacade
  */
 @Local
-public interface UserFacadeLocal extends EntityFacade<UserEntity> {
+public interface UserFacadeLocal extends EntityFacade<UserEntity>, UserFacadeRemote {
 }

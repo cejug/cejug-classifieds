@@ -5,7 +5,7 @@
 	<groupId>net.java.dev.cejug.classifieds</groupId>
 	<artifactId>cejug-classifieds</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>cejug-classifieds</name>
 	<url>https://cejug-classifieds.dev.java.net/</url>
 	<mailingLists>
@@ -72,9 +72,16 @@
 			<artifactId>javaee-api</artifactId>
 			<version>5</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.primefaces</groupId>
+		   <artifactId>primefaces-ui</artifactId>
+		   <version>0.8.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<modules>
 		<module>cejug-classifieds-login</module>
+		<module>cejug-classifieds-login-rest</module>
+		<module>cejug-classifieds-login-ear</module>
 		<!--module>cejug-classifieds-admin</module>
 		<module>cejug-classifieds-docs</module>
 		<module>cejug-classifieds-richfaces</module>
@@ -86,6 +93,12 @@
 		  <url>http://download.java.net/maven/1</url>
 		  <layout>legacy</layout>
 		</repository>
+		 <repository>  
+		     <id>prime-repo</id>  
+		     <name>Prime Technology Maven Repository</name>  
+		     <url>http://repository.prime.com.tr/</url>  
+		     <layout>default</layout>  
+		 </repository> 
 	</repositories>
 	<reporting>
 		<plugins>

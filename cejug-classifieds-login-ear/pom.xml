@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>cejug-classifieds</artifactId>
+		<groupId>net.java.dev.cejug.classifieds</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>	<artifactId>cejug-classifieds-login-ear</artifactId>
+	<packaging>ear</packaging>
+	<name>login-ear: jdbc realm based</name>
+	<dependencies>
+		<dependency>
+			<groupId>net.java.dev.cejug.classifieds.login</groupId>
+			<artifactId>cejug-classifieds-login</artifactId>
+			<type>ejb</type>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.cejug.classifieds.login</groupId>
+			<artifactId>cejug-classifieds-login-rest</artifactId>
+			<type>war</type>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>login-app</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+    				<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<ejbModule>
+							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<artifactId>cejug-classifieds-login</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<artifactId>cejug-classifieds-login-rest</artifactId>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

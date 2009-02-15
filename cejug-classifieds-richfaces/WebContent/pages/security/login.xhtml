@@ -36,7 +36,6 @@
 			</table>
 			</form>
 		</f:verbatim>
-
 		<hr />
 		<div style="background: #AFC7C7;">
 		<h3>OR REGISTER</h3>
@@ -76,29 +75,6 @@
 		 and redirect the message to the Notification Queue for further customer email notification. After
 		 getting stable, this code should be integrated in the frontpage as a simple login/registration
 		block. i18n and css enhacements are expected in the production version." /></small></div>
-		</f:view>
-	</ui:define>
-	<ui:define name="adsense">
-		<f:view>
-			<f:verbatim>
-				<form method="post" action="j_security_check">
-				<table class="loginPane">
-					<tr class="loginrow">
-						<th><label class="loginlabel">Username:</label></th>
-						<td><input class="loginfield" type="text" name="j_username" /></td>
-					</tr>
-					<tr class="loginrow">
-						<th><label class="loginlabel">Password:</label></th>
-						<td><input class="loginfield" type="password"
-							name="j_password" /></td>
-					</tr>
-					<tr class="loginrow">
-						<td colspan="2"><input type="submit" value="Log In" /></td>
-						<!-- td align="left"><input class="submit" type="reset" /></td-->
-					</tr>
-				</table>
-				</form>
-			</f:verbatim>
 		</f:view>
 	</ui:define>
 </ui:composition>

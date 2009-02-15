@@ -24,7 +24,19 @@
 	<div class='fullscreen'>
 	<div class='topPane'><ui:insert name="pageheader">Default Header</ui:insert>
 	</div>
-	<div class='adsense'><ui:insert name="adsense">Google adsense here</ui:insert></div>
+	<!-- div class='adsense'-->
+	<div>
+	<ui:insert name="adsense"><script type="text/javascript"><!--
+google_ad_client = "pub-7692178578516455";
+/* 728x15, created 2/4/09 */
+google_ad_slot = "6475491895";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script> <script type="text/javascript"
+			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</ui:insert></div>
 	<div class='midCenterPane'><ui:insert name="body">Default Body</ui:insert>
 	</div>
 	<div class='footer'><ui:insert name="pagefooter">
