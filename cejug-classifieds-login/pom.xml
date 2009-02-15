@@ -11,7 +11,7 @@
 	<groupId>net.java.dev.cejug.classifieds.login
 	</groupId>
 	<artifactId>cejug-classifieds-login</artifactId>
-	<name>cejug-classifieds-login</name>
+	<name>login-ejb: middleware and persistence</name>
 	<version>1.0-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
 	<properties>
