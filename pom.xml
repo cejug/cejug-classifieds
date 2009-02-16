@@ -45,13 +45,13 @@
 			</plugin>
 
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.8</version>
-			</extension>
-		</extensions>
+		<!--extensions>
+		    <extension>
+		        <groupId>org.jvnet.wagon-svn</groupId>
+		        <artifactId>wagon-svn</artifactId>
+		        <version>1.8</version>
+		    </extension>
+		</extensions-->
 	</build>
 	<distributionManagement>
 		<repository>
@@ -59,6 +59,7 @@
 			<url>java-net:/maven2-repository/trunk/www/repository/</url>
 		</repository>
 	</distributionManagement>
+
 
 	<dependencies>
 		<dependency>
