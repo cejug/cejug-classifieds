@@ -7,7 +7,7 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
-<ui:composition template="../../template/template.xhtml">
+<ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
 		<div><h:graphicImage value="/images/templateNew/header.png"
 			styleClass="logo" /></div>
@@ -15,8 +15,10 @@
 			<a:commandLink action="home" value="Home" styleClass="publishLink" />
 		</a:form></div>
 	</ui:define>
-
-	<ui:define name="body" styleClass="advertisementPane">
+	
+	<ui:define name="adsense"></ui:define>
+	
+	<ui:define name="body">
 		<f:verbatim>
 			<form method="post" action="j_security_check">
 			<table class="loginPane">
