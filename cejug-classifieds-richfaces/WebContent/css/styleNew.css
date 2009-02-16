@@ -52,10 +52,18 @@ a.publishLink:link, a.publishLink:hover, a.publishLink:visited, a.publishLink:ac
 }
 
 .midCenterPane {
-	margin-left:auto;
+	margin-left:5px;
 	margin-right:auto;
 	width: 99%;
 	height: 100%;
+	float:left;
+}
+
+.footer {
+	margin-left:5px;
+	margin-right:auto;
+	width: 99%;
+	float:left;
 }
 
 .dr-table-cell, .dr-table{
