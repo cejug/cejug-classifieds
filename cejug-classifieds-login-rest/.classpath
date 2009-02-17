@@ -4,12 +4,10 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/3.1/asm-3.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/net/java/dev/cejug/classifieds/login/cejug-classifieds-login/1.0-SNAPSHOT/cejug-classifieds-login-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="src" path="/cejug-classifieds-login"/>
   <classpathentry kind="var" path="M2_REPO/javaee/javaee-api/5/javaee-api-5.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey/0.8-ea/jersey-0.8-ea.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/ws/rs/jsr311-api/0.8/jsr311-api-0.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces-ui/0.8.1-SNAPSHOT/primefaces-ui-0.8.1-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar"/>
 </classpath>

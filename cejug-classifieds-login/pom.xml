@@ -29,6 +29,13 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<!--
+				plugin> <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId> <configuration>
+				<ejbVersion>3.0</ejbVersion> <archive>
+				<addMavenDescriptor>false</addMavenDescriptor> </archive>
+				</configuration> </plugin
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
@@ -37,6 +44,11 @@
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 					</archive>
+					<generateClient>true</generateClient>
+					<clientIncludes>
+						<!-- this will include all files and directories under com/foo/bar -->
+						<clientInclude>net/java/dev/cejug/classifieds/login/entity/facade/client/**</clientInclude>
+					</clientIncludes>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -53,73 +65,13 @@
 			<groupId>javaee</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>5</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<scm>
-		<connection>
-			scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk/cejug-classifieds-login
-		</developerConnection>
-		<tag>HEAD</tag>
-		<url>http://cejug-classifieds.dev.java.net
-		</url>
-	</scm>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>1.2</version>
-				<configuration>
-					<xmlOutput>true</xmlOutput>
-					<!-- xmlOutputDirectory></xmlOutputDirectory-->
-					<threshold>Low</threshold>
-					<effort>Max</effort>
-					<!--
-						excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-						<includeFilterFile>findbugs-include.xml</includeFilterFile>
-						<visitors>FindDeadLocalStores,UnreadFields</visitors>
-						<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-						<onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-						<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList
-					-->
-					<debug>true</debug>
-					<relaxed>false</relaxed>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<!--
-						findbugsXmlOutputDirectory>directory location of findbugs legact
-						xml format report</findbugsXmlOutputDirectory
-					-->
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<linkXref>true</linkXref>
-					<sourceEncoding>utf-8</sourceEncoding>
-					<minimumTokens>1</minimumTokens>
-					<targetJdk>1.6</targetJdk>
-					<excludes />
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>

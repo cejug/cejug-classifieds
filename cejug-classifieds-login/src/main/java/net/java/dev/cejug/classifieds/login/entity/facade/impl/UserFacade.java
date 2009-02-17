@@ -31,7 +31,7 @@ import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
 

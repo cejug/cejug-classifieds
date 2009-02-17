@@ -21,12 +21,12 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity.facade;
+package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
 import javax.ejb.Local;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
+import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
 
 /**
  * The persistence facade for Category entities.
@@ -36,5 +36,6 @@ import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemot
  * @see EntityFacade
  */
 @Local
-public interface UserFacadeLocal extends EntityFacade<UserEntity>, UserFacadeRemote {
+public interface UserFacadeLocal extends EntityFacade<UserEntity>,
+		UserFacadeRemote {
 }

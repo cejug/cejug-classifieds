@@ -49,8 +49,8 @@ import javax.persistence.NoResultException;
 import net.java.dev.cejug.classifieds.login.entity.GroupEntity;
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.GroupFacadeLocal;
-import net.java.dev.cejug.classifieds.login.entity.facade.UserFacadeLocal;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal;
 
 /**
  * Registration steps, triggered by a message in the registration queue:

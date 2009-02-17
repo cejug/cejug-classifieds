@@ -1,7 +1,9 @@
 <projectDescription>
   <name>cejug-classifieds-login-rest</name>
   <comment/>
-  <projects/>
+  <projects>
+    <project>cejug-classifieds-login</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
