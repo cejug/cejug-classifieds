@@ -231,7 +231,7 @@ public class PublishAdvertisementBean {
 		} else {
 			username = user.getName();
 		}
-		
+
 		Customer customer = new Customer();
 		customer.setLogin(username);
 		customer.setDomainId(domainId); // TODO Get domain from user

@@ -28,13 +28,14 @@ import java.util.logging.Logger;
 /**
  * 
  * Advertisement Ratings.
- *  
+ * 
  * @author $Author: felipegaucho $
  * @version $Rev: $ ($Date: 2008-12-26 17:41:33 +0100 (Fri, 26 Dec 2008) $)
  */
 public class StarRatingBean {
-	private final static Logger logger = Logger.getLogger(StarRatingBean .class.getName());
-	
+	private final static Logger logger = Logger.getLogger(StarRatingBean.class
+			.getName());
+
 	private String vote;
 
 	public String getVote() {

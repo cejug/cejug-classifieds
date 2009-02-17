@@ -46,8 +46,8 @@ public class Category {
 	private transient List<AdvertisementCategory> categories;
 
 	private List<AdvertisementCategory> reloadCategories() {
-		categories = SERVICE.readCategoryBundleOperation(
-				new BundleRequest()).getAdvCategory();
+		categories = SERVICE.readCategoryBundleOperation(new BundleRequest())
+				.getAdvCategory();
 		return categories;
 	}
 

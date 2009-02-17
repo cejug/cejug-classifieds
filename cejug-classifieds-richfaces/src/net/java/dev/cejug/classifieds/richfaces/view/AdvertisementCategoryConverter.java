@@ -59,7 +59,8 @@ public class AdvertisementCategoryConverter implements Converter, Serializable {
 	}
 
 	@Override
-	public String getAsString(final FacesContext arg0, final UIComponent arg1, final Object value) {
+	public String getAsString(final FacesContext arg0, final UIComponent arg1,
+			final Object value) {
 		String response = null;
 		if (value instanceof AdvertisementCategoryWrapper) {
 			AdvertisementCategoryWrapper wrapper = (AdvertisementCategoryWrapper) value;

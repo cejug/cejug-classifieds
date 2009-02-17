@@ -51,8 +51,8 @@ public class RegistrationClientBean {
 	/**
 	 * TODO: how to get the browser Locale to use in custom messages ??
 	 */
-	private static final ResourceBundle i18n = ResourceBundle.getBundle("messages", Locale
-			.getDefault());
+	private static final ResourceBundle i18n = ResourceBundle.getBundle(
+			"messages", Locale.getDefault());
 
 	/**
 	 * default logger.
