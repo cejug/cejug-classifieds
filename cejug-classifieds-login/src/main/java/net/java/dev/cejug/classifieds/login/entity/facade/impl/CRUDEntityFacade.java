@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.login.entity.facade.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -51,7 +52,7 @@ import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
  *      t e , read, update and delete (CRUD)</a>
  */
 @Stateless
-public class CRUDEntityFacade<T extends AbstractEntity> implements
+public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		EntityFacade<T> {
 	/**
 	 * the global log manager, used to allow third party services to override
@@ -153,9 +154,12 @@ public class CRUDEntityFacade<T extends AbstractEntity> implements
 	public T findByCriteria(final String query, final Map<String, ?> parameters)
 			throws NoResultException {
 		Query namedQuery = manager.createNamedQuery(query);
-		for (String key : parameters.keySet()) {
-			namedQuery.setParameter(key, parameters.get(key));
+
+		for (Iterator keys = parameters.keySet().iterator(); keys.hasNext();) {
+			Map.Entry<String, ?> entry = (Map.Entry) keys.next();
+			namedQuery.setParameter(entry.getKey(), entry.getValue());
 		}
+
 		return (T) namedQuery.getSingleResult();
 	}
 }
