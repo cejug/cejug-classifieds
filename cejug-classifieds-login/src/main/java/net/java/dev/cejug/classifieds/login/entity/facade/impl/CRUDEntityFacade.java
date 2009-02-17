@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -150,13 +151,13 @@ public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public T findByCriteria(final String query, final Map<String, ?> parameters)
 			throws NoResultException {
 		Query namedQuery = manager.createNamedQuery(query);
-
-		for (Iterator keys = parameters.keySet().iterator(); keys.hasNext();) {
-			Map.Entry<String, ?> entry = (Map.Entry) keys.next();
+		// Set<Map.Entry<String, ?>> hh = parameters.entrySet();
+		for (Iterator keys = parameters.entrySet().iterator(); keys.hasNext();) {
+			Map.Entry<String, ?> entry = (Map.Entry<String, ?>) keys.next();
 			namedQuery.setParameter(entry.getKey(), entry.getValue());
 		}
 
