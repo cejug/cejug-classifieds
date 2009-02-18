@@ -8,6 +8,17 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>cejug-classifieds</name>
 	<url>https://cejug-classifieds.dev.java.net/</url>
+	<inceptionYear>2008</inceptionYear>
+	<description>CEJUG-Classifieds is a 100% pure Java classified advertising system</description>
+
+	<issueManagement>
+		<system>Issue Tracker Java.Net</system>
+		<url>https://cejug-classifieds.dev.java.net/servlets/ProjectIssues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Hudson</system>
+		<url>http://fgaucho.dyndns.org:8080/hudson/</url>
+	</ciManagement>
 	<mailingLists>
 		<mailingList>
 			<name>Developers List</name>
@@ -15,9 +26,54 @@
 			<archive>https://cejug-classifieds.dev.java.net/servlets/SummarizeList?listName=dev</archive>
 		</mailingList>
 	</mailingLists>
+	<developers>
+		<developer>
+			<id>felipegaucho</id>
+			<name>Felipe Gaúcho</name>
+			<email>fgaucho@gmail.com</email>
+			<timezone>+1</timezone>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>rodrigolopes</id>
+			<name>Rodrigo Lopes</name>
+			<email/>
+			<timezone>+0</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>arisson</id>
+			<name>Árisson Leal</name>
+			<email/>
+			<timezone>-3</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License (LGPL V3)</name>
+			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+		</license>
+	</licenses>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<scm>
+		<connection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</connection>
+		<developerConnection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</developerConnection>
+		<tag>HEAD</tag>
+		<url>scm:svn:https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/trunk/</url>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>
@@ -29,13 +85,17 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.4.3</version>
+         </plugin>
 		</plugins>
 		<extensions>
-		    <extension>
-		        <groupId>org.jvnet.wagon-svn</groupId>
-		        <artifactId>wagon-svn</artifactId>
-		        <version>1.8</version>
-		    </extension>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.8</version>
+			</extension>
 		</extensions>
 	</build>
 	<distributionManagement>
@@ -44,21 +104,6 @@
 			<url>java-net:/maven2-repository/trunk/www/repository/</url>
 		</repository>
 	</distributionManagement>
-
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>5</version>
-		</dependency>
-	</dependencies>
 	<modules>
 		<module>cejug-classifieds-login</module>
 		<module>cejug-classifieds-login-rest</module>
@@ -66,33 +111,51 @@
 	</modules>
 	<repositories>
 		<repository>
-		  <id>java.net</id>
-		  <url>http://download.java.net/maven/1</url>
-		  <layout>legacy</layout>
+			<id>java.net</id>
+			<url>http://download.java.net/maven/1</url>
+			<layout>legacy</layout>
 		</repository>
-		 <repository>  
-		     <id>prime-repo</id>  
-		     <name>Prime Technology Maven Repository</name>  
-		     <url>http://repository.prime.com.tr/</url>  
-		     <layout>default</layout>  
-		 </repository> 
 		<repository>
-		  <id>maven2-repository.dev.java.net</id>
-		  <name>Java.net Repository for Maven</name>
-		  <url>http://download.java.net/maven/2/</url>
-		  <layout>default</layout>
+			<id>prime-repo</id>
+			<name>Prime Technology Maven Repository</name>
+			<url>http://repository.prime.com.tr/</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>net.sourceforge.findbugs</groupId>
+        <artifactId>annotations</artifactId>
+        <version>2.0-SNAPSHOT</version>
+      </dependency> 
+      <dependency>
+        <groupId>net.sourceforge.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>2.0-SNAPSHOT</version>
+      </dependency>
+    </dependencies>  
+  </dependencyManagement>
+
 	<reporting>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.0-SNAPSHOT</version>
 				<configuration>
 					<effort>Max</effort>
-					<threshold>High</threshold>
-					<!-- includeFilterFile>whizbang/lib-filter.xml</includeFilterFile-->
+					<threshold>Low</threshold>
+					<xmlOutput>true</xmlOutput>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -111,6 +174,43 @@
 						</excludeRoots
 					-->
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<version>true</version>
+					<javadocVersion>${source.version}</javadocVersion>
+					<links>
+						<link>http://java.sun.com/javase/6/docs/api/</link>
+						<link>http://java.sun.com/products/servlet/2.5/docs/servlet-2_5-mr2/</link>
+						<link>http://joda-time.sourceforge.net/api-release/</link>
+						<link>http://findbugs.sourceforge.net/api/</link>
+					</links>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+
+				<configuration>
+					<tags>
+						<tag>@deprecated</tag>
+						<tag>@todo</tag>
+						<tag>FIXME</tag>
+						<tag>TODO</tag>
+						<tag>XXX</tag>
+						<tag>REVIEW</tag>
+					</tags>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javancss-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</reporting>
