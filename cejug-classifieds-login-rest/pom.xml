@@ -59,7 +59,4 @@
 			<layout>legacy</layout>
 		</repository>
 	</repositories>
-	<build>
-		<finalName>cejug-classifieds-login-rest</finalName>
-	</build>
 </project>
