@@ -3,11 +3,19 @@
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/3.1/asm-3.1.jar"/>
   <classpathentry kind="src" path="/cejug-classifieds-login"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-lgpl/0.9.4/jackson-lgpl-0.9.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/javaee/javaee-api/5/javaee-api-5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey/0.8-ea/jersey-0.8-ea.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/ws/rs/jsr311-api/0.8/jsr311-api-0.8.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.1.10/jaxb-impl-2.1.10.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-client/1.0.2/jersey-client-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-core/1.0.2/jersey-core-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-json/1.0.2/jersey-json-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-server/1.0.2/jersey-server-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jettison/jettison/1.0.1/jettison-1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/ws/rs/jsr311-api/0.7/jsr311-api-0.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/stax/stax-api/1.0.1/stax-api-1.0.1.jar"/>
 </classpath>

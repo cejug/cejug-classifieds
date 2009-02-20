@@ -10,8 +10,8 @@ import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal
 
 @Path("confirm")
 public class RegistrationConfirmation {
-	@EJB
-	UserFacadeLocal local;
+	@EJB(name = "fooejbref", mappedName = "Foo")
+	private UserFacadeLocal local;
 
 	@GET
 	@ProduceMime("text/html")
