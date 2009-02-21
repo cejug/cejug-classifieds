@@ -41,7 +41,7 @@ public class CheckEmailOrLogin extends HttpServlet {
 					"email " + email + " already in use.");
 		}
 		PrintWriter out = response.getWriter();
-		out.print("@EJB UserFacadeLocal ref = " + local);
+		out.print("OK");
 	}
 
 	/** {@inheritDoc} */
