@@ -1,31 +1,46 @@
 package net.java.dev.cejug.classifieds.login.resource;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Locale;
+
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.ProduceMime;
-import javax.ws.rs.QueryParam;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal;
 
-@Path("confirm")
-public class RegistrationConfirmation {
-	@EJB(name = "fooejbref", mappedName = "Foo")
+public class RegistrationConfirmation extends HttpServlet {
+	/** <code>serialVersionUID = {@value}</code>. */
+	private final static long serialVersionUID = -6026937020915831338L;
+
+	@EJB
 	private UserFacadeLocal local;
 
-	@GET
-	@ProduceMime("text/html")
-	public String getGreeting() {
-		return "<p>Welcome to Cejug-Classifieds, you will rceive more information by email...</p><p style=\"color:red;\">NOT YET IMPLEMENTED .. coming soon......</p>";
+	/** {@inheritDoc} */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		// Little trick: http://www.petefreitag.com/item/381.cfm
+		String agent = request.getHeader("User-Agent");
+		if (agent != null && agent.toUpperCase(Locale.US).contains("MOZILLA")) {
+			response.setContentType("text/xml");
+		} else {
+			response.setContentType("application/atom+xml");
+		}
+
+		PrintWriter out = response.getWriter();
+		out.print("@EJB UserFacadeLocal ref = " + local);
 	}
 
-	@GET
-	@ProduceMime("text/html")
-	public String newCustomer(@QueryParam("login") String login,
-			@QueryParam("key") String key) {
-		return "<ul><li>login: <strong>" + login
-				+ "</strong></li><li>key: <strong>" + key
-				+ "</strong></li><li>@EJB UserFacadeLocal = " + local
-				+ "</li></ul>";
+	/** {@inheritDoc} */
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		super.doPost(req, resp);
 	}
 }
