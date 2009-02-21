@@ -24,14 +24,6 @@ public class RegistrationConfirmation extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// Little trick: http://www.petefreitag.com/item/381.cfm
-		String agent = request.getHeader("User-Agent");
-		if (agent != null && agent.toUpperCase(Locale.US).contains("MOZILLA")) {
-			response.setContentType("text/xml");
-		} else {
-			response.setContentType("application/atom+xml");
-		}
-
 		PrintWriter out = response.getWriter();
 		out.print("@EJB UserFacadeLocal ref = " + local);
 	}
