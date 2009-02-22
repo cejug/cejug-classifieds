@@ -13,6 +13,10 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<context-param>
+		<param-name>confirmationUrl</param-name>
+		<param-value>http://fgaucho.dyndns.org:8080/cejug-classifieds-login-rest/confirm?key=</param-value>
+	</context-param>
+	<context-param>
 		<param-name>org.primefaces.ui.component.captcha.PRIVATE_KEY</param-name>
 		<param-value>6Lfa8gQAAAAAACPD2di4BdsJh0a4wdnBxHg7o0jX</param-value>
 	</context-param>

@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -59,6 +60,7 @@ public class RegistrationClientBean {
 	 */
 	private static final Logger logger = Logger
 			.getLogger(RegistrationClientBean.class.getName());
+
 
 	@Resource(mappedName = "RegistrationQueueConnectionFactory")
 	private transient QueueConnectionFactory registrationConnectionFactory;
@@ -146,6 +148,9 @@ public class RegistrationClientBean {
 					RegistrationConstants.PASSWORD.value(), password);
 			registrationRequest.setStringProperty(RegistrationConstants.NAME
 					.value(), name);
+
+			registrationRequest.setStringProperty(RegistrationConstants.CONFIRMATION_BASE_URL
+					.value(), FacesContext.getCurrentInstance().getExternalContext().getInitParameter(RegistrationConstants.CONFIRMATION_BASE_URL.value()));
 			registrationRequest.setStringProperty(RegistrationConstants.EMAIL
 					.value(), email);
 			registrationRequest.setStringProperty(
