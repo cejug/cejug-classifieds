@@ -26,15 +26,9 @@ package net.java.dev.cejug.classifieds.login.security;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
@@ -44,7 +38,8 @@ import sun.misc.BASE64Encoder;
 
 /**
  * 
- * @author fgaucho
+ * @author $Author: felipegaucho $
+ * @version $Rev$ ($Date: 2009-02-01 17:26:25 +0100 (Sun, 01 Feb 2009) $)
  * @see <a
  *      href='http://www.devx.com/Java/10MinuteSolution/21385/1763/page/1'>Encry
  *      p t Sensitive Configuration Data with Java</a>
@@ -62,10 +57,6 @@ public class DESedeStringEncrypter {
 	 * @param encryptionScheme
 	 * @param encryptionKey
 	 * @throws GeneralSecurityException
-	 * @throws UnsupportedEncodingException
-	 * @throws InvalidKeyException
-	 * @throws NoSuchAlgorithmException
-	 * @throws NoSuchPaddingException
 	 */
 	public DESedeStringEncrypter(String encryptionKey)
 			throws GeneralSecurityException {
@@ -84,12 +75,8 @@ public class DESedeStringEncrypter {
 	 * 
 	 * @param unencryptedString
 	 * @return
+	 * @throws GeneralSecurityException
 	 * @throws UnsupportedEncodingException
-	 * @throws InvalidKeySpecException
-	 * @throws UnsupportedEncodingException
-	 * @throws InvalidKeyException
-	 * @throws IllegalBlockSizeException
-	 * @throws BadPaddingException
 	 */
 	public String encrypt(String unencryptedString)
 			throws GeneralSecurityException, UnsupportedEncodingException {
@@ -110,12 +97,8 @@ public class DESedeStringEncrypter {
 	 * 
 	 * @param encryptedString
 	 * @return
+	 * @throws GeneralSecurityException
 	 * @throws IOException
-	 * @throws IllegalArgumentException
-	 * @throws InvalidKeySpecException
-	 * @throws InvalidKeyException
-	 * @throws IllegalBlockSizeException
-	 * @throws BadPaddingException
 	 */
 	public String decrypt(String encryptedString)
 			throws GeneralSecurityException, IOException {

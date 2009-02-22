@@ -34,8 +34,8 @@ public enum RegistrationConstants {
 	EMAIL("email"), @XmlEnumValue("login")
 	LOGIN("login"), @XmlEnumValue("password")
 	PASSWORD("password"), @XmlEnumValue("registrationSubject")
-	REGISTRATION_SUBJECT("registrationSubject"), @XmlEnumValue("confirmationUrl") CONFIRMATION_BASE_URL(
-			"confirmationUrl");
+	REGISTRATION_SUBJECT("registrationSubject"), @XmlEnumValue("confirmationUrl")
+	CONFIRMATION_BASE_URL("confirmationUrl");
 	private final String value;
 
 	RegistrationConstants(String v) {
