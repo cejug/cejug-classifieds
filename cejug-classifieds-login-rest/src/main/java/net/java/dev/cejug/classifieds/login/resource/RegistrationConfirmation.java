@@ -53,12 +53,13 @@ public class RegistrationConfirmation extends HttpServlet {
 					out.print(entry.getValue());
 					out.print("<br/>");
 				}
+				/*
 				out.print("<hr/>");
 				out
 						.print("<p>TODO:<ol><li>To update the account to status ACTIVE</li><li>To redirect to the classifieds page or to a help page with instructions to the new customer</li><li>other ideas</li></ol></p>");
 				out.print("<br/><p>@EJB UserFacadeLocal ref = " + local
 						+ "</p>");
-
+*/
 			} catch (GeneralSecurityException e) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, e
 						.getMessage());
