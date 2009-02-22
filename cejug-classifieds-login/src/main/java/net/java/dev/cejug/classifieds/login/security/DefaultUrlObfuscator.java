@@ -72,15 +72,16 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 	public Map<String, String> extractParameters(String obfuscated)
 			throws GeneralSecurityException, IOException {
 		Map<String, String> parameters = new HashMap<String, String>();
-		StringTokenizer parametersTokenizer = new StringTokenizer(ENCRYPTER
-				.decrypt(obfuscated), URL_PARAMS_SEPARATOR, false);
+		String plain = ENCRYPTER.decrypt(obfuscated);
+		StringTokenizer parametersTokenizer = new StringTokenizer(plain,
+				URL_PARAMS_SEPARATOR, false);
 		while (parametersTokenizer.hasMoreTokens()) {
 			String token = parametersTokenizer.nextToken();
 			if (token.equals(RegistrationConstants.EMAIL.value())
 					&& parametersTokenizer.hasMoreTokens()) {
 				parameters.put(RegistrationConstants.EMAIL.value(),
 						parametersTokenizer.nextToken());
-			} else if (token.equals(RegistrationConstants.LOGIN)
+			} else if (token.equals(RegistrationConstants.LOGIN.value())
 					&& parametersTokenizer.hasMoreTokens()) {
 				parameters.put(RegistrationConstants.LOGIN.value(),
 						parametersTokenizer.nextToken());
