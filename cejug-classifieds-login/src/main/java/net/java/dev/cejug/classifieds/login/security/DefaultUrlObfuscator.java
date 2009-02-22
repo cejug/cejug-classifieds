@@ -28,7 +28,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
+import javax.ejb.Stateless;
+
+import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.URLDeobfuscator;
 
 /**
@@ -38,18 +44,16 @@ import net.java.dev.cejug.classifieds.login.entity.facade.client.URLDeobfuscator
  * @author $Author: felipegaucho $
  * @version $Rev$ ($Date: 2009-02-14 12:28:21 +0100 (Sat, 14 Feb 2009) $)
  */
+@Stateless
 public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
-	private transient final DESedeStringEncrypter encrypter;
+	private static final String URL_PARAMS_LOGIN = "&login=";
+	private static final String URL_PARAMS_EMAIL = "email=";
+	private static final String URL_PARAMS_SEPARATOR = "?&=";
+	private transient final DESedeStringEncrypter ENCRYPTER;
+	private transient final String ENCRYPTION_KEY = "todo_to_think_about_this_key_not_hard_code";
 
-	public DefaultUrlObfuscator(String encryptionKey)
-			throws GeneralSecurityException {
-		if (encryptionKey == null) {
-			throw new IllegalArgumentException("encryption key was null");
-		} else if (encryptionKey.trim().length() < 24) {
-			throw new IllegalArgumentException(
-					"encryption key was less than 24 characters");
-		}
-		encrypter = new DESedeStringEncrypter(encryptionKey);
+	public DefaultUrlObfuscator() throws GeneralSecurityException {
+		ENCRYPTER = new DESedeStringEncrypter(ENCRYPTION_KEY);
 	}
 
 	@Override
@@ -57,17 +61,31 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 			throws MalformedURLException, GeneralSecurityException,
 			UnsupportedEncodingException {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("email=");
+		buffer.append(URL_PARAMS_EMAIL);
 		buffer.append(email);
-		buffer.append("&login=");
+		buffer.append(URL_PARAMS_LOGIN);
 		buffer.append(login);
-		return new URL(baseUrl + encrypter.encrypt(buffer.toString()));
+		return new URL(baseUrl + ENCRYPTER.encrypt(buffer.toString()));
 	}
 
 	@Override
-	public String extractParameters(String obfuscated)
+	public Map<String, String> extractParameters(String obfuscated)
 			throws GeneralSecurityException, IOException {
-
-		return encrypter.decrypt(obfuscated);
+		Map<String, String> parameters = new HashMap<String, String>();
+		StringTokenizer parametersTokenizer = new StringTokenizer(ENCRYPTER
+				.decrypt(obfuscated), URL_PARAMS_SEPARATOR, false);
+		while (parametersTokenizer.hasMoreTokens()) {
+			String token = parametersTokenizer.nextToken();
+			if (token.equals(RegistrationConstants.EMAIL.value())
+					&& parametersTokenizer.hasMoreTokens()) {
+				parameters.put(RegistrationConstants.EMAIL.value(),
+						parametersTokenizer.nextToken());
+			} else if (token.equals(RegistrationConstants.LOGIN)
+					&& parametersTokenizer.hasMoreTokens()) {
+				parameters.put(RegistrationConstants.LOGIN.value(),
+						parametersTokenizer.nextToken());
+			}
+		}
+		return parameters;
 	}
 }

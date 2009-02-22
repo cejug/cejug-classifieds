@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -47,7 +48,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
-import net.java.dev.cejug.classifieds.login.security.DefaultUrlObfuscator;
 import net.java.dev.cejug.classifieds.login.security.URLObfuscator;
 
 /**
@@ -90,6 +90,9 @@ public class NotificationMailerBean implements MessageListener {
 	private final static Logger logger = Logger
 			.getLogger(NotificationMailerBean.class.getName());
 
+	@EJB
+	private URLObfuscator urlObfuscator;
+
 	/**
 	 * Each time a message arrives in the Notification queue, this listener will
 	 * send an email to the addressee. The prime purpose of this bean is to
@@ -115,9 +118,6 @@ public class NotificationMailerBean implements MessageListener {
 				String subject = registration
 						.getStringProperty(RegistrationConstants.REGISTRATION_SUBJECT
 								.value());
-
-				URLObfuscator urlObfuscator = new DefaultUrlObfuscator(
-						"please_replace_this_hard_code");
 
 				URL confirmationUrl = urlObfuscator.createObfuscatedUrl(login,
 						email, baseUrl);

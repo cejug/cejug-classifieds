@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Map;
 
 import javax.ejb.Local;
 
@@ -44,6 +45,6 @@ public interface URLDeobfuscator {
 	 * @throws GeneralSecurityException
 	 * @throws IOException
 	 */
-	String extractParameters(String obfuscated)
+	Map<String, String> extractParameters(String obfuscated)
 			throws GeneralSecurityException, IOException;
 }
