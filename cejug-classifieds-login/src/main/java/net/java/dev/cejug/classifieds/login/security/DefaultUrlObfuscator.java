@@ -29,6 +29,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 
+import net.java.dev.cejug.classifieds.login.entity.facade.client.URLDeobfuscator;
+
 /**
  * Default URL obfuscator applies a a simple shift plus the MD5 cypher o the
  * plain information.
