@@ -1,6 +1,6 @@
 <projectDescription>
   <name>cejug-classifieds-login</name>
-  <comment/>
+  <comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

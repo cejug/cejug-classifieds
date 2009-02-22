@@ -47,13 +47,17 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 
 	@Override
 	public boolean isEmailAvailable(String email) {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
-		try {
-			findByCriteria(UserEntity.SQL.FIND_BY_EMAIL, parameters);
-			return false; // NOT AVAILABLE
-		} catch (NoResultException none) {
-			return true; // AVAILABLE
+		if (email == null || email.trim().length() == 0) {
+			return false;
+		} else {
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
+			try {
+				findByCriteria(UserEntity.SQL.FIND_BY_EMAIL, parameters);
+				return false; // NOT AVAILABLE
+			} catch (NoResultException none) {
+				return true; // AVAILABLE
+			}
 		}
 	}
 

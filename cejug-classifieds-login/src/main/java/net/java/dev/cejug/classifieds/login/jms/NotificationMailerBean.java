@@ -23,6 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.jms;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -43,6 +47,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
+import net.java.dev.cejug.classifieds.login.security.DefaultUrlObfuscator;
+import net.java.dev.cejug.classifieds.login.security.URLObfuscator;
 
 /**
  * The goal of this bean is to send emails with the status of an operation or a
@@ -97,19 +103,30 @@ public class NotificationMailerBean implements MessageListener {
 			if (message instanceof MapMessage) {
 				MapMessage registration = (MapMessage) message;
 				String from = "cejug.classifieds@gmail.com";
-				String to = registration
+				String login = registration
+						.getStringProperty(RegistrationConstants.LOGIN.value());
+				String email = registration
 						.getStringProperty(RegistrationConstants.EMAIL.value());
-				// TODO: all this message details should be outside this class,
-				// passed as parameters......
+
+				String baseUrl = registration
+						.getStringProperty(RegistrationConstants.CONFIRMATION_BASE_URL
+								.value());
+
 				String subject = registration
 						.getStringProperty(RegistrationConstants.REGISTRATION_SUBJECT
 								.value());
+
+				URLObfuscator urlObfuscator = new DefaultUrlObfuscator(
+						"please_replace_this_hard_code");
+
+				URL confirmationUrl = urlObfuscator.createObfuscatedUrl(login,
+						email, baseUrl);
+
 				String content = MessageFormat
 						.format(
 								registration
 										.getStringProperty(RegistrationConstants.REGISTRATION_MSG
-												.value()), "",
-								"http://LINK LINK LINK");
+												.value()), "", confirmationUrl);
 
 				Properties sessionProps = javaMailSession.getProperties();
 				pipedUsername = sessionProps.getProperty("mail.user");
@@ -125,19 +142,28 @@ public class NotificationMailerBean implements MessageListener {
 				javax.mail.Message msg = new MimeMessage(session);
 				// javax.mail.Message msg = new MimeMessage(javaMailSession);
 				msg.setFrom(new InternetAddress(from));
-				InternetAddress[] address = { new InternetAddress(to) };
+				InternetAddress[] address = { new InternetAddress(email) };
 				msg.setRecipients(javax.mail.Message.RecipientType.TO, address);
 				msg.setSubject(subject);
 				msg.setSentDate(new java.util.Date());
 				msg.setContent(content, "text/plain");
 				Transport.send(msg);
-				logger.info("MDB: notification email sent to " + to);
+				logger.info("MDB: notification email sent to " + email);
 			} else {
 				logger.warning("Invalid message " + message.getClass());
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
