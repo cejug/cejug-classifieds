@@ -44,6 +44,7 @@ import javax.persistence.Table;
 @NamedQueries( {
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email"),
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN, query = "SELECT user FROM UserEntity user WHERE user.login= :login"),
+		@NamedQuery(name = UserEntity.SQL.ACTIVATE_LOGIN, query = "UPDATE SELECT user FROM UserEntity user WHERE user.login= :login"),
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email OR user.login= :login") })
 public class UserEntity extends AbstractEntity<UserEntity> {
 	/** Constants used in named query and its parameters. */
@@ -55,6 +56,15 @@ public class UserEntity extends AbstractEntity<UserEntity> {
 		 * </ul>
 		 */
 		public static final String FIND_BY_EMAIL = "findByEmail";
+
+		/**
+		 * Searches for an user by his email. Parameters:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_EMAIL</code>: the email of a customer</li>
+		 * </ul>
+		 */
+		public static final String ACTIVATE_LOGIN = "activateLogin";
+
 		/**
 		 * Searches for an user by his login. Parameter:
 		 * <ul>
@@ -84,8 +94,19 @@ public class UserEntity extends AbstractEntity<UserEntity> {
 	@Id
 	private String login;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String password;
+
+	@Column(nullable = true)
+	private String locked;
+
+	public String getLocked() {
+		return locked;
+	}
+
+	public void setLocked(String locked) {
+		this.locked = locked;
+	}
 
 	public String getPassword() {
 		return password;

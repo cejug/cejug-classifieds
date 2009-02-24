@@ -150,6 +150,7 @@ public class CRUDEntityFacade<T extends AbstractEntity<?>> implements
 		return response;
 	}
 
+	@SuppressWarnings("unchecked")
 	public T findByCriteria(final String query, final Map<String, ?> parameters)
 			throws NoResultException {
 		Query namedQuery = manager.createNamedQuery(query);

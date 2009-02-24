@@ -23,7 +23,10 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
+import java.security.GeneralSecurityException;
+
 import javax.ejb.Local;
+import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
@@ -38,4 +41,47 @@ import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
 @Local
 public interface UserFacadeLocal extends EntityFacade<UserEntity>,
 		UserFacadeRemote {
+	/**
+	 * Activate an account, copying the value of the unconfirmed column to the
+	 * password column.
+	 * 
+	 * @param user
+	 *            the owner of the account to be activated
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
+	 * @throws TransactionRequiredException
+	 */
+	void activate(UserEntity user) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException;
+
+	/**
+	 * Deactivate an account, copying the value of the password column to the
+	 * unconfirmed column.
+	 * 
+	 * @param user
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
+	 * @throws TransactionRequiredException
+	 */
+	void deactivate(UserEntity user) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException;
+
+	/**
+	 * Reset the password - creates a random new password. The implementation is
+	 * not supposed to generate strong passwords, and the user should be
+	 * notified to change his password asap.
+	 * 
+	 * @param user
+	 * @return the plain password to be sent to the customer.
+	 * @throws GeneralSecurityException
+	 *             The underneath implementation may use an encryption
+	 *             algorithm, and any error should be thrown to the caller
+	 *             method.
+	 * @throws IllegalStateException
+	 * @throws IllegalArgumentException
+	 * @throws TransactionRequiredException
+	 */
+	String resetPassword(UserEntity user) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException,
+			GeneralSecurityException;
 }

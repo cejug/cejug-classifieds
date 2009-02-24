@@ -23,17 +23,22 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.login.entity.facade.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
+import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
+import net.java.dev.cejug.classifieds.login.security.DESedeStringEncrypter;
 
 /**
  * @author $Author: felipegaucho $
@@ -71,5 +76,40 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 		} catch (NoResultException none) {
 			return true; // AVAILABLE
 		}
+	}
+
+	@Override
+	public void activate(UserEntity user) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException {
+		user.setPassword(user.getLocked());
+		update(user);
+	}
+
+	@Override
+	public void deactivate(UserEntity user) throws IllegalStateException,
+			IllegalArgumentException, TransactionRequiredException {
+		user.setLocked(user.getPassword());
+		user.setPassword(null);
+		update(user);
+	}
+
+	@Override
+	public String resetPassword(UserEntity user)
+			throws GeneralSecurityException {
+		DESedeStringEncrypter encrypter = new DESedeStringEncrypter(Long
+				.toString(System.currentTimeMillis()));
+		String newPassword;
+		try {
+			newPassword = encrypter.encrypt(user.getPassword());
+		} catch (UnsupportedEncodingException e) {
+			newPassword = e.getMessage();
+		}
+		Random random = new Random();
+		int length = 6 + random.nextInt(3);
+		if (newPassword.length() > length) {
+			newPassword = newPassword.substring(0, length);
+		}
+		// TODO Auto-generated method stub
+		return newPassword;
 	}
 }
