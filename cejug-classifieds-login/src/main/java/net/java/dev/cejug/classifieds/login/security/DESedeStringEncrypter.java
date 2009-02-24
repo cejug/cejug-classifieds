@@ -25,6 +25,8 @@ package net.java.dev.cejug.classifieds.login.security;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.spec.KeySpec;
 
@@ -90,7 +92,8 @@ public class DESedeStringEncrypter {
 		byte[] cleartext = unencryptedString.getBytes(UNICODE_FORMAT);
 		byte[] ciphertext = cipher.doFinal(cleartext);
 		BASE64Encoder base64encoder = new BASE64Encoder();
-		return base64encoder.encode(ciphertext);
+		String base64 = base64encoder.encode(ciphertext);
+		return URLEncoder.encode(base64, "UTF-8");
 	}
 
 	/**
@@ -109,8 +112,9 @@ public class DESedeStringEncrypter {
 		SecretKey key = keyFactory.generateSecret(keySpec);
 		cipher.init(Cipher.DECRYPT_MODE, key);
 
+		String plain = URLDecoder.decode(encryptedString, "UTF-8");
 		BASE64Decoder base64decoder = new BASE64Decoder();
-		byte[] cleartext = base64decoder.decodeBuffer(encryptedString);
+		byte[] cleartext = base64decoder.decodeBuffer(plain);
 		byte[] ciphertext = cipher.doFinal(cleartext);
 
 		return new String(ciphertext);
