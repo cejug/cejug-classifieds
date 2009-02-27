@@ -142,6 +142,10 @@ public class UserManager {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @param args not used.
+	 */
 	public static void main(String args[]) {
 		UserManager manager = null;
 		manager = new UserManager();
