@@ -9,8 +9,10 @@
 <!-- xmlns:ui="http://java.sun.com/blueprints/ui/14" -->
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
-		<div><h:graphicImage value="/images/templateNew/header.png"
-			styleClass="logo" /></div>
+		<div><object data="images/templateNew/logo.svg"
+			type="image/svg+xml" style="logo" height="100px"/></div>
+		<!-- div><h:graphicImage value="/images/templateNew/header.png"
+			styleClass="logo" /></div-->
 		<div id="headerbar"><a:form id="headerForm">
 			<h:outputText value="Category: " />
 			<a:region>

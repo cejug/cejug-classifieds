@@ -9,15 +9,15 @@
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
-		<div><h:graphicImage value="/images/templateNew/header.png"
-			styleClass="logo" /></div>
+		<div><object data="../../images/templateNew/logo.svg"
+			type="image/svg+xml" style="" height="100px" /></div>
 		<div id="headerbar"><a:form id="headerForm">
 			<a:commandLink action="home" value="Home" styleClass="publishLink" />
 		</a:form></div>
 	</ui:define>
-	
+
 	<ui:define name="adsense"></ui:define>
-	
+
 	<ui:define name="body">
 		<f:verbatim>
 			<form method="post" action="j_security_check">

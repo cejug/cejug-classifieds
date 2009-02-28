@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -22,21 +22,22 @@
 <f:view>
 	<f:loadBundle basename="messages" var="msg" />
 	<div class='fullscreen'>
-	<div class='topPane'><ui:insert name="pageheader">Default Header</ui:insert>
+	<div class='topPane'><ui:insert name="pageheader">default page header</ui:insert>
 	</div>
 	<!-- div class='adsense'-->
-	<div>
-	<ui:insert name="adsense"><script type="text/javascript"><!--
+	<div><ui:insert name="adsense">
+		<script type="text/javascript"><!--
 google_ad_client = "pub-7692178578516455";
 /* 728x15, created 2/4/09 */
 google_ad_slot = "6475491895";
 google_ad_width = 728;
 google_ad_height = 15;
 //-->
-</script> <script type="text/javascript"
+</script>
+		<script type="text/javascript"
 			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
-</ui:insert></div>
+	</ui:insert></div>
 	<div class='midCenterPane'><ui:insert name="body">Default Body</ui:insert>
 	</div>
 	<div class='footer'><ui:insert name="pagefooter">
