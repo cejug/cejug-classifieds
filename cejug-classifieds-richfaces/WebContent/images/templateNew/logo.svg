@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes"?>
-<svg  version="1.1" viewBox="0 0 0 0" xmlns = 'http://www.w3.org/2000/svg' xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" width="900px" height="90px" align="left" viewBox="0 0 800 80" xmlns = "http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <font id="Chain" horiz-adv-x="100" horiz-origin-x="0">
       <font-face font-family="Chain" font-weight="bold" font-style="normal" units-per-em="1000" cap-height="600" x-height="400" ascent="1000" descent="0" alphabetic="0" mathematical="500" ideographic="400" hanging="500">
@@ -114,9 +114,9 @@
 
 
 
-<!--text filter="url(#gb)" y="300" x="100" stroke="black" fill="green" font-family="Chain" font-size="100px" >Cejug-Classifieds</text-->
-<g filter="url(#bevel)">
-<text  y="60" x="20" stroke="beige" stroke-width="12" fill="beige" font-family="Chain" font-size="50px" >Cejug-Classifieds</text>
-<text  y="60" x="20" stroke="darkred" stroke-width="5" fill="darkred" font-family="Chain" font-size="50px" >Cejug-Classifieds</text>
+<!--text filter="url(#gb or #bevel)" y="300" x="100" stroke="black" fill="green" font-family="Chain" font-size="100px" >Cejug-Classifieds</text-->
+<g filter="url(#gb)">
+<text  y="56" x="15" stroke="beige" stroke-width="10" fill="beige" font-family="Chain" font-size="70px" >Cejug-Classified$</text>
+<text  y="56" x="15" stroke="darkred" stroke-width="5" fill="darkred" font-family="Chain" font-size="70px" >Cejug-Classified$</text>
 </g>
 </svg>

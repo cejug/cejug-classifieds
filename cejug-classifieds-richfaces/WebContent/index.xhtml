@@ -10,9 +10,7 @@
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
 		<div><object data="images/templateNew/logo.svg"
-			type="image/svg+xml" style="logo" height="100px"/></div>
-		<!-- div><h:graphicImage value="/images/templateNew/header.png"
-			styleClass="logo" /></div-->
+			type="image/svg+xml" /></div>
 		<div id="headerbar"><a:form id="headerForm">
 			<h:outputText value="Category: " />
 			<a:region>
@@ -33,52 +31,6 @@
 		</div>
 	</ui:define>
 	<ui:define name="body">
-
-		<style type="text/css">
-#star ul.star {
-	LIST-STYLE: none;
-	MARGIN: 0;
-	PADDING: 0;
-	WIDTH: 85px;
-	HEIGHT: 20px;
-	LEFT: 10px;
-	TOP: -5px;
-	POSITION: relative;
-	FLOAT: left;
-	BACKGROUND: url('images/stars.gif') repeat-x;
-	CURSOR: pointer;
-}
-
-#star li {
-	PADDING: 0;
-	MARGIN: 0;
-	FLOAT: left;
-	DISPLAY: block;
-	WIDTH: 85px;
-	HEIGHT: 20px;
-	TEXT-DECORATION: none;
-	text-indent: -9000px;
-	Z-INDEX: 20;
-	POSITION: absolute;
-	PADDING: 0;
-}
-
-#star li.curr {
-	BACKGROUND: url('images/stars.gif') left 25px;
-	FONT-SIZE: 1px;
-}
-
-#star div.user {
-	LEFT: 15px;
-	POSITION: relative;
-	FLOAT: left;
-	FONT-SIZE: 13px;
-	FONT-FAMILY: Arial;
-	COLOR: #888;
-}
-</style>
-
-
 		<a:form id="form">
 			<a:loadScript src="/js/starRating.js" />
 			<rich:panel>
