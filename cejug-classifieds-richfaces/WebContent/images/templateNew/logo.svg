@@ -116,7 +116,7 @@
 
 <!--text filter="url(#gb or #bevel)" y="300" x="100" stroke="black" fill="green" font-family="Chain" font-size="100px" >Cejug-Classifieds</text-->
 <g filter="url(#gb)">
-<text  y="56" x="15" stroke="beige" stroke-width="10" fill="beige" font-family="Chain" font-size="70px" >Cejug-Classified$</text>
-<text  y="56" x="15" stroke="darkred" stroke-width="5" fill="darkred" font-family="Chain" font-size="70px" >Cejug-Classified$</text>
+<text  y="56" x="15" stroke="beige" stroke-width="10" fill="beige" font-family="Chain" font-size="60px" >Cejug-Classified$</text>
+<text  y="56" x="15" stroke="darkred" stroke-width="5" fill="darkred" font-family="Chain" font-size="60px" >Cejug-Classified$</text>
 </g>
 </svg>
