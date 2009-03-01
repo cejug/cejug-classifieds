@@ -44,7 +44,7 @@ import javax.persistence.Table;
 @NamedQueries( {
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email"),
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN, query = "SELECT user FROM UserEntity user WHERE user.login= :login"),
-		@NamedQuery(name = UserEntity.SQL.ACTIVATE_LOGIN, query = "UPDATE SELECT user FROM UserEntity user WHERE user.login= :login"),
+		// @NamedQuery(name = UserEntity.SQL.ACTIVATE_LOGIN, query = "UPDATE UserEntity user SET user.status='active' WHERE user.login= :login"),
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email OR user.login= :login") })
 public class UserEntity extends AbstractEntity<UserEntity> {
 	/** Constants used in named query and its parameters. */
