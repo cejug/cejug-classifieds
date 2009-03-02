@@ -62,15 +62,15 @@ public class DESedeStringEncrypter {
 	 */
 	public DESedeStringEncrypter(String encryptionKey)
 			throws GeneralSecurityException {
+		byte[] keyAsBytes;
 		try {
-			byte[] keyAsBytes = encryptionKey.getBytes(UNICODE_FORMAT);
-			keySpec = new DESedeKeySpec(keyAsBytes);
-			keyFactory = SecretKeyFactory.getInstance(DESEDE_ENCRYPTION_SCHEME);
-			cipher = Cipher.getInstance(DESEDE_ENCRYPTION_SCHEME);
-		} catch (Exception e) {
+			keyAsBytes = encryptionKey.getBytes(UNICODE_FORMAT);
+		} catch (UnsupportedEncodingException e) {
 			throw new GeneralSecurityException(e);
 		}
-
+		keySpec = new DESedeKeySpec(keyAsBytes);
+		keyFactory = SecretKeyFactory.getInstance(DESEDE_ENCRYPTION_SCHEME);
+		cipher = Cipher.getInstance(DESEDE_ENCRYPTION_SCHEME);
 	}
 
 	/**
