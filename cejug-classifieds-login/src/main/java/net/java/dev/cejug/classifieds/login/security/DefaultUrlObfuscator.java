@@ -50,7 +50,7 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 	private static final String URL_PARAMS_EMAIL = "email=";
 	private static final String URL_PARAMS_SEPARATOR = "?&=";
 	private transient final DESedeStringEncrypter ENCRYPTER;
-	private transient final String ENCRYPTION_KEY = "todo_to_think_about_this_key_not_hard_code";
+	private transient final static String ENCRYPTION_KEY = "todo_to_think_about_this_key_not_hard_code";
 
 	public DefaultUrlObfuscator() throws GeneralSecurityException {
 		ENCRYPTER = new DESedeStringEncrypter(ENCRYPTION_KEY);
