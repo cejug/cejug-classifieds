@@ -29,7 +29,6 @@ import java.net.URL;
 import java.security.GeneralSecurityException;
 
 import javax.ejb.Local;
-import javax.jms.JMSException;
 
 /**
  * The confirmation of a registration is done through an URL encrypted to ensure
@@ -49,7 +48,6 @@ public interface URLObfuscator {
 	 * @throws MalformedURLException
 	 * @throws GeneralSecurityException
 	 * @throws UnsupportedEncodingException
-	 * @throws JMSException
 	 */
 	URL createObfuscatedUrl(String login, String email, String baseUrl)
 			throws MalformedURLException, GeneralSecurityException,
