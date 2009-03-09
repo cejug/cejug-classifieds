@@ -219,7 +219,7 @@ public class RegistrationClientBean {
 	public boolean loginValidation() {
 		try {
 			URL url = new URL(
-					"http://localhost:8080/cejug-classifieds-login-rest/check?login="
+					"http://fgaucho.dyndns.org:8080/cejug-classifieds-login-rest/check?login="
 							+ login);
 			HttpURLConnection cn = (HttpURLConnection) url.openConnection();
 
@@ -238,7 +238,7 @@ public class RegistrationClientBean {
 	public boolean emailValidation() {
 		try {
 			URL url = new URL(
-					"http://localhost:8080/cejug-classifieds-login-rest/check?email="
+					"http://fgaucho.dyndns.org:8080/cejug-classifieds-login-rest/check?email="
 							+ email);
 			HttpURLConnection cn = (HttpURLConnection) url.openConnection();
 
