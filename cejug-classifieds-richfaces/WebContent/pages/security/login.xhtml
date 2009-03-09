@@ -39,6 +39,10 @@
 			</form>
 		</f:verbatim>
 		<hr />
+
+		<rich:messages layout="list" id="messages" styleClass="message"
+				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
+
 		<div style="background: #AFC7C7;">
 		<h3>OR REGISTER</h3>
 		<a:form id="publishForm">
@@ -46,25 +50,40 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
-					required="true" label="Headline" />
+					required="true" label="#{msg['login.realname']}" />
+					
 				<h:outputText value="#{msg['login.email']}" />
-				<h:inputText value="#{registrationBean.email}" style="width:235px;"
-					required="true" label="Headline" />
-
+				<a:region>
+					<h:inputText value="#{registrationBean.email}" style="width:235px;"
+						required="true" label="#{msg['login.email']}">
+							<a:support event="onchange" action="#{registrationBean.emailValidation}"/>
+					</h:inputText>
+				</a:region>
+				
 				<h:outputText value="#{msg['login.username']}" />
-				<h:inputText value="#{registrationBean.login}" style="width:235px;"
-					required="true" label="Headline" />
-
+				<a:region>
+					<h:inputText value="#{registrationBean.login}" style="width:235px;"
+						required="true" label="#{msg['login.username']}">
+						<a:support event="onchange" action="#{registrationBean.loginValidation}"/>
+					</h:inputText>
+				</a:region>
+				
 				<h:outputText value="#{msg['login.password']}" />
 				<h:inputSecret value="#{registrationBean.password}"
-					style="width:235px;" required="true" label="Headline" />
+					style="width:235px;" required="true" label="#{msg['login.password']}" 
+					validator="#{registrationBean.validatePassword}"/>
 
 				<h:outputText value="#{msg['login.password.check']}" />
-				<h:inputSecret value="#{registrationBean.password}"
-					style="width:235px;" required="true" label="Headline" />
+				<a:region>
+					<h:inputSecret value="#{registrationBean.checkPassword}"
+						style="width:235px;" required="true" label="#{msg['login.password.check']}">
+						<a:support event="onchange"/>
+					</h:inputSecret>
+				</a:region>					
 			</h:panelGrid>
 			<div style="background: #AFC7C7;"><p:captcha
-				publicKey="6Lfa8gQAAAAAABkjCe-2sanpicOA3Gxk2sirA6CA" /></div>
+				publicKey="6Lfa8gQAAAAAABkjCe-2sanpicOA3Gxk2sirA6CA" 
+				label="#{msg['login.captcha']}" /></div>
 			<h:commandButton action="#{registrationBean.register}"
 				value="REGISTER" />
 		</a:form></div>

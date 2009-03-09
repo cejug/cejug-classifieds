@@ -23,13 +23,18 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.richfaces.view;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -40,6 +45,7 @@ import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
+import net.java.dev.cejug.classifieds.richfaces.util.ClassifiedsUtil;
 
 /**
  * POJO of the registration form in the GUI.
@@ -61,7 +67,6 @@ public class RegistrationClientBean {
 	private static final Logger logger = Logger
 			.getLogger(RegistrationClientBean.class.getName());
 
-
 	@Resource(mappedName = "RegistrationQueueConnectionFactory")
 	private transient QueueConnectionFactory registrationConnectionFactory;
 
@@ -73,6 +78,9 @@ public class RegistrationClientBean {
 
 	/** new customer's password. */
 	private String password;
+
+	/** check customer's password. */
+	private String checkPassword;
 
 	/** new customer's real name. */
 	private String name;
@@ -116,6 +124,14 @@ public class RegistrationClientBean {
 		this.password = password;
 	}
 
+	public String getCheckPassword() {
+		return checkPassword;
+	}
+
+	public void setCheckPassword(String checkPassword) {
+		this.checkPassword = checkPassword;
+	}
+
 	/**
 	 * registration flow:
 	 * <ol>
@@ -131,6 +147,14 @@ public class RegistrationClientBean {
 	public String register() {
 		// TODO: validation of the data, and checking if the user already
 		// exists, etc...
+		if (!emailValidation()) {
+			return null;
+		}
+
+		if (!loginValidation()) {
+			return null;
+		}
+
 		Connection connection = null;
 		Session registrationSession = null;
 		try {
@@ -149,8 +173,12 @@ public class RegistrationClientBean {
 			registrationRequest.setStringProperty(RegistrationConstants.NAME
 					.value(), name);
 
-			registrationRequest.setStringProperty(RegistrationConstants.CONFIRMATION_BASE_URL
-					.value(), FacesContext.getCurrentInstance().getExternalContext().getInitParameter(RegistrationConstants.CONFIRMATION_BASE_URL.value()));
+			registrationRequest.setStringProperty(
+					RegistrationConstants.CONFIRMATION_BASE_URL.value(),
+					FacesContext.getCurrentInstance().getExternalContext()
+							.getInitParameter(
+									RegistrationConstants.CONFIRMATION_BASE_URL
+											.value()));
 			registrationRequest.setStringProperty(RegistrationConstants.EMAIL
 					.value(), email);
 			registrationRequest.setStringProperty(
@@ -186,5 +214,56 @@ public class RegistrationClientBean {
 			}
 		}
 		return "register";
+	}
+
+	public boolean loginValidation() {
+		try {
+			URL url = new URL(
+					"http://localhost:8080/cejug-classifieds-login-rest/check?login="
+							+ login);
+			HttpURLConnection cn = (HttpURLConnection) url.openConnection();
+
+			if (cn.getResponseCode() != 200) {
+				ClassifiedsUtil.addMessageFromResourceBundle(
+						"msg.registration.invalid.login",
+						FacesMessage.SEVERITY_ERROR, null);
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean emailValidation() {
+		try {
+			URL url = new URL(
+					"http://localhost:8080/cejug-classifieds-login-rest/check?email="
+							+ email);
+			HttpURLConnection cn = (HttpURLConnection) url.openConnection();
+
+			if (cn.getResponseCode() != 200) {
+				ClassifiedsUtil.addMessageFromResourceBundle(
+						"msg.registration.invalid.email",
+						FacesMessage.SEVERITY_ERROR, null);
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public void validatePassword(FacesContext context,
+			UIComponent componentToValidate, Object value)
+			throws ValidatorException {
+		String password = ((String) value);
+		
+		if (!password.equals(getCheckPassword())) {
+
+			FacesMessage message = new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, "Wrong password!", null);
+			throw new ValidatorException(message);
+		}
 	}
 }
