@@ -31,21 +31,21 @@
 			<artifactId>appserv-rt.jar</artifactId>
 			<version>LATEST</version>
 			<scope>system</scope>
-			<systemPath>/home/fgaucho/dev/glassfish/lib/appserv-rt.jar</systemPath>
+			<systemPath>${env.AS_HOME}/lib/appserv-rt.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>glassfish</groupId>
 			<artifactId>javaee.jar</artifactId>
 			<version>LATEST</version>
 			<scope>system</scope>
-			<systemPath>/home/fgaucho/dev/glassfish/lib/javaee.jar</systemPath>
+			<systemPath>${env.AS_HOME}/lib/javaee.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>glassfish</groupId>
 			<artifactId>appserv-ext.jar</artifactId>
 			<version>LATEST</version>
 			<scope>system</scope>
-			<systemPath>/home/fgaucho/dev/glassfish/lib/appserv-ext.jar</systemPath>
+			<systemPath>${env.AS_HOME}/lib/appserv-ext.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
