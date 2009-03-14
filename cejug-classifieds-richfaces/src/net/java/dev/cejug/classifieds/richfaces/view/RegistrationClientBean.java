@@ -266,4 +266,6 @@ public class RegistrationClientBean {
 			throw new ValidatorException(message);
 		}
 	}
+	
+	
 }

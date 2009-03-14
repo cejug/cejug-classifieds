@@ -98,16 +98,18 @@
 			</extension>
 		</extensions>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>java.net-m2-repository</id>
-			<url>java-net:/maven2-repository/trunk/www/repository/</url>
-		</repository>
-	</distributionManagement>
-	<modules>
+	  <distributionManagement>
+	    <repository>
+	      <uniqueVersion>false</uniqueVersion>
+	      <id>java.net-maven2-repository</id>
+	      <url>java-net:/maven2-repository/trunk/repository/</url>
+	    </repository>
+	  </distributionManagement>
+  	<modules>
 		<module>cejug-classifieds-login</module>
 		<module>cejug-classifieds-login-rest</module>
 		<module>cejug-classifieds-login-ear</module>
+		<module>cejug-classifieds-core</module>
 	</modules>
 	<repositories>
 		<repository>

@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+// aqui estamos...........
 /**
  * In order to run this class, you should create the tables in the database:
  * 
@@ -15,9 +17,11 @@ import java.sql.SQLException;
  * ij
  * connect 'jdbc:derby://localhost:1527/sun-appserv-samples';
  * 
- * create table usertable(login varchar(10) not null, password varchar(32) not null, primary key(login));
+ * create table usertable(login varchar(10) not null, password varchar(32) not null, status int, primary key(login));
  * create table grouptable(login varchar(10) not null, groupid varchar(20) not null, primary key(login));
  * alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
+ * create view activeusers(login, password) as select login,password from app.usertable;
+ * CREATE VIEW APP.V_CUSTOMER(NAME,CITY) AS SELECT NAME,CITY FROM APP.CUSTOMER
  * 
  * ij&gt; describe usertable;
  * COLUMN_NAME         |TYPE_NAME|DEC&amp;|NUM&amp;|COLUM&amp;|COLUMN_DEF|CHAR_OCTE&amp;|IS_NULL&amp;

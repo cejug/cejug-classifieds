@@ -14,7 +14,7 @@
 	<packaging>ejb</packaging>
 	<name>login-ejb: middleware and persistence</name>
 	<version>1.0-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
+	<url>http://cejug-classifieds.dev.java.net</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>cejug-classifieds</artifactId>
 		<groupId>net.java.dev.cejug.classifieds</groupId>
@@ -34,24 +35,31 @@
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-    				<defaultLibBundleDir>lib</defaultLibBundleDir>
-				<modules>
-					<ejbModule>
-						<groupId>net.java.dev.cejug.classifieds.login</groupId>
-						<artifactId>cejug-classifieds-login</artifactId>
-					</ejbModule>
-					<webModule>
-						<groupId>net.java.dev.cejug.classifieds.login</groupId>
-						<artifactId>cejug-classifieds-login-rest</artifactId>
-					</webModule>
-					<ejbClientModule>
-						<groupId>net.java.dev.cejug.classifieds.login</groupId>
-						<artifactId>cejug-classifieds-login</artifactId>
-						<bundleDir>/lib</bundleDir>
-					</ejbClientModule>
-				</modules>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<ejbModule>
+							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<artifactId>cejug-classifieds-login</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<artifactId>cejug-classifieds-login-rest</artifactId>
+						</webModule>
+						<ejbClientModule>
+							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<artifactId>cejug-classifieds-login</artifactId>
+							<bundleDir>/lib</bundleDir>
+						</ejbClientModule>
+					</modules>
 				</configuration>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>RELEASE</version>
+			</extension>
+		</extensions>
 	</build>
 </project>
