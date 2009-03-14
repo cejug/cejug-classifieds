@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="classifieds">
+		<jta-data-source>jdbc/__default</jta-data-source>
+		<properties>
+			<!--Use the java2db feature -->
+			<property name="toplink.ddl-generation"
+				value="drop-and-create-tables" />
+			<!-- Generate the sql specific to Derby database -->
+			<property name="toplink.platform.class.name"
+				value="oracle.toplink.essentials.platform.database.DerbyPlatform" />
+			<property name="toplink.logging.level" value="FINEST" />
+		</properties>
+	</persistence-unit>
+</persistence>
