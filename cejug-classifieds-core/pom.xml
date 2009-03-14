@@ -13,16 +13,12 @@
 			<groupId>com.sun.xml.ws</groupId>
 			<artifactId>jaxws-rt</artifactId>
 			<version>2.1.4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.jvnet.staxex</groupId>
-					<artifactId>stax-ex</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jvnet</groupId>
-					<artifactId>mimepull</artifactId>
-				</exclusion>
-			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javaee</groupId>
@@ -30,6 +26,27 @@
 			<version>5</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>appserv-rt.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>/home/fgaucho/dev/glassfish/lib/appserv-rt.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>javaee.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>/home/fgaucho/dev/glassfish/lib/javaee.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>glassfish</groupId>
+            <artifactId>appserv-ext.jar</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>/home/fgaucho/dev/glassfish/lib/appserv-ext.jar</systemPath>
+        </dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
@@ -120,16 +137,12 @@
 					</execution>
 				</executions>
 				<configuration>
-					<!--
-						produces dir="${generated.dir}"
-						includes="${jaxb.config.package}/**/*.java" /
-					-->
 					<schemaDirectory>${resources}/schema</schemaDirectory>
 					<includeSchemas>
 						<includeSchema>**/*.xsd</includeSchema>
 					</includeSchemas>
 					<strict>true</strict>
-					<verbose>true</verbose>
+					<verbose>false</verbose>
 					<extension>true</extension>
 					<readOnly>yes</readOnly>
 					<removeOldOutput>false</removeOldOutput>
