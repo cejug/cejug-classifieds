@@ -26,27 +26,27 @@
 			<version>5</version>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>appserv-rt.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>/home/fgaucho/dev/glassfish/lib/appserv-rt.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>javaee.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>/home/fgaucho/dev/glassfish/lib/javaee.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>appserv-ext.jar</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>/home/fgaucho/dev/glassfish/lib/appserv-ext.jar</systemPath>
-        </dependency>
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>appserv-rt.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>/home/fgaucho/dev/glassfish/lib/appserv-rt.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>javaee.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>/home/fgaucho/dev/glassfish/lib/javaee.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>glassfish</groupId>
+			<artifactId>appserv-ext.jar</artifactId>
+			<version>LATEST</version>
+			<scope>system</scope>
+			<systemPath>/home/fgaucho/dev/glassfish/lib/appserv-ext.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
@@ -166,7 +166,6 @@
 								<wsdlFile>cejug-classifieds-business.wsdl
 								</wsdlFile>
 							</wsdlFiles>
-
 							<sourceDestDir>src/main/generated
 							</sourceDestDir>
 							<verbose>false</verbose>
@@ -175,7 +174,9 @@
 							<keep>true</keep>
 							<extension>false</extension>
 							<debug>true</debug>
-							<wsdllocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdllocation>
+							<!--
+								wsdllocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdllocation
+							-->
 						</configuration>
 					</execution>
 				</executions>
