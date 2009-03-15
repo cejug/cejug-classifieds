@@ -145,7 +145,7 @@
 					<verbose>false</verbose>
 					<extension>true</extension>
 					<readOnly>yes</readOnly>
-					<removeOldOutput>false</removeOldOutput>
+					<removeOldOutput>true</removeOldOutput>
 					<generateDirectory>${generatedFolder}</generateDirectory>
 				</configuration>
 			</plugin>
