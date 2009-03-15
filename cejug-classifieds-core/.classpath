@@ -6,8 +6,10 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
+  <classpathentry kind="lib" path="/home/fgaucho/dev/glassfish/lib/appserv-ext.jar"/>
   <classpathentry kind="lib" path="/home/fgaucho/dev/glassfish/lib/appserv-rt.jar"/>
   <classpathentry kind="var" path="M2_REPO/javaee/javaee-api/5/javaee-api-5.jar"/>
+  <classpathentry kind="lib" path="/home/fgaucho/dev/glassfish/lib/javaee.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.1.7/jaxb-impl-2.1.7.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/xml/ws/jaxws-api/2.1/jaxws-api-2.1.jar"/>
