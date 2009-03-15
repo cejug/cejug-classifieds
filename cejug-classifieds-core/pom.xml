@@ -158,25 +158,41 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlDirectory>src/main/resources/META-INF/wsdl
+							<wsdlDirectory>${resources}/META-INF/wsdl
 							</wsdlDirectory>
 							<wsdlFiles>
 								<wsdlFile>cejug-classifieds-admin.wsdl
 								</wsdlFile>
+							</wsdlFiles>
+							<sourceDestDir>src/main/generated
+							</sourceDestDir>
+							<verbose>false</verbose>
+							<genWsdl>false</genWsdl>
+							<keep>true</keep>
+							<extension>false</extension>
+							<debug>true</debug>
+							<wsdlLocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdlLocation>
+						</configuration>
+					</execution>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlDirectory>${resources}/META-INF/wsdl
+							</wsdlDirectory>
+							<wsdlFiles>
 								<wsdlFile>cejug-classifieds-business.wsdl
 								</wsdlFile>
 							</wsdlFiles>
 							<sourceDestDir>src/main/generated
 							</sourceDestDir>
 							<verbose>false</verbose>
-							<xnocompile>true</xnocompile>
 							<genWsdl>false</genWsdl>
 							<keep>true</keep>
 							<extension>false</extension>
 							<debug>true</debug>
-							<!--
-								wsdllocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdllocation
-							-->
+							<wsdlLocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator?wsdl</wsdlLocation>
 						</configuration>
 					</execution>
 				</executions>
