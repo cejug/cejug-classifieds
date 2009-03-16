@@ -159,14 +159,13 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlUrls>
-								<wsdlFile>${resources}/META-INF/wsdl/cejug-classifieds-business.wsdl
+							<wsdlDirectory>${resources}/META-INF/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>cejug-classifieds-business.wsdl
 								</wsdlFile>
-								<!-- wsdlFile>cejug-classifieds-admin.wsdl
-								</wsdlFile-->
-							</wsdlUrls>
-							<protocol>soap1.1</protocol>
-							<target>2.1</target>
+								<wsdlFile>cejug-classifieds-admin.wsdl
+								</wsdlFile>
+							</wsdlFiles>
 							<sourceDestDir>src/main/generated
 							</sourceDestDir>
 							<verbose>false</verbose>
@@ -184,26 +183,33 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlUrls>
-								<wsdlFile>${resources}/META-INF/wsdl/cejug-classifieds-admin.wsdl
+							<wsdlDirectory>${resources}/META-INF/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>cejug-classifieds-admin.wsdl
 								</wsdlFile>
-							</wsdlUrls>
+							</wsdlFiles>
 							<sourceDestDir>src/main/generated
 							</sourceDestDir>
-							<protocol>soap1.1</protocol>
-							<target>2.1</target>
 							<verbose>false</verbose>
 							<genWsdl>false</genWsdl>
 							<keep>true</keep>
 							<extension>true</extension>
 							<debug>true</debug>
-							<xnocompile>true</xnocompile>
+							<xnocompile>false</xnocompile>
 							<wsdlLocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdlLocation>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
+			<!--
+				plugin> <groupId>org.codehaus.enunciate</groupId>
+				<artifactId>maven-enunciate-plugin</artifactId>
+				<version>1.10</version> <executions> <execution> <goals>
+				<goal>docs</goal> </goals> <configuration>
+				<docsDir>${project.build.directory}/docs</docsDir> </configuration>
+				</execution> </executions> </plugin
+			-->
 		</plugins>
 	</build>
 
