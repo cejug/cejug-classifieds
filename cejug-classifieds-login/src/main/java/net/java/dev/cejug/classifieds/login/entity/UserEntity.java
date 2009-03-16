@@ -44,8 +44,12 @@ import javax.persistence.Table;
 @NamedQueries( {
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email"),
 		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN, query = "SELECT user FROM UserEntity user WHERE user.login= :login"),
-		// @NamedQuery(name = UserEntity.SQL.ACTIVATE_LOGIN, query = "UPDATE UserEntity user SET user.status='active' WHERE user.login= :login"),
-		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email OR user.login= :login") })
+		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_OR_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email OR user.login= :login"),
+		@NamedQuery(name = UserEntity.SQL.FIND_BY_LOGIN_AND_EMAIL, query = "SELECT user FROM UserEntity user WHERE user.email= :email AND user.login= :login"),
+		@NamedQuery(name = UserEntity.SQL.ACTIVATE_LOGIN, query = "UPDATE UserEntity user SET user.status=0 WHERE user.login= :login AND user.email= :email"),
+		@NamedQuery(name = UserEntity.SQL.DEACTIVATE_LOGIN, query = "UPDATE UserEntity user SET user.status=0 WHERE user.login= :login AND user.email= :email")
+
+})
 public class UserEntity extends AbstractEntity<UserEntity> {
 	/** Constants used in named query and its parameters. */
 	public static final class SQL {
@@ -66,6 +70,14 @@ public class UserEntity extends AbstractEntity<UserEntity> {
 		public static final String ACTIVATE_LOGIN = "activateLogin";
 
 		/**
+		 * Searches for an user by his email. Parameters:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_EMAIL</code>: the email of a customer</li>
+		 * </ul>
+		 */
+		public static final String DEACTIVATE_LOGIN = "deactivateLogin";
+
+		/**
 		 * Searches for an user by his login. Parameter:
 		 * <ul>
 		 * <li><code>UserEntity.SQL.PARAM_LOGIN</code>: the login of a customer</li>
@@ -80,6 +92,14 @@ public class UserEntity extends AbstractEntity<UserEntity> {
 		 * </ul>
 		 */
 		public static final String FIND_BY_LOGIN_OR_EMAIL = "findByLoginOrEmail";
+		/**
+		 * Searches for an user by his email or by his login. Parameters:
+		 * <ul>
+		 * <li><code>UserEntity.SQL.PARAM_LOGIN</code>: the login of a customer</li>
+		 * <li><code>UserEntity.SQL.PARAM_EMAIL</code>: the email of a customer</li>
+		 * </ul>
+		 */
+		public static final String FIND_BY_LOGIN_AND_EMAIL = "findByLoginAndEmail";
 		/** The user's login. */
 		public static final String PARAM_LOGIN = "login";
 		/** The user's email. */
@@ -97,15 +117,15 @@ public class UserEntity extends AbstractEntity<UserEntity> {
 	@Column(nullable = true)
 	private String password;
 
-	@Column(nullable = true)
-	private String locked;
+	@Column(nullable = false)
+	private int status;
 
-	public String getLocked() {
-		return locked;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setLocked(String locked) {
-		this.locked = locked;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getPassword() {

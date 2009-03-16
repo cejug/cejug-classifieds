@@ -51,7 +51,7 @@ public interface UserFacadeLocal extends EntityFacade<UserEntity>,
 	 * @throws IllegalArgumentException
 	 * @throws TransactionRequiredException
 	 */
-	void activate(UserEntity user) throws IllegalStateException,
+	void activate(String login, String email) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
 
 	/**
@@ -63,7 +63,7 @@ public interface UserFacadeLocal extends EntityFacade<UserEntity>,
 	 * @throws IllegalArgumentException
 	 * @throws TransactionRequiredException
 	 */
-	void deactivate(UserEntity user) throws IllegalStateException,
+	void deactivate(String login, String email) throws IllegalStateException,
 			IllegalArgumentException, TransactionRequiredException;
 
 	/**

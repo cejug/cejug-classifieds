@@ -35,6 +35,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
+import net.java.dev.cejug.classifieds.login.entity.UserEntity.SQL;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeLocal;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.UserFacadeRemote;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
@@ -55,6 +56,9 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 		if (email == null || email.trim().length() == 0) {
 			return false;
 		} else {
+			if (email.contains("+")) {
+				// cleaning the 'plus' cheating
+			}
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
 			try {
@@ -79,18 +83,29 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 	}
 
 	@Override
-	public void activate(UserEntity user) throws IllegalStateException,
-			IllegalArgumentException, TransactionRequiredException {
-		user.setPassword(user.getLocked());
-		update(user);
+	public void activate(String login, String email)
+			throws IllegalStateException, IllegalArgumentException,
+			TransactionRequiredException {
+		Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put(UserEntity.SQL.PARAM_LOGIN, login);
+		criteria.put(UserEntity.SQL.PARAM_EMAIL, email);
+		UserEntity entity = findByCriteria(SQL.FIND_BY_LOGIN_AND_EMAIL,
+				criteria);
+		entity.setStatus(0);
+		update(entity);
 	}
 
 	@Override
-	public void deactivate(UserEntity user) throws IllegalStateException,
-			IllegalArgumentException, TransactionRequiredException {
-		user.setLocked(user.getPassword());
-		user.setPassword(null);
-		update(user);
+	public void deactivate(String login, String email)
+			throws IllegalStateException, IllegalArgumentException,
+			TransactionRequiredException {
+		Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put(UserEntity.SQL.PARAM_LOGIN, login);
+		criteria.put(UserEntity.SQL.PARAM_EMAIL, email);
+		UserEntity entity = findByCriteria(SQL.FIND_BY_LOGIN_AND_EMAIL,
+				criteria);
+		entity.setStatus(5);
+		update(entity);
 	}
 
 	@Override
