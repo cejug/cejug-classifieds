@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 // aqui estamos...........
 /**
  * In order to run this class, you should create the tables in the database:
@@ -17,11 +16,13 @@ import java.sql.SQLException;
  * ij
  * connect 'jdbc:derby://localhost:1527/sun-appserv-samples';
  * 
- * create table usertable(login varchar(10) not null, password varchar(32) not null, status int, primary key(login));
- * create table grouptable(login varchar(10) not null, groupid varchar(20) not null, primary key(login));
- * alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
- * create view activeusers(login, password) as select login,password from app.usertable;
- * CREATE VIEW APP.V_CUSTOMER(NAME,CITY) AS SELECT NAME,CITY FROM APP.CUSTOMER
+ *  drop table grouptable;
+ *  drop view activeusers;
+ *  drop table usertable;
+ *  create table usertable(login varchar(10) not null, password varchar(32) not null, email varchar(64), name varchar(60), status int not null default 5, primary key(login));
+ *  create table grouptable(login varchar(10) not null, groupid varchar(20) not null, description varchar(60), primary key(login));
+ *  alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
+ *  create view activeusers(login, password) as select login,password from app.usertable where app.usertable.status=0;
  * 
  * ij&gt; describe usertable;
  * COLUMN_NAME         |TYPE_NAME|DEC&amp;|NUM&amp;|COLUM&amp;|COLUMN_DEF|CHAR_OCTE&amp;|IS_NULL&amp;
@@ -148,7 +149,8 @@ public class UserManager {
 
 	/**
 	 * @deprecated
-	 * @param args not used.
+	 * @param args
+	 *            not used.
 	 */
 	public static void main(String args[]) {
 		UserManager manager = null;
