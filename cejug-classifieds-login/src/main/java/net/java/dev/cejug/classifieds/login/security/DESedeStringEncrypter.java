@@ -52,7 +52,7 @@ public class DESedeStringEncrypter {
 	private transient KeySpec keySpec;
 	private transient SecretKeyFactory keyFactory;
 	private transient Cipher cipher;
-	private static final String UNICODE_FORMAT = "UTF-8";
+	private static final String LATIN_1 = "ISO-8859-1";
 
 	/**
 	 * 
@@ -64,7 +64,7 @@ public class DESedeStringEncrypter {
 			throws GeneralSecurityException {
 		byte[] keyAsBytes;
 		try {
-			keyAsBytes = encryptionKey.getBytes(UNICODE_FORMAT);
+			keyAsBytes = encryptionKey.getBytes(LATIN_1);
 		} catch (UnsupportedEncodingException e) {
 			throw new GeneralSecurityException(e);
 		}
@@ -89,11 +89,11 @@ public class DESedeStringEncrypter {
 
 		SecretKey key = keyFactory.generateSecret(keySpec);
 		cipher.init(Cipher.ENCRYPT_MODE, key);
-		byte[] cleartext = unencryptedString.getBytes(UNICODE_FORMAT);
+		byte[] cleartext = unencryptedString.getBytes(LATIN_1);
 		byte[] ciphertext = cipher.doFinal(cleartext);
 		BASE64Encoder base64encoder = new BASE64Encoder();
 		String base64 = base64encoder.encode(ciphertext);
-		return URLEncoder.encode(base64, UNICODE_FORMAT);
+		return URLEncoder.encode(base64, LATIN_1);
 	}
 
 	/**
@@ -112,10 +112,10 @@ public class DESedeStringEncrypter {
 		SecretKey key = keyFactory.generateSecret(keySpec);
 		cipher.init(Cipher.DECRYPT_MODE, key);
 
-		String plain = URLDecoder.decode(encryptedString, UNICODE_FORMAT);
+		String plain = URLDecoder.decode(encryptedString, LATIN_1);
 		BASE64Decoder base64decoder = new BASE64Decoder();
 		byte[] cleartext = base64decoder.decodeBuffer(plain);
 		byte[] ciphertext = cipher.doFinal(cleartext);
-		return new String(ciphertext, UNICODE_FORMAT);
+		return new String(ciphertext, LATIN_1);
 	}
 }
