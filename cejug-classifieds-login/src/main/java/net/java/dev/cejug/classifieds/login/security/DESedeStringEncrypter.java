@@ -52,7 +52,7 @@ public class DESedeStringEncrypter {
 	private transient KeySpec keySpec;
 	private transient SecretKeyFactory keyFactory;
 	private transient Cipher cipher;
-	private static final String UNICODE_FORMAT = "UTF8";
+	private static final String UNICODE_FORMAT = "UTF-8";
 
 	/**
 	 * 
@@ -93,7 +93,7 @@ public class DESedeStringEncrypter {
 		byte[] ciphertext = cipher.doFinal(cleartext);
 		BASE64Encoder base64encoder = new BASE64Encoder();
 		String base64 = base64encoder.encode(ciphertext);
-		return URLEncoder.encode(base64, "UTF-8");
+		return URLEncoder.encode(base64, UNICODE_FORMAT);
 	}
 
 	/**
@@ -112,11 +112,10 @@ public class DESedeStringEncrypter {
 		SecretKey key = keyFactory.generateSecret(keySpec);
 		cipher.init(Cipher.DECRYPT_MODE, key);
 
-		String plain = URLDecoder.decode(encryptedString, "UTF-8");
+		String plain = URLDecoder.decode(encryptedString, UNICODE_FORMAT);
 		BASE64Decoder base64decoder = new BASE64Decoder();
 		byte[] cleartext = base64decoder.decodeBuffer(plain);
 		byte[] ciphertext = cipher.doFinal(cleartext);
-
-		return new String(ciphertext);
+		return new String(ciphertext, UNICODE_FORMAT);
 	}
 }
