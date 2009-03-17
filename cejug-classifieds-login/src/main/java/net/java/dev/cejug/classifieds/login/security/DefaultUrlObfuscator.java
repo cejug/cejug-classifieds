@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,14 +67,14 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 		buffer.append(email);
 		buffer.append(URL_PARAMS_LOGIN);
 		buffer.append(login);
-		return new URL(baseUrl + ENCRYPTER.encrypt(buffer.toString()));
+		return new URL(baseUrl + URLEncoder.encode(ENCRYPTER.encrypt(buffer.toString()), "UTF-8"));
 	}
 
 	@Override
 	public Map<String, String> extractParameters(String obfuscated)
 			throws GeneralSecurityException, IOException {
 		Map<String, String> parameters = new HashMap<String, String>();
-		String plain = ENCRYPTER.decrypt(obfuscated);
+		String plain = ENCRYPTER.decrypt(URLDecoder.decode(obfuscated, "UTF-8"));
 		StringTokenizer parametersTokenizer = new StringTokenizer(plain,
 				URL_PARAMS_SEPARATOR, false);
 		while (parametersTokenizer.hasMoreTokens()) {
