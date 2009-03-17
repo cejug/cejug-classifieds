@@ -56,8 +56,16 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 		if (email == null || email.trim().length() == 0) {
 			return false;
 		} else {
+			
 			if (email.contains("+")) {
-				// cleaning the 'plus' cheating
+				// TODO: review and check the proper email cleanup.
+				int indexOfAt = email.indexOf('@');
+				int indexOfPlus = email.indexOf('+');
+				if(indexOfPlus < indexOfAt) {
+					String firstPart = email.substring(0, indexOfPlus);
+					String secondPart = email.substring(indexOfAt);
+					email = firstPart + secondPart;
+				}				
 			}
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
