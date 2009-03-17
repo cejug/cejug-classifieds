@@ -67,14 +67,14 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 		buffer.append(email);
 		buffer.append(URL_PARAMS_LOGIN);
 		buffer.append(login);
-		return new URL(baseUrl + URLEncoder.encode(ENCRYPTER.encrypt(buffer.toString()), "UTF-8"));
+		return new URL(baseUrl + ENCRYPTER.encrypt(buffer.toString()));
 	}
 
 	@Override
 	public Map<String, String> extractParameters(String obfuscated)
 			throws GeneralSecurityException, IOException {
 		Map<String, String> parameters = new HashMap<String, String>();
-		String plain = ENCRYPTER.decrypt(URLDecoder.decode(obfuscated, "UTF-8"));
+		String plain = ENCRYPTER.decrypt(obfuscated);
 		StringTokenizer parametersTokenizer = new StringTokenizer(plain,
 				URL_PARAMS_SEPARATOR, false);
 		while (parametersTokenizer.hasMoreTokens()) {
