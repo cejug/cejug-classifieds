@@ -43,16 +43,6 @@ public class RegistrationConfirmation extends HttpServlet {
 				userFacade.activate(parameters.get(UserEntity.SQL.PARAM_LOGIN),
 						parameters.get(UserEntity.SQL.PARAM_EMAIL));
 				PrintWriter out = response.getWriter();
-				/*
-				 * Set<Map.Entry<String, String>> keys = parameters.entrySet();
-				 * 
-				 * for (Iterator<Map.Entry<String, String>> it =
-				 * keys.iterator(); it .hasNext();) { Map.Entry<String, String>
-				 * entry = it.next(); out.print("<strong>");
-				 * out.print(entry.getKey()); out.print("</strong> : ");
-				 * out.print(entry.getValue()); out.print("<br/>"); }
-				 */
-
 				out.print("<hr/>");
 				out
 						.print("<p>done... your account was successfully activated.</p><p><strong>TODO</todo>: To redirect the user to the login page...</p>");
