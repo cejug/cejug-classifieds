@@ -10,7 +10,7 @@
 <ui:composition template="/template/template.xhtml">
 	<ui:define name="pageheader">
 		<div><object data="../../images/templateNew/logo.svg"
-			type="image/svg+xml"/></div>
+			type="image/svg+xml" /></div>
 		<div id="headerbar"><a:form id="headerForm">
 			<a:commandLink action="home" value="Home" styleClass="publishLink" />
 		</a:form></div>
@@ -24,12 +24,17 @@
 			<table class="loginPane">
 				<tr class="loginrow">
 					<th><label class="loginlabel">Username:</label></th>
-					<td><input class="loginfield" type="text" name="j_username" /></td>
+					<td><input class="loginfield" type="text" name="j_username"
+						onkeypress="return blockKey(this, event, 10)"
+						onkeydown="return ismaxlength(this,10)"
+						onkeyup="return ismaxlength(this,10)" /></td>
 				</tr>
 				<tr class="loginrow">
 					<th><label class="loginlabel">Password:</label></th>
 					<td><input class="loginfield" type="password"
-						name="j_password" /></td>
+						name="j_password" onkeypress="return blockKey(this, event, 32)"
+						onkeydown="return ismaxlength(this,32)"
+						onkeyup="return ismaxlength(this,32)" /></td>
 				</tr>
 				<tr class="loginrow">
 					<td colspan="2"><input type="submit" value="Log In" /></td>
@@ -41,7 +46,7 @@
 		<hr />
 
 		<rich:messages layout="list" id="messages" styleClass="message"
-				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
+			errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
 
 		<div style="background: #AFC7C7;">
 		<h3>OR REGISTER</h3>
@@ -50,39 +55,58 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
-					required="true" label="#{msg['login.realname']}" />
-					
+					required="true" label="#{msg['login.realname']}"
+					onkeypress="return blockKey(this, event, 60)"
+					onkeydown="return ismaxlength(this,60)"
+					onkeyup="return ismaxlength(this,60)" />
+
 				<h:outputText value="#{msg['login.email']}" />
 				<a:region>
 					<h:inputText value="#{registrationBean.email}" style="width:235px;"
-						required="true" label="#{msg['login.email']}">
-							<a:support event="onchange" action="#{registrationBean.emailValidation}"/>
+						required="true" label="#{msg['login.email']}"
+						onkeypress="return blockKey(this, event, 64)"
+						onkeydown="return ismaxlength(this, 64)"
+						onkeyup="return ismaxlength(this, 64)">
+						<a:support event="onchange"
+							action="#{registrationBean.emailValidation}" />
 					</h:inputText>
 				</a:region>
-				
+
 				<h:outputText value="#{msg['login.username']}" />
 				<a:region>
 					<h:inputText value="#{registrationBean.login}" style="width:235px;"
-						required="true" label="#{msg['login.username']}">
-						<a:support event="onchange" action="#{registrationBean.loginValidation}"/>
+						required="true" label="#{msg['login.username']}"
+						onkeypress="return blockKey(this, event, 10)"
+						onkeydown="return ismaxlength(this,10)"
+						onkeyup="return ismaxlength(this,10)">
+						<a:support event="onchange"
+							action="#{registrationBean.loginValidation}" />
 					</h:inputText>
 				</a:region>
-				
+
 				<h:outputText value="#{msg['login.password']}" />
 				<h:inputSecret value="#{registrationBean.password}"
-					style="width:235px;" required="true" label="#{msg['login.password']}" 
-					validator="#{registrationBean.validatePassword}"/>
+					style="width:235px;" required="true"
+					label="#{msg['login.password']}"
+					validator="#{registrationBean.validatePassword}"
+					onkeypress="return blockKey(this, event, 32)"
+					onkeydown="return ismaxlength(this, 32)"
+					onkeyup="return ismaxlength(this, 32)" />
 
 				<h:outputText value="#{msg['login.password.check']}" />
 				<a:region>
 					<h:inputSecret value="#{registrationBean.checkPassword}"
-						style="width:235px;" required="true" label="#{msg['login.password.check']}">
-						<a:support event="onchange"/>
+						style="width:235px;" required="true"
+						label="#{msg['login.password.check']}"
+						onkeypress="return blockKey(this, event, 32)"
+						onkeydown="return ismaxlength(this, 32)"
+						onkeyup="return ismaxlength(this, 32)">
+						<a:support event="onchange" />
 					</h:inputSecret>
-				</a:region>					
+				</a:region>
 			</h:panelGrid>
 			<div style="background: #AFC7C7;"><p:captcha
-				publicKey="6Lfa8gQAAAAAABkjCe-2sanpicOA3Gxk2sirA6CA" 
+				publicKey="6Lfa8gQAAAAAABkjCe-2sanpicOA3Gxk2sirA6CA"
 				label="#{msg['login.captcha']}" /></div>
 			<h:commandButton action="#{registrationBean.register}"
 				value="REGISTER" />
