@@ -25,6 +25,7 @@
 				<tr class="loginrow">
 					<th><label class="loginlabel">Username:</label></th>
 					<td><input class="loginfield" type="text" name="j_username"
+					maxlength="#{empty maxlength ? '10' : maxlength}"
 						onkeypress="return blockKey(this, event, 10)"
 						onkeydown="return ismaxlength(this,10)"
 						onkeyup="return ismaxlength(this,10)" /></td>
