@@ -53,12 +53,14 @@
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
 					required="true" label="#{msg['login.realname']}"
-					maxlength="#{empty nameMaxlength ? '60' : maxlength}" />
+					maxlength="#{empty nameMaxlength ? '60' : nameMaxlength}" />
 				<h:outputText value="#{msg['login.email']}" />
 				<a:region>
 					<h:inputText value="#{registrationBean.email}" style="width:235px;"
 						required="true" label="#{msg['login.email']}"
-						maxlength="#{empty emailMaxlength ? '64' : maxlength}" title="max 64 characters">
+						minLength="#{empty emailMinlength ? '3' : maxlength}"
+						maxlength="#{empty emailMaxlength ? '64' : maxlength}"
+						title="max 64 characters">
 						<a:support event="onchange"
 							action="#{registrationBean.emailValidation}" />
 					</h:inputText>
