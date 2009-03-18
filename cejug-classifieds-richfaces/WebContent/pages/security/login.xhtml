@@ -55,10 +55,9 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
-					required="true" label="#{msg['login.realname']}"
-					onkeypress="return blockKey(this, event, 60)"
-					onkeydown="return ismaxlength(this,60)"
-					onkeyup="return ismaxlength(this,60)" />
+					required="true" label="#{msg['login.realname']}">
+					<f:validateLength minimum="1" maximum="60" />
+				</h:inputText>
 
 				<h:outputText value="#{msg['login.email']}" />
 				<a:region>
