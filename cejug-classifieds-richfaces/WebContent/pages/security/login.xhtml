@@ -56,7 +56,7 @@
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
 					required="true" label="#{msg['login.realname']}">
-					<f:validateLength minimum="1" maximum="60" />
+					<f:validateLongRange minimum="1" maximum="60" />
 				</h:inputText>
 
 				<h:outputText value="#{msg['login.email']}" />
