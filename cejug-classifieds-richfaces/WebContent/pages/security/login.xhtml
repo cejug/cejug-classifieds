@@ -25,17 +25,13 @@
 				<tr class="loginrow">
 					<th><label class="loginlabel">Username:</label></th>
 					<td><input class="loginfield" type="text" name="j_username"
-					maxlength="#{empty maxlength ? '10' : maxlength}"
-						onkeypress="return blockKey(this, event, 10)"
-						onkeydown="return ismaxlength(this,10)"
-						onkeyup="return ismaxlength(this,10)" /></td>
+						maxlength="#{empty loginMaxlength ? '10' : maxlength}" /></td>
 				</tr>
 				<tr class="loginrow">
 					<th><label class="loginlabel">Password:</label></th>
 					<td><input class="loginfield" type="password"
 						name="j_password" onkeypress="return blockKey(this, event, 32)"
-						onkeydown="return ismaxlength(this,32)"
-						onkeyup="return ismaxlength(this,32)" /></td>
+						maxlength="#{empty passwordMaxlength ? '32' : maxlength}" /></td>
 				</tr>
 				<tr class="loginrow">
 					<td colspan="2"><input type="submit" value="Log In" /></td>
@@ -56,17 +52,13 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msg['login.realname']}" />
 				<h:inputText value="#{registrationBean.name}" style="width:235px;"
-					required="true" label="#{msg['login.realname']}">
-					<f:validateLongRange minimum="1" maximum="60" />
-				</h:inputText>
-
+					required="true" label="#{msg['login.realname']}"
+					maxlength="#{empty nameMaxlength ? '60' : maxlength}" />
 				<h:outputText value="#{msg['login.email']}" />
 				<a:region>
 					<h:inputText value="#{registrationBean.email}" style="width:235px;"
 						required="true" label="#{msg['login.email']}"
-						onkeypress="return blockKey(this, event, 64)"
-						onkeydown="return ismaxlength(this, 64)"
-						onkeyup="return ismaxlength(this, 64)">
+						maxlength="#{empty emailMaxlength ? '64' : maxlength}">
 						<a:support event="onchange"
 							action="#{registrationBean.emailValidation}" />
 					</h:inputText>
@@ -76,9 +68,7 @@
 				<a:region>
 					<h:inputText value="#{registrationBean.login}" style="width:235px;"
 						required="true" label="#{msg['login.username']}"
-						onkeypress="return blockKey(this, event, 10)"
-						onkeydown="return ismaxlength(this,10)"
-						onkeyup="return ismaxlength(this,10)">
+						maxlength="#{empty loginMaxlength ? '10' : maxlength}">
 						<a:support event="onchange"
 							action="#{registrationBean.loginValidation}" />
 					</h:inputText>
@@ -89,18 +79,14 @@
 					style="width:235px;" required="true"
 					label="#{msg['login.password']}"
 					validator="#{registrationBean.validatePassword}"
-					onkeypress="return blockKey(this, event, 32)"
-					onkeydown="return ismaxlength(this, 32)"
-					onkeyup="return ismaxlength(this, 32)" />
+					maxlength="#{empty passwordMaxlength ? '32' : maxlength}" />
 
 				<h:outputText value="#{msg['login.password.check']}" />
 				<a:region>
 					<h:inputSecret value="#{registrationBean.checkPassword}"
 						style="width:235px;" required="true"
 						label="#{msg['login.password.check']}"
-						onkeypress="return blockKey(this, event, 32)"
-						onkeydown="return ismaxlength(this, 32)"
-						onkeyup="return ismaxlength(this, 32)">
+						maxlength="#{empty passwordMaxlength ? '32' : maxlength}">
 						<a:support event="onchange" />
 					</h:inputSecret>
 				</a:region>
