@@ -89,25 +89,17 @@
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.headline}"
 							style="width:230px;" required="true" label="Headline"
-							onkeypress="return blockKey(this, event, 50)"
-							onkeydown="return ismaxlength(this,50)"
-							onkeyup="return ismaxlength(this,50)" />
-
+							maxlength="#{empty adsMaxlength ? '50' : adsMaxlength}" />
 						<h:outputText value="#{msg['publishadv.keywords']}"
 							style="width:230px;" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.keywords}"
-							onkeypress="return blockKey(this, event, 100)"
-							onkeydown="return ismaxlength(this,100)"
-							onkeyup="return ismaxlength(this,100)" />
-
+							maxlength="#{empty keywordsMaxlength ? '100' : keywordsMaxlength}" />
 
 						<h:outputText value="#{msg['publishadv.locale']}" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.locale}"
-							onkeypress="return blockKey(this, event, 10)"
-							onkeydown="return ismaxlength(this,10)"
-							onkeyup="return ismaxlength(this,10)" />
+							maxlength="#{empty localeMaxlength ? '10' : localeMaxlength}" />
 
 
 						<h:outputText value="#{msg['publishadv.summary']}" />
