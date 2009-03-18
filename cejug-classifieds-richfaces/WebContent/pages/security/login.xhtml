@@ -58,7 +58,7 @@
 				<a:region>
 					<h:inputText value="#{registrationBean.email}" style="width:235px;"
 						required="true" label="#{msg['login.email']}"
-						maxlength="#{empty emailMaxlength ? '64' : maxlength}">
+						maxlength="#{empty emailMaxlength ? '64' : maxlength}" title="max 64 characters">
 						<a:support event="onchange"
 							action="#{registrationBean.emailValidation}" />
 					</h:inputText>
