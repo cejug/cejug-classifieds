@@ -16,13 +16,15 @@ import java.sql.SQLException;
  * ij
  * connect 'jdbc:derby://localhost:1527/sun-appserv-samples';
  * 
- *  drop table grouptable;
- *  drop view activeusers;
- *  drop table usertable;
- *  create table usertable(login varchar(10) not null, password varchar(32) not null, email varchar(64), name varchar(60), status int not null default 5, primary key(login));
- *  create table grouptable(login varchar(10) not null, groupid varchar(20) not null, description varchar(60), primary key(login));
- *  alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
- *  create view activeusers(login, password) as select login,password from app.usertable where app.usertable.status=0;
+  drop table grouptable;
+  drop view activeusers;
+  drop table usertable;
+  create table usertable(login varchar(20) not null, password varchar(32) not null, email varchar(64), name varchar(60), status int not null default 5, primary key(login));
+  create table grouptable(login varchar(20) not null, groupid varchar(20) not null, description varchar(60), primary key(login));
+  alter table grouptable add constraint FK_USERID foreign key(login) references usertable(login);
+  create view activeusers(login, password) as select login,password from app.usertable where app.usertable.status=0;
+  
+  
  * 
  * ij&gt; describe usertable;
  * COLUMN_NAME         |TYPE_NAME|DEC&amp;|NUM&amp;|COLUM&amp;|COLUMN_DEF|CHAR_OCTE&amp;|IS_NULL&amp;
