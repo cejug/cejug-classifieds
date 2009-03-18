@@ -40,7 +40,7 @@
 		<a:form id="publishForm" ajaxSubmit="true">
 			<a:keepAlive beanName="publishAdvertisementBean" />
 			<a:loadScript src="/js/classifieds.js" />
-			
+
 			<rich:messages layout="list" id="messages" styleClass="message"
 				errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:messages>
 
@@ -88,32 +88,41 @@
 						<h:outputText value="#{msg['publishadv.headline']}" />
 						<h:inputText
 							value="#{publishAdvertisementBean.advertisement.headline}"
-							style="width:230px;" required="true" label="Headline" />
+							style="width:230px;" required="true" label="Headline"
+							onkeypress="return blockKey(this, event, 50)"
+							onkeydown="return ismaxlength(this,50)"
+							onkeyup="return ismaxlength(this,50)" />
 
 						<h:outputText value="#{msg['publishadv.keywords']}"
 							style="width:230px;" />
 						<h:inputText
-							value="#{publishAdvertisementBean.advertisement.keywords}" />
+							value="#{publishAdvertisementBean.advertisement.keywords}"
+							onkeypress="return blockKey(this, event, 100)"
+							onkeydown="return ismaxlength(this,100)"
+							onkeyup="return ismaxlength(this,100)" />
+
 
 						<h:outputText value="#{msg['publishadv.locale']}" />
 						<h:inputText
-							value="#{publishAdvertisementBean.advertisement.locale}" />
+							value="#{publishAdvertisementBean.advertisement.locale}"
+							onkeypress="return blockKey(this, event, 10)"
+							onkeydown="return ismaxlength(this,10)"
+							onkeyup="return ismaxlength(this,10)" />
+
 
 						<h:outputText value="#{msg['publishadv.summary']}" />
 						<h:inputTextarea
 							value="#{publishAdvertisementBean.advertisement.summary}"
 							onkeypress="return blockKey(this, event, 500)"
 							onkeydown="return ismaxlength(this,500)"
-							onkeyup="return ismaxlength(this,500)"
-							cols="55" rows="4" />
+							onkeyup="return ismaxlength(this,500)" cols="55" rows="4" />
 
 						<h:outputText value="#{msg['publishadv.text']}" />
 						<h:inputTextarea
-							value="#{publishAdvertisementBean.advertisement.text}" 
+							value="#{publishAdvertisementBean.advertisement.text}"
 							onkeypress="return blockKey(this, event, 500)"
 							onkeydown="return ismaxlength(this,500)"
-							onkeyup="return ismaxlength(this,500)"
-							cols="55" rows="4" />
+							onkeyup="return ismaxlength(this,500)" cols="55" rows="4" />
 
 					</h:panelGrid>
 				</rich:tab>
