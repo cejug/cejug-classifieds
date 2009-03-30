@@ -64,10 +64,6 @@
 		</license>
 	</licenses>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
 	<scm>
 		<connection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</connection>
 		<developerConnection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</developerConnection>
@@ -89,6 +85,148 @@
 	            <artifactId>maven-surefire-plugin</artifactId>
 	            <version>2.4.3</version>
 	         </plugin>
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>${env.AS_HOME}</glassfishDirectory>
+					<user>${domain.username}</user>
+					<adminPassword>${domain.password}</adminPassword>
+					<!-- <passFile>path/to/asadmin/passfile</passFile> -->
+					<autoCreate>false</autoCreate>
+					<debug>true</debug>
+					<echo>true</echo>
+					<terse>true</terse>
+					<skip>false</skip>
+					<user>admin</user>
+					<adminPassword>adminadmin</adminPassword>
+					<domain>
+						<name>domain1</name>
+						<adminPort>4848</adminPort>
+						<httpPort>8080</httpPort>
+						<httpsPort>8443</httpsPort>
+						<iiopPort>3700</iiopPort>
+						<jmsPort>7676</jmsPort>
+						<reuse>false</reuse>
+						<jvmOptions>
+							<option/>
+						</jvmOptions>
+						<properties>
+							<!-- property>
+								<name>server.log-service.file</name>
+								<value>${domain.log.dir}/server.log</value>
+							</property-->
+						</properties>
+						<auth>
+                            <realm>
+                                <name>cejug-classifieds</name>
+                                <className>com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm</className>
+                                <properties>
+						          <property><name>user-name-column</name><value>userid</value></property>
+						          <property><name>digest-algorithm</name><value>MD5</value></property>
+						          <property><name>password-column</name><value>password</value></property>
+						          <property><name>group-name-column</name><value>groupid</value></property>
+						          <property><name>datasource-jndi</name><value>jdbc/__default</value></property>
+						          <property><name>user-table</name><value>usertable</value></property>
+						          <property><name>group-table</name><value>grouptable</value></property>
+						          <property><name>jaas-context</name><value>jdbcRealm</value></property>
+                                </properties>
+                            </realm>
+                        </auth>
+						<resources>
+                            <connectionFactory>
+                                <jndiName>NotificationQueueFactory</jndiName>
+                                <type>queueConnectionFactory</type>
+                                <properties>
+                                    <property><name>UserName</name><value>guest</value></property>
+                                    <property><name>Password</name><value>guest</value></property>
+                                    <property><name>AddressList</name><value>localhost:7676</value></property>
+								    <property><name>associate-with-thread</name><value>false</value></property> 
+								    <property><name>connection-creation-retry-attempts</name><value>0</value></property> 
+								    <property><name>connection-creation-retry-interval-in-seconds</name><value>10</value></property> 
+								    <property><name>connection-definition-name</name><value>javax.jms.QueueConnectionFactory</value></property> 
+								    <property><name>connection-leak-reclaim</name><value>false</value></property> 
+								    <property><name>connection-leak-timeout-in-seconds</name><value>0</value></property> 
+								    <property><name>fail-all-connections</name><value>false</value></property> 
+								    <property><name>idle-timeout-in-seconds</name><value>300</value></property> 
+								    <property><name>is-connection-validation-required</name><value>false</value></property> 
+								    <property><name>lazy-connection-association</name><value>false</value></property> 
+								    <property><name>lazy-connection-enlistment</name><value>false</value></property> 
+								    <property><name>match-connections</name><value>true</value></property> 
+								    <property><name>max-connection-usage-count</name><value>0</value></property> 
+								    <property><name>max-pool-size</name><value>32</value></property> 
+								    <property><name>max-wait-time-in-millis</name><value>60000</value></property> 
+								    <property><name>name</name><value>NotificationQueueFactory</value></property> 
+								    <property><name>pool-resize-quantity</name><value>2</value></property> 
+								    <property><name>resource-adapter-name</name><value>jmsra</value></property> 
+								    <property><name>steady-pool-size</name><value>800</value></property> 
+								    <property><name>validate-atmost-once-period-in-seconds</name><value>0</value></property>
+                                </properties>
+                            </connectionFactory>
+                            <jmsQueue>
+                                <jndiName>jms/RegistrationQueue</jndiName>
+                                <destinationName>TestTopic</destinationName>
+                                <connectionFactory>
+                                    <jndiName>jms/testTopicConnectionFactory</jndiName>
+                                    <properties>
+                                        <property>
+                                            <name>UserName</name>
+                                            <value>guest</value>
+                                        </property>
+                                        <property>
+                                            <name>Password</name>
+                                            <value>guest</value>
+                                        </property>
+                                        <property>
+                                            <name>AddressList</name>
+                                            <value>localhost:7676</value>
+                                        </property>
+                                    </properties>
+                                </connectionFactory>
+                            </jmsQueue>
+                            <jdbcDataSource>
+                                <name>cejug-classifieds</name>
+                                <type>connectionPoolDataSource</type>
+                                <poolName>SomePool</poolName>
+                                <className>com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource</className>
+                                <description>Some JDBC Connection Pool</description>
+                                <allowNonComponentCallers>false</allowNonComponentCallers>
+                                <validateConnections>true</validateConnections>
+                                <validationMethod>metaData</validationMethod>
+                                <properties>
+                                    <property>
+                                        <name>portNumber</name>
+                                        <value>3306</value>
+                                    </property>
+                                    <property>
+                                        <name>password</name>
+                                        <value>somePassword</value>
+                                    </property>
+                                    <property>
+                                        <name>user</name>
+                                        <value>someUser</value>
+                                    </property>
+                                    <property>
+                                        <name>serverName</name>
+                                        <value>some.host.somewhere</value>
+                                    </property>
+                                    <property>
+                                        <name>databaseName</name>
+                                        <value>SomeDB</value>
+                                    </property>
+                                </properties>
+                            </jdbcDataSource>
+                        </resources>
+					</domain>
+					<components>
+						<component>
+							<name>cejug-classifieds-login-ear</name>
+							<artifact>cejug-classifieds-login-ear/target/login-app.ear</artifact>
+						</component>
+					</components>
+				</configuration>
+			</plugin>
 		</plugins>
 		<extensions>
 			<extension>
@@ -231,4 +369,21 @@
 			</plugin-->
 		</plugins>
 	</reporting>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven.java.net</id>
+            <name>Java.net Maven2 Repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </pluginRepository>
+    </pluginRepositories>
+	<properties>
+		<glassfish.home>${env.AS_HOME}</glassfish.home>
+		<domain.username>admin</domain.username>
+		<domain.password>adminadmin</domain.password>
+		<test.int.skip>false</test.int.skip>
+		<domain.name>domain1</domain.name>
+		<reuse.domain>false</reuse.domain>
+		<domain.log.dir>${env.AS_HOME}/domains/domain1/logs/loginapp.log</domain.log.dir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
