@@ -76,6 +76,7 @@
         <filter-name>ExpiresFilter</filter-name>
         <url-pattern>/images/*</url-pattern> <!-- these patterns should match cached resources -->
         <url-pattern>/css/*</url-pattern>
+        <url-pattern>/js/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
