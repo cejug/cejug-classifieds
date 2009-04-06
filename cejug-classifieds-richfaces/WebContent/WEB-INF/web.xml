@@ -74,9 +74,12 @@
     </filter>
     <filter-mapping>
         <filter-name>ExpiresFilter</filter-name>
-        <url-pattern>/images/*</url-pattern> <!-- these patterns should match cached resources -->
+        <url-pattern>/images/**/**</url-pattern> <!-- these patterns should match cached resources -->
+        <url-pattern>/cejug-classifieds-richfaces/css/**/*</url-pattern>
         <url-pattern>/css/*</url-pattern>
-        <url-pattern>/js/*</url-pattern>
+        <url-pattern>/css/images/*</url-pattern>
+        <url-pattern>/**/js/*</url-pattern>
+        <url-pattern>/**/a4j/**/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
