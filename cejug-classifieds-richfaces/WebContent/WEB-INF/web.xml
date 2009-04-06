@@ -68,7 +68,18 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
-
+          <filter>
+        <filter-name>ExpiresFilter</filter-name>
+        <filter-class>net.java.dev.cejug.classifieds.richfaces.util.ExpiresFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ExpiresFilter</filter-name>
+        <url-pattern>/images/*</url-pattern> <!-- these patterns should match cached resources -->
+        <url-pattern>/css/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    
 	<security-constraint>
 		<display-name>Restrict XHTML documents</display-name>
 		<web-resource-collection>
