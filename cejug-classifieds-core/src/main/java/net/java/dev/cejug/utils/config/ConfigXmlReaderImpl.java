@@ -26,6 +26,7 @@ package net.java.dev.cejug.utils.config;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -79,8 +80,7 @@ class ConfigXmlReaderImpl<T> implements ConfigXmlReader<T> {
 		if (listener != null) {
 			unmarshaller.setListener(listener);
 		}
-		SchemaFactory sf = SchemaFactory
-				.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.XML_NS_URI);
 		Schema schema = sf.newSchema(schemaLocation);
 		unmarshaller.setSchema(schema);
 
