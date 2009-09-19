@@ -29,6 +29,7 @@ import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.text.MessageFormat;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -152,23 +153,37 @@ public class NotificationMailerBean implements MessageListener {
 			} else {
 				logger.warning("Invalid message " + message.getClass());
 			}
+			logger
+					.info("NotificationMailerBean.onMessage successfully consumed the message "
+							+ message.getJMSMessageID());
 		} catch (JMSException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
 		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			logger.severe("NotificationMailerBean.onMessage Invalid message "
-					+ message.getClass());
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
+		} catch (SecurityException e) {
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"NotificationMailerBean.onMessage Invalid message "
+							+ message.getClass(), e);
 		}
 	}
 }
