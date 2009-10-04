@@ -1,9 +1,11 @@
 package net.java.dev.cejug.classifieds.richfaces.util;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.servlet.Filter;
@@ -24,51 +26,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ExpiresFilter implements Filter {
 
+	private static final String GMT = "GMT";
+	private static final String HTTP_EXPIRES_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z";
 	private FilterConfig filterConfig;
-	private String expires;
-	private long nextDeploymentTime;
-
-	public ExpiresFilter() {
-		expires = nextDeploymentTime();
-	}
-
-	private String nextDeploymentTime() {
-		// assume next deployment is M-F at 09:45
-		Calendar c = Calendar.getInstance();
-		int dayOffset = 1;
-
-		if (c.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-			dayOffset += 2;
-		}
-
-		if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-			dayOffset++;
-		}
-
-		c.add(Calendar.DAY_OF_MONTH, dayOffset);
-		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
-				.get(Calendar.DAY_OF_MONTH), 9, 45);
-
-		nextDeploymentTime = c.getTimeInMillis();
-
-		String pattern = "EEE, dd MMM yyyy HH:mm:ss z";
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-		return sdf.format(c.getTime());
-	}
-
-	private void addCacheHeaders(ServletRequest request,
-			ServletResponse response) throws IOException, ServletException {
-
-		HttpServletResponse sr = (HttpServletResponse) response;
-		sr.setHeader("Expires", expires);
-		long now = (new Date()).getTime();
-
-		long expireTime = nextDeploymentTime - now;
-		expireTime /= 1000;
-		sr.setHeader("Cache-Control", "max-age=" + Long.toString(expireTime)
-				+ ";public;must-revalidate;");
-	}
 
 	/**
 	 * 
@@ -87,7 +47,21 @@ public class ExpiresFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 
-		addCacheHeaders(request, response);
+		if (response != null) {
+			DateFormat httpDateFormat = new SimpleDateFormat(
+					HTTP_EXPIRES_FORMAT, Locale.US);
+			httpDateFormat.setTimeZone(TimeZone.getTimeZone(GMT));
+
+			int seconds = 3600;
+
+			Calendar cal = new GregorianCalendar();
+			cal.roll(Calendar.SECOND, seconds);
+			((HttpServletResponse) response).setHeader("Cache-Control",
+					"PUBLIC, max-age=" + seconds + ", must-revalidate");
+			((HttpServletResponse) response).setHeader("Expires",
+					httpDateFormat.format(cal.getTime()));
+		}
+
 		chain.doFilter(request, response);
 	}
 
@@ -137,5 +111,4 @@ public class ExpiresFilter implements Filter {
 		return (sb.toString());
 
 	}
-
 }

@@ -1,10 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>cejug-classifieds-login-ear</name>
-  <comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
-  <projects>
-    <project>cejug-classifieds-login</project>
-    <project>cejug-classifieds-login-rest</project>
-  </projects>
-  <buildSpec/>
-  <natures/>
+	<name>cejug-classifieds-login-ear</name>
+	<comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
+	<projects>
+		<project>cejug-classifieds-login</project>
+		<project>cejug-classifieds-login-rest</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+	</natures>
 </projectDescription>

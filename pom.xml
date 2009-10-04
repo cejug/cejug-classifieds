@@ -94,15 +94,15 @@
 					<user>${domain.username}</user>
 					<adminPassword>${domain.password}</adminPassword>
 					<!-- <passFile>path/to/asadmin/passfile</passFile> -->
-					<autoCreate>false</autoCreate>
+					<autoCreate>true</autoCreate>
 					<debug>true</debug>
 					<echo>true</echo>
 					<terse>true</terse>
-					<skip>false</skip>
+					<skip>true</skip>
 					<user>admin</user>
 					<adminPassword>adminadmin</adminPassword>
 					<domain>
-						<name>domain1</name>
+						<name>domain2</name>
 						<adminPort>4848</adminPort>
 						<httpPort>8080</httpPort>
 						<httpsPort>8443</httpsPort>
@@ -381,9 +381,9 @@
 		<domain.username>admin</domain.username>
 		<domain.password>adminadmin</domain.password>
 		<test.int.skip>false</test.int.skip>
-		<domain.name>domain1</domain.name>
+		<domain.name>domain2</domain.name>
 		<reuse.domain>false</reuse.domain>
-		<domain.log.dir>${env.AS_HOME}/domains/domain1/logs/loginapp.log</domain.log.dir>
+		<domain.log.dir>${env.AS_HOME}/domains/domain2/logs/loginapp.log</domain.log.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>

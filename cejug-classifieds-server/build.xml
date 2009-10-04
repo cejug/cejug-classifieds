@@ -102,7 +102,7 @@
 			<produces dir="${jaxb.classes.dir}" includes="**/*.java" />
 		</xjc>
 		<javac srcdir="${generated.dir}" destdir="${generated.dir}" debug="${compile.debug}" debuglevel="lines,vars,source" source="1.6" />
-		<jar destfile="lib/footprint-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
+		<jar destfile="lib/classifieds-i18nkeys.jar" basedir="${generated.dir}" excludes="**/*.java" />
 		<delete dir="${generated.dir}" />
 	</target>
 

@@ -13,12 +13,12 @@
 	<div id="headerbar">
 		<h:outputText value="Category: "></h:outputText>	
 		<a:region>
-			<h:selectOneMenu id="categories"
+			<!-- h:selectOneMenu id="categories"
 				converter="advertisementCategoryConverter"
 				value="#{helloClassifiedsBean.selectedCategory}">
 				<f:selectItems value="#{categoryBean.categories}" />
 				<a:support event="onchange" reRender="categoryPanel"></a:support>
-			</h:selectOneMenu>
+			</h:selectOneMenu-->
 		</a:region>
 		<h:outputText value=" | " />
 		<a:commandLink action="publishAdvertisement"
