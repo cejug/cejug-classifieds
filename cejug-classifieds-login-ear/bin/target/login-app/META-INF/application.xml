@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC
+	"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+	"http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+  <display-name>cejug-classifieds-login-ear</display-name>
+  <description>CEJUG-Classifieds is a 100% pure Java classified advertising system</description>
+  <module>
+    <ejb>cejug-classifieds-login-1.0-SNAPSHOT.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>cejug-classifieds-login-rest-1.0-SNAPSHOT.war</web-uri>
+      <context-root>/cejug-classifieds-login-rest</context-root>
+    </web>
+  </module>
+</application>

@@ -55,7 +55,7 @@ public class UserFacade extends CRUDEntityFacade<UserEntity> implements
 	public boolean isEmailAvailable(String email) {
 		if (email == null || email.trim().length() == 0) {
 			return false;
-		} else {			
+		} else {
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(UserEntity.SQL.PARAM_EMAIL, email);
 			try {

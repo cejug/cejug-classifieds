@@ -89,9 +89,12 @@ public class DefaultUrlObfuscator implements URLObfuscator, URLDeobfuscator {
 		}
 		return parameters;
 	}
-	
-	public static void main(String[] args) throws GeneralSecurityException, IOException {
+
+	public static void main(String[] args) throws GeneralSecurityException,
+			IOException {
 		DefaultUrlObfuscator oo = new DefaultUrlObfuscator();
-		System.out.println(oo.extractParameters("DSS8Sh5njPYm5JoF1OuE%2F%2F9eK0pqPlfV0mOSy7BRSD4ESO1gO%2Bs%2FTQ%3D%3D"));
+		System.out
+				.println(oo
+						.extractParameters("DSS8Sh5njPYm5JoF1OuE%2F%2F9eK0pqPlfV0mOSy7BRSD4ESO1gO%2Bs%2FTQ%3D%3D"));
 	}
 }
