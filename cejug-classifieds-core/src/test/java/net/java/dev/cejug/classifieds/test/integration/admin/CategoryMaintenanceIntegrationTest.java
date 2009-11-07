@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.admin;
 
+import static org.junit.Assert.fail;
+
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -42,8 +44,6 @@ import net.java.dev.cejug_classifieds.metadata.common.ServiceStatus;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import  static org.junit.Assert.fail;
 
 /**
  * Test the category maintenance CRUD operations through the following steps:

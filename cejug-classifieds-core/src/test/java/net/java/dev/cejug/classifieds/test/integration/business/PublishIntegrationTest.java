@@ -23,6 +23,8 @@
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 package net.java.dev.cejug.classifieds.test.integration.business;
 
+import static org.junit.Assert.fail;
+
 import java.net.MalformedURLException;
 import java.util.logging.Logger;
 
@@ -38,7 +40,6 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 
 import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.fail;
 
 /**
  * Test the diploma validation operation.
@@ -47,8 +48,8 @@ import static org.junit.Assert.fail;
  * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
  */
 public class PublishIntegrationTest extends AbstractServiceTestCase {
-	private final static Logger logger = Logger.getLogger(
-			PublishIntegrationTest.class.getName());
+	private final static Logger logger = Logger
+			.getLogger(PublishIntegrationTest.class.getName());
 
 	@Test
 	public void testPublishOperation() throws DatatypeConfigurationException,
@@ -66,8 +67,7 @@ public class PublishIntegrationTest extends AbstractServiceTestCase {
 			domain = admin.createDomain();
 			type = admin.createAdvType();
 			category = admin.getAnyCategory();
-			logger.info("Publishing on Category #"
-					+ category.getEntityId());
+			logger.info("Publishing on Category #" + category.getEntityId());
 			adv = business.createAdvertisement(domain, type, category, true);
 			Assert.assertTrue(adv.getEntityId() != 0);
 			adv = business.createAdvertisement(domain, type, category, false);

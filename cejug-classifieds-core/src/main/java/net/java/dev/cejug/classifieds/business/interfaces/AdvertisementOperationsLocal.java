@@ -48,7 +48,5 @@ public interface AdvertisementOperationsLocal extends CRUDLocal<Advertisement> {
 			final AdvertisementCollectionFilter filter);
 
 	Advertisement publishOperation(final Advertisement advertisement,
-			final PublishingHeader header) throws EntityExistsException,
-			TransactionRequiredException, IllegalStateException,
-			IllegalArgumentException;
+			final PublishingHeader header) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException;
 }

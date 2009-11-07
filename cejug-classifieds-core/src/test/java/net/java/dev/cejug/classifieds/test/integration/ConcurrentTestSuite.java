@@ -2,10 +2,10 @@ package net.java.dev.cejug.classifieds.test.integration;
 
 import java.util.List;
 
+import junit.framework.Assert;
 import net.java.dev.cejug.classifieds.test.integration.admin.AdminTestSuite;
 import net.java.dev.cejug.classifieds.test.integration.business.BusinessTestSuite;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;

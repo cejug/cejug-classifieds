@@ -27,7 +27,6 @@ import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
 import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
 import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
 import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
-import net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory;
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 import net.java.dev.cejug_classifieds.metadata.business.Period;
 import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
@@ -47,18 +46,14 @@ public class BusinessClientMock {
 
 	public BusinessClientMock() {
 		/*
-		try {
-			DBMonsterContext ctx = new DBMonsterContext();
-			DictionaryManager dictmanager = new DictionaryManager();
-			Random random = new java.util.Random();
-			dictmanager.setRandom(random);
-			ctx.setProperty(DBMonster.DICTIONARY_MANAGER_KEY, dictmanager);
-			ctx.setProperty(DBMonster.RANDOM_KEY, random);
-			strGen.initialize(ctx);
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
-		*/
+		 * try { DBMonsterContext ctx = new DBMonsterContext();
+		 * DictionaryManager dictmanager = new DictionaryManager(); Random
+		 * random = new java.util.Random(); dictmanager.setRandom(random);
+		 * ctx.setProperty(DBMonster.DICTIONARY_MANAGER_KEY, dictmanager);
+		 * ctx.setProperty(DBMonster.RANDOM_KEY, random);
+		 * strGen.initialize(ctx); } catch (Exception e) {
+		 * Assert.fail(e.getMessage()); }
+		 */
 	}
 
 	/*
@@ -105,7 +100,7 @@ public class BusinessClientMock {
 		AvatarImageOrUrl avatar = new AvatarImageOrUrl();
 		// URL imgUrl = getClass().getClassLoader().getResource("img/car.png");
 		// Image image = ImageIO.read(imgUrl);
-		ObjectFactory attachmentFactory = new ObjectFactory();
+		net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory attachmentFactory = new net.java.dev.cejug_classifieds.metadata.attachments.ObjectFactory();
 
 		AtavarImage avimage = attachmentFactory.createAtavarImage();
 		avimage.setContentType("image/png");
@@ -125,23 +120,22 @@ public class BusinessClientMock {
 		period.setFinish(fiveDaysLater);
 		// Advertisement contents
 		advertisement.setPublishingPeriod(period);
-		/*strGen.setAllowSpaces(true);
-		strGen.setMinLength(1);
-		strGen.setMaxLength(15);
-		advertisement.setHeadline(strGen.generate().toString());
-		strGen.setMaxLength(40);
-		advertisement.setSummary(strGen.generate().toString());
-		strGen.setMaxLength(250);
-		advertisement.setText(strGen.generate().toString());
-		advertisement.setCategoryId(category.getEntityId());
-		advertisement.setLocale("pt_BR");
+		/*
+		 * strGen.setAllowSpaces(true); strGen.setMinLength(1);
+		 * strGen.setMaxLength(15);
+		 * advertisement.setHeadline(strGen.generate().toString());
+		 * strGen.setMaxLength(40);
+		 * advertisement.setSummary(strGen.generate().toString());
+		 * strGen.setMaxLength(250);
+		 * advertisement.setText(strGen.generate().toString());
+		 * advertisement.setCategoryId(category.getEntityId());
+		 * advertisement.setLocale("pt_BR");
+		 * 
+		 * strGen.setAllowSpaces(false); strGen.setMaxLength(20);
+		 * advertisement.setKeywords(strGen.generate().toString() + ", " +
+		 * strGen.generate().toString());
+		 */
 
-		strGen.setAllowSpaces(false);
-		strGen.setMaxLength(20);
-		advertisement.setKeywords(strGen.generate().toString() + ", "
-				+ strGen.generate().toString());
-		*/
-		
 		advertisement.setHeadline("how to use DBMonster with Maven2?");
 		advertisement.setSummary("how to use DBMonster with Maven2?");
 		advertisement.setText("how to use DBMonster with Maven2?");
