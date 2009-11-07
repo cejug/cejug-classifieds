@@ -24,6 +24,7 @@
 package net.java.dev.cejug.classifieds.exception;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.PersistenceException;

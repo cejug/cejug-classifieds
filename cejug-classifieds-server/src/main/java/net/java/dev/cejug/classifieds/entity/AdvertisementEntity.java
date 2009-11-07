@@ -27,6 +27,7 @@ package net.java.dev.cejug.classifieds.entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +42,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
 
 /**
@@ -80,10 +82,10 @@ public class AdvertisementEntity extends AbstractEntity<Advertisement> {
 	@Column(name = "TITLE", nullable = false)
 	private String title;
 
-	@Column(name = "SUMMARY", nullable = false, length=500)
+	@Column(name = "SUMMARY", nullable = false, length = 500)
 	private String summary;
 
-	@Column(name = "TEXT", nullable = false, length=5000)
+	@Column(name = "TEXT", nullable = false, length = 5000)
 	private String text;
 
 	@JoinColumn(name = "CUSTOMER_ID", nullable = false)

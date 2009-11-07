@@ -47,7 +47,8 @@ import org.w3._2005.atom.Feed;
  * this servlet by a jersey code).
  * 
  * @author $Author$
- * @version $Rev$ ($LastChangedDate$)
+ * @version $Rev$ ($LastChangedDate: 2009-01-26 20:49:07 +0100 (Mon, 26
+ *          Jan 2009) $)
  */
 public class AtomFeed extends HttpServlet {
 	/** <code>serialVersionUID = {@value}</code>. */

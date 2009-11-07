@@ -200,7 +200,7 @@ public class AdminEndpointDecorator implements ClassifiedsAdminRemote,
 
 		try {
 			logger.fine("crudDomaincrudDomaincrudDomaincrudDomaincrudDomain-> "
-							+ crudDomain);
+					+ crudDomain);
 			return crudDomain.create(param.getDomain());
 		} catch (Exception e) {
 			logger.severe(e.getMessage());

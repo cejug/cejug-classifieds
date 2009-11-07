@@ -25,6 +25,7 @@ package net.java.dev.cejug.classifieds.adapter;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
 import net.java.dev.cejug.classifieds.business.interfaces.CustomerAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.CustomerEntity;
 import net.java.dev.cejug.classifieds.entity.facade.DomainFacadeLocal;

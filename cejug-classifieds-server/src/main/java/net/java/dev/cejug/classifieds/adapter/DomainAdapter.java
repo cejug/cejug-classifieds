@@ -45,8 +45,8 @@ import net.java.dev.cejug_classifieds.metadata.common.Domain;
 public class DomainAdapter implements DomainAdapterLocal {
 
 	/** {@inheritDoc} */
-	public DomainEntity toEntity(final Domain domain) throws IllegalStateException,
-			IllegalArgumentException {
+	public DomainEntity toEntity(final Domain domain)
+			throws IllegalStateException, IllegalArgumentException {
 		DomainEntity domainEntity = new DomainEntity();
 		domainEntity.setDomainName(domain.getUri());
 		domainEntity.setSharedQuota(domain.isSharedQuota());

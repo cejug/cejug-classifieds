@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0" xmlns:xsi="http://www.w3.org/2001/XML-Schema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>cejug-classifieds</artifactId>
+		<groupId>net.java.dev.cejug.classifieds</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.java.dev.cejug.classifieds</groupId>
+	<artifactId>cejug-classifieds-server</artifactId>
+	<packaging>ejb</packaging>
+	<name>login-ejb: middleware and persistence</name>
+	<version>1.0-SNAPSHOT</version>
+	<url>http://cejug-classifieds.dev.java.net</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>${ejb-plugin-version}</version>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+					<generateClient>true</generateClient>
+					<clientIncludes>
+						<!-- this will include all files and directories under com/foo/bar -->
+						<clientInclude>net/java/dev/cejug/classifieds/login/entity/facade/client/**</clientInclude>
+					</clientIncludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>java.net-m2-repository</id>
+			<url>java-net:/maven2-repository/trunk/www/repository/
+			</url>
+		</repository>
+	</distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>javaee</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
+			<artifactId>cejug-classifieds-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

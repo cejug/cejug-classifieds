@@ -31,9 +31,9 @@ import java.nio.charset.Charset;
 
 import javax.xml.bind.JAXBException;
 
-import net.java.dev.cejug.classifieds.server.generated.config.ClassifiedsServerConfig;
 import net.java.dev.cejug.utils.config.ConfigXmlReader;
 import net.java.dev.cejug.utils.config.XmlStreamFactory;
+import net.java.dev.cejug_classifieds.server.config.ClassifiedsServerConfig;
 
 import org.xml.sax.SAXException;
 

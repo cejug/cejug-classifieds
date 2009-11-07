@@ -21,38 +21,16 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.entity.facade;
+package net.java.dev.cejug.classifieds.business.interfaces;
 
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.Query;
-import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
+import javax.ejb.Local;
+
+import net.java.dev.cejug_classifieds.admin.CejugClassifiedsAdmin;
 
 /**
- * @author $Author:felipegaucho $
- * @version $Rev:504 $ ($Date:2008-08-24 11:22:52 +0200 (Sun, 24 Aug 2008) $)
- * @see CRUDEntityFacade
+ * @author $Author$
+ * @version $Rev$ ($Date$)
  */
-@Stateless
-public class AdvertisementFacade extends CRUDEntityFacade<AdvertisementEntity>
-		implements AdvertisementFacadeLocal {
-
-	/**
-	 * Read all advertisements of a category.
-	 * 
-	 * @param categoryId
-	 *            The ID of the advertisements' category.
-	 * @return a list of advertisements of a certain category.
-	 */
-	public List<AdvertisementEntity> readByCategory(final long categoryId)
-			throws IllegalStateException, IllegalArgumentException {
-
-		Query query = manager
-				.createNamedQuery(AdvertisementEntity.QUERIES.SELECT_BY_CATEGORY);
-		query.setParameter(AdvertisementEntity.QUERIES.PARAM_CATEGORY_ID, Long
-				.valueOf(categoryId));
-		query.setParameter(AdvertisementEntity.QUERIES.PARAM_STATE,
-				AdvertisementEntity.AdvertisementStatus.ARCHIVE);
-		return doQuery(query);
-	}
+@Local
+public interface ClassifiedsAdminLocal extends CejugClassifiedsAdmin {
 }

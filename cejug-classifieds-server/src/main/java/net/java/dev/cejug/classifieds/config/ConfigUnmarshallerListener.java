@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 import javax.xml.bind.Unmarshaller.Listener;
 
-import net.java.dev.cejug.classifieds.server.generated.config.Injection;
+import net.java.dev.cejug_classifieds.server.config.Injection;
 
 /**
  * This class is used to check the values read from the config XML. Despite JAXB
@@ -40,8 +40,8 @@ public class ConfigUnmarshallerListener extends Listener {
 	/**
 	 * The Unmarshaller logger.
 	 */
-	private final static Logger logger = Logger.getLogger(
-			ConfigUnmarshallerListener.class.getName());
+	private final static Logger logger = Logger
+			.getLogger(ConfigUnmarshallerListener.class.getName());
 
 	@Override
 	public void afterUnmarshal(final Object target, final Object parent) {

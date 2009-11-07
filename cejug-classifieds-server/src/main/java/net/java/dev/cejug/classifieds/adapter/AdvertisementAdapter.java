@@ -33,9 +33,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.StringTokenizer;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
+
 import net.java.dev.cejug.classifieds.business.interfaces.AdvertisementAdapterLocal;
 import net.java.dev.cejug.classifieds.entity.AdvertisementEntity;
 import net.java.dev.cejug.classifieds.entity.AdvertisementKeywordEntity;
@@ -208,7 +210,8 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 *            the collection of
 	 * @return a single String formed by comma separated tokens.
 	 */
-	private String mergeKeywords(final Collection<AdvertisementKeywordEntity> keywords) {
+	private String mergeKeywords(
+			final Collection<AdvertisementKeywordEntity> keywords) {
 
 		StringBuffer keyword = new StringBuffer();
 		for (AdvertisementKeywordEntity key : keywords) {
@@ -226,7 +229,8 @@ public class AdvertisementAdapter implements AdvertisementAdapterLocal {
 	 *            the comma separated keyword.
 	 * @return the collection of entities.
 	 */
-	private Collection<AdvertisementKeywordEntity> splitKeywords(final String keywords) {
+	private Collection<AdvertisementKeywordEntity> splitKeywords(
+			final String keywords) {
 
 		Collection<AdvertisementKeywordEntity> collection = new ArrayList<AdvertisementKeywordEntity>();
 		StringTokenizer tokenizer = new StringTokenizer(keywords, ";,", false);
