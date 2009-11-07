@@ -36,6 +36,11 @@
 			<version>${javaee-version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.richfaces</groupId>
+			<artifactId>richfaces</artifactId>
+			<version>${richfaces-version}</version>
+		</dependency>
 	</dependencies>
 	<!--
 		Temoporatily use both java.net maven repos as JAX-WS dependencies

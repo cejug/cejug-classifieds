@@ -10,7 +10,7 @@
   </module>
   <module>
     <web>
-      <web-uri>cejug-classifieds-login-rest-1.0-SNAPSHOT.war</web-uri>
+      <web-uri>classes</web-uri>
       <context-root>/cejug-classifieds-login-rest</context-root>
     </web>
   </module>

@@ -222,6 +222,7 @@
         <maven-surefire-version>2.4.3</maven-surefire-version>
         <javaee-version>5</javaee-version>
         <jaxb-api-version>2.2</jaxb-api-version>
-        <jaxws-rt-version>2.1.7</jaxws-rt-version>                        
+        <jaxws-rt-version>2.1.7</jaxws-rt-version>
+        <richfaces-version>3.0.1</richfaces-version>                        
 	</properties>
 </project>
