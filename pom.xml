@@ -11,13 +11,22 @@
 	<inceptionYear>2008</inceptionYear>
 	<description>CEJUG-Classifieds is a 100% pure Java classified advertising system</description>
 
+    <modules>
+        <module>cejug-classifieds-login</module>
+        <module>cejug-classifieds-login-rest</module>
+        <module>cejug-classifieds-login-ear</module>
+        <module>cejug-classifieds-core</module>
+        <module>cejug-classifieds-server</module>
+        <!-- module>cejug-classifieds-richfaces</module-->
+    </modules>
+
 	<issueManagement>
 		<system>Issue Tracker Java.Net</system>
 		<url>https://cejug-classifieds.dev.java.net/servlets/ProjectIssues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Hudson</system>
-		<url>http://fgaucho.dyndns.org:8080/hudson/</url>
+    	<url>http://fgaucho.dyndns.org:8080/hudson/</url>
 	</ciManagement>
 	<mailingLists>
 		<mailingList>
@@ -75,7 +84,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
+				<version>${maven-compiler-version}</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -83,173 +92,20 @@
 			</plugin>
 	         <plugin>
 	            <artifactId>maven-surefire-plugin</artifactId>
-	            <version>2.4.3</version>
+	            <version>${maven-surefire-version}</version>
 	         </plugin>
-			<plugin>
-				<groupId>org.glassfish.maven.plugin</groupId>
-				<artifactId>maven-glassfish-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<glassfishDirectory>${env.AS_HOME}</glassfishDirectory>
-					<user>${domain.username}</user>
-					<adminPassword>${domain.password}</adminPassword>
-					<!-- <passFile>path/to/asadmin/passfile</passFile> -->
-					<autoCreate>true</autoCreate>
-					<debug>true</debug>
-					<echo>true</echo>
-					<terse>true</terse>
-					<skip>true</skip>
-					<user>admin</user>
-					<adminPassword>adminadmin</adminPassword>
-					<domain>
-						<name>domain2</name>
-						<adminPort>4848</adminPort>
-						<httpPort>8080</httpPort>
-						<httpsPort>8443</httpsPort>
-						<iiopPort>3700</iiopPort>
-						<jmsPort>7676</jmsPort>
-						<reuse>false</reuse>
-						<jvmOptions>
-							<option/>
-						</jvmOptions>
-						<properties>
-							<!-- property>
-								<name>server.log-service.file</name>
-								<value>${domain.log.dir}/server.log</value>
-							</property-->
-						</properties>
-						<auth>
-                            <realm>
-                                <name>cejug-classifieds</name>
-                                <className>com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm</className>
-                                <properties>
-						          <property><name>user-name-column</name><value>userid</value></property>
-						          <property><name>digest-algorithm</name><value>MD5</value></property>
-						          <property><name>password-column</name><value>password</value></property>
-						          <property><name>group-name-column</name><value>groupid</value></property>
-						          <property><name>datasource-jndi</name><value>jdbc/__default</value></property>
-						          <property><name>user-table</name><value>usertable</value></property>
-						          <property><name>group-table</name><value>grouptable</value></property>
-						          <property><name>jaas-context</name><value>jdbcRealm</value></property>
-                                </properties>
-                            </realm>
-                        </auth>
-						<resources>
-                            <connectionFactory>
-                                <jndiName>NotificationQueueFactory</jndiName>
-                                <type>queueConnectionFactory</type>
-                                <properties>
-                                    <property><name>UserName</name><value>guest</value></property>
-                                    <property><name>Password</name><value>guest</value></property>
-                                    <property><name>AddressList</name><value>localhost:7676</value></property>
-								    <property><name>associate-with-thread</name><value>false</value></property> 
-								    <property><name>connection-creation-retry-attempts</name><value>0</value></property> 
-								    <property><name>connection-creation-retry-interval-in-seconds</name><value>10</value></property> 
-								    <property><name>connection-definition-name</name><value>javax.jms.QueueConnectionFactory</value></property> 
-								    <property><name>connection-leak-reclaim</name><value>false</value></property> 
-								    <property><name>connection-leak-timeout-in-seconds</name><value>0</value></property> 
-								    <property><name>fail-all-connections</name><value>false</value></property> 
-								    <property><name>idle-timeout-in-seconds</name><value>300</value></property> 
-								    <property><name>is-connection-validation-required</name><value>false</value></property> 
-								    <property><name>lazy-connection-association</name><value>false</value></property> 
-								    <property><name>lazy-connection-enlistment</name><value>false</value></property> 
-								    <property><name>match-connections</name><value>true</value></property> 
-								    <property><name>max-connection-usage-count</name><value>0</value></property> 
-								    <property><name>max-pool-size</name><value>32</value></property> 
-								    <property><name>max-wait-time-in-millis</name><value>60000</value></property> 
-								    <property><name>name</name><value>NotificationQueueFactory</value></property> 
-								    <property><name>pool-resize-quantity</name><value>2</value></property> 
-								    <property><name>resource-adapter-name</name><value>jmsra</value></property> 
-								    <property><name>steady-pool-size</name><value>800</value></property> 
-								    <property><name>validate-atmost-once-period-in-seconds</name><value>0</value></property>
-                                </properties>
-                            </connectionFactory>
-                            <jmsQueue>
-                                <jndiName>jms/RegistrationQueue</jndiName>
-                                <destinationName>TestTopic</destinationName>
-                                <connectionFactory>
-                                    <jndiName>jms/testTopicConnectionFactory</jndiName>
-                                    <properties>
-                                        <property>
-                                            <name>UserName</name>
-                                            <value>guest</value>
-                                        </property>
-                                        <property>
-                                            <name>Password</name>
-                                            <value>guest</value>
-                                        </property>
-                                        <property>
-                                            <name>AddressList</name>
-                                            <value>localhost:7676</value>
-                                        </property>
-                                    </properties>
-                                </connectionFactory>
-                            </jmsQueue>
-                            <jdbcDataSource>
-                                <name>cejug-classifieds</name>
-                                <type>connectionPoolDataSource</type>
-                                <poolName>SomePool</poolName>
-                                <className>com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource</className>
-                                <description>Some JDBC Connection Pool</description>
-                                <allowNonComponentCallers>false</allowNonComponentCallers>
-                                <validateConnections>true</validateConnections>
-                                <validationMethod>metaData</validationMethod>
-                                <properties>
-                                    <property>
-                                        <name>portNumber</name>
-                                        <value>3306</value>
-                                    </property>
-                                    <property>
-                                        <name>password</name>
-                                        <value>somePassword</value>
-                                    </property>
-                                    <property>
-                                        <name>user</name>
-                                        <value>someUser</value>
-                                    </property>
-                                    <property>
-                                        <name>serverName</name>
-                                        <value>some.host.somewhere</value>
-                                    </property>
-                                    <property>
-                                        <name>databaseName</name>
-                                        <value>SomeDB</value>
-                                    </property>
-                                </properties>
-                            </jdbcDataSource>
-                        </resources>
-					</domain>
-					<components>
-						<component>
-							<name>cejug-classifieds-login-ear</name>
-							<artifact>cejug-classifieds-login-ear/target/login-app.ear</artifact>
-						</component>
-					</components>
-				</configuration>
-			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.8</version>
-			</extension>
-		</extensions>
 	</build>
-	  <distributionManagement>
-	    <repository>
-	      <uniqueVersion>false</uniqueVersion>
-	      <id>java.net-maven2-repository</id>
-	      <url>java-net:/maven2-repository/trunk/repository/</url>
-	    </repository>
-	  </distributionManagement>
-  	<modules>
-		<module>cejug-classifieds-login</module>
-		<module>cejug-classifieds-login-rest</module>
-		<module>cejug-classifieds-login-ear</module>
-		<module>cejug-classifieds-core</module>
-	</modules>
 	<repositories>
+        <repository>
+            <id>ibiblio.mirrors</id>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+        </repository>
+        <repository>
+            <id>codehaus</id>
+            <name>codehaus</name>
+            <url>http://repository.codehaus.org</url>
+        </repository>
 		<repository>
 			<id>java.net</id>
 			<url>http://download.java.net/maven/1</url>
@@ -259,13 +115,11 @@
 			<id>prime-repo</id>
 			<name>Prime Technology Maven Repository</name>
 			<url>http://repository.prime.com.tr/</url>
-			<layout>default</layout>
 		</repository>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
 			<url>http://download.java.net/maven/2/</url>
-			<layout>default</layout>
 		</repository>
 	</repositories>
   <dependencyManagement>
@@ -273,103 +127,86 @@
       <dependency>
         <groupId>net.sourceforge.findbugs</groupId>
         <artifactId>annotations</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <version>${findbugs-version}</version>
       </dependency> 
       <dependency>
         <groupId>net.sourceforge.findbugs</groupId>
         <artifactId>jsr305</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <version>${findbugs-version}</version>
       </dependency>
 		<dependency>
 			<groupId>javaee</groupId>
 			<artifactId>javaee-api</artifactId>
-			<version>5</version>
+			<version>${javaee-version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		</dependencies>
+	</dependencies>
   </dependencyManagement>
+	<dependencies>
+	    <dependency>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <version>4.5</version>
+	        <scope>test</scope>
+	    </dependency>
+	</dependencies>
 	<reporting>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<configuration>
-					<effort>Max</effort>
-					<threshold>Low</threshold>
-					<xmlOutput>true</xmlOutput>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<linkXref>true</linkXref>
-					<sourceEncoding>utf-8</sourceEncoding>
-					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.6</targetJdk>
-					<!--
-						excludes> <exclude>**/*Bean.java</exclude>
-						<exclude>**/generated/*.java</exclude> </excludes> <excludeRoots>
-						<excludeRoot>target/generated-sources/stubs</excludeRoot>
-						</excludeRoots
-					-->
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jdepend-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<version>true</version>
-					<javadocVersion>${source.version}</javadocVersion>
-					<links>
-						<link>http://java.sun.com/javase/6/docs/api/</link>
-						<link>http://java.sun.com/products/servlet/2.5/docs/servlet-2_5-mr2/</link>
-						<link>http://joda-time.sourceforge.net/api-release/</link>
-						<link>http://findbugs.sourceforge.net/api/</link>
-					</links>
-				</configuration>
-			</plugin>
-			<!-- plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd-version}</version>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.6</targetJdk>
+                    <excludes>
+                        <exclude>**/package-info.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs-version}</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>LATEST</version>
+                <configuration>
+                    <show>package</show>
+                    <version>true</version>
+                    <javadocVersion>${source.version}</javadocVersion>
+                    <links>
+                        <link>http://java.sun.com/javase/6/docs/api/
+                        </link>
+                        <link>
+                            http://java.sun.com/products/servlet/2.5/docs/servlet-2_5-mr2/
+                        </link>
+                        <link>http://joda-time.sourceforge.net/api-release/
+                        </link>
+                        <link>http://findbugs.sourceforge.net/api/
+                        </link>
+                        <link>http://tomcat.apache.org/tomcat-6.0-doc/api/
+                        </link>
 
-				<configuration>
-					<tags>
-						<tag>@deprecated</tag>
-						<tag>@todo</tag>
-						<tag>FIXME</tag>
-						<tag>TODO</tag>
-						<tag>XXX</tag>
-						<tag>REVIEW</tag>
-					</tags>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>javancss-maven-plugin</artifactId>
-			</plugin-->
+                        <link>http://jetty.mortbay.org/jetty/jetty-7/apidocs/
+                        </link>
+                        <link>https://grizzly.dev.java.net/nonav/apidocs/
+                        </link>
+                    </links>
+                </configuration>
+            </plugin>
 		</plugins>
 	</reporting>
-    <pluginRepositories>
+<pluginRepositories>
         <pluginRepository>
             <id>maven.java.net</id>
             <name>Java.net Maven2 Repository</name>
@@ -377,13 +214,14 @@
         </pluginRepository>
     </pluginRepositories>
 	<properties>
-		<glassfish.home>${env.AS_HOME}</glassfish.home>
-		<domain.username>admin</domain.username>
-		<domain.password>adminadmin</domain.password>
-		<test.int.skip>false</test.int.skip>
-		<domain.name>domain2</domain.name>
-		<reuse.domain>false</reuse.domain>
-		<domain.log.dir>${env.AS_HOME}/domains/domain2/logs/loginapp.log</domain.log.dir>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <findbugs-version>2.2-SNAPSHOT</findbugs-version>
+        <pmd-version>2.4</pmd-version>
+        <ejb-plugin-version>2.2</ejb-plugin-version>
+        <maven-compiler-version>2.0.2</maven-compiler-version>
+        <maven-surefire-version>2.4.3</maven-surefire-version>
+        <javaee-version>5</javaee-version>
+        <jaxb-api-version>2.2</jaxb-api-version>
+        <jaxws-rt-version>2.1.7</jaxws-rt-version>                        
 	</properties>
 </project>
