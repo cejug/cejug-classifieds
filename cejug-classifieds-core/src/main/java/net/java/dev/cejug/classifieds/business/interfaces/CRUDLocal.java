@@ -59,7 +59,8 @@ public interface CRUDLocal<T extends AbstractMessageElement> {
 	 * @throws IllegalStateException
 	 * @throws TransactionRequiredException
 	 */
-	ServiceStatus update(final T type) throws TransactionRequiredException, IllegalStateException, IllegalArgumentException;
+	ServiceStatus update(final T type) throws TransactionRequiredException,
+			IllegalStateException, IllegalArgumentException;
 
 	/**
 	 * TODO: to comment.
@@ -73,10 +74,13 @@ public interface CRUDLocal<T extends AbstractMessageElement> {
 
 	/**
 	 * TODO: to comment.
-	 * @throws PersistenceException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException 
+	 * 
+	 * @throws PersistenceException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
 	 */
-	ServiceStatus delete(final long id) throws TransactionRequiredException, IllegalStateException, IllegalArgumentException, PersistenceException;
+	ServiceStatus delete(final long id) throws TransactionRequiredException,
+			IllegalStateException, IllegalArgumentException,
+			PersistenceException;
 }
