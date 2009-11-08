@@ -43,10 +43,12 @@ public interface CustomerOperationsLocal extends CRUDLocal<Customer> {
 	 *            the domain of the customer (web site).
 	 * @param login
 	 *            the customer login.
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException 
-	 * @throws EntityExistsException 
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
+	 * @throws EntityExistsException
 	 */
-	Customer findOrCreate(long domainId, String login) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException;
+	Customer findOrCreate(long domainId, String login)
+			throws EntityExistsException, TransactionRequiredException,
+			IllegalStateException, IllegalArgumentException;
 }

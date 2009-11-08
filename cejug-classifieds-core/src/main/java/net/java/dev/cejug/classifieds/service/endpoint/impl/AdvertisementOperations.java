@@ -110,7 +110,9 @@ public class AdvertisementOperations extends
 	}
 
 	public Advertisement publishOperation(final Advertisement advertisement,
-			final PublishingHeader header) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException {
+			final PublishingHeader header) throws EntityExistsException,
+			TransactionRequiredException, IllegalStateException,
+			IllegalArgumentException {
 
 		// TODO: to implement the real code.
 		try {

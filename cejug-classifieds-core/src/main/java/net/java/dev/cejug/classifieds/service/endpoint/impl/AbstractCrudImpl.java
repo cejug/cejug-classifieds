@@ -51,24 +51,34 @@ public abstract class AbstractCrudImpl<E extends AbstractEntity<? extends T>, T 
 
 	protected abstract SoapOrmAdapter<T, E> getAdapter();
 
-	/** {@inheritDoc} 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException 
-	 * @throws EntityExistsException */
-	public T create(final T type) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException {
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
+	 * @throws EntityExistsException
+	 */
+	public T create(final T type) throws EntityExistsException,
+			TransactionRequiredException, IllegalStateException,
+			IllegalArgumentException {
 		// TODO: review validation...
 		E entity = getAdapter().toEntity(type);
 		getFacade().create(entity);
 		return getAdapter().toSoap(entity);
 	}
 
-	/** {@inheritDoc} 
-	 * @throws PersistenceException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException */
-	public ServiceStatus delete(final long id) throws TransactionRequiredException, IllegalStateException, IllegalArgumentException, PersistenceException {
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws PersistenceException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
+	 */
+	public ServiceStatus delete(final long id)
+			throws TransactionRequiredException, IllegalStateException,
+			IllegalArgumentException, PersistenceException {
 		ServiceStatus status = new ServiceStatus();
 		E entity = getFacade().read(id);
 		getFacade().delete(entity);
@@ -89,11 +99,16 @@ public abstract class AbstractCrudImpl<E extends AbstractEntity<? extends T>, T 
 		return bundle;
 	}
 
-	/** {@inheritDoc} 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException */
-	public ServiceStatus update(final T type) throws TransactionRequiredException, IllegalStateException, IllegalArgumentException {
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
+	 */
+	public ServiceStatus update(final T type)
+			throws TransactionRequiredException, IllegalStateException,
+			IllegalArgumentException {
 		ServiceStatus status = new ServiceStatus();
 		E entity = getAdapter().toEntity(type);
 		getFacade().update(entity);

@@ -28,11 +28,6 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementCategory;
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-
 public class Category {
 
 	public Category() {

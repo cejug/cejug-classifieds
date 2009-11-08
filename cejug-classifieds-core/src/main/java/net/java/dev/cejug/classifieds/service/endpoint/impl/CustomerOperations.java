@@ -64,7 +64,9 @@ public class CustomerOperations extends
 	private transient CustomerAdapterLocal adapter;
 
 	@Override
-	public Customer findOrCreate(long domainId, String login) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException {
+	public Customer findOrCreate(long domainId, String login)
+			throws EntityExistsException, TransactionRequiredException,
+			IllegalStateException, IllegalArgumentException {
 		CustomerEntity entity = facade.findOrCreate(domainId, login);
 		return adapter.toSoap(entity);
 	}
@@ -72,13 +74,15 @@ public class CustomerOperations extends
 	/**
 	 * @see #findOrCreate(long, String)
 	 * @return <code>findOrCreate(type.getDomainId(), type.getLogin());</code>
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalStateException 
-	 * @throws TransactionRequiredException 
-	 * @throws EntityExistsException 
+	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
+	 * @throws TransactionRequiredException
+	 * @throws EntityExistsException
 	 */
 	@Override
-	public Customer create(Customer type) throws EntityExistsException, TransactionRequiredException, IllegalStateException, IllegalArgumentException {
+	public Customer create(Customer type) throws EntityExistsException,
+			TransactionRequiredException, IllegalStateException,
+			IllegalArgumentException {
 		return findOrCreate(type.getDomainId(), type.getLogin());
 	}
 

@@ -41,20 +41,6 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
-import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
-import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
-import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
-import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
-import net.java.dev.cejug_classifieds.metadata.business.Period;
-import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
-import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
-import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
-import net.java.dev.cejug_classifieds.metadata.common.Customer;
-
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
-
 /**
  * TODO: to comment.
  * 
