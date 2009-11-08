@@ -44,6 +44,7 @@ import javax.jms.Queue;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
 
+import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 import net.java.dev.cejug.classifieds.richfaces.util.ClassifiedsUtil;
 
 /**

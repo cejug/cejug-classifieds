@@ -45,7 +45,7 @@ import net.java.dev.cejug.classifieds.login.entity.facade.impl.CRUDEntityFacade;
  *      'http://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete'>CRUD @
  *      Wikipedia.</a>
  */
-public interface EntityFacade<T extends AbstractEntity> {
+public interface EntityFacade<T extends AbstractEntity<?>> {
 	/**
 	 * Allow local interfaces to do queries in the database.
 	 * 

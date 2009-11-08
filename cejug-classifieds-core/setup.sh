@@ -6,7 +6,7 @@ if [ -n "$1" -a -f $1 ]; then
         export CLEAN="/clean"
     fi
 else
-    . $HOME/.passwords;export PASS_FILE="$HOME/.passwords";
+    . $HOME/.passwords;export PASS_FILE="$HOME/.classifieds";
 fi
 
 GF_VERSION=$(asadmin version -t)
@@ -17,6 +17,8 @@ if [ $? -eq 0 ] ; then
     echo "You can get the newest Glassfish version here: http://download.java.net/glassfish/v3/promoted/";
     exit 1;
 else
+    mysql -v -u$MYSQL_USER -hlocalhost -P3306 -p$MYSQL_PASSWORD -e "create database IF NOT EXISTS  classifieds;"
+    
     #echo "Shell Script for Glassfish v3.x"
     echo
     echo "-------- JDBC Connection Pool jdbc/classifiedsPool"
@@ -34,8 +36,3 @@ else
     echo "-------- Deploying to Server $GF_VERSION"
     asadmin --user $ASADMIN_USER deploy --force=true target/cejug-classifieds-core-*.jar
 fi
-
-# echo
-# echo loading the test data in the database 'arena' 
-# mysql -u$MYSQL_USER -hlocalhost -P3306 -Darena -p$MYSQL_PASSWORD < ../arena-model/src/main/resources/test_data.sql
-# echo

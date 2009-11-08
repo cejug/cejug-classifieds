@@ -571,7 +571,7 @@
 			<Version>$Rev: 1148 $</Version>
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsAdmin" binding="admin:CejugClassifiedsAdminBinding">
-			<!-- soap:address location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator" /-->
+			<soap:address location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

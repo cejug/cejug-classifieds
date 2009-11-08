@@ -3,8 +3,8 @@ ver
 
 rem Loading the .passwords file
 set PASS_FILE="%1"
-if "%1" == "/clean" set PASS_FILE="%USERPROFILE%\.classifieds"
-if "%1" == "" set PASS_FILE="%USERPROFILE%\.classifieds"
+if "%1" == "/clean" set PASS_FILE="%USERPROFILE%\.passwords"
+if "%1" == "" set PASS_FILE="%USERPROFILE%\.passwords"
 
 for /f %%P in ('type %PASS_FILE%') do SET %%P
 

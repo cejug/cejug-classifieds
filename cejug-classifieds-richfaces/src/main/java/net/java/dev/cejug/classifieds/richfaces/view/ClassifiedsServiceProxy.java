@@ -25,6 +25,11 @@ package net.java.dev.cejug.classifieds.richfaces.view;
 
 import java.util.List;
 
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.AdvertisementCollectionFilter;
+
 /**
  * TODO: to comment.
  * 

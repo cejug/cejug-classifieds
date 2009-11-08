@@ -272,7 +272,7 @@
 			<Version>$Rev: 1148 $</Version>
 		</wsdl:documentation>
 		<wsdl:port name="CejugClassifiedsBusiness" binding="business:CejugClassifiedsBusinessBinding">
-			<!-- soap:address location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator" /-->
+			<soap:address location="http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

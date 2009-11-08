@@ -41,6 +41,17 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsBusiness;
+import net.java.dev.cejug_classifieds.business.CejugClassifiedsServiceBusiness;
+import net.java.dev.cejug_classifieds.metadata.attachments.AtavarImage;
+import net.java.dev.cejug_classifieds.metadata.attachments.AvatarImageOrUrl;
+import net.java.dev.cejug_classifieds.metadata.business.Advertisement;
+import net.java.dev.cejug_classifieds.metadata.business.Period;
+import net.java.dev.cejug_classifieds.metadata.business.PublishingHeader;
+import net.java.dev.cejug_classifieds.metadata.common.AdvertisementType;
+import net.java.dev.cejug_classifieds.metadata.common.BundleRequest;
+import net.java.dev.cejug_classifieds.metadata.common.Customer;
+
 /**
  * TODO: to comment.
  * 
@@ -354,34 +365,27 @@ public class PublishAdvertisementBean {
 
 	}
 
-	public void listener(UploadEvent event) {
-
-		synchronized (event) {
-			UploadItem item = event.getUploadItem();
-			try {
-				getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
-				getAdvertisement().getAvatarImageOrUrl().setImage(
-						new AtavarImage());
-				getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
-						item.getData());
-
-				// TODO: I thing need change this for run fine in LINUX SO.
-				String fileName = item.getFileName();
-				fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
-
-				getAdvertisement().getAvatarImageOrUrl().setName(fileName);
-				getAdvertisement().getAvatarImageOrUrl().setDescription(
-						fileName);
-				getAdvertisement().getAvatarImageOrUrl().getImage()
-						.setContentType(item.getContentType());
-
-				files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
-				setUploadsAvailable(getUploadsAvailable() - 1);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	/*
+	 * public void listener(UploadEvent event) { synchronized (event) {
+	 * UploadItem item = event.getUploadItem(); try {
+	 * getAdvertisement().setAvatarImageOrUrl(new AvatarImageOrUrl());
+	 * getAdvertisement().getAvatarImageOrUrl().setImage( new AtavarImage());
+	 * getAdvertisement().getAvatarImageOrUrl().getImage().setValue(
+	 * item.getData());
+	 * 
+	 * // TODO: I thing need change this for run fine in LINUX SO. String
+	 * fileName = item.getFileName(); fileName =
+	 * fileName.substring(fileName.lastIndexOf('\\') + 1);
+	 * 
+	 * getAdvertisement().getAvatarImageOrUrl().setName(fileName);
+	 * getAdvertisement().getAvatarImageOrUrl().setDescription( fileName);
+	 * getAdvertisement().getAvatarImageOrUrl().getImage()
+	 * .setContentType(item.getContentType());
+	 * 
+	 * files.add(getAdvertisement().getAvatarImageOrUrl().getImage());
+	 * setUploadsAvailable(getUploadsAvailable() - 1); } catch (Exception e) {
+	 * e.printStackTrace(); } } }
+	 */
 
 	public String clearUploadData() {
 

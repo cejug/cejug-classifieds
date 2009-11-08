@@ -36,10 +36,21 @@
 			<version>${javaee-version}</version>
 			<scope>provided</scope>
 		</dependency>
+<dependency>
+	<groupId>org.richfaces</groupId>
+	<artifactId>richfaces</artifactId>
+	<version>${richfaces-version}</version>
+</dependency>
 		<dependency>
-			<groupId>org.richfaces</groupId>
-			<artifactId>richfaces</artifactId>
-			<version>${richfaces-version}</version>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
+			<artifactId>cejug-classifieds-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
+			<artifactId>cejug-classifieds-login</artifactId>
+			<version>${project.version}</version>
+			<type>ejb-client</type>
 		</dependency>
 	</dependencies>
 	<build>

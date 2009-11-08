@@ -1,7 +1,10 @@
 <projectDescription>
   <name>cejug-classifieds-richfaces</name>
   <comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
-  <projects/>
+  <projects>
+    <project>cejug-classifieds-core</project>
+    <project>cejug-classifieds-login</project>
+  </projects>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>

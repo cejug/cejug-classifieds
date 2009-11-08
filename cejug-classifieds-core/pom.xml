@@ -168,7 +168,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
-						<version>LATEST</version>
+						<version>${maven-antrun-version}</version>
 						<executions>
 							<execution>
 								<id>Reset DB</id>
@@ -177,7 +177,7 @@
 									<tasks>
 										<exec executable="cmd">
 											<arg value="/c" />
-											<arg value="createdb.bat" />
+											<arg value="setup.bat" />
 										</exec>
 									</tasks>
 								</configuration>
