@@ -1,9 +1,0 @@
-<projectDescription>
-  <name>cejug-classifieds-login-ear</name>
-  <comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
-  <projects>
-    <project>cejug-classifieds-login-rest</project>
-  </projects>
-  <buildSpec/>
-  <natures/>
-</projectDescription>
