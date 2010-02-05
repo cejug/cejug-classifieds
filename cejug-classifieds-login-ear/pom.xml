@@ -11,19 +11,19 @@
 	<name>login-ear: jdbc realm based</name>
 	<dependencies>
 		<dependency>
-			<groupId>net.java.dev.cejug.classifieds.login</groupId>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
 			<artifactId>cejug-classifieds-login</artifactId>
 			<type>ejb</type>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>net.java.dev.cejug.classifieds.login</groupId>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
 			<artifactId>cejug-classifieds-login-rest</artifactId>
 			<type>war</type>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>net.java.dev.cejug.classifieds.login</groupId>
+			<groupId>net.java.dev.cejug.classifieds</groupId>
 			<artifactId>cejug-classifieds-login</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<type>ejb-client</type>
@@ -39,15 +39,15 @@
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<modules>
 						<ejbModule>
-							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<groupId>net.java.dev.cejug.classifieds</groupId>
 							<artifactId>cejug-classifieds-login</artifactId>
 						</ejbModule>
 						<webModule>
-							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<groupId>net.java.dev.cejug.classifieds</groupId>
 							<artifactId>cejug-classifieds-login-rest</artifactId>
 						</webModule>
 						<ejbClientModule>
-							<groupId>net.java.dev.cejug.classifieds.login</groupId>
+							<groupId>net.java.dev.cejug.classifieds</groupId>
 							<artifactId>cejug-classifieds-login</artifactId>
 							<bundleDir>/lib</bundleDir>
 						</ejbClientModule>

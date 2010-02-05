@@ -1,15 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>cejug-classifieds-server</name>
-  <comment>CEJUG-Classifieds is a 100% pure Java classified advertising system</comment>
-  <projects>
-    <project>cejug-classifieds-core</project>
-  </projects>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-  </natures>
+	<name>cejug-classifieds-server</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+	</natures>
 </projectDescription>
