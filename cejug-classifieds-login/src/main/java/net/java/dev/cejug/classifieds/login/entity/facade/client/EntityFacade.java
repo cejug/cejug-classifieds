@@ -21,7 +21,7 @@
  
  You can contact us through the mail dev@cejug-classifieds.dev.java.net
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-package net.java.dev.cejug.classifieds.login.entity.facade;
+package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
 import java.io.Serializable;
 import java.util.List;
