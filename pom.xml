@@ -29,6 +29,7 @@
 		<module>cejug-classifieds-login-rest</module>
 		<module>cejug-classifieds-ws</module>
 		<module>cejug-classifieds-ear</module>
+		<!-- module>cejug-classifieds-it</module-->		
 		<module>cejug-classifieds-richfaces</module>
 	</modules>
 	<distributionManagement>
