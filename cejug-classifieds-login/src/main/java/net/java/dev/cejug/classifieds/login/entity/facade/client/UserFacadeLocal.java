@@ -29,7 +29,6 @@ import javax.ejb.Local;
 import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.UserEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
 
 /**
  * The persistence facade for Category entities.

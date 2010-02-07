@@ -40,7 +40,7 @@ import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 
 import net.java.dev.cejug.classifieds.login.entity.AbstractEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.EntityFacade;
 
 /**
  * CRUD operations shared by the Entity Facades.

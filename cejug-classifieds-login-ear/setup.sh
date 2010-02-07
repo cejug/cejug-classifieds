@@ -67,7 +67,7 @@ else
 
     echo
     echo "-------- Deploying to Server $GF_VERSION"
-    asadmin --user $ASADMIN_USER deploy --force=true target/login-app.ear
+    asadmin --user $ASADMIN_USER deploy --force=true target/cejug-classifieds-login-ear-1.0-SNAPSHOT.ear
 fi
 
 # echo

@@ -49,7 +49,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
-import net.java.dev.cejug.classifieds.login.security.URLObfuscator;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.URLObfuscator;
 
 /**
  * The goal of this bean is to send emails with the status of an operation or a

@@ -2,261 +2,193 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.java.dev.cejug.classifieds</groupId>
+		<artifactId>cejug-classifieds</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
 	<groupId>net.java.dev.cejug.classifieds</groupId>
-	<artifactId>cejug-classifieds</artifactId>
-	<packaging>pom</packaging>
+	<artifactId>cejug-classifieds-core</artifactId>
+	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>cejug-classifieds</name>
-	<url>https://cejug-classifieds.dev.java.net/</url>
-	<inceptionYear>2008</inceptionYear>
-	<description>CEJUG-Classifieds is a 100% pure Java classified advertising system</description>
-
-    <modules>
-        <module>cejug-classifieds-login</module>
-        <module>cejug-classifieds-login-rest</module>
-        <module>cejug-classifieds-login-ear</module>
-        <module>cejug-classifieds-core</module>
-        <module>cejug-classifieds-server</module>
-        <module>cejug-classifieds-richfaces</module>
-    </modules>
-
-	<issueManagement>
-		<system>Issue Tracker Java.Net</system>
-		<url>https://cejug-classifieds.dev.java.net/servlets/ProjectIssues</url>
-	</issueManagement>
-	<ciManagement>
-		<system>Hudson</system>
-    	<url>http://fgaucho.dyndns.org:8080/hudson/</url>
-	</ciManagement>
-	<mailingLists>
-		<mailingList>
-			<name>Developers List</name>
-			<post>dev@cejug-classifieds.dev.java.net</post>
-			<archive>https://cejug-classifieds.dev.java.net/servlets/SummarizeList?listName=dev</archive>
-		</mailingList>
-	</mailingLists>
-	<developers>
-		<developer>
-			<id>felipegaucho</id>
-			<name>Felipe Gaúcho</name>
-			<email>fgaucho@gmail.com</email>
-			<timezone>+1</timezone>
-			<roles>
-				<role>owner</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>rodrigolopes</id>
-			<name>Rodrigo Lopes</name>
-			<email/>
-			<timezone>+0</timezone>
-			<roles>
-				<role>developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>arisson</id>
-			<name>Árisson Leal</name>
-			<email/>
-			<timezone>-3</timezone>
-			<roles>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
-
-	<licenses>
-		<license>
-			<name>GNU Lesser General Public License (LGPL V3)</name>
-			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-		</license>
-	</licenses>
-
-	<scm>
-		<connection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</connection>
-		<developerConnection>scm:svn:https://cejug-classifieds.dev.java.net/svn/cejug-classifieds/trunk</developerConnection>
-		<tag>HEAD</tag>
-		<url>scm:svn:https://cejug-classifieds.dev.java.net/source/browse/cejug-classifieds/trunk/</url>
-	</scm>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-version}</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-	         <plugin>
-	            <artifactId>maven-surefire-plugin</artifactId>
-	            <version>${maven-surefire-version}</version>
-	         </plugin>
-		</plugins>
-	</build>
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>repository.jboss.com</id>
-            <name>Jboss Repository for Maven</name>
-            <url>
-                   http://repository.jboss.com/maven2/
-                </url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>EclipseLink Repo</id>
-            <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
-        </repository>  
-        <repository>
-            <id>ibiblio.mirrors</id>
-            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
-        </repository>
-        <repository>
-            <id>codehaus</id>
-            <name>codehaus</name>
-            <url>http://repository.codehaus.org</url>
-        </repository>
-        <repository>
-            <id>java.net.m2</id>
-            <name>java.net m2 repo</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
-        <repository>
-            <id>glassfish-repository</id>
-            <name>Java.net Repository for Glassfish</name>
-            <url>http://download.java.net/maven/glassfish</url>
-        </repository>
-        <repository>
-            <id>maven-repository.dev.java.net</id>
-            <name>Java.net Maven 1 Repository (legacy)</name>
-            <url>http://download.java.net/maven/1</url>
-            <layout>legacy</layout>
-        </repository>
-		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
-			<layout>default</layout>
-		</repository>
-        <repository>
-            <id>prime-repo</id>
-            <name>Prime Technology Maven Repository</name>
-            <url>http://repository.prime.com.tr/</url>
-        </repository>
-  </repositories>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>net.sourceforge.findbugs</groupId>
-        <artifactId>annotations</artifactId>
-        <version>${findbugs-version}</version>
-      </dependency> 
-      <dependency>
-        <groupId>net.sourceforge.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>${findbugs-version}</version>
-      </dependency>
+	<name>cejug-classifieds-core</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>javaee</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${javaee-version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>${jaxb-api-version}</version>
+		</dependency>
 	</dependencies>
-  </dependencyManagement>
-	<dependencies>
-	    <dependency>
-	        <groupId>junit</groupId>
-	        <artifactId>junit</artifactId>
-	        <version>4.5</version>
-	        <scope>test</scope>
-	    </dependency>
-	</dependencies>
-	<reporting>
+	<build>
 		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd-version}</version>
-                <configuration>
-                    <linkXref>true</linkXref>
-                    <sourceEncoding>utf-8</sourceEncoding>
-                    <minimumTokens>100</minimumTokens>
-                    <targetJdk>1.6</targetJdk>
-                    <excludes>
-                        <exclude>**/package-info.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs-version}</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${javadoc-plugin-version}</version>
-                <configuration>
-                    <show>package</show>
-                    <version>true</version>
-                    <javadocVersion>${source.version}</javadocVersion>
-                    <links>
-                        <link>http://java.sun.com/javase/6/docs/api/
-                        </link>
-                        <link>
-                            http://java.sun.com/products/servlet/2.5/docs/servlet-2_5-mr2/
-                        </link>
-                        <link>http://joda-time.sourceforge.net/api-release/
-                        </link>
-                        <link>http://findbugs.sourceforge.net/api/
-                        </link>
-                        <link>http://tomcat.apache.org/tomcat-6.0-doc/api/
-                        </link>
-
-                        <link>http://jetty.mortbay.org/jetty/jetty-7/apidocs/
-                        </link>
-                        <link>https://grizzly.dev.java.net/nonav/apidocs/
-                        </link>
-                    </links>
-                </configuration>
-            </plugin>
+			<plugin>
+				<!-- https://jaxb.dev.java.net/jaxb-maven2-plugin/ -->
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaDirectory>${project.basedir}/src/main/resources/schema</schemaDirectory>
+					<includeSchemas>
+						<includeSchema>**/*.xsd</includeSchema>
+					</includeSchemas>
+					<strict>true</strict>
+					<verbose>false</verbose>
+					<extension>true</extension>
+					<readOnly>yes</readOnly>
+					<removeOldOutput>false</removeOldOutput>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+					<generateClient>true</generateClient>
+					<clientIncludes>
+						<!-- this will include all files and directories under com/foo/bar -->
+						<clientInclude>
+							net/java/dev/cejug/classifieds/business/interfaces/**
+						</clientInclude>
+					</clientIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>business</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlDirectory>${project.basedir}/src/main/resources/META-INF/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>cejug-classifieds-business.wsdl
+								</wsdlFile>
+								<wsdlFile>cejug-classifieds-admin.wsdl
+								</wsdlFile>
+							</wsdlFiles>
+							<verbose>false</verbose>
+							<genWsdl>false</genWsdl>
+							<keep>true</keep>
+							<extension>true</extension>
+							<debug>true</debug>
+							<xnocompile>false</xnocompile>
+							<!-- wsdlLocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceBusiness/BusinessEndpointDecorator?wsdl</wsdlLocation-->
+						</configuration>
+					</execution>
+					<execution>
+						<id>admin</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlDirectory>${project.basedir}/src/main/resources/META-INF/wsdl</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>cejug-classifieds-admin.wsdl
+								</wsdlFile>
+							</wsdlFiles>
+							<verbose>false</verbose>
+							<genWsdl>false</genWsdl>
+							<keep>true</keep>
+							<extension>true</extension>
+							<debug>true</debug>
+							<xnocompile>false</xnocompile>
+							<!-- wsdlLocation>http://fgaucho.dyndns.org:8080/CejugClassifiedsServiceAdmin/AdminEndpointDecorator?wsdl</wsdlLocation-->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
-	</reporting>
-<pluginRepositories>
-        <pluginRepository>
-            <id>maven.java.net</id>
-            <name>Java.net Maven2 Repository</name>
-            <url>http://download.java.net/maven/2</url>
-        </pluginRepository>
-    </pluginRepositories>
-	<properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <findbugs-version>2.2-SNAPSHOT</findbugs-version>
-        <pmd-version>2.4</pmd-version>
-        <ejb-plugin-version>2.2</ejb-plugin-version>
-        <maven-compiler-version>2.0.2</maven-compiler-version>
-        <maven-surefire-version>2.4.3</maven-surefire-version>
-        <javaee-version>5</javaee-version>
-        <jaxb-api-version>2.2</jaxb-api-version>
-        <jaxws-rt-version>2.1.7</jaxws-rt-version>
-        <richfaces-version>[3.0.1,)</richfaces-version>
-        <maven-antrun-version>1.3</maven-antrun-version>
-        <ear-plugin-version>2.3.2</ear-plugin-version>
-        <javadoc-plugin-version>2.6.1</javadoc-plugin-version>                        
-	</properties>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>hudson</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-version}</version>
+						<executions>
+							<execution>
+								<id>Populate test data</id>
+								<phase>verify</phase>
+								<configuration>
+									<tasks>
+										<exec executable="sh">
+											<arg value="./setup.sh" />
+										</exec>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>hudsonWin</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-version}</version>
+						<executions>
+							<execution>
+								<id>Reset DB</id>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<exec executable="cmd">
+											<arg value="/c" />
+											<arg value="setup.bat" />
+										</exec>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

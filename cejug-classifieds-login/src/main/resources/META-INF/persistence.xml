@@ -5,9 +5,9 @@
     <persistence-unit name="classifieds">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/classifieds</jta-data-source>
-        <properties>
-            <property name="eclipselink.ddl-generation" value="create-tables" />
-            <property name="eclipselink.logging.level" value="FINEST" />
-        </properties>
+		<properties>
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.logging.level" value="FINEST" />
+		</properties>
     </persistence-unit>
 </persistence>

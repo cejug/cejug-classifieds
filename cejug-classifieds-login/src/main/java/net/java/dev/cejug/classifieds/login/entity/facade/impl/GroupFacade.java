@@ -27,7 +27,7 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
 import net.java.dev.cejug.classifieds.login.entity.GroupEntity;
-import net.java.dev.cejug.classifieds.login.entity.facade.GroupFacadeLocal;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.GroupFacadeLocal;
 import net.java.dev.cejug.classifieds.login.interceptor.ExceptionInterceptor;
 
 /**

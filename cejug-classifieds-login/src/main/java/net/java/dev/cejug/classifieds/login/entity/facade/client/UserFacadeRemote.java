@@ -25,8 +25,6 @@ package net.java.dev.cejug.classifieds.login.entity.facade.client;
 
 import javax.ejb.Remote;
 
-import net.java.dev.cejug.classifieds.login.entity.facade.EntityFacade;
-
 /**
  * The persistence facade for Category entities.
  * 

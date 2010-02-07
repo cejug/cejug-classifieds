@@ -46,7 +46,6 @@ import sun.misc.BASE64Encoder;
  *      p t Sensitive Configuration Data with Java</a>
  * 
  */
-@SuppressWarnings("restriction")
 public class DESedeStringEncrypter {
 	public static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
 	private transient KeySpec keySpec;

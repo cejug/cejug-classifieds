@@ -36,6 +36,7 @@ import javax.ejb.Stateless;
 
 import net.java.dev.cejug.classifieds.login.entity.facade.client.RegistrationConstants;
 import net.java.dev.cejug.classifieds.login.entity.facade.client.URLDeobfuscator;
+import net.java.dev.cejug.classifieds.login.entity.facade.client.URLObfuscator;
 
 /**
  * Default URL obfuscator applies a a simple shift plus the MD5 cypher o the

@@ -30,7 +30,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>login-app</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
@@ -38,14 +37,14 @@
 				<configuration>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<modules>
-						<ejbModule>
-							<groupId>net.java.dev.cejug.classifieds</groupId>
-							<artifactId>cejug-classifieds-login</artifactId>
-						</ejbModule>
 						<webModule>
 							<groupId>net.java.dev.cejug.classifieds</groupId>
 							<artifactId>cejug-classifieds-login-rest</artifactId>
 						</webModule>
+						<ejbModule>
+							<groupId>net.java.dev.cejug.classifieds</groupId>
+							<artifactId>cejug-classifieds-login</artifactId>
+						</ejbModule>
 						<ejbClientModule>
 							<groupId>net.java.dev.cejug.classifieds</groupId>
 							<artifactId>cejug-classifieds-login</artifactId>
