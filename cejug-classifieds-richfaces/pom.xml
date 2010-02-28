@@ -10,7 +10,6 @@
 	<groupId>net.java.dev.cejug.classifieds</groupId>
 	<artifactId>cejug-classifieds-richfaces</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>cejug-classifieds-richfaces: JSF 2.0 GUI</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -37,7 +36,8 @@
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.cejug.classifieds</groupId>
-			<artifactId>cejug-classifieds-core</artifactId>
+			<artifactId>cejug-classifieds-ws</artifactId>
+			<type>ejb-client</type>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
