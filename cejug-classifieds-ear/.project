@@ -1,18 +1,11 @@
 <projectDescription>
   <name>cejug-classifieds-ear</name>
-  <comment>CEJUG-Classifieds is a 100% pure Java classified
-		advertising system</comment>
+  <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects>
     <project>cejug-classifieds-login</project>
     <project>cejug-classifieds-login-rest</project>
     <project>cejug-classifieds-ws</project>
   </projects>
-  <buildSpec>
-    <buildCommand>
-      <name>org.maven.ide.eclipse.maven2Builder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.maven.ide.eclipse.maven2Nature</nature>
-  </natures>
+  <buildSpec/>
+  <natures/>
 </projectDescription>

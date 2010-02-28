@@ -2,7 +2,7 @@
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="var" path="M2_REPO/org/eclipse/persistence/eclipselink/2.0.0-RC1/eclipselink-2.0.0-RC1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/javax/javaee-api/6.0-SNAPSHOT/javaee-api-6.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/eclipse/persistence/eclipselink/2.0.0/eclipselink-2.0.0.jar" sourcepath="M2_REPO/org/eclipse/persistence/eclipselink/2.0.0/eclipselink-2.0.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/javaee-api/6.0/javaee-api-6.0.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 </classpath>

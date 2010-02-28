@@ -3,6 +3,6 @@
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="src" path="/cejug-classifieds-login"/>
-  <classpathentry kind="var" path="M2_REPO/javax/javaee-api/6.0-SNAPSHOT/javaee-api-6.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/javaee-api/6.0/javaee-api-6.0.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 </classpath>
