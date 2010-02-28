@@ -29,7 +29,7 @@
 		<module>cejug-classifieds-login-rest</module>
 		<module>cejug-classifieds-ws</module>
 		<module>cejug-classifieds-ear</module>
-		<!-- module>cejug-classifieds-it</module-->		
+		<!-- module>cejug-classifieds-it</module-->
 		<module>cejug-classifieds-richfaces</module>
 	</modules>
 	<distributionManagement>
@@ -45,9 +45,9 @@
 			<id>oss.sonatype.org-releases</id>
 			<url>http://oss.sonatype.org/content/repositories/github-releases</url>
 		</repository>
-	        <repository>
-        	    <id>EclipseLink Repo</id>
-        	    <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+		<repository>
+			<id>EclipseLink Repo</id>
+			<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
 	        </repository>
 		
 		<!--repository>
@@ -58,6 +58,35 @@
 			<id>ibiblio.mirrors</id>
 			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
 		</repository-->
+		    <repository>
+		       <releases>
+			  <enabled>true</enabled>
+		       </releases>
+		       <snapshots>
+			  <enabled>false</enabled>
+			  <updatePolicy>never</updatePolicy>
+		       </snapshots>
+		       <id>repository.jboss.com</id>
+		       <name>Jboss Repository for Maven</name>
+		       <url>
+			  http://repository.jboss.com/maven2/
+		       </url>
+		       <layout>default</layout>
+		    </repository>
+		    <repository>
+		       <releases>
+			  <enabled>false</enabled>
+		       </releases>
+		       <snapshots>
+			  <enabled>true</enabled>
+			  <updatePolicy>always</updatePolicy>
+		       </snapshots>
+		       <id>maven2-snapshots.jboss.com</id>
+		       <name>Jboss Repository for Maven Snapshots</name>
+		       <url>http://snapshots.jboss.org/maven2</url>
+		       <layout>default</layout>
+		    </repository>
+
 		<repository>
 			<id>codehaus</id>
 			<name>codehaus</name>
