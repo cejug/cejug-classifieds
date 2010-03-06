@@ -28,28 +28,35 @@ ECHO _________
 ECHO ######### JMS Connection Factory RegistrationQueueConnectionFactory
 CALL asadmin --passwordfile=%PASS_FILE% delete-jms-resource RegistrationQueueConnectionFactory
 IF NOT "%1"=="/clean" (
-     CALL asadmin create-jms-resource --restype=javax.jms.QueueConnectionFactory --description="Cejug-Classifieds Registration Connection Factory." RegistrationQueueConnectionFactory
+	CALL asadmin create-jms-resource --restype=javax.jms.QueueConnectionFactory --description="Cejug-Classifieds Registration Connection Factory." RegistrationQueueConnectionFactory
 )
 
 ECHO _________
 ECHO ######### JMS Queue RegistrationQueue
 CALL asadmin --passwordfile=%PASS_FILE% delete-jms-resource RegistrationQueue
 IF NOT "%1"=="/clean" (
-     CALL asadmin create-jms-resource --restype=javax.jms.Queue --description="Queue used to register Cejug-Classifieds users." RegistrationQueue
+	CALL asadmin create-jms-resource --restype=javax.jms.Queue --description="Queue used to register Cejug-Classifieds users." RegistrationQueue
 )
 
 ECHO _________
 ECHO ######### JMS Connection Factory NotificationQueueConnectionFactory
 CALL asadmin --passwordfile=%PASS_FILE% delete-jms-resource NotificationQueueConnectionFactory
 IF NOT "%1"=="/clean" (
-  CALL asadmin create-jms-resource --restype=javax.jms.QueueConnectionFactory --description="Cejug-Classifieds Notification Connection Factory." NotificationQueueConnectionFactory
+	CALL asadmin create-jms-resource --restype=javax.jms.QueueConnectionFactory --description="Cejug-Classifieds Notification Connection Factory." NotificationQueueConnectionFactory
 )
 
 ECHO _________
-ECHO ######### JMS Queue NotificationQueue"
- CALL   asadmin --passwordfile=%PASS_FILE% delete-jms-resource NotificationQueue
+ECHO ######### JMS Queue NotificationQueue
+CALL   asadmin --passwordfile=%PASS_FILE% delete-jms-resource NotificationQueue
 IF NOT "%1"=="/clean" (
-  CALL   asadmin create-jms-resource --restype=javax.jms.Queue --description="Queue used to notify Cejug-Classifieds users about their registration." NotificationQueue
+	CALL asadmin create-jms-resource --restype=javax.jms.Queue --description="Queue used to notify Cejug-Classifieds users about their registration." NotificationQueue
+)
+
+ECHO _________
+ECHO ######### JavaMail mail/classifieds
+CALL   asadmin --passwordfile=%PASS_FILE% delete-javamail-resource mail/classifieds
+IF NOT "%1"=="/clean" (
+	CALL asadmin --interactive=false create-javamail-resource --mailhost=%MAIL_HOST% --mailuser=%MAIL_USER% --fromaddress=%MAIL_FROM% --enabled=true --description="e-Mail account used to confirm the registration of the Arena PUJ users" --storeprotocol=imap --storeprotocolclass=com.sun.mail.imap.IMAPStore --transprotocol smtp --transprotocolclass com.sun.mail.smtp.SMTPSSLTransport --property mail-smtp.user=%MAIL_SMTP_USER%:mail-smtp.port=465:mail-smtp.password=%MAIL_SMTP_PASSWORD%:mail-smtp.auth=true:mail-smtp.socketFactory.fallback=false:mail-smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory:mail-smtp.socketFactory.port=%MAIL_SMTP_PORT%:mail-smtp.starttls.enable=true mail/classifieds
 )
 
 ECHO _________
